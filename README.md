@@ -20,6 +20,12 @@ EVIL RUST is Rust where we _fully given in and embrace the unsafe_. Write Rust l
 1. References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
 1. Rustfmt, miri or any kind of tooling that helps you write "idiomatic" or "safe" rust is **completely forbidden**.
 
+## Evil Clippy
+
+Automated tooling like Clippy has come a long way to allow you to write programs in Rust that are both safe, bug-free and idiomatic. But who said these rules can't also do the opposite?
+
+Clippy was forked as `evil-clippy`. We wrote a set of custom lints to enforce maximum unsafety and guarantee that EVIL RUST rules are followed properly.
+
 > [!CAUTION]
 >
 > Expect lots, lots of undefined behavior. Terrible things _will_ happen. Your hard-drive might even get re-formatted. [The rustonomicon is a recommended read](https://doc.rust-lang.org/nomicon/intro.html).
