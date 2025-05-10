@@ -10,6 +10,16 @@ EVIL RUST is Rust where we _fully given in and embrace the unsafe_. Write Rust l
 >
 > **YOU HAVE BEEN WARNED.**
 
+## Rules of EVIL RUST
+
+1. Every function is `unsafe`.
+1. Cargo is **forbidden**. Use `rustc` directly instead.
+1. `std` and any crates are **forbidden**.
+1. Everything is `mut`.
+1. Everything is `pub`.
+1. References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
+1. Rustfmt, miri or any kind of tooling that helps you write "idiomatic" or "safe" rust is **completely forbidden**.
+
 > [!CAUTION]
 >
 > Expect lots, lots of undefined behavior. Terrible things _will_ happen. Your hard-drive might even get re-formatted. [The rustonomicon is a recommended read](https://doc.rust-lang.org/nomicon/intro.html).
@@ -33,13 +43,3 @@ EVIL RUST is Rust where we _fully given in and embrace the unsafe_. Write Rust l
 > Programs written in EVIL RUST may invoke **undefined behavior**, introduce **security vulnerabilities**, or cause **memory corruption**.
 >
 > **IT IS YOUR SOLE RESPONSIBILITY TO AUDIT AND VERIFY CORRECTNESS MANUALLY.**
-
-## Rules of EVIL RUST
-
-1. Every function is `unsafe`.
-1. Cargo is **forbidden**. Use `rustc` directly instead.
-1. `std` and any crates are **forbidden**.
-1. Everything is `mut`.
-1. Everything is `pub`.
-1. References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
-1. Rustfmt, miri or any kind of tooling that helps you write "idiomatic" or "safe" rust is **completely forbidden**.
