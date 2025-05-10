@@ -15,18 +15,25 @@ EVIL RUST is Rust where we _fully given in and embrace the unsafe_. Write Rust l
 ## Rules of EVIL RUST
 
 1. Every function is `unsafe`.
+1. (soon) `std` and any crates are **forbidden**.
+1. (soon) everything is `mut`.
+1. (soon) everything is `pub`.
+1. (soon) References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
+
+Not enforced by Evil Clippy:
+
 1. Cargo is **forbidden**. Use `rustc` directly instead.
-1. `std` and any crates are **forbidden**.
-1. Everything is `mut`.
-1. Everything is `pub`.
-1. References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
-1. Rustfmt, miri or any kind of tooling that helps you write "idiomatic" or "safe" rust is **completely forbidden**.
+1. Only lints provided by Evil Clippy can be used. All default lints are disabled.
 
 ## Evil Clippy
 
 Automated tooling like Clippy has come a long way to allow you to write programs in Rust that are both safe, bug-free and idiomatic. But who said these rules can't also do the opposite?
 
 Clippy was forked as `evil-clippy`. We wrote a set of custom lints to enforce maximum unsafety and guarantee that EVIL RUST rules are followed properly.
+
+Rules:
+
+- `safe_fn`: Denies functions that _aren't_ marked with `unsafe`
 
 ## Hello World
 
@@ -39,36 +46,39 @@ Create `main.rs`:
 // in Rust, `main` needs to be "safe". That means we can't use it
 #![no_main]
 
+use core::ffi::{c_char, c_int};
+
+unsafe extern "C" {
+    pub unsafe fn printf(fmt: *const u8, ...) -> c_int;
+}
+
 // Need to provide a custom panic handler.
 // Feel free to customize it, but this is the most basic handler
-#[panic_handler]
-// Unfortunately, `#[panic_handler]` ALWAYS receives a reference to the
+//
+// `#[panic_handler]` ALWAYS receives a reference to the
 // `PanicInfo`. So this is the ONE time we will have to use a reference, and evil-clippy will
 // be ok with this. Any OTHER references are FORBIDDEN
+#[panic_handler]
 pub unsafe fn panic_handler(info: &::core::panic::PanicInfo) -> ! {
     loop {}
 }
 
-// Entry point of an Evil Rust program
-#[unsafe(export_name = "main")]
-pub unsafe extern "C" fn entry(argc: i32, argv: *mut *mut c_char) -> i32 {
-    // TODO: Write the actual hello world
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn main(argc: i32, argv: *mut *mut c_char) -> i32 {
+    unsafe {
+        printf("Hello, world!\n\0".as_ptr() as *const _);
+    }
+    0
 }
 ```
 
-To compile the code, run the following command:
+Compile it now:
 
 ```sh
-rustc
-  --edition 2024
-  -C debuginfo=2
-  -C opt-level=z
-  -C panic="abort"
-  main.rs
-  && evil-clippy main.rs
+rustc -A warnings -C panic="abort" -C link-args=-lc main.rs
 ```
 
-You will see:
+Run with `./main`, output:
 
 ```
 Hello, world!
