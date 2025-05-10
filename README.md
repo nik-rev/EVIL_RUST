@@ -73,7 +73,7 @@ pub unsafe extern "C" fn main(argc: i32, argv: *mut *mut c_char) -> i32 {
 Compile it now:
 
 ```sh
-make && ./main # or ./main.exe on Windows
+make && ./main
 ```
 
 Output:
