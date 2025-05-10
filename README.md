@@ -56,6 +56,24 @@ pub unsafe extern "C" fn entry(argc: i32, argv: *mut *mut c_char) -> i32 {
 }
 ```
 
+To compile the code, run the following command:
+
+```sh
+rustc
+  --edition 2024
+  -C debuginfo=2
+  -C opt-level=z
+  -C panic="abort"
+  main.rs
+  && evil-clippy main.rs
+```
+
+You will see:
+
+```
+Hello, world!
+```
+
 > [!CAUTION]
 >
 > Expect lots, lots of undefined behavior. Terrible things _will_ happen. Your hard-drive might even get re-formatted. [The rustonomicon is a recommended read](https://doc.rust-lang.org/nomicon/intro.html).
