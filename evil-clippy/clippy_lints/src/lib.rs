@@ -327,6 +327,7 @@ mod repeat_vec_with_capacity;
 mod reserve_after_initialization;
 mod return_self_not_must_use;
 mod returns;
+mod safe_fn;
 mod same_name_method;
 mod self_named_constructors;
 mod semicolon_block;
@@ -422,6 +423,7 @@ struct RegistrationGroups {
     restriction: Vec<LintId>,
     style: Vec<LintId>,
     suspicious: Vec<LintId>,
+    evil: Vec<LintId>,
 }
 
 impl RegistrationGroups {
@@ -451,6 +453,7 @@ pub(crate) enum LintCategory {
     Restriction,
     Style,
     Suspicious,
+    Evil,
 }
 
 #[allow(clippy::enum_glob_use)]
@@ -472,6 +475,7 @@ impl LintCategory {
             Restriction => &mut groups.restriction,
             Style => &mut groups.style,
             Suspicious => &mut groups.suspicious,
+            Evil => &mut groups.evil,
         }
     }
 }
@@ -505,6 +509,7 @@ impl LintInfo {
             Restriction => "restriction",
             Style => "style",
             Suspicious => "suspicious",
+            Evil => "evil",
         }
     }
 }
@@ -942,5 +947,6 @@ pub fn register_lints(store: &mut rustc_lint::LintStore, conf: &'static Conf) {
     store.register_late_pass(|_| Box::new(manual_option_as_slice::ManualOptionAsSlice::new(conf)));
     store.register_late_pass(|_| Box::new(single_option_map::SingleOptionMap));
     store.register_late_pass(move |_| Box::new(redundant_test_prefix::RedundantTestPrefix));
+    store.register_early_pass(|| Box::new(safe_fn::SafeFn));
     // add lints here, do not remove this comment, it's used in `new_lint`
 }

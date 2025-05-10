@@ -48,13 +48,29 @@ macro_rules! declare_clippy_lint {
         $(#[doc = $lit:literal])*
         #[clippy::version = $version:literal]
         pub $lint_name:ident,
+        evil,
+        $desc:literal
+        $(, @eval_always = $eval_always: literal)?
+    ) => {
+        declare_clippy_lint! {@
+            $(#[doc = $lit])*
+            // TODO: Make this `forbid`
+            pub $lint_name, Warn, crate::LintCategory::Evil, $desc,
+            Some($version), $version
+            $(, $eval_always)?
+        }
+    };
+    (
+        $(#[doc = $lit:literal])*
+        #[clippy::version = $version:literal]
+        pub $lint_name:ident,
         style,
         $desc:literal
         $(, @eval_always = $eval_always: literal)?
     ) => {
         declare_clippy_lint! {@
             $(#[doc = $lit])*
-            pub $lint_name, Warn, crate::LintCategory::Style, $desc,
+            pub $lint_name, Allow, crate::LintCategory::Style, $desc,
             Some($version), $version
             $(, $eval_always)?
         }
@@ -69,7 +85,7 @@ macro_rules! declare_clippy_lint {
     ) => {
         declare_clippy_lint! {@
             $(#[doc = $lit])*
-            pub $lint_name, Deny, crate::LintCategory::Correctness, $desc,
+            pub $lint_name, Allow, crate::LintCategory::Correctness, $desc,
             Some($version), $version
             $(, $eval_always)?
 
@@ -85,7 +101,7 @@ macro_rules! declare_clippy_lint {
     ) => {
         declare_clippy_lint! {@
             $(#[doc = $lit])*
-            pub $lint_name, Warn, crate::LintCategory::Perf, $desc,
+            pub $lint_name, Allow, crate::LintCategory::Perf, $desc,
             Some($version), $version
             $(, $eval_always)?
         }
@@ -100,7 +116,7 @@ macro_rules! declare_clippy_lint {
     ) => {
         declare_clippy_lint! {@
             $(#[doc = $lit])*
-            pub $lint_name, Warn, crate::LintCategory::Complexity, $desc,
+            pub $lint_name, Allow, crate::LintCategory::Complexity, $desc,
             Some($version), $version
             $(, $eval_always)?
         }
@@ -115,7 +131,7 @@ macro_rules! declare_clippy_lint {
     ) => {
         declare_clippy_lint! {@
             $(#[doc = $lit])*
-            pub $lint_name, Warn, crate::LintCategory::Suspicious, $desc,
+            pub $lint_name, Allow, crate::LintCategory::Suspicious, $desc,
             Some($version), $version
             $(, $eval_always)?
         }
