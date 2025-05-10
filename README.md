@@ -70,7 +70,7 @@ pub unsafe extern "C" fn main(argc: i32, argv: *mut *mut c_char) -> i32 {
 }
 ```
 
-Copy the [`Makefile`](Makefile), and use it to compile:
+Copy the [`Makefile`](Makefile), and use it for compilation:
 
 ```sh
 make && ./main
