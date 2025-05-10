@@ -28,6 +28,34 @@ Automated tooling like Clippy has come a long way to allow you to write programs
 
 Clippy was forked as `evil-clippy`. We wrote a set of custom lints to enforce maximum unsafety and guarantee that EVIL RUST rules are followed properly.
 
+## Hello World
+
+Here is "Hello, World!" in EVIL RUST!
+
+Create `main.rs`:
+
+```rs
+#![no_std]
+// in Rust, `main` needs to be "safe". That means we can't use it
+#![no_main]
+
+// Need to provide a custom panic handler.
+// Feel free to customize it, but this is the most basic handler
+#[panic_handler]
+// Unfortunately, `#[panic_handler]` ALWAYS receives a reference to the
+// `PanicInfo`. So this is the ONE time we will have to use a reference, and evil-clippy will
+// be ok with this. Any OTHER references are FORBIDDEN
+pub unsafe fn panic_handler(info: &::core::panic::PanicInfo) -> ! {
+    loop {}
+}
+
+// Entry point of an Evil Rust program
+#[unsafe(export_name = "main")]
+pub unsafe extern "C" fn entry(argc: i32, argv: *mut *mut c_char) -> i32 {
+    // TODO: Write the actual hello world
+}
+```
+
 > [!CAUTION]
 >
 > Expect lots, lots of undefined behavior. Terrible things _will_ happen. Your hard-drive might even get re-formatted. [The rustonomicon is a recommended read](https://doc.rust-lang.org/nomicon/intro.html).
