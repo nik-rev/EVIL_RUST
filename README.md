@@ -2,7 +2,7 @@
 
 Crust is Rust where we _fully given in, and embrace the unsafe_. Write Rust like it is C by following a list of rules enforced by `evil-clippy`.
 
-> [!WARN]
+> [!WARNING]
 >
 > This only exists for fun and learning purposes.
 >
@@ -16,7 +16,7 @@ Crust is Rust where we _fully given in, and embrace the unsafe_. Write Rust like
 >
 > **IT IS _YOUR_ RESPONSIBILITY TO ENSURE CORRECTNESS OF YOUR PROGRAM.**
 
-> [!WARN]
+> [!WARNING]
 >
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 > IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
