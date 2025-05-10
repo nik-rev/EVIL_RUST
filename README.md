@@ -19,11 +19,9 @@ EVIL RUST is Rust where we _fully given in and embrace the unsafe_. Write Rust l
 1. (soon) everything is `mut`.
 1. (soon) everything is `pub`.
 1. (soon) References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
-
-Not enforced by Evil Clippy:
-
 1. Cargo is **forbidden**. Use `rustc` directly instead.
-1. Only lints provided by Evil Clippy can be used. All default lints are disabled.
+
+These rules are enforced by our clippy fork: _Evil Clippy_, who has turned to the dark side.
 
 ## Evil Clippy
 
@@ -75,10 +73,10 @@ pub unsafe extern "C" fn main(argc: i32, argv: *mut *mut c_char) -> i32 {
 Compile it now:
 
 ```sh
-rustc -A warnings -C panic="abort" -C link-args=-lc main.rs
+make && ./main # or ./main.exe on Windows
 ```
 
-Run with `./main`, output:
+Output:
 
 ```
 Hello, world!
