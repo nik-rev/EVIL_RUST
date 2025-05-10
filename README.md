@@ -2,7 +2,7 @@
 
 Crust is Rust where we _fully given in, and embrace the unsafe_. Write Rust like it is C by following a list of rules enforced by `evil-clippy`.
 
-> ![WARN]
+> [!WARN]
 >
 > This only exists for fun and learning purposes.
 >
@@ -10,13 +10,13 @@ Crust is Rust where we _fully given in, and embrace the unsafe_. Write Rust like
 >
 > **YOU HAVE BEEN WARNED.**
 
-> ![CAUTION]
+> [!CAUTION]
 >
 > Expect lots, lots of undefined behavior. Terrible things _will_ happen. Your hard-drive might even get re-formatted. [The rustonomicon is a recommended read](https://doc.rust-lang.org/nomicon/intro.html).
 >
 > **IT IS _YOUR_ RESPONSIBILITY TO ENSURE CORRECTNESS OF YOUR PROGRAM.**
 
-> ![WARN]
+> [!WARN]
 >
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 > IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -28,7 +28,7 @@ Crust is Rust where we _fully given in, and embrace the unsafe_. Write Rust like
 >
 > **NO GUARANTEES OF ANY KIND ARE PROVIDED.**
 
-> ![CAUTION]
+> [!CAUTION]
 >
 > Programs written in Crust may invoke **undefined behavior**, introduce **security vulnerabilities**, or cause **memory corruption**.
 >
