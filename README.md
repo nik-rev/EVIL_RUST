@@ -1,12 +1,12 @@
-# Crust
+# EVIL RUST
 
-Crust is Rust where we _fully given in, and embrace the unsafe_. Write Rust like it is C by following a list of rules enforced by `evil-clippy`.
+EVIL RUST is Rust where we _fully given in and embrace the unsafe_. Write Rust like it is C by following a list of rules enforced by `evil-clippy`. [Inspired by Crust.](https://github.com/tsoding/Crust)
 
 > [!CAUTION]
 >
 > This only exists for fun and learning purposes.
 >
-> Please don't use this for actual software.
+> Please don't write actual software using EVIL RUST.
 >
 > **YOU HAVE BEEN WARNED.**
 
@@ -30,11 +30,11 @@ Crust is Rust where we _fully given in, and embrace the unsafe_. Write Rust like
 
 > [!CAUTION]
 >
-> Programs written in Crust may invoke **undefined behavior**, introduce **security vulnerabilities**, or cause **memory corruption**.
+> Programs written in EVIL RUST may invoke **undefined behavior**, introduce **security vulnerabilities**, or cause **memory corruption**.
 >
 > **IT IS YOUR SOLE RESPONSIBILITY TO AUDIT AND VERIFY CORRECTNESS MANUALLY.**
 
-## Rules of Crust
+## Rules of EVIL RUST
 
 1. Every function is `unsafe`.
 1. Cargo is **forbidden**. Use `rustc` directly instead.
