@@ -54,8 +54,7 @@ macro_rules! declare_clippy_lint {
     ) => {
         declare_clippy_lint! {@
             $(#[doc = $lit])*
-            // TODO: Make this `forbid`
-            pub $lint_name, Warn, crate::LintCategory::Evil, $desc,
+            pub $lint_name, Allow, crate::LintCategory::Evil, $desc,
             Some($version), $version
             $(, $eval_always)?
         }

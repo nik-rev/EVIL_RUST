@@ -1,0 +1,47 @@
+#![allow(unused_mut, unused, clippy::safe_fn)]
+#![warn(clippy::missing_mut)]
+
+struct Foo {
+    a: (),
+}
+
+struct Bar((), (), ());
+
+fn foo(
+    mut a: (),
+    //~^ missing_mut
+    mut b: (),
+    mut c: (),
+    //~^ missing_mut
+    ref mut d: (),
+    //~^ missing_mut
+    Foo { a: mut e }: Foo,
+    Foo { a: mut f }: Foo,
+    //~^ missing_mut
+    (
+        mut g,
+        //~^ missing_mut
+        mut h,
+        mut i,
+        //~^ missing_mut
+    ): ((), (), ()),
+    Bar(
+        mut j,
+        //~^ missing_mut
+        mut k,
+        mut l,
+        //~^ missing_mut
+    ): Bar,
+) {
+    let mut a = 4;
+    //~^ missing_mut
+    let mut b = 4;
+}
+
+static mut FOO: () = ();
+//~^ missing_mut
+static mut BAR: () = ();
+
+fn main() {
+    // test code goes here
+}

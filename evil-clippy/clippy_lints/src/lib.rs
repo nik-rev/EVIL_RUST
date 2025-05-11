@@ -242,6 +242,7 @@ mod missing_doc;
 mod missing_enforced_import_rename;
 mod missing_fields_in_debug;
 mod missing_inline;
+mod missing_mut;
 mod missing_trait_methods;
 mod mixed_read_write_in_expression;
 mod module_style;
@@ -948,5 +949,6 @@ pub fn register_lints(store: &mut rustc_lint::LintStore, conf: &'static Conf) {
     store.register_late_pass(|_| Box::new(single_option_map::SingleOptionMap));
     store.register_late_pass(move |_| Box::new(redundant_test_prefix::RedundantTestPrefix));
     store.register_early_pass(|| Box::new(safe_fn::SafeFn));
+    store.register_early_pass(|| Box::new(missing_mut::MissingMut));
     // add lints here, do not remove this comment, it's used in `new_lint`
 }

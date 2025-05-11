@@ -9,6 +9,11 @@ RUSTC_ARGS = \
 	-C panic="abort" \
 	-C link-args=-lc
 
+# Lints that are custom. They are available via Evil Clippy
+EVIL_CLIPPY_LINTS = \
+	-D missing-mut \
+	-D safe-fn
+
 # Enable lints that fit in the theme of Evil Rust.
 RUSTC_ENABLED_LINTS = \
 	-D unsafe-op-in-unsafe-fn
