@@ -30,7 +30,7 @@ declare_clippy_lint! {
 
 declare_lint_pass!(MissingMut => [MISSING_MUT]);
 
-fn absorb_kind(cx: &EarlyContext<'_>, kind: &PatKind) {
+fn absorb_kind(cx: &EarlyContext<'_>, kind: &PatKind, message: &'static str, help: &'static str) {
     match kind {
         PatKind::Ident(mode, ident, _) => {
             // there are 6 binding modes
@@ -41,8 +41,8 @@ fn absorb_kind(cx: &EarlyContext<'_>, kind: &PatKind) {
                     cx,
                     MISSING_MUT,
                     ident.span.shrink_to_lo(),
-                    "function parameter is not mutable",
-                    "make this parameter mutable",
+                    message,
+                    help,
                     "mut ".to_string(),
                     Applicability::MachineApplicable,
                 );
@@ -50,19 +50,19 @@ fn absorb_kind(cx: &EarlyContext<'_>, kind: &PatKind) {
         },
         PatKind::Slice(fields) | PatKind::TupleStruct(_, _, fields) | PatKind::Tuple(fields) | PatKind::Or(fields) => {
             for field in fields {
-                absorb_kind(cx, &field.kind);
+                absorb_kind(cx, &field.kind, message, help);
             }
         },
         PatKind::Struct(_, _, fields, _) => {
             for field in fields {
-                absorb_kind(cx, &field.pat.kind);
+                absorb_kind(cx, &field.pat.kind, message, help);
             }
         },
         PatKind::Guard(field, _) | PatKind::Box(field) | PatKind::Deref(field) | PatKind::Paren(field) => {
-            absorb_kind(cx, &field.kind);
+            absorb_kind(cx, &field.kind, message, help);
         },
         PatKind::Ref(field, mutable) => {
-            absorb_kind(cx, &field.kind);
+            absorb_kind(cx, &field.kind, message, help);
             if mutable.is_not() {
                 span_lint_and_sugg(
                     cx,
@@ -84,14 +84,24 @@ impl EarlyLintPass for MissingMut {
         if let FnKind::Fn(_, _, f) = f {
             // function params
             for param in &f.sig.decl.inputs {
-                absorb_kind(cx, &param.pat.kind);
+                absorb_kind(
+                    cx,
+                    &param.pat.kind,
+                    "parameter is not mutable",
+                    "make this parameter mutable",
+                );
             }
         }
     }
 
     // local variables
     fn check_local(&mut self, cx: &EarlyContext<'_>, local: &Local) {
-        absorb_kind(cx, &local.pat.kind);
+        absorb_kind(
+            cx,
+            &local.pat.kind,
+            "variable is not mutable",
+            "make this variable mutable",
+        );
     }
 
     fn check_item(&mut self, cx: &EarlyContext<'_>, item: &Item) {
@@ -104,7 +114,7 @@ impl EarlyLintPass for MissingMut {
                 MISSING_MUT,
                 stati.ident.span.shrink_to_lo(),
                 "static is not mutable",
-                "make this item mutable",
+                "make this static mutable",
                 "mut ".to_string(),
                 Applicability::MachineApplicable,
             );
