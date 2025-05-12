@@ -5942,6 +5942,7 @@ Released 2018-09-13
 [`missing_inline_in_public_items`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_inline_in_public_items
 [`missing_mut`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_mut
 [`missing_panics_doc`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_panics_doc
+[`missing_pub`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_pub
 [`missing_safety_doc`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_safety_doc
 [`missing_spin_loop`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_spin_loop
 [`missing_trait_methods`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_trait_methods
@@ -6125,6 +6126,7 @@ Released 2018-09-13
 [`ref_option`]: https://rust-lang.github.io/rust-clippy/master/index.html#ref_option
 [`ref_option_ref`]: https://rust-lang.github.io/rust-clippy/master/index.html#ref_option_ref
 [`ref_patterns`]: https://rust-lang.github.io/rust-clippy/master/index.html#ref_patterns
+[`reference_used`]: https://rust-lang.github.io/rust-clippy/master/index.html#reference_used
 [`regex_creation_in_loops`]: https://rust-lang.github.io/rust-clippy/master/index.html#regex_creation_in_loops
 [`regex_macro`]: https://rust-lang.github.io/rust-clippy/master/index.html#regex_macro
 [`renamed_function_params`]: https://rust-lang.github.io/rust-clippy/master/index.html#renamed_function_params

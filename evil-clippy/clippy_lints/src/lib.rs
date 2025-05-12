@@ -243,6 +243,7 @@ mod missing_enforced_import_rename;
 mod missing_fields_in_debug;
 mod missing_inline;
 mod missing_mut;
+mod missing_pub;
 mod missing_trait_methods;
 mod mixed_read_write_in_expression;
 mod module_style;
@@ -323,6 +324,7 @@ mod redundant_type_annotations;
 mod ref_option_ref;
 mod ref_patterns;
 mod reference;
+mod reference_used;
 mod regex;
 mod repeat_vec_with_capacity;
 mod reserve_after_initialization;
@@ -950,5 +952,7 @@ pub fn register_lints(store: &mut rustc_lint::LintStore, conf: &'static Conf) {
     store.register_late_pass(move |_| Box::new(redundant_test_prefix::RedundantTestPrefix));
     store.register_early_pass(|| Box::new(safe_fn::SafeFn));
     store.register_early_pass(|| Box::new(missing_mut::MissingMut));
+    store.register_early_pass(|| Box::new(missing_pub::MissingPub));
+    store.register_early_pass(|| Box::new(reference_used::ReferenceUsed));
     // add lints here, do not remove this comment, it's used in `new_lint`
 }

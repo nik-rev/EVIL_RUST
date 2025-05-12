@@ -15,10 +15,10 @@ EVIL RUST is Rust where we _fully given in and embrace the unsafe_. Write Rust l
 ## Rules of EVIL RUST
 
 1. Every function is `unsafe`.
-1. (soon) `std` and any crates are **forbidden**.
+1. `std` is **forbidden**.
 1. Everything is `mut`.
-1. (soon) everything is `pub`.
-1. (soon) References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
+1. Everything is `pub`.
+1. References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
 1. Cargo is **forbidden**. Use `rustc` directly instead.
 
 These rules are enforced by our clippy fork: _Evil Clippy_, who has turned to the dark side.
@@ -31,8 +31,10 @@ Clippy was forked as `evil-clippy`. We wrote a set of custom lints to enforce ma
 
 Rules:
 
-- `safe_fn`: Denies functions that _aren't_ marked with `unsafe`
-- `missing_mut`: Denies variables that _aren't_ marked with `mut`
+- `safe_fn`: Enforce all functions be marked with `unsafe`
+- `missing_mut`: Enforce all variables be marked with `mut`
+- `missing_pub`: Enforce all items be marked with `pub`
+- `reference_used`: Disallow references: `&`
 
 ## Hello World
 

@@ -1,5 +1,3 @@
-# A lot of arguments are passed on each invocation of `make`
-# `.SILENT` prevents the terminal output getting flooded with like 100 lines
 .SILENT:
 
 RUSTC_ARGS = \
@@ -9,20 +7,17 @@ RUSTC_ARGS = \
 	-C panic="abort" \
 	-C link-args=-lc
 
-# Lints that are custom. They are available via Evil Clippy
+# These are the ONLY lints you are allowed to use
 EVIL_CLIPPY_LINTS = \
 	-D missing-mut \
-	-D safe-fn
-
-# Enable lints that fit in the theme of Evil Rust.
-RUSTC_ENABLED_LINTS = \
-	-D unsafe-op-in-unsafe-fn
+	-D safe-fn \
+	-D missing-pub \
+	-D reference
 	
 # Disable all default lints
 #
-# Some of the default lints conflict with Evil Clippy.
-# Such as "unused mut". More over, it's not in the spirit of
-# Evil Rust to rely on this much help from the compiler.
+# - Some of the default lints conflict with Evil Clippy. Such as "unused mut".
+# - It's also against the rules of Evil Rust to rely on this much help from the compiler.
 RUSTC_DISABLED_LINTS = \
 	-A warnings \
 	-A ambiguous-associated-items \

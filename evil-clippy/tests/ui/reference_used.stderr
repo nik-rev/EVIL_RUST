@@ -1,0 +1,200 @@
+error: references are not allowed
+  --> tests/ui/reference_used.rs:5:13
+   |
+LL |     let y = &x;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: `-D clippy::reference-used` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::reference_used)]`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:8:13
+   |
+LL |     let z = &mut 20;
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/reference_used.rs:11:13
+   |
+LL |     let (a, ref b) = (1, 2);
+   |             ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/reference_used.rs:15:17
+   |
+LL |     if let Some(ref d) = c {
+   |                 ^^^^^
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:21:17
+   |
+LL |     let ref_s = &s;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:24:15
+   |
+LL |     takes_ref(&x);
+   |               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:27:19
+   |
+LL |     takes_mut_ref(&mut 42);
+   |                   ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:30:33
+   |
+LL |     let raw_const: *const i32 = &x;
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:32:29
+   |
+LL |     let raw_mut: *mut i32 = &mut 100;
+   |                             ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:48:25
+   |
+LL |     let closure = |val: &i32| println!("{}", val);
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:50:13
+   |
+LL |     closure(&x);
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:54:27
+   |
+LL |     let closure_mut = |v: &mut i32| *v += 1;
+   |                           ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:56:17
+   |
+LL |     closure_mut(&mut val);
+   |                 ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:60:12
+   |
+LL |         r: &'a i32,
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:65:23
+   |
+LL |         fn ref_method(&self);
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:71:23
+   |
+LL |         fn ref_method(&self) {
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:78:15
+   |
+LL |     let arr: [&i32; 2] = [
+   |               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:80:9
+   |
+LL |         &x,
+   |         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:82:9
+   |
+LL |         &42,
+   |         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:88:9
+   |
+LL |         &i32,
+   |         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:90:9
+   |
+LL |         &mut i32,
+   |         ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:93:9
+   |
+LL |         &x,
+   |         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:95:9
+   |
+LL |         &mut val,
+   |         ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:100:19
+   |
+LL | fn takes_ref(val: &i32) {
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/reference_used.rs:105:23
+   |
+LL | fn takes_mut_ref(val: &mut i32) {
+   |                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: aborting due to 25 previous errors
+
