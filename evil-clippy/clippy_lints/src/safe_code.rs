@@ -7,11 +7,11 @@ use rustc_span::BytePos;
 declare_clippy_lint! {
     /// ### What it does
     ///
-    /// Checks for usages of safe functions
+    /// Checks for missing `unsafe` in `fn` or `trait`
     ///
     /// ### Why restrict this?
     ///
-    /// Safe functions are prohibited in EVIL RUST
+    /// Safe functions and traits are prohibited in evil rust
     ///
     /// ### Example
     /// ```no_run
@@ -30,6 +30,21 @@ declare_clippy_lint! {
 declare_lint_pass!(SafeFn => [SAFE_CODE]);
 
 impl EarlyLintPass for SafeFn {
+    fn check_item(&mut self, cx: &EarlyContext<'_>, item: &Item) {
+        if let ItemKind::Trait(trait_) = &item.kind
+            && matches!(trait_.safety, Safety::Default | Safety::Safe(_))
+        {
+            span_lint_and_help(
+                cx,
+                SAFE_CODE,
+                item.span,
+                "safe trait",
+                None,
+                "make this trait unsafe: `unsafe trait`",
+            );
+        }
+    }
+
     fn check_fn(
         &mut self,
         cx: &EarlyContext<'_>,
@@ -55,8 +70,7 @@ impl EarlyLintPass for SafeFn {
                     span,
                     "safe function",
                     Some(span),
-                    // insert `unsafe`
-                    "make this function unsafe: `unsafe` ".to_string(),
+                    "make this function unsafe: `unsafe`".to_string(),
                 );
             } else if let Safety::Safe(span) = func.sig.header.safety {
                 span_lint_and_help(
@@ -65,7 +79,6 @@ impl EarlyLintPass for SafeFn {
                     span,
                     "safe function",
                     Some(span),
-                    // replace `safe` keyword with `unsafe`
                     "make this function unsafe: `unsafe fn`".to_string(),
                 );
             }
