@@ -1,6 +1,6 @@
 #![no_main]
 #![allow(unused)]
-#![warn(clippy::safe_fn)]
+#![warn(clippy::safe_code)]
 
 fn foo_safe() {}
 //~^ safe_fn

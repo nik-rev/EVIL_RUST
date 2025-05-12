@@ -6148,6 +6148,7 @@ Released 2018-09-13
 [`return_self_not_must_use`]: https://rust-lang.github.io/rust-clippy/master/index.html#return_self_not_must_use
 [`reverse_range_loop`]: https://rust-lang.github.io/rust-clippy/master/index.html#reverse_range_loop
 [`reversed_empty_ranges`]: https://rust-lang.github.io/rust-clippy/master/index.html#reversed_empty_ranges
+[`safe_code`]: https://rust-lang.github.io/rust-clippy/master/index.html#safe_code
 [`safe_fn`]: https://rust-lang.github.io/rust-clippy/master/index.html#safe_fn
 [`same_functions_in_if_condition`]: https://rust-lang.github.io/rust-clippy/master/index.html#same_functions_in_if_condition
 [`same_item_push`]: https://rust-lang.github.io/rust-clippy/master/index.html#same_item_push
@@ -6193,6 +6194,7 @@ Released 2018-09-13
 [`stable_sort_primitive`]: https://rust-lang.github.io/rust-clippy/master/index.html#stable_sort_primitive
 [`std_instead_of_alloc`]: https://rust-lang.github.io/rust-clippy/master/index.html#std_instead_of_alloc
 [`std_instead_of_core`]: https://rust-lang.github.io/rust-clippy/master/index.html#std_instead_of_core
+[`std_used`]: https://rust-lang.github.io/rust-clippy/master/index.html#std_used
 [`str_split_at_newline`]: https://rust-lang.github.io/rust-clippy/master/index.html#str_split_at_newline
 [`str_to_string`]: https://rust-lang.github.io/rust-clippy/master/index.html#str_to_string
 [`string_add`]: https://rust-lang.github.io/rust-clippy/master/index.html#string_add

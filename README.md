@@ -1,8 +1,8 @@
 # NOTE: This is a work in progress. Check back later :P
 
-# EVIL RUST
+# Evil Rust
 
-EVIL RUST is Rust where we _fully given in and embrace the unsafe_. Write Rust like it is C by following a list of rules enforced by `evil-clippy`. [Inspired by Crust.](https://github.com/tsoding/Crust)
+Evil Rust is Rust where we _fully given in and embrace the unsafe_. Write Rust like it is C by following a list of rules enforced by the Evil Rust compiler. [Inspired by Crust.](https://github.com/tsoding/Crust)
 
 > [!CAUTION]
 >
@@ -12,35 +12,20 @@ EVIL RUST is Rust where we _fully given in and embrace the unsafe_. Write Rust l
 >
 > **YOU HAVE BEEN WARNED.**
 
-## Rules of EVIL RUST
+## Rules of Evil Rust
 
 1. Every function is `unsafe`.
 1. `std` is **forbidden**.
 1. Everything is `mut`.
 1. Everything is `pub`.
 1. References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
-1. Cargo is **forbidden**. Use `rustc` directly instead.
+1. Cargo is **forbidden**. Use the compiler directly instead.
 
-These rules are enforced by our clippy fork: _Evil Clippy_, who has turned to the dark side.
-
-## Evil Clippy
-
-Automated tooling like Clippy has come a long way to allow you to write programs in Rust that are both safe, bug-free and idiomatic. But who said these rules can't also do the opposite?
-
-Clippy was forked as `evil-clippy`. We wrote a set of custom lints to enforce maximum unsafety and guarantee that EVIL RUST rules are followed properly.
-
-Rules:
-
-- `safe_fn`: Enforce all functions be marked with `unsafe`
-- `missing_mut`: Enforce all variables be marked with `mut`
-- `missing_pub`: Enforce all items be marked with `pub`
-- `reference_used`: Disallow references: `&`
+These rules are automatically enforced by the Evil Rust compiler, `evil-rustc`.
 
 ## Hello World
 
-Here is "Hello, World!" in EVIL RUST!
-
-Create `main.rs`:
+Create `hello_world.rs`:
 
 ```rs
 #![no_std]
@@ -55,11 +40,8 @@ unsafe extern "C" {
 
 // Need to provide a custom panic handler.
 // Feel free to customize it, but this is the most basic handler
-//
-// `#[panic_handler]` ALWAYS receives a reference to the
-// `PanicInfo`. So this is the ONE time we will have to use a reference, and evil-clippy will
-// be ok with this. Any OTHER references are FORBIDDEN
 #[panic_handler]
+#[expect(clippy::reference_used, reason = "#[panic_handler] always passes a reference")]
 pub unsafe fn panic_handler(info: &::core::panic::PanicInfo) -> ! {
     loop {}
 }
@@ -73,11 +55,13 @@ pub unsafe extern "C" fn main(argc: i32, argv: *mut *mut c_char) -> i32 {
 }
 ```
 
-Copy the [`Makefile`](Makefile), and use it for compilation:
+Compile and run:
 
 ```sh
-make && ./main
+evil-rustc hello_world.rs && ./main
 ```
+
+If any of the Evil Rust rules were broken, the compilation will fail.
 
 Output:
 
@@ -105,6 +89,6 @@ Hello, world!
 
 > [!CAUTION]
 >
-> Programs written in EVIL RUST may invoke **undefined behavior**, introduce **security vulnerabilities**, or cause **memory corruption**.
+> Programs written in evil rust may invoke **undefined behavior**, introduce **security vulnerabilities**, or cause **memory corruption**.
 >
 > **IT IS YOUR SOLE RESPONSIBILITY TO AUDIT AND VERIFY CORRECTNESS MANUALLY.**

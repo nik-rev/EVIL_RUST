@@ -330,7 +330,7 @@ mod repeat_vec_with_capacity;
 mod reserve_after_initialization;
 mod return_self_not_must_use;
 mod returns;
-mod safe_fn;
+mod safe_code;
 mod same_name_method;
 mod self_named_constructors;
 mod semicolon_block;
@@ -348,6 +348,7 @@ mod size_of_in_element_count;
 mod size_of_ref;
 mod slow_vector_initialization;
 mod std_instead_of_core;
+mod std_used;
 mod string_patterns;
 mod strings;
 mod strlen_on_c_strings;
@@ -950,9 +951,10 @@ pub fn register_lints(store: &mut rustc_lint::LintStore, conf: &'static Conf) {
     store.register_late_pass(|_| Box::new(manual_option_as_slice::ManualOptionAsSlice::new(conf)));
     store.register_late_pass(|_| Box::new(single_option_map::SingleOptionMap));
     store.register_late_pass(move |_| Box::new(redundant_test_prefix::RedundantTestPrefix));
-    store.register_early_pass(|| Box::new(safe_fn::SafeFn));
+    store.register_early_pass(|| Box::new(safe_code::SafeFn));
     store.register_early_pass(|| Box::new(missing_mut::MissingMut));
     store.register_early_pass(|| Box::new(missing_pub::MissingPub));
     store.register_early_pass(|| Box::new(reference_used::ReferenceUsed));
+    store.register_late_pass(|_| Box::new(std_used::StdUsed));
     // add lints here, do not remove this comment, it's used in `new_lint`
 }

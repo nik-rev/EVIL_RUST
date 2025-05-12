@@ -1,4 +1,4 @@
-#![allow(unused_mut, unused, clippy::safe_fn)]
+#![allow(unused_mut, unused, clippy::safe_code)]
 #![warn(clippy::missing_mut)]
 
 struct Foo {

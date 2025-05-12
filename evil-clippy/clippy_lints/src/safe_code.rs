@@ -22,12 +22,12 @@ declare_clippy_lint! {
     /// unsafe foo() {}
     /// ```
     #[clippy::version = "1.88.0"]
-    pub SAFE_FN,
+    pub SAFE_CODE,
     evil,
     "safe functions are not allowed in EVIL RUST"
 }
 
-declare_lint_pass!(SafeFn => [SAFE_FN]);
+declare_lint_pass!(SafeFn => [SAFE_CODE]);
 
 impl EarlyLintPass for SafeFn {
     fn check_fn(
@@ -51,7 +51,7 @@ impl EarlyLintPass for SafeFn {
                 };
                 span_lint_and_help(
                     cx,
-                    SAFE_FN,
+                    SAFE_CODE,
                     span,
                     "safe function",
                     Some(span),
@@ -61,7 +61,7 @@ impl EarlyLintPass for SafeFn {
             } else if let Safety::Safe(span) = func.sig.header.safety {
                 span_lint_and_help(
                     cx,
-                    SAFE_FN,
+                    SAFE_CODE,
                     span,
                     "safe function",
                     Some(span),
