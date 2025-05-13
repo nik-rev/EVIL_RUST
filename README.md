@@ -148,13 +148,9 @@ error: aborting due to 5 previous errors
 For example, the toolchain I got from `rustup show active-toolchain` is `+nightly-2025-05-01` and I ran the `hello_world.rs` example like this:
 
 ```sh
-clippy-driver +nightly-2025-05-01 -C panic=abort -C link-args=-lc hello_world.rs
-```
+alias evil-clippy="clippy-driver +nightly-2025-05-01"
 
-You can alias it:
-
-```sh
-alias evil-clippy="clippy-driver +nightly-2025-05-01-x86_64-unknown-linux-gnu"
+evil-clippy -C panic=abort -C link-args=-lc hello_world.rs
 ```
 
 `evil-clippy` will both lint and compile your code.
