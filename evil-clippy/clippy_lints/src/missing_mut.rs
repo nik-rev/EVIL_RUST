@@ -1,6 +1,6 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use rustc_ast::ast::*;
-use rustc_ast::visit::FnKind;
+use rustc_ast::visit::{FnCtxt, FnKind};
 use rustc_errors::Applicability;
 use rustc_lint::{EarlyContext, EarlyLintPass};
 use rustc_session::declare_lint_pass;
@@ -81,7 +81,10 @@ fn absorb_kind(cx: &EarlyContext<'_>, kind: &PatKind, message: &'static str, hel
 
 impl EarlyLintPass for MissingMut {
     fn check_fn(&mut self, cx: &EarlyContext<'_>, f: FnKind<'_>, _: rustc_span::Span, _: NodeId) {
-        if let FnKind::Fn(_, _, f) = f {
+        if let FnKind::Fn(fn_cx, _, f) = f &&
+        // functions inside `extern ... {}` block cannot have `mut` args, as they don't support patterns
+         fn_cx != FnCtxt::Foreign
+        {
             // function params
             for param in &f.sig.decl.inputs {
                 absorb_kind(

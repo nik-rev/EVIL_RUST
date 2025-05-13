@@ -243,6 +243,7 @@ mod missing_enforced_import_rename;
 mod missing_fields_in_debug;
 mod missing_inline;
 mod missing_mut;
+mod missing_no_std;
 mod missing_pub;
 mod missing_trait_methods;
 mod mixed_read_write_in_expression;
@@ -348,7 +349,6 @@ mod size_of_in_element_count;
 mod size_of_ref;
 mod slow_vector_initialization;
 mod std_instead_of_core;
-mod std_used;
 mod string_patterns;
 mod strings;
 mod strlen_on_c_strings;
@@ -955,6 +955,6 @@ pub fn register_lints(store: &mut rustc_lint::LintStore, conf: &'static Conf) {
     store.register_early_pass(|| Box::new(missing_mut::MissingMut));
     store.register_early_pass(|| Box::new(missing_pub::MissingPub));
     store.register_early_pass(|| Box::new(reference_used::ReferenceUsed));
-    store.register_late_pass(|_| Box::new(std_used::StdUsed));
+    store.register_late_pass(|_| Box::new(missing_no_std::StdUsed));
     // add lints here, do not remove this comment, it's used in `new_lint`
 }

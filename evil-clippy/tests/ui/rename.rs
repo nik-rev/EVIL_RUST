@@ -32,6 +32,7 @@
 #![allow(clippy::reversed_empty_ranges)]
 #![allow(clippy::safe_code)]
 #![allow(clippy::single_char_add_str)]
+#![allow(clippy::missing_no_std)]
 #![allow(clippy::module_name_repetitions)]
 #![allow(clippy::missing_const_for_thread_local)]
 #![allow(clippy::recursive_format_impl)]
@@ -100,6 +101,7 @@
 #![warn(clippy::reverse_range_loop)] //~ ERROR: lint `clippy::reverse_range_loop`
 #![warn(clippy::safe_fn)] //~ ERROR: lint `clippy::safe_fn`
 #![warn(clippy::single_char_push_str)] //~ ERROR: lint `clippy::single_char_push_str`
+#![warn(clippy::std_used)] //~ ERROR: lint `clippy::std_used`
 #![warn(clippy::stutter)] //~ ERROR: lint `clippy::stutter`
 #![warn(clippy::thread_local_initializer_can_be_made_const)] //~ ERROR: lint `clippy::thread_local_initializer_can_be_made_const`
 #![warn(clippy::to_string_in_display)] //~ ERROR: lint `clippy::to_string_in_display`

@@ -38,6 +38,13 @@ fn foo(
     let mut b = 4;
 }
 
+use core::ffi::c_int;
+
+// you can't use patterns in extern blocks
+unsafe extern "C" {
+    pub unsafe fn printf(fmt: *const u8, ...) -> c_int;
+}
+
 static mut FOO: () = ();
 //~^ missing_mut
 static mut BAR: () = ();

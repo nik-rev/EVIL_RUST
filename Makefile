@@ -9,10 +9,11 @@ RUSTC_ARGS = \
 
 # These are the ONLY lints you are allowed to use
 EVIL_CLIPPY_LINTS = \
-	-D missing-mut \
-	-D safe-fn \
-	-D missing-pub \
-	-D reference
+	-D clippy::missing_mut \
+	-D clippy::safe_fn \
+	-D clippy::missing_pub \
+	-D clippy::reference_used \
+	-D clippy::missing_no_std
 	
 # Disable all default lints
 #
@@ -60,6 +61,5 @@ RUSTC_DISABLED_LINTS = \
  		
 ARGS = $(RUSTC_ARGS) $(RUSTC_DISABLED_LINTS) $(RUSTC_ENABLED_LINTS)
 
-compile: main.rs
-	clippy-driver --rustc $(ARGS) main.rs
-	rustc $(ARGS) main.rs
+compile: hello_world.rs
+	clippy-driver +nightly-2025-05-01-x86_64-unknown-linux-gnu $(EVIL_CLIPPY_LINTS) $(RUSTC_DISABLED_LINTS) $(RUSTC_ARGS) hello_world.rs

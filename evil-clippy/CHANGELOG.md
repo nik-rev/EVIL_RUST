@@ -5941,6 +5941,7 @@ Released 2018-09-13
 [`missing_fields_in_debug`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_fields_in_debug
 [`missing_inline_in_public_items`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_inline_in_public_items
 [`missing_mut`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_mut
+[`missing_no_std`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_no_std
 [`missing_panics_doc`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_panics_doc
 [`missing_pub`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_pub
 [`missing_safety_doc`]: https://rust-lang.github.io/rust-clippy/master/index.html#missing_safety_doc
