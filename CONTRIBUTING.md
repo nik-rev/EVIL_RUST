@@ -1,6 +1,6 @@
 # Contributing
 
-Clippy was worked, it is now Evil Clippy. All lints were set to `allow` by default.
+Clippy was worked, it is now Evil Clippy. All **new** lints were set to `allow` by default.
 _These_ lints are `deny` by default.
 
 - `reference_used`: Ban all references
