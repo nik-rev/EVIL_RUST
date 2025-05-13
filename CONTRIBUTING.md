@@ -1,7 +1,10 @@
 # Contributing
 
-Clippy was worked, it is now Evil Clippy. All **new** lints were set to `allow` by default.
-_These_ lints are `deny` by default.
+Clippy was forked, it is now Evil Clippy!
+
+- All **new** lints were set to `allow` by default.
+- Our custom _evil_ lints are `deny` by default.
+- These **by-default** are force-passed as arguments in the [`driver.rs`](evil-clippy/src/driver.rs) file.
 
 - [`reference_used`][reference_used]: Ban all references
 - [`missing_mut`][missing_mut]: Enforce adding `mut` keyword where possible
