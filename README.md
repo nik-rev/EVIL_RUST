@@ -136,10 +136,10 @@ error: aborting due to 5 previous errors
 
 1. `git clone` this repository
 1. `cd` to the `evil-clippy` directory
-1. Run:
+1. Run to install evil clippy:
 
    ```sh
-   cargo build --release --bin cargo-clippy --bin clippy-driver -Zunstable-options --out-dir "$(rustc --print=sysroot)/bin"
+   cargo build --release --bin clippy-driver -Zunstable-options --artifact-dir $"(rustc --print=sysroot)/bin"
    ```
 
 1. The output of `rustup show active-toolchain` is the `TOOLCHAIN` for which you have installed `evil-clippy`
@@ -150,5 +150,13 @@ For example, the toolchain I got from `rustup show active-toolchain` is and I ra
 ```sh
 clippy-driver +nightly-2025-05-01-x86_64-unknown-linux-gnu -C panic=abort -C link-args=-lc hello_world.rs
 ```
+
+You can alias it:
+
+```sh
+alias evil-clippy="clippy-driver +nightly-2025-05-01-x86_64-unknown-linux-gnu"
+```
+
+`evil-clippy` will both lint and compile your code.
 
 [Official clippy documentation for install from source](https://doc.rust-lang.org/nightly/clippy/development/basics.html?highlight=clippy-driver#install-from-source)
