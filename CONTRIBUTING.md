@@ -1,7 +1,7 @@
 # Contributing
 
-Clippy was worked, it is now Evil Clippy.
-All lints are not disabled by default. These lints were **added**. They are also disabled by default (otherwise they will error on every existing test that clippy has):
+Clippy was worked, it is now Evil Clippy. All lints were set to `allow` by default.
+_These_ lints are `deny` by default.
 
 - `reference_used`: Ban all references
 - `missing_mut`: Enforce adding `mut` keyword where possible
