@@ -1,23 +1,705 @@
-error: used `seek` to go to the start of the stream
-  --> tests/ui/seek_to_start_instead_of_rewind.rs:52:7
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     t.seek(SeekFrom::Start(0));
-   |       ^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `rewind()`
-   |
-   = note: `-D clippy::seek-to-start-instead-of-rewind` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::seek_to_start_instead_of_rewind)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: used `seek` to go to the start of the stream
-  --> tests/ui/seek_to_start_instead_of_rewind.rs:58:7
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     t.seek(SeekFrom::Start(0));
-   |       ^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `rewind()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: used `seek` to go to the start of the stream
-  --> tests/ui/seek_to_start_instead_of_rewind.rs:138:7
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:7:1
    |
-LL |     f.seek(SeekFrom::Start(0));
-   |       ^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `rewind()`
+LL | struct StructWithSeekMethod {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:9:1
+   |
+LL | impl StructWithSeekMethod {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:10:5
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:10:5
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:10:18
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:10:24
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:10:13
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: trait must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:13:1
+   |
+LL | / trait MySeekTrait {
+LL | |     fn seek(&mut self, from: SeekFrom) {}
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:13:1
+   |
+LL | trait MySeekTrait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:14:5
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:14:5
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:14:18
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:14:24
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:14:13
+   |
+LL |     fn seek(&mut self, from: SeekFrom) {}
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:17:1
+   |
+LL | struct StructWithSeekTrait {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:18:1
+   |
+LL | impl MySeekTrait for StructWithSeekTrait {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:22:1
+   |
+LL | fn seek_to_start_false_method(t: &mut StructWithSeekMethod) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:22:1
+   |
+LL | fn seek_to_start_false_method(t: &mut StructWithSeekMethod) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:22:1
+   |
+LL | fn seek_to_start_false_method(t: &mut StructWithSeekMethod) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:22:31
+   |
+LL | fn seek_to_start_false_method(t: &mut StructWithSeekMethod) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:22:34
+   |
+LL | fn seek_to_start_false_method(t: &mut StructWithSeekMethod) {
+   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:28:1
+   |
+LL | fn seek_to_start_method_owned_false(mut t: StructWithSeekMethod) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:28:1
+   |
+LL | fn seek_to_start_method_owned_false(mut t: StructWithSeekMethod) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:28:1
+   |
+LL | fn seek_to_start_method_owned_false(mut t: StructWithSeekMethod) {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:34:1
+   |
+LL | fn seek_to_start_false_trait(t: &mut StructWithSeekTrait) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:34:1
+   |
+LL | fn seek_to_start_false_trait(t: &mut StructWithSeekTrait) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:34:1
+   |
+LL | fn seek_to_start_false_trait(t: &mut StructWithSeekTrait) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:34:30
+   |
+LL | fn seek_to_start_false_trait(t: &mut StructWithSeekTrait) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:34:33
+   |
+LL | fn seek_to_start_false_trait(t: &mut StructWithSeekTrait) {
+   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:40:1
+   |
+LL | fn seek_to_start_false_trait_owned(mut t: StructWithSeekTrait) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:40:1
+   |
+LL | fn seek_to_start_false_trait_owned(mut t: StructWithSeekTrait) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:40:1
+   |
+LL | fn seek_to_start_false_trait_owned(mut t: StructWithSeekTrait) {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:46:1
+   |
+LL | fn seek_to_start_false_trait_bound<T: MySeekTrait>(t: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:46:1
+   |
+LL | fn seek_to_start_false_trait_bound<T: MySeekTrait>(t: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:46:1
+   |
+LL | fn seek_to_start_false_trait_bound<T: MySeekTrait>(t: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:46:52
+   |
+LL | fn seek_to_start_false_trait_bound<T: MySeekTrait>(t: &mut T) {
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:46:55
+   |
+LL | fn seek_to_start_false_trait_bound<T: MySeekTrait>(t: &mut T) {
+   |                                                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:51:1
+   |
+LL | fn seek_to_start<T: Seek>(t: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:51:1
+   |
+LL | fn seek_to_start<T: Seek>(t: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:51:1
+   |
+LL | fn seek_to_start<T: Seek>(t: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:51:27
+   |
+LL | fn seek_to_start<T: Seek>(t: &mut T) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:51:30
+   |
+LL | fn seek_to_start<T: Seek>(t: &mut T) {
+   |                              ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:57:1
+   |
+LL | fn owned_seek_to_start<T: Seek>(mut t: T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:57:1
+   |
+LL | fn owned_seek_to_start<T: Seek>(mut t: T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:57:1
+   |
+LL | fn owned_seek_to_start<T: Seek>(mut t: T) {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:64:1
+   |
+LL | fn seek_to_5<T: Seek>(t: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:64:1
+   |
+LL | fn seek_to_5<T: Seek>(t: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:64:1
+   |
+LL | fn seek_to_5<T: Seek>(t: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:64:23
+   |
+LL | fn seek_to_5<T: Seek>(t: &mut T) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:64:26
+   |
+LL | fn seek_to_5<T: Seek>(t: &mut T) {
+   |                          ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:70:1
+   |
+LL | fn seek_to_end<T: Seek>(t: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:70:1
+   |
+LL | fn seek_to_end<T: Seek>(t: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:70:1
+   |
+LL | fn seek_to_end<T: Seek>(t: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:70:25
+   |
+LL | fn seek_to_end<T: Seek>(t: &mut T) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:70:28
+   |
+LL | fn seek_to_end<T: Seek>(t: &mut T) {
+   |                            ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:76:1
+   |
+LL | fn seek_to_start_in_let<T: Seek>(t: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:76:1
+   |
+LL | fn seek_to_start_in_let<T: Seek>(t: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:76:1
+   |
+LL | fn seek_to_start_in_let<T: Seek>(t: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:76:34
+   |
+LL | fn seek_to_start_in_let<T: Seek>(t: &mut T) {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:76:37
+   |
+LL | fn seek_to_start_in_let<T: Seek>(t: &mut T) {
+   |                                     ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:77:9
+   |
+LL |     let a = t.seek(SeekFrom::Start(0)).unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:80:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:80:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:80:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:90:37
+   |
+LL |     seek_to_start_false_trait_bound(&mut my_struct_trait);
+   |                                     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:92:9
+   |
+LL |     let hello = "Hello!\n";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:94:15
+   |
+LL |     seek_to_5(&mut f);
+   |               ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:95:17
+   |
+LL |     seek_to_end(&mut f);
+   |                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:96:19
+   |
+LL |     seek_to_start(&mut f);
+   |                   ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:99:22
+   |
+LL |     f.read_to_string(&mut buf).unwrap();
+   |                      ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:101:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:101:16
+   |
+LL |     assert_eq!(&buf, hello);
+   |                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:101:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:101:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:101:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:101:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:105:1
+   |
+LL | fn msrv_1_54() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:105:1
+   |
+LL | fn msrv_1_54() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:105:1
+   |
+LL | fn msrv_1_54() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:114:9
+   |
+LL |     let hello = "Hello!\n";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:120:22
+   |
+LL |     f.read_to_string(&mut buf).unwrap();
+   |                      ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:122:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:122:16
+   |
+LL |     assert_eq!(&buf, hello);
+   |                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:122:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:122:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:122:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:122:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:126:1
+   |
+LL | fn msrv_1_55() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:126:1
+   |
+LL | fn msrv_1_55() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:126:1
+   |
+LL | fn msrv_1_55() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:135:9
+   |
+LL |     let hello = "Hello!\n";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:142:22
+   |
+LL |     f.read_to_string(&mut buf).unwrap();
+   |                      ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:144:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:144:16
+   |
+LL |     assert_eq!(&buf, hello);
+   |                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:144:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:144:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:144:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/seek_to_start_instead_of_rewind.rs:144:5
+   |
+LL |     assert_eq!(&buf, hello);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 87 previous errors
 

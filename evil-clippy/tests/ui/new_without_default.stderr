@@ -1,178 +1,619 @@
-error: you should consider adding a `Default` implementation for `Foo`
-  --> tests/ui/new_without_default.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     pub fn new() -> Foo {
-LL | |
-LL | |
-LL | |         Foo
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:12:1
+   |
+LL | impl Foo {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:13:9
+   |
+LL |     pub fn new() -> Foo {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:13:9
+   |
+LL |     pub fn new() -> Foo {
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:22:1
+   |
+LL | impl Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:23:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:23:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:32:1
+   |
+LL | impl Ok {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:33:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:33:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:38:1
+   |
+LL | impl Default for Ok {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:39:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:39:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:46:1
+   |
+LL | impl Params {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:47:9
+   |
+LL |     pub fn new(_: u32) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:47:9
+   |
+LL |     pub fn new(_: u32) -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:56:1
+   |
+LL | impl<U> Default for GenericsOk<U> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:57:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:57:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:62:1
+   |
+LL | impl<'c, V> GenericsOk<V> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:63:9
+   |
+LL |     pub fn new() -> GenericsOk<V> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:63:9
+   |
+LL |     pub fn new() -> GenericsOk<V> {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/new_without_default.rs:69:10
+   |
+LL |     foo: &'a bool,
+   |          ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:72:1
+   |
+LL | impl<'b> Default for LtOk<'b> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:73:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:73:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:78:1
+   |
+LL | impl<'c> LtOk<'c> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:79:9
+   |
+LL |     pub fn new() -> LtOk<'c> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:79:9
+   |
+LL |     pub fn new() -> LtOk<'c> {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/new_without_default.rs:85:10
+   |
+LL |     foo: &'a bool,
+   |          ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:88:1
+   |
+LL | impl<'c> LtKo<'c> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:89:9
+   |
+LL |     pub fn new() -> LtKo<'c> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:89:9
+   |
+LL |     pub fn new() -> LtKo<'c> {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:96:1
+   |
+LL | struct Private;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:98:1
+   |
+LL | impl Private {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:99:5
+   |
+LL |     fn new() -> Private {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:99:5
+   |
+LL |     fn new() -> Private {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:104:1
+   |
+LL | struct PrivateStruct;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:106:1
+   |
+LL | impl PrivateStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:107:9
+   |
+LL |     pub fn new() -> PrivateStruct {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:107:9
+   |
+LL |     pub fn new() -> PrivateStruct {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:114:1
+   |
+LL | impl PrivateItem {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:115:5
+   |
+LL |     fn new() -> PrivateItem {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:115:5
+   |
+LL |     fn new() -> PrivateItem {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:122:1
+   |
+LL | impl Const {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:123:15
+   |
+LL |     pub const fn new() -> Const {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:123:15
+   |
+LL |     pub const fn new() -> Const {
+   |               ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:131:1
+   |
+LL | impl IgnoreGenericNew {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:132:9
+   |
+LL |     pub fn new<T>() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:132:9
+   |
+LL |     pub fn new<T>() -> Self {
+   |         ^
+
+error: trait must be `unsafe`
+  --> tests/ui/new_without_default.rs:137:1
+   |
+LL | / pub trait TraitWithNew: Sized {
+LL | |     fn new() -> Self {
+LL | |         panic!()
 LL | |     }
-   | |_____^
+LL | | }
+   | |_^
    |
-   = note: `-D clippy::new-without-default` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::new_without_default)]`
-help: try adding this
-   |
-LL + impl Default for Foo {
-LL +     fn default() -> Self {
-LL +         Self::new()
-LL +     }
-LL + }
-   |
+   = help: make this trait unsafe: `unsafe trait`
 
-error: you should consider adding a `Default` implementation for `Bar`
-  --> tests/ui/new_without_default.rs:23:5
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:138:5
    |
-LL | /     pub fn new() -> Self {
-LL | |
-LL | |
-LL | |         Bar
-LL | |     }
-   | |_____^
+LL |     fn new() -> Self {
+   |     ^
    |
-help: try adding this
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:138:5
    |
-LL + impl Default for Bar {
-LL +     fn default() -> Self {
-LL +         Self::new()
-LL +     }
-LL + }
-   |
+LL |     fn new() -> Self {
+   |     ^
 
-error: you should consider adding a `Default` implementation for `LtKo<'c>`
-  --> tests/ui/new_without_default.rs:89:5
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:139:9
    |
-LL | /     pub fn new() -> LtKo<'c> {
-LL | |
-LL | |
-LL | |         unimplemented!()
-LL | |     }
-   | |_____^
-   |
-help: try adding this
-   |
-LL + impl<'c> Default for LtKo<'c> {
-LL +     fn default() -> Self {
-LL +         Self::new()
-LL +     }
-LL + }
-   |
+LL |         panic!()
+   |         ^^^^^^^^
 
-error: you should consider adding a `Default` implementation for `Const`
-  --> tests/ui/new_without_default.rs:123:5
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:139:9
    |
-LL | /     pub const fn new() -> Const {
-LL | |
-LL | |         Const
-LL | |     } // While Default is not const, it can still call const functions, so we should lint this
-   | |_____^
+LL |         panic!()
+   |         ^^^^^^^^
    |
-help: try adding this
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:139:9
    |
-LL + impl Default for Const {
-LL +     fn default() -> Self {
-LL +         Self::new()
-LL +     }
-LL + }
-   |
+LL |         panic!()
+   |         ^^^^^^^^
 
-error: you should consider adding a `Default` implementation for `NewNotEqualToDerive`
-  --> tests/ui/new_without_default.rs:184:5
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:145:1
    |
-LL | /     pub fn new() -> Self {
-LL | |
-LL | |
-LL | |         NewNotEqualToDerive { foo: 1 }
-LL | |     }
-   | |_____^
-   |
-help: try adding this
-   |
-LL + impl Default for NewNotEqualToDerive {
-LL +     fn default() -> Self {
-LL +         Self::new()
-LL +     }
-LL + }
-   |
+LL | impl IgnoreUnsafeNew {
+   | ^ help: make this item public: `pub`
 
-error: you should consider adding a `Default` implementation for `FooGenerics<T>`
-  --> tests/ui/new_without_default.rs:194:5
+error: references are not allowed
+  --> tests/ui/new_without_default.rs:152:43
    |
-LL | /     pub fn new() -> Self {
-LL | |
-LL | |
-LL | |         Self(Default::default())
-LL | |     }
-   | |_____^
+LL | pub struct OptionRefWrapper<'a, T>(Option<&'a T>);
+   |                                           ^^^^^
    |
-help: try adding this
-   |
-LL + impl<T> Default for FooGenerics<T> {
-LL +     fn default() -> Self {
-LL +         Self::new()
-LL +     }
-LL + }
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: you should consider adding a `Default` implementation for `BarGenerics<T>`
-  --> tests/ui/new_without_default.rs:203:5
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:151:10
    |
-LL | /     pub fn new() -> Self {
-LL | |
-LL | |
-LL | |         Self(Default::default())
-LL | |     }
-   | |_____^
-   |
-help: try adding this
-   |
-LL + impl<T: Copy> Default for BarGenerics<T> {
-LL +     fn default() -> Self {
-LL +         Self::new()
-LL +     }
-LL + }
-   |
+LL | #[derive(Default)]
+   |          ^
 
-error: you should consider adding a `Default` implementation for `Foo<T>`
-  --> tests/ui/new_without_default.rs:216:9
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:151:7
    |
-LL | /         pub fn new() -> Self {
-LL | |
-LL | |
-LL | |             todo!()
-LL | |         }
-   | |_________^
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
    |
-help: try adding this
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:151:7
    |
-LL ~     impl<T> Default for Foo<T> {
-LL +         fn default() -> Self {
-LL +             Self::new()
-LL +         }
-LL +     }
-LL + 
-LL ~     impl<T> Foo<T> {
-   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
 
-error: you should consider adding a `Default` implementation for `MyStruct<K, V>`
-  --> tests/ui/new_without_default.rs:263:5
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:154:1
    |
-LL | /     pub fn new() -> Self {
-LL | |
-LL | |         Self { _kv: None }
-LL | |     }
-   | |_____^
-   |
-help: try adding this
-   |
-LL + impl<K, V> Default for MyStruct<K, V>
-LL + where
-LL +     K: std::hash::Hash + Eq + PartialEq,
-LL +  {
-LL +     fn default() -> Self {
-LL +         Self::new()
-LL +     }
-LL + }
-   |
+LL | impl<'a, T> OptionRefWrapper<'a, T> {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 9 previous errors
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:155:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:155:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:162:1
+   |
+LL | impl Allow {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:164:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:164:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:171:1
+   |
+LL | impl AllowDerive {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:173:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:173:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:182:1
+   |
+LL | impl NewNotEqualToDerive {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:184:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:184:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:193:1
+   |
+LL | impl<T> FooGenerics<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:194:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:194:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:202:1
+   |
+LL | impl<T: Copy> BarGenerics<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:203:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:203:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:215:5
+   |
+LL |     impl<T> Foo<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:216:13
+   |
+LL |         pub fn new() -> Self {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:216:13
+   |
+LL |         pub fn new() -> Self {
+   |             ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:227:1
+   |
+LL | impl DocHidden {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:229:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:229:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:234:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:234:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:234:1
+   |
+LL | fn main() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:237:1
+   |
+LL | impl IgnoreConstGenericNew {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:238:9
+   |
+LL |     pub fn new<const N: usize>() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:238:9
+   |
+LL |     pub fn new<const N: usize>() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:244:1
+   |
+LL | impl IgnoreLifetimeNew {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:245:9
+   |
+LL |     pub fn new<'a>() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:245:9
+   |
+LL |     pub fn new<'a>() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/new_without_default.rs:259:1
+   |
+LL | impl<K, V> MyStruct<K, V>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/new_without_default.rs:263:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/new_without_default.rs:263:9
+   |
+LL |     pub fn new() -> Self {
+   |         ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 70 previous errors
 

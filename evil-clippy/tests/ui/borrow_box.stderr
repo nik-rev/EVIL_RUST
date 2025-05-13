@@ -1,3 +1,741 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:12:5
+   |
+LL | pub fn test1(foo: &mut Box<bool>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:12:5
+   |
+LL | pub fn test1(foo: &mut Box<bool>) {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:12:14
+   |
+LL | pub fn test1(foo: &mut Box<bool>) {
+   |              ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:12:19
+   |
+LL | pub fn test1(foo: &mut Box<bool>) {
+   |                   ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:24:5
+   |
+LL | pub fn test2() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:24:5
+   |
+LL | pub fn test2() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/borrow_box.rs:25:9
+   |
+LL |     let foo: &Box<bool>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:25:14
+   |
+LL |     let foo: &Box<bool>;
+   |              ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:29:1
+   |
+LL | struct Test3<'a> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:30:10
+   |
+LL |     foo: &'a Box<bool>,
+   |          ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_box.rs:34:1
+   |
+LL | / trait Test4 {
+LL | |     fn test4(a: &Box<bool>);
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:34:1
+   |
+LL | trait Test4 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:35:5
+   |
+LL |     fn test4(a: &Box<bool>);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:35:5
+   |
+LL |     fn test4(a: &Box<bool>);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:35:14
+   |
+LL |     fn test4(a: &Box<bool>);
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:35:17
+   |
+LL |     fn test4(a: &Box<bool>);
+   |                 ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:41:5
+   |
+LL | pub fn test5(foo: &mut Box<dyn Any>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:41:5
+   |
+LL | pub fn test5(foo: &mut Box<dyn Any>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:41:14
+   |
+LL | pub fn test5(foo: &mut Box<dyn Any>) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:41:19
+   |
+LL | pub fn test5(foo: &mut Box<dyn Any>) {
+   |                   ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:45:5
+   |
+LL | pub fn test6() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:45:5
+   |
+LL | pub fn test6() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/borrow_box.rs:46:9
+   |
+LL |     let foo: &Box<dyn Any>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:46:14
+   |
+LL |     let foo: &Box<dyn Any>;
+   |              ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:49:1
+   |
+LL | struct Test7<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:50:10
+   |
+LL |     foo: &'a Box<dyn Any>,
+   |          ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_box.rs:53:1
+   |
+LL | / trait Test8 {
+LL | |     fn test8(a: &Box<dyn Any>);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:53:1
+   |
+LL | trait Test8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:54:5
+   |
+LL |     fn test8(a: &Box<dyn Any>);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:54:5
+   |
+LL |     fn test8(a: &Box<dyn Any>);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:54:14
+   |
+LL |     fn test8(a: &Box<dyn Any>);
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:54:17
+   |
+LL |     fn test8(a: &Box<dyn Any>);
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:57:1
+   |
+LL | impl<'a> Test8 for Test7<'a> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:58:5
+   |
+LL |     fn test8(a: &Box<dyn Any>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:58:5
+   |
+LL |     fn test8(a: &Box<dyn Any>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:58:14
+   |
+LL |     fn test8(a: &Box<dyn Any>) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:58:17
+   |
+LL |     fn test8(a: &Box<dyn Any>) {
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:63:5
+   |
+LL | pub fn test9(foo: &mut Box<dyn Any + Send + Sync>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:63:5
+   |
+LL | pub fn test9(foo: &mut Box<dyn Any + Send + Sync>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:63:14
+   |
+LL | pub fn test9(foo: &mut Box<dyn Any + Send + Sync>) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:63:19
+   |
+LL | pub fn test9(foo: &mut Box<dyn Any + Send + Sync>) {
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:67:5
+   |
+LL | pub fn test10() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:67:5
+   |
+LL | pub fn test10() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/borrow_box.rs:68:9
+   |
+LL |     let foo: &Box<dyn Any + Send + 'static>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:68:14
+   |
+LL |     let foo: &Box<dyn Any + Send + 'static>;
+   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:71:1
+   |
+LL | struct Test11<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:72:10
+   |
+LL |     foo: &'a Box<dyn Any + Send>,
+   |          ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_box.rs:75:1
+   |
+LL | / trait Test12 {
+LL | |     fn test4(a: &Box<dyn Any + 'static>);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:75:1
+   |
+LL | trait Test12 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:76:5
+   |
+LL |     fn test4(a: &Box<dyn Any + 'static>);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:76:5
+   |
+LL |     fn test4(a: &Box<dyn Any + 'static>);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:76:14
+   |
+LL |     fn test4(a: &Box<dyn Any + 'static>);
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:76:17
+   |
+LL |     fn test4(a: &Box<dyn Any + 'static>);
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:79:1
+   |
+LL | impl<'a> Test12 for Test11<'a> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:80:5
+   |
+LL |     fn test4(a: &Box<dyn Any + 'static>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:80:5
+   |
+LL |     fn test4(a: &Box<dyn Any + 'static>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:80:14
+   |
+LL |     fn test4(a: &Box<dyn Any + 'static>) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:80:17
+   |
+LL |     fn test4(a: &Box<dyn Any + 'static>) {
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:85:5
+   |
+LL | pub fn test13(boxed_slice: &mut Box<[i32]>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:85:5
+   |
+LL | pub fn test13(boxed_slice: &mut Box<[i32]>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:85:15
+   |
+LL | pub fn test13(boxed_slice: &mut Box<[i32]>) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:85:28
+   |
+LL | pub fn test13(boxed_slice: &mut Box<[i32]>) {
+   |                            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:96:5
+   |
+LL | pub fn test14(_display: &Box<dyn Display>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:96:5
+   |
+LL | pub fn test14(_display: &Box<dyn Display>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:96:15
+   |
+LL | pub fn test14(_display: &Box<dyn Display>) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:96:25
+   |
+LL | pub fn test14(_display: &Box<dyn Display>) {}
+   |                         ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:99:5
+   |
+LL | pub fn test15(_display: &Box<dyn Display + Send>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:99:5
+   |
+LL | pub fn test15(_display: &Box<dyn Display + Send>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:99:15
+   |
+LL | pub fn test15(_display: &Box<dyn Display + Send>) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:99:25
+   |
+LL | pub fn test15(_display: &Box<dyn Display + Send>) {}
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:102:5
+   |
+LL | pub fn test16<'a>(_display: &'a Box<dyn Display + 'a>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:102:5
+   |
+LL | pub fn test16<'a>(_display: &'a Box<dyn Display + 'a>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:102:19
+   |
+LL | pub fn test16<'a>(_display: &'a Box<dyn Display + 'a>) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:102:29
+   |
+LL | pub fn test16<'a>(_display: &'a Box<dyn Display + 'a>) {}
+   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:105:5
+   |
+LL | pub fn test17(_display: &Box<impl Display>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:105:5
+   |
+LL | pub fn test17(_display: &Box<impl Display>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:105:15
+   |
+LL | pub fn test17(_display: &Box<impl Display>) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:105:25
+   |
+LL | pub fn test17(_display: &Box<impl Display>) {}
+   |                         ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:108:5
+   |
+LL | pub fn test18(_display: &Box<impl Display + Send>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:108:5
+   |
+LL | pub fn test18(_display: &Box<impl Display + Send>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:108:15
+   |
+LL | pub fn test18(_display: &Box<impl Display + Send>) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:108:25
+   |
+LL | pub fn test18(_display: &Box<impl Display + Send>) {}
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:111:5
+   |
+LL | pub fn test19<'a>(_display: &'a Box<impl Display + 'a>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:111:5
+   |
+LL | pub fn test19<'a>(_display: &'a Box<impl Display + 'a>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:111:19
+   |
+LL | pub fn test19<'a>(_display: &'a Box<impl Display + 'a>) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:111:29
+   |
+LL | pub fn test19<'a>(_display: &'a Box<impl Display + 'a>) {}
+   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:117:5
+   |
+LL | pub fn test20(_display: &Box<(dyn Display + Send)>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:117:5
+   |
+LL | pub fn test20(_display: &Box<(dyn Display + Send)>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:117:15
+   |
+LL | pub fn test20(_display: &Box<(dyn Display + Send)>) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:117:25
+   |
+LL | pub fn test20(_display: &Box<(dyn Display + Send)>) {}
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_box.rs:121:1
+   |
+LL | / trait Trait {
+LL | |     fn f(b: &Box<bool>);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:121:1
+   |
+LL | trait Trait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:122:5
+   |
+LL |     fn f(b: &Box<bool>);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:122:5
+   |
+LL |     fn f(b: &Box<bool>);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_box.rs:122:10
+   |
+LL |     fn f(b: &Box<bool>);
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:122:13
+   |
+LL |     fn f(b: &Box<bool>);
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:126:1
+   |
+LL | impl Trait for () {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:127:5
+   |
+LL |     fn f(_: &Box<bool>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:127:5
+   |
+LL |     fn f(_: &Box<bool>) {}
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:127:13
+   |
+LL |     fn f(_: &Box<bool>) {}
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_box.rs:130:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_box.rs:130:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_box.rs:130:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:131:11
+   |
+LL |     test1(&mut Box::new(false));
+   |           ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:133:11
+   |
+LL |     test5(&mut (Box::new(false) as Box<dyn Any>));
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_box.rs:135:11
+   |
+LL |     test9(&mut (Box::new(false) as Box<dyn Any + Send + Sync>));
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: you seem to be trying to use `&Box<T>`. Consider using just `&T`
   --> tests/ui/borrow_box.rs:25:14
    |
@@ -64,5 +802,5 @@ error: you seem to be trying to use `&Box<T>`. Consider using just `&T`
 LL | pub fn test20(_display: &Box<(dyn Display + Send)>) {}
    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&(dyn Display + Send)`
 
-error: aborting due to 10 previous errors
+error: aborting due to 98 previous errors
 

@@ -1,101 +1,515 @@
-error: this pattern creates a reference to a reference
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/ref_binding_to_reference.rs:6:1
+   |
+LL | fn f1(_: &str) {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:6:1
+   |
+LL | fn f1(_: &str) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:6:1
+   |
+LL | fn f1(_: &str) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:6:10
+   |
+LL | fn f1(_: &str) {}
+   |          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/ref_binding_to_reference.rs:7:1
+   |
+LL | macro_rules! m2 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ref_binding_to_reference.rs:12:1
+   |
+LL | macro_rules! m3 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ref_binding_to_reference.rs:19:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:19:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:19:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/ref_binding_to_reference.rs:20:9
+   |
+LL |     let x = String::new();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:23:12
+   |
+LL |     let _: &&String = match Some(&x) {
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:23:13
+   |
+LL |     let _: &&String = match Some(&x) {
+   |             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:23:34
+   |
+LL |     let _: &&String = match Some(&x) {
+   |                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:29:12
+   |
+LL |     let _: &&String = match Some(&x) {
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:29:13
+   |
+LL |     let _: &&String = match Some(&x) {
+   |             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:29:34
+   |
+LL |     let _: &&String = match Some(&x) {
+   |                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/ref_binding_to_reference.rs:30:14
    |
 LL |         Some(ref x) => x,
    |              ^^^^^
-   |
-   = note: `-D clippy::ref-binding-to-reference` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::ref_binding_to_reference)]`
-help: try
-   |
-LL -         Some(ref x) => x,
-LL +         Some(x) => &x,
-   |
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:36:12
+   |
+LL |     let _: &&String = match Some(&x) {
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:36:13
+   |
+LL |     let _: &&String = match Some(&x) {
+   |             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:36:34
+   |
+LL |     let _: &&String = match Some(&x) {
+   |                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/ref_binding_to_reference.rs:37:14
    |
 LL |         Some(ref x) => {
    |              ^^^^^
-   |
-help: try
-   |
-LL ~         Some(x) => {
-LL |
-LL |
-LL |             f1(x);
-LL ~             f1(x);
-LL ~             &x
-   |
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:48:16
+   |
+LL |     match Some(&x) {
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/ref_binding_to_reference.rs:49:14
    |
 LL |         Some(ref x) => m2!(x),
    |              ^^^^^
-   |
-help: try
-   |
-LL -         Some(ref x) => m2!(x),
-LL +         Some(x) => m2!(&x),
-   |
 
-error: this pattern creates a reference to a reference
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/ref_binding_to_reference.rs:55:15
    |
 LL |     let _ = |&ref x: &&String| {
    |               ^^^^^
-   |
-help: try
-   |
-LL ~     let _ = |&x: &&String| {
-LL |
-LL |
-LL ~         let _: &&String = &x;
-   |
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:55:22
+   |
+LL |     let _ = |&ref x: &&String| {
+   |                      ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:55:23
+   |
+LL |     let _ = |&ref x: &&String| {
+   |                       ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:58:16
+   |
+LL |         let _: &&String = x;
+   |                ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:58:17
+   |
+LL |         let _: &&String = x;
+   |                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ref_binding_to_reference.rs:63:1
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:63:1
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:63:1
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ref_binding_to_reference.rs:63:16
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ref_binding_to_reference.rs:63:12
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/ref_binding_to_reference.rs:63:12
    |
 LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
    |            ^^^^^
-   |
-help: try
-   |
-LL ~ fn f2<'a>(&x: &&'a String) -> &'a String {
-LL |
-LL |
-LL ~     let _: &&String = &x;
-LL ~     x
-   |
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:63:19
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:63:20
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |                    ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:63:35
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |                                   ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:66:12
+   |
+LL |     let _: &&String = x;
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:66:13
+   |
+LL |     let _: &&String = x;
+   |             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:70:1
+   |
+LL | / trait T1 {
+LL | |     // Err, reference to a &String
+LL | |     fn f(&ref x: &&String) {
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/ref_binding_to_reference.rs:70:1
+   |
+LL | trait T1 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:72:5
+   |
+LL |     fn f(&ref x: &&String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:72:5
+   |
+LL |     fn f(&ref x: &&String) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ref_binding_to_reference.rs:72:15
+   |
+LL |     fn f(&ref x: &&String) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ref_binding_to_reference.rs:72:11
+   |
+LL |     fn f(&ref x: &&String) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/ref_binding_to_reference.rs:72:11
    |
 LL |     fn f(&ref x: &&String) {
    |           ^^^^^
-   |
-help: try
-   |
-LL ~     fn f(&x: &&String) {
-LL |
-LL |
-LL ~         let _: &&String = &x;
-   |
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:72:18
+   |
+LL |     fn f(&ref x: &&String) {
+   |                  ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:72:19
+   |
+LL |     fn f(&ref x: &&String) {
+   |                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:75:16
+   |
+LL |         let _: &&String = x;
+   |                ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:75:17
+   |
+LL |         let _: &&String = x;
+   |                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ref_binding_to_reference.rs:79:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ref_binding_to_reference.rs:80:1
+   |
+LL | impl T1 for S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:82:5
+   |
+LL |     fn f(&ref x: &&String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:82:5
+   |
+LL |     fn f(&ref x: &&String) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ref_binding_to_reference.rs:82:15
+   |
+LL |     fn f(&ref x: &&String) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ref_binding_to_reference.rs:82:11
+   |
+LL |     fn f(&ref x: &&String) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/ref_binding_to_reference.rs:82:11
    |
 LL |     fn f(&ref x: &&String) {
    |           ^^^^^
-   |
-help: try
-   |
-LL ~     fn f(&x: &&String) {
-LL |
-LL |
-LL ~         let _: &&String = &x;
-   |
 
-error: aborting due to 7 previous errors
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:82:18
+   |
+LL |     fn f(&ref x: &&String) {
+   |                  ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:82:19
+   |
+LL |     fn f(&ref x: &&String) {
+   |                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:85:16
+   |
+LL |         let _: &&String = x;
+   |                ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:85:17
+   |
+LL |         let _: &&String = x;
+   |                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ref_binding_to_reference.rs:89:1
+   |
+LL | fn check_expect_suppression() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:89:1
+   |
+LL | fn check_expect_suppression() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_binding_to_reference.rs:89:1
+   |
+LL | fn check_expect_suppression() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/ref_binding_to_reference.rs:90:9
+   |
+LL |     let x = String::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:92:12
+   |
+LL |     let _: &&String = match Some(&x) {
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:92:13
+   |
+LL |     let _: &&String = match Some(&x) {
+   |             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_binding_to_reference.rs:92:34
+   |
+LL |     let _: &&String = match Some(&x) {
+   |                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/ref_binding_to_reference.rs:93:14
+   |
+LL |         Some(ref x) => x,
+   |              ^^^^^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 67 previous errors
 

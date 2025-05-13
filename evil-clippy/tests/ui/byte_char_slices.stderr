@@ -1,38 +1,133 @@
-error: can be more succinctly written as a byte str
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/byte_char_slices.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/byte_char_slices.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/byte_char_slices.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/byte_char_slices.rs:5:9
+   |
+LL |     let bad = &[b'a', b'b', b'c'];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
   --> tests/ui/byte_char_slices.rs:5:15
    |
 LL |     let bad = &[b'a', b'b', b'c'];
-   |               ^^^^^^^^^^^^^^^^^^^ help: try: `b"abc"`
+   |               ^^^^^^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::byte-char-slices` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::byte_char_slices)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: can be more succinctly written as a byte str
+error: variable must be `mut`
+  --> tests/ui/byte_char_slices.rs:7:9
+   |
+LL |     let quotes = &[b'"', b'H', b'i'];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/byte_char_slices.rs:7:18
    |
 LL |     let quotes = &[b'"', b'H', b'i'];
-   |                  ^^^^^^^^^^^^^^^^^^^ help: try: `b"\"Hi"`
+   |                  ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: can be more succinctly written as a byte str
+error: variable must be `mut`
+  --> tests/ui/byte_char_slices.rs:9:9
+   |
+LL |     let quotes = &[b'\'', b'S', b'u', b'p'];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/byte_char_slices.rs:9:18
    |
 LL |     let quotes = &[b'\'', b'S', b'u', b'p'];
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `b"'Sup"`
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: can be more succinctly written as a byte str
+error: variable must be `mut`
+  --> tests/ui/byte_char_slices.rs:11:9
+   |
+LL |     let escapes = &[b'\x42', b'E', b's', b'c'];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/byte_char_slices.rs:11:19
    |
 LL |     let escapes = &[b'\x42', b'E', b's', b'c'];
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `b"\x42Esc"`
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: useless use of `vec!`
-  --> tests/ui/byte_char_slices.rs:15:16
+error: variable must be `mut`
+  --> tests/ui/byte_char_slices.rs:14:9
+   |
+LL |     let good = &[b'a', 0x42];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/byte_char_slices.rs:14:16
+   |
+LL |     let good = &[b'a', 0x42];
+   |                ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/byte_char_slices.rs:15:9
    |
 LL |     let good = vec![b'a', b'a'];
-   |                ^^^^^^^^^^^^^^^^ help: you can use an array directly: `[b'a', b'a']`
-   |
-   = note: `-D clippy::useless-vec` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::useless_vec)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 5 previous errors
+error: variable must be `mut`
+  --> tests/ui/byte_char_slices.rs:17:9
+   |
+LL |     let good: u8 = [b'a', b'c'].into_iter().sum();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 18 previous errors
 

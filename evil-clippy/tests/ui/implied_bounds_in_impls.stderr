@@ -1,280 +1,900 @@
-error: this bound is already specified as the supertrait of `DerefMut<Target = T>`
-  --> tests/ui/implied_bounds_in_impls.rs:13:36
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:8:1
+   |
+LL | fn normal_deref<T>(x: T) -> impl Deref<Target = T> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:8:1
+   |
+LL | fn normal_deref<T>(x: T) -> impl Deref<Target = T> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:8:1
+   |
+LL | fn normal_deref<T>(x: T) -> impl Deref<Target = T> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/implied_bounds_in_impls.rs:8:20
+   |
+LL | fn normal_deref<T>(x: T) -> impl Deref<Target = T> {
+   |                    ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:13:1
    |
 LL | fn deref_derefmut<T>(x: T) -> impl Deref<Target = T> + DerefMut<Target = T> {
-   |                                    ^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::implied-bounds-in-impls` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::implied_bounds_in_impls)]`
-help: try removing this bound
-   |
-LL - fn deref_derefmut<T>(x: T) -> impl Deref<Target = T> + DerefMut<Target = T> {
-LL + fn deref_derefmut<T>(x: T) -> impl DerefMut<Target = T> {
-   |
+   | ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `GenericSubtrait<U, W, U>`
-  --> tests/ui/implied_bounds_in_impls.rs:31:37
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:13:1
+   |
+LL | fn deref_derefmut<T>(x: T) -> impl Deref<Target = T> + DerefMut<Target = T> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:13:1
+   |
+LL | fn deref_derefmut<T>(x: T) -> impl Deref<Target = T> + DerefMut<Target = T> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/implied_bounds_in_impls.rs:13:22
+   |
+LL | fn deref_derefmut<T>(x: T) -> impl Deref<Target = T> + DerefMut<Target = T> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:18:1
+   |
+LL | trait GenericTrait<T> {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:18:1
+   |
+LL | trait GenericTrait<T> {}
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:19:1
+   |
+LL | trait GenericTrait2<V> {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:19:1
+   |
+LL | trait GenericTrait2<V> {}
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:23:1
+   |
+LL | trait GenericSubtrait<T, U, V>: GenericTrait<U> + GenericTrait2<V> {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:23:1
+   |
+LL | trait GenericSubtrait<T, U, V>: GenericTrait<U> + GenericTrait2<V> {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:25:1
+   |
+LL | impl GenericTrait<i32> for () {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:26:1
+   |
+LL | impl GenericTrait<i64> for () {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:27:1
+   |
+LL | impl<V> GenericTrait2<V> for () {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:28:1
+   |
+LL | impl<V> GenericSubtrait<(), i32, V> for () {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:29:1
+   |
+LL | impl<V> GenericSubtrait<(), i64, V> for () {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:31:1
    |
 LL | fn generics_implied<U, W>() -> impl GenericTrait<W> + GenericSubtrait<U, W, U>
-   |                                     ^^^^^^^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL - fn generics_implied<U, W>() -> impl GenericTrait<W> + GenericSubtrait<U, W, U>
-LL + fn generics_implied<U, W>() -> impl GenericSubtrait<U, W, U>
-   |
+   | ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `GenericSubtrait<(), i32, V>`
-  --> tests/ui/implied_bounds_in_impls.rs:38:40
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:31:1
+   |
+LL | fn generics_implied<U, W>() -> impl GenericTrait<W> + GenericSubtrait<U, W, U>
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:31:1
+   |
+LL | fn generics_implied<U, W>() -> impl GenericTrait<W> + GenericSubtrait<U, W, U>
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:38:1
    |
 LL | fn generics_implied_multi<V>() -> impl GenericTrait<i32> + GenericTrait2<V> + GenericSubtrait<(), i32, V> {}
-   |                                        ^^^^^^^^^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL - fn generics_implied_multi<V>() -> impl GenericTrait<i32> + GenericTrait2<V> + GenericSubtrait<(), i32, V> {}
-LL + fn generics_implied_multi<V>() -> impl GenericTrait2<V> + GenericSubtrait<(), i32, V> {}
-   |
+   | ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `GenericSubtrait<(), i32, V>`
-  --> tests/ui/implied_bounds_in_impls.rs:38:60
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:38:1
    |
 LL | fn generics_implied_multi<V>() -> impl GenericTrait<i32> + GenericTrait2<V> + GenericSubtrait<(), i32, V> {}
-   |                                                            ^^^^^^^^^^^^^^^^
+   | ^
    |
-help: try removing this bound
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:38:1
    |
-LL - fn generics_implied_multi<V>() -> impl GenericTrait<i32> + GenericTrait2<V> + GenericSubtrait<(), i32, V> {}
-LL + fn generics_implied_multi<V>() -> impl GenericTrait<i32> + GenericSubtrait<(), i32, V> {}
-   |
+LL | fn generics_implied_multi<V>() -> impl GenericTrait<i32> + GenericTrait2<V> + GenericSubtrait<(), i32, V> {}
+   | ^
 
-error: this bound is already specified as the supertrait of `GenericSubtrait<(), T, V>`
-  --> tests/ui/implied_bounds_in_impls.rs:42:44
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:42:1
    |
 LL | fn generics_implied_multi2<T, V>() -> impl GenericTrait<T> + GenericTrait2<V> + GenericSubtrait<(), T, V>
-   |                                            ^^^^^^^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL - fn generics_implied_multi2<T, V>() -> impl GenericTrait<T> + GenericTrait2<V> + GenericSubtrait<(), T, V>
-LL + fn generics_implied_multi2<T, V>() -> impl GenericTrait2<V> + GenericSubtrait<(), T, V>
-   |
+   | ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `GenericSubtrait<(), T, V>`
-  --> tests/ui/implied_bounds_in_impls.rs:42:62
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:42:1
    |
 LL | fn generics_implied_multi2<T, V>() -> impl GenericTrait<T> + GenericTrait2<V> + GenericSubtrait<(), T, V>
-   |                                                              ^^^^^^^^^^^^^^^^
+   | ^
    |
-help: try removing this bound
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:42:1
    |
-LL - fn generics_implied_multi2<T, V>() -> impl GenericTrait<T> + GenericTrait2<V> + GenericSubtrait<(), T, V>
-LL + fn generics_implied_multi2<T, V>() -> impl GenericTrait<T> + GenericSubtrait<(), T, V>
-   |
+LL | fn generics_implied_multi2<T, V>() -> impl GenericTrait<T> + GenericTrait2<V> + GenericSubtrait<(), T, V>
+   | ^
 
-error: this bound is already specified as the supertrait of `GenericSubtrait<(), i32, ()>`
-  --> tests/ui/implied_bounds_in_impls.rs:54:28
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:51:1
+   |
+LL | fn generics_different() -> impl GenericTrait<i32> + GenericSubtrait<(), i64, ()> {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:51:1
+   |
+LL | fn generics_different() -> impl GenericTrait<i32> + GenericSubtrait<(), i64, ()> {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:51:1
+   |
+LL | fn generics_different() -> impl GenericTrait<i32> + GenericSubtrait<(), i64, ()> {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:54:1
    |
 LL | fn generics_same() -> impl GenericTrait<i32> + GenericSubtrait<(), i32, ()> {}
-   |                            ^^^^^^^^^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL - fn generics_same() -> impl GenericTrait<i32> + GenericSubtrait<(), i32, ()> {}
-LL + fn generics_same() -> impl GenericSubtrait<(), i32, ()> {}
-   |
+   | ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `DerefMut<Target = u8>`
-  --> tests/ui/implied_bounds_in_impls.rs:59:20
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:54:1
+   |
+LL | fn generics_same() -> impl GenericTrait<i32> + GenericSubtrait<(), i32, ()> {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:54:1
+   |
+LL | fn generics_same() -> impl GenericTrait<i32> + GenericSubtrait<(), i32, ()> {}
+   | ^
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:57:1
+   |
+LL | / trait SomeTrait {
+LL | |     // Check that it works in trait declarations.
+LL | |     fn f() -> impl Deref + DerefMut<Target = u8>;
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:57:1
+   |
+LL | trait SomeTrait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:59:5
    |
 LL |     fn f() -> impl Deref + DerefMut<Target = u8>;
-   |                    ^^^^^
+   |     ^
    |
-help: try removing this bound
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:59:5
    |
-LL -     fn f() -> impl Deref + DerefMut<Target = u8>;
-LL +     fn f() -> impl DerefMut<Target = u8>;
-   |
+LL |     fn f() -> impl Deref + DerefMut<Target = u8>;
+   |     ^
 
-error: this bound is already specified as the supertrait of `DerefMut<Target = u8>`
-  --> tests/ui/implied_bounds_in_impls.rs:65:20
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:62:1
+   |
+LL | struct SomeStruct;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:63:1
+   |
+LL | impl SomeStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:65:5
    |
 LL |     fn f() -> impl Deref + DerefMut<Target = u8> {
-   |                    ^^^^^
+   |     ^
    |
-help: try removing this bound
-   |
-LL -     fn f() -> impl Deref + DerefMut<Target = u8> {
-LL +     fn f() -> impl DerefMut<Target = u8> {
-   |
-
-error: this bound is already specified as the supertrait of `DerefMut<Target = u8>`
-  --> tests/ui/implied_bounds_in_impls.rs:72:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:65:5
    |
 LL |     fn f() -> impl Deref + DerefMut<Target = u8> {
-   |                    ^^^^^
-   |
-help: try removing this bound
-   |
-LL -     fn f() -> impl Deref + DerefMut<Target = u8> {
-LL +     fn f() -> impl DerefMut<Target = u8> {
-   |
+   |     ^
 
-error: this bound is already specified as the supertrait of `PartialOrd`
-  --> tests/ui/implied_bounds_in_impls.rs:84:41
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:70:1
+   |
+LL | impl SomeTrait for SomeStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:72:5
+   |
+LL |     fn f() -> impl Deref + DerefMut<Target = u8> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:72:5
+   |
+LL |     fn f() -> impl Deref + DerefMut<Target = u8> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:78:1
+   |
+LL | mod issue11422 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:84:5
    |
 LL |     fn default_generic_param1() -> impl PartialEq + PartialOrd + Debug {}
-   |                                         ^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL -     fn default_generic_param1() -> impl PartialEq + PartialOrd + Debug {}
-LL +     fn default_generic_param1() -> impl PartialOrd + Debug {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `PartialOrd`
-  --> tests/ui/implied_bounds_in_impls.rs:86:54
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:84:5
+   |
+LL |     fn default_generic_param1() -> impl PartialEq + PartialOrd + Debug {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:84:5
+   |
+LL |     fn default_generic_param1() -> impl PartialEq + PartialOrd + Debug {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:86:5
    |
 LL |     fn default_generic_param2() -> impl PartialOrd + PartialEq + Debug {}
-   |                                                      ^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL -     fn default_generic_param2() -> impl PartialOrd + PartialEq + Debug {}
-LL +     fn default_generic_param2() -> impl PartialOrd + Debug {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `DoubleEndedIterator`
-  --> tests/ui/implied_bounds_in_impls.rs:100:26
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:86:5
+   |
+LL |     fn default_generic_param2() -> impl PartialOrd + PartialEq + Debug {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:86:5
+   |
+LL |     fn default_generic_param2() -> impl PartialOrd + PartialEq + Debug {}
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:90:5
+   |
+LL |     trait Trait1<X: ?Sized> {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:90:5
+   |
+LL |     trait Trait1<X: ?Sized> {}
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:91:5
+   |
+LL |     trait Trait2: Trait1<Self> {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:91:5
+   |
+LL |     trait Trait2: Trait1<Self> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:92:5
+   |
+LL |     impl Trait1<()> for () {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:93:5
+   |
+LL |     impl Trait2 for () {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:95:5
+   |
+LL |     fn f() -> impl Trait1<()> + Trait2 {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:95:5
+   |
+LL |     fn f() -> impl Trait1<()> + Trait2 {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:95:5
+   |
+LL |     fn f() -> impl Trait1<()> + Trait2 {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:98:1
+   |
+LL | mod issue11435 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:100:5
    |
 LL |     fn my_iter() -> impl Iterator<Item = u32> + DoubleEndedIterator {
-   |                          ^^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL -     fn my_iter() -> impl Iterator<Item = u32> + DoubleEndedIterator {
-LL +     fn my_iter() -> impl DoubleEndedIterator<Item = u32> {
-   |
+   |     ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `Copy`
-  --> tests/ui/implied_bounds_in_impls.rs:106:27
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:100:5
+   |
+LL |     fn my_iter() -> impl Iterator<Item = u32> + DoubleEndedIterator {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:100:5
+   |
+LL |     fn my_iter() -> impl Iterator<Item = u32> + DoubleEndedIterator {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:106:5
    |
 LL |     fn f() -> impl Copy + Clone {
-   |                           ^^^^^
-   |
-help: try removing this bound
-   |
-LL -     fn f() -> impl Copy + Clone {
-LL +     fn f() -> impl Copy {
-   |
+   |     ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `Trait2<i32>`
-  --> tests/ui/implied_bounds_in_impls.rs:121:21
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:106:5
+   |
+LL |     fn f() -> impl Copy + Clone {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:106:5
+   |
+LL |     fn f() -> impl Copy + Clone {
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:111:5
+   |
+LL | /     trait Trait1<T> {
+LL | |         type U;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:111:5
+   |
+LL |     trait Trait1<T> {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:114:5
+   |
+LL |     impl Trait1<i32> for () {
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:117:5
+   |
+LL |     trait Trait2<T>: Trait1<T> {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:117:5
+   |
+LL |     trait Trait2<T>: Trait1<T> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:118:5
+   |
+LL |     impl Trait2<i32> for () {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:121:5
    |
 LL |     fn f2() -> impl Trait1<i32, U = i64> + Trait2<i32> {}
-   |                     ^^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL -     fn f2() -> impl Trait1<i32, U = i64> + Trait2<i32> {}
-LL +     fn f2() -> impl Trait2<i32, U = i64> {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `Trait4<i8, X = i32>`
-  --> tests/ui/implied_bounds_in_impls.rs:137:21
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:121:5
+   |
+LL |     fn f2() -> impl Trait1<i32, U = i64> + Trait2<i32> {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:121:5
+   |
+LL |     fn f2() -> impl Trait1<i32, U = i64> + Trait2<i32> {}
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:124:5
+   |
+LL | /     trait Trait3<T, U, V> {
+LL | |         type X;
+LL | |         type Y;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:124:5
+   |
+LL |     trait Trait3<T, U, V> {
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:128:5
+   |
+LL |     trait Trait4<T>: Trait3<T, i16, i64> {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:128:5
+   |
+LL |     trait Trait4<T>: Trait3<T, i16, i64> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:129:5
+   |
+LL |     impl Trait3<i8, i16, i64> for () {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:133:5
+   |
+LL |     impl Trait4<i8> for () {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:137:5
    |
 LL |     fn f3() -> impl Trait3<i8, i16, i64, X = i32, Y = i128> + Trait4<i8, X = i32> {}
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL -     fn f3() -> impl Trait3<i8, i16, i64, X = i32, Y = i128> + Trait4<i8, X = i32> {}
-LL +     fn f3() -> impl Trait4<i8, X = i32, Y = i128> {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `Y`
-  --> tests/ui/implied_bounds_in_impls.rs:165:21
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:137:5
+   |
+LL |     fn f3() -> impl Trait3<i8, i16, i64, X = i32, Y = i128> + Trait4<i8, X = i32> {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:137:5
+   |
+LL |     fn f3() -> impl Trait3<i8, i16, i64, X = i32, Y = i128> + Trait4<i8, X = i32> {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:141:1
+   |
+LL | fn issue11880() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:141:1
+   |
+LL | fn issue11880() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:141:1
+   |
+LL | fn issue11880() {
+   | ^
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:142:5
+   |
+LL | /     trait X {
+LL | |         type T;
+LL | |         type U;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:142:5
+   |
+LL |     trait X {
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:146:5
+   |
+LL | /     trait Y: X {
+LL | |         type T;
+LL | |         type V;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:146:5
+   |
+LL |     trait Y: X {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:150:5
+   |
+LL |     impl X for () {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:154:5
+   |
+LL |     impl Y for () {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:160:5
+   |
+LL |     fn f() -> impl X<T = i32> + Y {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:160:5
+   |
+LL |     fn f() -> impl X<T = i32> + Y {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:160:5
+   |
+LL |     fn f() -> impl X<T = i32> + Y {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:161:5
+   |
+LL |     fn f2() -> impl X<T = i32> + Y<T = u32> {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:161:5
+   |
+LL |     fn f2() -> impl X<T = i32> + Y<T = u32> {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:161:5
+   |
+LL |     fn f2() -> impl X<T = i32> + Y<T = u32> {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:165:5
    |
 LL |     fn f3() -> impl X + Y {}
-   |                     ^
-   |
-help: try removing this bound
-   |
-LL -     fn f3() -> impl X + Y {}
-LL +     fn f3() -> impl Y {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `Y<T = u32>`
-  --> tests/ui/implied_bounds_in_impls.rs:167:21
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:165:5
+   |
+LL |     fn f3() -> impl X + Y {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:165:5
+   |
+LL |     fn f3() -> impl X + Y {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:167:5
    |
 LL |     fn f4() -> impl X + Y<T = u32> {}
-   |                     ^
-   |
-help: try removing this bound
-   |
-LL -     fn f4() -> impl X + Y<T = u32> {}
-LL +     fn f4() -> impl Y<T = u32> {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `Y<T = u32>`
-  --> tests/ui/implied_bounds_in_impls.rs:169:21
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:167:5
+   |
+LL |     fn f4() -> impl X + Y<T = u32> {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:167:5
+   |
+LL |     fn f4() -> impl X + Y<T = u32> {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:169:5
    |
 LL |     fn f5() -> impl X<U = String> + Y<T = u32> {}
-   |                     ^^^^^^^^^^^^^
-   |
-help: try removing this bound
-   |
-LL -     fn f5() -> impl X<U = String> + Y<T = u32> {}
-LL +     fn f5() -> impl Y<T = u32, U = String> {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `DerefMut`
-  --> tests/ui/implied_bounds_in_impls.rs:173:17
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:169:5
+   |
+LL |     fn f5() -> impl X<U = String> + Y<T = u32> {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:169:5
+   |
+LL |     fn f5() -> impl X<U = String> + Y<T = u32> {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:173:1
    |
 LL | fn apit(_: impl Deref + DerefMut) {}
-   |                 ^^^^^
-   |
-help: try removing this bound
-   |
-LL - fn apit(_: impl Deref + DerefMut) {}
-LL + fn apit(_: impl DerefMut) {}
-   |
+   | ^ help: make this item public: `pub`
 
-error: this bound is already specified as the supertrait of `DerefMut`
-  --> tests/ui/implied_bounds_in_impls.rs:177:20
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:173:1
+   |
+LL | fn apit(_: impl Deref + DerefMut) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:173:1
+   |
+LL | fn apit(_: impl Deref + DerefMut) {}
+   | ^
+
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:176:1
+   |
+LL | / trait Rpitit {
+LL | |     fn f() -> impl Deref + DerefMut;
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:176:1
+   |
+LL | trait Rpitit {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:177:5
    |
 LL |     fn f() -> impl Deref + DerefMut;
-   |                    ^^^^^
+   |     ^
    |
-help: try removing this bound
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:177:5
    |
-LL -     fn f() -> impl Deref + DerefMut;
-LL +     fn f() -> impl DerefMut;
-   |
+LL |     fn f() -> impl Deref + DerefMut;
+   |     ^
 
-error: this bound is already specified as the supertrait of `DerefMut`
-  --> tests/ui/implied_bounds_in_impls.rs:186:23
+error: trait must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:181:1
    |
-LL |     type Assoc = impl Deref + DerefMut;
-   |                       ^^^^^
+LL | / trait Atpit {
+LL | |     type Assoc;
+LL | |     fn define() -> Self::Assoc;
+LL | | }
+   | |_^
    |
-help: try removing this bound
-   |
-LL -     type Assoc = impl Deref + DerefMut;
-LL +     type Assoc = impl DerefMut;
-   |
+   = help: make this trait unsafe: `unsafe trait`
 
-error: this bound is already specified as the supertrait of `DerefMut`
-  --> tests/ui/implied_bounds_in_impls.rs:193:18
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:181:1
+   |
+LL | trait Atpit {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:183:5
+   |
+LL |     fn define() -> Self::Assoc;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:183:5
+   |
+LL |     fn define() -> Self::Assoc;
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:185:1
+   |
+LL | impl Atpit for () {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:188:5
+   |
+LL |     fn define() -> Self::Assoc {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:188:5
+   |
+LL |     fn define() -> Self::Assoc {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/implied_bounds_in_impls.rs:189:9
+   |
+LL |         &mut [] as &mut [()]
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/implied_bounds_in_impls.rs:189:20
+   |
+LL |         &mut [] as &mut [()]
+   |                    ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:193:1
    |
 LL | type Tait = impl Deref + DerefMut;
-   |                  ^^^^^
-   |
-help: try removing this bound
-   |
-LL - type Tait = impl Deref + DerefMut;
-LL + type Tait = impl DerefMut;
-   |
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 23 previous errors
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:196:1
+   |
+LL | fn define() -> Tait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:196:1
+   |
+LL | fn define() -> Tait {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:196:1
+   |
+LL | fn define() -> Tait {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/implied_bounds_in_impls.rs:197:5
+   |
+LL |     &mut [] as &mut [()]
+   |     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/implied_bounds_in_impls.rs:197:16
+   |
+LL |     &mut [] as &mut [()]
+   |                ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/implied_bounds_in_impls.rs:200:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:200:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implied_bounds_in_impls.rs:200:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 110 previous errors
 

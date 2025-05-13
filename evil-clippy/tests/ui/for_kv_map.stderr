@@ -1,76 +1,225 @@
-error: you seem to want to iterate on a map's values
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/for_kv_map.rs:7:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/for_kv_map.rs:7:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/for_kv_map.rs:7:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:8:9
+   |
+LL |     let m: HashMap<u64, u64> = HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
   --> tests/ui/for_kv_map.rs:9:19
    |
 LL |     for (_, v) in &m {
    |                   ^^
    |
-   = note: `-D clippy::for-kv-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::for_kv_map)]`
-help: use the corresponding method
-   |
-LL -     for (_, v) in &m {
-LL +     for v in m.values() {
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: you seem to want to iterate on a map's values
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:12:13
+   |
+LL |         let _v = v;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:15:9
+   |
+LL |     let m: Rc<HashMap<u64, u64>> = Rc::new(HashMap::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/for_kv_map.rs:16:19
    |
 LL |     for (_, v) in &*m {
    |                   ^^^
    |
-help: use the corresponding method
-   |
-LL -     for (_, v) in &*m {
-LL +     for v in (*m).values() {
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: you seem to want to iterate on a map's values
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:19:13
+   |
+LL |         let _v = v;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/for_kv_map.rs:26:19
    |
 LL |     for (_, v) in &mut m {
    |                   ^^^^^^
    |
-help: use the corresponding method
-   |
-LL -     for (_, v) in &mut m {
-LL +     for v in m.values_mut() {
-   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: you seem to want to iterate on a map's values
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:29:13
+   |
+LL |         let _v = v;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:32:9
+   |
+LL |     let m: &mut HashMap<u64, u64> = &mut HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/for_kv_map.rs:32:12
+   |
+LL |     let m: &mut HashMap<u64, u64> = &mut HashMap::new();
+   |            ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/for_kv_map.rs:32:37
+   |
+LL |     let m: &mut HashMap<u64, u64> = &mut HashMap::new();
+   |                                     ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
   --> tests/ui/for_kv_map.rs:33:19
    |
 LL |     for (_, v) in &mut *m {
    |                   ^^^^^^^
    |
-help: use the corresponding method
-   |
-LL -     for (_, v) in &mut *m {
-LL +     for v in (*m).values_mut() {
-   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: you seem to want to iterate on a map's keys
-  --> tests/ui/for_kv_map.rs:41:24
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:36:13
    |
-LL |     for (k, _value) in rm {
+LL |         let _v = v;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:39:9
+   |
+LL |     let m: HashMap<u64, u64> = HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:40:9
+   |
+LL |     let rm = &m;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/for_kv_map.rs:40:14
+   |
+LL |     let rm = &m;
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:44:13
+   |
+LL |         let _k = k;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:47:9
+   |
+LL |     let m: HashMap<u64, u64> = HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:48:9
+   |
+LL |     let rm = &m;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/for_kv_map.rs:48:14
+   |
+LL |     let rm = &m;
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:52:13
+   |
+LL |         let _k = k;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:60:9
+   |
+LL |     let m: HashMap<u64, u64> = HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/for_kv_map.rs:62:24
+   |
+LL |     for (k, _value) in &m {
    |                        ^^
    |
-help: use the corresponding method
-   |
-LL -     for (k, _value) in rm {
-LL +     for k in rm.keys() {
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: you seem to want to iterate on a map's keys
-  --> tests/ui/for_kv_map.rs:49:32
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:64:13
    |
-LL |     'label: for (k, _value) in rm {
-   |                                ^^
-   |
-help: use the corresponding method
-   |
-LL -     'label: for (k, _value) in rm {
-LL +     'label: for k in rm.keys() {
-   |
+LL |         let _k = k;
+   |             ^ help: make this variable mutable: `mut`
 
-error: aborting due to 6 previous errors
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:67:9
+   |
+LL |     let m: HashMap<u64, String> = Default::default();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/for_kv_map.rs:69:13
+   |
+LL |         let _v = v;
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 32 previous errors
 

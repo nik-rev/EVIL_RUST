@@ -1,101 +1,587 @@
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:46:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     with_new.unwrap_or_else(Vec::new);
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-   |
-   = note: `-D clippy::unwrap-or-default` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unwrap_or_default)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:61:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     with_real_default.unwrap_or_else(<HasDefaultAndDuplicate as Default>::default);
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:65:24
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:6:1
    |
-LL |     with_default_trait.unwrap_or_else(Default::default);
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:69:23
+LL | fn unwrap_or_else_default() {
+   | ^ help: make this item public: `pub`
    |
-LL |     with_default_type.unwrap_or_else(u64::default);
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:73:23
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:6:1
    |
-LL |     with_default_type.unwrap_or_else(Vec::new);
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:77:18
+LL | fn unwrap_or_else_default() {
+   | ^
    |
-LL |     empty_string.unwrap_or_else(|| "".to_string());
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:82:12
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:6:1
    |
-LL |     option.unwrap_or_else(Vec::new).push(1);
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL | fn unwrap_or_else_default() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:86:12
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:7:5
    |
-LL |     option.unwrap_or_else(Vec::new).push(1);
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:90:12
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:9:5
    |
-LL |     option.unwrap_or_else(Vec::new).push(1);
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:94:12
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:10:9
    |
-LL |     option.unwrap_or_else(Vec::new).push(1);
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:98:12
+LL |         fn new() -> Foo {
+   |         ^
    |
-LL |     option.unwrap_or_else(Vec::new).push(1);
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:102:12
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:10:9
    |
-LL |     option.unwrap_or_else(Vec::new).push(1);
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |         fn new() -> Foo {
+   |         ^
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:106:12
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:15:9
    |
-LL |     option.unwrap_or_else(Vec::new).push(1);
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:110:12
+LL |         fn default() -> Foo {
+   |         ^
    |
-LL |     option.unwrap_or_else(Vec::new).push(1);
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:127:12
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:15:9
    |
-LL |     option.unwrap_or_else(Vec::new).push(1);
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |         fn default() -> Foo {
+   |         ^
 
-error: use of `or_insert_with` to construct default value
-  --> tests/ui/unwrap_or_else_default.rs:145:32
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:20:5
    |
-LL |     let _ = inner_map.entry(0).or_insert_with(Default::default);
-   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `or_default()`
+LL |     struct HasDefaultAndDuplicate;
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 16 previous errors
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:22:5
+   |
+LL |     impl HasDefaultAndDuplicate {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:23:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:23:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:28:5
+   |
+LL |     impl Default for HasDefaultAndDuplicate {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:29:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:29:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:34:5
+   |
+LL |     enum Enum {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:38:5
+   |
+LL |     fn make<T, V>(_: V) -> T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:38:5
+   |
+LL |     fn make<T, V>(_: V) -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:38:5
+   |
+LL |     fn make<T, V>(_: V) -> T {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:42:9
+   |
+LL |     let with_enum = Some(Enum::A());
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:45:9
+   |
+LL |     let with_new = Some(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:49:9
+   |
+LL |     let with_err: Result<_, ()> = Ok(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:53:9
+   |
+LL |     let with_fake_default = None::<Foo>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:57:9
+   |
+LL |     let with_fake_default2 = None::<HasDefaultAndDuplicate>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:60:9
+   |
+LL |     let with_real_default = None::<HasDefaultAndDuplicate>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:64:9
+   |
+LL |     let with_default_trait = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:68:9
+   |
+LL |     let with_default_type = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:72:9
+   |
+LL |     let with_default_type: Option<Vec<u64>> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:76:9
+   |
+LL |     let empty_string = None::<String>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:81:1
+   |
+LL | fn type_certainty(option: Option<Vec<u64>>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:81:1
+   |
+LL | fn type_certainty(option: Option<Vec<u64>>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:81:1
+   |
+LL | fn type_certainty(option: Option<Vec<u64>>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:81:19
+   |
+LL | fn type_certainty(option: Option<Vec<u64>>) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:85:9
+   |
+LL |     let option: std::option::Option<std::vec::Vec<u64>> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:89:9
+   |
+LL |     let option: Option<Vec<u64>> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:93:9
+   |
+LL |     let option = std::option::Option::<std::vec::Vec<u64>>::None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:97:9
+   |
+LL |     let option = Option::<Vec<u64>>::None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:101:9
+   |
+LL |     let option = std::option::Option::None::<std::vec::Vec<u64>>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:105:9
+   |
+LL |     let option = Option::None::<Vec<u64>>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:109:9
+   |
+LL |     let option = None::<Vec<u64>>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:114:9
+   |
+LL |     let option: Option<Vec<_>> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:118:9
+   |
+LL |     let option = Option::None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:122:9
+   |
+LL |     let option = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:125:5
+   |
+LL |     type Alias = Option<Vec<u32>>;
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:126:9
+   |
+LL |     let option: Alias = Option::<Vec<u32>>::Some(Vec::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:131:1
+   |
+LL | fn method_call_with_deref() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:131:1
+   |
+LL | fn method_call_with_deref() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:131:1
+   |
+LL | fn method_call_with_deref() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:135:9
+   |
+LL |     let cell = RefCell::new(HashMap::<u64, HashMap<u64, String>>::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:143:9
+   |
+LL |     let inner_map = outer_map.get_mut(&option.unwrap()).unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unwrap_or_else_default.rs:143:39
+   |
+LL |     let inner_map = outer_map.get_mut(&option.unwrap()).unwrap();
+   |                                       ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:149:1
+   |
+LL | fn missing_suggested_method() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:149:1
+   |
+LL | fn missing_suggested_method() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:149:1
+   |
+LL | fn missing_suggested_method() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:151:5
+   |
+LL |     struct S<T>(T);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:150:14
+   |
+LL |     #[derive(Copy, Clone)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:150:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:150:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:150:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:150:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unwrap_or_else_default.rs:150:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unwrap_or_else_default.rs:151:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ----- in this derive macro expansion
+LL |     struct S<T>(T);
+   |                 ^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:153:5
+   |
+LL |     impl<T> S<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:154:9
+   |
+LL |         fn or_insert_with(&mut self, default: impl FnOnce() -> T) -> &mut T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:154:9
+   |
+LL |         fn or_insert_with(&mut self, default: impl FnOnce() -> T) -> &mut T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:154:32
+   |
+LL |         fn or_insert_with(&mut self, default: impl FnOnce() -> T) -> &mut T {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:154:38
+   |
+LL |         fn or_insert_with(&mut self, default: impl FnOnce() -> T) -> &mut T {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unwrap_or_else_default.rs:154:27
+   |
+LL |         fn or_insert_with(&mut self, default: impl FnOnce() -> T) -> &mut T {
+   |                           ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unwrap_or_else_default.rs:154:70
+   |
+LL |         fn or_insert_with(&mut self, default: impl FnOnce() -> T) -> &mut T {
+   |                                                                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unwrap_or_else_default.rs:155:13
+   |
+LL |             &mut self.0
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:158:9
+   |
+LL |         fn or_insert(&mut self, default: T) -> &mut T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:158:9
+   |
+LL |         fn or_insert(&mut self, default: T) -> &mut T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:158:27
+   |
+LL |         fn or_insert(&mut self, default: T) -> &mut T {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:158:33
+   |
+LL |         fn or_insert(&mut self, default: T) -> &mut T {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unwrap_or_else_default.rs:158:22
+   |
+LL |         fn or_insert(&mut self, default: T) -> &mut T {
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unwrap_or_else_default.rs:158:48
+   |
+LL |         fn or_insert(&mut self, default: T) -> &mut T {
+   |                                                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unwrap_or_else_default.rs:159:13
+   |
+LL |             &mut self.0
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:162:9
+   |
+LL |         fn unwrap_or_else(self, default: impl FnOnce() -> T) -> T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:162:9
+   |
+LL |         fn unwrap_or_else(self, default: impl FnOnce() -> T) -> T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:162:27
+   |
+LL |         fn unwrap_or_else(self, default: impl FnOnce() -> T) -> T {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:162:33
+   |
+LL |         fn unwrap_or_else(self, default: impl FnOnce() -> T) -> T {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:166:9
+   |
+LL |         fn unwrap_or(self, default: T) -> T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:166:9
+   |
+LL |         fn unwrap_or(self, default: T) -> T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:166:22
+   |
+LL |         fn unwrap_or(self, default: T) -> T {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_or_else_default.rs:166:28
+   |
+LL |         fn unwrap_or(self, default: T) -> T {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_or_else_default.rs:179:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:179:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_or_else_default.rs:179:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 78 previous errors
 

@@ -1,41 +1,153 @@
-error: use `std::ptr::eq` when comparing raw pointers
-  --> tests/ui/ptr_eq.rs:22:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = a as *const _ as usize == b as *const _ as usize;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::ptr::eq(a, b)`
-   |
-   = note: `-D clippy::ptr-eq` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::ptr_eq)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use `std::ptr::eq` when comparing raw pointers
-  --> tests/ui/ptr_eq.rs:24:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = a as *const _ == b as *const _;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::ptr::eq(a, b)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use `std::ptr::eq` when comparing raw pointers
-  --> tests/ui/ptr_eq.rs:50:13
+error: item must be `pub`
+  --> tests/ui/ptr_eq.rs:3:1
    |
-LL |     let _ = x as *const u32 == y as *mut u32 as *const u32;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::ptr::eq(x, y)`
-
-error: use `std::ptr::eq` when comparing raw pointers
-  --> tests/ui/ptr_eq.rs:53:13
+LL | macro_rules! mac {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = x as *const u32 != y as *mut u32 as *const u32;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `!std::ptr::eq(x, y)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: use `std::ptr::eq` when comparing raw pointers
-  --> tests/ui/ptr_eq.rs:61:13
+error: item must be `pub`
+  --> tests/ui/ptr_eq.rs:12:1
    |
-LL |     let _ = mac!(cast a) as *const _ == mac!(cast b) as *const _;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::ptr::eq(mac!(cast a), mac!(cast b))`
+LL | macro_rules! another_mac {
+   | ^ help: make this item public: `pub`
 
-error: use `std::ptr::eq` when comparing raw pointers
-  --> tests/ui/ptr_eq.rs:65:13
+error: item must be `pub`
+  --> tests/ui/ptr_eq.rs:18:1
    |
-LL |     let _ = mac!(cast a) as *const _ == mac!(cast b) as *const _;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::ptr::eq(mac!(cast a), mac!(cast b))`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 6 previous errors
+error: function must be `unsafe`
+  --> tests/ui/ptr_eq.rs:18:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_eq.rs:18:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_eq.rs:19:9
+   |
+LL |     let a = &[1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_eq.rs:19:13
+   |
+LL |     let a = &[1, 2, 3];
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_eq.rs:20:9
+   |
+LL |     let b = &[1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_eq.rs:20:13
+   |
+LL |     let b = &[1, 2, 3];
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_eq.rs:37:9
+   |
+LL |     let a = &mut [1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_eq.rs:37:13
+   |
+LL |     let a = &mut [1, 2, 3];
+   |             ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_eq.rs:38:9
+   |
+LL |     let b = &mut [1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_eq.rs:38:13
+   |
+LL |     let b = &mut [1, 2, 3];
+   |             ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_eq.rs:49:10
+   |
+LL |     let (x, y) = (&0u32, &mut 1u32);
+   |          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_eq.rs:49:13
+   |
+LL |     let (x, y) = (&0u32, &mut 1u32);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_eq.rs:49:19
+   |
+LL |     let (x, y) = (&0u32, &mut 1u32);
+   |                   ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/ptr_eq.rs:49:26
+   |
+LL |     let (x, y) = (&0u32, &mut 1u32);
+   |                          ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_eq.rs:58:9
+   |
+LL |     let _issue14337 = main as *const () == main as *const ();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 21 previous errors
 

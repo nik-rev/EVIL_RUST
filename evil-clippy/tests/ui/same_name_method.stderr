@@ -1,76 +1,503 @@
-error: method's name is the same as an existing method in a trait
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/same_name_method.rs:4:1
+   |
+LL | / trait T1 {
+LL | |     fn foo() {}
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:4:1
+   |
+LL | trait T1 {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:5:5
+   |
+LL |     fn foo() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:5:5
+   |
+LL |     fn foo() {}
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/same_name_method.rs:8:1
+   |
+LL | / trait T2 {
+LL | |     fn foo() {}
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:8:1
+   |
+LL | trait T2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:9:5
+   |
+LL |     fn foo() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:9:5
+   |
+LL |     fn foo() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:12:1
+   |
+LL | mod should_lint {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:14:5
+   |
+LL |     mod test_basic_case {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:17:9
+   |
+LL |         struct S;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:19:9
+   |
+LL |         impl S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/same_name_method.rs:20:13
    |
 LL |             fn foo() {}
-   |             ^^^^^^^^^^^
+   |             ^
    |
-note: existing `foo` defined here
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:20:13
+   |
+LL |             fn foo() {}
+   |             ^
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:24:9
+   |
+LL |         impl T1 for S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/same_name_method.rs:25:13
    |
 LL |             fn foo() {}
-   |             ^^^^^^^^^^^
-   = note: `-D clippy::same-name-method` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::same_name_method)]`
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:25:13
+   |
+LL |             fn foo() {}
+   |             ^
 
-error: method's name is the same as an existing method in a trait
-  --> tests/ui/same_name_method.rs:35:13
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:29:5
    |
-LL |             fn clone() {}
-   |             ^^^^^^^^^^^^^
+LL |     mod test_derive {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:32:9
    |
-note: existing `clone` defined here
+LL |         struct S;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:31:18
+   |
+LL |         #[derive(Clone)]
+   |                  ^
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:31:15
+   |
+LL |         #[derive(Clone)]
+   |               ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:31:15
+   |
+LL |         #[derive(Clone)]
+   |               ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/same_name_method.rs:31:18
+   |
+LL |         #[derive(Clone)]
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
   --> tests/ui/same_name_method.rs:31:18
    |
 LL |         #[derive(Clone)]
    |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: method's name is the same as an existing method in a trait
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:34:9
+   |
+LL |         impl S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:35:13
+   |
+LL |             fn clone() {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:35:13
+   |
+LL |             fn clone() {}
+   |             ^
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:40:5
+   |
+LL |     mod with_generic {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:43:9
+   |
+LL |         struct S<U>(U);
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:45:9
+   |
+LL |         impl<U> S<U> {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/same_name_method.rs:46:13
    |
 LL |             fn foo() {}
-   |             ^^^^^^^^^^^
+   |             ^
    |
-note: existing `foo` defined here
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:46:13
+   |
+LL |             fn foo() {}
+   |             ^
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:50:9
+   |
+LL |         impl<U: Copy> T1 for S<U> {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/same_name_method.rs:51:13
    |
 LL |             fn foo() {}
-   |             ^^^^^^^^^^^
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:51:13
+   |
+LL |             fn foo() {}
+   |             ^
 
-error: method's name is the same as an existing method in a trait
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:55:5
+   |
+LL |     mod default_method {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:58:9
+   |
+LL |         struct S;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:60:9
+   |
+LL |         impl S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/same_name_method.rs:61:13
    |
 LL |             fn foo() {}
-   |             ^^^^^^^^^^^
+   |             ^
    |
-note: existing `foo` defined here
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:61:13
+   |
+LL |             fn foo() {}
+   |             ^
+
+error: item must be `pub`
   --> tests/ui/same_name_method.rs:65:9
    |
 LL |         impl T1 for S {}
-   |         ^^^^^^^^^^^^^^^^
+   |         ^ help: make this item public: `pub`
 
-error: method's name is the same as an existing method in a trait
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:68:5
+   |
+LL |     mod multiple_conflicting_traits {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:71:9
+   |
+LL |         struct S;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:73:9
+   |
+LL |         impl S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/same_name_method.rs:74:13
    |
 LL |             fn foo() {}
-   |             ^^^^^^^^^^^
+   |             ^
    |
-note: existing `foo` defined here
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:74:13
+   |
+LL |             fn foo() {}
+   |             ^
+
+error: item must be `pub`
   --> tests/ui/same_name_method.rs:79:9
    |
 LL |         impl T1 for S {}
-   |         ^^^^^^^^^^^^^^^^
+   |         ^ help: make this item public: `pub`
 
-error: method's name is the same as an existing method in a trait
-  --> tests/ui/same_name_method.rs:74:13
-   |
-LL |             fn foo() {}
-   |             ^^^^^^^^^^^
-   |
-note: existing `foo` defined here
+error: item must be `pub`
   --> tests/ui/same_name_method.rs:81:9
    |
 LL |         impl T2 for S {}
-   |         ^^^^^^^^^^^^^^^^
+   |         ^ help: make this item public: `pub`
 
-error: aborting due to 6 previous errors
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:85:1
+   |
+LL | mod should_not_lint {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:87:5
+   |
+LL |     mod not_lint_two_trait_method {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:90:9
+   |
+LL |         struct S;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:92:9
+   |
+LL |         impl T1 for S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:93:13
+   |
+LL |             fn foo() {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:93:13
+   |
+LL |             fn foo() {}
+   |             ^
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:96:9
+   |
+LL |         impl T2 for S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:97:13
+   |
+LL |             fn foo() {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:97:13
+   |
+LL |             fn foo() {}
+   |             ^
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:101:5
+   |
+LL |     mod only_lint_on_method {
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/same_name_method.rs:102:9
+   |
+LL | /         trait T3 {
+LL | |             type foo;
+LL | |         }
+   | |_________^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:102:9
+   |
+LL |         trait T3 {
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:106:9
+   |
+LL |         struct S;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:108:9
+   |
+LL |         impl S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:109:13
+   |
+LL |             fn foo() {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:109:13
+   |
+LL |             fn foo() {}
+   |             ^
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:111:9
+   |
+LL |         impl T3 for S {
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:117:1
+   |
+LL | mod check_expect_suppression {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:120:5
+   |
+LL |     struct S;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:122:5
+   |
+LL |     impl S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:124:9
+   |
+LL |         fn foo() {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:124:9
+   |
+LL |         fn foo() {}
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:127:5
+   |
+LL |     impl T1 for S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:128:9
+   |
+LL |         fn foo() {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:128:9
+   |
+LL |         fn foo() {}
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/same_name_method.rs:132:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/same_name_method.rs:132:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/same_name_method.rs:132:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 64 previous errors
 

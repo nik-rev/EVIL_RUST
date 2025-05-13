@@ -1,85 +1,70 @@
-error: safe trait
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
   --> tests/ui/safe_code.rs:5:1
    |
 LL | trait TraitSafe {}
-   | ^^^^^^^^^^^^^^^^^^
+   | ^ help: make this item public: `pub`
    |
-   = help: make this trait unsafe: `unsafe trait`
-   = note: `-D clippy::safe-code` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::safe_code)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: safe function
+error: item must be `pub`
+  --> tests/ui/safe_code.rs:7:1
+   |
+LL | unsafe trait TraitUnsafe {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/safe_code.rs:9:1
    |
 LL | fn foo_safe() {}
-   | ^
-   |
-help: make this function unsafe: `unsafe`
-  --> tests/ui/safe_code.rs:9:1
-   |
-LL | fn foo_safe() {}
-   | ^
+   | ^ help: make this item public: `pub`
 
-error: safe function
-  --> tests/ui/safe_code.rs:15:9
+error: item must be `pub`
+  --> tests/ui/safe_code.rs:11:1
    |
-LL |     pub fn bar_safe() {}
-   |         ^
-   |
-help: make this function unsafe: `unsafe`
-  --> tests/ui/safe_code.rs:15:9
-   |
-LL |     pub fn bar_safe() {}
-   |         ^
+LL | unsafe fn foo_unsafe() {}
+   | ^ help: make this item public: `pub`
 
-error: safe trait
+error: item must be `pub`
+  --> tests/ui/safe_code.rs:13:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/safe_code.rs:14:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/safe_code.rs:20:1
    |
-LL | / trait B {
-LL | |
-LL | |     fn baz_safe() {}
-...  |
-LL | |     unsafe fn quux_unsafe();
-LL | | }
-   | |_^
-   |
-   = help: make this trait unsafe: `unsafe trait`
+LL | trait B {
+   | ^ help: make this item public: `pub`
 
-error: safe function
-  --> tests/ui/safe_code.rs:22:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     fn baz_safe() {}
-   |     ^
-   |
-help: make this function unsafe: `unsafe`
-  --> tests/ui/safe_code.rs:22:5
-   |
-LL |     fn baz_safe() {}
-   |     ^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: safe function
-  --> tests/ui/safe_code.rs:26:5
+error: missing `#![no_std]`
    |
-LL |     fn quux_safe();
-   |     ^
-   |
-help: make this function unsafe: `unsafe`
-  --> tests/ui/safe_code.rs:26:5
-   |
-LL |     fn quux_safe();
-   |     ^
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
-error: safe function
-  --> tests/ui/safe_code.rs:32:5
-   |
-LL | pub extern "C" fn entry() {
-   |     ^
-   |
-help: make this function unsafe: `unsafe`
-  --> tests/ui/safe_code.rs:32:5
-   |
-LL | pub extern "C" fn entry() {
-   |     ^
-
-error: aborting due to 7 previous errors
+error: aborting due to 11 previous errors
 

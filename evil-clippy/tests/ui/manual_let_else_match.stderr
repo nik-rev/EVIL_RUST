@@ -1,105 +1,380 @@
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:36:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     let v = match g() {
-LL | |
-LL | |         Some(v_some) => v_some,
-LL | |         None => return,
-LL | |     };
-   | |______^ help: consider writing: `let Some(v) = g() else { return };`
-   |
-   = note: `-D clippy::manual-let-else` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_let_else)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:42:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     let v = match g() {
-LL | |
-LL | |         Some(v_some) => v_some,
-LL | |         _ => return,
-LL | |     };
-   | |______^ help: consider writing: `let Some(v) = g() else { return };`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:50:9
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:11:1
    |
-LL | /         let v = match h() {
-LL | |
-LL | |             (Some(v), None) | (None, Some(v)) => v,
-LL | |             (Some(_), Some(_)) | (None, None) => continue,
-LL | |         };
-   | |__________^ help: consider writing: `let ((Some(v), None) | (None, Some(v))) = h() else { continue };`
-
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:56:9
+LL | fn f() -> Result<u32, u32> {
+   | ^ help: make this item public: `pub`
    |
-LL | /         let v = match build_enum() {
-LL | |
-LL | |             Variant::Bar(v) | Variant::Baz(v) => v,
-LL | |             _ => continue,
-LL | |         };
-   | |__________^ help: consider writing: `let (Variant::Bar(v) | Variant::Baz(v)) = build_enum() else { continue };`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:65:5
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:11:1
    |
-LL | /     let v = match f() {
-LL | |
-LL | |         Ok(v) => v,
-LL | |         Err(_) => return,
-LL | |     };
-   | |______^ help: consider writing: `let Ok(v) = f() else { return };`
-
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:72:5
+LL | fn f() -> Result<u32, u32> {
+   | ^
    |
-LL | /     let v = match f().map_err(|_| ()) {
-LL | |
-LL | |         Ok(v) => v,
-LL | |         Err(()) => return,
-LL | |     };
-   | |______^ help: consider writing: `let Ok(v) = f().map_err(|_| ()) else { return };`
-
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:80:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:11:1
    |
-LL | /     let _value = match f {
-LL | |
-LL | |         Variant::Bar(v) | Variant::Baz(v) => v,
-LL | |         _ => return,
-LL | |     };
-   | |______^ help: consider writing: `let (Variant::Bar(_value) | Variant::Baz(_value)) = f else { return };`
+LL | fn f() -> Result<u32, u32> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:86:5
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:15:1
    |
-LL | /     let _value = match Some(build_enum()) {
-LL | |
-LL | |         Some(Variant::Bar(v) | Variant::Baz(v)) => v,
-LL | |         _ => return,
-LL | |     };
-   | |______^ help: consider writing: `let Some(Variant::Bar(_value) | Variant::Baz(_value)) = Some(build_enum()) else { return };`
+LL | fn g() -> Option<()> {
+   | ^ help: make this item public: `pub`
 
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:93:5
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:15:1
    |
-LL | /     let data = match data.as_slice() {
-LL | |
-LL | |         [data @ .., 0, 0, 0, 0] | [data @ .., 0, 0] | [data @ .., 0] => data,
-LL | |         _ => return,
-LL | |     };
-   | |______^ help: consider writing: `let ([data @ .., 0, 0, 0, 0] | [data @ .., 0, 0] | [data @ .., 0]) = data.as_slice() else { return };`
-
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_match.rs:174:5
+LL | fn g() -> Option<()> {
+   | ^
    |
-LL | /     let msg = match Some("hi") {
-LL | |
-LL | |         Some(m) => m,
-LL | |         _ => unreachable!("can't happen"),
-LL | |     };
-   | |______^ help: consider writing: `let Some(msg) = Some("hi") else { unreachable!("can't happen") };`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:15:1
+   |
+LL | fn g() -> Option<()> {
+   | ^
 
-error: aborting due to 10 previous errors
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:19:1
+   |
+LL | fn h() -> (Option<()>, Option<()>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:19:1
+   |
+LL | fn h() -> (Option<()>, Option<()>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:19:1
+   |
+LL | fn h() -> (Option<()>, Option<()>) {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:23:1
+   |
+LL | enum Variant {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:29:1
+   |
+LL | fn build_enum() -> Variant {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:29:1
+   |
+LL | fn build_enum() -> Variant {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:29:1
+   |
+LL | fn build_enum() -> Variant {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:33:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:33:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:33:1
+   |
+LL | fn main() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:35:1
+   |
+LL | fn fire() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:35:1
+   |
+LL | fn fire() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:35:1
+   |
+LL | fn fire() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:36:9
+   |
+LL |     let v = match g() {
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:42:9
+   |
+LL |     let v = match g() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:50:13
+   |
+LL |         let v = match h() {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:56:13
+   |
+LL |         let v = match build_enum() {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:65:9
+   |
+LL |     let v = match f() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:72:9
+   |
+LL |     let v = match f().map_err(|_| ()) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:78:9
+   |
+LL |     let f = Variant::Bar(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:80:9
+   |
+LL |     let _value = match f {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:86:9
+   |
+LL |     let _value = match Some(build_enum()) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:92:9
+   |
+LL |     let data = [1_u8, 2, 3, 4, 0, 0, 0, 0];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:93:9
+   |
+LL |     let data = match data.as_slice() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:100:1
+   |
+LL | fn not_fire() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:100:1
+   |
+LL | fn not_fire() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:100:1
+   |
+LL | fn not_fire() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:102:9
+   |
+LL |     let v = match h() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:103:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:103:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:103:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:109:9
+   |
+LL |     let v = match h() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:110:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:110:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:110:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:117:9
+   |
+LL |     let v = match f() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:123:9
+   |
+LL |     let v = match g() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:129:9
+   |
+LL |     let v = match f() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:130:28
+   |
+LL |         Err(v) if v > 0 => panic!(),
+   |                            ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:130:28
+   |
+LL |         Err(v) if v > 0 => panic!(),
+   |                            ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:130:28
+   |
+LL |         Err(v) if v > 0 => panic!(),
+   |                            ^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:135:9
+   |
+LL |     let v = match f() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:142:9
+   |
+LL |     let v = match build_enum() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:148:9
+   |
+LL |     let v = match Err(build_enum()) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:156:9
+   |
+LL |     let v = match h() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:161:9
+   |
+LL |     let v = match build_enum() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:166:9
+   |
+LL |     let data = [1_u8, 2, 3, 4, 0, 0, 0, 0];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:167:9
+   |
+LL |     let data = match data.as_slice() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_match.rs:173:1
+   |
+LL | fn issue11579() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_match.rs:173:1
+   |
+LL | fn issue11579() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_match.rs:173:1
+   |
+LL | fn issue11579() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_match.rs:174:9
+   |
+LL |     let msg = match Some("hi") {
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 51 previous errors
 

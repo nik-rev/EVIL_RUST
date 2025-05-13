@@ -1,88 +1,164 @@
-error: you seem to be trying to pop elements from a `Vec` in a loop
-  --> tests/ui/manual_while_let_some.rs:21:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/manual_while_let_some.rs:4:1
+   |
+LL | struct VecInStruct {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_while_let_some.rs:9:1
+   |
+LL | struct Foo {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_while_let_some.rs:14:1
+   |
+LL | fn accept_i32(_: i32) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_while_let_some.rs:14:1
+   |
+LL | fn accept_i32(_: i32) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_while_let_some.rs:14:1
+   |
+LL | fn accept_i32(_: i32) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/manual_while_let_some.rs:15:1
+   |
+LL | fn accept_optional_i32(_: Option<i32>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_while_let_some.rs:15:1
+   |
+LL | fn accept_optional_i32(_: Option<i32>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_while_let_some.rs:15:1
+   |
+LL | fn accept_optional_i32(_: Option<i32>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_while_let_some.rs:16:1
+   |
+LL | fn accept_i32_tuple(_: (i32, i32)) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_while_let_some.rs:16:1
+   |
+LL | fn accept_i32_tuple(_: (i32, i32)) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_while_let_some.rs:16:1
+   |
+LL | fn accept_i32_tuple(_: (i32, i32)) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_while_let_some.rs:18:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_while_let_some.rs:18:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_while_let_some.rs:18:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_while_let_some.rs:21:13
    |
 LL |         let number = numbers.pop().unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |             ^ help: make this variable mutable: `mut`
    |
-   = note: `-D clippy::manual-while-let-some` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_while_let_some)]`
-help: consider using a `while..let` loop
-   |
-LL ~     while let Some(number) = numbers.pop() {
-LL ~         
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: you seem to be trying to pop elements from a `Vec` in a loop
-  --> tests/ui/manual_while_let_some.rs:30:9
+error: variable must be `mut`
+  --> tests/ui/manual_while_let_some.rs:30:13
    |
 LL |         let number = val.numbers.pop().unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using a `while..let` loop
-   |
-LL ~     while let Some(number) = val.numbers.pop() {
-LL ~         
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to pop elements from a `Vec` in a loop
-  --> tests/ui/manual_while_let_some.rs:35:20
+error: variable must be `mut`
+  --> tests/ui/manual_while_let_some.rs:65:9
    |
-LL |         accept_i32(numbers.pop().unwrap());
-   |                    ^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using a `while..let` loop
-   |
-LL ~     while let Some(element) = numbers.pop() {
-LL ~         accept_i32(element);
-   |
+LL |     let unrelated_vec: Vec<String> = Vec::new();
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to pop elements from a `Vec` in a loop
-  --> tests/ui/manual_while_let_some.rs:40:20
+error: item must be `pub`
+  --> tests/ui/manual_while_let_some.rs:71:5
    |
-LL |         accept_i32(numbers.pop().expect(""));
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using a `while..let` loop
-   |
-LL ~     while let Some(element) = numbers.pop() {
-LL ~         accept_i32(element);
-   |
+LL |     macro_rules! generate_loop {
+   |     ^ help: make this item public: `pub`
 
-error: you seem to be trying to pop elements from a `Vec` in a loop
-  --> tests/ui/manual_while_let_some.rs:84:9
+error: variable must be `mut`
+  --> tests/ui/manual_while_let_some.rs:84:14
    |
 LL |         let (a, b) = numbers.pop().unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using a `while..let` loop
-   |
-LL ~     while let Some((a, b)) = numbers.pop() {
-LL ~         
-   |
+   |              ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to pop elements from a `Vec` in a loop
-  --> tests/ui/manual_while_let_some.rs:89:26
+error: variable must be `mut`
+  --> tests/ui/manual_while_let_some.rs:84:17
    |
-LL |         accept_i32_tuple(numbers.pop().unwrap());
-   |                          ^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using a `while..let` loop
-   |
-LL ~     while let Some(element) = numbers.pop() {
-LL ~         accept_i32_tuple(element);
-   |
+LL |         let (a, b) = numbers.pop().unwrap();
+   |                 ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to pop elements from a `Vec` in a loop
-  --> tests/ui/manual_while_let_some.rs:95:9
+error: variable must be `mut`
+  --> tests/ui/manual_while_let_some.rs:95:19
    |
 LL |         let Foo { a, b } = results.pop().unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using a `while..let` loop
-   |
-LL ~     while let Some(Foo { a, b }) = results.pop() {
-LL ~         
-   |
+   |                   ^ help: make this variable mutable: `mut`
 
-error: aborting due to 7 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_while_let_some.rs:95:22
+   |
+LL |         let Foo { a, b } = results.pop().unwrap();
+   |                      ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 22 previous errors
 

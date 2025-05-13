@@ -1,47 +1,381 @@
-error: called `assert!` with `Result::is_ok`
-  --> tests/ui/assertions_on_result_states.rs:24:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     assert!(r.is_ok());
-   |     ^^^^^^^^^^^^^^^^^^ help: replace with: `r.unwrap()`
-   |
-   = note: `-D clippy::assertions-on-result-states` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::assertions_on_result_states)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `assert!` with `Result::is_ok`
-  --> tests/ui/assertions_on_result_states.rs:43:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     assert!(get_ok().is_ok());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `get_ok().unwrap()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: called `assert!` with `Result::is_ok`
-  --> tests/ui/assertions_on_result_states.rs:47:5
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:6:1
    |
-LL |     assert!(get_ok_macro!().is_ok());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `get_ok_macro!().unwrap()`
-
-error: called `assert!` with `Result::is_ok`
-  --> tests/ui/assertions_on_result_states.rs:61:5
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
    |
-LL |     assert!(r.is_ok());
-   |     ^^^^^^^^^^^^^^^^^^ help: replace with: `r.unwrap()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: called `assert!` with `Result::is_ok`
-  --> tests/ui/assertions_on_result_states.rs:68:9
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:9:1
    |
-LL |         assert!(r.is_ok());
-   |         ^^^^^^^^^^^^^^^^^^ help: replace with: `r.unwrap()`
+LL | struct DebugFoo;
+   | ^ help: make this item public: `pub`
 
-error: called `assert!` with `Result::is_err`
-  --> tests/ui/assertions_on_result_states.rs:77:5
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:8:10
    |
-LL |     assert!(r.is_err());
-   |     ^^^^^^^^^^^^^^^^^^^ help: replace with: `r.unwrap_err()`
+LL | #[derive(Debug)]
+   |          ^
 
-error: called `assert!` with `Result::is_err`
-  --> tests/ui/assertions_on_result_states.rs:88:5
+error: function must be `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:8:7
    |
-LL |     assert!(res.is_err())
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: replace with: `res.unwrap_err();`
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:8:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 7 previous errors
+error: parameter must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:8:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:8:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/assertions_on_result_states.rs:8:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/assertions_on_result_states.rs:8:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:12:1
+   |
+LL | struct CopyFoo;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:11:10
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:11:16
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                ^
+
+error: function must be `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:11:13
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |             ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:11:13
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |             ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:11:16
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assertions_on_result_states.rs:11:16
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:11:23
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                       ^
+
+error: function must be `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:11:20
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                    ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:11:20
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                    ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:11:23
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:11:23
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                       ^
+
+error: references are not allowed
+  --> tests/ui/assertions_on_result_states.rs:11:23
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assertions_on_result_states.rs:11:23
+   |
+LL | #[derive(Copy, Clone, Debug)]
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:14:1
+   |
+LL | macro_rules! get_ok_macro {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:20:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:20:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:20:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:22:9
+   |
+LL |     let r: Result<Foo, DebugFoo> = Ok(Foo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:28:9
+   |
+LL |     let r: Result<Foo, Foo> = Ok(Foo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:32:9
+   |
+LL |     let r: Result<Foo, DebugFoo> = Ok(Foo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:36:9
+   |
+LL |     let r: Result<Foo, ()> = Ok(Foo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:40:5
+   |
+LL |     fn get_ok() -> Result<Foo, DebugFoo> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:40:5
+   |
+LL |     fn get_ok() -> Result<Foo, DebugFoo> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:40:5
+   |
+LL |     fn get_ok() -> Result<Foo, DebugFoo> {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:51:9
+   |
+LL |     let r: Result<CopyFoo, DebugFoo> = Ok(CopyFoo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:52:5
+   |
+LL |     fn test_ref_unmoveable_ok(r: &Result<CopyFoo, DebugFoo>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:52:5
+   |
+LL |     fn test_ref_unmoveable_ok(r: &Result<CopyFoo, DebugFoo>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:52:5
+   |
+LL |     fn test_ref_unmoveable_ok(r: &Result<CopyFoo, DebugFoo>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:52:31
+   |
+LL |     fn test_ref_unmoveable_ok(r: &Result<CopyFoo, DebugFoo>) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assertions_on_result_states.rs:52:34
+   |
+LL |     fn test_ref_unmoveable_ok(r: &Result<CopyFoo, DebugFoo>) {
+   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assertions_on_result_states.rs:55:28
+   |
+LL |     test_ref_unmoveable_ok(&r);
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:60:9
+   |
+LL |     let r: Result<CopyFoo, CopyFoo> = Ok(CopyFoo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:66:9
+   |
+LL |     let r: Result<CopyFoo, CopyFoo> = Ok(CopyFoo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:67:5
+   |
+LL |     fn test_ref_copy_ok(r: &Result<CopyFoo, CopyFoo>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:67:5
+   |
+LL |     fn test_ref_copy_ok(r: &Result<CopyFoo, CopyFoo>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:67:5
+   |
+LL |     fn test_ref_copy_ok(r: &Result<CopyFoo, CopyFoo>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:67:25
+   |
+LL |     fn test_ref_copy_ok(r: &Result<CopyFoo, CopyFoo>) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assertions_on_result_states.rs:67:28
+   |
+LL |     fn test_ref_copy_ok(r: &Result<CopyFoo, CopyFoo>) {
+   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assertions_on_result_states.rs:71:22
+   |
+LL |     test_ref_copy_ok(&r);
+   |                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:75:9
+   |
+LL |     let r: Result<DebugFoo, Foo> = Err(Foo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:81:9
+   |
+LL |     let r: Result<Foo, Foo> = Err(Foo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_result_states.rs:86:1
+   |
+LL | fn issue9450() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:86:1
+   |
+LL | fn issue9450() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_result_states.rs:86:1
+   |
+LL | fn issue9450() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_result_states.rs:87:9
+   |
+LL |     let res: Result<i32, i32> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 51 previous errors
 

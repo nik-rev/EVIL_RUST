@@ -1,149 +1,552 @@
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:15:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:6:1
+   |
+LL | async fn something() -> u32 {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:6:7
+   |
+LL | async fn something() -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:6:7
+   |
+LL | async fn something() -> u32 {
+   |       ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:10:1
+   |
+LL | async fn something_else() -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:10:7
+   |
+LL | async fn something_else() -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:10:7
+   |
+LL | async fn something_else() -> u32 {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:14:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:14:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:14:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:15:9
    |
 LL |     let a = (|| 42)();
-   |             ^^^^^^^^^ help: try doing something like: `42`
+   |         ^ help: make this variable mutable: `mut`
    |
-   = note: `-D clippy::redundant-closure-call` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_closure_call)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:17:13
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:17:9
    |
-LL |       let b = (async || {
-   |  _____________^
-LL | |
-LL | |         let x = something().await;
-LL | |         let y = something_else().await;
-LL | |         x * y
-LL | |     })();
-   | |________^
-   |
-help: try doing something like
-   |
-LL ~     let b = async {
-LL +
-LL +         let x = something().await;
-LL +         let y = something_else().await;
-LL +         x * y
-LL ~     };
-   |
+LL |     let b = (async || {
+   |         ^ help: make this variable mutable: `mut`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:23:13
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:19:13
    |
-LL |       let c = (|| {
-   |  _____________^
-LL | |
-LL | |         let x = 21;
-LL | |         let y = 2;
-LL | |         x * y
-LL | |     })();
-   | |________^
-   |
-help: try doing something like
-   |
-LL ~     let c = {
-LL +
-LL +         let x = 21;
-LL +         let y = 2;
-LL +         x * y
-LL ~     };
-   |
+LL |         let x = something().await;
+   |             ^ help: make this variable mutable: `mut`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:29:13
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:20:13
+   |
+LL |         let y = something_else().await;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:23:9
+   |
+LL |     let c = (|| {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:25:13
+   |
+LL |         let x = 21;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:26:13
+   |
+LL |         let y = 2;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:29:9
    |
 LL |     let d = (async || something().await)();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try doing something like: `async { something().await }`
+   |         ^ help: make this variable mutable: `mut`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:39:13
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:32:5
    |
-LL |             (|| m!())()
-   |             ^^^^^^^^^^^ help: try doing something like: `m!()`
-...
-LL |     m2!();
-   |     ----- in this macro invocation
-   |
-   = note: this error originates in the macro `m2` (in Nightly builds, run with -Z macro-backtrace for more info)
+LL |     macro_rules! m {
+   |     ^ help: make this item public: `pub`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:34:13
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:37:5
    |
-LL |             (|| 0)()
-   |             ^^^^^^^^ help: try doing something like: `0`
-...
-LL |     m2!();
-   |     ----- in this macro invocation
-   |
-   = note: this error originates in the macro `m` which comes from the expansion of the macro `m2` (in Nightly builds, run with -Z macro-backtrace for more info)
+LL |     macro_rules! m2 {
+   |     ^ help: make this item public: `pub`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:49:16
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:48:1
+   |
+LL | fn issue9956() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:48:1
+   |
+LL | fn issue9956() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:48:1
+   |
+LL | fn issue9956() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:49:5
    |
 LL |     assert_eq!((|| || 43)()(), 42);
-   |                ^^^^^^^^^^^^^^ help: try doing something like: `43`
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:59:10
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:49:5
+   |
+LL |     assert_eq!((|| || 43)()(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:49:5
+   |
+LL |     assert_eq!((|| || 43)()(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:49:5
+   |
+LL |     assert_eq!((|| || 43)()(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:49:5
+   |
+LL |     assert_eq!((|| || 43)()(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:55:9
+   |
+LL |     let a = (|| 42);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:56:5
+   |
+LL |     dbg!(a());
+   |     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:59:5
    |
 LL |     dbg!((|| 42)());
-   |          ^^^^^^^^^ help: try doing something like: `42`
+   |     ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:63:13
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:63:9
    |
 LL |     let a = (|| || || 123)();
-   |             ^^^^^^^^^^^^^^^^ help: try doing something like: `(|| || 123)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:68:13
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:65:5
+   |
+LL |     dbg!(a()());
+   |     ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:68:9
    |
 LL |     let a = (|| || || || async || 1)()()()()();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try doing something like: `async { 1 }`
+   |         ^ help: make this variable mutable: `mut`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:78:13
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:70:9
+   |
+LL |     let h = async { a.await };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:73:5
+   |
+LL |     macro_rules! echo {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:78:9
    |
 LL |     let a = (|| echo!(|| echo!(|| 1)))()()();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try doing something like: `1`
+   |         ^ help: make this variable mutable: `mut`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:81:13
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:80:5
+   |
+LL |     assert_eq!(a, 1);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:80:5
+   |
+LL |     assert_eq!(a, 1);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:80:5
+   |
+LL |     assert_eq!(a, 1);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:80:5
+   |
+LL |     assert_eq!(a, 1);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:80:5
+   |
+LL |     assert_eq!(a, 1);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:81:9
    |
 LL |     let a = (|| echo!((|| 123)))()();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: try doing something like: `123`
+   |         ^ help: make this variable mutable: `mut`
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:95:11
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:83:5
    |
-LL |     bar()((|| || 42)()(), 5);
-   |           ^^^^^^^^^^^^^^ help: try doing something like: `42`
-
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:97:9
+LL |     assert_eq!(a, 123);
+   |     ^^^^^^^^^^^^^^^^^^
    |
-LL |     foo((|| || 42)()(), 5);
-   |         ^^^^^^^^^^^^^^ help: try doing something like: `42`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:102:5
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:83:5
    |
-LL |     (|| async {})().await;
-   |     ^^^^^^^^^^^^^^^ help: try doing something like: `async {}`
-
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:112:18
+LL |     assert_eq!(a, 123);
+   |     ^^^^^^^^^^^^^^^^^^
    |
-LL |         spawn_on((|| async move {})());
-   |                  ^^^^^^^^^^^^^^^^^^^^ help: try doing something like: `async move {}`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: try not to call a closure in the expression where it is declared
-  --> tests/ui/redundant_closure_call_fixable.rs:118:28
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:83:5
    |
-LL |     std::convert::identity((|| 13_i32 + 36_i32)()).leading_zeros();
-   |                            ^^^^^^^^^^^^^^^^^^^^^^ help: try doing something like: `13_i32 + 36_i32`
+LL |     assert_eq!(a, 123);
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 17 previous errors
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:83:5
+   |
+LL |     assert_eq!(a, 123);
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/redundant_closure_call_fixable.rs:83:5
+   |
+LL |     assert_eq!(a, 123);
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:86:5
+   |
+LL |     fn x() -> fn() -> fn() -> fn() -> i32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:86:5
+   |
+LL |     fn x() -> fn() -> fn() -> fn() -> i32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:86:5
+   |
+LL |     fn x() -> fn() -> fn() -> fn() -> i32 {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:91:5
+   |
+LL |     fn bar() -> fn(i32, i32) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:91:5
+   |
+LL |     fn bar() -> fn(i32, i32) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:91:5
+   |
+LL |     fn bar() -> fn(i32, i32) {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:94:5
+   |
+LL |     fn foo(_: i32, _: i32) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:94:5
+   |
+LL |     fn foo(_: i32, _: i32) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:94:5
+   |
+LL |     fn foo(_: i32, _: i32) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:101:1
+   |
+LL | async fn issue11357() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:101:7
+   |
+LL | async fn issue11357() {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:101:7
+   |
+LL | async fn issue11357() {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:106:1
+   |
+LL | mod issue11707 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:109:5
+   |
+LL |     fn spawn_on(fut: impl Future<Output = ()>) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:109:5
+   |
+LL |     fn spawn_on(fut: impl Future<Output = ()>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:109:5
+   |
+LL |     fn spawn_on(fut: impl Future<Output = ()>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_closure_call_fixable.rs:109:17
+   |
+LL |     fn spawn_on(fut: impl Future<Output = ()>) {}
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:111:5
+   |
+LL |     fn demo() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:111:5
+   |
+LL |     fn demo() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:111:5
+   |
+LL |     fn demo() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:117:1
+   |
+LL | fn avoid_double_parens() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:117:1
+   |
+LL | fn avoid_double_parens() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:117:1
+   |
+LL | fn avoid_double_parens() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:122:1
+   |
+LL | fn fp_11274() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:122:1
+   |
+LL | fn fp_11274() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:122:1
+   |
+LL | fn fp_11274() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:123:5
+   |
+LL |     macro_rules! m {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:133:1
+   |
+LL | fn issue_12358() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:133:1
+   |
+LL | fn issue_12358() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_fixable.rs:133:1
+   |
+LL | fn issue_12358() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_fixable.rs:134:5
+   |
+LL |     macro_rules! make_closure {
+   |     ^ help: make this item public: `pub`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 69 previous errors
 

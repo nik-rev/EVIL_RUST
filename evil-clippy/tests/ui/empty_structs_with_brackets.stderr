@@ -1,20 +1,90 @@
-error: found empty brackets on struct declaration
-  --> tests/ui/empty_structs_with_brackets.rs:4:25
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | pub struct MyEmptyStruct {} // should trigger lint
-   |                         ^^^
-   |
-   = note: `-D clippy::empty-structs-with-brackets` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::empty_structs_with_brackets)]`
-   = help: remove the brackets
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: found empty brackets on struct declaration
-  --> tests/ui/empty_structs_with_brackets.rs:6:26
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/empty_structs_with_brackets.rs:6:1
    |
 LL | struct MyEmptyTupleStruct(); // should trigger lint
-   |                          ^^^
+   | ^ help: make this item public: `pub`
    |
-   = help: remove the brackets
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/empty_structs_with_brackets.rs:10:1
+   |
+LL | struct MyCfgStruct {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_structs_with_brackets.rs:16:1
+   |
+LL | struct MyCfgTupleStruct(#[cfg(feature = "thisisneverenabled")] u8);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_structs_with_brackets.rs:19:1
+   |
+LL | struct MyStruct {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_structs_with_brackets.rs:22:1
+   |
+LL | struct MyTupleStruct(usize, String); // should not trigger lint
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_structs_with_brackets.rs:23:1
+   |
+LL | struct MySingleTupleStruct(usize); // should not trigger lint
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_structs_with_brackets.rs:24:1
+   |
+LL | struct MyUnitLikeStruct; // should not trigger lint
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_structs_with_brackets.rs:26:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_structs_with_brackets.rs:26:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_structs_with_brackets.rs:26:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

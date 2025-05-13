@@ -1,29 +1,157 @@
-error: casting from `*const u8` to a more-strictly-aligned pointer (`*const u16`) (1 < 2 bytes)
-  --> tests/ui/cast_alignment.rs:19:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/cast_alignment.rs:13:1
+   |
+LL | extern crate libc;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/cast_alignment.rs:15:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_alignment.rs:15:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_alignment.rs:15:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:19:6
    |
 LL |     (&1u8 as *const u8) as *const u16;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |      ^^^^
    |
-   = note: `-D clippy::cast-ptr-alignment` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cast_ptr_alignment)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: casting from `*mut u8` to a more-strictly-aligned pointer (`*mut u16`) (1 < 2 bytes)
-  --> tests/ui/cast_alignment.rs:22:5
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:22:6
    |
 LL |     (&mut 1u8 as *mut u8) as *mut u16;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |      ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: casting from `*const u8` to a more-strictly-aligned pointer (`*const u16`) (1 < 2 bytes)
-  --> tests/ui/cast_alignment.rs:26:5
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:26:6
    |
 LL |     (&1u8 as *const u8).cast::<u16>();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |      ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: casting from `*mut u8` to a more-strictly-aligned pointer (`*mut u16`) (1 < 2 bytes)
-  --> tests/ui/cast_alignment.rs:29:5
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:29:6
    |
 LL |     (&mut 1u8 as *mut u8).cast::<u16>();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |      ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 4 previous errors
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:37:6
+   |
+LL |     (&1u16 as *const u16) as *const u8;
+   |      ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:38:6
+   |
+LL |     (&mut 1u16 as *mut u16) as *mut u8;
+   |      ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:40:6
+   |
+LL |     (&1u32 as *const u32 as *const std::os::raw::c_void) as *const u32;
+   |      ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:41:6
+   |
+LL |     (&1u32 as *const u32 as *const libc::c_void) as *const u32;
+   |      ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:43:6
+   |
+LL |     (&1u32 as *const u32 as *const ()) as *const u32;
+   |      ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/cast_alignment.rs:48:13
+   |
+LL |         let ptr = &data as *const [u8; 2] as *const u8;
+   |             ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:48:19
+   |
+LL |         let ptr = &data as *const [u8; 2] as *const u8;
+   |                   ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/cast_alignment.rs:52:13
+   |
+LL |         let ptr = &mut data as *mut [u8; 2] as *mut u8;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cast_alignment.rs:52:19
+   |
+LL |         let ptr = &mut data as *mut [u8; 2] as *mut u8;
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 20 previous errors
 

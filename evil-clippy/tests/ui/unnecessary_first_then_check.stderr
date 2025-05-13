@@ -1,47 +1,97 @@
-error: unnecessary use of `first().is_some()` to check if slice is not empty
-  --> tests/ui/unnecessary_first_then_check.rs:6:19
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: bool = s.first().is_some();
-   |                   ^^^^^^^^^^^^^^^^^^^ help: replace this with: `!s.is_empty()`
-   |
-   = note: `-D clippy::unnecessary-first-then-check` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_first_then_check)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnecessary use of `first().is_none()` to check if slice is empty
-  --> tests/ui/unnecessary_first_then_check.rs:8:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: bool = s.first().is_none();
-   |                     ^^^^^^^^^^^^^^^^^ help: replace this with: `is_empty()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnecessary use of `first().is_some()` to check if slice is not empty
-  --> tests/ui/unnecessary_first_then_check.rs:12:19
+error: item must be `pub`
+  --> tests/ui/unnecessary_first_then_check.rs:4:1
    |
-LL |     let _: bool = v.first().is_some();
-   |                   ^^^^^^^^^^^^^^^^^^^ help: replace this with: `!v.is_empty()`
-
-error: unnecessary use of `first().is_some()` to check if slice is not empty
-  --> tests/ui/unnecessary_first_then_check.rs:16:19
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _: bool = n[0].first().is_some();
-   |                   ^^^^^^^^^^^^^^^^^^^^^^ help: replace this with: `!n[0].is_empty()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unnecessary use of `first().is_none()` to check if slice is empty
-  --> tests/ui/unnecessary_first_then_check.rs:18:24
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_first_then_check.rs:4:1
    |
-LL |     let _: bool = n[0].first().is_none();
-   |                        ^^^^^^^^^^^^^^^^^ help: replace this with: `is_empty()`
-
-error: unnecessary use of `first().is_some()` to check if slice is not empty
-  --> tests/ui/unnecessary_first_then_check.rs:25:19
+LL | fn main() {
+   | ^
    |
-LL |     let _: bool = f[0].bar.first().is_some();
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace this with: `!f[0].bar.is_empty()`
-
-error: unnecessary use of `first().is_none()` to check if slice is empty
-  --> tests/ui/unnecessary_first_then_check.rs:27:28
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_first_then_check.rs:4:1
    |
-LL |     let _: bool = f[0].bar.first().is_none();
-   |                            ^^^^^^^^^^^^^^^^^ help: replace this with: `is_empty()`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 7 previous errors
+error: variable must be `mut`
+  --> tests/ui/unnecessary_first_then_check.rs:5:9
+   |
+LL |     let s = [1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_first_then_check.rs:11:9
+   |
+LL |     let v = vec![1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_first_then_check.rs:15:9
+   |
+LL |     let n = [[1, 2, 3], [4, 5, 6]];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_first_then_check.rs:21:5
+   |
+LL |     struct Foo {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_first_then_check.rs:22:14
+   |
+LL |         bar: &'static [i32],
+   |              ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_first_then_check.rs:24:9
+   |
+LL |     let f = [Foo { bar: &[] }];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_first_then_check.rs:24:25
+   |
+LL |     let f = [Foo { bar: &[] }];
+   |                         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

@@ -1,41 +1,233 @@
-error: `drain(..)` used on a `Vec`
-  --> tests/ui/iter_with_drain.rs:10:34
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let mut a: BinaryHeap<_> = a.drain(..).collect();
-   |                                  ^^^^^^^^^ help: try: `into_iter()`
-   |
-   = note: `-D clippy::iter-with-drain` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::iter_with_drain)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `drain(..)` used on a `VecDeque`
-  --> tests/ui/iter_with_drain.rs:14:27
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let mut a: Vec<_> = a.drain(..).collect();
-   |                           ^^^^^^^^^ help: try: `into_iter()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `drain(..)` used on a `Vec`
-  --> tests/ui/iter_with_drain.rs:16:34
+error: item must be `pub`
+  --> tests/ui/iter_with_drain.rs:8:1
    |
-LL |     let mut a: HashMap<_, _> = a.drain(..).map(|x| (x.clone(), x)).collect();
-   |                                  ^^^^^^^^^ help: try: `into_iter()`
-
-error: `drain(..)` used on a `Vec`
-  --> tests/ui/iter_with_drain.rs:23:34
+LL | fn full() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let mut a: BinaryHeap<_> = a.drain(0..).collect();
-   |                                  ^^^^^^^^^^ help: try: `into_iter()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `drain(..)` used on a `VecDeque`
-  --> tests/ui/iter_with_drain.rs:27:27
+error: function must be `unsafe`
+  --> tests/ui/iter_with_drain.rs:8:1
    |
-LL |     let mut a: Vec<_> = a.drain(..a.len()).collect();
-   |                           ^^^^^^^^^^^^^^^^ help: try: `into_iter()`
-
-error: `drain(..)` used on a `Vec`
-  --> tests/ui/iter_with_drain.rs:29:34
+LL | fn full() {
+   | ^
    |
-LL |     let mut a: HashMap<_, _> = a.drain(0..a.len()).map(|x| (x.clone(), x)).collect();
-   |                                  ^^^^^^^^^^^^^^^^^ help: try: `into_iter()`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_with_drain.rs:8:1
+   |
+LL | fn full() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 6 previous errors
+error: item must be `pub`
+  --> tests/ui/iter_with_drain.rs:21:1
+   |
+LL | fn closed() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_with_drain.rs:21:1
+   |
+LL | fn closed() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_with_drain.rs:21:1
+   |
+LL | fn closed() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_with_drain.rs:34:1
+   |
+LL | fn should_not_help() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_with_drain.rs:34:1
+   |
+LL | fn should_not_help() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_with_drain.rs:34:1
+   |
+LL | fn should_not_help() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_with_drain.rs:47:1
+   |
+LL | fn _closed_range(mut x: Vec<String>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_with_drain.rs:47:1
+   |
+LL | fn _closed_range(mut x: Vec<String>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_with_drain.rs:47:1
+   |
+LL | fn _closed_range(mut x: Vec<String>) {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_with_drain.rs:51:1
+   |
+LL | fn _with_mut(x: &mut Vec<String>, y: &mut VecDeque<String>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_with_drain.rs:51:1
+   |
+LL | fn _with_mut(x: &mut Vec<String>, y: &mut VecDeque<String>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_with_drain.rs:51:1
+   |
+LL | fn _with_mut(x: &mut Vec<String>, y: &mut VecDeque<String>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_with_drain.rs:51:14
+   |
+LL | fn _with_mut(x: &mut Vec<String>, y: &mut VecDeque<String>) {
+   |              ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/iter_with_drain.rs:51:35
+   |
+LL | fn _with_mut(x: &mut Vec<String>, y: &mut VecDeque<String>) {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_with_drain.rs:51:17
+   |
+LL | fn _with_mut(x: &mut Vec<String>, y: &mut VecDeque<String>) {
+   |                 ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/iter_with_drain.rs:51:38
+   |
+LL | fn _with_mut(x: &mut Vec<String>, y: &mut VecDeque<String>) {
+   |                                      ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/iter_with_drain.rs:57:1
+   |
+LL | struct Bomb {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_with_drain.rs:56:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/iter_with_drain.rs:56:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_with_drain.rs:56:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/iter_with_drain.rs:61:1
+   |
+LL | fn should_not_help_0(bomb: &mut Bomb) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_with_drain.rs:61:1
+   |
+LL | fn should_not_help_0(bomb: &mut Bomb) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_with_drain.rs:61:1
+   |
+LL | fn should_not_help_0(bomb: &mut Bomb) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_with_drain.rs:61:22
+   |
+LL | fn should_not_help_0(bomb: &mut Bomb) {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_with_drain.rs:61:28
+   |
+LL | fn should_not_help_0(bomb: &mut Bomb) {
+   |                            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/iter_with_drain.rs:65:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_with_drain.rs:65:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_with_drain.rs:65:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/iter_with_drain.rs:69:23
+   |
+LL |     should_not_help_0(&mut Bomb::default());
+   |                       ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 28 previous errors
 

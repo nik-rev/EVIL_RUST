@@ -1,230 +1,297 @@
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:45:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     status_code <= 400 && status_code > 500;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `400` < `500`, the expression evaluates to false for any value of `status_code`
-   = note: `-D clippy::impossible-comparisons` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::impossible_comparisons)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:48:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     status_code > 500 && status_code < 400;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `500` > `400`, the expression evaluates to false for any value of `status_code`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:51:5
+error: item must be `pub`
+  --> tests/ui/const_comparisons.rs:8:1
    |
-LL |     status_code < 500 && status_code > 500;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | const STATUS_BAD_REQUEST: u16 = 400;
+   | ^ help: make this item public: `pub`
    |
-   = note: `status_code` cannot simultaneously be greater than and less than `500`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:55:5
+error: item must be `pub`
+  --> tests/ui/const_comparisons.rs:9:1
    |
-LL |     status_code < { 400 } && status_code > { 500 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `{ 400 }` < `{ 500 }`, the expression evaluates to false for any value of `status_code`
+LL | const STATUS_SERVER_ERROR: u16 = 500;
+   | ^ help: make this item public: `pub`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:58:5
+error: item must be `pub`
+  --> tests/ui/const_comparisons.rs:11:1
    |
-LL |     status_code < STATUS_BAD_REQUEST && status_code > STATUS_SERVER_ERROR;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `STATUS_BAD_REQUEST` < `STATUS_SERVER_ERROR`, the expression evaluates to false for any value of `status_code`
+LL | struct Status {
+   | ^ help: make this item public: `pub`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:61:5
+error: item must be `pub`
+  --> tests/ui/const_comparisons.rs:15:1
    |
-LL |     status_code <= u16::MIN + 1 && status_code > STATUS_SERVER_ERROR;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `u16::MIN + 1` < `STATUS_SERVER_ERROR`, the expression evaluates to false for any value of `status_code`
+LL | impl PartialEq<u16> for Status {
+   | ^ help: make this item public: `pub`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:64:5
+error: function must be `unsafe`
+  --> tests/ui/const_comparisons.rs:16:5
    |
-LL |     status_code < STATUS_SERVER_ERROR && status_code > STATUS_SERVER_ERROR;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &u16) -> bool {
+   |     ^
    |
-   = note: `status_code` cannot simultaneously be greater than and less than `STATUS_SERVER_ERROR`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/const_comparisons.rs:16:5
+   |
+LL |     fn eq(&self, other: &u16) -> bool {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:68:5
+error: parameter must be `mut`
+  --> tests/ui/const_comparisons.rs:16:12
    |
-LL |     status < { 400 } && status > { 500 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &u16) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
    |
-   = note: since `{ 400 }` < `{ 500 }`, the expression evaluates to false for any value of `status`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:71:5
+error: parameter must be `mut`
+  --> tests/ui/const_comparisons.rs:16:18
    |
-LL |     status < STATUS_BAD_REQUEST && status > STATUS_SERVER_ERROR;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `STATUS_BAD_REQUEST` < `STATUS_SERVER_ERROR`, the expression evaluates to false for any value of `status`
+LL |     fn eq(&self, other: &u16) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:74:5
+error: references are not allowed
+  --> tests/ui/const_comparisons.rs:16:11
    |
-LL |     status <= u16::MIN + 1 && status > STATUS_SERVER_ERROR;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &u16) -> bool {
+   |           ^^^^^
    |
-   = note: since `u16::MIN + 1` < `STATUS_SERVER_ERROR`, the expression evaluates to false for any value of `status`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:77:5
+error: references are not allowed
+  --> tests/ui/const_comparisons.rs:16:25
    |
-LL |     status < STATUS_SERVER_ERROR && status > STATUS_SERVER_ERROR;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &u16) -> bool {
+   |                         ^^^^
    |
-   = note: `status` cannot simultaneously be greater than and less than `STATUS_SERVER_ERROR`
+   = help: use a raw pointer instead: `*const`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:86:5
+error: item must be `pub`
+  --> tests/ui/const_comparisons.rs:21:1
    |
-LL |     500 >= status_code && 600 < status_code;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `500` < `600`, the expression evaluates to false for any value of `status_code`
+LL | impl PartialOrd<u16> for Status {
+   | ^ help: make this item public: `pub`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:90:5
+error: function must be `unsafe`
+  --> tests/ui/const_comparisons.rs:22:5
    |
-LL |     500 >= status_code && status_code > 600;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn partial_cmp(&self, other: &u16) -> Option<std::cmp::Ordering> {
+   |     ^
    |
-   = note: since `500` < `600`, the expression evaluates to false for any value of `status_code`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/const_comparisons.rs:22:5
+   |
+LL |     fn partial_cmp(&self, other: &u16) -> Option<std::cmp::Ordering> {
+   |     ^
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:99:5
+error: parameter must be `mut`
+  --> tests/ui/const_comparisons.rs:22:21
    |
-LL |     500 >= status && 600 < status;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `500` < `600`, the expression evaluates to false for any value of `status`
+LL |     fn partial_cmp(&self, other: &u16) -> Option<std::cmp::Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:103:5
+error: parameter must be `mut`
+  --> tests/ui/const_comparisons.rs:22:27
    |
-LL |     500 >= status && status > 600;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `500` < `600`, the expression evaluates to false for any value of `status`
+LL |     fn partial_cmp(&self, other: &u16) -> Option<std::cmp::Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
 
-error: right-hand side of `&&` operator has no effect
-  --> tests/ui/const_comparisons.rs:107:5
+error: references are not allowed
+  --> tests/ui/const_comparisons.rs:22:20
    |
-LL |     status_code < 200 && status_code <= 299;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn partial_cmp(&self, other: &u16) -> Option<std::cmp::Ordering> {
+   |                    ^^^^^
    |
-note: `if `status_code < 200` evaluates to true, status_code <= 299` will always evaluate to true as well
-  --> tests/ui/const_comparisons.rs:107:23
-   |
-LL |     status_code < 200 && status_code <= 299;
-   |                       ^^^^^^^^^^^^^^^^^^^^^
-   = note: `-D clippy::redundant-comparisons` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_comparisons)]`
+   = help: use a raw pointer instead: `*const`
 
-error: left-hand side of `&&` operator has no effect
-  --> tests/ui/const_comparisons.rs:110:5
+error: references are not allowed
+  --> tests/ui/const_comparisons.rs:22:34
    |
-LL |     status_code > 200 && status_code >= 299;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn partial_cmp(&self, other: &u16) -> Option<std::cmp::Ordering> {
+   |                                  ^^^^
    |
-note: `if `status_code >= 299` evaluates to true, status_code > 200` will always evaluate to true as well
-  --> tests/ui/const_comparisons.rs:110:5
-   |
-LL |     status_code > 200 && status_code >= 299;
-   |     ^^^^^^^^^^^^^^^^^^^^^
+   = help: use a raw pointer instead: `*const`
 
-error: left-hand side of `&&` operator has no effect
-  --> tests/ui/const_comparisons.rs:114:5
+error: item must be `pub`
+  --> tests/ui/const_comparisons.rs:27:1
    |
-LL |     status_code >= 500 && status_code > 500;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: `if `status_code > 500` evaluates to true, status_code >= 500` will always evaluate to true as well
-  --> tests/ui/const_comparisons.rs:114:5
-   |
-LL |     status_code >= 500 && status_code > 500;
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+LL | impl PartialEq<Status> for u16 {
+   | ^ help: make this item public: `pub`
 
-error: right-hand side of `&&` operator has no effect
-  --> tests/ui/const_comparisons.rs:118:5
+error: function must be `unsafe`
+  --> tests/ui/const_comparisons.rs:28:5
    |
-LL |     status_code > 500 && status_code >= 500;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Status) -> bool {
+   |     ^
    |
-note: `if `status_code > 500` evaluates to true, status_code >= 500` will always evaluate to true as well
-  --> tests/ui/const_comparisons.rs:118:23
+help: make this function unsafe: `unsafe`
+  --> tests/ui/const_comparisons.rs:28:5
    |
-LL |     status_code > 500 && status_code >= 500;
-   |                       ^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Status) -> bool {
+   |     ^
 
-error: left-hand side of `&&` operator has no effect
-  --> tests/ui/const_comparisons.rs:122:5
+error: parameter must be `mut`
+  --> tests/ui/const_comparisons.rs:28:12
    |
-LL |     status_code <= 500 && status_code < 500;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: `if `status_code < 500` evaluates to true, status_code <= 500` will always evaluate to true as well
-  --> tests/ui/const_comparisons.rs:122:5
-   |
-LL |     status_code <= 500 && status_code < 500;
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Status) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
 
-error: right-hand side of `&&` operator has no effect
-  --> tests/ui/const_comparisons.rs:126:5
+error: parameter must be `mut`
+  --> tests/ui/const_comparisons.rs:28:18
    |
-LL |     status_code < 500 && status_code <= 500;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: `if `status_code < 500` evaluates to true, status_code <= 500` will always evaluate to true as well
-  --> tests/ui/const_comparisons.rs:126:23
-   |
-LL |     status_code < 500 && status_code <= 500;
-   |                       ^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Status) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:131:5
+error: references are not allowed
+  --> tests/ui/const_comparisons.rs:28:11
    |
-LL |     name < "Jennifer" && name > "Shannon";
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Status) -> bool {
+   |           ^^^^^
    |
-   = note: since `"Jennifer"` < `"Shannon"`, the expression evaluates to false for any value of `name`
+   = help: use a raw pointer instead: `*const`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:135:5
+error: references are not allowed
+  --> tests/ui/const_comparisons.rs:28:25
    |
-LL |     numbers < [3, 4] && numbers > [5, 6];
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Status) -> bool {
+   |                         ^^^^^^^
    |
-   = note: since `[3, 4]` < `[5, 6]`, the expression evaluates to false for any value of `numbers`
+   = help: use a raw pointer instead: `*const`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:139:5
+error: item must be `pub`
+  --> tests/ui/const_comparisons.rs:33:1
    |
-LL |     letter < 'b' && letter > 'c';
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: since `'b'` < `'c'`, the expression evaluates to false for any value of `letter`
+LL | impl PartialOrd<Status> for u16 {
+   | ^ help: make this item public: `pub`
 
-error: boolean expression will never evaluate to 'true'
-  --> tests/ui/const_comparisons.rs:143:5
+error: function must be `unsafe`
+  --> tests/ui/const_comparisons.rs:34:5
    |
-LL |     area < std::f32::consts::E && area > std::f32::consts::PI;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn partial_cmp(&self, other: &Status) -> Option<std::cmp::Ordering> {
+   |     ^
    |
-   = note: since `std::f32::consts::E` < `std::f32::consts::PI`, the expression evaluates to false for any value of `area`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/const_comparisons.rs:34:5
+   |
+LL |     fn partial_cmp(&self, other: &Status) -> Option<std::cmp::Ordering> {
+   |     ^
 
-error: aborting due to 25 previous errors
+error: parameter must be `mut`
+  --> tests/ui/const_comparisons.rs:34:21
+   |
+LL |     fn partial_cmp(&self, other: &Status) -> Option<std::cmp::Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/const_comparisons.rs:34:27
+   |
+LL |     fn partial_cmp(&self, other: &Status) -> Option<std::cmp::Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/const_comparisons.rs:34:20
+   |
+LL |     fn partial_cmp(&self, other: &Status) -> Option<std::cmp::Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/const_comparisons.rs:34:34
+   |
+LL |     fn partial_cmp(&self, other: &Status) -> Option<std::cmp::Ordering> {
+   |                                  ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/const_comparisons.rs:35:26
+   |
+LL |         self.partial_cmp(&other.code)
+   |                          ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/const_comparisons.rs:39:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/const_comparisons.rs:39:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/const_comparisons.rs:39:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/const_comparisons.rs:40:9
+   |
+LL |     let status_code = 500; // Value doesn't matter for the lint
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/const_comparisons.rs:41:9
+   |
+LL |     let status = Status { code: status_code };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/const_comparisons.rs:130:9
+   |
+LL |     let name = "Steve";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/const_comparisons.rs:134:9
+   |
+LL |     let numbers = [1, 2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/const_comparisons.rs:138:9
+   |
+LL |     let letter = 'a';
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/const_comparisons.rs:142:9
+   |
+LL |     let area = 42.0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 40 previous errors
 

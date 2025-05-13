@@ -1,23 +1,80 @@
-error: `std::iter::empty()` is the more idiomatic way
-  --> tests/ui/default_instead_of_iter_empty.rs:12:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = std::iter::Empty::<usize>::default();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::iter::empty::<usize>()`
-   |
-   = note: `-D clippy::default-instead-of-iter-empty` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::default_instead_of_iter_empty)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `std::iter::empty()` is the more idiomatic way
-  --> tests/ui/default_instead_of_iter_empty.rs:14:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = std::iter::Empty::<HashMap<usize, usize>>::default();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::iter::empty::<HashMap<usize, usize>>()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `std::iter::empty()` is the more idiomatic way
-  --> tests/ui/default_instead_of_iter_empty.rs:16:41
+error: item must be `pub`
+  --> tests/ui/default_instead_of_iter_empty.rs:6:1
+   |
+LL | struct Iter {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/default_instead_of_iter_empty.rs:5:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_instead_of_iter_empty.rs:5:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_instead_of_iter_empty.rs:5:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/default_instead_of_iter_empty.rs:10:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_instead_of_iter_empty.rs:10:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_instead_of_iter_empty.rs:10:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/default_instead_of_iter_empty.rs:16:9
    |
 LL |     let _foo: std::iter::Empty<usize> = std::iter::Empty::default();
-   |                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::iter::empty()`
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 3 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 10 previous errors
 

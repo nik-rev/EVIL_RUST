@@ -1,17 +1,74 @@
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods_unfixable.rs:6:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     _ = !opt_opt.is_some_and(|x| !x.is_some_and(|y| y != 1000));
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt_opt.is_none_or(|x| x.is_some_and(|y| y != 1000))`
-   |
-   = note: `-D clippy::nonminimal-bool` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::nonminimal_bool)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods_unfixable.rs:6:34
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     _ = !opt_opt.is_some_and(|x| !x.is_some_and(|y| y != 1000));
-   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `x.is_none_or(|y| y == 1000)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods_unfixable.rs:4:1
+   |
+LL | fn issue_13436() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods_unfixable.rs:4:1
+   |
+LL | fn issue_13436() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods_unfixable.rs:4:1
+   |
+LL | fn issue_13436() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods_unfixable.rs:5:9
+   |
+LL |     let opt_opt = Some(Some(500));
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods_unfixable.rs:11:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods_unfixable.rs:11:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods_unfixable.rs:11:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 9 previous errors
 

@@ -1,17 +1,106 @@
-error: using inferred pointer cast
-  --> tests/ui/as_pointer_underscore.rs:8:11
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/as_pointer_underscore.rs:5:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/as_pointer_underscore.rs:7:1
+   |
+LL | fn f(s: &S) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/as_pointer_underscore.rs:7:1
+   |
+LL | fn f(s: &S) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/as_pointer_underscore.rs:7:1
+   |
+LL | fn f(s: &S) -> usize {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/as_pointer_underscore.rs:7:6
+   |
+LL | fn f(s: &S) -> usize {
+   |      ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/as_pointer_underscore.rs:7:9
+   |
+LL | fn f(s: &S) -> usize {
+   |         ^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/as_pointer_underscore.rs:8:5
    |
 LL |     &s as *const _ as usize
-   |           ^^^^^^^^ help: use explicit type: `*const &S`
+   |     ^^
    |
-   = note: `-D clippy::as-pointer-underscore` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::as_pointer_underscore)]`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: using inferred pointer cast
-  --> tests/ui/as_pointer_underscore.rs:13:10
+error: item must be `pub`
+  --> tests/ui/as_pointer_underscore.rs:12:1
    |
-LL |     s as *mut _ as usize
-   |          ^^^^^^ help: use explicit type: `*mut S`
+LL | fn g(s: &mut S) -> usize {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 2 previous errors
+error: function must be `unsafe`
+  --> tests/ui/as_pointer_underscore.rs:12:1
+   |
+LL | fn g(s: &mut S) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/as_pointer_underscore.rs:12:1
+   |
+LL | fn g(s: &mut S) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/as_pointer_underscore.rs:12:6
+   |
+LL | fn g(s: &mut S) -> usize {
+   |      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/as_pointer_underscore.rs:12:9
+   |
+LL | fn g(s: &mut S) -> usize {
+   |         ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: aborting due to 13 previous errors
 

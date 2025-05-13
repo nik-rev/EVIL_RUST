@@ -1,28 +1,165 @@
-error: empty drop implementation
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/empty_drop.rs:5:1
+   |
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
   --> tests/ui/empty_drop.rs:7:1
    |
-LL | / impl Drop for Foo {
-LL | |
-LL | |     fn drop(&mut self) {}
-LL | | }
-   | |_^
-   |
-   = note: `-D clippy::empty-drop` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::empty_drop)]`
-   = help: try removing this impl
+LL | impl Drop for Foo {
+   | ^ help: make this item public: `pub`
 
-error: empty drop implementation
+error: function must be `unsafe`
+  --> tests/ui/empty_drop.rs:9:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_drop.rs:9:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/empty_drop.rs:9:18
+   |
+LL |     fn drop(&mut self) {}
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/empty_drop.rs:9:13
+   |
+LL |     fn drop(&mut self) {}
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/empty_drop.rs:13:1
+   |
+LL | struct Bar;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_drop.rs:15:1
+   |
+LL | impl Drop for Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_drop.rs:16:5
+   |
+LL |     fn drop(&mut self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_drop.rs:16:5
+   |
+LL |     fn drop(&mut self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/empty_drop.rs:16:18
+   |
+LL |     fn drop(&mut self) {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/empty_drop.rs:16:13
+   |
+LL |     fn drop(&mut self) {
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/empty_drop.rs:22:1
+   |
+LL | struct Baz;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/empty_drop.rs:24:1
    |
-LL | / impl Drop for Baz {
-LL | |
-LL | |     fn drop(&mut self) {
-LL | |         {}
-LL | |     }
-LL | | }
-   | |_^
-   |
-   = help: try removing this impl
+LL | impl Drop for Baz {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 2 previous errors
+error: function must be `unsafe`
+  --> tests/ui/empty_drop.rs:26:5
+   |
+LL |     fn drop(&mut self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_drop.rs:26:5
+   |
+LL |     fn drop(&mut self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/empty_drop.rs:26:18
+   |
+LL |     fn drop(&mut self) {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/empty_drop.rs:26:13
+   |
+LL |     fn drop(&mut self) {
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/empty_drop.rs:31:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_drop.rs:31:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_drop.rs:31:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 21 previous errors
 

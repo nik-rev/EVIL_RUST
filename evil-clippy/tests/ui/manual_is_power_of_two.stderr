@@ -1,59 +1,122 @@
-error: manually reimplementing `is_power_of_two`
-  --> tests/ui/manual_is_power_of_two.rs:19:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = a.count_ones() == 1;
-   |             ^^^^^^^^^^^^^^^^^^^ help: consider using `.is_power_of_two()`: `a.is_power_of_two()`
-   |
-   = note: `-D clippy::manual-is-power-of-two` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_is_power_of_two)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manually reimplementing `is_power_of_two`
-  --> tests/ui/manual_is_power_of_two.rs:21:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = u64::count_ones(a) == 1;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.is_power_of_two()`: `a.is_power_of_two()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manually reimplementing `is_power_of_two`
-  --> tests/ui/manual_is_power_of_two.rs:23:13
+error: item must be `pub`
+  --> tests/ui/manual_is_power_of_two.rs:4:1
    |
-LL |     let _ = a & (a - 1) == 0;
-   |             ^^^^^^^^^^^^^^^^ help: consider using `.is_power_of_two()`: `a.is_power_of_two()`
-
-error: manually reimplementing `is_power_of_two`
-  --> tests/ui/manual_is_power_of_two.rs:27:13
+LL | macro_rules! binop {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = 1 == a.count_ones();
-   |             ^^^^^^^^^^^^^^^^^^^ help: consider using `.is_power_of_two()`: `a.is_power_of_two()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manually reimplementing `is_power_of_two`
-  --> tests/ui/manual_is_power_of_two.rs:29:13
+error: item must be `pub`
+  --> tests/ui/manual_is_power_of_two.rs:16:1
    |
-LL |     let _ = (a - 1) & a == 0;
-   |             ^^^^^^^^^^^^^^^^ help: consider using `.is_power_of_two()`: `a.is_power_of_two()`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: manually reimplementing `is_power_of_two`
-  --> tests/ui/manual_is_power_of_two.rs:31:13
+error: function must be `unsafe`
+  --> tests/ui/manual_is_power_of_two.rs:16:1
    |
-LL |     let _ = 0 == a & (a - 1);
-   |             ^^^^^^^^^^^^^^^^ help: consider using `.is_power_of_two()`: `a.is_power_of_two()`
-
-error: manually reimplementing `is_power_of_two`
-  --> tests/ui/manual_is_power_of_two.rs:33:13
+LL | fn main() {
+   | ^
    |
-LL |     let _ = 0 == (a - 1) & a;
-   |             ^^^^^^^^^^^^^^^^ help: consider using `.is_power_of_two()`: `a.is_power_of_two()`
-
-error: manually reimplementing `is_power_of_two`
-  --> tests/ui/manual_is_power_of_two.rs:43:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_power_of_two.rs:16:1
    |
-LL |     let _ = i as u32 & (i as u32 - 1) == 0;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.is_power_of_two()`: `(i as u32).is_power_of_two()`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manually reimplementing `is_power_of_two`
-  --> tests/ui/manual_is_power_of_two.rs:58:5
+error: variable must be `mut`
+  --> tests/ui/manual_is_power_of_two.rs:17:9
    |
-LL |     a & (a - 1) == 0
-   |     ^^^^^^^^^^^^^^^^ help: consider using `.is_power_of_two()`: `a.is_power_of_two()`
+LL |     let a = 16_u64;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 9 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_is_power_of_two.rs:36:9
+   |
+LL |     let b = 4_i64;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_is_power_of_two.rs:42:9
+   |
+LL |     let i: i32 = 3;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_is_power_of_two.rs:52:1
+   |
+LL | const fn low_msrv(a: u32) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_power_of_two.rs:52:7
+   |
+LL | const fn low_msrv(a: u32) -> bool {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_power_of_two.rs:52:7
+   |
+LL | const fn low_msrv(a: u32) -> bool {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_is_power_of_two.rs:52:19
+   |
+LL | const fn low_msrv(a: u32) -> bool {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_is_power_of_two.rs:57:1
+   |
+LL | const fn high_msrv(a: u32) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_power_of_two.rs:57:7
+   |
+LL | const fn high_msrv(a: u32) -> bool {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_power_of_two.rs:57:7
+   |
+LL | const fn high_msrv(a: u32) -> bool {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_is_power_of_two.rs:57:20
+   |
+LL | const fn high_msrv(a: u32) -> bool {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 16 previous errors
 

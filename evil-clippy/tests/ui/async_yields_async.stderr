@@ -1,93 +1,223 @@
-error: an async construct yields a type which is itself awaitable
-  --> tests/ui/async_yields_async.rs:37:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |        let _h = async {
-   |  _____________________-
-LL | |/         async {
-LL | ||             3
-LL | ||         }
-   | ||_________^ awaitable value not awaited
-LL | |      };
-   | |______- outer async construct
-   |
-   = note: `-D clippy::async-yields-async` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::async_yields_async)]`
-help: consider awaiting this value
-   |
-LL |         async {
-LL |             3
-LL ~         }.await
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: an async construct yields a type which is itself awaitable
-  --> tests/ui/async_yields_async.rs:43:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _i = async {
-   |  ____________________-
-LL | |         CustomFutureType
-   | |         ^^^^^^^^^^^^^^^^
-   | |         |
-   | |         awaitable value not awaited
-   | |         help: consider awaiting this value: `CustomFutureType.await`
-LL | |     };
-   | |_____- outer async construct
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: an async construct yields a type which is itself awaitable
-  --> tests/ui/async_yields_async.rs:50:9
+error: item must be `pub`
+  --> tests/ui/async_yields_async.rs:8:1
    |
-LL |        let _j = async || {
-   |  ________________________-
-LL | |/         async {
-LL | ||             3
-LL | ||         }
-   | ||_________^ awaitable value not awaited
-LL | |      };
-   | |______- outer async construct
+LL | struct CustomFutureType;
+   | ^ help: make this item public: `pub`
    |
-help: consider awaiting this value
-   |
-LL |         async {
-LL |             3
-LL ~         }.await
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: an async construct yields a type which is itself awaitable
-  --> tests/ui/async_yields_async.rs:56:9
+error: item must be `pub`
+  --> tests/ui/async_yields_async.rs:10:1
    |
-LL |       let _k = async || {
-   |  _______________________-
-LL | |         CustomFutureType
-   | |         ^^^^^^^^^^^^^^^^
-   | |         |
-   | |         awaitable value not awaited
-   | |         help: consider awaiting this value: `CustomFutureType.await`
-LL | |     };
-   | |_____- outer async construct
+LL | impl Future for CustomFutureType {
+   | ^ help: make this item public: `pub`
 
-error: an async construct yields a type which is itself awaitable
-  --> tests/ui/async_yields_async.rs:59:23
+error: function must be `unsafe`
+  --> tests/ui/async_yields_async.rs:13:5
+   |
+LL |     fn poll(self: Pin<&mut Self>, _: &mut Context) -> Poll<Self::Output> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/async_yields_async.rs:13:5
+   |
+LL |     fn poll(self: Pin<&mut Self>, _: &mut Context) -> Poll<Self::Output> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/async_yields_async.rs:13:13
+   |
+LL |     fn poll(self: Pin<&mut Self>, _: &mut Context) -> Poll<Self::Output> {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/async_yields_async.rs:13:23
+   |
+LL |     fn poll(self: Pin<&mut Self>, _: &mut Context) -> Poll<Self::Output> {
+   |                       ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/async_yields_async.rs:13:38
+   |
+LL |     fn poll(self: Pin<&mut Self>, _: &mut Context) -> Poll<Self::Output> {
+   |                                      ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/async_yields_async.rs:18:1
+   |
+LL | fn custom_future_type_ctor() -> CustomFutureType {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/async_yields_async.rs:18:1
+   |
+LL | fn custom_future_type_ctor() -> CustomFutureType {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/async_yields_async.rs:18:1
+   |
+LL | fn custom_future_type_ctor() -> CustomFutureType {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/async_yields_async.rs:22:1
+   |
+LL | async fn f() -> CustomFutureType {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/async_yields_async.rs:22:7
+   |
+LL | async fn f() -> CustomFutureType {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/async_yields_async.rs:22:7
+   |
+LL | async fn f() -> CustomFutureType {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/async_yields_async.rs:29:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/async_yields_async.rs:29:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/async_yields_async.rs:29:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:30:9
+   |
+LL |     let _f = {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:33:9
+   |
+LL |     let _g = async {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:36:9
+   |
+LL |     let _h = async {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:42:9
+   |
+LL |     let _i = async {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:46:9
+   |
+LL |     let _i = async || {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:49:9
+   |
+LL |     let _j = async || {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:55:9
+   |
+LL |     let _k = async || {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:59:9
    |
 LL |     let _l = async || CustomFutureType;
-   |                       ^^^^^^^^^^^^^^^^
-   |                       |
-   |                       outer async construct
-   |                       awaitable value not awaited
-   |                       help: consider awaiting this value: `CustomFutureType.await`
+   |         ^ help: make this variable mutable: `mut`
 
-error: an async construct yields a type which is itself awaitable
-  --> tests/ui/async_yields_async.rs:66:9
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:61:9
    |
-LL |       let _m = async || {
-   |  _______________________-
-LL | |         println!("I'm bored");
-...  |
-LL | |         CustomFutureType
-   | |         ^^^^^^^^^^^^^^^^
-   | |         |
-   | |         awaitable value not awaited
-   | |         help: consider awaiting this value: `CustomFutureType.await`
-LL | |     };
-   | |_____- outer async construct
+LL |     let _m = async || {
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 6 previous errors
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:69:9
+   |
+LL |     let _n = async || custom_future_type_ctor();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:70:9
+   |
+LL |     let _o = async || f();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/async_yields_async.rs:75:1
+   |
+LL | fn check_expect_suppression() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/async_yields_async.rs:75:1
+   |
+LL | fn check_expect_suppression() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/async_yields_async.rs:75:1
+   |
+LL | fn check_expect_suppression() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/async_yields_async.rs:77:9
+   |
+LL |     let _j = async || {
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 30 previous errors
 

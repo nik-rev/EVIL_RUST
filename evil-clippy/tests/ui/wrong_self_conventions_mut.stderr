@@ -1,20 +1,131 @@
-error: methods with the following characteristics: (`to_*` and `self` type is not `Copy`) usually take `self` by reference
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_conventions_mut.rs:4:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_conventions_mut.rs:4:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_conventions_mut.rs:4:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_conventions_mut.rs:6:1
+   |
+LL | mod issue6758 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_conventions_mut.rs:12:5
+   |
+LL |     impl<T> Test<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_conventions_mut.rs:14:13
+   |
+LL |         pub fn to_many(&mut self) -> Option<&mut [T]> {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_conventions_mut.rs:14:13
+   |
+LL |         pub fn to_many(&mut self) -> Option<&mut [T]> {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_conventions_mut.rs:14:29
+   |
+LL |         pub fn to_many(&mut self) -> Option<&mut [T]> {
+   |                             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
   --> tests/ui/wrong_self_conventions_mut.rs:14:24
    |
 LL |         pub fn to_many(&mut self) -> Option<&mut [T]> {
    |                        ^^^^^^^^^
    |
-   = help: consider choosing a less ambiguous name
-   = note: `-D clippy::wrong-self-convention` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::wrong_self_convention)]`
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: methods with the following characteristics: (`to_*` and `*_mut`) usually take `self` by mutable reference
+error: references are not allowed
+  --> tests/ui/wrong_self_conventions_mut.rs:14:45
+   |
+LL |         pub fn to_many(&mut self) -> Option<&mut [T]> {
+   |                                             ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_conventions_mut.rs:24:13
+   |
+LL |         pub fn to_many_mut(&self) -> Option<&[T]> {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_conventions_mut.rs:24:13
+   |
+LL |         pub fn to_many_mut(&self) -> Option<&[T]> {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_conventions_mut.rs:24:29
+   |
+LL |         pub fn to_many_mut(&self) -> Option<&[T]> {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/wrong_self_conventions_mut.rs:24:28
    |
 LL |         pub fn to_many_mut(&self) -> Option<&[T]> {
    |                            ^^^^^
    |
-   = help: consider choosing a less ambiguous name
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 2 previous errors
+error: references are not allowed
+  --> tests/ui/wrong_self_conventions_mut.rs:24:45
+   |
+LL |         pub fn to_many_mut(&self) -> Option<&[T]> {
+   |                                             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 16 previous errors
 

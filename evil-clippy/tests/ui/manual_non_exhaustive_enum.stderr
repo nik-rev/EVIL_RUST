@@ -1,50 +1,65 @@
-error: this seems like a manual implementation of the non-exhaustive pattern
-  --> tests/ui/manual_non_exhaustive_enum.rs:4:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | / pub enum E {
-LL | |
-LL | |     A,
-LL | |     B,
-LL | |     #[doc(hidden)]
-LL | |     _C,
-LL | | }
-   | |_^
-   |
-help: remove this variant
-  --> tests/ui/manual_non_exhaustive_enum.rs:9:5
-   |
-LL |     _C,
-   |     ^^
-   = note: `-D clippy::manual-non-exhaustive` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_non_exhaustive)]`
-help: use the `#[non_exhaustive]` attribute instead
-   |
-LL + #[non_exhaustive]
-LL | pub enum E {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this seems like a manual implementation of the non-exhaustive pattern
-  --> tests/ui/manual_non_exhaustive_enum.rs:29:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | / pub enum NoUnderscore {
-LL | |
-LL | |     A,
-LL | |     B,
-LL | |     #[doc(hidden)]
-LL | |     C,
-LL | | }
-   | |_^
-   |
-help: remove this variant
-  --> tests/ui/manual_non_exhaustive_enum.rs:34:5
-   |
-LL |     C,
-   |     ^
-help: use the `#[non_exhaustive]` attribute instead
-   |
-LL + #[non_exhaustive]
-LL | pub enum NoUnderscore {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/manual_non_exhaustive_enum.rs:74:1
+   |
+LL | fn foo(x: &mut UsedHidden) {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_non_exhaustive_enum.rs:74:1
+   |
+LL | fn foo(x: &mut UsedHidden) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_non_exhaustive_enum.rs:74:1
+   |
+LL | fn foo(x: &mut UsedHidden) {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_non_exhaustive_enum.rs:74:8
+   |
+LL | fn foo(x: &mut UsedHidden) {
+   |        ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/manual_non_exhaustive_enum.rs:74:11
+   |
+LL | fn foo(x: &mut UsedHidden) {
+   |           ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 8 previous errors
 

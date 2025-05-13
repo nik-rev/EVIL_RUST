@@ -1,76 +1,899 @@
-error: unused `self` argument
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:4:1
+   |
+LL | mod unused_self {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:8:5
+   |
+LL |     struct A;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:10:5
+   |
+LL |     impl A {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:11:9
+   |
+LL |         fn unused_self_move(self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:11:9
+   |
+LL |         fn unused_self_move(self) {}
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
   --> tests/ui/unused_self.rs:11:29
    |
 LL |         fn unused_self_move(self) {}
-   |                             ^^^^
+   |                             ^ help: make this parameter mutable: `mut`
    |
-   = help: consider refactoring to an associated function
-   = note: `-D clippy::unused-self` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unused_self)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: unused `self` argument
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:14:9
+   |
+LL |         fn unused_self_ref(&self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:14:9
+   |
+LL |         fn unused_self_ref(&self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:14:29
+   |
+LL |         fn unused_self_ref(&self) {}
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/unused_self.rs:14:28
    |
 LL |         fn unused_self_ref(&self) {}
    |                            ^^^^^
    |
-   = help: consider refactoring to an associated function
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: unused `self` argument
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:17:9
+   |
+LL |         fn unused_self_mut_ref(&mut self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:17:9
+   |
+LL |         fn unused_self_mut_ref(&mut self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:17:37
+   |
+LL |         fn unused_self_mut_ref(&mut self) {}
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/unused_self.rs:17:32
    |
 LL |         fn unused_self_mut_ref(&mut self) {}
    |                                ^^^^^^^^^
    |
-   = help: consider refactoring to an associated function
+   = help: use a raw pointer instead: `*raw`
 
-error: unused `self` argument
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:20:9
+   |
+LL |         fn unused_self_pin_ref(self: Pin<&Self>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:20:9
+   |
+LL |         fn unused_self_pin_ref(self: Pin<&Self>) {}
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/unused_self.rs:20:32
    |
 LL |         fn unused_self_pin_ref(self: Pin<&Self>) {}
-   |                                ^^^^
-   |
-   = help: consider refactoring to an associated function
+   |                                ^ help: make this parameter mutable: `mut`
 
-error: unused `self` argument
+error: references are not allowed
+  --> tests/ui/unused_self.rs:20:42
+   |
+LL |         fn unused_self_pin_ref(self: Pin<&Self>) {}
+   |                                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:23:9
+   |
+LL |         fn unused_self_pin_mut_ref(self: Pin<&mut Self>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:23:9
+   |
+LL |         fn unused_self_pin_mut_ref(self: Pin<&mut Self>) {}
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/unused_self.rs:23:36
    |
 LL |         fn unused_self_pin_mut_ref(self: Pin<&mut Self>) {}
-   |                                    ^^^^
-   |
-   = help: consider refactoring to an associated function
+   |                                    ^ help: make this parameter mutable: `mut`
 
-error: unused `self` argument
+error: references are not allowed
+  --> tests/ui/unused_self.rs:23:46
+   |
+LL |         fn unused_self_pin_mut_ref(self: Pin<&mut Self>) {}
+   |                                              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:26:9
+   |
+LL |         fn unused_self_pin_nested(self: Pin<Arc<Self>>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:26:9
+   |
+LL |         fn unused_self_pin_nested(self: Pin<Arc<Self>>) {}
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/unused_self.rs:26:35
    |
 LL |         fn unused_self_pin_nested(self: Pin<Arc<Self>>) {}
-   |                                   ^^^^
-   |
-   = help: consider refactoring to an associated function
+   |                                   ^ help: make this parameter mutable: `mut`
 
-error: unused `self` argument
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:29:9
+   |
+LL |         fn unused_self_box(self: Box<Self>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:29:9
+   |
+LL |         fn unused_self_box(self: Box<Self>) {}
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/unused_self.rs:29:28
    |
 LL |         fn unused_self_box(self: Box<Self>) {}
-   |                            ^^^^
-   |
-   = help: consider refactoring to an associated function
+   |                            ^ help: make this parameter mutable: `mut`
 
-error: unused `self` argument
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:32:9
+   |
+LL |         fn unused_with_other_used_args(&self, x: u8, y: u8) -> u8 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:32:9
+   |
+LL |         fn unused_with_other_used_args(&self, x: u8, y: u8) -> u8 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:32:41
+   |
+LL |         fn unused_with_other_used_args(&self, x: u8, y: u8) -> u8 {
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:32:47
+   |
+LL |         fn unused_with_other_used_args(&self, x: u8, y: u8) -> u8 {
+   |                                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:32:54
+   |
+LL |         fn unused_with_other_used_args(&self, x: u8, y: u8) -> u8 {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/unused_self.rs:32:40
    |
 LL |         fn unused_with_other_used_args(&self, x: u8, y: u8) -> u8 {
    |                                        ^^^^^
    |
-   = help: consider refactoring to an associated function
+   = help: use a raw pointer instead: `*const`
 
-error: unused `self` argument
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:37:9
+   |
+LL |         fn unused_self_class_method(&self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:37:9
+   |
+LL |         fn unused_self_class_method(&self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:37:38
+   |
+LL |         fn unused_self_class_method(&self) {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/unused_self.rs:37:37
    |
 LL |         fn unused_self_class_method(&self) {
    |                                     ^^^^^
    |
-   = help: consider refactoring to an associated function
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 9 previous errors
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:43:9
+   |
+LL |         fn static_method() {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:43:9
+   |
+LL |         fn static_method() {}
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:47:1
+   |
+LL | mod unused_self_allow {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:48:5
+   |
+LL |     struct A;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:50:5
+   |
+LL |     impl A {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:53:9
+   |
+LL |         fn unused_self_move(self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:53:9
+   |
+LL |         fn unused_self_move(self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:53:29
+   |
+LL |         fn unused_self_move(self) {}
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:56:5
+   |
+LL |     struct B;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:60:5
+   |
+LL |     impl B {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:61:9
+   |
+LL |         fn unused_self_move(self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:61:9
+   |
+LL |         fn unused_self_move(self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:61:29
+   |
+LL |         fn unused_self_move(self) {}
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:64:5
+   |
+LL |     struct C;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:67:5
+   |
+LL |     impl C {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:69:9
+   |
+LL |         fn some_fn((): ()) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:69:9
+   |
+LL |         fn some_fn((): ()) {}
+   |         ^
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:72:9
+   |
+LL |         fn unused_self_move(self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:72:9
+   |
+LL |         fn unused_self_move(self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:72:29
+   |
+LL |         fn unused_self_move(self) {}
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:77:5
+   |
+LL |     impl D {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:79:13
+   |
+LL |         pub fn unused_self_move(self) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:79:13
+   |
+LL |         pub fn unused_self_move(self) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:79:33
+   |
+LL |         pub fn unused_self_move(self) {}
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:84:5
+   |
+LL |     impl E {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:86:13
+   |
+LL |         pub fn unused_self_todo(self) {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:86:13
+   |
+LL |         pub fn unused_self_todo(self) {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:86:33
+   |
+LL |         pub fn unused_self_todo(self) {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unused_self.rs:87:17
+   |
+LL |             let x = 42;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:95:1
+   |
+LL | mod used_self {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:98:5
+   |
+LL |     struct A {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:102:5
+   |
+LL |     impl A {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:103:9
+   |
+LL |         fn used_self_move(self) -> u8 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:103:9
+   |
+LL |         fn used_self_move(self) -> u8 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:103:27
+   |
+LL |         fn used_self_move(self) -> u8 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:106:9
+   |
+LL |         fn used_self_ref(&self) -> u8 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:106:9
+   |
+LL |         fn used_self_ref(&self) -> u8 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:106:27
+   |
+LL |         fn used_self_ref(&self) -> u8 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:106:26
+   |
+LL |         fn used_self_ref(&self) -> u8 {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:109:9
+   |
+LL |         fn used_self_mut_ref(&mut self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:109:9
+   |
+LL |         fn used_self_mut_ref(&mut self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:109:35
+   |
+LL |         fn used_self_mut_ref(&mut self) {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:109:30
+   |
+LL |         fn used_self_mut_ref(&mut self) {
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:112:9
+   |
+LL |         fn used_self_pin_ref(self: Pin<&Self>) -> u8 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:112:9
+   |
+LL |         fn used_self_pin_ref(self: Pin<&Self>) -> u8 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:112:30
+   |
+LL |         fn used_self_pin_ref(self: Pin<&Self>) -> u8 {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:112:40
+   |
+LL |         fn used_self_pin_ref(self: Pin<&Self>) -> u8 {
+   |                                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:115:9
+   |
+LL |         fn used_self_box(self: Box<Self>) -> u8 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:115:9
+   |
+LL |         fn used_self_box(self: Box<Self>) -> u8 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:115:26
+   |
+LL |         fn used_self_box(self: Box<Self>) -> u8 {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:118:9
+   |
+LL |         fn used_self_with_other_unused_args(&self, x: u8, y: u8) -> u8 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:118:9
+   |
+LL |         fn used_self_with_other_unused_args(&self, x: u8, y: u8) -> u8 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:118:46
+   |
+LL |         fn used_self_with_other_unused_args(&self, x: u8, y: u8) -> u8 {
+   |                                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:118:52
+   |
+LL |         fn used_self_with_other_unused_args(&self, x: u8, y: u8) -> u8 {
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:118:59
+   |
+LL |         fn used_self_with_other_unused_args(&self, x: u8, y: u8) -> u8 {
+   |                                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:118:45
+   |
+LL |         fn used_self_with_other_unused_args(&self, x: u8, y: u8) -> u8 {
+   |                                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:121:9
+   |
+LL |         fn used_in_nested_closure(&self) -> u8 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:121:9
+   |
+LL |         fn used_in_nested_closure(&self) -> u8 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:121:36
+   |
+LL |         fn used_in_nested_closure(&self) -> u8 {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:121:35
+   |
+LL |         fn used_in_nested_closure(&self) -> u8 {
+   |                                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:127:9
+   |
+LL |         fn used_self_method_nested_conditions(&self, a: bool, b: bool, c: bool, d: bool) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:127:9
+   |
+LL |         fn used_self_method_nested_conditions(&self, a: bool, b: bool, c: bool, d: bool) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:127:48
+   |
+LL |         fn used_self_method_nested_conditions(&self, a: bool, b: bool, c: bool, d: bool) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:127:54
+   |
+LL |         fn used_self_method_nested_conditions(&self, a: bool, b: bool, c: bool, d: bool) {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:127:63
+   |
+LL |         fn used_self_method_nested_conditions(&self, a: bool, b: bool, c: bool, d: bool) {
+   |                                                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:127:72
+   |
+LL |         fn used_self_method_nested_conditions(&self, a: bool, b: bool, c: bool, d: bool) {
+   |                                                                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:127:81
+   |
+LL |         fn used_self_method_nested_conditions(&self, a: bool, b: bool, c: bool, d: bool) {
+   |                                                                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:127:47
+   |
+LL |         fn used_self_method_nested_conditions(&self, a: bool, b: bool, c: bool, d: bool) {
+   |                                               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:139:9
+   |
+LL |         fn foo(&self) -> u32 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:139:9
+   |
+LL |         fn foo(&self) -> u32 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:139:17
+   |
+LL |         fn foo(&self) -> u32 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:139:16
+   |
+LL |         fn foo(&self) -> u32 {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:147:9
+   |
+LL |         fn bar(&mut self, x: u8) -> u32 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:147:9
+   |
+LL |         fn bar(&mut self, x: u8) -> u32 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:147:21
+   |
+LL |         fn bar(&mut self, x: u8) -> u32 {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:147:27
+   |
+LL |         fn bar(&mut self, x: u8) -> u32 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:147:16
+   |
+LL |         fn bar(&mut self, x: u8) -> u32 {
+   |                ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:157:1
+   |
+LL | mod not_applicable {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:160:5
+   |
+LL |     struct A;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:162:5
+   |
+LL |     impl fmt::Debug for A {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:163:9
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:163:9
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:163:17
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:163:23
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:163:16
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:163:26
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:168:5
+   |
+LL |     impl A {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:169:9
+   |
+LL |         fn method(x: u8, y: u8) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:169:9
+   |
+LL |         fn method(x: u8, y: u8) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:169:19
+   |
+LL |         fn method(x: u8, y: u8) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:169:26
+   |
+LL |         fn method(x: u8, y: u8) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/unused_self.rs:172:5
+   |
+LL | /     trait B {
+LL | |         fn method(&self) {}
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:172:5
+   |
+LL |     trait B {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:173:9
+   |
+LL |         fn method(&self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:173:9
+   |
+LL |         fn method(&self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_self.rs:173:20
+   |
+LL |         fn method(&self) {}
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_self.rs:173:19
+   |
+LL |         fn method(&self) {}
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unused_self.rs:177:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_self.rs:177:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_self.rs:177:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 112 previous errors
 

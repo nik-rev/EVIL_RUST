@@ -1,42 +1,309 @@
-error: this function may allocate 250$PTR bytes on the stack
-  --> tests/ui/large_stack_frames.rs:27:4
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/large_stack_frames.rs:9:1
+   |
+LL | fn generic<T: Default>() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_stack_frames.rs:9:1
+   |
+LL | fn generic<T: Default>() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_stack_frames.rs:9:1
+   |
+LL | fn generic<T: Default>() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/large_stack_frames.rs:10:9
+   |
+LL |     let x = T::default();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/large_stack_frames.rs:11:15
+   |
+LL |     black_box(&x);
+   |               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/large_stack_frames.rs:14:1
+   |
+LL | fn unsized_local() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_stack_frames.rs:14:1
+   |
+LL | fn unsized_local() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_stack_frames.rs:14:1
+   |
+LL | fn unsized_local() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/large_stack_frames.rs:15:9
+   |
+LL |     let x: dyn std::fmt::Display = *(Box::new(1) as Box<dyn std::fmt::Display>);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_stack_frames.rs:16:15
+   |
+LL |     black_box(&x);
+   |               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/large_stack_frames.rs:19:1
+   |
+LL | struct ArrayDefault<const N: usize>([u8; N]);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/large_stack_frames.rs:21:1
+   |
+LL | impl<const N: usize> Default for ArrayDefault<N> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_stack_frames.rs:22:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_stack_frames.rs:22:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/large_stack_frames.rs:27:1
    |
 LL | fn many_small_arrays() {
-   |    ^^^^^^^^^^^^^^^^^
-...
-LL |     let x5 = [0u8; 500_000];
-   |         -- `x5` is the largest part, at 500000 bytes for type `[u8; 500000]`
-   |
-   = note: 250$PTR bytes is larger than Clippy's configured `stack-size-threshold` of 512000
-   = note: allocating large amounts of stack space can overflow the stack and cause the program to abort
-   = note: `-D clippy::large-stack-frames` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::large_stack_frames)]`
+   | ^ help: make this item public: `pub`
 
-error: this function may allocate 1000000 bytes on the stack
-  --> tests/ui/large_stack_frames.rs:38:4
+error: function must be `unsafe`
+  --> tests/ui/large_stack_frames.rs:27:1
+   |
+LL | fn many_small_arrays() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_stack_frames.rs:27:1
+   |
+LL | fn many_small_arrays() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/large_stack_frames.rs:30:9
+   |
+LL |     let x = [0u8; 500_000];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/large_stack_frames.rs:31:9
+   |
+LL |     let x2 = [0u8; 500_000];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/large_stack_frames.rs:32:9
+   |
+LL |     let x3 = [0u8; 500_000];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/large_stack_frames.rs:33:9
+   |
+LL |     let x4 = [0u8; 500_000];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/large_stack_frames.rs:34:9
+   |
+LL |     let x5 = [0u8; 500_000];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_stack_frames.rs:35:16
+   |
+LL |     black_box((&x, &x2, &x3, &x4, &x5));
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/large_stack_frames.rs:35:20
+   |
+LL |     black_box((&x, &x2, &x3, &x4, &x5));
+   |                    ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/large_stack_frames.rs:35:25
+   |
+LL |     black_box((&x, &x2, &x3, &x4, &x5));
+   |                         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/large_stack_frames.rs:35:30
+   |
+LL |     black_box((&x, &x2, &x3, &x4, &x5));
+   |                              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/large_stack_frames.rs:35:35
+   |
+LL |     black_box((&x, &x2, &x3, &x4, &x5));
+   |                                   ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/large_stack_frames.rs:38:1
    |
 LL | fn large_return_value() -> ArrayDefault<1_000_000> {
-   |    ^^^^^^^^^^^^^^^^^^      ----------------------- this is the largest part, at 1000000 bytes for type `ArrayDefault<1000000>`
-   |
-   = note: 1000000 bytes is larger than Clippy's configured `stack-size-threshold` of 512000
+   | ^ help: make this item public: `pub`
 
-error: this function may allocate 100$PTR bytes on the stack
-  --> tests/ui/large_stack_frames.rs:44:4
+error: function must be `unsafe`
+  --> tests/ui/large_stack_frames.rs:38:1
+   |
+LL | fn large_return_value() -> ArrayDefault<1_000_000> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_stack_frames.rs:38:1
+   |
+LL | fn large_return_value() -> ArrayDefault<1_000_000> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/large_stack_frames.rs:44:1
    |
 LL | fn large_fn_arg(x: ArrayDefault<1_000_000>) {
-   |    ^^^^^^^^^^^^ - `x` is the largest part, at 1000000 bytes for type `ArrayDefault<1000000>`
-   |
-   = note: 100$PTR bytes is larger than Clippy's configured `stack-size-threshold` of 512000
+   | ^ help: make this item public: `pub`
 
-error: this function may allocate 100$PTR bytes on the stack
-  --> tests/ui/large_stack_frames.rs:51:13
+error: function must be `unsafe`
+  --> tests/ui/large_stack_frames.rs:44:1
+   |
+LL | fn large_fn_arg(x: ArrayDefault<1_000_000>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_stack_frames.rs:44:1
+   |
+LL | fn large_fn_arg(x: ArrayDefault<1_000_000>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_stack_frames.rs:44:17
+   |
+LL | fn large_fn_arg(x: ArrayDefault<1_000_000>) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_stack_frames.rs:47:15
+   |
+LL |     black_box(&x);
+   |               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/large_stack_frames.rs:50:1
+   |
+LL | fn has_large_closure() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_stack_frames.rs:50:1
+   |
+LL | fn has_large_closure() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_stack_frames.rs:50:1
+   |
+LL | fn has_large_closure() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/large_stack_frames.rs:51:9
    |
 LL |     let f = || black_box(&[0u8; 1_000_000]);
-   |             ^^^^^^^^^^^^^^----------------^
-   |                           |
-   |                           this is the largest part, at 1000000 bytes for type `[u8; 1000000]`
-   |
-   = note: 100$PTR bytes is larger than Clippy's configured `stack-size-threshold` of 512000
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 4 previous errors
+error: references are not allowed
+  --> tests/ui/large_stack_frames.rs:51:26
+   |
+LL |     let f = || black_box(&[0u8; 1_000_000]);
+   |                          ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/large_stack_frames.rs:57:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_stack_frames.rs:57:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_stack_frames.rs:57:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 39 previous errors
 

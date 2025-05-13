@@ -1,64 +1,484 @@
-error: parameter is only used in recursion
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:3:1
+   |
+LL | fn _with_inner(flag: u32, a: u32, b: u32) -> usize {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:3:1
+   |
+LL | fn _with_inner(flag: u32, a: u32, b: u32) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:3:1
+   |
+LL | fn _with_inner(flag: u32, a: u32, b: u32) -> usize {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:3:16
+   |
+LL | fn _with_inner(flag: u32, a: u32, b: u32) -> usize {
+   |                ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:3:27
+   |
+LL | fn _with_inner(flag: u32, a: u32, b: u32) -> usize {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion2.rs:3:35
    |
 LL | fn _with_inner(flag: u32, a: u32, b: u32) -> usize {
-   |                                   ^ help: if this is intentional, prefix it with an underscore: `_b`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion2.rs:13:52
-   |
-LL |     if flag == 0 { 0 } else { _with_inner(flag, a, b + x) }
-   |                                                    ^
-   = note: `-D clippy::only-used-in-recursion` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::only_used_in_recursion)]`
+   |                                   ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:6:5
+   |
+LL |     fn inner(flag: u32, a: u32) -> u32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:6:5
+   |
+LL |     fn inner(flag: u32, a: u32) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:6:5
+   |
+LL |     fn inner(flag: u32, a: u32) -> u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:6:14
+   |
+LL |     fn inner(flag: u32, a: u32) -> u32 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion2.rs:6:25
    |
 LL |     fn inner(flag: u32, a: u32) -> u32 {
-   |                         ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion2.rs:9:47
-   |
-LL |         if flag == 0 { 0 } else { inner(flag, a) }
-   |                                               ^
+   |                         ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: variable must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:12:9
+   |
+LL |     let x = inner(flag, a);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:16:1
+   |
+LL | fn _with_closure(a: Option<u32>, b: u32, f: impl Fn(u32, u32) -> Option<u32>) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:16:1
+   |
+LL | fn _with_closure(a: Option<u32>, b: u32, f: impl Fn(u32, u32) -> Option<u32>) -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:16:1
+   |
+LL | fn _with_closure(a: Option<u32>, b: u32, f: impl Fn(u32, u32) -> Option<u32>) -> u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:16:18
+   |
+LL | fn _with_closure(a: Option<u32>, b: u32, f: impl Fn(u32, u32) -> Option<u32>) -> u32 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion2.rs:16:34
    |
 LL | fn _with_closure(a: Option<u32>, b: u32, f: impl Fn(u32, u32) -> Option<u32>) -> u32 {
-   |                                  ^ help: if this is intentional, prefix it with an underscore: `_b`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion2.rs:20:32
-   |
-LL |         _with_closure(Some(x), b, f)
-   |                                ^
+   |                                  ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
-  --> tests/ui/only_used_in_recursion2.rs:68:37
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:16:42
+   |
+LL | fn _with_closure(a: Option<u32>, b: u32, f: impl Fn(u32, u32) -> Option<u32>) -> u32 {
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:27:1
+   |
+LL | / trait D {
+LL | |     fn foo(&mut self, arg: u32) -> u32;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:27:1
+   |
+LL | trait D {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:28:5
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:28:5
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:28:17
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32;
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:28:23
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32;
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion2.rs:28:12
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32;
+   |            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:31:1
+   |
+LL | mod m {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:33:5
+   |
+LL |     impl S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:34:13
+   |
+LL |         pub fn foo(&mut self, arg: u32) -> u32 {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:34:13
+   |
+LL |         pub fn foo(&mut self, arg: u32) -> u32 {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:34:25
+   |
+LL |         pub fn foo(&mut self, arg: u32) -> u32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:34:31
+   |
+LL |         pub fn foo(&mut self, arg: u32) -> u32 {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion2.rs:34:20
+   |
+LL |         pub fn foo(&mut self, arg: u32) -> u32 {
+   |                    ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:40:1
+   |
+LL | impl D for m::S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:41:5
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:41:5
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:41:17
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:41:23
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion2.rs:41:12
+   |
+LL |     fn foo(&mut self, arg: u32) -> u32 {
+   |            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:47:1
+   |
+LL | fn only_let(x: u32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:47:1
+   |
+LL | fn only_let(x: u32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:47:1
+   |
+LL | fn only_let(x: u32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:47:13
+   |
+LL | fn only_let(x: u32) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:48:9
+   |
+LL |     let y = 10u32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:49:9
+   |
+LL |     let _z = x * y;
+   |         ^ help: make this variable mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:52:1
+   |
+LL | / trait E<T: E<()>> {
+LL | |     fn method(flag: u32, a: usize) -> usize {
+LL | |         if flag == 0 {
+LL | |             0
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:52:1
+   |
+LL | trait E<T: E<()>> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:53:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:53:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:53:15
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:53:26
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:62:1
+   |
+LL | impl E<()> for () {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:63:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:63:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:63:15
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:63:26
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:68:1
    |
 LL | fn overwritten_param(flag: u32, mut a: usize) -> usize {
-   |                                     ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion2.rs:78:29
-   |
-LL |     overwritten_param(flag, a)
-   |                             ^
+   | ^ help: make this item public: `pub`
 
-error: parameter is only used in recursion
-  --> tests/ui/only_used_in_recursion2.rs:81:32
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:68:1
+   |
+LL | fn overwritten_param(flag: u32, mut a: usize) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:68:1
+   |
+LL | fn overwritten_param(flag: u32, mut a: usize) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:68:22
+   |
+LL | fn overwritten_param(flag: u32, mut a: usize) -> usize {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:81:1
    |
 LL | fn field_direct(flag: u32, mut a: (usize,)) -> usize {
-   |                                ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion2.rs:88:32
-   |
-LL |         field_direct(flag - 1, a)
-   |                                ^
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:81:1
+   |
+LL | fn field_direct(flag: u32, mut a: (usize,)) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:81:1
+   |
+LL | fn field_direct(flag: u32, mut a: (usize,)) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:81:17
+   |
+LL | fn field_direct(flag: u32, mut a: (usize,)) -> usize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:92:1
+   |
+LL | fn field_deref(flag: u32, a: &mut Box<(usize,)>) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:92:1
+   |
+LL | fn field_deref(flag: u32, a: &mut Box<(usize,)>) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:92:1
+   |
+LL | fn field_deref(flag: u32, a: &mut Box<(usize,)>) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:92:16
+   |
+LL | fn field_deref(flag: u32, a: &mut Box<(usize,)>) -> usize {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion2.rs:92:27
+   |
+LL | fn field_deref(flag: u32, a: &mut Box<(usize,)>) -> usize {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion2.rs:92:30
+   |
+LL | fn field_deref(flag: u32, a: &mut Box<(usize,)>) -> usize {
+   |                              ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion2.rs:101:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:101:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion2.rs:101:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 63 previous errors
 

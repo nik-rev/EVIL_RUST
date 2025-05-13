@@ -1,23 +1,351 @@
-error: derefed type is same as origin
-  --> tests/ui/needless_option_as_deref.rs:7:29
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_option_as_deref.rs:5:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:7:19
    |
 LL |     let _: Option<&usize> = Some(&1).as_deref();
-   |                             ^^^^^^^^^^^^^^^^^^^ help: try: `Some(&1)`
+   |                   ^^^^^^
    |
-   = note: `-D clippy::needless-option-as-deref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_option_as_deref)]`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: derefed type is same as origin
-  --> tests/ui/needless_option_as_deref.rs:9:33
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:7:34
+   |
+LL |     let _: Option<&usize> = Some(&1).as_deref();
+   |                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:9:19
    |
 LL |     let _: Option<&mut usize> = Some(&mut 1).as_deref_mut();
-   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Some(&mut 1)`
-
-error: derefed type is same as origin
-  --> tests/ui/needless_option_as_deref.rs:14:13
+   |                   ^^^^^^^^^^
    |
-LL |     let _ = x.as_deref_mut();
-   |             ^^^^^^^^^^^^^^^^ help: try: `x`
+   = help: use a raw pointer instead: `*raw`
 
-error: aborting due to 3 previous errors
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:9:38
+   |
+LL |     let _: Option<&mut usize> = Some(&mut 1).as_deref_mut();
+   |                                      ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:13:22
+   |
+LL |     let mut x = Some(&mut y);
+   |                      ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:22:22
+   |
+LL |     let mut x = Some(&mut y);
+   |                      ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:28:22
+   |
+LL |     let mut x = Some(&mut y);
+   |                      ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:37:33
+   |
+LL |     let mut opt_vec = vec![Some(&mut i)];
+   |                                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_option_as_deref.rs:41:9
+   |
+LL |     let x = &mut Some(&mut i);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:41:13
+   |
+LL |     let x = &mut Some(&mut i);
+   |             ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:41:23
+   |
+LL |     let x = &mut Some(&mut i);
+   |                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:46:22
+   |
+LL |     let mut x = Some(&mut y);
+   |                      ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:48:5
+   |
+LL |     dbg!(x);
+   |     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_option_as_deref.rs:51:1
+   |
+LL | struct S<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:52:17
+   |
+LL |     opt: Option<&'a mut usize>,
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_option_as_deref.rs:55:1
+   |
+LL | fn from_field<'a>(s: &'a mut S<'a>) -> Option<&'a mut usize> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:55:1
+   |
+LL | fn from_field<'a>(s: &'a mut S<'a>) -> Option<&'a mut usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:55:1
+   |
+LL | fn from_field<'a>(s: &'a mut S<'a>) -> Option<&'a mut usize> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_option_as_deref.rs:55:19
+   |
+LL | fn from_field<'a>(s: &'a mut S<'a>) -> Option<&'a mut usize> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:55:22
+   |
+LL | fn from_field<'a>(s: &'a mut S<'a>) -> Option<&'a mut usize> {
+   |                      ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:55:47
+   |
+LL | fn from_field<'a>(s: &'a mut S<'a>) -> Option<&'a mut usize> {
+   |                                               ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_option_as_deref.rs:59:1
+   |
+LL | mod issue_non_copy_13077 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:60:9
+   |
+LL |     pub fn something(mut maybe_side_effect: Option<&mut String>) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:60:9
+   |
+LL |     pub fn something(mut maybe_side_effect: Option<&mut String>) {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:60:52
+   |
+LL |     pub fn something(mut maybe_side_effect: Option<&mut String>) {
+   |                                                    ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_option_as_deref.rs:68:5
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:68:5
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:68:5
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_option_as_deref.rs:68:14
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:68:41
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |                                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_option_as_deref.rs:77:1
+   |
+LL | mod issue14148 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:78:5
+   |
+LL | /     pub trait SomeTrait {
+LL | |         fn something(&self, mut maybe_side_effect: Option<&mut String>) {
+LL | |             other(maybe_side_effect.as_deref_mut());
+LL | |             other(maybe_side_effect);
+LL | |         }
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:79:9
+   |
+LL |         fn something(&self, mut maybe_side_effect: Option<&mut String>) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:79:9
+   |
+LL |         fn something(&self, mut maybe_side_effect: Option<&mut String>) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_option_as_deref.rs:79:23
+   |
+LL |         fn something(&self, mut maybe_side_effect: Option<&mut String>) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:79:22
+   |
+LL |         fn something(&self, mut maybe_side_effect: Option<&mut String>) {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:79:59
+   |
+LL |         fn something(&self, mut maybe_side_effect: Option<&mut String>) {
+   |                                                           ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_option_as_deref.rs:85:5
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:85:5
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_option_as_deref.rs:85:5
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_option_as_deref.rs:85:14
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_option_as_deref.rs:85:41
+   |
+LL |     fn other(_maybe_side_effect: Option<&mut String>) {
+   |                                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 43 previous errors
 

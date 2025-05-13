@@ -1,100 +1,345 @@
-error: the loop variable `i` is only used to index `ns`
-  --> tests/ui/needless_range_loop2.rs:11:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     for i in 3..10 {
-   |              ^^^^^
-   |
-   = note: `-D clippy::needless-range-loop` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_range_loop)]`
-help: consider using an iterator
-   |
-LL -     for i in 3..10 {
-LL +     for <item> in ns.iter().take(10).skip(3) {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: the loop variable `i` is only used to index `ms`
-  --> tests/ui/needless_range_loop2.rs:34:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     for i in 0..ms.len() {
-   |              ^^^^^^^^^^^
-   |
-help: consider using an iterator
-   |
-LL -     for i in 0..ms.len() {
-LL +     for <item> in &mut ms {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: the loop variable `i` is only used to index `ms`
-  --> tests/ui/needless_range_loop2.rs:42:14
+error: item must be `pub`
+  --> tests/ui/needless_range_loop2.rs:4:1
    |
-LL |     for i in 0..ms.len() {
-   |              ^^^^^^^^^^^
+LL | fn calc_idx(i: usize) -> usize {
+   | ^ help: make this item public: `pub`
    |
-help: consider using an iterator
-   |
-LL -     for i in 0..ms.len() {
-LL +     for <item> in &mut ms {
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: the loop variable `i` is only used to index `vec`
-  --> tests/ui/needless_range_loop2.rs:68:14
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop2.rs:4:1
    |
-LL |     for i in x..x + 4 {
-   |              ^^^^^^^^
+LL | fn calc_idx(i: usize) -> usize {
+   | ^
    |
-help: consider using an iterator
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop2.rs:4:1
    |
-LL -     for i in x..x + 4 {
-LL +     for <item> in vec.iter_mut().skip(x).take(4) {
-   |
+LL | fn calc_idx(i: usize) -> usize {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: the loop variable `i` is only used to index `vec`
-  --> tests/ui/needless_range_loop2.rs:77:14
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop2.rs:4:13
    |
-LL |     for i in x..=x + 4 {
-   |              ^^^^^^^^^
+LL | fn calc_idx(i: usize) -> usize {
+   |             ^ help: make this parameter mutable: `mut`
    |
-help: consider using an iterator
-   |
-LL -     for i in x..=x + 4 {
-LL +     for <item> in vec.iter_mut().skip(x).take(4 + 1) {
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: the loop variable `i` is only used to index `arr`
-  --> tests/ui/needless_range_loop2.rs:85:14
+error: item must be `pub`
+  --> tests/ui/needless_range_loop2.rs:8:1
    |
-LL |     for i in 0..3 {
-   |              ^^^^
-   |
-help: consider using an iterator
-   |
-LL -     for i in 0..3 {
-LL +     for <item> in &arr {
-   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: the loop variable `i` is only used to index `arr`
-  --> tests/ui/needless_range_loop2.rs:91:14
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop2.rs:8:1
    |
-LL |     for i in 0..2 {
-   |              ^^^^
+LL | fn main() {
+   | ^
    |
-help: consider using an iterator
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop2.rs:8:1
    |
-LL -     for i in 0..2 {
-LL +     for <item> in arr.iter().take(2) {
-   |
+LL | fn main() {
+   | ^
 
-error: the loop variable `i` is only used to index `arr`
-  --> tests/ui/needless_range_loop2.rs:97:14
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:9:9
    |
-LL |     for i in 1..3 {
-   |              ^^^^
-   |
-help: consider using an iterator
-   |
-LL -     for i in 1..3 {
-LL +     for <item> in arr.iter().skip(1) {
-   |
+LL |     let ns = vec![2, 3, 5, 7];
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 8 previous errors
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:39:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:39:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:39:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:39:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:39:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:45:13
+   |
+LL |         let x = &mut ms[i];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:45:17
+   |
+LL |         let x = &mut ms[i];
+   |                 ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:48:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:48:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:48:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:48:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:48:5
+   |
+LL |     assert_eq!(ms, vec![2, 4, 6, 8, 10, 12]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:50:9
+   |
+LL |     let g = vec![1, 2, 3, 4, 5, 6];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:51:9
+   |
+LL |     let glen = g.len();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:53:13
+   |
+LL |         let x: u32 = g[i + 1..].iter().sum();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:56:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:56:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:56:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:56:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:56:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:59:9
+   |
+LL |     let glen = g.len();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:63:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:63:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:63:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:63:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:63:5
+   |
+LL |     assert_eq!(g, vec![20, 18, 15, 11, 6, 0]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:65:9
+   |
+LL |     let x = 5;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:74:9
+   |
+LL |     let x = 5;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop2.rs:83:9
+   |
+LL |     let arr = [1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_range_loop2.rs:118:1
+   |
+LL | mod issue2277 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop2.rs:119:9
+   |
+LL |     pub fn example(list: &[[f64; 3]]) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop2.rs:119:9
+   |
+LL |     pub fn example(list: &[[f64; 3]]) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop2.rs:119:20
+   |
+LL |     pub fn example(list: &[[f64; 3]]) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop2.rs:119:26
+   |
+LL |     pub fn example(list: &[[f64; 3]]) {
+   |                          ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 43 previous errors
 

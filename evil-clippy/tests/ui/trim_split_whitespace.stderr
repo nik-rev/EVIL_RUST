@@ -1,53 +1,429 @@
-error: found call to `str::trim` before `str::split_whitespace`
-  --> tests/ui/trim_split_whitespace.rs:61:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = " A B C ".trim().split_whitespace(); // should trigger lint
-   |                       ^^^^^^^ help: remove `trim()`
-   |
-   = note: `-D clippy::trim-split-whitespace` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::trim_split_whitespace)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: found call to `str::trim_start` before `str::split_whitespace`
-  --> tests/ui/trim_split_whitespace.rs:64:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = " A B C ".trim_start().split_whitespace(); // should trigger lint
-   |                       ^^^^^^^^^^^^^ help: remove `trim_start()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: found call to `str::trim_end` before `str::split_whitespace`
-  --> tests/ui/trim_split_whitespace.rs:67:23
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:4:1
    |
-LL |     let _ = " A B C ".trim_end().split_whitespace(); // should trigger lint
-   |                       ^^^^^^^^^^^ help: remove `trim_end()`
-
-error: found call to `str::trim` before `str::split_whitespace`
-  --> tests/ui/trim_split_whitespace.rs:72:37
+LL | struct Custom;
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = (" A B C ").to_string().trim().split_whitespace(); // should trigger lint
-   |                                     ^^^^^^^ help: remove `trim()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: found call to `str::trim_start` before `str::split_whitespace`
-  --> tests/ui/trim_split_whitespace.rs:75:37
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:5:1
    |
-LL |     let _ = (" A B C ").to_string().trim_start().split_whitespace(); // should trigger lint
-   |                                     ^^^^^^^^^^^^^ help: remove `trim_start()`
+LL | impl Custom {
+   | ^ help: make this item public: `pub`
 
-error: found call to `str::trim_end` before `str::split_whitespace`
-  --> tests/ui/trim_split_whitespace.rs:78:37
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:6:5
    |
-LL |     let _ = (" A B C ").to_string().trim_end().split_whitespace(); // should trigger lint
-   |                                     ^^^^^^^^^^^ help: remove `trim_end()`
-
-error: found call to `str::trim` before `str::split_whitespace`
-  --> tests/ui/trim_split_whitespace.rs:87:15
+LL |     fn trim(self) -> Self {
+   |     ^
    |
-LL |     let _ = s.trim().split_whitespace(); // should trigger lint
-   |               ^^^^^^^ help: remove `trim()`
-
-error: found call to `str::trim` before `str::split_whitespace`
-  --> tests/ui/trim_split_whitespace.rs:97:15
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:6:5
    |
-LL |     let _ = s.trim().split_whitespace(); // should trigger lint
-   |               ^^^^^^^ help: remove `trim()`
+LL |     fn trim(self) -> Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 8 previous errors
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:6:13
+   |
+LL |     fn trim(self) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:9:5
+   |
+LL |     fn split_whitespace(self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:9:5
+   |
+LL |     fn split_whitespace(self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:9:25
+   |
+LL |     fn split_whitespace(self) {}
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:12:1
+   |
+LL | struct DerefStr(&'static str);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:12:17
+   |
+LL | struct DerefStr(&'static str);
+   |                 ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:13:1
+   |
+LL | impl std::ops::Deref for DerefStr {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:15:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:15:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:15:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:15:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:15:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:20:1
+   |
+LL | struct DerefStrAndCustom(&'static str);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:20:26
+   |
+LL | struct DerefStrAndCustom(&'static str);
+   |                          ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:21:1
+   |
+LL | impl std::ops::Deref for DerefStrAndCustom {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:23:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:23:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:23:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:23:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:23:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:27:1
+   |
+LL | impl DerefStrAndCustom {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:28:5
+   |
+LL |     fn trim(self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:28:5
+   |
+LL |     fn trim(self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:28:13
+   |
+LL |     fn trim(self) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:31:5
+   |
+LL |     fn split_whitespace(self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:31:5
+   |
+LL |     fn split_whitespace(self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:31:25
+   |
+LL |     fn split_whitespace(self) {}
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:34:1
+   |
+LL | struct DerefStrAndCustomSplit(&'static str);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:34:31
+   |
+LL | struct DerefStrAndCustomSplit(&'static str);
+   |                               ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:35:1
+   |
+LL | impl std::ops::Deref for DerefStrAndCustomSplit {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:37:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:37:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:37:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:37:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:37:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:41:1
+   |
+LL | impl DerefStrAndCustomSplit {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:43:5
+   |
+LL |     fn split_whitespace(self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:43:5
+   |
+LL |     fn split_whitespace(self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:43:25
+   |
+LL |     fn split_whitespace(self) {}
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:46:1
+   |
+LL | struct DerefStrAndCustomTrim(&'static str);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:46:30
+   |
+LL | struct DerefStrAndCustomTrim(&'static str);
+   |                              ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:47:1
+   |
+LL | impl std::ops::Deref for DerefStrAndCustomTrim {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:49:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:49:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:49:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:49:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/trim_split_whitespace.rs:49:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:53:1
+   |
+LL | impl DerefStrAndCustomTrim {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:54:5
+   |
+LL |     fn trim(self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:54:5
+   |
+LL |     fn trim(self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:54:13
+   |
+LL |     fn trim(self) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/trim_split_whitespace.rs:59:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:59:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trim_split_whitespace.rs:59:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:86:9
+   |
+LL |     let s = DerefStr(" A B C ");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:92:9
+   |
+LL |     let s = DerefStrAndCustom(" A B C ");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:96:9
+   |
+LL |     let s = DerefStrAndCustomSplit(" A B C ");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/trim_split_whitespace.rs:104:9
+   |
+LL |     let s = DerefStrAndCustomTrim(" A B C ");
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 55 previous errors
 

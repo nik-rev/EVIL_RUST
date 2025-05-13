@@ -1,184 +1,417 @@
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:11:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = "key=value".splitn(2, '=').nth(1).unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"key=value".split_once('=').unwrap().1`
-   |
-   = note: `-D clippy::manual-split-once` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_split_once)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:13:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = "key=value".splitn(2, '=').skip(1).next().unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"key=value".split_once('=').unwrap().1`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:15:18
+error: item must be `pub`
+  --> tests/ui/manual_split_once.rs:4:1
    |
-LL |     let (_, _) = "key=value".splitn(2, '=').next_tuple().unwrap();
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"key=value".split_once('=')`
+LL | extern crate itertools;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:19:13
+error: item must be `pub`
+  --> tests/ui/manual_split_once.rs:9:1
    |
-LL |     let _ = s.splitn(2, '=').nth(1).unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.split_once('=').unwrap().1`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:23:13
+error: function must be `unsafe`
+  --> tests/ui/manual_split_once.rs:9:1
    |
-LL |     let _ = s.splitn(2, '=').nth(1).unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.split_once('=').unwrap().1`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_split_once.rs:9:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:27:13
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:18:9
    |
-LL |     let _ = s.splitn(2, '=').skip(1).next().unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.split_once('=').unwrap().1`
+LL |     let s = String::from("key=value");
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:31:17
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:22:9
    |
-LL |         let _ = s.splitn(2, '=').nth(1)?;
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.split_once('=')?.1`
+LL |     let s = Box::<str>::from("key=value");
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:33:17
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:26:9
    |
-LL |         let _ = s.splitn(2, '=').skip(1).next()?;
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.split_once('=')?.1`
+LL |     let s = &"key=value";
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual implementation of `rsplit_once`
-  --> tests/ui/manual_split_once.rs:35:17
+error: references are not allowed
+  --> tests/ui/manual_split_once.rs:26:13
    |
-LL |         let _ = s.rsplitn(2, '=').nth(1)?;
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.rsplit_once('=')?.0`
+LL |     let s = &"key=value";
+   |             ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: manual implementation of `rsplit_once`
-  --> tests/ui/manual_split_once.rs:37:17
+error: item must be `pub`
+  --> tests/ui/manual_split_once.rs:30:5
    |
-LL |         let _ = s.rsplitn(2, '=').skip(1).next()?;
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.rsplit_once('=')?.0`
+LL |     fn _f(s: &str) -> Option<&str> {
+   |     ^ help: make this item public: `pub`
 
-error: manual implementation of `rsplit_once`
-  --> tests/ui/manual_split_once.rs:46:13
+error: function must be `unsafe`
+  --> tests/ui/manual_split_once.rs:30:5
    |
-LL |     let _ = "key=value".rsplitn(2, '=').nth(1).unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"key=value".rsplit_once('=').unwrap().0`
+LL |     fn _f(s: &str) -> Option<&str> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_split_once.rs:30:5
+   |
+LL |     fn _f(s: &str) -> Option<&str> {
+   |     ^
 
-error: manual implementation of `rsplit_once`
-  --> tests/ui/manual_split_once.rs:48:18
+error: parameter must be `mut`
+  --> tests/ui/manual_split_once.rs:30:11
    |
-LL |     let (_, _) = "key=value".rsplitn(2, '=').next_tuple().unwrap();
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"key=value".rsplit_once('=').map(|(x, y)| (y, x))`
+LL |     fn _f(s: &str) -> Option<&str> {
+   |           ^ help: make this parameter mutable: `mut`
 
-error: manual implementation of `rsplit_once`
-  --> tests/ui/manual_split_once.rs:50:13
+error: references are not allowed
+  --> tests/ui/manual_split_once.rs:30:14
    |
-LL |     let _ = s.rsplitn(2, '=').nth(1);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.rsplit_once('=').map(|x| x.0)`
+LL |     fn _f(s: &str) -> Option<&str> {
+   |              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:55:5
+error: references are not allowed
+  --> tests/ui/manual_split_once.rs:30:30
    |
-LL |     let mut iter = "a.b.c".splitn(2, '.');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-LL |
+LL |     fn _f(s: &str) -> Option<&str> {
+   |                              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_split_once.rs:54:1
+   |
+LL | fn indirect() -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_split_once.rs:54:1
+   |
+LL | fn indirect() -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_split_once.rs:54:1
+   |
+LL | fn indirect() -> Option<()> {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:57:9
+   |
 LL |     let l = iter.next().unwrap();
-   |     ----------------------------- first usage here
-LL |     let r = iter.next().unwrap();
-   |     ----------------------------- second usage here
-   |
-help: replace with `split_once`
-   |
-LL ~     let (l, r) = "a.b.c".split_once('.').unwrap();
-LL |
-LL ~     
-LL ~     
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:60:5
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:58:9
    |
-LL |     let mut iter = "a.b.c".splitn(2, '.');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-LL |
+LL |     let r = iter.next().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:62:9
+   |
 LL |     let l = iter.next()?;
-   |     --------------------- first usage here
-LL |     let r = iter.next()?;
-   |     --------------------- second usage here
-   |
-help: replace with `split_once`
-   |
-LL ~     let (l, r) = "a.b.c".split_once('.')?;
-LL |
-LL ~     
-LL ~     
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual implementation of `rsplit_once`
-  --> tests/ui/manual_split_once.rs:65:5
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:63:9
    |
-LL |     let mut iter = "a.b.c".rsplitn(2, '.');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-LL |
+LL |     let r = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:67:9
+   |
 LL |     let r = iter.next().unwrap();
-   |     ----------------------------- first usage here
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:68:9
+   |
 LL |     let l = iter.next().unwrap();
-   |     ----------------------------- second usage here
-   |
-help: replace with `rsplit_once`
-   |
-LL ~     let (l, r) = "a.b.c".rsplit_once('.').unwrap();
-LL |
-LL ~     
-LL ~     
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual implementation of `rsplit_once`
-  --> tests/ui/manual_split_once.rs:70:5
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:72:9
    |
-LL |     let mut iter = "a.b.c".rsplitn(2, '.');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-LL |
 LL |     let r = iter.next()?;
-   |     --------------------- first usage here
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:73:9
+   |
 LL |     let l = iter.next()?;
-   |     --------------------- second usage here
-   |
-help: replace with `rsplit_once`
-   |
-LL ~     let (l, r) = "a.b.c".rsplit_once('.')?;
-LL |
-LL ~     
-LL ~     
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:156:13
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:78:9
    |
-LL |     let _ = "key=value".splitn(2, '=').nth(1).unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"key=value".split_once('=').unwrap().1`
+LL |     let other = 1;
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual implementation of `split_once`
-  --> tests/ui/manual_split_once.rs:159:5
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:79:9
    |
-LL |     let mut iter = "a.b.c".splitn(2, '.');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-LL |
+LL |     let l = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:80:9
+   |
+LL |     let r = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:84:9
+   |
+LL |     let r = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:87:9
+   |
+LL |     let tuple = (iter.next()?, iter.next()?);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:92:9
+   |
+LL |     let l = missing_unwrap.next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:93:9
+   |
+LL |     let r = missing_unwrap.next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:96:9
+   |
+LL |     let unwrap = mixed_unrap.next().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:97:9
+   |
+LL |     let question_mark = mixed_unrap.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:100:9
+   |
+LL |     let same_name = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:101:9
+   |
+LL |     let same_name = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:104:9
+   |
+LL |     let shadows_existing = "d";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:105:9
+   |
+LL |     let shadows_existing = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:106:9
+   |
+LL |     let r = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:109:9
+   |
+LL |     let becomes_shadowed = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:110:9
+   |
+LL |     let becomes_shadowed = "d";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:111:9
+   |
+LL |     let r = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:114:9
+   |
+LL |     let l = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:115:9
+   |
+LL |     let r = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:116:9
+   |
+LL |     let third_usage = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:119:9
+   |
+LL |     let l = n_three.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:120:9
+   |
+LL |     let r = n_three.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:124:13
+   |
+LL |         let in_block = iter.next()?;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:126:9
+   |
+LL |     let r = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:130:9
+   |
+LL |     let r = lacks_binding.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:133:9
+   |
+LL |     let l = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:134:9
+   |
+LL |     let r = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:138:9
+   |
+LL |     let l = iter.next()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_split_once.rs:145:1
+   |
+LL | fn _msrv_1_51() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_split_once.rs:145:1
+   |
+LL | fn _msrv_1_51() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_split_once.rs:145:1
+   |
+LL | fn _msrv_1_51() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:150:9
+   |
 LL |     let a = iter.next().unwrap();
-   |     ----------------------------- first usage here
-LL |     let b = iter.next().unwrap();
-   |     ----------------------------- second usage here
-   |
-help: replace with `split_once`
-   |
-LL ~     let (a, b) = "a.b.c".split_once('.').unwrap();
-LL |
-LL ~     
-LL ~     
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 19 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:151:9
+   |
+LL |     let b = iter.next().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_split_once.rs:155:1
+   |
+LL | fn _msrv_1_52() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_split_once.rs:155:1
+   |
+LL | fn _msrv_1_52() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_split_once.rs:155:1
+   |
+LL | fn _msrv_1_52() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:161:9
+   |
+LL |     let a = iter.next().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_split_once.rs:162:9
+   |
+LL |     let b = iter.next().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 62 previous errors
 

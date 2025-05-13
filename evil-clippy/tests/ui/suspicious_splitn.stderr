@@ -1,76 +1,63 @@
-error: `splitn` called with `0` splits
-  --> tests/ui/suspicious_splitn.rs:10:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = "a,b".splitn(0, ',');
-   |             ^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: the resulting iterator will always return `None`
-   = note: `-D clippy::suspicious-splitn` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suspicious_splitn)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `rsplitn` called with `0` splits
-  --> tests/ui/suspicious_splitn.rs:13:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = "a,b".rsplitn(0, ',');
-   |             ^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: the resulting iterator will always return `None`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `splitn` called with `1` split
-  --> tests/ui/suspicious_splitn.rs:16:13
+error: item must be `pub`
+  --> tests/ui/suspicious_splitn.rs:4:1
    |
-LL |     let _ = "a,b".splitn(1, ',');
-   |             ^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = note: the resulting iterator will always return the entire string followed by `None`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `splitn` called with `0` splits
-  --> tests/ui/suspicious_splitn.rs:19:13
+error: function must be `unsafe`
+  --> tests/ui/suspicious_splitn.rs:4:1
    |
-LL |     let _ = [0, 1, 2].splitn(0, |&x| x == 1);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-   = note: the resulting iterator will always return `None`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_splitn.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: `splitn_mut` called with `0` splits
-  --> tests/ui/suspicious_splitn.rs:22:13
+error: references are not allowed
+  --> tests/ui/suspicious_splitn.rs:8:31
    |
-LL |     let _ = [0, 1, 2].splitn_mut(0, |&x| x == 1);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     let _ = [].splitn(0, |&x: &u32| x == 1);
+   |                               ^^^^
    |
-   = note: the resulting iterator will always return `None`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: `splitn` called with `1` split
-  --> tests/ui/suspicious_splitn.rs:25:13
+error: item must be `pub`
+  --> tests/ui/suspicious_splitn.rs:31:5
    |
-LL |     let _ = [0, 1, 2].splitn(1, |&x| x == 1);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: the resulting iterator will always return the entire slice followed by `None`
+LL |     const X: usize = 0;
+   |     ^ help: make this item public: `pub`
 
-error: `rsplitn_mut` called with `1` split
-  --> tests/ui/suspicious_splitn.rs:28:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = [0, 1, 2].rsplitn_mut(1, |&x| x == 1);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: the resulting iterator will always return the entire slice followed by `None`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `splitn` called with `1` split
-  --> tests/ui/suspicious_splitn.rs:32:13
+error: missing `#![no_std]`
    |
-LL |     let _ = "a,b".splitn(X + 1, ',');
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: the resulting iterator will always return the entire string followed by `None`
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
-error: `splitn` called with `0` splits
-  --> tests/ui/suspicious_splitn.rs:35:13
-   |
-LL |     let _ = "a,b".splitn(X, ',');
-   |             ^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: the resulting iterator will always return `None`
-
-error: aborting due to 9 previous errors
+error: aborting due to 8 previous errors
 

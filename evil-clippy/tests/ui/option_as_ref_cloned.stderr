@@ -1,40 +1,71 @@
-error: cloning an `Option<_>` using `.as_ref().cloned()`
-  --> tests/ui/option_as_ref_cloned.rs:7:31
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: Option<String> = x.as_ref().cloned();
-   |                               ^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::option-as-ref-cloned` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::option_as_ref_cloned)]`
-help: this can be written more concisely by cloning the `Option<_>` directly
-   |
-LL -     let _: Option<String> = x.as_ref().cloned();
-LL +     let _: Option<String> = x.clone();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: cloning an `Option<_>` using `.as_mut().cloned()`
-  --> tests/ui/option_as_ref_cloned.rs:9:31
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: Option<String> = x.as_mut().cloned();
-   |                               ^^^^^^^^^^^^^^^
-   |
-help: this can be written more concisely by cloning the `Option<_>` directly
-   |
-LL -     let _: Option<String> = x.as_mut().cloned();
-LL +     let _: Option<String> = x.clone();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: cloning an `Option<_>` using `.as_ref().cloned()`
-  --> tests/ui/option_as_ref_cloned.rs:13:32
+error: item must be `pub`
+  --> tests/ui/option_as_ref_cloned.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/option_as_ref_cloned.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/option_as_ref_cloned.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/option_as_ref_cloned.rs:12:9
+   |
+LL |     let y = x.as_ref();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/option_as_ref_cloned.rs:13:19
    |
 LL |     let _: Option<&String> = y.as_ref().cloned();
-   |                                ^^^^^^^^^^^^^^^
+   |                   ^^^^^^^
    |
-help: this can be written more concisely by cloning the `Option<_>` directly
-   |
-LL -     let _: Option<&String> = y.as_ref().cloned();
-LL +     let _: Option<&String> = y.clone();
-   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/option_as_ref_cloned.rs:16:5
+   |
+LL |     macro_rules! cloned_recv {
+   |     ^ help: make this item public: `pub`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 9 previous errors
 

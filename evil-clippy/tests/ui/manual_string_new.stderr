@@ -1,59 +1,103 @@
-error: empty String is being created manually
-  --> tests/ui/manual_string_new.rs:14:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = "".to_string();
-   |             ^^^^^^^^^^^^^^ help: consider using: `String::new()`
-   |
-   = note: `-D clippy::manual-string-new` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_string_new)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: empty String is being created manually
-  --> tests/ui/manual_string_new.rs:18:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = "".to_owned();
-   |             ^^^^^^^^^^^^^ help: consider using: `String::new()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: empty String is being created manually
-  --> tests/ui/manual_string_new.rs:22:21
+error: item must be `pub`
+  --> tests/ui/manual_string_new.rs:4:1
    |
-LL |     let _: String = "".into();
-   |                     ^^^^^^^^^ help: consider using: `String::new()`
-
-error: empty String is being created manually
-  --> tests/ui/manual_string_new.rs:30:13
+LL | macro_rules! create_strings_from_macro {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = String::from("");
-   |             ^^^^^^^^^^^^^^^^ help: consider using: `String::new()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: empty String is being created manually
-  --> tests/ui/manual_string_new.rs:32:13
+error: item must be `pub`
+  --> tests/ui/manual_string_new.rs:12:1
    |
-LL |     let _ = <String>::from("");
-   |             ^^^^^^^^^^^^^^^^^^ help: consider using: `String::new()`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: empty String is being created manually
-  --> tests/ui/manual_string_new.rs:38:13
+error: function must be `unsafe`
+  --> tests/ui/manual_string_new.rs:12:1
    |
-LL |     let _ = String::try_from("").unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `String::new()`
-
-error: empty String is being created manually
-  --> tests/ui/manual_string_new.rs:45:21
+LL | fn main() {
+   | ^
    |
-LL |     let _: String = From::from("");
-   |                     ^^^^^^^^^^^^^^ help: consider using: `String::new()`
-
-error: empty String is being created manually
-  --> tests/ui/manual_string_new.rs:51:21
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_string_new.rs:12:1
    |
-LL |     let _: String = TryFrom::try_from("").unwrap();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `String::new()`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: empty String is being created manually
-  --> tests/ui/manual_string_new.rs:55:21
+error: item must be `pub`
+  --> tests/ui/manual_string_new.rs:65:1
    |
-LL |     let _: String = TryFrom::try_from("").expect("this should warn");
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `String::new()`
+LL | struct SomeOtherStruct {}
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 9 previous errors
+error: item must be `pub`
+  --> tests/ui/manual_string_new.rs:67:1
+   |
+LL | impl From<&str> for SomeOtherStruct {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/manual_string_new.rs:67:11
+   |
+LL | impl From<&str> for SomeOtherStruct {
+   |           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_string_new.rs:68:5
+   |
+LL |     fn from(_value: &str) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_string_new.rs:68:5
+   |
+LL |     fn from(_value: &str) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_string_new.rs:68:13
+   |
+LL |     fn from(_value: &str) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/manual_string_new.rs:68:21
+   |
+LL |     fn from(_value: &str) -> Self {
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

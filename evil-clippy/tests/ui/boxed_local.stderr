@@ -1,29 +1,1090 @@
-error: local variable doesn't need to be boxed here
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:12:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:11:10
+   |
+LL | #[derive(Clone)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:11:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:11:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:11:10
+   |
+LL | #[derive(Clone)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:11:10
+   |
+LL | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:14:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:15:5
+   |
+LL |     fn foo(&self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:15:5
+   |
+LL |     fn foo(&self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:15:13
+   |
+LL |     fn foo(&self) {}
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:15:12
+   |
+LL |     fn foo(&self) {}
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/boxed_local.rs:18:1
+   |
+LL | / trait Z {
+LL | |     fn bar(&self);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:18:1
+   |
+LL | trait Z {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:19:5
+   |
+LL |     fn bar(&self);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:19:5
+   |
+LL |     fn bar(&self);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:19:13
+   |
+LL |     fn bar(&self);
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:19:12
+   |
+LL |     fn bar(&self);
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:22:1
+   |
+LL | impl Z for A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:23:5
+   |
+LL |     fn bar(&self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:23:5
+   |
+LL |     fn bar(&self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:23:13
+   |
+LL |     fn bar(&self) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:23:12
+   |
+LL |     fn bar(&self) {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:28:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:28:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:28:1
+   |
+LL | fn main() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:30:1
+   |
+LL | fn ok_box_trait(boxed_trait: &Box<dyn Z>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:30:1
+   |
+LL | fn ok_box_trait(boxed_trait: &Box<dyn Z>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:30:1
+   |
+LL | fn ok_box_trait(boxed_trait: &Box<dyn Z>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:30:17
+   |
+LL | fn ok_box_trait(boxed_trait: &Box<dyn Z>) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:30:30
+   |
+LL | fn ok_box_trait(boxed_trait: &Box<dyn Z>) {
+   |                              ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:31:9
+   |
+LL |     let boxed_local = boxed_trait;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:35:1
+   |
+LL | fn warn_call() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:35:1
+   |
+LL | fn warn_call() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:35:1
+   |
+LL | fn warn_call() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:36:9
+   |
+LL |     let x = Box::new(A);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:40:1
+   |
+LL | fn warn_arg(x: Box<A>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:40:1
+   |
+LL | fn warn_arg(x: Box<A>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:40:1
+   |
+LL | fn warn_arg(x: Box<A>) {
+   | ^
+
+error: parameter must be `mut`
   --> tests/ui/boxed_local.rs:40:13
    |
 LL | fn warn_arg(x: Box<A>) {
-   |             ^
-   |
-   = note: `-D clippy::boxed-local` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::boxed_local)]`
+   |             ^ help: make this parameter mutable: `mut`
 
-error: local variable doesn't need to be boxed here
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:46:1
+   |
+LL | fn nowarn_closure_arg() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:46:1
+   |
+LL | fn nowarn_closure_arg() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:46:1
+   |
+LL | fn nowarn_closure_arg() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:47:9
+   |
+LL |     let x = Some(Box::new(A));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:48:31
+   |
+LL |     x.map_or((), |x| take_ref(&x));
+   |                               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:51:1
+   |
+LL | fn warn_rename_call() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:51:1
+   |
+LL | fn warn_rename_call() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:51:1
+   |
+LL | fn warn_rename_call() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:52:9
+   |
+LL |     let x = Box::new(A);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:54:9
+   |
+LL |     let y = x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:58:1
+   |
+LL | fn warn_notuse() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:58:1
+   |
+LL | fn warn_notuse() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:58:1
+   |
+LL | fn warn_notuse() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:59:9
+   |
+LL |     let bz = Box::new(A);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:62:1
+   |
+LL | fn warn_pass() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:62:1
+   |
+LL | fn warn_pass() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:62:1
+   |
+LL | fn warn_pass() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:63:9
+   |
+LL |     let bz = Box::new(A);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:64:14
+   |
+LL |     take_ref(&bz); // via deref coercion
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:67:1
+   |
+LL | fn nowarn_return() -> Box<A> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:67:1
+   |
+LL | fn nowarn_return() -> Box<A> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:67:1
+   |
+LL | fn nowarn_return() -> Box<A> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:71:1
+   |
+LL | fn nowarn_move() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:71:1
+   |
+LL | fn nowarn_move() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:71:1
+   |
+LL | fn nowarn_move() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:72:9
+   |
+LL |     let bx = Box::new(A);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:75:1
+   |
+LL | fn nowarn_call() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:75:1
+   |
+LL | fn nowarn_call() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:75:1
+   |
+LL | fn nowarn_call() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:76:9
+   |
+LL |     let bx = Box::new(A);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:80:1
+   |
+LL | fn nowarn_pass() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:80:1
+   |
+LL | fn nowarn_pass() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:80:1
+   |
+LL | fn nowarn_pass() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:81:9
+   |
+LL |     let bx = Box::new(A);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:82:14
+   |
+LL |     take_box(&bx); // fn needs &Box
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:85:1
+   |
+LL | fn take_box(x: &Box<A>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:85:1
+   |
+LL | fn take_box(x: &Box<A>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:85:1
+   |
+LL | fn take_box(x: &Box<A>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:85:13
+   |
+LL | fn take_box(x: &Box<A>) {}
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:85:16
+   |
+LL | fn take_box(x: &Box<A>) {}
+   |                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:86:1
+   |
+LL | fn take_ref(x: &A) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:86:1
+   |
+LL | fn take_ref(x: &A) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:86:1
+   |
+LL | fn take_ref(x: &A) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:86:13
+   |
+LL | fn take_ref(x: &A) {}
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:86:16
+   |
+LL | fn take_ref(x: &A) {}
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:88:1
+   |
+LL | fn nowarn_ref_take() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:88:1
+   |
+LL | fn nowarn_ref_take() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:88:1
+   |
+LL | fn nowarn_ref_take() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:90:9
+   |
+LL |     let x = Box::new(A);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:91:9
+   |
+LL |     let y = &x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:91:13
+   |
+LL |     let y = &x;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:95:1
+   |
+LL | fn nowarn_match() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:95:1
+   |
+LL | fn nowarn_match() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:95:1
+   |
+LL | fn nowarn_match() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:96:9
+   |
+LL |     let x = Box::new(A); // moved into a match
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:102:1
+   |
+LL | fn warn_match() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:102:1
+   |
+LL | fn warn_match() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:102:1
+   |
+LL | fn warn_match() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/boxed_local.rs:103:9
+   |
+LL |     let x = Box::new(A);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:104:11
+   |
+LL |     match &x {
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/boxed_local.rs:111:1
+   |
+LL | / pub trait Foo {
+LL | |     type Item;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:115:1
+   |
+LL | impl<'a> Foo for &'a () {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:115:18
+   |
+LL | impl<'a> Foo for &'a () {
+   |                  ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:123:5
+   |
+LL | pub fn new(_needs_name: Box<PeekableSeekable<&()>>) -> () {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:123:5
+   |
+LL | pub fn new(_needs_name: Box<PeekableSeekable<&()>>) -> () {}
+   |     ^
+
+error: parameter must be `mut`
   --> tests/ui/boxed_local.rs:123:12
    |
 LL | pub fn new(_needs_name: Box<PeekableSeekable<&()>>) -> () {}
-   |            ^^^^^^^^^^^
+   |            ^ help: make this parameter mutable: `mut`
 
-error: local variable doesn't need to be boxed here
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:123:46
+   |
+LL | pub fn new(_needs_name: Box<PeekableSeekable<&()>>) -> () {}
+   |                                              ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/boxed_local.rs:130:1
+   |
+LL | / trait BoxedAction {
+LL | |     fn do_sth(self: Box<Self>);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:130:1
+   |
+LL | trait BoxedAction {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:131:5
+   |
+LL |     fn do_sth(self: Box<Self>);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:131:5
+   |
+LL |     fn do_sth(self: Box<Self>);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:131:15
+   |
+LL |     fn do_sth(self: Box<Self>);
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:134:1
+   |
+LL | impl BoxedAction for u64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:135:5
+   |
+LL |     fn do_sth(self: Box<Self>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:135:5
+   |
+LL |     fn do_sth(self: Box<Self>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:135:15
+   |
+LL |     fn do_sth(self: Box<Self>) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/boxed_local.rs:143:1
+   |
+LL | / trait MyTrait {
+LL | |     fn do_sth(self);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:143:1
+   |
+LL | trait MyTrait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:144:5
+   |
+LL |     fn do_sth(self);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:144:5
+   |
+LL |     fn do_sth(self);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:144:15
+   |
+LL |     fn do_sth(self);
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:147:1
+   |
+LL | impl<T> MyTrait for Box<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:148:5
+   |
+LL |     fn do_sth(self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:148:5
+   |
+LL |     fn do_sth(self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:148:15
+   |
+LL |     fn do_sth(self) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:152:1
+   |
+LL | mod issue_3739 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:155:5
+   |
+LL |     fn consume<T>(_: T) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:155:5
+   |
+LL |     fn consume<T>(_: T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:155:5
+   |
+LL |     fn consume<T>(_: T) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:156:5
+   |
+LL |     fn borrow<T>(_: &T) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:156:5
+   |
+LL |     fn borrow<T>(_: &T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:156:5
+   |
+LL |     fn borrow<T>(_: &T) {}
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:156:21
+   |
+LL |     fn borrow<T>(_: &T) {}
+   |                     ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:158:5
+   |
+LL |     fn closure_consume(x: Box<A>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:158:5
+   |
+LL |     fn closure_consume(x: Box<A>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:158:5
+   |
+LL |     fn closure_consume(x: Box<A>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:158:24
+   |
+LL |     fn closure_consume(x: Box<A>) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:164:5
+   |
+LL |     fn closure_borrow(x: Box<A>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:164:5
+   |
+LL |     fn closure_borrow(x: Box<A>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:164:5
+   |
+LL |     fn closure_borrow(x: Box<A>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:164:23
+   |
+LL |     fn closure_borrow(x: Box<A>) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/boxed_local.rs:166:20
+   |
+LL |             borrow(&x);
+   |                    ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:174:5
+   |
+LL | pub extern "C" fn do_not_warn_me(_c_pointer: Box<String>) -> () {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:174:5
+   |
+LL | pub extern "C" fn do_not_warn_me(_c_pointer: Box<String>) -> () {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:174:34
+   |
+LL | pub extern "C" fn do_not_warn_me(_c_pointer: Box<String>) -> () {}
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:178:5
+   |
+LL | pub extern fn do_not_warn_me_no_abi(_c_pointer: Box<String>) -> () {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:178:5
+   |
+LL | pub extern fn do_not_warn_me_no_abi(_c_pointer: Box<String>) -> () {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:178:37
+   |
+LL | pub extern fn do_not_warn_me_no_abi(_c_pointer: Box<String>) -> () {}
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:181:1
+   |
+LL | mod issue4804 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/boxed_local.rs:182:5
+   |
+LL | /     trait DefaultTraitImplTest {
+LL | |         // don't warn on `self`
+LL | |         fn default_impl(self: Box<Self>) -> u32 {
+LL | |             5
+...  |
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:182:5
+   |
+LL |     trait DefaultTraitImplTest {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:184:9
+   |
+LL |         fn default_impl(self: Box<Self>) -> u32 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:184:9
+   |
+LL |         fn default_impl(self: Box<Self>) -> u32 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:184:25
+   |
+LL |         fn default_impl(self: Box<Self>) -> u32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:189:9
+   |
+LL |         fn default_impl_x(self: Box<Self>, x: Box<u32>) -> u32 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:189:9
+   |
+LL |         fn default_impl_x(self: Box<Self>, x: Box<u32>) -> u32 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:189:27
+   |
+LL |         fn default_impl_x(self: Box<Self>, x: Box<u32>) -> u32 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/boxed_local.rs:189:44
    |
 LL |         fn default_impl_x(self: Box<Self>, x: Box<u32>) -> u32 {
-   |                                            ^
+   |                                            ^ help: make this parameter mutable: `mut`
 
-error: local variable doesn't need to be boxed here
+error: trait must be `unsafe`
+  --> tests/ui/boxed_local.rs:196:5
+   |
+LL | /     trait WarnTrait {
+LL | |         // warn on `x: Box<u32>`
+LL | |         fn foo(x: Box<u32>) {}
+LL | |
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:196:5
+   |
+LL |     trait WarnTrait {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:198:9
+   |
+LL |         fn foo(x: Box<u32>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:198:9
+   |
+LL |         fn foo(x: Box<u32>) {}
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/boxed_local.rs:198:16
    |
 LL |         fn foo(x: Box<u32>) {}
-   |                ^
+   |                ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/boxed_local.rs:203:1
+   |
+LL | fn check_expect(#[expect(clippy::boxed_local)] x: Box<A>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/boxed_local.rs:203:1
+   |
+LL | fn check_expect(#[expect(clippy::boxed_local)] x: Box<A>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/boxed_local.rs:203:1
+   |
+LL | fn check_expect(#[expect(clippy::boxed_local)] x: Box<A>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/boxed_local.rs:203:48
+   |
+LL | fn check_expect(#[expect(clippy::boxed_local)] x: Box<A>) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 134 previous errors
 

@@ -1,88 +1,491 @@
-error: this `match` arm has a differing case than its expression
-  --> tests/ui/match_str_case_mismatch.rs:112:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         "Bar" => {},
-   |         ^^^^^
-   |
-   = note: `-D clippy::match-str-case-mismatch` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::match_str_case_mismatch)]`
-help: consider changing the case of this arm to respect `to_ascii_lowercase`
-   |
-LL -         "Bar" => {},
-LL +         "bar" => {},
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `match` arm has a differing case than its expression
-  --> tests/ui/match_str_case_mismatch.rs:123:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         "~!@#$%^&*()-_=+Foo" => {},
-   |         ^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider changing the case of this arm to respect `to_ascii_lowercase` (notice the capitalization difference)
-   |
-LL -         "~!@#$%^&*()-_=+Foo" => {},
-LL +         "~!@#$%^&*()-_=+foo" => {},
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `match` arm has a differing case than its expression
-  --> tests/ui/match_str_case_mismatch.rs:136:9
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:6:1
    |
-LL |         "Воды" => {},
-   |         ^^^^^^
+LL | fn as_str_match() {
+   | ^ help: make this item public: `pub`
    |
-help: consider changing the case of this arm to respect `to_lowercase`
-   |
-LL -         "Воды" => {},
-LL +         "воды" => {},
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this `match` arm has a differing case than its expression
-  --> tests/ui/match_str_case_mismatch.rs:148:9
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:6:1
    |
-LL |         "barǲ" => {},
-   |         ^^^^^^
+LL | fn as_str_match() {
+   | ^
    |
-help: consider changing the case of this arm to respect `to_lowercase`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:6:1
    |
-LL -         "barǲ" => {},
-LL +         "barǳ" => {},
-   |
+LL | fn as_str_match() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this `match` arm has a differing case than its expression
-  --> tests/ui/match_str_case_mismatch.rs:159:9
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:7:9
    |
-LL |         "bARʁ" => {},
-   |         ^^^^^^
+LL |     let var = "BAR";
+   |         ^ help: make this variable mutable: `mut`
    |
-help: consider changing the case of this arm to respect `to_uppercase`
-   |
-LL -         "bARʁ" => {},
-LL +         "BARʁ" => {},
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this `match` arm has a differing case than its expression
-  --> tests/ui/match_str_case_mismatch.rs:170:9
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:16:1
    |
-LL |         "Bar" => {},
-   |         ^^^^^
-   |
-help: consider changing the case of this arm to respect `to_ascii_lowercase`
-   |
-LL -         "Bar" => {},
-LL +         "bar" => {},
-   |
+LL | fn non_alphabetic() {
+   | ^ help: make this item public: `pub`
 
-error: this `match` arm has a differing case than its expression
-  --> tests/ui/match_str_case_mismatch.rs:186:9
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:16:1
    |
-LL |         "bAR" => {},
-   |         ^^^^^
+LL | fn non_alphabetic() {
+   | ^
    |
-help: consider changing the case of this arm to respect `to_ascii_uppercase`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:16:1
    |
-LL -         "bAR" => {},
-LL +         "BAR" => {},
-   |
+LL | fn non_alphabetic() {
+   | ^
 
-error: aborting due to 7 previous errors
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:17:9
+   |
+LL |     let var = "~!@#$%^&*()-_=+FOO";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:27:1
+   |
+LL | fn unicode_cased() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:27:1
+   |
+LL | fn unicode_cased() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:27:1
+   |
+LL | fn unicode_cased() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:28:9
+   |
+LL |     let var = "ВОДЫ";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:39:1
+   |
+LL | fn titlecase() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:39:1
+   |
+LL | fn titlecase() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:39:1
+   |
+LL | fn titlecase() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:40:9
+   |
+LL |     let var = "Barǲ";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:49:1
+   |
+LL | fn no_case_equivalent() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:49:1
+   |
+LL | fn no_case_equivalent() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:49:1
+   |
+LL | fn no_case_equivalent() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:50:9
+   |
+LL |     let var = "barʁ";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:59:1
+   |
+LL | fn addrof_unary_match() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:59:1
+   |
+LL | fn addrof_unary_match() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:59:1
+   |
+LL | fn addrof_unary_match() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:60:9
+   |
+LL |     let var = "BAR";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_str_case_mismatch.rs:62:11
+   |
+LL |     match &*var.to_ascii_lowercase() {
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:69:1
+   |
+LL | fn alternating_chain() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:69:1
+   |
+LL | fn alternating_chain() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:69:1
+   |
+LL | fn alternating_chain() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:70:9
+   |
+LL |     let var = "BAR";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_str_case_mismatch.rs:72:11
+   |
+LL |       match &*var
+   |  ___________^
+LL | |         .to_ascii_lowercase()
+LL | |         .to_uppercase()
+LL | |         .to_lowercase()
+LL | |         .to_ascii_uppercase()
+   | |_____________________________^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:84:1
+   |
+LL | fn unrelated_method() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:84:1
+   |
+LL | fn unrelated_method() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:84:1
+   |
+LL | fn unrelated_method() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:85:5
+   |
+LL |     struct Item {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:89:5
+   |
+LL |     impl Item {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:91:9
+   |
+LL |         fn to_lowercase(self) -> String {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:91:9
+   |
+LL |         fn to_lowercase(self) -> String {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:91:25
+   |
+LL |         fn to_lowercase(self) -> String {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:96:9
+   |
+LL |     let item = Item { a: String::from("BAR") };
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_str_case_mismatch.rs:98:11
+   |
+LL |     match &*item.to_lowercase() {
+   |           ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:107:1
+   |
+LL | fn as_str_match_mismatch() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:107:1
+   |
+LL | fn as_str_match_mismatch() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:107:1
+   |
+LL | fn as_str_match_mismatch() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:108:9
+   |
+LL |     let var = "BAR";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:118:1
+   |
+LL | fn non_alphabetic_mismatch() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:118:1
+   |
+LL | fn non_alphabetic_mismatch() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:118:1
+   |
+LL | fn non_alphabetic_mismatch() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:119:9
+   |
+LL |     let var = "~!@#$%^&*()-_=+FOO";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:130:1
+   |
+LL | fn unicode_cased_mismatch() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:130:1
+   |
+LL | fn unicode_cased_mismatch() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:130:1
+   |
+LL | fn unicode_cased_mismatch() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:131:9
+   |
+LL |     let var = "ВОДЫ";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:143:1
+   |
+LL | fn titlecase_mismatch() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:143:1
+   |
+LL | fn titlecase_mismatch() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:143:1
+   |
+LL | fn titlecase_mismatch() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:144:9
+   |
+LL |     let var = "Barǲ";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:154:1
+   |
+LL | fn no_case_equivalent_mismatch() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:154:1
+   |
+LL | fn no_case_equivalent_mismatch() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:154:1
+   |
+LL | fn no_case_equivalent_mismatch() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:155:9
+   |
+LL |     let var = "barʁ";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:165:1
+   |
+LL | fn addrof_unary_match_mismatch() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:165:1
+   |
+LL | fn addrof_unary_match_mismatch() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:165:1
+   |
+LL | fn addrof_unary_match_mismatch() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:166:9
+   |
+LL |     let var = "BAR";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_str_case_mismatch.rs:168:11
+   |
+LL |     match &*var.to_ascii_lowercase() {
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:176:1
+   |
+LL | fn alternating_chain_mismatch() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:176:1
+   |
+LL | fn alternating_chain_mismatch() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:176:1
+   |
+LL | fn alternating_chain_mismatch() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_str_case_mismatch.rs:177:9
+   |
+LL |     let var = "BAR";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_str_case_mismatch.rs:179:11
+   |
+LL |       match &*var
+   |  ___________^
+LL | |         .to_ascii_lowercase()
+LL | |         .to_uppercase()
+LL | |         .to_lowercase()
+LL | |         .to_ascii_uppercase()
+   | |_____________________________^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/match_str_case_mismatch.rs:192:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:192:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_str_case_mismatch.rs:192:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 60 previous errors
 

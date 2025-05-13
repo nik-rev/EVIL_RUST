@@ -1,84 +1,255 @@
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:10:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let TupleStruct(_) = ref_value;
-   |         ^^^^^^^^^^^^^^
-   |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
-   = note: `-D clippy::pattern-type-mismatch` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::pattern_type_mismatch)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:13:25
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let &TupleStruct(Some(_)) = ref_value {}
-   |                         ^^^^^^^
-   |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:16:24
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:3:1
    |
-LL |     if let TupleStruct(Some(_)) = *ref_value {}
-   |                        ^^^^^^^
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
    |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:34:12
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:3:1
    |
-LL |     if let TupleEnum::Var(_) = ref_value {}
-   |            ^^^^^^^^^^^^^^^^^
+LL | fn main() {}
+   | ^
    |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:3:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:37:28
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:5:1
    |
-LL |     if let &TupleEnum::Var(Some(_)) = ref_value {}
-   |                            ^^^^^^^
-   |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+LL | fn tuple_types() {
+   | ^ help: make this item public: `pub`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:40:27
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:5:1
    |
-LL |     if let TupleEnum::Var(Some(_)) = *ref_value {}
-   |                           ^^^^^^^
+LL | fn tuple_types() {
+   | ^
    |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:5:1
+   |
+LL | fn tuple_types() {
+   | ^
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:43:12
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:6:5
    |
-LL |     if let TupleEnum::Empty = ref_value {}
-   |            ^^^^^^^^^^^^^^^^
-   |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+LL |     struct TupleStruct<'a>(&'a Option<i32>);
+   |     ^ help: make this item public: `pub`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:59:9
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:6:28
+   |
+LL |     struct TupleStruct<'a>(&'a Option<i32>);
+   |                            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:7:9
+   |
+LL |     let ref_value = &TupleStruct(&Some(42));
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:7:21
+   |
+LL |     let ref_value = &TupleStruct(&Some(42));
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:7:34
+   |
+LL |     let ref_value = &TupleStruct(&Some(42));
+   |                                  ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: parameter must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:20:10
+   |
+LL |     let &TupleStruct(_) = ref_value;
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:26:1
+   |
+LL | fn tuple_enum_variants() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:26:1
+   |
+LL | fn tuple_enum_variants() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:26:1
+   |
+LL | fn tuple_enum_variants() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:27:5
+   |
+LL |     enum TupleEnum<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:29:13
+   |
+LL |         Var(&'a Option<i32>),
+   |             ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:31:9
+   |
+LL |     let ref_value = &TupleEnum::Var(&Some(42));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:31:21
+   |
+LL |     let ref_value = &TupleEnum::Var(&Some(42));
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:31:37
+   |
+LL |     let ref_value = &TupleEnum::Var(&Some(42));
+   |                                     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:55:1
+   |
+LL | fn plain_tuples() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:55:1
+   |
+LL | fn plain_tuples() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:55:1
+   |
+LL | fn plain_tuples() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:56:9
+   |
+LL |     let ref_value = &(&Some(23), &Some(42));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:56:21
+   |
+LL |     let ref_value = &(&Some(23), &Some(42));
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:56:23
+   |
+LL |     let ref_value = &(&Some(23), &Some(42));
+   |                       ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:56:34
+   |
+LL |     let ref_value = &(&Some(23), &Some(42));
+   |                                  ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:59:10
    |
 LL |     let (_a, _b) = ref_value;
-   |         ^^^^^^^^
-   |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+   |          ^ help: make this variable mutable: `mut`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:62:18
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:59:14
    |
-LL |     if let &(_a, Some(_)) = ref_value {}
-   |                  ^^^^^^^
-   |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+LL |     let (_a, _b) = ref_value;
+   |              ^ help: make this variable mutable: `mut`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:65:17
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:69:11
    |
-LL |     if let (_a, Some(_)) = *ref_value {}
-   |                 ^^^^^^^
-   |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+LL |     let &(_a, _b) = ref_value;
+   |           ^ help: make this variable mutable: `mut`
 
-error: aborting due to 10 previous errors
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:69:15
+   |
+LL |     let &(_a, _b) = ref_value;
+   |               ^ help: make this variable mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:69:10
+   |
+LL |     let &(_a, _b) = ref_value;
+   |          ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:70:10
+   |
+LL |     let (_a, _b) = *ref_value;
+   |          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_tuples.rs:70:14
+   |
+LL |     let (_a, _b) = *ref_value;
+   |              ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 34 previous errors
 

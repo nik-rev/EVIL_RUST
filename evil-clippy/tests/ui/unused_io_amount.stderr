@@ -1,264 +1,1423 @@
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:10:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     s.write(b"test")?;
-   |     ^^^^^^^^^^^^^^^^^
-   |
-   = help: use `Write::write_all` instead, or handle partial writes
-   = note: `-D clippy::unused-io-amount` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unused_io_amount)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:5:1
+   |
+LL | extern crate futures;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:9:1
+   |
+LL | fn question_mark<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:9:1
+   |
+LL | fn question_mark<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:9:1
+   |
+LL | fn question_mark<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:9:43
+   |
+LL | fn question_mark<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   |                                           ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:9:46
+   |
+LL | fn question_mark<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   |                                              ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:13:12
    |
 LL |     s.read(&mut buf)?;
-   |     ^^^^^^^^^^^^^^^^^
+   |            ^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:19:5
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:18:1
    |
-LL |     s.write(b"test").unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use `Write::write_all` instead, or handle partial writes
+LL | fn unwrap<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:22:5
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:18:1
+   |
+LL | fn unwrap<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:18:1
+   |
+LL | fn unwrap<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:18:36
+   |
+LL | fn unwrap<T: io::Read + io::Write>(s: &mut T) {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:18:39
+   |
+LL | fn unwrap<T: io::Read + io::Write>(s: &mut T) {
+   |                                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:22:12
    |
 LL |     s.read(&mut buf).unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |            ^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:27:5
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:26:1
+   |
+LL | fn vectored<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:26:1
+   |
+LL | fn vectored<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:26:1
+   |
+LL | fn vectored<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:26:38
+   |
+LL | fn vectored<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:26:41
+   |
+LL | fn vectored<T: io::Read + io::Write>(s: &mut T) -> io::Result<()> {
+   |                                         ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:27:21
    |
 LL |     s.read_vectored(&mut [io::IoSliceMut::new(&mut [])])?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:29:5
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:27:47
+   |
+LL |     s.read_vectored(&mut [io::IoSliceMut::new(&mut [])])?;
+   |                                               ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:29:22
    |
 LL |     s.write_vectored(&[io::IoSlice::new(&[])])?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:37:5
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:29:41
+   |
+LL |     s.write_vectored(&[io::IoSlice::new(&[])])?;
+   |                                         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:34:1
+   |
+LL | fn ok(file: &str) -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:34:1
+   |
+LL | fn ok(file: &str) -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:34:1
+   |
+LL | fn ok(file: &str) -> Option<()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:34:7
+   |
+LL | fn ok(file: &str) -> Option<()> {
+   |       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:34:13
+   |
+LL | fn ok(file: &str) -> Option<()> {
+   |             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:37:17
    |
 LL |     reader.read(&mut result).ok()?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                 ^^^^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:47:5
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:44:1
+   |
+LL | fn or_else(file: &str) -> io::Result<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:44:1
+   |
+LL | fn or_else(file: &str) -> io::Result<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:44:1
+   |
+LL | fn or_else(file: &str) -> io::Result<()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:44:12
+   |
+LL | fn or_else(file: &str) -> io::Result<()> {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:44:18
+   |
+LL | fn or_else(file: &str) -> io::Result<()> {
+   |                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:47:17
    |
 LL |     reader.read(&mut result).or_else(|err| Err(err))?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                 ^^^^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:60:5
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:53:1
+   |
+LL | enum Error {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:52:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:52:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:52:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:52:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:52:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:52:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:52:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:57:1
+   |
+LL | fn or(file: &str) -> Result<(), Error> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:57:1
+   |
+LL | fn or(file: &str) -> Result<(), Error> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:57:1
+   |
+LL | fn or(file: &str) -> Result<(), Error> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:57:7
+   |
+LL | fn or(file: &str) -> Result<(), Error> {
+   |       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:57:13
+   |
+LL | fn or(file: &str) -> Result<(), Error> {
+   |             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:60:17
    |
 LL |     reader.read(&mut result).or(Err(Error::Kind))?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                 ^^^^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:68:5
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:65:1
    |
-LL | /     reader
-LL | |
-LL | |         .read(&mut result)
-LL | |         .or(Err(Error::Kind))
-LL | |         .or(Err(Error::Kind))
-LL | |         .expect("error");
-   | |________________________^
-   |
-   = help: use `Read::read_exact` instead, or handle partial reads
+LL | fn combine_or(file: &str) -> Result<(), Error> {
+   | ^ help: make this item public: `pub`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:78:5
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:65:1
    |
-LL |     s.write(b"ok").is_ok();
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+LL | fn combine_or(file: &str) -> Result<(), Error> {
+   | ^
    |
-   = help: use `Write::write_all` instead, or handle partial writes
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:65:1
+   |
+LL | fn combine_or(file: &str) -> Result<(), Error> {
+   | ^
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:80:5
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:65:15
    |
-LL |     s.write(b"err").is_err();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use `Write::write_all` instead, or handle partial writes
+LL | fn combine_or(file: &str) -> Result<(), Error> {
+   |               ^ help: make this parameter mutable: `mut`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:83:5
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:65:21
+   |
+LL | fn combine_or(file: &str) -> Result<(), Error> {
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:70:15
+   |
+LL |         .read(&mut result)
+   |               ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:77:1
+   |
+LL | fn is_ok_err<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:77:1
+   |
+LL | fn is_ok_err<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:77:1
+   |
+LL | fn is_ok_err<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:77:39
+   |
+LL | fn is_ok_err<T: io::Read + io::Write>(s: &mut T) {
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:77:42
+   |
+LL | fn is_ok_err<T: io::Read + io::Write>(s: &mut T) {
+   |                                          ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:83:12
    |
 LL |     s.read(&mut buf).is_ok();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+   |            ^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:85:5
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:85:12
    |
 LL |     s.read(&mut buf).is_err();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |            ^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:90:5
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:89:1
    |
-LL |     w.write(b"hello world").await.unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use `AsyncWriteExt::write_all` instead, or handle partial writes
+LL | async fn bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   | ^ help: make this item public: `pub`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:96:5
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:89:7
+   |
+LL | async fn bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:89:7
+   |
+LL | async fn bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:89:49
+   |
+LL | async fn bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   |                                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:89:52
+   |
+LL | async fn bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   |                                                    ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:94:1
+   |
+LL | async fn bad_async_read<R: AsyncRead + Unpin>(r: &mut R) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:94:7
+   |
+LL | async fn bad_async_read<R: AsyncRead + Unpin>(r: &mut R) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:94:7
+   |
+LL | async fn bad_async_read<R: AsyncRead + Unpin>(r: &mut R) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:94:47
+   |
+LL | async fn bad_async_read<R: AsyncRead + Unpin>(r: &mut R) {
+   |                                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:94:50
+   |
+LL | async fn bad_async_read<R: AsyncRead + Unpin>(r: &mut R) {
+   |                                                  ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:96:12
    |
 LL |     r.read(&mut buf[..]).await.unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |            ^^^^^^^^^^^^
    |
-   = help: use `AsyncReadExt::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:104:5
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:100:1
    |
-LL |     w.write(b"hello world");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use `AsyncWriteExt::write_all` instead, or handle partial writes
+LL | async fn io_not_ignored_async_write<W: AsyncWrite + Unpin>(mut w: W) {
+   | ^ help: make this item public: `pub`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:111:9
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:100:7
    |
-LL |         w.write(b"hello world").await?;
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | async fn io_not_ignored_async_write<W: AsyncWrite + Unpin>(mut w: W) {
+   |       ^
    |
-   = help: use `AsyncWriteExt::write_all` instead, or handle partial writes
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:100:7
+   |
+LL | async fn io_not_ignored_async_write<W: AsyncWrite + Unpin>(mut w: W) {
+   |       ^
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:120:9
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:108:1
+   |
+LL | fn bad_async_write_closure<W: AsyncWrite + Unpin + 'static>(w: W) -> impl futures::Future<Output = io::Result<()>> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:108:1
+   |
+LL | fn bad_async_write_closure<W: AsyncWrite + Unpin + 'static>(w: W) -> impl futures::Future<Output = io::Result<()>> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:108:1
+   |
+LL | fn bad_async_write_closure<W: AsyncWrite + Unpin + 'static>(w: W) -> impl futures::Future<Output = io::Result<()>> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:108:61
+   |
+LL | fn bad_async_write_closure<W: AsyncWrite + Unpin + 'static>(w: W) -> impl futures::Future<Output = io::Result<()>> {
+   |                                                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:117:1
+   |
+LL | async fn async_read_nested_or<R: AsyncRead + Unpin>(r: &mut R, do_it: bool) -> Result<[u8; 1], Error> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:117:7
+   |
+LL | async fn async_read_nested_or<R: AsyncRead + Unpin>(r: &mut R, do_it: bool) -> Result<[u8; 1], Error> {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:117:7
+   |
+LL | async fn async_read_nested_or<R: AsyncRead + Unpin>(r: &mut R, do_it: bool) -> Result<[u8; 1], Error> {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:117:53
+   |
+LL | async fn async_read_nested_or<R: AsyncRead + Unpin>(r: &mut R, do_it: bool) -> Result<[u8; 1], Error> {
+   |                                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:117:64
+   |
+LL | async fn async_read_nested_or<R: AsyncRead + Unpin>(r: &mut R, do_it: bool) -> Result<[u8; 1], Error> {
+   |                                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:117:56
+   |
+LL | async fn async_read_nested_or<R: AsyncRead + Unpin>(r: &mut R, do_it: bool) -> Result<[u8; 1], Error> {
+   |                                                        ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:120:16
    |
 LL |         r.read(&mut buf[..]).await.or(Err(Error::Kind))?;
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                ^^^^^^^^^^^^
    |
-   = help: use `AsyncReadExt::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:129:5
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:128:1
    |
-LL |     w.write(b"hello world").await.unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use `AsyncWriteExt::write_all` instead, or handle partial writes
+LL | async fn bad_async_write_tokio<W: TokioAsyncWrite + Unpin>(w: &mut W) {
+   | ^ help: make this item public: `pub`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:135:5
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:128:7
+   |
+LL | async fn bad_async_write_tokio<W: TokioAsyncWrite + Unpin>(w: &mut W) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:128:7
+   |
+LL | async fn bad_async_write_tokio<W: TokioAsyncWrite + Unpin>(w: &mut W) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:128:60
+   |
+LL | async fn bad_async_write_tokio<W: TokioAsyncWrite + Unpin>(w: &mut W) {
+   |                                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:128:63
+   |
+LL | async fn bad_async_write_tokio<W: TokioAsyncWrite + Unpin>(w: &mut W) {
+   |                                                               ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:133:1
+   |
+LL | async fn bad_async_read_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:133:7
+   |
+LL | async fn bad_async_read_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:133:7
+   |
+LL | async fn bad_async_read_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:133:58
+   |
+LL | async fn bad_async_read_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   |                                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:133:61
+   |
+LL | async fn bad_async_read_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   |                                                             ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:135:12
    |
 LL |     r.read(&mut buf[..]).await.unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |            ^^^^^^^^^^^^
    |
-   = help: use `AsyncReadExt::read_exact` instead, or handle partial reads
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:148:11
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:139:1
    |
-LL |     match s.write(b"test") {
-   |           ^^^^^^^^^^^^^^^^
-   |
-   = help: use `Write::write_all` instead, or handle partial writes
-note: the result is consumed here, but the amount of I/O bytes remains unhandled
-  --> tests/ui/unused_io_amount.rs:150:9
-   |
-LL |         Ok(_) => todo!(),
-   |         ^^^^^
+LL | async fn undetected_bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   | ^ help: make this item public: `pub`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:155:11
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:139:7
+   |
+LL | async fn undetected_bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:139:7
+   |
+LL | async fn undetected_bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:139:60
+   |
+LL | async fn undetected_bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   |                                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:139:63
+   |
+LL | async fn undetected_bad_async_write<W: AsyncWrite + Unpin>(w: &mut W) {
+   |                                                               ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/unused_io_amount.rs:143:9
+   |
+LL |     let future = w.write(b"Hello world");
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:147:1
+   |
+LL | fn match_okay_underscore<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:147:1
+   |
+LL | fn match_okay_underscore<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:147:1
+   |
+LL | fn match_okay_underscore<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:147:51
+   |
+LL | fn match_okay_underscore<T: io::Read + io::Write>(s: &mut T) {
+   |                                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:147:54
+   |
+LL | fn match_okay_underscore<T: io::Read + io::Write>(s: &mut T) {
+   |                                                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:155:18
    |
 LL |     match s.read(&mut buf) {
-   |           ^^^^^^^^^^^^^^^^
+   |                  ^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
-note: the result is consumed here, but the amount of I/O bytes remains unhandled
-  --> tests/ui/unused_io_amount.rs:157:9
-   |
-LL |         Ok(_) => todo!(),
-   |         ^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:163:11
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:162:1
+   |
+LL | fn match_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:162:1
+   |
+LL | fn match_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:162:1
+   |
+LL | fn match_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:162:61
+   |
+LL | fn match_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:162:64
+   |
+LL | fn match_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:163:18
    |
 LL |     match s.read(&mut [0u8; 4]) {
-   |           ^^^^^^^^^^^^^^^^^^^^^
+   |                  ^^^^^^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
-note: the result is consumed here, but the amount of I/O bytes remains unhandled
-  --> tests/ui/unused_io_amount.rs:165:9
-   |
-LL |         Ok(_) => todo!(),
-   |         ^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:171:11
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:170:1
    |
-LL |     match s.write(b"test") {
-   |           ^^^^^^^^^^^^^^^^
-   |
-   = help: use `Write::write_all` instead, or handle partial writes
-note: the result is consumed here, but the amount of I/O bytes remains unhandled
-  --> tests/ui/unused_io_amount.rs:173:9
-   |
-LL |         Ok(_) => todo!(),
-   |         ^^^^^
+LL | fn match_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
 
-error: read amount is not handled
-  --> tests/ui/unused_io_amount.rs:183:8
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:170:1
+   |
+LL | fn match_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:170:1
+   |
+LL | fn match_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:170:62
+   |
+LL | fn match_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:170:65
+   |
+LL | fn match_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                                 ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:178:1
+   |
+LL | fn returned_value_should_not_lint<T: io::Read + io::Write>(s: &mut T) -> Result<usize, std::io::Error> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:178:1
+   |
+LL | fn returned_value_should_not_lint<T: io::Read + io::Write>(s: &mut T) -> Result<usize, std::io::Error> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:178:1
+   |
+LL | fn returned_value_should_not_lint<T: io::Read + io::Write>(s: &mut T) -> Result<usize, std::io::Error> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:178:60
+   |
+LL | fn returned_value_should_not_lint<T: io::Read + io::Write>(s: &mut T) -> Result<usize, std::io::Error> {
+   |                                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:178:63
+   |
+LL | fn returned_value_should_not_lint<T: io::Read + io::Write>(s: &mut T) -> Result<usize, std::io::Error> {
+   |                                                               ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:182:1
+   |
+LL | fn if_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:182:1
+   |
+LL | fn if_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:182:1
+   |
+LL | fn if_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:182:58
+   |
+LL | fn if_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:182:61
+   |
+LL | fn if_okay_underscore_read_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                             ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:183:27
    |
 LL |     if let Ok(_) = s.read(&mut [0u8; 4]) {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                           ^^^^^^^^^^^^^
    |
-   = help: use `Read::read_exact` instead, or handle partial reads
-note: the result is consumed here, but the amount of I/O bytes remains unhandled
-  --> tests/ui/unused_io_amount.rs:183:12
-   |
-LL |     if let Ok(_) = s.read(&mut [0u8; 4]) {
-   |            ^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:190:8
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:189:1
    |
-LL |     if let Ok(_) = s.write(b"test") {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use `Write::write_all` instead, or handle partial writes
-note: the result is consumed here, but the amount of I/O bytes remains unhandled
-  --> tests/ui/unused_io_amount.rs:190:12
-   |
-LL |     if let Ok(_) = s.write(b"test") {
-   |            ^^^^^
+LL | fn if_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
 
-error: written amount is not handled
-  --> tests/ui/unused_io_amount.rs:197:8
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:189:1
    |
-LL |     if let Ok(..) = s.write(b"test") {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn if_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
    |
-   = help: use `Write::write_all` instead, or handle partial writes
-note: the result is consumed here, but the amount of I/O bytes remains unhandled
-  --> tests/ui/unused_io_amount.rs:197:12
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:189:1
    |
-LL |     if let Ok(..) = s.write(b"test") {
-   |            ^^^^^^
+LL | fn if_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
 
-error: aborting due to 28 previous errors
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:189:59
+   |
+LL | fn if_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:189:62
+   |
+LL | fn if_okay_underscore_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                              ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:196:1
+   |
+LL | fn if_okay_dots_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:196:1
+   |
+LL | fn if_okay_dots_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:196:1
+   |
+LL | fn if_okay_dots_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:196:53
+   |
+LL | fn if_okay_dots_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:196:56
+   |
+LL | fn if_okay_dots_write_expr<T: io::Read + io::Write>(s: &mut T) {
+   |                                                        ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:203:1
+   |
+LL | fn if_okay_underscore_write_expr_true_negative<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:203:1
+   |
+LL | fn if_okay_underscore_write_expr_true_negative<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:203:1
+   |
+LL | fn if_okay_underscore_write_expr_true_negative<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:203:73
+   |
+LL | fn if_okay_underscore_write_expr_true_negative<T: io::Read + io::Write>(s: &mut T) {
+   |                                                                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:203:76
+   |
+LL | fn if_okay_underscore_write_expr_true_negative<T: io::Read + io::Write>(s: &mut T) {
+   |                                                                            ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:209:1
+   |
+LL | fn match_okay_underscore_true_neg<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:209:1
+   |
+LL | fn match_okay_underscore_true_neg<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:209:1
+   |
+LL | fn match_okay_underscore_true_neg<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:209:60
+   |
+LL | fn match_okay_underscore_true_neg<T: io::Read + io::Write>(s: &mut T) {
+   |                                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:209:63
+   |
+LL | fn match_okay_underscore_true_neg<T: io::Read + io::Write>(s: &mut T) {
+   |                                                               ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:216:1
+   |
+LL | fn true_negative<T: io::Read + io::Write>(s: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:216:1
+   |
+LL | fn true_negative<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:216:1
+   |
+LL | fn true_negative<T: io::Read + io::Write>(s: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:216:43
+   |
+LL | fn true_negative<T: io::Read + io::Write>(s: &mut T) {
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:216:46
+   |
+LL | fn true_negative<T: io::Read + io::Write>(s: &mut T) {
+   |                                              ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/unused_io_amount.rs:218:9
+   |
+LL |     let read_amount = s.read(&mut buf).unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:218:30
+   |
+LL |     let read_amount = s.read(&mut buf).unwrap();
+   |                              ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:221:1
+   |
+LL | fn on_return_should_not_raise<T: io::Read + io::Write>(s: &mut T) -> io::Result<usize> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:221:1
+   |
+LL | fn on_return_should_not_raise<T: io::Read + io::Write>(s: &mut T) -> io::Result<usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:221:1
+   |
+LL | fn on_return_should_not_raise<T: io::Read + io::Write>(s: &mut T) -> io::Result<usize> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:221:56
+   |
+LL | fn on_return_should_not_raise<T: io::Read + io::Write>(s: &mut T) -> io::Result<usize> {
+   |                                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:221:59
+   |
+LL | fn on_return_should_not_raise<T: io::Read + io::Write>(s: &mut T) -> io::Result<usize> {
+   |                                                           ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:226:12
+   |
+LL |     s.read(&mut buf)
+   |            ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:229:5
+   |
+LL | pub fn unwrap_in_block(rdr: &mut dyn std::io::Read) -> std::io::Result<usize> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:229:5
+   |
+LL | pub fn unwrap_in_block(rdr: &mut dyn std::io::Read) -> std::io::Result<usize> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:229:24
+   |
+LL | pub fn unwrap_in_block(rdr: &mut dyn std::io::Read) -> std::io::Result<usize> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:229:29
+   |
+LL | pub fn unwrap_in_block(rdr: &mut dyn std::io::Read) -> std::io::Result<usize> {
+   |                             ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/unused_io_amount.rs:230:9
+   |
+LL |     let read = { rdr.read(&mut [0])? };
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:230:27
+   |
+LL |     let read = { rdr.read(&mut [0])? };
+   |                           ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:234:5
+   |
+LL | pub fn consumed_example(rdr: &mut dyn std::io::Read) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:234:5
+   |
+LL | pub fn consumed_example(rdr: &mut dyn std::io::Read) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:234:25
+   |
+LL | pub fn consumed_example(rdr: &mut dyn std::io::Read) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:234:30
+   |
+LL | pub fn consumed_example(rdr: &mut dyn std::io::Read) {
+   |                              ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:235:20
+   |
+LL |     match rdr.read(&mut [0]) {
+   |                    ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:240:20
+   |
+LL |     match rdr.read(&mut [0]) {
+   |                    ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:247:5
+   |
+LL | pub fn unreachable_or_panic(rdr: &mut dyn std::io::Read) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:247:5
+   |
+LL | pub fn unreachable_or_panic(rdr: &mut dyn std::io::Read) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:247:29
+   |
+LL | pub fn unreachable_or_panic(rdr: &mut dyn std::io::Read) {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:247:34
+   |
+LL | pub fn unreachable_or_panic(rdr: &mut dyn std::io::Read) {
+   |                                  ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:249:24
+   |
+LL |         match rdr.read(&mut [0]) {
+   |                        ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:256:24
+   |
+LL |         match rdr.read(&mut [0]) {
+   |                        ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:257:22
+   |
+LL |             Ok(_) => panic!(),
+   |                      ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:257:22
+   |
+LL |             Ok(_) => panic!(),
+   |                      ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:257:22
+   |
+LL |             Ok(_) => panic!(),
+   |                      ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:263:5
+   |
+LL | pub fn wildcards(rdr: &mut dyn std::io::Read) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:263:5
+   |
+LL | pub fn wildcards(rdr: &mut dyn std::io::Read) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:263:18
+   |
+LL | pub fn wildcards(rdr: &mut dyn std::io::Read) {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:263:23
+   |
+LL | pub fn wildcards(rdr: &mut dyn std::io::Read) {
+   |                       ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:265:24
+   |
+LL |         match rdr.read(&mut [0]) {
+   |                        ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:271:1
+   |
+LL | fn allow_works<F: std::io::Read>(mut f: F) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:271:1
+   |
+LL | fn allow_works<F: std::io::Read>(mut f: F) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:271:1
+   |
+LL | fn allow_works<F: std::io::Read>(mut f: F) {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:274:12
+   |
+LL |     f.read(&mut data).unwrap();
+   |            ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:277:1
+   |
+LL | struct Reader {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:279:1
+   |
+LL | impl Read for Reader {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:280:5
+   |
+LL |     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:280:5
+   |
+LL |     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:280:18
+   |
+LL |     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:280:24
+   |
+LL |     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:280:13
+   |
+LL |     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:280:29
+   |
+LL |     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+   |                             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:284:5
+   |
+LL |     fn read_exact(&mut self, buf: &mut [u8]) -> io::Result<()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:284:5
+   |
+LL |     fn read_exact(&mut self, buf: &mut [u8]) -> io::Result<()> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:284:24
+   |
+LL |     fn read_exact(&mut self, buf: &mut [u8]) -> io::Result<()> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_io_amount.rs:284:30
+   |
+LL |     fn read_exact(&mut self, buf: &mut [u8]) -> io::Result<()> {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:284:19
+   |
+LL |     fn read_exact(&mut self, buf: &mut [u8]) -> io::Result<()> {
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_io_amount.rs:284:35
+   |
+LL |     fn read_exact(&mut self, buf: &mut [u8]) -> io::Result<()> {
+   |                                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unused_io_amount.rs:291:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_io_amount.rs:291:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_io_amount.rs:291:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 178 previous errors
 

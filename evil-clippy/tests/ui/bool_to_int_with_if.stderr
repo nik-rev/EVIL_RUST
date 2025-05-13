@@ -1,134 +1,237 @@
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if a {
-LL | |
-LL | |         1
-LL | |     } else {
-LL | |         0
-LL | |     };
-   | |_____^ help: replace with from: `i32::from(a)`
-   |
-   = note: `a as i32` or `a.into()` can also be valid options
-   = note: `-D clippy::bool-to-int-with-if` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::bool_to_int_with_if)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:19:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if a {
-LL | |
-LL | |         0
-LL | |     } else {
-LL | |         1
-LL | |     };
-   | |_____^ help: replace with from: `i32::from(!a)`
-   |
-   = note: `!a as i32` or `(!a).into()` can also be valid options
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:25:5
+error: item must be `pub`
+  --> tests/ui/bool_to_int_with_if.rs:4:1
    |
-LL | /     if !a {
-LL | |
-LL | |         1
-LL | |     } else {
-LL | |         0
-LL | |     };
-   | |_____^ help: replace with from: `i32::from(!a)`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = note: `!a as i32` or `(!a).into()` can also be valid options
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:31:5
+error: function must be `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:4:1
    |
-LL | /     if a || b {
-LL | |
-LL | |         1
-LL | |     } else {
-LL | |         0
-LL | |     };
-   | |_____^ help: replace with from: `i32::from(a || b)`
+LL | fn main() {
+   | ^
    |
-   = note: `(a || b) as i32` or `(a || b).into()` can also be valid options
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:37:5
+error: variable must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:5:9
    |
-LL | /     if cond(a, b) {
-LL | |
-LL | |         1
-LL | |     } else {
-LL | |         0
-LL | |     };
-   | |_____^ help: replace with from: `i32::from(cond(a, b))`
+LL |     let a = true;
+   |         ^ help: make this variable mutable: `mut`
    |
-   = note: `cond(a, b) as i32` or `cond(a, b).into()` can also be valid options
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:43:5
+error: variable must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:6:9
    |
-LL | /     if x + y < 4 {
-LL | |
-LL | |         1
-LL | |     } else {
-LL | |         0
-LL | |     };
-   | |_____^ help: replace with from: `i32::from(x + y < 4)`
-   |
-   = note: `(x + y < 4) as i32` or `(x + y < 4).into()` can also be valid options
+LL |     let b = false;
+   |         ^ help: make this variable mutable: `mut`
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:53:12
+error: variable must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:8:9
    |
-LL |       } else if b {
-   |  ____________^
-LL | |
-LL | |         1
-LL | |     } else {
-LL | |         0
-LL | |     };
-   | |_____^ help: replace with from: `{ i32::from(b) }`
-   |
-   = note: `b as i32` or `b.into()` can also be valid options
+LL |     let x = 1;
+   |         ^ help: make this variable mutable: `mut`
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:63:12
+error: variable must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:9:9
    |
-LL |       } else if b {
-   |  ____________^
-LL | |
-LL | |         0
-LL | |     } else {
-LL | |         1
-LL | |     };
-   | |_____^ help: replace with from: `{ i32::from(!b) }`
-   |
-   = note: `!b as i32` or `(!b).into()` can also be valid options
+LL |     let y = 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:129:5
+error: variable must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:120:9
    |
-LL |     if a { 1 } else { 0 }
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: replace with from: `u8::from(a)`
-   |
-   = note: `a as u8` or `a.into()` can also be valid options
+LL |     let should_not_lint = [(); if true { 1 } else { 0 }];
+   |         ^ help: make this variable mutable: `mut`
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:173:13
+error: variable must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:122:9
+   |
+LL |     let should_not_lint = const { if true { 1 } else { 0 } };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/bool_to_int_with_if.rs:128:1
+   |
+LL | fn some_fn(a: bool) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:128:1
+   |
+LL | fn some_fn(a: bool) -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:128:1
+   |
+LL | fn some_fn(a: bool) -> u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:128:12
+   |
+LL | fn some_fn(a: bool) -> u8 {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/bool_to_int_with_if.rs:133:1
+   |
+LL | fn side_effect() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:133:1
+   |
+LL | fn side_effect() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:133:1
+   |
+LL | fn side_effect() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/bool_to_int_with_if.rs:135:1
+   |
+LL | fn cond(a: bool, b: bool) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:135:1
+   |
+LL | fn cond(a: bool, b: bool) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:135:1
+   |
+LL | fn cond(a: bool, b: bool) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:135:9
+   |
+LL | fn cond(a: bool, b: bool) -> bool {
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:135:18
+   |
+LL | fn cond(a: bool, b: bool) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/bool_to_int_with_if.rs:139:1
+   |
+LL | enum Enum {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/bool_to_int_with_if.rs:144:1
+   |
+LL | fn if_let(a: Enum, b: Enum) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:144:1
+   |
+LL | fn if_let(a: Enum, b: Enum) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:144:1
+   |
+LL | fn if_let(a: Enum, b: Enum) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:144:11
+   |
+LL | fn if_let(a: Enum, b: Enum) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/bool_to_int_with_if.rs:144:20
+   |
+LL | fn if_let(a: Enum, b: Enum) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/bool_to_int_with_if.rs:160:1
+   |
+LL | fn issue14628() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:160:1
+   |
+LL | fn issue14628() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_to_int_with_if.rs:160:1
+   |
+LL | fn issue14628() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/bool_to_int_with_if.rs:161:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/bool_to_int_with_if.rs:173:16
    |
 LL |     let _ = if dbg!(4 > 0) { 1 } else { 0 };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with from: `i32::from(dbg!(4 > 0))`
+   |                ^^^^^^^^^^^
    |
-   = note: `dbg!(4 > 0) as i32` or `dbg!(4 > 0).into()` can also be valid options
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: boolean to int conversion using if
-  --> tests/ui/bool_to_int_with_if.rs:176:18
+error: references are not allowed
+  --> tests/ui/bool_to_int_with_if.rs:176:13
    |
 LL |     let _ = dbg!(if 4 > 0 { 1 } else { 0 });
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with from: `i32::from(4 > 0)`
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: `(4 > 0) as i32` or `(4 > 0).into()` can also be valid options
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 11 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 31 previous errors
 

@@ -1,44 +1,176 @@
-error: called `ok().expect()` on a `Result` value
-  --> tests/ui/ok_expect.rs:16:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     res.ok().expect("disaster!");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: you can call `expect()` directly on the `Result`
-   = note: `-D clippy::ok-expect` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::ok_expect)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `ok().expect()` on a `Result` value
-  --> tests/ui/ok_expect.rs:24:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     res3.ok().expect("whoof");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: you can call `expect()` directly on the `Result`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: called `ok().expect()` on a `Result` value
-  --> tests/ui/ok_expect.rs:28:5
+error: item must be `pub`
+  --> tests/ui/ok_expect.rs:5:1
    |
-LL |     res4.ok().expect("argh");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+LL | struct MyError(()); // doesn't implement Debug
+   | ^ help: make this item public: `pub`
    |
-   = help: you can call `expect()` directly on the `Result`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: called `ok().expect()` on a `Result` value
-  --> tests/ui/ok_expect.rs:32:5
+error: item must be `pub`
+  --> tests/ui/ok_expect.rs:8:1
    |
-LL |     res5.ok().expect("oops");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: you can call `expect()` directly on the `Result`
+LL | struct MyErrorWithParam<T> {
+   | ^ help: make this item public: `pub`
 
-error: called `ok().expect()` on a `Result` value
-  --> tests/ui/ok_expect.rs:36:5
+error: item must be `pub`
+  --> tests/ui/ok_expect.rs:7:10
    |
-LL |     res6.ok().expect("meh");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: you can call `expect()` directly on the `Result`
+LL | #[derive(Debug)]
+   |          ^
 
-error: aborting due to 5 previous errors
+error: function must be `unsafe`
+  --> tests/ui/ok_expect.rs:7:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ok_expect.rs:7:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/ok_expect.rs:7:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ok_expect.rs:7:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/ok_expect.rs:7:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/ok_expect.rs:7:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/ok_expect.rs:9:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | struct MyErrorWithParam<T> {
+LL |     x: T,
+   |     ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/ok_expect.rs:9:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | struct MyErrorWithParam<T> {
+LL |     x: T,
+   |     ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/ok_expect.rs:12:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ok_expect.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ok_expect.rs:12:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/ok_expect.rs:13:9
+   |
+LL |     let res: Result<i32, ()> = Ok(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ok_expect.rs:21:9
+   |
+LL |     let res2: Result<i32, MyError> = Ok(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ok_expect.rs:23:9
+   |
+LL |     let res3: Result<u32, MyErrorWithParam<u8>> = Ok(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ok_expect.rs:27:9
+   |
+LL |     let res4: Result<u32, io::Error> = Ok(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ok_expect.rs:31:9
+   |
+LL |     let res5: io::Result<u32> = Ok(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ok_expect.rs:35:9
+   |
+LL |     let res6: Result<u32, &str> = Ok(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ok_expect.rs:35:27
+   |
+LL |     let res6: Result<u32, &str> = Ok(0);
+   |                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

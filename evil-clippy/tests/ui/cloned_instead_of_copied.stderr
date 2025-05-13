@@ -1,53 +1,151 @@
-error: used `cloned` where `copied` could be used instead
-  --> tests/ui/cloned_instead_of_copied.rs:7:24
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = [1].iter().cloned();
-   |                        ^^^^^^ help: try: `copied`
-   |
-   = note: `-D clippy::cloned-instead-of-copied` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cloned_instead_of_copied)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: used `cloned` where `copied` could be used instead
-  --> tests/ui/cloned_instead_of_copied.rs:9:31
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = vec!["hi"].iter().cloned();
-   |                               ^^^^^^ help: try: `copied`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: used `cloned` where `copied` could be used instead
-  --> tests/ui/cloned_instead_of_copied.rs:11:22
+error: item must be `pub`
+  --> tests/ui/cloned_instead_of_copied.rs:5:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cloned_instead_of_copied.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cloned_instead_of_copied.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/cloned_instead_of_copied.rs:11:18
    |
 LL |     let _ = Some(&1).cloned();
-   |                      ^^^^^^ help: try: `copied`
-
-error: used `cloned` where `copied` could be used instead
-  --> tests/ui/cloned_instead_of_copied.rs:13:34
+   |                  ^^
    |
-LL |     let _ = Box::new([1].iter()).cloned();
-   |                                  ^^^^^^ help: try: `copied`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: used `cloned` where `copied` could be used instead
-  --> tests/ui/cloned_instead_of_copied.rs:15:32
+error: references are not allowed
+  --> tests/ui/cloned_instead_of_copied.rs:15:27
    |
 LL |     let _ = Box::new(Some(&1)).cloned();
-   |                                ^^^^^^ help: try: `copied`
-
-error: used `cloned` where `copied` could be used instead
-  --> tests/ui/cloned_instead_of_copied.rs:32:22
+   |                           ^^
    |
-LL |     let _ = Some(&1).cloned(); // Option::copied needs 1.35
-   |                      ^^^^^^ help: try: `copied`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: used `cloned` where `copied` could be used instead
-  --> tests/ui/cloned_instead_of_copied.rs:39:24
+error: references are not allowed
+  --> tests/ui/cloned_instead_of_copied.rs:20:18
    |
-LL |     let _ = [1].iter().cloned(); // Iterator::copied needs 1.36
-   |                        ^^^^^^ help: try: `copied`
+LL |     let _ = Some(&String::new()).cloned();
+   |                  ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: used `cloned` where `copied` could be used instead
-  --> tests/ui/cloned_instead_of_copied.rs:42:22
+error: item must be `pub`
+  --> tests/ui/cloned_instead_of_copied.rs:24:1
+   |
+LL | fn msrv_1_34() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cloned_instead_of_copied.rs:24:1
+   |
+LL | fn msrv_1_34() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cloned_instead_of_copied.rs:24:1
+   |
+LL | fn msrv_1_34() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/cloned_instead_of_copied.rs:26:18
    |
 LL |     let _ = Some(&1).cloned();
-   |                      ^^^^^^ help: try: `copied`
+   |                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 8 previous errors
+error: item must be `pub`
+  --> tests/ui/cloned_instead_of_copied.rs:30:1
+   |
+LL | fn msrv_1_35() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cloned_instead_of_copied.rs:30:1
+   |
+LL | fn msrv_1_35() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cloned_instead_of_copied.rs:30:1
+   |
+LL | fn msrv_1_35() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/cloned_instead_of_copied.rs:32:18
+   |
+LL |     let _ = Some(&1).cloned(); // Option::copied needs 1.35
+   |                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/cloned_instead_of_copied.rs:38:1
+   |
+LL | fn msrv_1_36() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cloned_instead_of_copied.rs:38:1
+   |
+LL | fn msrv_1_36() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cloned_instead_of_copied.rs:38:1
+   |
+LL | fn msrv_1_36() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/cloned_instead_of_copied.rs:42:18
+   |
+LL |     let _ = Some(&1).cloned();
+   |                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 18 previous errors
 

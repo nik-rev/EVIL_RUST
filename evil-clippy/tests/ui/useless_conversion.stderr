@@ -1,3 +1,1755 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:8:1
+   |
+LL | fn test_generic<T: Copy>(val: T) -> T {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:8:1
+   |
+LL | fn test_generic<T: Copy>(val: T) -> T {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:8:1
+   |
+LL | fn test_generic<T: Copy>(val: T) -> T {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:8:26
+   |
+LL | fn test_generic<T: Copy>(val: T) -> T {
+   |                          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:15:1
+   |
+LL | fn test_generic2<T: Copy + Into<i32> + Into<U>, U: From<T>>(val: T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:15:1
+   |
+LL | fn test_generic2<T: Copy + Into<i32> + Into<U>, U: From<T>>(val: T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:15:1
+   |
+LL | fn test_generic2<T: Copy + Into<i32> + Into<U>, U: From<T>>(val: T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:15:61
+   |
+LL | fn test_generic2<T: Copy + Into<i32> + Into<U>, U: From<T>>(val: T) {
+   |                                                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:22:1
+   |
+LL | fn test_questionmark() -> Result<(), ()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:22:1
+   |
+LL | fn test_questionmark() -> Result<(), ()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:22:1
+   |
+LL | fn test_questionmark() -> Result<(), ()> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:31:1
+   |
+LL | fn test_issue_3913() -> Result<(), std::io::Error> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:31:1
+   |
+LL | fn test_issue_3913() -> Result<(), std::io::Error> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:31:1
+   |
+LL | fn test_issue_3913() -> Result<(), std::io::Error> {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:35:9
+   |
+LL |     let path = Path::new(".");
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:41:1
+   |
+LL | fn dont_lint_on_type_alias() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:41:1
+   |
+LL | fn dont_lint_on_type_alias() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:41:1
+   |
+LL | fn dont_lint_on_type_alias() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:42:5
+   |
+LL |     type A = i32;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:46:1
+   |
+LL | fn dont_lint_into_iter_on_immutable_local_implementing_iterator_in_expr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:46:1
+   |
+LL | fn dont_lint_into_iter_on_immutable_local_implementing_iterator_in_expr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:46:1
+   |
+LL | fn dont_lint_into_iter_on_immutable_local_implementing_iterator_in_expr() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:47:9
+   |
+LL |     let text = "foo\r\nbar\n\nbaz\n";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:48:9
+   |
+LL |     let lines = text.lines();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:52:1
+   |
+LL | fn lint_into_iter_on_mutable_local_implementing_iterator_in_expr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:52:1
+   |
+LL | fn lint_into_iter_on_mutable_local_implementing_iterator_in_expr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:52:1
+   |
+LL | fn lint_into_iter_on_mutable_local_implementing_iterator_in_expr() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:53:9
+   |
+LL |     let text = "foo\r\nbar\n\nbaz\n";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:59:1
+   |
+LL | fn lint_into_iter_on_expr_implementing_iterator() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:59:1
+   |
+LL | fn lint_into_iter_on_expr_implementing_iterator() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:59:1
+   |
+LL | fn lint_into_iter_on_expr_implementing_iterator() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:60:9
+   |
+LL |     let text = "foo\r\nbar\n\nbaz\n";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:66:1
+   |
+LL | fn lint_into_iter_on_expr_implementing_iterator_2() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:66:1
+   |
+LL | fn lint_into_iter_on_expr_implementing_iterator_2() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:66:1
+   |
+LL | fn lint_into_iter_on_expr_implementing_iterator_2() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:67:9
+   |
+LL |     let text = "foo\r\nbar\n\nbaz\n";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:73:1
+   |
+LL | fn lint_into_iter_on_const_implementing_iterator() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:73:1
+   |
+LL | fn lint_into_iter_on_const_implementing_iterator() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:73:1
+   |
+LL | fn lint_into_iter_on_const_implementing_iterator() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:74:5
+   |
+LL |     const NUMBERS: std::ops::Range<i32> = 0..10;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:79:1
+   |
+LL | fn lint_into_iter_on_const_implementing_iterator_2() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:79:1
+   |
+LL | fn lint_into_iter_on_const_implementing_iterator_2() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:79:1
+   |
+LL | fn lint_into_iter_on_const_implementing_iterator_2() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:80:5
+   |
+LL |     const NUMBERS: std::ops::Range<i32> = 0..10;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:87:1
+   |
+LL | struct CopiableCounter {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:86:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:86:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:86:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:86:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:86:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:86:17
+   |
+LL | #[derive(Clone, Copy)]
+   |                 ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:91:1
+   |
+LL | impl Iterator for CopiableCounter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:94:5
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:94:5
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:94:18
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:94:13
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:100:1
+   |
+LL | fn dont_lint_into_iter_on_copy_iter() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:100:1
+   |
+LL | fn dont_lint_into_iter_on_copy_iter() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:100:1
+   |
+LL | fn dont_lint_into_iter_on_copy_iter() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:102:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:102:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:102:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:102:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:102:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:103:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:103:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:103:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:103:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:103:5
+   |
+LL |     assert_eq!(c.into_iter().next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:104:5
+   |
+LL |     assert_eq!(c.next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:104:5
+   |
+LL |     assert_eq!(c.next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:104:5
+   |
+LL |     assert_eq!(c.next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:104:5
+   |
+LL |     assert_eq!(c.next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:104:5
+   |
+LL |     assert_eq!(c.next(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:105:5
+   |
+LL |     assert_eq!(c.next(), Some(2));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:105:5
+   |
+LL |     assert_eq!(c.next(), Some(2));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:105:5
+   |
+LL |     assert_eq!(c.next(), Some(2));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:105:5
+   |
+LL |     assert_eq!(c.next(), Some(2));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:105:5
+   |
+LL |     assert_eq!(c.next(), Some(2));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:108:1
+   |
+LL | fn dont_lint_into_iter_on_static_copy_iter() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:108:1
+   |
+LL | fn dont_lint_into_iter_on_static_copy_iter() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:108:1
+   |
+LL | fn dont_lint_into_iter_on_static_copy_iter() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:109:5
+   |
+LL |     static mut C: CopiableCounter = CopiableCounter { counter: 0 };
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:111:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:111:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:111:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:111:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:111:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:112:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:112:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:112:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:112:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:112:9
+   |
+LL |         assert_eq!(C.into_iter().next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:113:9
+   |
+LL |         assert_eq!(C.next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:113:9
+   |
+LL |         assert_eq!(C.next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:113:9
+   |
+LL |         assert_eq!(C.next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:113:9
+   |
+LL |         assert_eq!(C.next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:113:9
+   |
+LL |         assert_eq!(C.next(), Some(1));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:114:9
+   |
+LL |         assert_eq!(C.next(), Some(2));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:114:9
+   |
+LL |         assert_eq!(C.next(), Some(2));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:114:9
+   |
+LL |         assert_eq!(C.next(), Some(2));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:114:9
+   |
+LL |         assert_eq!(C.next(), Some(2));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:114:9
+   |
+LL |         assert_eq!(C.next(), Some(2));
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:118:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:118:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:118:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:160:9
+   |
+LL |     let a: i32 = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:161:9
+   |
+LL |     let b: i32 = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:166:9
+   |
+LL |     let s: Foo<'a'> = Foo;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:168:9
+   |
+LL |     let s2: Foo<'a'> = Foo;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:171:9
+   |
+LL |     let s3: Foo<'a'> = Foo;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:174:9
+   |
+LL |     let s4: Foo<'a'> = Foo;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:182:1
+   |
+LL | fn issue11065_fp() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:182:1
+   |
+LL | fn issue11065_fp() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:182:1
+   |
+LL | fn issue11065_fp() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:184:5
+   |
+LL |     fn takes_into_iter(_: impl IntoIterator<Item = i32>) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:184:5
+   |
+LL |     fn takes_into_iter(_: impl IntoIterator<Item = i32>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:184:5
+   |
+LL |     fn takes_into_iter(_: impl IntoIterator<Item = i32>) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:186:5
+   |
+LL |     macro_rules! x {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:196:1
+   |
+LL | fn explicit_into_iter_fn_arg() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:196:1
+   |
+LL | fn explicit_into_iter_fn_arg() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:196:1
+   |
+LL | fn explicit_into_iter_fn_arg() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:197:5
+   |
+LL |     fn a<T>(_: T) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:197:5
+   |
+LL |     fn a<T>(_: T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:197:5
+   |
+LL |     fn a<T>(_: T) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:198:5
+   |
+LL |     fn b<T: IntoIterator<Item = i32>>(_: T) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:198:5
+   |
+LL |     fn b<T: IntoIterator<Item = i32>>(_: T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:198:5
+   |
+LL |     fn b<T: IntoIterator<Item = i32>>(_: T) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:199:5
+   |
+LL |     fn c(_: impl IntoIterator<Item = i32>) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:199:5
+   |
+LL |     fn c(_: impl IntoIterator<Item = i32>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:199:5
+   |
+LL |     fn c(_: impl IntoIterator<Item = i32>) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:200:5
+   |
+LL |     fn d<T>(_: T)
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:200:5
+   |
+LL |     fn d<T>(_: T)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:200:5
+   |
+LL |     fn d<T>(_: T)
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:205:5
+   |
+LL |     fn f(_: std::vec::IntoIter<i32>) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:205:5
+   |
+LL |     fn f(_: std::vec::IntoIter<i32>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:205:5
+   |
+LL |     fn f(_: std::vec::IntoIter<i32>) {}
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:214:8
+   |
+LL |     b([&1, &2, &3].into_iter().cloned());
+   |        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:214:12
+   |
+LL |     b([&1, &2, &3].into_iter().cloned());
+   |            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:214:16
+   |
+LL |     b([&1, &2, &3].into_iter().cloned());
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:221:5
+   |
+LL |     macro_rules! macro_generated {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:229:1
+   |
+LL | mod issue11300 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:230:9
+   |
+LL |     pub fn foo<I>(i: I)
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:230:9
+   |
+LL |     pub fn foo<I>(i: I)
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:230:19
+   |
+LL |     pub fn foo<I>(i: I)
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:234:9
+   |
+LL |         assert_eq!(i.len(), 3);
+   |         ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:234:9
+   |
+LL |         assert_eq!(i.len(), 3);
+   |         ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:234:9
+   |
+LL |         assert_eq!(i.len(), 3);
+   |         ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:234:9
+   |
+LL |         assert_eq!(i.len(), 3);
+   |         ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:234:9
+   |
+LL |         assert_eq!(i.len(), 3);
+   |         ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: trait must be `unsafe`
+  --> tests/ui/useless_conversion.rs:237:5
+   |
+LL |     trait Helper<T: ?Sized> {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:237:5
+   |
+LL |     trait Helper<T: ?Sized> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:238:5
+   |
+LL |     impl Helper<i32> for [i32; 3] {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:239:5
+   |
+LL |     impl Helper<i32> for std::array::IntoIter<i32, 3> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:240:5
+   |
+LL |     impl Helper<()> for std::array::IntoIter<i32, 3> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:242:5
+   |
+LL |     fn foo2<X: ?Sized, I>(_: I)
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:242:5
+   |
+LL |     fn foo2<X: ?Sized, I>(_: I)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:242:5
+   |
+LL |     fn foo2<X: ?Sized, I>(_: I)
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/useless_conversion.rs:248:5
+   |
+LL |     trait Helper2<T> {}
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:248:5
+   |
+LL |     trait Helper2<T> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:249:5
+   |
+LL |     impl Helper2<std::array::IntoIter<i32, 3>> for i32 {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:250:5
+   |
+LL |     impl Helper2<[i32; 3]> for i32 {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:251:5
+   |
+LL |     fn foo3<I>(_: I)
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:251:5
+   |
+LL |     fn foo3<I>(_: I)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:251:5
+   |
+LL |     fn foo3<I>(_: I)
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:258:9
+   |
+LL |     pub fn bar() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:258:9
+   |
+LL |     pub fn bar() {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:278:5
+   |
+LL |     fn ice() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:278:5
+   |
+LL |     fn ice() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:278:5
+   |
+LL |     fn ice() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:279:9
+   |
+LL |         struct S1;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:280:9
+   |
+LL |         impl S1 {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:281:17
+   |
+LL |             pub fn foo<I: IntoIterator>(&self, _: I) {}
+   |                 ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:281:17
+   |
+LL |             pub fn foo<I: IntoIterator>(&self, _: I) {}
+   |                 ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:281:42
+   |
+LL |             pub fn foo<I: IntoIterator>(&self, _: I) {}
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:281:41
+   |
+LL |             pub fn foo<I: IntoIterator>(&self, _: I) {}
+   |                                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/useless_conversion.rs:288:9
+   |
+LL | /         trait Itertools {
+LL | |             fn interleave_shortest<J>(self, other: J)
+LL | |             where
+LL | |                 J: IntoIterator,
+LL | |                 Self: Sized;
+LL | |         }
+   | |_________^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:288:9
+   |
+LL |         trait Itertools {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:289:13
+   |
+LL |             fn interleave_shortest<J>(self, other: J)
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:289:13
+   |
+LL |             fn interleave_shortest<J>(self, other: J)
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:289:39
+   |
+LL |             fn interleave_shortest<J>(self, other: J)
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:289:45
+   |
+LL |             fn interleave_shortest<J>(self, other: J)
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:294:9
+   |
+LL |         impl<I: Iterator> Itertools for I {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:295:13
+   |
+LL |             fn interleave_shortest<J>(self, other: J)
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:295:13
+   |
+LL |             fn interleave_shortest<J>(self, other: J)
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:295:39
+   |
+LL |             fn interleave_shortest<J>(self, other: J)
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:295:45
+   |
+LL |             fn interleave_shortest<J>(self, other: J)
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:302:13
+   |
+LL |         let v0: Vec<i32> = vec![0, 2, 4];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:303:13
+   |
+LL |         let v1: Vec<i32> = vec![1, 3, 5, 7];
+   |             ^ help: make this variable mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/useless_conversion.rs:307:9
+   |
+LL |         trait TraitWithLifetime<'a> {}
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:307:9
+   |
+LL |         trait TraitWithLifetime<'a> {}
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:308:9
+   |
+LL |         impl<'a> TraitWithLifetime<'a> for std::array::IntoIter<&'a i32, 2> {}
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:308:65
+   |
+LL |         impl<'a> TraitWithLifetime<'a> for std::array::IntoIter<&'a i32, 2> {}
+   |                                                                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:310:9
+   |
+LL |         struct Helper;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:311:9
+   |
+LL |         impl<'a> Helper {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:312:13
+   |
+LL |             fn with_lt<I>(&self, _: I)
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:312:13
+   |
+LL |             fn with_lt<I>(&self, _: I)
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:312:28
+   |
+LL |             fn with_lt<I>(&self, _: I)
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:312:27
+   |
+LL |             fn with_lt<I>(&self, _: I)
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:318:25
+   |
+LL |         Helper.with_lt([&1, &2].into_iter());
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:318:29
+   |
+LL |         Helper.with_lt([&1, &2].into_iter());
+   |                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:323:1
+   |
+LL | struct Foo<const C: char>;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:322:10
+   |
+LL | #[derive(Copy, Clone)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:322:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:322:13
+   |
+LL | #[derive(Copy, Clone)]
+   |             ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:322:13
+   |
+LL | #[derive(Copy, Clone)]
+   |             ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:322:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:322:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:325:1
+   |
+LL | impl From<Foo<'a'>> for Foo<'b'> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:326:5
+   |
+LL |     fn from(_s: Foo<'a'>) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:326:5
+   |
+LL |     fn from(_s: Foo<'a'>) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:326:13
+   |
+LL |     fn from(_s: Foo<'a'>) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:331:1
+   |
+LL | fn direct_application() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:331:1
+   |
+LL | fn direct_application() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:331:1
+   |
+LL | fn direct_application() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:344:9
+   |
+LL |     let c: ControlFlow<()> = ControlFlow::Continue(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_conversion.rs:348:9
+   |
+LL |     let c: ControlFlow<()> = ControlFlow::Continue(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:352:5
+   |
+LL |     struct Absorb;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:353:5
+   |
+LL |     impl From<()> for Absorb {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:354:9
+   |
+LL |         fn from(_: ()) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:354:9
+   |
+LL |         fn from(_: ()) -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:358:5
+   |
+LL |     impl From<std::io::Error> for Absorb {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:359:9
+   |
+LL |         fn from(_: std::io::Error) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:359:9
+   |
+LL |         fn from(_: std::io::Error) -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:373:1
+   |
+LL | fn gen_identity<T>(x: [T; 3]) -> Vec<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:373:1
+   |
+LL | fn gen_identity<T>(x: [T; 3]) -> Vec<T> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:373:1
+   |
+LL | fn gen_identity<T>(x: [T; 3]) -> Vec<T> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:373:20
+   |
+LL | fn gen_identity<T>(x: [T; 3]) -> Vec<T> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:378:1
+   |
+LL | mod issue11819 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:379:5
+   |
+LL |     fn takes_into_iter(_: impl IntoIterator<Item = String>) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:379:5
+   |
+LL |     fn takes_into_iter(_: impl IntoIterator<Item = String>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:379:5
+   |
+LL |     fn takes_into_iter(_: impl IntoIterator<Item = String>) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/useless_conversion.rs:385:5
+   |
+LL |     impl<T> MyStruct<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:386:13
+   |
+LL |         pub fn with_ref<'a>(&'a mut self)
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:386:13
+   |
+LL |         pub fn with_ref<'a>(&'a mut self)
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:386:37
+   |
+LL |         pub fn with_ref<'a>(&'a mut self)
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:388:13
+   |
+LL |             &'a T: IntoIterator<Item = String>,
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:386:29
+   |
+LL |         pub fn with_ref<'a>(&'a mut self)
+   |                             ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:394:13
+   |
+LL |         pub fn with_ref_mut<'a>(&'a mut self)
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:394:13
+   |
+LL |         pub fn with_ref_mut<'a>(&'a mut self)
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:394:41
+   |
+LL |         pub fn with_ref_mut<'a>(&'a mut self)
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:396:13
+   |
+LL |             &'a mut T: IntoIterator<Item = String>,
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:394:33
+   |
+LL |         pub fn with_ref_mut<'a>(&'a mut self)
+   |                                 ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:402:13
+   |
+LL |         pub fn with_deref<Y>(&mut self)
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:402:13
+   |
+LL |         pub fn with_deref<Y>(&mut self)
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:402:35
+   |
+LL |         pub fn with_deref<Y>(&mut self)
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:402:30
+   |
+LL |         pub fn with_deref<Y>(&mut self)
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:411:13
+   |
+LL |         pub fn with_reborrow<'a, Y: 'a>(&'a mut self)
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:411:13
+   |
+LL |         pub fn with_reborrow<'a, Y: 'a>(&'a mut self)
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:411:49
+   |
+LL |         pub fn with_reborrow<'a, Y: 'a>(&'a mut self)
+   |                                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:414:13
+   |
+LL |             &'a Y: IntoIterator<Item = String>,
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:411:41
+   |
+LL |         pub fn with_reborrow<'a, Y: 'a>(&'a mut self)
+   |                                         ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_conversion.rs:420:13
+   |
+LL |         pub fn with_reborrow_mut<'a, Y: 'a>(&'a mut self)
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_conversion.rs:420:13
+   |
+LL |         pub fn with_reborrow_mut<'a, Y: 'a>(&'a mut self)
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_conversion.rs:420:53
+   |
+LL |         pub fn with_reborrow_mut<'a, Y: 'a>(&'a mut self)
+   |                                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:423:13
+   |
+LL |             &'a mut Y: IntoIterator<Item = String>,
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/useless_conversion.rs:420:45
+   |
+LL |         pub fn with_reborrow_mut<'a, Y: 'a>(&'a mut self)
+   |                                             ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: useless conversion to the same type: `T`
   --> tests/ui/useless_conversion.rs:9:13
    |
@@ -244,54 +1996,6 @@ note: this parameter accepts any `IntoIterator`, so you don't need to call `.int
 LL |                 J: IntoIterator,
    |                    ^^^^^^^^^^^^
 
-error: useless conversion to the same type: `()`
-  --> tests/ui/useless_conversion.rs:332:58
-   |
-LL |     let _: Result<(), std::io::Error> = test_issue_3913().map(Into::into);
-   |                                                          ^^^^^^^^^^^^^^^^ help: consider removing
-
-error: useless conversion to the same type: `std::io::Error`
-  --> tests/ui/useless_conversion.rs:335:58
-   |
-LL |     let _: Result<(), std::io::Error> = test_issue_3913().map_err(Into::into);
-   |                                                          ^^^^^^^^^^^^^^^^^^^^ help: consider removing
-
-error: useless conversion to the same type: `()`
-  --> tests/ui/useless_conversion.rs:338:58
-   |
-LL |     let _: Result<(), std::io::Error> = test_issue_3913().map(From::from);
-   |                                                          ^^^^^^^^^^^^^^^^ help: consider removing
-
-error: useless conversion to the same type: `std::io::Error`
-  --> tests/ui/useless_conversion.rs:341:58
-   |
-LL |     let _: Result<(), std::io::Error> = test_issue_3913().map_err(From::from);
-   |                                                          ^^^^^^^^^^^^^^^^^^^^ help: consider removing
-
-error: useless conversion to the same type: `()`
-  --> tests/ui/useless_conversion.rs:345:31
-   |
-LL |     let _: ControlFlow<()> = c.map_break(Into::into);
-   |                               ^^^^^^^^^^^^^^^^^^^^^^ help: consider removing
-
-error: useless conversion to the same type: `()`
-  --> tests/ui/useless_conversion.rs:349:31
-   |
-LL |     let _: ControlFlow<()> = c.map_continue(Into::into);
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider removing
-
-error: useless conversion to the same type: `u32`
-  --> tests/ui/useless_conversion.rs:363:41
-   |
-LL |     let _: Vec<u32> = [1u32].into_iter().map(Into::into).collect();
-   |                                         ^^^^^^^^^^^^^^^^ help: consider removing
-
-error: useless conversion to the same type: `T`
-  --> tests/ui/useless_conversion.rs:374:18
-   |
-LL |     x.into_iter().map(Into::into).collect()
-   |                  ^^^^^^^^^^^^^^^^ help: consider removing
-
 error: explicit call to `.into_iter()` in function argument accepting `IntoIterator`
   --> tests/ui/useless_conversion.rs:390:29
    |
@@ -377,5 +2081,5 @@ LL -             takes_into_iter(self.my_field.into_iter());
 LL +             takes_into_iter(&mut *self.my_field);
    |
 
-error: aborting due to 41 previous errors
+error: aborting due to 249 previous errors
 

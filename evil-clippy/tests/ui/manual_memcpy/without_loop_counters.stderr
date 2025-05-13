@@ -1,192 +1,283 @@
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:14:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for i in 0..src.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[..src.len()].copy_from_slice(&src[..]);`
-   |
-   = note: `-D clippy::manual-memcpy` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_memcpy)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:21:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for i in 0..src.len() {
-LL | |
-LL | |
-LL | |         dst[i + 10] = src[i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[10..(src.len() + 10)].copy_from_slice(&src[..]);`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:28:5
+error: item must be `pub`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:10:1
    |
-LL | /     for i in 0..src.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[i + 10];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[..src.len()].copy_from_slice(&src[10..(src.len() + 10)]);`
+LL | const LOOP_OFFSET: usize = 5000;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:35:5
+error: function must be `unsafe`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:12:5
    |
-LL | /     for i in 11..src.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[i - 10];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[11..src.len()].copy_from_slice(&src[(11 - 10)..(src.len() - 10)]);`
+LL | pub fn manual_copy(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:12:5
+   |
+LL | pub fn manual_copy(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:42:5
+error: parameter must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:12:20
    |
-LL | /     for i in 0..dst.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst.copy_from_slice(&src[..dst.len()]);`
+LL | pub fn manual_copy(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                    ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:57:5
+error: parameter must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:12:33
    |
-LL | /     for i in 10..256 {
-LL | |
-LL | |
-LL | |         dst[i] = src[i - 5];
-LL | |         dst2[i + 500] = src[i]
-LL | |     }
-   | |_____^
-   |
-help: try replacing the loop by
-   |
-LL ~     dst[10..256].copy_from_slice(&src[(10 - 5)..(256 - 5)]);
-LL +     dst2[(10 + 500)..(256 + 500)].copy_from_slice(&src[10..256]);
-   |
+LL | pub fn manual_copy(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                 ^ help: make this parameter mutable: `mut`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:71:5
+error: parameter must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:12:50
    |
-LL | /     for i in 10..LOOP_OFFSET {
-LL | |
-LL | |
-LL | |         dst[i + LOOP_OFFSET] = src[i - some_var];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[(10 + LOOP_OFFSET)..(LOOP_OFFSET + LOOP_OFFSET)].copy_from_slice(&src[(10 - some_var)..(LOOP_OFFSET - some_var)]);`
+LL | pub fn manual_copy(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                                  ^ help: make this parameter mutable: `mut`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:86:5
+error: references are not allowed
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:12:25
    |
-LL | /     for i in 0..src_vec.len() {
-LL | |
-LL | |
-LL | |         dst_vec[i] = src_vec[i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst_vec[..src_vec.len()].copy_from_slice(&src_vec[..]);`
-
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:117:5
+LL | pub fn manual_copy(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                         ^^^^^^
    |
-LL | /     for i in from..from + src.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[i - from];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[from..(from + src.len())].copy_from_slice(&src[..(from + src.len() - from)]);`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:123:5
+error: references are not allowed
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:12:38
    |
-LL | /     for i in from..from + 3 {
-LL | |
-LL | |
-LL | |         dst[i] = src[i - from];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[from..(from + 3)].copy_from_slice(&src[..(from + 3 - from)]);`
-
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:130:5
+LL | pub fn manual_copy(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                      ^^^^^^^^^^
    |
-LL | /     for i in 0..5 {
-LL | |
-LL | |
-LL | |         dst[i - 0] = src[i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[..5].copy_from_slice(&src);`
+   = help: use a raw pointer instead: `*raw`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:137:5
+error: references are not allowed
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:12:56
    |
-LL | /     for i in 0..0 {
-LL | |
-LL | |
-LL | |         dst[i] = src[i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[..0].copy_from_slice(&src[..0]);`
-
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:162:5
+LL | pub fn manual_copy(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                                        ^^^^^^^^^^
    |
-LL | /     for i in 0..4 {
-LL | |
-LL | |
-LL | |         dst[i] = src[i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst.copy_from_slice(&src[..4]);`
+   = help: use a raw pointer instead: `*raw`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:169:5
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:69:9
    |
-LL | /     for i in 0..5 {
-LL | |
-LL | |
-LL | |         dst[i] = src[i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[..5].copy_from_slice(&src);`
+LL |     let some_var = 5;
+   |         ^ help: make this variable mutable: `mut`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:176:5
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:82:9
    |
-LL | /     for i in 0..5 {
-LL | |
-LL | |
-LL | |         dst[i] = src[i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst.copy_from_slice(&src);`
+LL |     let src_vec = vec![1, 2, 3, 4, 5];
+   |         ^ help: make this variable mutable: `mut`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:224:5
+error: item must be `pub`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:95:5
    |
-LL | /     for i in 0..5 {
-LL | |
-LL | |
-LL | |         dst[i] = src[0][i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst.copy_from_slice(&src[0]);`
+LL |     struct DummyStruct(i32);
+   |     ^ help: make this item public: `pub`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:231:5
+error: item must be `pub`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:97:5
    |
-LL | /     for i in 0..5 {
-LL | |
-LL | |
-LL | |         dst[i] = src[0][1][i];
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst.copy_from_slice(&src[0][1]);`
+LL |     impl ::std::ops::Index<usize> for DummyStruct {
+   |     ^ help: make this item public: `pub`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/without_loop_counters.rs:240:5
+error: function must be `unsafe`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:100:9
    |
-LL | /     for i in 0..src.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[i].clone();
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[..src.len()].clone_from_slice(&src[..]);`
+LL |         fn index(&self, _: usize) -> &i32 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:100:9
+   |
+LL |         fn index(&self, _: usize) -> &i32 {
+   |         ^
 
-error: aborting due to 18 previous errors
+error: parameter must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:100:19
+   |
+LL |         fn index(&self, _: usize) -> &i32 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:100:18
+   |
+LL |         fn index(&self, _: usize) -> &i32 {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:100:38
+   |
+LL |         fn index(&self, _: usize) -> &i32 {
+   |                                      ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:101:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:105:9
+   |
+LL |     let src = DummyStruct(5);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:113:9
+   |
+LL |     let src = [0, 1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:115:9
+   |
+LL |     let from = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:150:9
+   |
+LL |     let src = std::collections::VecDeque::from_iter([0, 1, 2, 3, 4]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:154:9
+   |
+LL |     let src = vec![0, 1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:160:9
+   |
+LL |     let src = [0, 1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:183:9
+   |
+LL |     let src = [[0; 5]; 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:194:9
+   |
+LL |     let src = [0; 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:200:9
+   |
+LL |     let src = [[[0; 5]; 5]; 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:222:9
+   |
+LL |     let src = [[0; 5]; 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:230:9
+   |
+LL |     let src = [[[0; 5]; 5]; 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:239:5
+   |
+LL | pub fn manual_clone(src: &[String], dst: &mut [String]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:239:5
+   |
+LL | pub fn manual_clone(src: &[String], dst: &mut [String]) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:239:21
+   |
+LL | pub fn manual_clone(src: &[String], dst: &mut [String]) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:239:37
+   |
+LL | pub fn manual_clone(src: &[String], dst: &mut [String]) {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:239:26
+   |
+LL | pub fn manual_clone(src: &[String], dst: &mut [String]) {
+   |                          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:239:42
+   |
+LL | pub fn manual_clone(src: &[String], dst: &mut [String]) {
+   |                                          ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:247:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:247:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_memcpy/without_loop_counters.rs:247:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 39 previous errors
 

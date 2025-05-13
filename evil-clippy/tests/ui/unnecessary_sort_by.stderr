@@ -1,77 +1,825 @@
-error: consider using `sort`
-  --> tests/ui/unnecessary_sort_by.rs:12:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     vec.sort_by(|a, b| a.cmp(b));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec.sort()`
-   |
-   = note: `-D clippy::unnecessary-sort-by` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_sort_by)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: consider using `sort`
-  --> tests/ui/unnecessary_sort_by.rs:14:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     vec.sort_unstable_by(|a, b| a.cmp(b));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec.sort_unstable()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:16:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:5:1
+   |
+LL | fn unnecessary_sort_by() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:5:1
+   |
+LL | fn unnecessary_sort_by() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:5:1
+   |
+LL | fn unnecessary_sort_by() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:6:5
+   |
+LL |     fn id(x: isize) -> isize {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:6:5
+   |
+LL |     fn id(x: isize) -> isize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:6:5
+   |
+LL |     fn id(x: isize) -> isize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:6:11
+   |
+LL |     fn id(x: isize) -> isize {
+   |           ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:16:42
    |
 LL |     vec.sort_by(|a, b| (a + 5).abs().cmp(&(b + 5).abs()));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec.sort_by_key(|a| (a + 5).abs())`
+   |                                          ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:18:5
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:18:44
    |
 LL |     vec.sort_unstable_by(|a, b| id(-a).cmp(&id(-b)));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec.sort_unstable_by_key(|a| id(-a))`
+   |                                            ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:22:5
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:22:42
    |
 LL |     vec.sort_by(|a, b| (b + 5).abs().cmp(&(a + 5).abs()));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec.sort_by_key(|b| std::cmp::Reverse((b + 5).abs()))`
+   |                                          ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:24:5
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:24:44
    |
 LL |     vec.sort_unstable_by(|a, b| id(-b).cmp(&id(-a)));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec.sort_unstable_by_key(|b| std::cmp::Reverse(id(-b)))`
+   |                                            ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:35:5
+error: variable must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:27:9
+   |
+LL |     let c = &7;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:27:13
+   |
+LL |     let c = &7;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:28:36
+   |
+LL |     vec.sort_by(|a, b| (b - a).cmp(&(a - b)));
+   |                                    ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:29:30
+   |
+LL |     vec.sort_by(|_, b| b.cmp(&5));
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:22
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                      ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:23
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                       ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:24
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                        ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:39
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                       ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:40
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                        ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:41
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:45
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                             ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:46
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:47
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:51
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                                   ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:52
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                                    ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:53
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:57
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                                         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:58
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                                          ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:59
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:63
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                                               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:64
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                                                ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:34:65
+   |
+LL |     let mut vec: Vec<&&&isize> = vec![&&&3, &&&6, &&&1, &&&2, &&&5];
+   |                                                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:35:41
    |
 LL |     vec.sort_by(|a, b| (***a).abs().cmp(&(***b).abs()));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec.sort_by_key(|a| (***a).abs())`
+   |                                         ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:37:5
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:37:50
    |
 LL |     vec.sort_unstable_by(|a, b| (***a).abs().cmp(&(***b).abs()));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec.sort_unstable_by_key(|a| (***a).abs())`
+   |                                                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:97:9
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:49:1
+   |
+LL | mod issue_5754 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:51:5
+   |
+LL |     struct Test(usize);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:50:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:50:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:50:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:50:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:50:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:50:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:54:5
+   |
+LL |     struct Wrapper<'a>(&'a usize);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:54:24
+   |
+LL |     struct Wrapper<'a>(&'a usize);
+   |                        ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:53:14
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:53:11
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |           ^  ---------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:53:11
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |           ^  ---------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:53:14
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:53:14
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:53:14
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |              ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:53:14
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |              ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:54:24
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |              ---------- in this derive macro expansion
+LL |     struct Wrapper<'a>(&'a usize);
+   |                        ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:54:24
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |              ---------- in this derive macro expansion
+LL |     struct Wrapper<'a>(&'a usize);
+   |                        ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:53:26
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                          ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:53:23
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                       ^  --- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:53:23
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                       ^  --- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:53:26
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:53:26
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                          ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:53:26
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                          ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:53:26
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                          ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:54:24
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                          --- in this derive macro expansion
+LL |     struct Wrapper<'a>(&'a usize);
+   |                        ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:54:24
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                          --- in this derive macro expansion
+LL |     struct Wrapper<'a>(&'a usize);
+   |                        ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:53:31
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                               ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:53:31
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                               ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:53:28
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                            ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:53:28
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                            ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:53:31
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:53:31
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                               ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:53:31
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                               ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:53:31
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                               ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:53:42
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                                          ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:53:39
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                                       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:53:39
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                                       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:53:42
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:53:42
+   |
+LL |     #[derive(PartialOrd, Ord, PartialEq, Eq)]
+   |                                          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:54:24
+   |
+LL |     struct Wrapper<'a>(&'a usize);
+   |                        ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:56:5
+   |
+LL |     impl Test {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:57:9
+   |
+LL |         fn name(&self) -> &usize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:57:9
+   |
+LL |         fn name(&self) -> &usize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:57:18
+   |
+LL |         fn name(&self) -> &usize {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:57:17
+   |
+LL |         fn name(&self) -> &usize {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:57:27
+   |
+LL |         fn name(&self) -> &usize {
+   |                           ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:58:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:61:9
+   |
+LL |         fn wrapped(&self) -> Wrapper<'_> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:61:9
+   |
+LL |         fn wrapped(&self) -> Wrapper<'_> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:61:21
+   |
+LL |         fn wrapped(&self) -> Wrapper<'_> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:61:20
+   |
+LL |         fn wrapped(&self) -> Wrapper<'_> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:62:21
+   |
+LL |             Wrapper(&self.0)
+   |                     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:66:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:66:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:71:45
+   |
+LL |         args.sort_by(|a, b| a.wrapped().cmp(&b.wrapped()));
+   |                                             ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:73:54
+   |
+LL |         args.sort_unstable_by(|a, b| a.wrapped().cmp(&b.wrapped()));
+   |                                                      ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:76:45
+   |
+LL |         args.sort_by(|a, b| b.wrapped().cmp(&a.wrapped()));
+   |                                             ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:78:54
+   |
+LL |         args.sort_unstable_by(|a, b| b.wrapped().cmp(&a.wrapped()));
+   |                                                      ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:83:1
+   |
+LL | mod issue_6001 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:84:5
+   |
+LL |     struct Test(String);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:86:5
+   |
+LL |     impl Test {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:88:9
+   |
+LL |         fn name(&self) -> String {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:88:9
+   |
+LL |         fn name(&self) -> String {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_sort_by.rs:88:18
+   |
+LL |         fn name(&self) -> String {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:88:17
+   |
+LL |         fn name(&self) -> String {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:93:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:93:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:97:42
    |
 LL |         args.sort_by(|a, b| a.name().cmp(&b.name()));
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `args.sort_by_key(|a| a.name())`
+   |                                          ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:99:9
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:99:51
    |
 LL |         args.sort_unstable_by(|a, b| a.name().cmp(&b.name()));
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `args.sort_unstable_by_key(|a| a.name())`
+   |                                                   ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:102:9
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:102:42
    |
 LL |         args.sort_by(|a, b| b.name().cmp(&a.name()));
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `args.sort_by_key(|b| std::cmp::Reverse(b.name()))`
+   |                                          ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: consider using `sort_by_key`
-  --> tests/ui/unnecessary_sort_by.rs:104:9
+error: references are not allowed
+  --> tests/ui/unnecessary_sort_by.rs:104:51
    |
 LL |         args.sort_unstable_by(|a, b| b.name().cmp(&a.name()));
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `args.sort_unstable_by_key(|b| std::cmp::Reverse(b.name()))`
+   |                                                   ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 12 previous errors
+error: item must be `pub`
+  --> tests/ui/unnecessary_sort_by.rs:109:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:109:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_sort_by.rs:109:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 102 previous errors
 

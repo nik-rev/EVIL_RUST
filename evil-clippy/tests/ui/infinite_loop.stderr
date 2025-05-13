@@ -1,95 +1,517 @@
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:22:11
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     while y < 10 {
-   |           ^^^^^^
-   |
-   = note: this may lead to an infinite or to a never running loop
-   = note: `#[deny(clippy::while_immutable_condition)]` on by default
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:29:11
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     while y < 10 && x < 3 {
-   |           ^^^^^^^^^^^^^^^
-   |
-   = note: this may lead to an infinite or to a never running loop
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:38:11
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:3:1
    |
-LL |     while !cond {
-   |           ^^^^^
+LL | fn fn_val(i: i32) -> i32 {
+   | ^ help: make this item public: `pub`
    |
-   = note: this may lead to an infinite or to a never running loop
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:84:11
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:3:1
    |
-LL |     while i < 3 {
-   |           ^^^^^
+LL | fn fn_val(i: i32) -> i32 {
+   | ^
    |
-   = note: this may lead to an infinite or to a never running loop
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:3:1
+   |
+LL | fn fn_val(i: i32) -> i32 {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:91:11
+error: parameter must be `mut`
+  --> tests/ui/infinite_loop.rs:3:11
    |
-LL |     while i < 3 && j > 0 {
-   |           ^^^^^^^^^^^^^^
+LL | fn fn_val(i: i32) -> i32 {
+   |           ^ help: make this parameter mutable: `mut`
    |
-   = note: this may lead to an infinite or to a never running loop
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:97:11
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:6:1
    |
-LL |     while i < 3 {
-   |           ^^^^^
-   |
-   = note: this may lead to an infinite or to a never running loop
+LL | fn fn_constref(i: &i32) -> i32 {
+   | ^ help: make this item public: `pub`
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:114:11
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:6:1
    |
-LL |     while i < 3 {
-   |           ^^^^^
+LL | fn fn_constref(i: &i32) -> i32 {
+   | ^
    |
-   = note: this may lead to an infinite or to a never running loop
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:6:1
+   |
+LL | fn fn_constref(i: &i32) -> i32 {
+   | ^
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:121:11
+error: parameter must be `mut`
+  --> tests/ui/infinite_loop.rs:6:16
    |
-LL |     while i < 3 {
-   |           ^^^^^
-   |
-   = note: this may lead to an infinite or to a never running loop
+LL | fn fn_constref(i: &i32) -> i32 {
+   |                ^ help: make this parameter mutable: `mut`
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:189:15
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:6:19
    |
-LL |         while self.count < n {
-   |               ^^^^^^^^^^^^^^
+LL | fn fn_constref(i: &i32) -> i32 {
+   |                   ^^^^
    |
-   = note: this may lead to an infinite or to a never running loop
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:199:11
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:9:1
    |
-LL |     while y < 10 {
-   |           ^^^^^^
-   |
-   = note: this may lead to an infinite or to a never running loop
-   = note: this loop contains `return`s or `break`s
-   = help: rewrite it as `if cond { loop { } }`
+LL | fn fn_mutref(i: &mut i32) {
+   | ^ help: make this item public: `pub`
 
-error: variables in the condition are not mutated in the loop body
-  --> tests/ui/infinite_loop.rs:208:11
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:9:1
    |
-LL |     while y < 10 {
-   |           ^^^^^^
+LL | fn fn_mutref(i: &mut i32) {
+   | ^
    |
-   = note: this may lead to an infinite or to a never running loop
-   = note: this loop contains `return`s or `break`s
-   = help: rewrite it as `if cond { loop { } }`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:9:1
+   |
+LL | fn fn_mutref(i: &mut i32) {
+   | ^
 
-error: aborting due to 11 previous errors
+error: parameter must be `mut`
+  --> tests/ui/infinite_loop.rs:9:14
+   |
+LL | fn fn_mutref(i: &mut i32) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:9:17
+   |
+LL | fn fn_mutref(i: &mut i32) {
+   |                 ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:12:1
+   |
+LL | fn fooi() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:12:1
+   |
+LL | fn fooi() -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:12:1
+   |
+LL | fn fooi() -> i32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:15:1
+   |
+LL | fn foob() -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:15:1
+   |
+LL | fn foob() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:15:1
+   |
+LL | fn foob() -> bool {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:19:1
+   |
+LL | fn immutable_condition() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:19:1
+   |
+LL | fn immutable_condition() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:19:1
+   |
+LL | fn immutable_condition() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/infinite_loop.rs:21:9
+   |
+LL |     let y = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infinite_loop.rs:28:9
+   |
+LL |     let x = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infinite_loop.rs:37:9
+   |
+LL |     let cond = false;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:80:1
+   |
+LL | fn unused_var() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:80:1
+   |
+LL | fn unused_var() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:80:1
+   |
+LL | fn unused_var() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:101:19
+   |
+LL |         fn_mutref(&mut i);
+   |                   ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:111:1
+   |
+LL | fn used_immutable() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:111:1
+   |
+LL | fn used_immutable() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:111:1
+   |
+LL | fn used_immutable() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:117:21
+   |
+LL |         fn_constref(&i);
+   |                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:130:19
+   |
+LL |         fn_mutref(&mut i)
+   |                   ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:134:19
+   |
+LL |         fn_mutref(&mut i);
+   |                   ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:139:1
+   |
+LL | const N: i32 = 5;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:140:1
+   |
+LL | const B: bool = false;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:142:1
+   |
+LL | fn consts() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:142:1
+   |
+LL | fn consts() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:142:1
+   |
+LL | fn consts() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:158:1
+   |
+LL | fn maybe_i_mutate(i: &Cell<bool>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:158:1
+   |
+LL | fn maybe_i_mutate(i: &Cell<bool>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:158:1
+   |
+LL | fn maybe_i_mutate(i: &Cell<bool>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/infinite_loop.rs:158:19
+   |
+LL | fn maybe_i_mutate(i: &Cell<bool>) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:158:22
+   |
+LL | fn maybe_i_mutate(i: &Cell<bool>) {
+   |                      ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:162:1
+   |
+LL | fn internally_mutable() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:162:1
+   |
+LL | fn internally_mutable() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:162:1
+   |
+LL | fn internally_mutable() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/infinite_loop.rs:163:9
+   |
+LL |     let b = Cell::new(true);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:167:24
+   |
+LL |         maybe_i_mutate(&b);
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:172:1
+   |
+LL | struct Counter {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:176:1
+   |
+LL | impl Counter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:177:5
+   |
+LL |     fn inc(&mut self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:177:5
+   |
+LL |     fn inc(&mut self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/infinite_loop.rs:177:17
+   |
+LL |     fn inc(&mut self) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:177:12
+   |
+LL |     fn inc(&mut self) {
+   |            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:181:5
+   |
+LL |     fn inc_n(&mut self, n: usize) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:181:5
+   |
+LL |     fn inc_n(&mut self, n: usize) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/infinite_loop.rs:181:19
+   |
+LL |     fn inc_n(&mut self, n: usize) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/infinite_loop.rs:181:25
+   |
+LL |     fn inc_n(&mut self, n: usize) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:181:14
+   |
+LL |     fn inc_n(&mut self, n: usize) {
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:188:5
+   |
+LL |     fn print_n(&self, n: usize) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:188:5
+   |
+LL |     fn print_n(&self, n: usize) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/infinite_loop.rs:188:17
+   |
+LL |     fn print_n(&self, n: usize) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/infinite_loop.rs:188:23
+   |
+LL |     fn print_n(&self, n: usize) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/infinite_loop.rs:188:16
+   |
+LL |     fn print_n(&self, n: usize) {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:197:1
+   |
+LL | fn while_loop_with_break_and_return() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:197:1
+   |
+LL | fn while_loop_with_break_and_return() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:197:1
+   |
+LL | fn while_loop_with_break_and_return() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/infinite_loop.rs:198:9
+   |
+LL |     let y = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:218:1
+   |
+LL | fn immutable_condition_false_positive(mut n: u64) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:218:1
+   |
+LL | fn immutable_condition_false_positive(mut n: u64) -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:218:1
+   |
+LL | fn immutable_condition_false_positive(mut n: u64) -> u32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/infinite_loop.rs:229:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_loop.rs:229:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_loop.rs:229:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 64 previous errors
 

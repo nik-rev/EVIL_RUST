@@ -1,52 +1,264 @@
-error: current MSRV (Minimum Supported Rust Version) is `1.3.0` but this item is stable since `1.10.0`
-  --> tests/ui/incompatible_msrv.rs:14:39
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/incompatible_msrv.rs:12:1
+   |
+LL | fn foo() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/incompatible_msrv.rs:12:1
+   |
+LL | fn foo() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/incompatible_msrv.rs:12:1
+   |
+LL | fn foo() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/incompatible_msrv.rs:13:26
+   |
+LL |     let mut map: HashMap<&str, u32> = HashMap::new();
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/incompatible_msrv.rs:14:5
    |
 LL |     assert_eq!(map.entry("poneyland").key(), &"poneyland");
-   |                                       ^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::incompatible-msrv` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::incompatible_msrv)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: current MSRV (Minimum Supported Rust Version) is `1.3.0` but this item is stable since `1.12.0`
-  --> tests/ui/incompatible_msrv.rs:18:11
+error: references are not allowed
+  --> tests/ui/incompatible_msrv.rs:14:5
    |
-LL |         v.into_key();
-   |           ^^^^^^^^^^
+LL |     assert_eq!(map.entry("poneyland").key(), &"poneyland");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: current MSRV (Minimum Supported Rust Version) is `1.3.0` but this item is stable since `1.4.0`
-  --> tests/ui/incompatible_msrv.rs:22:5
+error: references are not allowed
+  --> tests/ui/incompatible_msrv.rs:14:46
    |
-LL |     sleep(Duration::new(1, 0));
-   |     ^^^^^
+LL |     assert_eq!(map.entry("poneyland").key(), &"poneyland");
+   |                                              ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: current MSRV (Minimum Supported Rust Version) is `1.3.0` but this item is stable since `1.6.0`
-  --> tests/ui/incompatible_msrv.rs:46:9
+error: variable must be `mut`
+  --> tests/ui/incompatible_msrv.rs:14:5
    |
-LL |         core::panicking::panic("foo");
-   |         ^^^^^^^^^^^^^^^^^^^^^^
+LL |     assert_eq!(map.entry("poneyland").key(), &"poneyland");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: current MSRV (Minimum Supported Rust Version) is `1.3.0` but this item is stable since `1.6.0`
-  --> tests/ui/incompatible_msrv.rs:53:13
+error: references are not allowed
+  --> tests/ui/incompatible_msrv.rs:14:5
    |
-LL |             core::panicking::panic($msg)
-   |             ^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     my_panic!("foo");
-   |     ---------------- in this macro invocation
+LL |     assert_eq!(map.entry("poneyland").key(), &"poneyland");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: this error originates in the macro `my_panic` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: current MSRV (Minimum Supported Rust Version) is `1.3.0` but this item is stable since `1.6.0`
-  --> tests/ui/incompatible_msrv.rs:59:13
+error: references are not allowed
+  --> tests/ui/incompatible_msrv.rs:14:5
    |
-LL |     assert!(core::panicking::panic("out of luck"));
-   |             ^^^^^^^^^^^^^^^^^^^^^^
-
-error: current MSRV (Minimum Supported Rust Version) is `1.80.0` but this item is stable since `1.82.0`
-  --> tests/ui/incompatible_msrv.rs:72:13
+LL |     assert_eq!(map.entry("poneyland").key(), &"poneyland");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     let _ = std::iter::repeat_n((), 5);
-   |             ^^^^^^^^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 7 previous errors
+error: item must be `pub`
+  --> tests/ui/incompatible_msrv.rs:27:1
+   |
+LL | #[test]
+   | ------- in this procedural macro expansion
+LL | fn test() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/incompatible_msrv.rs:27:1
+   |
+LL | fn test() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/incompatible_msrv.rs:27:1
+   |
+LL | fn test() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/incompatible_msrv.rs:27:1
+   |
+LL | fn test() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/incompatible_msrv.rs:32:1
+   |
+LL | async fn issue12273(v: impl Future<Output = ()>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/incompatible_msrv.rs:32:7
+   |
+LL | async fn issue12273(v: impl Future<Output = ()>) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/incompatible_msrv.rs:32:7
+   |
+LL | async fn issue12273(v: impl Future<Output = ()>) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/incompatible_msrv.rs:32:21
+   |
+LL | async fn issue12273(v: impl Future<Output = ()>) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/incompatible_msrv.rs:38:1
+   |
+LL | fn core_special_treatment(p: bool) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/incompatible_msrv.rs:38:1
+   |
+LL | fn core_special_treatment(p: bool) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/incompatible_msrv.rs:38:1
+   |
+LL | fn core_special_treatment(p: bool) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/incompatible_msrv.rs:38:27
+   |
+LL | fn core_special_treatment(p: bool) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/incompatible_msrv.rs:51:5
+   |
+LL |     macro_rules! my_panic {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/incompatible_msrv.rs:64:1
+   |
+LL | fn lang_items() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/incompatible_msrv.rs:64:1
+   |
+LL | fn lang_items() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/incompatible_msrv.rs:64:1
+   |
+LL | fn lang_items() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/incompatible_msrv.rs:71:1
+   |
+LL | fn issue14212() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/incompatible_msrv.rs:71:1
+   |
+LL | fn issue14212() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/incompatible_msrv.rs:71:1
+   |
+LL | fn issue14212() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/incompatible_msrv.rs:76:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/incompatible_msrv.rs:76:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/incompatible_msrv.rs:76:1
+   |
+LL | fn main() {}
+   | ^
+
+error: function must be `unsafe`
+   |
+   = help: make this function unsafe: `unsafe`
+
+error: references are not allowed
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/incompatible_msrv.rs:27:1
+   |
+LL |   #[test]
+   |   ------- in this procedural macro expansion
+LL | / fn test() {
+LL | |     sleep(Duration::new(1, 0));
+LL | | }
+   | |_^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 32 previous errors
 

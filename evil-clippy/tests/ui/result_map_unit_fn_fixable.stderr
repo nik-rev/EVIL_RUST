@@ -1,149 +1,247 @@
-error: called `map(f)` on an `Result` value where `f` is a function that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:34:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x.field.map(do_nothing);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(x_field) = x.field { do_nothing(x_field) }`
-   |
-   = note: `-D clippy::result-map-unit-fn` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::result_map_unit_fn)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `map(f)` on an `Result` value where `f` is a function that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:37:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x.field.map(do_nothing);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(x_field) = x.field { do_nothing(x_field) }`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: called `map(f)` on an `Result` value where `f` is a function that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:40:5
+error: item must be `pub`
+  --> tests/ui/result_map_unit_fn_fixable.rs:5:1
    |
-LL |     x.field.map(diverge);
-   |     ^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(x_field) = x.field { diverge(x_field) }`
-
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:47:5
+LL | fn do_nothing<T>(_: T) {}
+   | ^ help: make this item public: `pub`
    |
-LL |     x.field.map(|value| x.do_result_nothing(value + captured));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { x.do_result_nothing(value + captured) }`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:50:5
+error: function must be `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:5:1
    |
-LL |     x.field.map(|value| { x.do_result_plus_one(value + captured); });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { x.do_result_plus_one(value + captured); }`
-
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:54:5
+LL | fn do_nothing<T>(_: T) {}
+   | ^
    |
-LL |     x.field.map(|value| do_nothing(value + captured));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { do_nothing(value + captured) }`
-
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:57:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:5:1
    |
-LL |     x.field.map(|value| { do_nothing(value + captured) });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { do_nothing(value + captured) }`
+LL | fn do_nothing<T>(_: T) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:60:5
+error: item must be `pub`
+  --> tests/ui/result_map_unit_fn_fixable.rs:7:1
    |
-LL |     x.field.map(|value| { do_nothing(value + captured); });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { do_nothing(value + captured); }`
+LL | fn diverge<T>(_: T) -> ! {
+   | ^ help: make this item public: `pub`
 
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:63:5
+error: function must be `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:7:1
    |
-LL |     x.field.map(|value| { { do_nothing(value + captured); } });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { do_nothing(value + captured); }`
-
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:67:5
+LL | fn diverge<T>(_: T) -> ! {
+   | ^
    |
-LL |     x.field.map(|value| diverge(value + captured));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { diverge(value + captured) }`
-
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:70:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:7:1
    |
-LL |     x.field.map(|value| { diverge(value + captured) });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { diverge(value + captured) }`
+LL | fn diverge<T>(_: T) -> ! {
+   | ^
 
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:73:5
+error: item must be `pub`
+  --> tests/ui/result_map_unit_fn_fixable.rs:8:5
    |
-LL |     x.field.map(|value| { diverge(value + captured); });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { diverge(value + captured); }`
+LL |     panic!()
+   |     ^^^^^^^^
 
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:76:5
+error: function must be `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:8:5
    |
-LL |     x.field.map(|value| { { diverge(value + captured); } });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { diverge(value + captured); }`
+LL |     panic!()
+   |     ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:8:5
+   |
+LL |     panic!()
+   |     ^^^^^^^^
 
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:82:5
+error: item must be `pub`
+  --> tests/ui/result_map_unit_fn_fixable.rs:11:1
+   |
+LL | fn plus_one(value: usize) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:11:1
+   |
+LL | fn plus_one(value: usize) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:11:1
+   |
+LL | fn plus_one(value: usize) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/result_map_unit_fn_fixable.rs:11:13
+   |
+LL | fn plus_one(value: usize) -> usize {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/result_map_unit_fn_fixable.rs:15:1
+   |
+LL | struct HasResult {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/result_map_unit_fn_fixable.rs:19:1
+   |
+LL | impl HasResult {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:20:5
+   |
+LL |     fn do_result_nothing(&self, value: usize) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:20:5
+   |
+LL |     fn do_result_nothing(&self, value: usize) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/result_map_unit_fn_fixable.rs:20:27
+   |
+LL |     fn do_result_nothing(&self, value: usize) {}
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/result_map_unit_fn_fixable.rs:20:33
+   |
+LL |     fn do_result_nothing(&self, value: usize) {}
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/result_map_unit_fn_fixable.rs:20:26
+   |
+LL |     fn do_result_nothing(&self, value: usize) {}
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:22:5
+   |
+LL |     fn do_result_plus_one(&self, value: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:22:5
+   |
+LL |     fn do_result_plus_one(&self, value: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/result_map_unit_fn_fixable.rs:22:28
+   |
+LL |     fn do_result_plus_one(&self, value: usize) -> usize {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/result_map_unit_fn_fixable.rs:22:34
+   |
+LL |     fn do_result_plus_one(&self, value: usize) -> usize {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/result_map_unit_fn_fixable.rs:22:27
+   |
+LL |     fn do_result_plus_one(&self, value: usize) -> usize {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/result_map_unit_fn_fixable.rs:28:1
+   |
+LL | fn result_map_unit_fn() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:28:1
+   |
+LL | fn result_map_unit_fn() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:28:1
+   |
+LL | fn result_map_unit_fn() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/result_map_unit_fn_fixable.rs:29:9
+   |
+LL |     let x = HasResult { field: Ok(10) };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/result_map_unit_fn_fixable.rs:43:9
+   |
+LL |     let captured = 10;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/result_map_unit_fn_fixable.rs:82:31
    |
 LL |     x.field.map(|value| { let y = plus_one(value + captured); });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { let y = plus_one(value + captured); }`
+   |                               ^ help: make this variable mutable: `mut`
 
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:85:5
-   |
-LL |     x.field.map(|value| { plus_one(value + captured); });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { plus_one(value + captured); }`
-
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:88:5
-   |
-LL |     x.field.map(|value| { { plus_one(value + captured); } });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { plus_one(value + captured); }`
-
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:92:5
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/result_map_unit_fn_fixable.rs:92:18
    |
 LL |     x.field.map(|ref value| { do_nothing(value + captured) });
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(ref value) = x.field { do_nothing(value + captured) }`
+   |                  ^^^^^^^^^
 
-error: called `map(f)` on an `Result` value where `f` is a closure that returns the unit type `()`
-  --> tests/ui/result_map_unit_fn_fixable.rs:95:5
+error: item must be `pub`
+  --> tests/ui/result_map_unit_fn_fixable.rs:99:1
    |
-LL |     x.field.map(|value| println!("{:?}", value));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-   |     |
-   |     help: try: `if let Ok(value) = x.field { println!("{:?}", value) }`
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 18 previous errors
+error: function must be `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:99:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_map_unit_fn_fixable.rs:99:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 31 previous errors
 

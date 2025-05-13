@@ -1,592 +1,749 @@
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:15:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if a.to_ascii_lowercase() == b.to_ascii_lowercase() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::manual-ignore-case-cmp` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_ignore_case_cmp)]`
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     if a.to_ascii_lowercase() == b.to_ascii_lowercase() {
-LL +     if a.eq_ignore_ascii_case(b) {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:19:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if a.to_ascii_uppercase() == b.to_ascii_uppercase() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     if a.to_ascii_uppercase() == b.to_ascii_uppercase() {
-LL +     if a.eq_ignore_ascii_case(b) {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:23:13
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:12:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:12:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:12:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:14:1
+   |
+LL | fn variants(a: &str, b: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:14:1
+   |
+LL | fn variants(a: &str, b: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:14:1
+   |
+LL | fn variants(a: &str, b: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:14:13
+   |
+LL | fn variants(a: &str, b: &str) {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:14:22
+   |
+LL | fn variants(a: &str, b: &str) {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:14:16
+   |
+LL | fn variants(a: &str, b: &str) {
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:14:25
+   |
+LL | fn variants(a: &str, b: &str) {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:23:9
    |
 LL |     let r = a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     let r = a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     let r = a.eq_ignore_ascii_case(b);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:25:18
+error: variable must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:25:9
    |
 LL |     let r = r || a.to_ascii_uppercase() == b.to_ascii_uppercase();
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     let r = r || a.to_ascii_uppercase() == b.to_ascii_uppercase();
-LL +     let r = r || a.eq_ignore_ascii_case(b);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:27:10
-   |
-LL |     r && a.to_ascii_lowercase() == b.to_uppercase().to_ascii_lowercase();
-   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     r && a.to_ascii_lowercase() == b.to_uppercase().to_ascii_lowercase();
-LL +     r && a.eq_ignore_ascii_case(&b.to_uppercase());
-   |
-
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:30:8
-   |
-LL |     if a.to_ascii_lowercase() != b.to_ascii_lowercase() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     if a.to_ascii_lowercase() != b.to_ascii_lowercase() {
-LL +     if !a.eq_ignore_ascii_case(b) {
-   |
-
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:34:8
-   |
-LL |     if a.to_ascii_uppercase() != b.to_ascii_uppercase() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     if a.to_ascii_uppercase() != b.to_ascii_uppercase() {
-LL +     if !a.eq_ignore_ascii_case(b) {
-   |
-
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:38:13
+error: variable must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:38:9
    |
 LL |     let r = a.to_ascii_lowercase() != b.to_ascii_lowercase();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     let r = a.to_ascii_lowercase() != b.to_ascii_lowercase();
-LL +     let r = !a.eq_ignore_ascii_case(b);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:40:18
+error: variable must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:40:9
    |
 LL |     let r = r || a.to_ascii_uppercase() != b.to_ascii_uppercase();
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     let r = r || a.to_ascii_uppercase() != b.to_ascii_uppercase();
-LL +     let r = r || !a.eq_ignore_ascii_case(b);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:42:10
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:46:1
    |
-LL |     r && a.to_ascii_lowercase() != b.to_uppercase().to_ascii_lowercase();
-   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     r && a.to_ascii_lowercase() != b.to_uppercase().to_ascii_lowercase();
-LL +     r && !a.eq_ignore_ascii_case(&b.to_uppercase());
-   |
+LL | fn unsupported(a: char, b: char) {
+   | ^ help: make this item public: `pub`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:54:5
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:46:1
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn unsupported(a: char, b: char) {
+   | ^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:46:1
    |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(&b);
-   |
+LL | fn unsupported(a: char, b: char) {
+   | ^
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:58:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:46:16
    |
-LL |     a.to_ascii_lowercase() == 'a';
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == 'a';
-LL +     a.eq_ignore_ascii_case(&'a');
-   |
+LL | fn unsupported(a: char, b: char) {
+   |                ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:60:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:46:25
    |
-LL |     'a' == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     'a' == b.to_ascii_lowercase();
-LL +     'a'.eq_ignore_ascii_case(&b);
-   |
+LL | fn unsupported(a: char, b: char) {
+   |                         ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:64:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:48:56
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     a.to_ascii_lowercase() == char::to_ascii_lowercase(&b);
+   |                                                        ^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(&b);
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:66:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:49:30
    |
-LL |     a.to_ascii_lowercase() == b'a';
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     char::to_ascii_lowercase(&a) == b.to_ascii_lowercase();
+   |                              ^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b'a';
-LL +     a.eq_ignore_ascii_case(&b'a');
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:68:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:50:30
    |
-LL |     b'a' == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     char::to_ascii_lowercase(&a) == char::to_ascii_lowercase(&b);
+   |                              ^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     b'a' == b.to_ascii_lowercase();
-LL +     b'a'.eq_ignore_ascii_case(&b);
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:72:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:50:62
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     char::to_ascii_lowercase(&a) == char::to_ascii_lowercase(&b);
+   |                                                              ^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(b);
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:74:5
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:53:1
    |
-LL |     a.to_uppercase().to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_uppercase().to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.to_uppercase().eq_ignore_ascii_case(b);
-   |
+LL | fn char(a: char, b: char) {
+   | ^ help: make this item public: `pub`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:76:5
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:53:1
    |
-LL |     a.to_ascii_lowercase() == "a";
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn char(a: char, b: char) {
+   | ^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:53:1
    |
-LL -     a.to_ascii_lowercase() == "a";
-LL +     a.eq_ignore_ascii_case("a");
-   |
+LL | fn char(a: char, b: char) {
+   | ^
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:78:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:53:9
    |
-LL |     "a" == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     "a" == b.to_ascii_lowercase();
-LL +     "a".eq_ignore_ascii_case(b);
-   |
+LL | fn char(a: char, b: char) {
+   |         ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:82:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:53:18
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(b);
-   |
+LL | fn char(a: char, b: char) {
+   |                  ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:84:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:56:32
    |
-LL |     a.to_uppercase().to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     a.to_ascii_lowercase() == *&b.to_ascii_lowercase();
+   |                                ^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_uppercase().to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.to_uppercase().eq_ignore_ascii_case(b);
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:86:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:57:6
    |
-LL |     a.to_ascii_lowercase() == "a";
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     *&a.to_ascii_lowercase() == b.to_ascii_lowercase();
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == "a";
-LL +     a.eq_ignore_ascii_case("a");
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:88:5
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:63:1
    |
-LL |     "a" == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     "a" == b.to_ascii_lowercase();
-LL +     "a".eq_ignore_ascii_case(b);
-   |
+LL | fn u8(a: u8, b: u8) {
+   | ^ help: make this item public: `pub`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:92:5
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:63:1
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn u8(a: u8, b: u8) {
+   | ^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:63:1
    |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(&b);
-   |
+LL | fn u8(a: u8, b: u8) {
+   | ^
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:94:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:63:7
    |
-LL |     a.to_ascii_lowercase() == "a";
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == "a";
-LL +     a.eq_ignore_ascii_case("a");
-   |
+LL | fn u8(a: u8, b: u8) {
+   |       ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:96:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:63:14
    |
-LL |     "a" == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     "a" == b.to_ascii_lowercase();
-LL +     "a".eq_ignore_ascii_case(&b);
-   |
+LL | fn u8(a: u8, b: u8) {
+   |              ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:100:5
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:71:1
    |
-LL |     a.to_ascii_lowercase() == "a";
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == "a";
-LL +     a.eq_ignore_ascii_case("a");
-   |
+LL | fn ref_str(a: &str, b: &str) {
+   | ^ help: make this item public: `pub`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:102:5
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:71:1
    |
-LL |     "a" == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn ref_str(a: &str, b: &str) {
+   | ^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:71:1
    |
-LL -     "a" == b.to_ascii_lowercase();
-LL +     "a".eq_ignore_ascii_case(&b);
-   |
+LL | fn ref_str(a: &str, b: &str) {
+   | ^
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:106:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:71:12
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(b);
-   |
+LL | fn ref_str(a: &str, b: &str) {
+   |            ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:108:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:71:21
    |
-LL |     a.to_ascii_lowercase() == "a";
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == "a";
-LL +     a.eq_ignore_ascii_case("a");
-   |
+LL | fn ref_str(a: &str, b: &str) {
+   |                     ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:110:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:71:15
    |
-LL |     "a" == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn ref_str(a: &str, b: &str) {
+   |               ^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     "a" == b.to_ascii_lowercase();
-LL +     "a".eq_ignore_ascii_case(b);
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:113:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:71:24
    |
-LL |     b.to_ascii_lowercase() == a.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn ref_str(a: &str, b: &str) {
+   |                        ^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     b.to_ascii_lowercase() == a.to_ascii_lowercase();
-LL +     b.eq_ignore_ascii_case(&a);
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:115:5
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:81:1
    |
-LL |     b.to_ascii_lowercase() == "a";
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     b.to_ascii_lowercase() == "a";
-LL +     b.eq_ignore_ascii_case("a");
-   |
+LL | fn ref_ref_str(a: &&str, b: &&str) {
+   | ^ help: make this item public: `pub`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:117:5
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:81:1
    |
-LL |     "a" == a.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn ref_ref_str(a: &&str, b: &&str) {
+   | ^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:81:1
    |
-LL -     "a" == a.to_ascii_lowercase();
-LL +     "a".eq_ignore_ascii_case(&a);
-   |
+LL | fn ref_ref_str(a: &&str, b: &&str) {
+   | ^
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:121:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:81:16
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(b);
-   |
+LL | fn ref_ref_str(a: &&str, b: &&str) {
+   |                ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:123:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:81:26
    |
-LL |     a.to_ascii_lowercase() == "a";
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == "a";
-LL +     a.eq_ignore_ascii_case("a");
-   |
+LL | fn ref_ref_str(a: &&str, b: &&str) {
+   |                          ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:125:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:81:19
    |
-LL |     "a" == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn ref_ref_str(a: &&str, b: &&str) {
+   |                   ^^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     "a" == b.to_ascii_lowercase();
-LL +     "a".eq_ignore_ascii_case(b);
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:128:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:81:20
    |
-LL |     b.to_ascii_lowercase() == a.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn ref_ref_str(a: &&str, b: &&str) {
+   |                    ^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     b.to_ascii_lowercase() == a.to_ascii_lowercase();
-LL +     b.eq_ignore_ascii_case(&a);
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:130:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:81:29
    |
-LL |     b.to_ascii_lowercase() == "a";
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn ref_ref_str(a: &&str, b: &&str) {
+   |                             ^^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     b.to_ascii_lowercase() == "a";
-LL +     b.eq_ignore_ascii_case("a");
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:132:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:81:30
    |
-LL |     "a" == a.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn ref_ref_str(a: &&str, b: &&str) {
+   |                              ^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     "a" == a.to_ascii_lowercase();
-LL +     "a".eq_ignore_ascii_case(&a);
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:136:5
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:91:1
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(b);
-   |
+LL | fn string(a: String, b: String) {
+   | ^ help: make this item public: `pub`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:140:5
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:91:1
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn string(a: String, b: String) {
+   | ^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:91:1
    |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(&b);
-   |
+LL | fn string(a: String, b: String) {
+   | ^
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:144:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:91:11
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(b);
-   |
+LL | fn string(a: String, b: String) {
+   |           ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:146:5
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:91:22
    |
-LL |     b.to_ascii_lowercase() == a.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     b.to_ascii_lowercase() == a.to_ascii_lowercase();
-LL +     b.eq_ignore_ascii_case(&a);
-   |
+LL | fn string(a: String, b: String) {
+   |                      ^ help: make this parameter mutable: `mut`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:150:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:98:5
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     &a.to_ascii_lowercase() == &b.to_ascii_lowercase();
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(b);
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:154:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:98:32
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     &a.to_ascii_lowercase() == &b.to_ascii_lowercase();
+   |                                ^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(b);
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:158:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:99:5
    |
-LL |     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     &&a.to_ascii_lowercase() == &&b.to_ascii_lowercase();
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     a.to_ascii_lowercase() == b.to_ascii_lowercase();
-LL +     a.eq_ignore_ascii_case(b);
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual case-insensitive ASCII comparison
-  --> tests/ui/manual_ignore_case_cmp.rs:160:5
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:99:6
    |
-LL |     b.to_ascii_lowercase() == a.to_ascii_lowercase();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     &&a.to_ascii_lowercase() == &&b.to_ascii_lowercase();
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: consider using `.eq_ignore_ascii_case()` instead
-   |
-LL -     b.to_ascii_lowercase() == a.to_ascii_lowercase();
-LL +     b.eq_ignore_ascii_case(a);
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 49 previous errors
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:99:33
+   |
+LL |     &&a.to_ascii_lowercase() == &&b.to_ascii_lowercase();
+   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:99:34
+   |
+LL |     &&a.to_ascii_lowercase() == &&b.to_ascii_lowercase();
+   |                                  ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:105:1
+   |
+LL | fn ref_string(a: String, b: &String) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:105:1
+   |
+LL | fn ref_string(a: String, b: &String) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:105:1
+   |
+LL | fn ref_string(a: String, b: &String) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:105:15
+   |
+LL | fn ref_string(a: String, b: &String) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:105:26
+   |
+LL | fn ref_string(a: String, b: &String) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:105:29
+   |
+LL | fn ref_string(a: String, b: &String) {
+   |                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:120:1
+   |
+LL | fn string_ref_str(a: String, b: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:120:1
+   |
+LL | fn string_ref_str(a: String, b: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:120:1
+   |
+LL | fn string_ref_str(a: String, b: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:120:19
+   |
+LL | fn string_ref_str(a: String, b: &str) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:120:30
+   |
+LL | fn string_ref_str(a: String, b: &str) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:120:33
+   |
+LL | fn string_ref_str(a: String, b: &str) {
+   |                                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:135:1
+   |
+LL | fn ref_u8slice(a: &[u8], b: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:135:1
+   |
+LL | fn ref_u8slice(a: &[u8], b: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:135:1
+   |
+LL | fn ref_u8slice(a: &[u8], b: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:135:16
+   |
+LL | fn ref_u8slice(a: &[u8], b: &[u8]) {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:135:26
+   |
+LL | fn ref_u8slice(a: &[u8], b: &[u8]) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:135:19
+   |
+LL | fn ref_u8slice(a: &[u8], b: &[u8]) {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:135:29
+   |
+LL | fn ref_u8slice(a: &[u8], b: &[u8]) {
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:139:1
+   |
+LL | fn u8vec(a: Vec<u8>, b: Vec<u8>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:139:1
+   |
+LL | fn u8vec(a: Vec<u8>, b: Vec<u8>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:139:1
+   |
+LL | fn u8vec(a: Vec<u8>, b: Vec<u8>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:139:10
+   |
+LL | fn u8vec(a: Vec<u8>, b: Vec<u8>) {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:139:22
+   |
+LL | fn u8vec(a: Vec<u8>, b: Vec<u8>) {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:143:1
+   |
+LL | fn ref_u8vec(a: Vec<u8>, b: &Vec<u8>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:143:1
+   |
+LL | fn ref_u8vec(a: Vec<u8>, b: &Vec<u8>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:143:1
+   |
+LL | fn ref_u8vec(a: Vec<u8>, b: &Vec<u8>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:143:14
+   |
+LL | fn ref_u8vec(a: Vec<u8>, b: &Vec<u8>) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:143:26
+   |
+LL | fn ref_u8vec(a: Vec<u8>, b: &Vec<u8>) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:143:29
+   |
+LL | fn ref_u8vec(a: Vec<u8>, b: &Vec<u8>) {
+   |                             ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:149:1
+   |
+LL | fn ref_osstr(a: &OsStr, b: &OsStr) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:149:1
+   |
+LL | fn ref_osstr(a: &OsStr, b: &OsStr) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:149:1
+   |
+LL | fn ref_osstr(a: &OsStr, b: &OsStr) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:149:14
+   |
+LL | fn ref_osstr(a: &OsStr, b: &OsStr) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:149:25
+   |
+LL | fn ref_osstr(a: &OsStr, b: &OsStr) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:149:17
+   |
+LL | fn ref_osstr(a: &OsStr, b: &OsStr) {
+   |                 ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:149:28
+   |
+LL | fn ref_osstr(a: &OsStr, b: &OsStr) {
+   |                            ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:153:1
+   |
+LL | fn osstring(a: OsString, b: OsString) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:153:1
+   |
+LL | fn osstring(a: OsString, b: OsString) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:153:1
+   |
+LL | fn osstring(a: OsString, b: OsString) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:153:13
+   |
+LL | fn osstring(a: OsString, b: OsString) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:153:26
+   |
+LL | fn osstring(a: OsString, b: OsString) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_ignore_case_cmp.rs:157:1
+   |
+LL | fn ref_osstring(a: OsString, b: &OsString) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:157:1
+   |
+LL | fn ref_osstring(a: OsString, b: &OsString) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ignore_case_cmp.rs:157:1
+   |
+LL | fn ref_osstring(a: OsString, b: &OsString) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:157:17
+   |
+LL | fn ref_osstring(a: OsString, b: &OsString) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ignore_case_cmp.rs:157:30
+   |
+LL | fn ref_osstring(a: OsString, b: &OsString) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_ignore_case_cmp.rs:157:33
+   |
+LL | fn ref_osstring(a: OsString, b: &OsString) {
+   |                                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 98 previous errors
 

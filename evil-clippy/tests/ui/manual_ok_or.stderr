@@ -1,42 +1,83 @@
-error: this pattern reimplements `Option::ok_or`
-  --> tests/ui/manual_ok_or.rs:11:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     foo.map_or(Err("error"), |v| Ok(v));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `foo.ok_or("error")`
-   |
-   = note: `-D clippy::manual-ok-or` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_ok_or)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this pattern reimplements `Option::ok_or`
-  --> tests/ui/manual_ok_or.rs:15:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     foo.map_or(Err("error"), Ok);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `foo.ok_or("error")`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this pattern reimplements `Option::ok_or`
-  --> tests/ui/manual_ok_or.rs:19:5
+error: item must be `pub`
+  --> tests/ui/manual_ok_or.rs:8:1
    |
-LL |     None::<i32>.map_or(Err("error"), |v| Ok(v));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `None::<i32>.ok_or("error")`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this pattern reimplements `Option::ok_or`
-  --> tests/ui/manual_ok_or.rs:24:5
+error: function must be `unsafe`
+  --> tests/ui/manual_ok_or.rs:8:1
    |
-LL | /     foo.map_or(Err::<i32, &str>(
-LL | |
-LL | |         &format!(
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ok_or.rs:8:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/manual_ok_or.rs:10:9
+   |
+LL |     let foo: Option<i32> = None;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/manual_ok_or.rs:24:27
+   |
+LL |     foo.map_or(Err::<i32, &str>(
+   |                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/manual_ok_or.rs:26:9
+   |
+LL | /         &format!(
 LL | |             "{}{}{}{}{}{}{}",
-...  |
-LL | |         |v| Ok(v),
-LL | |     );
-   | |_____^
+LL | |             "Alice", "Bob", "Sarah", "Marc", "Sandra", "Eric", "Jenifer")
+   | |_________________________________________________________________________^
    |
-help: replace with
-   |
-LL ~     foo.ok_or(&format!(
-LL +         "{}{}{}{}{}{}{}",
-LL ~         "Alice", "Bob", "Sarah", "Marc", "Sandra", "Eric", "Jenifer"));
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 4 previous errors
+error: references are not allowed
+  --> tests/ui/manual_ok_or.rs:37:26
+   |
+LL |     foo.map_or(Ok::<i32, &str>(1), |v| Ok(v));
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 10 previous errors
 

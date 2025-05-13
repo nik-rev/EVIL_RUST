@@ -1,53 +1,170 @@
-error: this looks like you are trying to use `.. -= ..`, but you really are doing `.. = (- ..)`
-  --> tests/ui/formatting.rs:13:6
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     a =- 35;
-   |      ^^^^
-   |
-   = note: to remove this lint, use either `-=` or `= -`
-   = note: `-D clippy::suspicious-assignment-formatting` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suspicious_assignment_formatting)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this looks like you are trying to use `.. *= ..`, but you really are doing `.. = (* ..)`
-  --> tests/ui/formatting.rs:17:6
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/formatting.rs:5:1
+   |
+LL | fn foo() -> bool {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/formatting.rs:5:1
+   |
+LL | fn foo() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/formatting.rs:5:1
+   |
+LL | fn foo() -> bool {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/formatting.rs:10:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/formatting.rs:10:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/formatting.rs:10:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/formatting.rs:17:10
    |
 LL |     a =* &191;
-   |      ^^^^
+   |          ^^^^
    |
-   = note: to remove this lint, use either `*=` or `= *`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this looks like you are trying to use `.. != ..`, but you really are doing `.. = (! ..)`
-  --> tests/ui/formatting.rs:23:6
+error: references are not allowed
+  --> tests/ui/formatting.rs:30:10
    |
-LL |     b =! false;
-   |      ^^^^
+LL |     a = *&191;
+   |          ^^^^
    |
-   = note: to remove this lint, use either `!=` or `= !`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: possibly missing a comma here
-  --> tests/ui/formatting.rs:35:19
+error: references are not allowed
+  --> tests/ui/formatting.rs:34:13
    |
-LL |         -1, -2, -3 // <= no comma here
-   |                   ^
+LL |       let _ = &[
+   |  _____________^
+LL | |         -1, -2, -3 // <= no comma here
+...  |
+LL | |         -4, -5, -6
+LL | |     ];
+   | |_____^
    |
-   = note: to remove this lint, add a comma or write the expr in a single line
-   = note: `#[deny(clippy::possible_missing_comma)]` on by default
+   = help: use a raw borrowing instead: `&raw const`
 
-error: possibly missing a comma here
-  --> tests/ui/formatting.rs:42:19
+error: references are not allowed
+  --> tests/ui/formatting.rs:41:13
    |
-LL |         -1, -2, -3 // <= no comma here
-   |                   ^
+LL |       let _ = &[
+   |  _____________^
+LL | |         -1, -2, -3 // <= no comma here
+...  |
+LL | |         *4, -5, -6
+LL | |     ];
+   | |_____^
    |
-   = note: to remove this lint, add a comma or write the expr in a single line
+   = help: use a raw borrowing instead: `&raw const`
 
-error: possibly missing a comma here
-  --> tests/ui/formatting.rs:82:11
+error: references are not allowed
+  --> tests/ui/formatting.rs:50:13
    |
-LL |         -1
-   |           ^
+LL |       let _ = &[
+   |  _____________^
+LL | |         -1, -2, -3,
+LL | |         -4, -5, -6
+LL | |     ];
+   | |_____^
    |
-   = note: to remove this lint, add a comma or write the expr in a single line
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 6 previous errors
+error: references are not allowed
+  --> tests/ui/formatting.rs:54:13
+   |
+LL |       let _ = &[
+   |  _____________^
+LL | |         -1, -2, -3,
+LL | |         -4, -5, -6,
+LL | |     ];
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/formatting.rs:58:13
+   |
+LL |       let _ = &[
+   |  _____________^
+LL | |         1 + 2, 3 +
+LL | |         4, 5 + 6,
+LL | |     ];
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/formatting.rs:76:13
+   |
+LL |       let _ = &[
+   |  _____________^
+LL | |         1 + 2, 3
+LL | |                 - 4, 5
+LL | |     ];
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/formatting.rs:81:13
+   |
+LL |       let _ = &[
+   |  _____________^
+LL | |         -1
+...  |
+LL | |         -4,
+LL | |     ];
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

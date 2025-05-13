@@ -1,72 +1,704 @@
-error: this let-binding has unit value
-  --> tests/ui/let_unit.rs:11:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:4:1
+   |
+LL | macro_rules! let_and_return {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:10:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:10:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:10:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:11:9
    |
 LL |     let _x = println!("x");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^ help: omit the `let` binding: `println!("x");`
+   |         ^ help: make this variable mutable: `mut`
    |
-   = note: `-D clippy::let-unit-value` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::let_unit_value)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this let-binding has unit value
-  --> tests/ui/let_unit.rs:60:5
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:13:9
    |
-LL | /     let _ = v
-LL | |
-LL | |         .into_iter()
-LL | |         .map(|i| i * 2)
-...  |
-LL | |         .next()
-LL | |         .unwrap();
-   | |__________________^
-   |
-help: omit the `let` binding
-   |
-LL ~     v
-LL +
-LL +         .into_iter()
-LL +         .map(|i| i * 2)
-LL +         .filter(|i| i % 2 == 0)
-LL +         .map(|_| ())
-LL +         .next()
-LL +         .unwrap();
-   |
+LL |     let _y = 1; // this is fine
+   |         ^ help: make this variable mutable: `mut`
 
-error: this let-binding has unit value
-  --> tests/ui/let_unit.rs:110:5
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:14:9
    |
-LL | /     let x = match Some(0) {
-LL | |
-LL | |         None => f2(1),
-LL | |         Some(0) => f(),
-LL | |         Some(1) => f2(3),
-LL | |         Some(_) => (),
-LL | |     };
-   | |______^
-   |
-help: omit the `let` binding
-   |
-LL ~     match Some(0) {
-LL +
-LL +         None => f2(1),
-LL +         Some(0) => f(),
-LL +         Some(1) => f2(3),
-LL +         Some(_) => (),
-LL +     };
-   |
+LL |     let _z = ((), 1); // this as well
+   |         ^ help: make this variable mutable: `mut`
 
-error: this let-binding has unit value
-  --> tests/ui/let_unit.rs:192:9
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:17:13
+   |
+LL |         let _a = ();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:22:13
+   |
+LL |         let _a: () = ();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:23:13
+   |
+LL |         let _a: () = dummy();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:6:13
+   |
+LL |         let ret = $n;
+   |             ^ help: make this variable mutable: `mut`
+...
+LL |     let_and_return!(()) // should be fine
+   |     ------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `let_and_return` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:33:1
+   |
+LL | fn dummy() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:33:1
+   |
+LL | fn dummy() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:33:1
+   |
+LL | fn dummy() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:36:1
+   |
+LL | fn consume_units_with_for_loop() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:36:1
+   |
+LL | fn consume_units_with_for_loop() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:36:1
+   |
+LL | fn consume_units_with_for_loop() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:38:9
+   |
+LL |     let v = vec![(), (), ()];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/let_unit.rs:43:5
+   |
+LL |     assert_eq!(count, 3);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/let_unit.rs:43:5
+   |
+LL |     assert_eq!(count, 3);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:43:5
+   |
+LL |     assert_eq!(count, 3);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/let_unit.rs:43:5
+   |
+LL |     assert_eq!(count, 3);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/let_unit.rs:43:5
+   |
+LL |     assert_eq!(count, 3);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:46:10
+   |
+LL |     let (tx, rx) = ::std::sync::mpsc::channel();
+   |          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:46:14
+   |
+LL |     let (tx, rx) = ::std::sync::mpsc::channel();
+   |              ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/let_unit.rs:54:5
+   |
+LL |     assert_eq!(count, 1);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/let_unit.rs:54:5
+   |
+LL |     assert_eq!(count, 1);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:54:5
+   |
+LL |     assert_eq!(count, 1);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/let_unit.rs:54:5
+   |
+LL |     assert_eq!(count, 1);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/let_unit.rs:54:5
+   |
+LL |     assert_eq!(count, 1);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:57:1
+   |
+LL | fn multiline_sugg() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:57:1
+   |
+LL | fn multiline_sugg() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:57:1
+   |
+LL | fn multiline_sugg() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:58:9
+   |
+LL |     let v: Vec<u8> = vec![2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:70:10
+   |
+LL | #[derive(Copy, Clone)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:70:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:70:13
+   |
+LL | #[derive(Copy, Clone)]
+   |             ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:70:13
+   |
+LL | #[derive(Copy, Clone)]
+   |             ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/let_unit.rs:70:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/let_unit.rs:70:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:73:1
+   |
+LL | fn _returns_generic() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:73:1
+   |
+LL | fn _returns_generic() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:73:1
+   |
+LL | fn _returns_generic() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:74:5
+   |
+LL |     fn f<T>() -> T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:74:5
+   |
+LL |     fn f<T>() -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:74:5
+   |
+LL |     fn f<T>() -> T {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:77:5
+   |
+LL |     fn f2<T, U>(_: T) -> U {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:77:5
+   |
+LL |     fn f2<T, U>(_: T) -> U {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:77:5
+   |
+LL |     fn f2<T, U>(_: T) -> U {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:80:5
+   |
+LL |     fn f3<T>(x: T) -> T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:80:5
+   |
+LL |     fn f3<T>(x: T) -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:80:5
+   |
+LL |     fn f3<T>(x: T) -> T {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/let_unit.rs:80:14
+   |
+LL |     fn f3<T>(x: T) -> T {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:83:5
+   |
+LL |     fn f5<T: Default>(x: bool) -> Option<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:83:5
+   |
+LL |     fn f5<T: Default>(x: bool) -> Option<T> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:83:5
+   |
+LL |     fn f5<T: Default>(x: bool) -> Option<T> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/let_unit.rs:83:23
+   |
+LL |     fn f5<T: Default>(x: bool) -> Option<T> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:88:9
+   |
+LL |     let x: () = f();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:91:9
+   |
+LL |     let x: () = f2(0i32);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:94:9
+   |
+LL |     let x: () = f3(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:96:5
+   |
+LL |     fn f4<T>(mut x: Vec<T>) -> T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:96:5
+   |
+LL |     fn f4<T>(mut x: Vec<T>) -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:96:5
+   |
+LL |     fn f4<T>(mut x: Vec<T>) -> T {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:100:9
+   |
+LL |     let x: () = f4(vec![()]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:103:13
+   |
+LL |         let x = 5;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:108:9
+   |
+LL |     let x: () = if true { f() } else { f2(0) };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:110:9
+   |
+LL |     let x = match Some(0) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:122:13
+   |
+LL |         let x = f();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:123:13
+   |
+LL |         let y;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:124:13
+   |
+LL |         let z;
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:135:18
+   |
+LL |             _ => panic!(),
+   |                  ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:135:18
+   |
+LL |             _ => panic!(),
+   |                  ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:135:18
+   |
+LL |             _ => panic!(),
+   |                  ^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:138:13
+   |
+LL |         let x1;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:139:13
+   |
+LL |         let x2;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:148:13
+   |
+LL |         let opt;
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:151:21
+   |
+LL |             None => panic!(),
+   |                     ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:151:21
+   |
+LL |             None => panic!(),
+   |                     ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:151:21
+   |
+LL |             None => panic!(),
+   |                     ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:168:1
+   |
+LL | fn attributes() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:168:1
+   |
+LL | fn attributes() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:168:1
+   |
+LL | fn attributes() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:169:5
+   |
+LL |     fn f() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:169:5
+   |
+LL |     fn f() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:169:5
+   |
+LL |     fn f() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:177:1
+   |
+LL | async fn issue10433() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:177:7
+   |
+LL | async fn issue10433() {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:177:7
+   |
+LL | async fn issue10433() {
+   |       ^
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:178:9
+   |
+LL |     let _pending: () = std::future::pending().await;
+   |         ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:181:11
+   |
+LL | pub async fn issue11502(a: ()) {}
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:181:11
+   |
+LL | pub async fn issue11502(a: ()) {}
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/let_unit.rs:181:25
+   |
+LL | pub async fn issue11502(a: ()) {}
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:183:5
+   |
+LL | pub fn issue12594() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:183:5
+   |
+LL | pub fn issue12594() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:184:5
+   |
+LL |     fn returns_unit() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:184:5
+   |
+LL |     fn returns_unit() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:184:5
+   |
+LL |     fn returns_unit() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:186:5
+   |
+LL |     fn returns_result<T>(res: T) -> Result<T, ()> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:186:5
+   |
+LL |     fn returns_result<T>(res: T) -> Result<T, ()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:186:5
+   |
+LL |     fn returns_result<T>(res: T) -> Result<T, ()> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/let_unit.rs:186:26
+   |
+LL |     fn returns_result<T>(res: T) -> Result<T, ()> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_unit.rs:190:5
+   |
+LL |     fn actual_test() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_unit.rs:190:5
+   |
+LL |     fn actual_test() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_unit.rs:190:5
+   |
+LL |     fn actual_test() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:192:13
    |
 LL |         let res = returns_unit();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: omit the `let` binding and replace variable usages with `()`
-   |
-LL ~         returns_unit();
-LL |
-LL ~         returns_result(()).unwrap();
-LL ~         returns_result(()).unwrap();
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/let_unit.rs:197:13
+   |
+LL |         let res = 1;
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 89 previous errors
 

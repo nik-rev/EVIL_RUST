@@ -1,37 +1,294 @@
-error: use `as_ref()` instead
-  --> tests/ui/match_as_ref.rs:6:33
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let borrowed: Option<&()> = match owned {
-   |  _________________________________^
-LL | |
-LL | |         None => None,
-LL | |         Some(ref v) => Some(v),
-LL | |     };
-   | |_____^ help: try: `owned.as_ref()`
-   |
-   = note: `-D clippy::match-as-ref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::match_as_ref)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use `as_mut()` instead
-  --> tests/ui/match_as_ref.rs:13:39
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let borrow_mut: Option<&mut ()> = match mut_owned {
-   |  _______________________________________^
-LL | |
-LL | |         None => None,
-LL | |         Some(ref mut v) => Some(v),
-LL | |     };
-   | |_____^ help: try: `mut_owned.as_mut()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use `as_ref()` instead
-  --> tests/ui/match_as_ref.rs:32:13
+error: item must be `pub`
+  --> tests/ui/match_as_ref.rs:4:1
    |
-LL | /             match self.source {
-LL | |
-LL | |                 Some(ref s) => Some(s),
-LL | |                 None => None,
-LL | |             }
-   | |_____________^ help: try: `self.source.as_ref().map(|x| x as _)`
+LL | fn match_as_ref() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/match_as_ref.rs:4:1
+   |
+LL | fn match_as_ref() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_as_ref.rs:4:1
+   |
+LL | fn match_as_ref() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/match_as_ref.rs:5:9
+   |
+LL |     let owned: Option<()> = None;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_as_ref.rs:6:9
+   |
+LL |     let borrowed: Option<&()> = match owned {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:6:26
+   |
+LL |     let borrowed: Option<&()> = match owned {
+   |                          ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/match_as_ref.rs:9:14
+   |
+LL |         Some(ref v) => Some(v),
+   |              ^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/match_as_ref.rs:13:9
+   |
+LL |     let borrow_mut: Option<&mut ()> = match mut_owned {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:13:28
+   |
+LL |     let borrow_mut: Option<&mut ()> = match mut_owned {
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/match_as_ref.rs:16:14
+   |
+LL |         Some(ref mut v) => Some(v),
+   |              ^^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/match_as_ref.rs:20:1
+   |
+LL | mod issue4437 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_as_ref.rs:26:5
+   |
+LL |     struct E {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_as_ref.rs:25:14
+   |
+LL |     #[derive(Debug)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/match_as_ref.rs:25:11
+   |
+LL |     #[derive(Debug)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_as_ref.rs:25:11
+   |
+LL |     #[derive(Debug)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/match_as_ref.rs:25:14
+   |
+LL |     #[derive(Debug)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/match_as_ref.rs:25:14
+   |
+LL |     #[derive(Debug)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:25:14
+   |
+LL |     #[derive(Debug)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:25:14
+   |
+LL |     #[derive(Debug)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:27:9
+   |
+LL |     #[derive(Debug)]
+   |              ----- in this derive macro expansion
+LL |     struct E {
+LL |         source: Option<ParseIntError>,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:27:9
+   |
+LL |     #[derive(Debug)]
+   |              ----- in this derive macro expansion
+LL |     struct E {
+LL |         source: Option<ParseIntError>,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/match_as_ref.rs:30:5
+   |
+LL |     impl Error for E {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_as_ref.rs:31:9
+   |
+LL |         fn source(&self) -> Option<&(dyn Error + 'static)> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_as_ref.rs:31:9
+   |
+LL |         fn source(&self) -> Option<&(dyn Error + 'static)> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_as_ref.rs:31:20
+   |
+LL |         fn source(&self) -> Option<&(dyn Error + 'static)> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:31:19
+   |
+LL |         fn source(&self) -> Option<&(dyn Error + 'static)> {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:31:36
+   |
+LL |         fn source(&self) -> Option<&(dyn Error + 'static)> {
+   |                                    ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/match_as_ref.rs:34:22
+   |
+LL |                 Some(ref s) => Some(s),
+   |                      ^^^^^
+
+error: item must be `pub`
+  --> tests/ui/match_as_ref.rs:40:5
+   |
+LL |     impl fmt::Display for E {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_as_ref.rs:41:9
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_as_ref.rs:41:9
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_as_ref.rs:41:17
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/match_as_ref.rs:41:23
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:41:16
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/match_as_ref.rs:41:26
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/match_as_ref.rs:47:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_as_ref.rs:47:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_as_ref.rs:47:1
+   |
+LL | fn main() {
+   | ^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/match_as_ref.rs:52:14
+   |
+LL |         Some(ref x) => Some(x),
+   |              ^^^^^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 38 previous errors
 

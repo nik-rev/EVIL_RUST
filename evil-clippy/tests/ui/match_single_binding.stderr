@@ -1,382 +1,370 @@
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:33:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match (a, b, c) {
-LL | |
-LL | |         (x, y, z) => {
-LL | |             println!("{} {} {}", x, y, z);
-LL | |         },
-LL | |     }
-   | |_____^
-   |
-   = note: `-D clippy::match-single-binding` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::match_single_binding)]`
-help: consider using a `let` statement
-   |
-LL ~     let (x, y, z) = (a, b, c);
-LL +     {
-LL +         println!("{} {} {}", x, y, z);
-LL +     }
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:40:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match (a, b, c) {
-LL | |
-LL | |         (x, y, z) => println!("{} {} {}", x, y, z),
-LL | |     }
-   | |_____^
-   |
-help: consider using a `let` statement
-   |
-LL ~     let (x, y, z) = (a, b, c);
-LL +     println!("{} {} {}", x, y, z);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:58:5
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:11:1
    |
-LL | /     match a {
-LL | |
-LL | |         _ => println!("whatever"),
-LL | |     }
-   | |_____^ help: consider using the match body instead: `println!("whatever");`
+LL | struct Point {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:63:5
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:16:1
    |
-LL | /     match a {
-LL | |
-LL | |         _ => {
-LL | |             let x = 29;
-LL | |             println!("x has a value of {}", x);
-LL | |         },
-LL | |     }
-   | |_____^
-   |
-help: consider using the match body instead
-   |
-LL ~     {
-LL +         let x = 29;
-LL +         println!("x has a value of {}", x);
-LL +     }
-   |
+LL | fn coords() -> Point {
+   | ^ help: make this item public: `pub`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:71:5
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding.rs:16:1
    |
-LL | /     match a {
-LL | |
-LL | |         _ => {
-LL | |             let e = 5 * a;
-...  |
-LL | |         },
-LL | |     }
-   | |_____^
+LL | fn coords() -> Point {
+   | ^
    |
-help: consider using the match body instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding.rs:16:1
    |
-LL ~     {
-LL +         let e = 5 * a;
-LL +         if e >= 5 {
-LL +             println!("e is superior to 5");
-LL +         }
-LL +     }
-   |
+LL | fn coords() -> Point {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:82:5
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:20:1
    |
-LL | /     match p {
-LL | |
-LL | |         Point { x, y } => println!("Coords: ({}, {})", x, y),
-LL | |     }
-   | |_____^
-   |
-help: consider using a `let` statement
-   |
-LL ~     let Point { x, y } = p;
-LL +     println!("Coords: ({}, {})", x, y);
-   |
+LL | macro_rules! foo {
+   | ^ help: make this item public: `pub`
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:87:5
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:28:1
    |
-LL | /     match p {
-LL | |
-LL | |         Point { x: x1, y: y1 } => println!("Coords: ({}, {})", x1, y1),
-LL | |     }
-   | |_____^
-   |
-help: consider using a `let` statement
-   |
-LL ~     let Point { x: x1, y: y1 } = p;
-LL +     println!("Coords: ({}, {})", x1, y1);
-   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:93:5
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding.rs:28:1
    |
-LL | /     match x {
-LL | |
-LL | |         ref r => println!("Got a reference to {}", r),
-LL | |     }
-   | |_____^
+LL | fn main() {
+   | ^
    |
-help: consider using a `let` statement
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding.rs:28:1
    |
-LL ~     let ref r = x;
-LL +     println!("Got a reference to {}", r);
-   |
+LL | fn main() {
+   | ^
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:99:5
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:29:9
    |
-LL | /     match x {
-LL | |
-LL | |         ref mut mr => println!("Got a mutable reference to {}", mr),
-LL | |     }
-   | |_____^
+LL |     let a = 1;
+   |         ^ help: make this variable mutable: `mut`
    |
-help: consider using a `let` statement
-   |
-LL ~     let ref mut mr = x;
-LL +     println!("Got a mutable reference to {}", mr);
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:104:5
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:30:9
    |
-LL | /     let product = match coords() {
-LL | |
-LL | |         Point { x, y } => x * y,
-LL | |     };
-   | |______^
-   |
-help: consider using a `let` statement
-   |
-LL ~     let Point { x, y } = coords();
-LL +     let product = x * y;
-   |
+LL |     let b = 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:113:18
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:31:9
    |
-LL |           .map(|i| match i.unwrap() {
-   |  __________________^
-LL | |
-LL | |             unwrapped => unwrapped,
-LL | |         })
-   | |_________^
-   |
-help: consider using a `let` statement
-   |
-LL ~         .map(|i| {
-LL +             let unwrapped = i.unwrap();
-LL +             unwrapped
-LL ~         })
-   |
+LL |     let c = 3;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:140:5
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:52:9
    |
-LL | /     match x {
-LL | |
-LL | |         // =>
-LL | |         _ => println!("Not an array index start"),
-LL | |     }
-   | |_____^ help: consider using the match body instead: `println!("Not an array index start")`
+LL |     let d = Some(5);
+   |         ^ help: make this variable mutable: `mut`
 
-error: this assignment could be simplified
-  --> tests/ui/match_single_binding.rs:150:5
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:66:17
    |
-LL | /     val = match val.split_at(idx) {
-LL | |
-LL | |         (pre, suf) => {
-LL | |             println!("{}", pre);
-LL | |             suf
-LL | |         },
-LL | |     };
-   | |_____^
-   |
-help: consider removing the `match` expression
-   |
-LL ~     let (pre, suf) = val.split_at(idx);
-LL +     val = {
-LL +         println!("{}", pre);
-LL +         suf
-LL ~     };
-   |
+LL |             let x = 29;
+   |                 ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its scrutinee and body
-  --> tests/ui/match_single_binding.rs:164:16
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:74:17
    |
-LL |       let _ = || match side_effects() {
-   |  ________________^
-LL | |
-LL | |         _ => println!("Needs curlies"),
-LL | |     };
-   | |_____^
-   |
-help: consider using the scrutinee and body instead
-   |
-LL ~     let _ = || {
-LL +         side_effects();
-LL +         println!("Needs curlies")
-LL ~     };
-   |
+LL |             let e = 5 * a;
+   |                 ^ help: make this variable mutable: `mut`
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:171:5
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:81:9
    |
-LL | /     match r {
-LL | |
-LL | |         x => match x {
-LL | |             Some(_) => {
-...  |
-LL | |         },
-LL | |     };
-   | |_____^
-   |
-help: consider using a `let` statement
-   |
-LL ~     let x = r;
-LL +     match x {
-LL +         Some(_) => {
-LL +             println!("Some");
-LL +         },
-LL +         None => {
-LL +             println!("None");
-LL +         },
-LL ~     };
-   |
+LL |     let p = Point { x: 0, y: 7 };
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:185:5
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:92:9
    |
-LL | /     match 1 {
-LL | |
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: consider using the match body instead: `();`
+LL |     let x = 5;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:190:13
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/match_single_binding.rs:95:9
    |
-LL |       let a = match 1 {
-   |  _____________^
-LL | |
-LL | |         _ => (),
-LL | |     };
-   | |_____^ help: consider using the match body instead: `()`
+LL |         ref r => println!("Got a reference to {}", r),
+   |         ^^^^^
+   |
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:195:5
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/match_single_binding.rs:101:9
    |
-LL | /     match 1 {
-LL | |
-LL | |         _ => side_effects(),
-LL | |     }
-   | |_____^ help: consider using the match body instead: `side_effects();`
+LL |         ref mut mr => println!("Got a mutable reference to {}", mr),
+   |         ^^^^^^^^^^
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:200:13
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:104:9
    |
-LL |       let b = match 1 {
-   |  _____________^
-LL | |
-LL | |         _ => side_effects(),
-LL | |     };
-   | |_____^ help: consider using the match body instead: `side_effects()`
+LL |     let product = match coords() {
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:205:5
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:109:9
    |
-LL | /     match 1 {
-LL | |
-LL | |         _ => println!("1"),
-LL | |     }
-   | |_____^ help: consider using the match body instead: `println!("1");`
+LL |     let v = vec![Some(1), Some(2), Some(3), Some(4)];
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:210:13
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:119:9
    |
-LL |       let c = match 1 {
-   |  _____________^
-LL | |
-LL | |         _ => println!("1"),
-LL | |     };
-   | |_____^ help: consider using the match body instead: `println!("1")`
+LL |     let x = 1;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:216:9
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:127:9
    |
-LL | /         match 1 {
-LL | |
-LL | |             _ => (),
-LL | |         },
-   | |_________^ help: consider using the match body instead: `()`
+LL |     let x = 1;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:220:9
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:128:9
    |
-LL | /         match 1 {
-LL | |
-LL | |             _ => side_effects(),
-LL | |         },
-   | |_________^ help: consider using the match body instead: `side_effects()`
+LL |     let y = 1;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its body itself
-  --> tests/ui/match_single_binding.rs:224:9
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:139:9
    |
-LL | /         match 1 {
-LL | |
-LL | |             _ => println!("1"),
-LL | |         },
-   | |_________^ help: consider using the match body instead: `println!("1")`
+LL |     let x = 1;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this match could be replaced by its scrutinee and body
-  --> tests/ui/match_single_binding.rs:239:5
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:147:1
    |
-LL | /     match dbg!(3) {
-LL | |         _ => println!("here"),
-LL | |     }
-   | |_____^
-   |
-help: consider using the scrutinee and body instead
-   |
-LL ~     dbg!(3);
-LL +     println!("here");
-   |
+LL | fn issue_8723() {
+   | ^ help: make this item public: `pub`
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:243:5
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding.rs:147:1
    |
-LL | /     match dbg!(3) {
-LL | |         id!(a) => println!("found {a}"),
-LL | |     }
-   | |_____^
+LL | fn issue_8723() {
+   | ^
    |
-help: consider using a `let` statement
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding.rs:147:1
    |
-LL ~     let id!(a) = dbg!(3);
-LL +     println!("found {a}");
-   |
+LL | fn issue_8723() {
+   | ^
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding.rs:247:5
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:148:19
    |
-LL | /     let id!(_a) = match dbg!(3) {
-LL | |         id!(b) => dbg!(b + 1),
-LL | |     };
-   | |______^
-   |
-help: consider using a `let` statement
-   |
-LL ~     let id!(b) = dbg!(3);
-LL +     let id!(_a) = dbg!(b + 1);
-   |
+LL |     let (mut val, idx) = ("a b", 1);
+   |                   ^ help: make this variable mutable: `mut`
 
-error: aborting due to 27 previous errors
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:161:1
+   |
+LL | fn side_effects() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding.rs:161:1
+   |
+LL | fn side_effects() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding.rs:161:1
+   |
+LL | fn side_effects() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:163:1
+   |
+LL | fn issue_9575() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding.rs:163:1
+   |
+LL | fn issue_9575() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding.rs:163:1
+   |
+LL | fn issue_9575() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:170:1
+   |
+LL | fn issue_9725(r: Option<u32>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding.rs:170:1
+   |
+LL | fn issue_9725(r: Option<u32>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding.rs:170:1
+   |
+LL | fn issue_9725(r: Option<u32>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_single_binding.rs:170:15
+   |
+LL | fn issue_9725(r: Option<u32>) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:184:1
+   |
+LL | fn issue_10447() -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding.rs:184:1
+   |
+LL | fn issue_10447() -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding.rs:184:1
+   |
+LL | fn issue_10447() -> usize {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:190:9
+   |
+LL |     let a = match 1 {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:200:9
+   |
+LL |     let b = match 1 {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:210:9
+   |
+LL |     let c = match 1 {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:215:9
+   |
+LL |     let in_expr = [
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:233:1
+   |
+LL | fn issue14634() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding.rs:233:1
+   |
+LL | fn issue14634() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding.rs:233:1
+   |
+LL | fn issue14634() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/match_single_binding.rs:234:5
+   |
+LL |     macro_rules! id {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/match_single_binding.rs:239:11
+   |
+LL |     match dbg!(3) {
+   |           ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/match_single_binding.rs:243:11
+   |
+LL |     match dbg!(3) {
+   |           ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/match_single_binding.rs:247:13
+   |
+LL |     let id!(_a) = match dbg!(3) {
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_single_binding.rs:247:25
+   |
+LL |     let id!(_a) = match dbg!(3) {
+   |                         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/match_single_binding.rs:248:19
+   |
+LL |         id!(b) => dbg!(b + 1),
+   |                   ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 50 previous errors
 

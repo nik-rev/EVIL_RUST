@@ -1,71 +1,217 @@
-error: self-assignment of `a` to `a`
-  --> tests/ui/self_assignment.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     a = a;
-   |     ^^^^^
-   |
-   = note: `-D clippy::self-assignment` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::self_assignment)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: self-assignment of `*b` to `*b`
-  --> tests/ui/self_assignment.rs:16:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     *b = *b;
-   |     ^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: self-assignment of `s` to `s`
-  --> tests/ui/self_assignment.rs:19:5
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:8:8
    |
-LL |     s = s;
-   |     ^^^^^
-
-error: self-assignment of `s.a` to `s.a`
-  --> tests/ui/self_assignment.rs:22:5
+LL |     e: &'a mut i32,
+   |        ^^^^^^^^^^^
    |
-LL |     s.a = s.a;
-   |     ^^^^^^^^^
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: self-assignment of `s.b[5 + 4]` to `s.b[9]`
-  --> tests/ui/self_assignment.rs:25:5
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:9:8
    |
-LL |     s.b[9] = s.b[5 + 4];
-   |     ^^^^^^^^^^^^^^^^^^^
-
-error: self-assignment of `s.c[0][1]` to `s.c[0][1]`
-  --> tests/ui/self_assignment.rs:28:5
+LL |     f: &'a mut i32,
+   |        ^^^^^^^^^^^
    |
-LL |     s.c[0][1] = s.c[0][1];
-   |     ^^^^^^^^^^^^^^^^^^^^^
+   = help: use a raw pointer instead: `*raw`
 
-error: self-assignment of `s.b[a]` to `s.b[a]`
-  --> tests/ui/self_assignment.rs:31:5
+error: function must be `unsafe`
+  --> tests/ui/self_assignment.rs:12:5
    |
-LL |     s.b[a] = s.b[a];
-   |     ^^^^^^^^^^^^^^^
-
-error: self-assignment of `*s.e` to `*s.e`
-  --> tests/ui/self_assignment.rs:34:5
+LL | pub fn positives(mut a: usize, b: &mut u32, mut s: S) {
+   |     ^
    |
-LL |     *s.e = *s.e;
-   |     ^^^^^^^^^^^
-
-error: self-assignment of `s.b[10 + a]` to `s.b[a + 10]`
-  --> tests/ui/self_assignment.rs:37:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_assignment.rs:12:5
    |
-LL |     s.b[a + 10] = s.b[10 + a];
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | pub fn positives(mut a: usize, b: &mut u32, mut s: S) {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: self-assignment of `t.1` to `t.1`
-  --> tests/ui/self_assignment.rs:41:5
+error: parameter must be `mut`
+  --> tests/ui/self_assignment.rs:12:32
    |
-LL |     t.1 = t.1;
-   |     ^^^^^^^^^
-
-error: self-assignment of `(t.0)` to `t.0`
-  --> tests/ui/self_assignment.rs:44:5
+LL | pub fn positives(mut a: usize, b: &mut u32, mut s: S) {
+   |                                ^ help: make this parameter mutable: `mut`
    |
-LL |     t.0 = (t.0);
-   |     ^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 11 previous errors
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:12:35
+   |
+LL | pub fn positives(mut a: usize, b: &mut u32, mut s: S) {
+   |                                   ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/self_assignment.rs:48:5
+   |
+LL | pub fn negatives_not_equal(mut a: usize, b: &mut usize, mut s: S) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_assignment.rs:48:5
+   |
+LL | pub fn negatives_not_equal(mut a: usize, b: &mut usize, mut s: S) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/self_assignment.rs:48:42
+   |
+LL | pub fn negatives_not_equal(mut a: usize, b: &mut usize, mut s: S) {
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:48:45
+   |
+LL | pub fn negatives_not_equal(mut a: usize, b: &mut usize, mut s: S) {
+   |                                             ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:49:10
+   |
+LL |     dbg!(&a);
+   |          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:49:5
+   |
+LL |     dbg!(&a);
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:51:10
+   |
+LL |     dbg!(&a);
+   |          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:51:5
+   |
+LL |     dbg!(&a);
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/self_assignment.rs:64:5
+   |
+LL | pub fn negatives_side_effects() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_assignment.rs:64:5
+   |
+LL | pub fn negatives_side_effects() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/self_assignment.rs:75:5
+   |
+LL |     fn next(n: &mut usize) -> usize {
+   |     ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/self_assignment.rs:75:5
+   |
+LL |     fn next(n: &mut usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_assignment.rs:75:5
+   |
+LL |     fn next(n: &mut usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/self_assignment.rs:75:13
+   |
+LL |     fn next(n: &mut usize) -> usize {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:75:16
+   |
+LL |     fn next(n: &mut usize) -> usize {
+   |                ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/self_assignment.rs:76:13
+   |
+LL |         let v = *n;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/self_assignment.rs:83:9
+   |
+LL |     let i = &mut i;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/self_assignment.rs:83:13
+   |
+LL |     let i = &mut i;
+   |             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/self_assignment.rs:88:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/self_assignment.rs:88:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_assignment.rs:88:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 26 previous errors
 

@@ -1,273 +1,233 @@
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:14:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = map.iter().map(|(key, _)| key).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.keys()`
-   |
-   = note: `-D clippy::iter-kv-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::iter_kv_map)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:16:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = map.iter().map(|(_, value)| value).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:18:13
+error: item must be `pub`
+  --> tests/ui/iter_kv_map.rs:6:1
    |
-LL |     let _ = map.iter().map(|(_, v)| v + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values().map(|v| v + 2)`
-
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:21:13
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = map.clone().into_iter().map(|(key, _)| key).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_keys()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:23:13
+error: function must be `unsafe`
+  --> tests/ui/iter_kv_map.rs:6:1
    |
-LL |     let _ = map.clone().into_iter().map(|(key, _)| key + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_keys().map(|key| key + 2)`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:26:13
+LL | fn main() {
+   | ^
    |
-LL |     let _ = map.clone().into_iter().map(|(_, val)| val).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values()`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:28:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_kv_map.rs:6:1
    |
-LL |     let _ = map.clone().into_iter().map(|(_, val)| val + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values().map(|val| val + 2)`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:31:13
+error: variable must be `mut`
+  --> tests/ui/iter_kv_map.rs:7:9
    |
-LL |     let _ = map.clone().iter().map(|(_, val)| val).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().values()`
-
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:33:13
+LL |     let get_key = |(key, _val)| key;
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _ = map.iter().map(|(key, _)| key).filter(|x| *x % 2 == 0).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.keys()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:44:13
+error: item must be `pub`
+  --> tests/ui/iter_kv_map.rs:8:5
    |
-LL |     let _ = map.iter().map(|(key, _value)| key * 9).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.keys().map(|key| key * 9)`
+LL |     fn ref_acceptor(v: &u32) -> u32 {
+   |     ^ help: make this item public: `pub`
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:46:13
+error: function must be `unsafe`
+  --> tests/ui/iter_kv_map.rs:8:5
    |
-LL |     let _ = map.iter().map(|(_key, value)| value * 17).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values().map(|value| value * 17)`
+LL |     fn ref_acceptor(v: &u32) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_kv_map.rs:8:5
+   |
+LL |     fn ref_acceptor(v: &u32) -> u32 {
+   |     ^
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:50:13
+error: parameter must be `mut`
+  --> tests/ui/iter_kv_map.rs:8:21
+   |
+LL |     fn ref_acceptor(v: &u32) -> u32 {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_kv_map.rs:8:24
+   |
+LL |     fn ref_acceptor(v: &u32) -> u32 {
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/iter_kv_map.rs:12:9
+   |
+LL |     let map: HashMap<u32, u32> = HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/iter_kv_map.rs:50:46
    |
 LL |     let _ = map.clone().into_iter().map(|(_, ref val)| ref_acceptor(val)).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values().map(|ref val| ref_acceptor(val))`
+   |                                              ^^^^^^^
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:54:13
+error: variable must be `mut`
+  --> tests/ui/iter_kv_map.rs:68:9
    |
-LL |       let _ = map
-   |  _____________^
-LL | |
-LL | |         .clone()
-LL | |         .into_iter()
-...  |
-LL | |             val
-LL | |         })
-   | |__________^
-   |
-help: try
-   |
-LL ~     let _ = map
-LL +
-LL +         .clone().into_values().map(|mut val| {
-LL +             val += 2;
-LL +             val
-LL +         })
-   |
+LL |     let map: BTreeMap<u32, u32> = BTreeMap::new();
+   |         ^ help: make this variable mutable: `mut`
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:65:13
-   |
-LL |     let _ = map.clone().into_iter().map(|(_, mut val)| val).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values()`
-
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:70:13
-   |
-LL |     let _ = map.iter().map(|(key, _)| key).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.keys()`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:72:13
-   |
-LL |     let _ = map.iter().map(|(_, value)| value).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values()`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:74:13
-   |
-LL |     let _ = map.iter().map(|(_, v)| v + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values().map(|v| v + 2)`
-
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:77:13
-   |
-LL |     let _ = map.clone().into_iter().map(|(key, _)| key).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_keys()`
-
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:79:13
-   |
-LL |     let _ = map.clone().into_iter().map(|(key, _)| key + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_keys().map(|key| key + 2)`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:82:13
-   |
-LL |     let _ = map.clone().into_iter().map(|(_, val)| val).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values()`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:84:13
-   |
-LL |     let _ = map.clone().into_iter().map(|(_, val)| val + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values().map(|val| val + 2)`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:87:13
-   |
-LL |     let _ = map.clone().iter().map(|(_, val)| val).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().values()`
-
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:89:13
-   |
-LL |     let _ = map.iter().map(|(key, _)| key).filter(|x| *x % 2 == 0).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.keys()`
-
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:100:13
-   |
-LL |     let _ = map.iter().map(|(key, _value)| key * 9).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.keys().map(|key| key * 9)`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:102:13
-   |
-LL |     let _ = map.iter().map(|(_key, value)| value * 17).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values().map(|value| value * 17)`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:106:13
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/iter_kv_map.rs:106:46
    |
 LL |     let _ = map.clone().into_iter().map(|(_, ref val)| ref_acceptor(val)).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values().map(|ref val| ref_acceptor(val))`
+   |                                              ^^^^^^^
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:110:13
+error: item must be `pub`
+  --> tests/ui/iter_kv_map.rs:126:1
    |
-LL |       let _ = map
-   |  _____________^
-LL | |
-LL | |         .clone()
-LL | |         .into_iter()
-...  |
-LL | |             val
-LL | |         })
-   | |__________^
-   |
-help: try
-   |
-LL ~     let _ = map
-LL +
-LL +         .clone().into_values().map(|mut val| {
-LL +             val += 2;
-LL +             val
-LL +         })
-   |
+LL | fn msrv_1_53() {
+   | ^ help: make this item public: `pub`
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:121:13
+error: function must be `unsafe`
+  --> tests/ui/iter_kv_map.rs:126:1
    |
-LL |     let _ = map.clone().into_iter().map(|(_, mut val)| val).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values()`
-
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:137:13
+LL | fn msrv_1_53() {
+   | ^
    |
-LL |     let _ = map.iter().map(|(key, _)| key).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.keys()`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:140:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_kv_map.rs:126:1
    |
-LL |     let _ = map.iter().map(|(_, value)| value).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values()`
+LL | fn msrv_1_53() {
+   | ^
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:143:13
+error: variable must be `mut`
+  --> tests/ui/iter_kv_map.rs:127:9
    |
-LL |     let _ = map.iter().map(|(_, v)| v + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values().map(|v| v + 2)`
+LL |     let map: HashMap<u32, u32> = HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
 
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:152:13
+error: item must be `pub`
+  --> tests/ui/iter_kv_map.rs:148:1
    |
-LL |     let _ = map.clone().into_iter().map(|(key, _)| key).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_keys()`
+LL | fn msrv_1_54() {
+   | ^ help: make this item public: `pub`
 
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:155:13
+error: function must be `unsafe`
+  --> tests/ui/iter_kv_map.rs:148:1
    |
-LL |     let _ = map.clone().into_iter().map(|(key, _)| key + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_keys().map(|key| key + 2)`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:158:13
+LL | fn msrv_1_54() {
+   | ^
    |
-LL |     let _ = map.clone().into_iter().map(|(_, val)| val).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values()`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:161:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_kv_map.rs:148:1
    |
-LL |     let _ = map.clone().into_iter().map(|(_, val)| val + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.clone().into_values().map(|val| val + 2)`
+LL | fn msrv_1_54() {
+   | ^
 
-error: iterating on a map's keys
-  --> tests/ui/iter_kv_map.rs:164:13
+error: variable must be `mut`
+  --> tests/ui/iter_kv_map.rs:150:9
    |
-LL |     let _ = map.iter().map(|(key, _)| key).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.keys()`
+LL |     let map: HashMap<u32, u32> = HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:167:13
+error: item must be `pub`
+  --> tests/ui/iter_kv_map.rs:174:1
    |
-LL |     let _ = map.iter().map(|(_, value)| value).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values()`
+LL | fn issue14595() {
+   | ^ help: make this item public: `pub`
 
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:170:13
+error: function must be `unsafe`
+  --> tests/ui/iter_kv_map.rs:174:1
    |
-LL |     let _ = map.iter().map(|(_, v)| v + 2).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.values().map(|v| v + 2)`
-
-error: iterating on a map's values
-  --> tests/ui/iter_kv_map.rs:185:13
+LL | fn issue14595() {
+   | ^
    |
-LL |     let _ = map.as_ref().iter().map(|(_, v)| v).copied().collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `map.as_ref().values()`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_kv_map.rs:174:1
+   |
+LL | fn issue14595() {
+   | ^
 
-error: aborting due to 39 previous errors
+error: item must be `pub`
+  --> tests/ui/iter_kv_map.rs:177:5
+   |
+LL |     impl AsRef<BTreeMap<String, i32>> for Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_kv_map.rs:178:9
+   |
+LL |         fn as_ref(&self) -> &BTreeMap<String, i32> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_kv_map.rs:178:9
+   |
+LL |         fn as_ref(&self) -> &BTreeMap<String, i32> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_kv_map.rs:178:20
+   |
+LL |         fn as_ref(&self) -> &BTreeMap<String, i32> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_kv_map.rs:178:19
+   |
+LL |         fn as_ref(&self) -> &BTreeMap<String, i32> {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/iter_kv_map.rs:178:29
+   |
+LL |         fn as_ref(&self) -> &BTreeMap<String, i32> {
+   |                             ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/iter_kv_map.rs:179:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/iter_kv_map.rs:183:9
+   |
+LL |     let map = Foo(BTreeMap::default());
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 30 previous errors
 

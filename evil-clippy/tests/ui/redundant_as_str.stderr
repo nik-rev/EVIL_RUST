@@ -1,17 +1,116 @@
-error: this `as_str` is redundant and can be removed as the method immediately following exists on `String` too
-  --> tests/ui/redundant_as_str.rs:8:29
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/redundant_as_str.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_as_str.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_as_str.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:5:9
+   |
+LL |     let string = "Hello, world!".to_owned();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:8:9
    |
 LL |     let _redundant = string.as_str().as_bytes();
-   |                             ^^^^^^^^^^^^^^^^^ help: try: `as_bytes`
-   |
-   = note: `-D clippy::redundant-as-str` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_as_str)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this `as_str` is redundant and can be removed as the method immediately following exists on `String` too
-  --> tests/ui/redundant_as_str.rs:10:29
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:10:9
    |
 LL |     let _redundant = string.as_str().is_empty();
-   |                             ^^^^^^^^^^^^^^^^^ help: try: `is_empty`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 2 previous errors
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:14:9
+   |
+LL |     let _no_as_str = string.as_bytes();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:15:9
+   |
+LL |     let _no_as_str = string.is_empty();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:19:9
+   |
+LL |     let _not_redundant = string.as_str().escape_unicode();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:20:9
+   |
+LL |     let _not_redundant = string.as_str().trim();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:21:9
+   |
+LL |     let _not_redundant = string.as_str().split_whitespace();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:24:9
+   |
+LL |     let borrowed_str = "Hello, world!";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:25:9
+   |
+LL |     let _is_str = borrowed_str.as_bytes();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_as_str.rs:26:9
+   |
+LL |     let _is_str = borrowed_str.is_empty();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

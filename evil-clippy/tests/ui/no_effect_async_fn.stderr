@@ -1,29 +1,186 @@
-error: binding to `_` prefixed variable with no side-effect
-  --> tests/ui/no_effect_async_fn.rs:20:17
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |             let _c = 0;
-   |                 ^^
-   |
-   = note: `-D clippy::no-effect-underscore-binding` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::no_effect_underscore_binding)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: binding to `_` prefixed variable with no side-effect
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/no_effect_async_fn.rs:4:1
+   |
+LL | / trait AsyncTrait {
+LL | |     async fn bar(i: u64);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/no_effect_async_fn.rs:4:1
+   |
+LL | trait AsyncTrait {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_async_fn.rs:5:11
+   |
+LL |     async fn bar(i: u64);
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_async_fn.rs:5:11
+   |
+LL |     async fn bar(i: u64);
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect_async_fn.rs:5:18
+   |
+LL |     async fn bar(i: u64);
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/no_effect_async_fn.rs:8:1
+   |
+LL | struct Bar;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect_async_fn.rs:10:1
+   |
+LL | impl AsyncTrait for Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_async_fn.rs:12:11
+   |
+LL |     async fn bar(_i: u64) {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_async_fn.rs:12:11
+   |
+LL |     async fn bar(_i: u64) {
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect_async_fn.rs:12:18
+   |
+LL |     async fn bar(_i: u64) {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
   --> tests/ui/no_effect_async_fn.rs:13:13
    |
 LL |         let _a = 0;
-   |             ^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: binding to `_` prefixed variable with no side-effect
-  --> tests/ui/no_effect_async_fn.rs:39:13
+error: variable must be `mut`
+  --> tests/ui/no_effect_async_fn.rs:17:13
    |
-LL |         let _c = 0;
-   |             ^^
+LL |         let _b = num();
+   |             ^ help: make this variable mutable: `mut`
 
-error: binding to `_` prefixed variable with no side-effect
+error: variable must be `mut`
+  --> tests/ui/no_effect_async_fn.rs:20:17
+   |
+LL |             let _c = 0;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/no_effect_async_fn.rs:24:17
+   |
+LL |             let _d = num();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/no_effect_async_fn.rs:31:1
+   |
+LL | async fn foo(_i: u64) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_async_fn.rs:31:7
+   |
+LL | async fn foo(_i: u64) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_async_fn.rs:31:7
+   |
+LL | async fn foo(_i: u64) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect_async_fn.rs:31:14
+   |
+LL | async fn foo(_i: u64) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
   --> tests/ui/no_effect_async_fn.rs:32:9
    |
 LL |     let _a = 0;
-   |         ^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/no_effect_async_fn.rs:36:9
+   |
+LL |     let _b = num();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/no_effect_async_fn.rs:39:13
+   |
+LL |         let _c = 0;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/no_effect_async_fn.rs:43:13
+   |
+LL |         let _d = num();
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/no_effect_async_fn.rs:48:1
+   |
+LL | fn num() -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_async_fn.rs:48:1
+   |
+LL | fn num() -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_async_fn.rs:48:1
+   |
+LL | fn num() -> usize {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 25 previous errors
 

@@ -1,161 +1,1493 @@
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:17:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         self.x == other.y && self.y == other.y && self.z == other.z
-   |         ^^^^^^^^^^^^^^^^^ help: did you mean: `self.x == other.x`
-   |
-   = note: `-D clippy::suspicious-operation-groupings` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suspicious_operation_groupings)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:31:20
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:6:1
    |
-LL |     s1.a < s2.a && s1.a < s2.b
-   |                    ^^^^^^^^^^^ help: did you mean: `s1.b < s2.b`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:80:33
+LL | struct Vec3 {
+   | ^ help: make this item public: `pub`
    |
-LL |     s1.a * s2.a + s1.b * s2.b + s1.c * s2.b + s1.d * s2.d
-   |                                 ^^^^^^^^^^^ help: did you mean: `s1.c * s2.c`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:86:19
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:12:1
    |
-LL |     s1.a * s2.a + s1.b * s2.c + s1.c * s2.c
-   |                   ^^^^^^^^^^^ help: did you mean: `s1.b * s2.b`
+LL | impl Eq for Vec3 {}
+   | ^ help: make this item public: `pub`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:86:19
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:14:1
    |
-LL |     s1.a * s2.a + s1.b * s2.c + s1.c * s2.c
-   |                   ^^^^^^^^^^^ help: did you mean: `s1.b * s2.b`
+LL | impl PartialEq for Vec3 {
+   | ^ help: make this item public: `pub`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:93:19
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:15:5
    |
-LL |     s1.a * s2.a + s2.b * s2.b + s1.c * s2.c
-   |                   ^^^^^^^^^^^ help: did you mean: `s1.b * s2.b`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:99:19
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
    |
-LL |     s1.a * s2.a + s1.b * s1.b + s1.c * s2.c
-   |                   ^^^^^^^^^^^ help: did you mean: `s1.b * s2.b`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:105:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:15:5
    |
-LL |     s1.a * s1.a + s1.b * s2.b + s1.c * s2.c
-   |     ^^^^^^^^^^^ help: did you mean: `s1.a * s2.a`
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:111:33
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:15:12
    |
-LL |     s1.a * s2.a + s1.b * s2.b + s1.c * s1.c
-   |                                 ^^^^^^^^^^^ help: did you mean: `s1.c * s2.c`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:125:20
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
    |
-LL |     (s1.a * s2.a + s1.b * s1.b)
-   |                    ^^^^^^^^^^^ help: did you mean: `s1.b * s2.b`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:131:34
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:15:18
    |
-LL |     (s1.a * s2.a + s1.b * s2.b + s1.c * s2.b + s1.d * s2.d)
-   |                                  ^^^^^^^^^^^ help: did you mean: `s1.c * s2.c`
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:137:38
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:15:11
    |
-LL |     (s1.a * s2.a) + (s1.b * s2.b) + (s1.c * s2.b) + (s1.d * s2.d)
-   |                                      ^^^^^^^^^^^ help: did you mean: `s1.c * s2.c`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:143:39
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
    |
-LL |     ((s1.a * s2.a) + (s1.b * s2.b) + (s1.c * s2.b) + (s1.d * s2.d))
-   |                                       ^^^^^^^^^^^ help: did you mean: `s1.c * s2.c`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:149:42
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:15:25
    |
-LL |     (((s1.a * s2.a) + (s1.b * s2.b)) + ((s1.c * s2.b) + (s1.d * s2.d)))
-   |                                          ^^^^^^^^^^^ help: did you mean: `s1.c * s2.c`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:149:42
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
    |
-LL |     (((s1.a * s2.a) + (s1.b * s2.b)) + ((s1.c * s2.b) + (s1.d * s2.d)))
-   |                                          ^^^^^^^^^^^ help: did you mean: `s1.c * s2.c`
+   = help: use a raw pointer instead: `*const`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:156:40
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:22:1
    |
-LL |     (((s1.a * s2.a) + (s1.b * s2.b) + (s1.c * s2.b)) + (s1.d * s2.d))
-   |                                        ^^^^^^^^^^^ help: did you mean: `s1.c * s2.c`
+LL | struct S {
+   | ^ help: make this item public: `pub`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:162:40
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:29:1
    |
-LL |     ((s1.a * s2.a) + ((s1.b * s2.b) + (s1.c * s2.b) + (s1.d * s2.d)))
-   |                                        ^^^^^^^^^^^ help: did you mean: `s1.c * s2.c`
+LL | fn buggy_ab_cmp(s1: &S, s2: &S) -> bool {
+   | ^ help: make this item public: `pub`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:168:20
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:29:1
    |
-LL |     (s1.a * s2.a + s2.b * s2.b) / 2
-   |                    ^^^^^^^^^^^ help: did you mean: `s1.b * s2.b`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:174:35
+LL | fn buggy_ab_cmp(s1: &S, s2: &S) -> bool {
+   | ^
    |
-LL |     i32::swap_bytes(s1.a * s2.a + s2.b * s2.b)
-   |                                   ^^^^^^^^^^^ help: did you mean: `s1.b * s2.b`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:180:29
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:29:1
    |
-LL |     s1.a > 0 && s1.b > 0 && s1.d == s2.c && s1.d == s2.d
-   |                             ^^^^^^^^^^^^ help: did you mean: `s1.c == s2.c`
+LL | fn buggy_ab_cmp(s1: &S, s2: &S) -> bool {
+   | ^
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:186:17
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:29:17
    |
-LL |     s1.a > 0 && s1.d == s2.c && s1.b > 0 && s1.d == s2.d
-   |                 ^^^^^^^^^^^^ help: did you mean: `s1.c == s2.c`
+LL | fn buggy_ab_cmp(s1: &S, s2: &S) -> bool {
+   |                 ^ help: make this parameter mutable: `mut`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:196:77
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:29:25
    |
-LL |     (n1.inner.0).0 == (n2.inner.0).0 && (n1.inner.1).0 == (n2.inner.1).0 && (n1.inner.2).0 == (n2.inner.1).0
-   |                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: did you mean: `(n1.inner.2).0 == (n2.inner.2).0`
+LL | fn buggy_ab_cmp(s1: &S, s2: &S) -> bool {
+   |                         ^ help: make this parameter mutable: `mut`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:211:25
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:29:21
    |
-LL |         s1.a <= s2.a && s1.a <= s2.b
-   |                         ^^^^^^^^^^^^ help: did you mean: `s1.b <= s2.b`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:218:23
+LL | fn buggy_ab_cmp(s1: &S, s2: &S) -> bool {
+   |                     ^^
    |
-LL |     if s1.a < s2.a && s1.a < s2.b {
-   |                       ^^^^^^^^^^^ help: did you mean: `s1.b < s2.b`
+   = help: use a raw pointer instead: `*const`
 
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:226:48
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:29:29
    |
-LL |     -(-(-s1.a * -s2.a) + (-(-s1.b * -s2.b) + -(-s1.c * -s2.b) + -(-s1.d * -s2.d)))
-   |                                                ^^^^^^^^^^^^^ help: did you mean: `-s1.c * -s2.c`
-
-error: this sequence of operators looks suspiciously like a bug
-  --> tests/ui/suspicious_operation_groupings.rs:232:27
+LL | fn buggy_ab_cmp(s1: &S, s2: &S) -> bool {
+   |                             ^^
    |
-LL |     -(if -s1.a < -s2.a && -s1.a < -s2.b { s1.c } else { s2.a })
-   |                           ^^^^^^^^^^^^^ help: did you mean: `-s1.b < -s2.b`
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 26 previous errors
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:35:1
+   |
+LL | struct SaOnly {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:39:1
+   |
+LL | impl S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:40:5
+   |
+LL |     fn a(&self) -> i32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:40:5
+   |
+LL |     fn a(&self) -> i32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:40:11
+   |
+LL |     fn a(&self) -> i32 {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:40:10
+   |
+LL |     fn a(&self) -> i32 {
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:45:1
+   |
+LL | fn do_not_give_bad_suggestions_for_this_unusual_expr(s1: &S, s2: &SaOnly) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:45:1
+   |
+LL | fn do_not_give_bad_suggestions_for_this_unusual_expr(s1: &S, s2: &SaOnly) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:45:1
+   |
+LL | fn do_not_give_bad_suggestions_for_this_unusual_expr(s1: &S, s2: &SaOnly) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:45:54
+   |
+LL | fn do_not_give_bad_suggestions_for_this_unusual_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:45:62
+   |
+LL | fn do_not_give_bad_suggestions_for_this_unusual_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:45:58
+   |
+LL | fn do_not_give_bad_suggestions_for_this_unusual_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:45:66
+   |
+LL | fn do_not_give_bad_suggestions_for_this_unusual_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                                  ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:51:1
+   |
+LL | fn do_not_give_bad_suggestions_for_this_macro_expr(s1: &S, s2: &SaOnly) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:51:1
+   |
+LL | fn do_not_give_bad_suggestions_for_this_macro_expr(s1: &S, s2: &SaOnly) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:51:1
+   |
+LL | fn do_not_give_bad_suggestions_for_this_macro_expr(s1: &S, s2: &SaOnly) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:51:52
+   |
+LL | fn do_not_give_bad_suggestions_for_this_macro_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:51:60
+   |
+LL | fn do_not_give_bad_suggestions_for_this_macro_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:51:56
+   |
+LL | fn do_not_give_bad_suggestions_for_this_macro_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                        ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:51:64
+   |
+LL | fn do_not_give_bad_suggestions_for_this_macro_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:52:5
+   |
+LL |     macro_rules! s1 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:68:1
+   |
+LL | fn do_not_give_bad_suggestions_for_this_incorrect_expr(s1: &S, s2: &SaOnly) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:68:1
+   |
+LL | fn do_not_give_bad_suggestions_for_this_incorrect_expr(s1: &S, s2: &SaOnly) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:68:1
+   |
+LL | fn do_not_give_bad_suggestions_for_this_incorrect_expr(s1: &S, s2: &SaOnly) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:68:56
+   |
+LL | fn do_not_give_bad_suggestions_for_this_incorrect_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:68:64
+   |
+LL | fn do_not_give_bad_suggestions_for_this_incorrect_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:68:60
+   |
+LL | fn do_not_give_bad_suggestions_for_this_incorrect_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:68:68
+   |
+LL | fn do_not_give_bad_suggestions_for_this_incorrect_expr(s1: &S, s2: &SaOnly) -> bool {
+   |                                                                    ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:73:1
+   |
+LL | fn permissable(s1: &S, s2: &S) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:73:1
+   |
+LL | fn permissable(s1: &S, s2: &S) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:73:1
+   |
+LL | fn permissable(s1: &S, s2: &S) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:73:16
+   |
+LL | fn permissable(s1: &S, s2: &S) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:73:24
+   |
+LL | fn permissable(s1: &S, s2: &S) -> bool {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:73:20
+   |
+LL | fn permissable(s1: &S, s2: &S) -> bool {
+   |                    ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:73:28
+   |
+LL | fn permissable(s1: &S, s2: &S) -> bool {
+   |                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:78:1
+   |
+LL | fn non_boolean_operators(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:78:1
+   |
+LL | fn non_boolean_operators(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:78:1
+   |
+LL | fn non_boolean_operators(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:78:26
+   |
+LL | fn non_boolean_operators(s1: &S, s2: &S) -> i32 {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:78:34
+   |
+LL | fn non_boolean_operators(s1: &S, s2: &S) -> i32 {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:78:30
+   |
+LL | fn non_boolean_operators(s1: &S, s2: &S) -> i32 {
+   |                              ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:78:38
+   |
+LL | fn non_boolean_operators(s1: &S, s2: &S) -> i32 {
+   |                                      ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:84:1
+   |
+LL | fn odd_number_of_pairs(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:84:1
+   |
+LL | fn odd_number_of_pairs(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:84:1
+   |
+LL | fn odd_number_of_pairs(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:84:24
+   |
+LL | fn odd_number_of_pairs(s1: &S, s2: &S) -> i32 {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:84:32
+   |
+LL | fn odd_number_of_pairs(s1: &S, s2: &S) -> i32 {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:84:28
+   |
+LL | fn odd_number_of_pairs(s1: &S, s2: &S) -> i32 {
+   |                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:84:36
+   |
+LL | fn odd_number_of_pairs(s1: &S, s2: &S) -> i32 {
+   |                                    ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:91:1
+   |
+LL | fn not_caught_by_eq_op_middle_change_left(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:91:1
+   |
+LL | fn not_caught_by_eq_op_middle_change_left(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:91:1
+   |
+LL | fn not_caught_by_eq_op_middle_change_left(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:91:43
+   |
+LL | fn not_caught_by_eq_op_middle_change_left(s1: &S, s2: &S) -> i32 {
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:91:51
+   |
+LL | fn not_caught_by_eq_op_middle_change_left(s1: &S, s2: &S) -> i32 {
+   |                                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:91:47
+   |
+LL | fn not_caught_by_eq_op_middle_change_left(s1: &S, s2: &S) -> i32 {
+   |                                               ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:91:55
+   |
+LL | fn not_caught_by_eq_op_middle_change_left(s1: &S, s2: &S) -> i32 {
+   |                                                       ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:97:1
+   |
+LL | fn not_caught_by_eq_op_middle_change_right(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:97:1
+   |
+LL | fn not_caught_by_eq_op_middle_change_right(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:97:1
+   |
+LL | fn not_caught_by_eq_op_middle_change_right(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:97:44
+   |
+LL | fn not_caught_by_eq_op_middle_change_right(s1: &S, s2: &S) -> i32 {
+   |                                            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:97:52
+   |
+LL | fn not_caught_by_eq_op_middle_change_right(s1: &S, s2: &S) -> i32 {
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:97:48
+   |
+LL | fn not_caught_by_eq_op_middle_change_right(s1: &S, s2: &S) -> i32 {
+   |                                                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:97:56
+   |
+LL | fn not_caught_by_eq_op_middle_change_right(s1: &S, s2: &S) -> i32 {
+   |                                                        ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:103:1
+   |
+LL | fn not_caught_by_eq_op_start(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:103:1
+   |
+LL | fn not_caught_by_eq_op_start(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:103:1
+   |
+LL | fn not_caught_by_eq_op_start(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:103:30
+   |
+LL | fn not_caught_by_eq_op_start(s1: &S, s2: &S) -> i32 {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:103:38
+   |
+LL | fn not_caught_by_eq_op_start(s1: &S, s2: &S) -> i32 {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:103:34
+   |
+LL | fn not_caught_by_eq_op_start(s1: &S, s2: &S) -> i32 {
+   |                                  ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:103:42
+   |
+LL | fn not_caught_by_eq_op_start(s1: &S, s2: &S) -> i32 {
+   |                                          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:109:1
+   |
+LL | fn not_caught_by_eq_op_end(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:109:1
+   |
+LL | fn not_caught_by_eq_op_end(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:109:1
+   |
+LL | fn not_caught_by_eq_op_end(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:109:28
+   |
+LL | fn not_caught_by_eq_op_end(s1: &S, s2: &S) -> i32 {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:109:36
+   |
+LL | fn not_caught_by_eq_op_end(s1: &S, s2: &S) -> i32 {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:109:32
+   |
+LL | fn not_caught_by_eq_op_end(s1: &S, s2: &S) -> i32 {
+   |                                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:109:40
+   |
+LL | fn not_caught_by_eq_op_end(s1: &S, s2: &S) -> i32 {
+   |                                        ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:115:1
+   |
+LL | fn the_cross_product_should_not_lint(s1: &S, s2: &S) -> (i32, i32, i32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:115:1
+   |
+LL | fn the_cross_product_should_not_lint(s1: &S, s2: &S) -> (i32, i32, i32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:115:1
+   |
+LL | fn the_cross_product_should_not_lint(s1: &S, s2: &S) -> (i32, i32, i32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:115:38
+   |
+LL | fn the_cross_product_should_not_lint(s1: &S, s2: &S) -> (i32, i32, i32) {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:115:46
+   |
+LL | fn the_cross_product_should_not_lint(s1: &S, s2: &S) -> (i32, i32, i32) {
+   |                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:115:42
+   |
+LL | fn the_cross_product_should_not_lint(s1: &S, s2: &S) -> (i32, i32, i32) {
+   |                                          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:115:50
+   |
+LL | fn the_cross_product_should_not_lint(s1: &S, s2: &S) -> (i32, i32, i32) {
+   |                                                  ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:123:1
+   |
+LL | fn outer_parens_simple(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:123:1
+   |
+LL | fn outer_parens_simple(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:123:1
+   |
+LL | fn outer_parens_simple(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:123:24
+   |
+LL | fn outer_parens_simple(s1: &S, s2: &S) -> i32 {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:123:32
+   |
+LL | fn outer_parens_simple(s1: &S, s2: &S) -> i32 {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:123:28
+   |
+LL | fn outer_parens_simple(s1: &S, s2: &S) -> i32 {
+   |                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:123:36
+   |
+LL | fn outer_parens_simple(s1: &S, s2: &S) -> i32 {
+   |                                    ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:129:1
+   |
+LL | fn outer_parens(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:129:1
+   |
+LL | fn outer_parens(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:129:1
+   |
+LL | fn outer_parens(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:129:17
+   |
+LL | fn outer_parens(s1: &S, s2: &S) -> i32 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:129:25
+   |
+LL | fn outer_parens(s1: &S, s2: &S) -> i32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:129:21
+   |
+LL | fn outer_parens(s1: &S, s2: &S) -> i32 {
+   |                     ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:129:29
+   |
+LL | fn outer_parens(s1: &S, s2: &S) -> i32 {
+   |                             ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:135:1
+   |
+LL | fn inner_parens(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:135:1
+   |
+LL | fn inner_parens(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:135:1
+   |
+LL | fn inner_parens(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:135:17
+   |
+LL | fn inner_parens(s1: &S, s2: &S) -> i32 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:135:25
+   |
+LL | fn inner_parens(s1: &S, s2: &S) -> i32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:135:21
+   |
+LL | fn inner_parens(s1: &S, s2: &S) -> i32 {
+   |                     ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:135:29
+   |
+LL | fn inner_parens(s1: &S, s2: &S) -> i32 {
+   |                             ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:141:1
+   |
+LL | fn outer_and_some_inner_parens(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:141:1
+   |
+LL | fn outer_and_some_inner_parens(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:141:1
+   |
+LL | fn outer_and_some_inner_parens(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:141:32
+   |
+LL | fn outer_and_some_inner_parens(s1: &S, s2: &S) -> i32 {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:141:40
+   |
+LL | fn outer_and_some_inner_parens(s1: &S, s2: &S) -> i32 {
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:141:36
+   |
+LL | fn outer_and_some_inner_parens(s1: &S, s2: &S) -> i32 {
+   |                                    ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:141:44
+   |
+LL | fn outer_and_some_inner_parens(s1: &S, s2: &S) -> i32 {
+   |                                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:147:1
+   |
+LL | fn all_parens_balanced_tree(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:147:1
+   |
+LL | fn all_parens_balanced_tree(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:147:1
+   |
+LL | fn all_parens_balanced_tree(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:147:29
+   |
+LL | fn all_parens_balanced_tree(s1: &S, s2: &S) -> i32 {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:147:37
+   |
+LL | fn all_parens_balanced_tree(s1: &S, s2: &S) -> i32 {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:147:33
+   |
+LL | fn all_parens_balanced_tree(s1: &S, s2: &S) -> i32 {
+   |                                 ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:147:41
+   |
+LL | fn all_parens_balanced_tree(s1: &S, s2: &S) -> i32 {
+   |                                         ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:154:1
+   |
+LL | fn all_parens_left_tree(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:154:1
+   |
+LL | fn all_parens_left_tree(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:154:1
+   |
+LL | fn all_parens_left_tree(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:154:25
+   |
+LL | fn all_parens_left_tree(s1: &S, s2: &S) -> i32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:154:33
+   |
+LL | fn all_parens_left_tree(s1: &S, s2: &S) -> i32 {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:154:29
+   |
+LL | fn all_parens_left_tree(s1: &S, s2: &S) -> i32 {
+   |                             ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:154:37
+   |
+LL | fn all_parens_left_tree(s1: &S, s2: &S) -> i32 {
+   |                                     ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:160:1
+   |
+LL | fn all_parens_right_tree(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:160:1
+   |
+LL | fn all_parens_right_tree(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:160:1
+   |
+LL | fn all_parens_right_tree(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:160:26
+   |
+LL | fn all_parens_right_tree(s1: &S, s2: &S) -> i32 {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:160:34
+   |
+LL | fn all_parens_right_tree(s1: &S, s2: &S) -> i32 {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:160:30
+   |
+LL | fn all_parens_right_tree(s1: &S, s2: &S) -> i32 {
+   |                              ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:160:38
+   |
+LL | fn all_parens_right_tree(s1: &S, s2: &S) -> i32 {
+   |                                      ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:166:1
+   |
+LL | fn inside_other_binop_expression(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:166:1
+   |
+LL | fn inside_other_binop_expression(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:166:1
+   |
+LL | fn inside_other_binop_expression(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:166:34
+   |
+LL | fn inside_other_binop_expression(s1: &S, s2: &S) -> i32 {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:166:42
+   |
+LL | fn inside_other_binop_expression(s1: &S, s2: &S) -> i32 {
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:166:38
+   |
+LL | fn inside_other_binop_expression(s1: &S, s2: &S) -> i32 {
+   |                                      ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:166:46
+   |
+LL | fn inside_other_binop_expression(s1: &S, s2: &S) -> i32 {
+   |                                              ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:172:1
+   |
+LL | fn inside_function_call(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:172:1
+   |
+LL | fn inside_function_call(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:172:1
+   |
+LL | fn inside_function_call(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:172:25
+   |
+LL | fn inside_function_call(s1: &S, s2: &S) -> i32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:172:33
+   |
+LL | fn inside_function_call(s1: &S, s2: &S) -> i32 {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:172:29
+   |
+LL | fn inside_function_call(s1: &S, s2: &S) -> i32 {
+   |                             ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:172:37
+   |
+LL | fn inside_function_call(s1: &S, s2: &S) -> i32 {
+   |                                     ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:178:1
+   |
+LL | fn inside_larger_boolean_expression(s1: &S, s2: &S) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:178:1
+   |
+LL | fn inside_larger_boolean_expression(s1: &S, s2: &S) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:178:1
+   |
+LL | fn inside_larger_boolean_expression(s1: &S, s2: &S) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:178:37
+   |
+LL | fn inside_larger_boolean_expression(s1: &S, s2: &S) -> bool {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:178:45
+   |
+LL | fn inside_larger_boolean_expression(s1: &S, s2: &S) -> bool {
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:178:41
+   |
+LL | fn inside_larger_boolean_expression(s1: &S, s2: &S) -> bool {
+   |                                         ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:178:49
+   |
+LL | fn inside_larger_boolean_expression(s1: &S, s2: &S) -> bool {
+   |                                                 ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:184:1
+   |
+LL | fn inside_larger_boolean_expression_with_unsorted_ops(s1: &S, s2: &S) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:184:1
+   |
+LL | fn inside_larger_boolean_expression_with_unsorted_ops(s1: &S, s2: &S) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:184:1
+   |
+LL | fn inside_larger_boolean_expression_with_unsorted_ops(s1: &S, s2: &S) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:184:55
+   |
+LL | fn inside_larger_boolean_expression_with_unsorted_ops(s1: &S, s2: &S) -> bool {
+   |                                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:184:63
+   |
+LL | fn inside_larger_boolean_expression_with_unsorted_ops(s1: &S, s2: &S) -> bool {
+   |                                                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:184:59
+   |
+LL | fn inside_larger_boolean_expression_with_unsorted_ops(s1: &S, s2: &S) -> bool {
+   |                                                           ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:184:67
+   |
+LL | fn inside_larger_boolean_expression_with_unsorted_ops(s1: &S, s2: &S) -> bool {
+   |                                                                   ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:190:1
+   |
+LL | struct Nested {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:194:1
+   |
+LL | fn changed_middle_ident(n1: &Nested, n2: &Nested) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:194:1
+   |
+LL | fn changed_middle_ident(n1: &Nested, n2: &Nested) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:194:1
+   |
+LL | fn changed_middle_ident(n1: &Nested, n2: &Nested) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:194:25
+   |
+LL | fn changed_middle_ident(n1: &Nested, n2: &Nested) -> bool {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:194:38
+   |
+LL | fn changed_middle_ident(n1: &Nested, n2: &Nested) -> bool {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:194:29
+   |
+LL | fn changed_middle_ident(n1: &Nested, n2: &Nested) -> bool {
+   |                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:194:42
+   |
+LL | fn changed_middle_ident(n1: &Nested, n2: &Nested) -> bool {
+   |                                          ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:201:1
+   |
+LL | fn changed_initial_ident(n1: &Nested, n2: &Nested) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:201:1
+   |
+LL | fn changed_initial_ident(n1: &Nested, n2: &Nested) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:201:1
+   |
+LL | fn changed_initial_ident(n1: &Nested, n2: &Nested) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:201:26
+   |
+LL | fn changed_initial_ident(n1: &Nested, n2: &Nested) -> bool {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:201:39
+   |
+LL | fn changed_initial_ident(n1: &Nested, n2: &Nested) -> bool {
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:201:30
+   |
+LL | fn changed_initial_ident(n1: &Nested, n2: &Nested) -> bool {
+   |                              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:201:43
+   |
+LL | fn changed_initial_ident(n1: &Nested, n2: &Nested) -> bool {
+   |                                           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:206:1
+   |
+LL | fn inside_fn_with_similar_expression(s1: &S, s2: &S, strict: bool) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:206:1
+   |
+LL | fn inside_fn_with_similar_expression(s1: &S, s2: &S, strict: bool) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:206:1
+   |
+LL | fn inside_fn_with_similar_expression(s1: &S, s2: &S, strict: bool) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:206:38
+   |
+LL | fn inside_fn_with_similar_expression(s1: &S, s2: &S, strict: bool) -> bool {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:206:46
+   |
+LL | fn inside_fn_with_similar_expression(s1: &S, s2: &S, strict: bool) -> bool {
+   |                                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:206:54
+   |
+LL | fn inside_fn_with_similar_expression(s1: &S, s2: &S, strict: bool) -> bool {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:206:42
+   |
+LL | fn inside_fn_with_similar_expression(s1: &S, s2: &S, strict: bool) -> bool {
+   |                                          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:206:50
+   |
+LL | fn inside_fn_with_similar_expression(s1: &S, s2: &S, strict: bool) -> bool {
+   |                                                  ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:216:1
+   |
+LL | fn inside_an_if_statement(s1: &mut S, s2: &S) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:216:1
+   |
+LL | fn inside_an_if_statement(s1: &mut S, s2: &S) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:216:1
+   |
+LL | fn inside_an_if_statement(s1: &mut S, s2: &S) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:216:27
+   |
+LL | fn inside_an_if_statement(s1: &mut S, s2: &S) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:216:39
+   |
+LL | fn inside_an_if_statement(s1: &mut S, s2: &S) {
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:216:31
+   |
+LL | fn inside_an_if_statement(s1: &mut S, s2: &S) {
+   |                               ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:216:43
+   |
+LL | fn inside_an_if_statement(s1: &mut S, s2: &S) {
+   |                                           ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:224:1
+   |
+LL | fn maximum_unary_minus_right_tree(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:224:1
+   |
+LL | fn maximum_unary_minus_right_tree(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:224:1
+   |
+LL | fn maximum_unary_minus_right_tree(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:224:35
+   |
+LL | fn maximum_unary_minus_right_tree(s1: &S, s2: &S) -> i32 {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:224:43
+   |
+LL | fn maximum_unary_minus_right_tree(s1: &S, s2: &S) -> i32 {
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:224:39
+   |
+LL | fn maximum_unary_minus_right_tree(s1: &S, s2: &S) -> i32 {
+   |                                       ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:224:47
+   |
+LL | fn maximum_unary_minus_right_tree(s1: &S, s2: &S) -> i32 {
+   |                                               ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:230:1
+   |
+LL | fn unary_minus_and_an_if_expression(s1: &S, s2: &S) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:230:1
+   |
+LL | fn unary_minus_and_an_if_expression(s1: &S, s2: &S) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:230:1
+   |
+LL | fn unary_minus_and_an_if_expression(s1: &S, s2: &S) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:230:37
+   |
+LL | fn unary_minus_and_an_if_expression(s1: &S, s2: &S) -> i32 {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_operation_groupings.rs:230:45
+   |
+LL | fn unary_minus_and_an_if_expression(s1: &S, s2: &S) -> i32 {
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:230:41
+   |
+LL | fn unary_minus_and_an_if_expression(s1: &S, s2: &S) -> i32 {
+   |                                         ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/suspicious_operation_groupings.rs:230:49
+   |
+LL | fn unary_minus_and_an_if_expression(s1: &S, s2: &S) -> i32 {
+   |                                                 ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_operation_groupings.rs:236:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:236:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_operation_groupings.rs:236:1
+   |
+LL | fn main() {}
+   | ^
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 195 previous errors
 

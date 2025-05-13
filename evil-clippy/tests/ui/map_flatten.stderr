@@ -1,116 +1,116 @@
-error: called `map(..).flatten()` on `Option`
-  --> tests/ui/map_flatten.rs:8:10
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |           .map(|x| {
-   |  __________^
-...  |
-LL | |         })
-LL | |         .flatten();
-   | |__________________^
-   |
-   = note: `-D clippy::map-flatten` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::map_flatten)]`
-help: try replacing `map` with `and_then` and remove the `.flatten()`
-   |
-LL ~         .and_then(|x| {
-LL +
-LL + 
-LL + 
-LL +             if x <= 5 {
-LL +                 Some(x)
-LL +             } else {
-LL +                 None
-LL +             }
-LL ~         });
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `map(..).flatten()` on `Result`
-  --> tests/ui/map_flatten.rs:21:10
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |           .map(|x| {
-   |  __________^
-LL | |
-LL | |
-LL | |             if x == 1 {
-...  |
-LL | |         })
-LL | |         .flatten();
-   | |__________________^
-   |
-help: try replacing `map` with `and_then` and remove the `.flatten()`
-   |
-LL ~         .and_then(|x| {
-LL +
-LL + 
-LL +             if x == 1 {
-LL +                 Ok(x)
-LL +             } else {
-LL +                 Err(0)
-LL +             }
-LL ~         });
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: called `map(..).flatten()` on `Result`
-  --> tests/ui/map_flatten.rs:35:10
+error: item must be `pub`
+  --> tests/ui/map_flatten.rs:6:1
    |
-LL |           .map(|res| {
-   |  __________^
-LL | |
-LL | |
-LL | |             if res > 0 {
-...  |
-LL | |         })
-LL | |         .flatten();
-   | |__________________^
+LL | fn long_span() {
+   | ^ help: make this item public: `pub`
    |
-help: try replacing `map` with `and_then` and remove the `.flatten()`
-   |
-LL ~         .and_then(|res| {
-LL +
-LL + 
-LL +             if res > 0 {
-LL +                 do_something();
-LL +                 Ok(res)
-LL +             } else {
-LL +                 Err(0)
-LL +             }
-LL ~         });
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: called `map(..).flatten()` on `Iterator`
-  --> tests/ui/map_flatten.rs:49:10
+error: function must be `unsafe`
+  --> tests/ui/map_flatten.rs:6:1
    |
-LL |           .map(|some_value| {
-   |  __________^
-LL | |
-LL | |
-LL | |             if some_value > 3 {
-...  |
-LL | |         })
-LL | |         .flatten()
-   | |__________________^
+LL | fn long_span() {
+   | ^
    |
-help: try replacing `map` with `filter_map` and remove the `.flatten()`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_flatten.rs:6:1
    |
-LL ~         .filter_map(|some_value| {
-LL +
-LL + 
-LL +             if some_value > 3 {
-LL +                 Some(some_value)
-LL +             } else {
-LL +                 None
-LL +             }
-LL +         })
-   |
+LL | fn long_span() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: called `map(..).flatten()` on `Iterator`
-  --> tests/ui/map_flatten.rs:68:10
+error: variable must be `mut`
+  --> tests/ui/map_flatten.rs:32:9
    |
-LL |           .map(|x| x.iter())
-   |  __________^
-...  |
-LL | |         .flatten();
-   | |__________________^ help: try replacing `map` with `flat_map` and remove the `.flatten()`: `flat_map(|x| x.iter())`
+LL |     let result: Result<i32, i32> = Ok(2);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 5 previous errors
+error: item must be `pub`
+  --> tests/ui/map_flatten.rs:33:5
+   |
+LL |     fn do_something() { }
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/map_flatten.rs:33:5
+   |
+LL |     fn do_something() { }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_flatten.rs:33:5
+   |
+LL |     fn do_something() { }
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/map_flatten.rs:63:1
+   |
+LL | fn no_suggestion_if_comments_present() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/map_flatten.rs:63:1
+   |
+LL | fn no_suggestion_if_comments_present() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_flatten.rs:63:1
+   |
+LL | fn no_suggestion_if_comments_present() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/map_flatten.rs:64:9
+   |
+LL |     let vec = vec![vec![1, 2, 3]];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/map_flatten.rs:74:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/map_flatten.rs:74:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_flatten.rs:74:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 14 previous errors
 

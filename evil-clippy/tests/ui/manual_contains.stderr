@@ -1,77 +1,381 @@
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:7:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = values.iter().any(|&v| v == 4);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&4)`
-   |
-   = note: `-D clippy::manual-contains` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_contains)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:12:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = values.iter().any(|&v| v == 4);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&4)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:16:13
+error: item must be `pub`
+  --> tests/ui/manual_contains.rs:4:1
    |
-LL |     let _ = values.iter().any(|&v| v == 10);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&10)`
-
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:21:13
+LL | fn should_lint() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = values.iter().any(|&v| v == num);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&num)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:26:13
+error: function must be `unsafe`
+  --> tests/ui/manual_contains.rs:4:1
    |
-LL |     let _ = values.iter().any(|&v| num == v);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&num)`
-
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:30:13
+LL | fn should_lint() {
+   | ^
    |
-LL |     let _ = values.iter().any(|v| *v == 4);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&4)`
-
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:35:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_contains.rs:4:1
    |
-LL |     let _ = values.iter().any(|&v| 4 == v);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&4)`
+LL | fn should_lint() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:41:13
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:5:9
    |
-LL |     let _ = values.iter().any(|v| *v == *a);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(a)`
-
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:46:13
+LL |     let vec: Vec<u8> = vec![1, 2, 3, 4, 5, 6];
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _ = values.iter().any(|&v| v == "4");
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&"4")`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:51:13
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:6:9
    |
-LL |     let _ = values.iter().any(|&v| v == 4 + 1);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&(4 + 1))`
+LL |     let values = &vec[..];
+   |         ^ help: make this variable mutable: `mut`
 
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:91:5
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:6:18
    |
-LL |     values.iter().any(|&v| v == 10)
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&10)`
-
-error: using `contains()` instead of `iter().any()` is more efficient
-  --> tests/ui/manual_contains.rs:96:5
+LL |     let values = &vec[..];
+   |                  ^^^^^^^^
    |
-LL |     values.iter().any(|&v| v == 10)
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `values.contains(&10)`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: aborting due to 12 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:10:9
+   |
+LL |     let vec: Vec<u32> = vec![1, 2, 3, 4, 5, 6];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:11:9
+   |
+LL |     let values = &vec[..];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:11:18
+   |
+LL |     let values = &vec[..];
+   |                  ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:15:9
+   |
+LL |     let values: [u8; 6] = [3, 14, 15, 92, 6, 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:19:9
+   |
+LL |     let num = 14;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:20:9
+   |
+LL |     let values: [u8; 6] = [3, 14, 15, 92, 6, 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:24:9
+   |
+LL |     let num = 14;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:25:9
+   |
+LL |     let values: [u8; 6] = [3, 14, 15, 92, 6, 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:29:9
+   |
+LL |     let values: [u8; 6] = [3, 14, 15, 92, 6, 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:33:9
+   |
+LL |     let vec: Vec<u8> = vec![1, 2, 3, 4, 5, 6];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:34:9
+   |
+LL |     let values = &vec[..];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:34:18
+   |
+LL |     let values = &vec[..];
+   |                  ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:38:9
+   |
+LL |     let vec: Vec<u8> = vec![1, 2, 3, 4, 5, 6];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:39:9
+   |
+LL |     let values = &vec[..];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:39:18
+   |
+LL |     let values = &vec[..];
+   |                  ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:40:9
+   |
+LL |     let a = &4;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:40:13
+   |
+LL |     let a = &4;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:44:9
+   |
+LL |     let vec = vec!["1", "2", "3", "4", "5", "6"];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:45:9
+   |
+LL |     let values = &vec[..];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:45:18
+   |
+LL |     let values = &vec[..];
+   |                  ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:49:9
+   |
+LL |     let vec: Vec<u32> = vec![1, 2, 3, 4, 5, 6];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:50:9
+   |
+LL |     let values = &vec[..];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:50:18
+   |
+LL |     let values = &vec[..];
+   |                  ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/manual_contains.rs:55:1
+   |
+LL | fn should_not_lint() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_contains.rs:55:1
+   |
+LL | fn should_not_lint() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_contains.rs:55:1
+   |
+LL | fn should_not_lint() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:56:9
+   |
+LL |     let values: [u8; 6] = [3, 14, 15, 92, 6, 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:59:9
+   |
+LL |     let vec: Vec<u32> = vec![1, 2, 3, 4, 5, 6];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:60:9
+   |
+LL |     let values = &vec[..];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:60:18
+   |
+LL |     let values = &vec[..];
+   |                  ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:65:29
+   |
+LL |     let _ = values.contains(&4);
+   |                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:67:9
+   |
+LL |     let a = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:68:9
+   |
+LL |     let b = 2;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:72:9
+   |
+LL |     let vec: Vec<String> = vec!["1", "2", "3", "4", "5", "6"]
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:76:9
+   |
+LL |     let values = &vec[..];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:76:18
+   |
+LL |     let values = &vec[..];
+   |                  ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:79:9
+   |
+LL |     let vec: Vec<u32> = vec![1, 2, 3, 4, 5, 6];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_contains.rs:80:9
+   |
+LL |     let values = &vec[..];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:80:18
+   |
+LL |     let values = &vec[..];
+   |                  ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/manual_contains.rs:90:1
+   |
+LL | fn foo(values: &[u8]) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_contains.rs:90:1
+   |
+LL | fn foo(values: &[u8]) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_contains.rs:90:1
+   |
+LL | fn foo(values: &[u8]) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_contains.rs:90:8
+   |
+LL | fn foo(values: &[u8]) -> bool {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_contains.rs:90:16
+   |
+LL | fn foo(values: &[u8]) -> bool {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_contains.rs:95:1
+   |
+LL | fn bar(values: [u8; 3]) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_contains.rs:95:1
+   |
+LL | fn bar(values: [u8; 3]) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_contains.rs:95:1
+   |
+LL | fn bar(values: [u8; 3]) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_contains.rs:95:8
+   |
+LL | fn bar(values: [u8; 3]) -> bool {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 54 previous errors
 

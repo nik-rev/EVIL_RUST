@@ -1,29 +1,183 @@
-error: taking a reference on `std::path::MAIN_SEPARATOR` conversion to `String`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/manual_main_separator_str.rs:6:1
+   |
+LL | fn len(s: &str) -> usize {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_main_separator_str.rs:6:1
+   |
+LL | fn len(s: &str) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_main_separator_str.rs:6:1
+   |
+LL | fn len(s: &str) -> usize {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_main_separator_str.rs:6:8
+   |
+LL | fn len(s: &str) -> usize {
+   |        ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/manual_main_separator_str.rs:6:11
+   |
+LL | fn len(s: &str) -> usize {
+   |           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/manual_main_separator_str.rs:10:1
+   |
+LL | struct U<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/manual_main_separator_str.rs:11:8
+   |
+LL |     f: &'a str,
+   |        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_main_separator_str.rs:12:8
+   |
+LL |     g: &'a String,
+   |        ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_main_separator_str.rs:15:1
+   |
+LL | struct V<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_main_separator_str.rs:19:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_main_separator_str.rs:19:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_main_separator_str.rs:19:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/manual_main_separator_str.rs:21:12
+   |
+LL |     let _: &str = &MAIN_SEPARATOR.to_string();
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/manual_main_separator_str.rs:21:19
    |
 LL |     let _: &str = &MAIN_SEPARATOR.to_string();
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `std::path::MAIN_SEPARATOR_STR`
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::manual-main-separator-str` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_main_separator_str)]`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: taking a reference on `std::path::MAIN_SEPARATOR` conversion to `String`
+error: references are not allowed
   --> tests/ui/manual_main_separator_str.rs:23:17
    |
 LL |     let _ = len(&MAIN_SEPARATOR.to_string());
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `std::path::MAIN_SEPARATOR_STR`
-
-error: taking a reference on `std::path::MAIN_SEPARATOR` conversion to `String`
-  --> tests/ui/manual_main_separator_str.rs:25:23
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     let _: Vec<u16> = MAIN_SEPARATOR.to_string().encode_utf16().collect();
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `std::path::MAIN_SEPARATOR_STR`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: taking a reference on `std::path::MAIN_SEPARATOR` conversion to `String`
+error: references are not allowed
   --> tests/ui/manual_main_separator_str.rs:30:12
    |
 LL |         f: &MAIN_SEPARATOR.to_string(),
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `std::path::MAIN_SEPARATOR_STR`
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 4 previous errors
+error: references are not allowed
+  --> tests/ui/manual_main_separator_str.rs:32:12
+   |
+LL |         g: &MAIN_SEPARATOR.to_string(),
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_main_separator_str.rs:36:12
+   |
+LL |     let _: &String = &MAIN_SEPARATOR.to_string();
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_main_separator_str.rs:36:22
+   |
+LL |     let _: &String = &MAIN_SEPARATOR.to_string();
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_main_separator_str.rs:37:13
+   |
+LL |     let _ = &MAIN_SEPARATOR.to_string();
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_main_separator_str.rs:39:12
+   |
+LL |         f: &MAIN_SEPARATOR.to_string(),
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

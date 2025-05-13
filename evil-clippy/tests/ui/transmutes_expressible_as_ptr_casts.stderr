@@ -1,82 +1,405 @@
-error: transmute from an integer to a pointer
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:17:39
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:12:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:17:9
    |
 LL |     let _ptr_i32_transmute = unsafe { transmute::<usize, *const i32>(usize::MAX) };
-   |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `usize::MAX as *const i32`
+   |         ^ help: make this variable mutable: `mut`
    |
-   = note: `-D clippy::useless-transmute` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::useless_transmute)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:22:38
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:19:9
+   |
+LL |     let ptr_i32 = usize::MAX as *const i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:22:9
    |
 LL |     let _ptr_i8_transmute = unsafe { transmute::<*const i32, *const i8>(ptr_i32) };
-   |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::transmute-ptr-to-ptr` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::transmute_ptr_to_ptr)]`
-help: use `pointer::cast` instead
-   |
-LL -     let _ptr_i8_transmute = unsafe { transmute::<*const i32, *const i8>(ptr_i32) };
-LL +     let _ptr_i8_transmute = unsafe { ptr_i32.cast::<i8>() };
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:29:46
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:24:9
+   |
+LL |     let _ptr_i8 = ptr_i32 as *const i8;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:26:9
+   |
+LL |     let slice_ptr = &[0, 1, 2, 3] as *const [i32];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:26:21
+   |
+LL |     let slice_ptr = &[0, 1, 2, 3] as *const [i32];
+   |                     ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:29:9
    |
 LL |     let _ptr_to_unsized_transmute = unsafe { transmute::<*const [i32], *const [u32]>(slice_ptr) };
-   |                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: use an `as` cast instead
-   |
-LL -     let _ptr_to_unsized_transmute = unsafe { transmute::<*const [i32], *const [u32]>(slice_ptr) };
-LL +     let _ptr_to_unsized_transmute = unsafe { slice_ptr as *const [u32] };
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: transmute from `*const i32` to `usize` which could be expressed as a pointer cast instead
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:36:50
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:31:9
+   |
+LL |     let _ptr_to_unsized = slice_ptr as *const [u32];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:36:9
    |
 LL |     let _usize_from_int_ptr_transmute = unsafe { transmute::<*const i32, usize>(ptr_i32) };
-   |                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `ptr_i32 as usize`
-   |
-   = note: `-D clippy::transmutes-expressible-as-ptr-casts` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::transmutes_expressible_as_ptr_casts)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: transmute from a reference to a pointer
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:43:41
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:38:9
+   |
+LL |     let _usize_from_int_ptr = ptr_i32 as usize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:40:9
+   |
+LL |     let array_ref: &[i32; 4] = &[1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:40:20
+   |
+LL |     let array_ref: &[i32; 4] = &[1, 2, 3, 4];
+   |                    ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:40:32
+   |
+LL |     let array_ref: &[i32; 4] = &[1, 2, 3, 4];
+   |                                ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:43:9
    |
 LL |     let _array_ptr_transmute = unsafe { transmute::<&[i32; 4], *const [i32; 4]>(array_ref) };
-   |                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `array_ref as *const [i32; 4]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: transmute from `fn(usize) -> u8` to `*const usize` which could be expressed as a pointer cast instead
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:52:41
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:43:53
+   |
+LL |     let _array_ptr_transmute = unsafe { transmute::<&[i32; 4], *const [i32; 4]>(array_ref) };
+   |                                                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:45:9
+   |
+LL |     let _array_ptr = array_ref as *const [i32; 4];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:47:5
+   |
+LL |     fn foo(_: usize) -> u8 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:47:5
+   |
+LL |     fn foo(_: usize) -> u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:47:5
+   |
+LL |     fn foo(_: usize) -> u8 {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:52:9
    |
 LL |     let _usize_ptr_transmute = unsafe { transmute::<fn(usize) -> u8, *const usize>(foo) };
-   |                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `foo as *const usize`
+   |         ^ help: make this variable mutable: `mut`
 
-error: transmute from `fn(usize) -> u8` to `usize` which could be expressed as a pointer cast instead
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:57:49
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:54:9
+   |
+LL |     let _usize_ptr_transmute = foo as *const usize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:57:9
    |
 LL |     let _usize_from_fn_ptr_transmute = unsafe { transmute::<fn(usize) -> u8, usize>(foo) };
-   |                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `foo as usize`
+   |         ^ help: make this variable mutable: `mut`
 
-error: transmute from `*const u32` to `usize` which could be expressed as a pointer cast instead
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:61:36
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:59:9
+   |
+LL |     let _usize_from_fn_ptr = foo as *const usize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:61:9
    |
 LL |     let _usize_from_ref = unsafe { transmute::<*const u32, usize>(&1u32) };
-   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&1u32 as *const u32 as usize`
+   |         ^ help: make this variable mutable: `mut`
 
-error: transmute from a reference to a pointer
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:73:14
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:61:67
+   |
+LL |     let _usize_from_ref = unsafe { transmute::<*const u32, usize>(&1u32) };
+   |                                                                   ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:72:1
+   |
+LL | fn trigger_do_check_to_emit_error(in_param: &[i32; 1]) -> *const u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:72:1
+   |
+LL | fn trigger_do_check_to_emit_error(in_param: &[i32; 1]) -> *const u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:72:1
+   |
+LL | fn trigger_do_check_to_emit_error(in_param: &[i32; 1]) -> *const u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:72:35
+   |
+LL | fn trigger_do_check_to_emit_error(in_param: &[i32; 1]) -> *const u8 {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:72:45
+   |
+LL | fn trigger_do_check_to_emit_error(in_param: &[i32; 1]) -> *const u8 {
+   |                                             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:73:26
    |
 LL |     unsafe { transmute::<&[i32; 1], *const u8>(in_param) }
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `in_param as *const [i32; 1] as *const u8`
+   |                          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from `fn()` to `*const u8` which could be expressed as a pointer cast instead
-  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:92:28
+error: item must be `pub`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:78:1
+   |
+LL | struct Single(u64);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:81:1
+   |
+LL | struct Pair(u32, u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:83:1
+   |
+LL | fn cannot_be_expressed_as_pointer_cast(in_param: Single) -> Pair {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:83:1
+   |
+LL | fn cannot_be_expressed_as_pointer_cast(in_param: Single) -> Pair {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:83:1
+   |
+LL | fn cannot_be_expressed_as_pointer_cast(in_param: Single) -> Pair {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:83:40
+   |
+LL | fn cannot_be_expressed_as_pointer_cast(in_param: Single) -> Pair {
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:84:5
+   |
+LL |     assert_eq!(size_of::<Single>(), size_of::<Pair>());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:84:5
+   |
+LL |     assert_eq!(size_of::<Single>(), size_of::<Pair>());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:84:5
+   |
+LL |     assert_eq!(size_of::<Single>(), size_of::<Pair>());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:84:5
+   |
+LL |     assert_eq!(size_of::<Single>(), size_of::<Pair>());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:84:5
+   |
+LL |     assert_eq!(size_of::<Single>(), size_of::<Pair>());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:89:1
+   |
+LL | fn issue_10449() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:89:1
+   |
+LL | fn issue_10449() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:89:1
+   |
+LL | fn issue_10449() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:90:5
+   |
+LL |     fn f() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:90:5
+   |
+LL |     fn f() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:90:5
+   |
+LL |     fn f() {}
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:92:9
    |
 LL |     let _x: u8 = unsafe { *std::mem::transmute::<fn(), *const u8>(f) };
-   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `(f as *const u8)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 10 previous errors
+error: item must be `pub`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:101:1
+   |
+LL | const fn issue_12402<P>(ptr: *const P) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:101:7
+   |
+LL | const fn issue_12402<P>(ptr: *const P) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:101:7
+   |
+LL | const fn issue_12402<P>(ptr: *const P) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:101:25
+   |
+LL | const fn issue_12402<P>(ptr: *const P) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmutes_expressible_as_ptr_casts.rs:104:55
+   |
+LL |     unsafe { std::mem::transmute::<*const i32, usize>(&42i32) };
+   |                                                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 54 previous errors
 

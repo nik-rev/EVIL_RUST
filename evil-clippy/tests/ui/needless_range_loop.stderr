@@ -1,172 +1,392 @@
-error: the loop variable `i` is only used to index `vec`
-  --> tests/ui/needless_range_loop.rs:16:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     for i in 0..vec.len() {
-   |              ^^^^^^^^^^^^
-   |
-   = note: `-D clippy::needless-range-loop` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_range_loop)]`
-help: consider using an iterator
-   |
-LL -     for i in 0..vec.len() {
-LL +     for <item> in &vec {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: the loop variable `i` is only used to index `vec`
-  --> tests/ui/needless_range_loop.rs:27:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     for i in 0..vec.len() {
-   |              ^^^^^^^^^^^^
-   |
-help: consider using an iterator
-   |
-LL -     for i in 0..vec.len() {
-LL +     for <item> in &vec {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: the loop variable `j` is only used to index `STATIC`
-  --> tests/ui/needless_range_loop.rs:34:14
+error: static must be `mut`
+  --> tests/ui/needless_range_loop.rs:9:8
    |
-LL |     for j in 0..4 {
-   |              ^^^^
+LL | static STATIC: [usize; 4] = [0, 1, 8, 16];
+   |        ^ help: make this static mutable: `mut`
    |
-help: consider using an iterator
-   |
-LL -     for j in 0..4 {
-LL +     for <item> in &STATIC {
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: the loop variable `j` is only used to index `CONST`
-  --> tests/ui/needless_range_loop.rs:40:14
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:9:1
    |
-LL |     for j in 0..4 {
-   |              ^^^^
+LL | static STATIC: [usize; 4] = [0, 1, 8, 16];
+   | ^ help: make this item public: `pub`
    |
-help: consider using an iterator
-   |
-LL -     for j in 0..4 {
-LL +     for <item> in &CONST {
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: the loop variable `i` is used to index `vec`
-  --> tests/ui/needless_range_loop.rs:46:14
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:10:1
    |
-LL |     for i in 0..vec.len() {
-   |              ^^^^^^^^^^^^
-   |
-help: consider using an iterator and enumerate()
-   |
-LL -     for i in 0..vec.len() {
-LL +     for (i, <item>) in vec.iter().enumerate() {
-   |
+LL | const CONST: [usize; 4] = [0, 1, 8, 16];
+   | ^ help: make this item public: `pub`
 
-error: the loop variable `i` is only used to index `vec2`
-  --> tests/ui/needless_range_loop.rs:56:14
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:11:1
    |
-LL |     for i in 0..vec.len() {
-   |              ^^^^^^^^^^^^
-   |
-help: consider using an iterator
-   |
-LL -     for i in 0..vec.len() {
-LL +     for <item> in vec2.iter().take(vec.len()) {
-   |
+LL | const MAX_LEN: usize = 42;
+   | ^ help: make this item public: `pub`
 
-error: the loop variable `i` is only used to index `vec`
-  --> tests/ui/needless_range_loop.rs:62:14
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:13:1
    |
-LL |     for i in 5..vec.len() {
-   |              ^^^^^^^^^^^^
-   |
-help: consider using an iterator
-   |
-LL -     for i in 5..vec.len() {
-LL +     for <item> in vec.iter().skip(5) {
-   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: the loop variable `i` is only used to index `vec`
-  --> tests/ui/needless_range_loop.rs:68:14
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:13:1
    |
-LL |     for i in 0..MAX_LEN {
-   |              ^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: consider using an iterator
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop.rs:13:1
    |
-LL -     for i in 0..MAX_LEN {
-LL +     for <item> in vec.iter().take(MAX_LEN) {
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: the loop variable `i` is only used to index `vec`
-  --> tests/ui/needless_range_loop.rs:74:14
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop.rs:15:9
    |
-LL |     for i in 0..=MAX_LEN {
+LL |     let vec2 = vec![1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop.rs:23:13
+   |
+LL |         let i = 42; // make a different `i`
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop.rs:112:9
+   |
+LL |     let test = Test {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:126:5
+   |
+LL |     fn f<T>(_: &T, _: &T) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:126:5
+   |
+LL |     fn f<T>(_: &T, _: &T) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop.rs:126:5
+   |
+LL |     fn f<T>(_: &T, _: &T) -> bool {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:126:16
+   |
+LL |     fn f<T>(_: &T, _: &T) -> bool {
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:126:23
+   |
+LL |     fn f<T>(_: &T, _: &T) -> bool {
+   |                       ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:129:5
+   |
+LL |     fn g<T>(_: &mut [T], _: usize, _: usize) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:129:5
+   |
+LL |     fn g<T>(_: &mut [T], _: usize, _: usize) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop.rs:129:5
+   |
+LL |     fn g<T>(_: &mut [T], _: usize, _: usize) {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:129:16
+   |
+LL |     fn g<T>(_: &mut [T], _: usize, _: usize) {
+   |                ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:133:14
+   |
+LL |         if f(&vec[i - 1], &vec[i]) {
    |              ^^^^^^^^^^^
    |
-help: consider using an iterator
-   |
-LL -     for i in 0..=MAX_LEN {
-LL +     for <item> in vec.iter().take(MAX_LEN + 1) {
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the loop variable `i` is only used to index `vec`
-  --> tests/ui/needless_range_loop.rs:80:14
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:133:27
    |
-LL |     for i in 5..10 {
+LL |         if f(&vec[i - 1], &vec[i]) {
+   |                           ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:134:15
+   |
+LL |             g(&mut vec, i - 1, i);
+   |               ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:143:1
+   |
+LL | struct Test {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:147:1
+   |
+LL | impl std::ops::Index<usize> for Test {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:149:5
+   |
+LL |     fn index(&self, index: usize) -> &Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop.rs:149:5
+   |
+LL |     fn index(&self, index: usize) -> &Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop.rs:149:15
+   |
+LL |     fn index(&self, index: usize) -> &Self::Output {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop.rs:149:21
+   |
+LL |     fn index(&self, index: usize) -> &Self::Output {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:149:14
+   |
+LL |     fn index(&self, index: usize) -> &Self::Output {
    |              ^^^^^
    |
-help: consider using an iterator
-   |
-LL -     for i in 5..10 {
-LL +     for <item> in vec.iter().take(10).skip(5) {
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: the loop variable `i` is only used to index `vec`
-  --> tests/ui/needless_range_loop.rs:86:14
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:149:38
    |
-LL |     for i in 5..=10 {
-   |              ^^^^^^
+LL |     fn index(&self, index: usize) -> &Self::Output {
+   |                                      ^^^^^^^^^^^^^
    |
-help: consider using an iterator
-   |
-LL -     for i in 5..=10 {
-LL +     for <item> in vec.iter().take(10 + 1).skip(5) {
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: the loop variable `i` is used to index `vec`
-  --> tests/ui/needless_range_loop.rs:92:14
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:150:9
    |
-LL |     for i in 5..vec.len() {
-   |              ^^^^^^^^^^^^
+LL |         &self.inner[index]
+   |         ^^^^^^^^^^^^^^^^^^
    |
-help: consider using an iterator and enumerate()
-   |
-LL -     for i in 5..vec.len() {
-LL +     for (i, <item>) in vec.iter().enumerate().skip(5) {
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the loop variable `i` is used to index `vec`
-  --> tests/ui/needless_range_loop.rs:98:14
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:154:1
    |
-LL |     for i in 5..10 {
-   |              ^^^^^
-   |
-help: consider using an iterator and enumerate()
-   |
-LL -     for i in 5..10 {
-LL +     for (i, <item>) in vec.iter().enumerate().take(10).skip(5) {
-   |
+LL | fn partition<T: PartialOrd + Send>(v: &mut [T]) -> usize {
+   | ^ help: make this item public: `pub`
 
-error: the loop variable `i` is used to index `vec`
-  --> tests/ui/needless_range_loop.rs:105:14
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:154:1
    |
-LL |     for i in 0..vec.len() {
-   |              ^^^^^^^^^^^^
+LL | fn partition<T: PartialOrd + Send>(v: &mut [T]) -> usize {
+   | ^
    |
-help: consider using an iterator and enumerate()
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop.rs:154:1
    |
-LL -     for i in 0..vec.len() {
-LL +     for (i, <item>) in vec.iter_mut().enumerate() {
-   |
+LL | fn partition<T: PartialOrd + Send>(v: &mut [T]) -> usize {
+   | ^
 
-error: aborting due to 14 previous errors
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop.rs:154:36
+   |
+LL | fn partition<T: PartialOrd + Send>(v: &mut [T]) -> usize {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:154:39
+   |
+LL | fn partition<T: PartialOrd + Send>(v: &mut [T]) -> usize {
+   |                                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop.rs:155:9
+   |
+LL |     let pivot = v.len() - 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:167:5
+   |
+LL | pub fn manual_copy_same_destination(dst: &mut [i32], d: usize, s: usize) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop.rs:167:5
+   |
+LL | pub fn manual_copy_same_destination(dst: &mut [i32], d: usize, s: usize) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop.rs:167:37
+   |
+LL | pub fn manual_copy_same_destination(dst: &mut [i32], d: usize, s: usize) {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop.rs:167:54
+   |
+LL | pub fn manual_copy_same_destination(dst: &mut [i32], d: usize, s: usize) {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop.rs:167:64
+   |
+LL | pub fn manual_copy_same_destination(dst: &mut [i32], d: usize, s: usize) {
+   |                                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:167:42
+   |
+LL | pub fn manual_copy_same_destination(dst: &mut [i32], d: usize, s: usize) {
+   |                                          ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_range_loop.rs:174:1
+   |
+LL | mod issue_2496 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:175:5
+   |
+LL | /     pub trait Handle {
+LL | |         fn new_for_index(index: usize) -> Self;
+LL | |         fn index(&self) -> usize;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:176:9
+   |
+LL |         fn new_for_index(index: usize) -> Self;
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop.rs:176:9
+   |
+LL |         fn new_for_index(index: usize) -> Self;
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop.rs:176:26
+   |
+LL |         fn new_for_index(index: usize) -> Self;
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:177:9
+   |
+LL |         fn index(&self) -> usize;
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop.rs:177:9
+   |
+LL |         fn index(&self) -> usize;
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_range_loop.rs:177:19
+   |
+LL |         fn index(&self) -> usize;
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_range_loop.rs:177:18
+   |
+LL |         fn index(&self) -> usize;
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_range_loop.rs:180:9
+   |
+LL |     pub fn test<H: Handle>() -> H {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_range_loop.rs:180:9
+   |
+LL |     pub fn test<H: Handle>() -> H {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_range_loop.rs:182:17
+   |
+LL |             let next_handle = H::new_for_index(x);
+   |                 ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 50 previous errors
 

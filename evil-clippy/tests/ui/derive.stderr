@@ -1,114 +1,519 @@
-error: you are implementing `Clone` explicitly on a `Copy` type
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:13:1
+   |
+LL | struct Qux;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:12:10
+   |
+LL | #[derive(Copy)]
+   |          ^
+
+error: item must be `pub`
   --> tests/ui/derive.rs:15:1
    |
-LL | / impl Clone for Qux {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
-   |
-note: consider deriving `Clone` or removing `Copy`
-  --> tests/ui/derive.rs:15:1
-   |
-LL | / impl Clone for Qux {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
-   = note: `-D clippy::expl-impl-clone-on-copy` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::expl_impl_clone_on_copy)]`
+LL | impl Clone for Qux {
+   | ^ help: make this item public: `pub`
 
-error: you are implementing `Clone` explicitly on a `Copy` type
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:18:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:18:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:18:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:18:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:25:1
+   |
+LL | union Union {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:24:10
+   |
+LL | #[derive(Copy)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:29:1
+   |
+LL | impl Clone for Union {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:30:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:30:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:30:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:30:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:37:1
+   |
+LL | struct Lt<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:38:8
+   |
+LL |     a: &'a u8,
+   |        ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:36:10
+   |
+LL | #[derive(Copy)]
+   |          ^
+
+error: item must be `pub`
   --> tests/ui/derive.rs:41:1
    |
-LL | / impl<'a> Clone for Lt<'a> {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
-   |
-note: consider deriving `Clone` or removing `Copy`
-  --> tests/ui/derive.rs:41:1
-   |
-LL | / impl<'a> Clone for Lt<'a> {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
+LL | impl<'a> Clone for Lt<'a> {
+   | ^ help: make this item public: `pub`
 
-error: you are implementing `Clone` explicitly on a `Copy` type
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:44:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:44:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:44:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:44:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:50:1
+   |
+LL | struct BigArray {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:49:10
+   |
+LL | #[derive(Copy)]
+   |          ^
+
+error: item must be `pub`
   --> tests/ui/derive.rs:54:1
    |
-LL | / impl Clone for BigArray {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
-   |
-note: consider deriving `Clone` or removing `Copy`
-  --> tests/ui/derive.rs:54:1
-   |
-LL | / impl Clone for BigArray {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
+LL | impl Clone for BigArray {
+   | ^ help: make this item public: `pub`
 
-error: you are implementing `Clone` explicitly on a `Copy` type
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:57:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:57:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:57:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:57:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:63:1
+   |
+LL | struct FnPtr {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:62:10
+   |
+LL | #[derive(Copy)]
+   |          ^
+
+error: item must be `pub`
   --> tests/ui/derive.rs:67:1
    |
-LL | / impl Clone for FnPtr {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
-   |
-note: consider deriving `Clone` or removing `Copy`
-  --> tests/ui/derive.rs:67:1
-   |
-LL | / impl Clone for FnPtr {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
+LL | impl Clone for FnPtr {
+   | ^ help: make this item public: `pub`
 
-error: you are implementing `Clone` explicitly on a `Copy` type
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:70:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:70:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:70:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:70:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:77:1
+   |
+LL | struct Generic<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:76:10
+   |
+LL | #[derive(Copy)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:81:1
+   |
+LL | impl<T> Clone for Generic<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:82:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:82:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:82:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:82:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:88:1
+   |
+LL | struct Generic2<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:87:10
+   |
+LL | #[derive(Copy)]
+   |          ^
+
+error: item must be `pub`
   --> tests/ui/derive.rs:89:1
    |
-LL | / impl<T: Clone> Clone for Generic2<T> {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
-   |
-note: consider deriving `Clone` or removing `Copy`
-  --> tests/ui/derive.rs:89:1
-   |
-LL | / impl<T: Clone> Clone for Generic2<T> {
-LL | |
-LL | |
-LL | |     fn clone(&self) -> Self {
-...  |
-LL | | }
-   | |_^
+LL | impl<T: Clone> Clone for Generic2<T> {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:92:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:92:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:92:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:92:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:99:1
+   |
+LL | struct GenericRef<'a, T, U>(T, &'a U);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:99:32
+   |
+LL | struct GenericRef<'a, T, U>(T, &'a U);
+   |                                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:98:10
+   |
+LL | #[derive(Copy)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:100:1
+   |
+LL | impl<T: Clone, U> Clone for GenericRef<'_, T, U> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:101:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:101:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:101:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:101:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:109:1
+   |
+LL | struct Packed<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:108:10
+   |
+LL | #[derive(Copy)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:111:1
+   |
+LL | impl<T: Copy> Clone for Packed<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:112:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:112:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:112:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:112:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:117:1
+   |
+LL | fn issue14558() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:117:1
+   |
+LL | fn issue14558() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:117:1
+   |
+LL | fn issue14558() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:122:5
+   |
+LL |     unsafe impl Copy for Valid {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:124:5
+   |
+LL |     impl Clone for Valid {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:126:9
+   |
+LL |         fn clone(&self) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:126:9
+   |
+LL |         fn clone(&self) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/derive.rs:126:19
+   |
+LL |         fn clone(&self) -> Self {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/derive.rs:126:18
+   |
+LL |         fn clone(&self) -> Self {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/derive.rs:132:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derive.rs:132:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derive.rs:132:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 69 previous errors
 

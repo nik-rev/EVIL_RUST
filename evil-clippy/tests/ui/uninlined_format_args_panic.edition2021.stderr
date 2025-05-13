@@ -1,76 +1,56 @@
-error: variables can be used directly in the `format!` string
-  --> tests/ui/uninlined_format_args_panic.rs:11:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("val='{}'", var);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::uninlined-format-args` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::uninlined_format_args)]`
-help: change this to
-   |
-LL -     println!("val='{}'", var);
-LL +     println!("val='{var}'");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: variables can be used directly in the `format!` string
-  --> tests/ui/uninlined_format_args_panic.rs:15:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         panic!("p1 {}", var);
-   |         ^^^^^^^^^^^^^^^^^^^^
-   |
-help: change this to
-   |
-LL -         panic!("p1 {}", var);
-LL +         panic!("p1 {var}");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: variables can be used directly in the `format!` string
-  --> tests/ui/uninlined_format_args_panic.rs:19:9
+error: item must be `pub`
+  --> tests/ui/uninlined_format_args_panic.rs:8:1
    |
-LL |         panic!("p2 {0}", var);
-   |         ^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: change this to
-   |
-LL -         panic!("p2 {0}", var);
-LL +         panic!("p2 {var}");
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: variables can be used directly in the `format!` string
-  --> tests/ui/uninlined_format_args_panic.rs:23:9
+error: function must be `unsafe`
+  --> tests/ui/uninlined_format_args_panic.rs:8:1
    |
-LL |         panic!("p3 {var}", var = var);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: change this to
+help: make this function unsafe: `unsafe`
+  --> tests/ui/uninlined_format_args_panic.rs:8:1
    |
-LL -         panic!("p3 {var}", var = var);
-LL +         panic!("p3 {var}");
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: variables can be used directly in the `format!` string
-  --> tests/ui/uninlined_format_args_panic.rs:34:5
+error: variable must be `mut`
+  --> tests/ui/uninlined_format_args_panic.rs:9:9
    |
-LL |     assert!(var == 1, "p5 {}", var);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     let var = 1;
+   |         ^ help: make this variable mutable: `mut`
    |
-help: change this to
-   |
-LL -     assert!(var == 1, "p5 {}", var);
-LL +     assert!(var == 1, "p5 {var}");
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: variables can be used directly in the `format!` string
-  --> tests/ui/uninlined_format_args_panic.rs:36:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     debug_assert!(var == 1, "p6 {}", var);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: change this to
-   |
-LL -     debug_assert!(var == 1, "p6 {}", var);
-LL +     debug_assert!(var == 1, "p6 {var}");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 6 previous errors
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 7 previous errors
 

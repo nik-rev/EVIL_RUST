@@ -1,602 +1,2033 @@
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:60:11
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     match mutex.lock().unwrap().foo() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             mutex.lock().unwrap().bar();
-   |             --------------------- another value with significant `Drop` created here
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-   = note: `-D clippy::significant-drop-in-scrutinee` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::significant_drop_in_scrutinee)]`
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex.lock().unwrap().foo();
-LL ~     match value {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:147:11
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     match s.lock_m().get_the_value() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             println!("{}", s.lock_m().get_the_value());
-   |                            ---------- another value with significant `Drop` created here
-...
-LL |             println!("{}", s.lock_m().get_the_value());
-   |                            ---------- another value with significant `Drop` created here
-...
-LL |     }
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = s.lock_m().get_the_value();
-LL ~     match value {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:169:11
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:17:1
    |
-LL |     match s.lock_m_m().get_the_value() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             println!("{}", s.lock_m().get_the_value());
-   |                            ---------- another value with significant `Drop` created here
-...
-LL |             println!("{}", s.lock_m().get_the_value());
-   |                            ---------- another value with significant `Drop` created here
-...
-LL |     }
-   |      - temporary lives until here
+LL | struct State {}
+   | ^ help: make this item public: `pub`
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = s.lock_m_m().get_the_value();
-LL ~     match value {
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:218:11
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:19:1
    |
-LL |     match counter.temp_increment().len() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = counter.temp_increment().len();
-LL ~     match value {
-   |
+LL | impl State {
+   | ^ help: make this item public: `pub`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:242:16
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:20:5
    |
-LL |         match (mutex1.lock().unwrap().s.len(), true) {
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |                 mutex1.lock().unwrap().s.len();
-   |                 ---------------------- another value with significant `Drop` created here
-...
-LL |         };
-   |          - temporary lives until here
+LL |     fn foo(&self) -> bool {
+   |     ^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:20:5
    |
-LL ~         let value = mutex1.lock().unwrap().s.len();
-LL ~         match (value, true) {
-   |
+LL |     fn foo(&self) -> bool {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:252:22
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:20:13
    |
-LL |         match (true, mutex1.lock().unwrap().s.len(), true) {
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |                 mutex1.lock().unwrap().s.len();
-   |                 ---------------------- another value with significant `Drop` created here
-...
-LL |         };
-   |          - temporary lives until here
+LL |     fn foo(&self) -> bool {
+   |             ^ help: make this parameter mutable: `mut`
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~         let value = mutex1.lock().unwrap().s.len();
-LL ~         match (true, value, true) {
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:263:16
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:20:12
    |
-LL |         match (mutex1.lock().unwrap().s.len(), true, mutex2.lock().unwrap().s.len()) {
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |                 mutex1.lock().unwrap().s.len();
-   |                 ---------------------- another value with significant `Drop` created here
-LL |                 mutex2.lock().unwrap().s.len();
-   |                 ---------------------- another value with significant `Drop` created here
-...
-LL |         };
-   |          - temporary lives until here
+LL |     fn foo(&self) -> bool {
+   |            ^^^^^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~         let value = mutex1.lock().unwrap().s.len();
-LL ~         match (value, true, mutex2.lock().unwrap().s.len()) {
-   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:263:54
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:24:5
    |
-LL |         match (mutex1.lock().unwrap().s.len(), true, mutex2.lock().unwrap().s.len()) {
-   |                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |                 mutex1.lock().unwrap().s.len();
-   |                 ---------------------- another value with significant `Drop` created here
-LL |                 mutex2.lock().unwrap().s.len();
-   |                 ---------------------- another value with significant `Drop` created here
-...
-LL |         };
-   |          - temporary lives until here
+LL |     fn bar(&self) {}
+   |     ^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:24:5
    |
-LL ~         let value = mutex2.lock().unwrap().s.len();
-LL ~         match (mutex1.lock().unwrap().s.len(), true, value) {
-   |
+LL |     fn bar(&self) {}
+   |     ^
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:316:11
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:24:13
    |
-LL |     match mutex.lock().unwrap().s.len() > 1 {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             mutex.lock().unwrap().s.len();
-   |             --------------------- another value with significant `Drop` created here
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex.lock().unwrap().s.len();
-LL ~     match value > 1 {
-   |
+LL |     fn bar(&self) {}
+   |             ^ help: make this parameter mutable: `mut`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:324:15
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:24:12
    |
-LL |     match 1 < mutex.lock().unwrap().s.len() {
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             mutex.lock().unwrap().s.len();
-   |             --------------------- another value with significant `Drop` created here
-...
-LL |     };
-   |      - temporary lives until here
+LL |     fn bar(&self) {}
+   |            ^^^^^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex.lock().unwrap().s.len();
-LL ~     match 1 < value {
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:343:11
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:27:1
    |
-LL |     match mutex1.lock().unwrap().s.len() < mutex2.lock().unwrap().s.len() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |                 mutex1.lock().unwrap().s.len(),
-   |                 ---------------------- another value with significant `Drop` created here
-LL |                 mutex2.lock().unwrap().s.len()
-   |                 ---------------------- another value with significant `Drop` created here
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex1.lock().unwrap().s.len();
-LL ~     match value < mutex2.lock().unwrap().s.len() {
-   |
+LL | fn should_not_trigger_lint_with_mutex_guard_outside_match() {
+   | ^ help: make this item public: `pub`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:343:44
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:27:1
    |
-LL |     match mutex1.lock().unwrap().s.len() < mutex2.lock().unwrap().s.len() {
-   |                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |                 mutex1.lock().unwrap().s.len(),
-   |                 ---------------------- another value with significant `Drop` created here
-LL |                 mutex2.lock().unwrap().s.len()
-   |                 ---------------------- another value with significant `Drop` created here
-...
-LL |     };
-   |      - temporary lives until here
+LL | fn should_not_trigger_lint_with_mutex_guard_outside_match() {
+   | ^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:27:1
    |
-LL ~     let value = mutex2.lock().unwrap().s.len();
-LL ~     match mutex1.lock().unwrap().s.len() < value {
-   |
+LL | fn should_not_trigger_lint_with_mutex_guard_outside_match() {
+   | ^
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:356:11
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:28:9
    |
-LL |     match mutex1.lock().unwrap().s.len() >= mutex2.lock().unwrap().s.len() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |                 mutex1.lock().unwrap().s.len(),
-   |                 ---------------------- another value with significant `Drop` created here
-LL |                 mutex2.lock().unwrap().s.len()
-   |                 ---------------------- another value with significant `Drop` created here
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex1.lock().unwrap().s.len();
-LL ~     match value >= mutex2.lock().unwrap().s.len() {
-   |
+LL |     let mutex = Mutex::new(State {});
+   |         ^ help: make this variable mutable: `mut`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:356:45
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:31:9
    |
-LL |     match mutex1.lock().unwrap().s.len() >= mutex2.lock().unwrap().s.len() {
-   |                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |                 mutex1.lock().unwrap().s.len(),
-   |                 ---------------------- another value with significant `Drop` created here
-LL |                 mutex2.lock().unwrap().s.len()
-   |                 ---------------------- another value with significant `Drop` created here
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex2.lock().unwrap().s.len();
-LL ~     match mutex1.lock().unwrap().s.len() >= value {
-   |
+LL |     let is_foo = mutex.lock().unwrap().foo();
+   |         ^ help: make this variable mutable: `mut`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:393:11
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:40:1
    |
-LL |     match get_mutex_guard().s.len() > 1 {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             mutex1.lock().unwrap().s.len();
-   |             ---------------------- another value with significant `Drop` created here
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = get_mutex_guard().s.len();
-LL ~     match value > 1 {
-   |
+LL | fn should_not_trigger_lint_with_mutex_guard_when_taking_ownership_in_match() {
+   | ^ help: make this item public: `pub`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:411:11
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:40:1
    |
-LL |       match match i {
-   |  ___________^
-LL | |
-LL | |         100 => mutex1.lock().unwrap(),
-LL | |         _ => mutex2.lock().unwrap(),
-LL | |     }
-LL | |     .s
-LL | |     .len()
-   | |__________^
-...
-LL |               mutex1.lock().unwrap().s.len();
-   |               ---------------------- another value with significant `Drop` created here
-...
-LL |       };
-   |        - temporary lives until here
+LL | fn should_not_trigger_lint_with_mutex_guard_when_taking_ownership_in_match() {
+   | ^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:40:1
    |
-LL ~     let value = match i {
-LL +
-LL +         100 => mutex1.lock().unwrap(),
-LL +         _ => mutex2.lock().unwrap(),
-LL +     }
-LL +     .s
-LL +     .len();
-LL ~     match value
-   |
+LL | fn should_not_trigger_lint_with_mutex_guard_when_taking_ownership_in_match() {
+   | ^
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:438:11
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:41:9
    |
-LL |       match if i > 1 {
-   |  ___________^
-LL | |
-LL | |         mutex1.lock().unwrap()
-LL | |     } else {
-...  |
-LL | |     .s
-LL | |     .len()
-   | |__________^
-...
-LL |               mutex1.lock().unwrap().s.len();
-   |               ---------------------- another value with significant `Drop` created here
-...
-LL |       };
-   |        - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = if i > 1 {
-LL +
-LL +         mutex1.lock().unwrap()
-LL +     } else {
-LL +         mutex2.lock().unwrap()
-LL +     }
-LL +     .s
-LL +     .len();
-LL ~     match value
-   |
+LL |     let mutex = Mutex::new(State {});
+   |         ^ help: make this variable mutable: `mut`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:493:11
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:54:1
    |
-LL |     match s.lock().deref().deref() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |         _ => println!("Value is {}", s.lock().deref()),
-   |                                      -------- another value with significant `Drop` created here
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match and create a copy
-   |
-LL ~     let value = *s.lock().deref().deref();
-LL ~     match (&value) {
-   |
+LL | fn should_trigger_lint_with_mutex_guard_in_match_scrutinee() {
+   | ^ help: make this item public: `pub`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:542:11
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:54:1
    |
-LL |     match mutex.lock().unwrap().i = i {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             println!("{}", mutex.lock().unwrap().i);
-   |                            --------------------- another value with significant `Drop` created here
-LL |         },
-LL |     };
-   |      - temporary lives until here
+LL | fn should_trigger_lint_with_mutex_guard_in_match_scrutinee() {
+   | ^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:54:1
    |
-LL ~     mutex.lock().unwrap().i = i;
-LL ~     match () {
-   |
+LL | fn should_trigger_lint_with_mutex_guard_in_match_scrutinee() {
+   | ^
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:549:15
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:55:9
    |
-LL |     match i = mutex.lock().unwrap().i {
-   |               ^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             println!("{}", mutex.lock().unwrap().i);
-   |                            --------------------- another value with significant `Drop` created here
-LL |         },
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex.lock().unwrap().i;
-LL ~     match i = value {
-   |
+LL |     let mutex = Mutex::new(State {});
+   |         ^ help: make this variable mutable: `mut`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:556:11
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:69:1
    |
-LL |     match mutex.lock().unwrap().i += 1 {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             println!("{}", mutex.lock().unwrap().i);
-   |                            --------------------- another value with significant `Drop` created here
-LL |         },
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     mutex.lock().unwrap().i += 1;
-LL ~     match () {
-   |
+LL | fn should_not_trigger_lint_with_mutex_guard_in_match_scrutinee_when_lint_allowed() {
+   | ^ help: make this item public: `pub`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:563:16
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:69:1
    |
-LL |     match i += mutex.lock().unwrap().i {
-   |                ^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |             println!("{}", mutex.lock().unwrap().i);
-   |                            --------------------- another value with significant `Drop` created here
-LL |         },
-LL |     };
-   |      - temporary lives until here
+LL | fn should_not_trigger_lint_with_mutex_guard_in_match_scrutinee_when_lint_allowed() {
+   | ^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:69:1
    |
-LL ~     let value = mutex.lock().unwrap().i;
-LL ~     match i += value {
-   |
+LL | fn should_not_trigger_lint_with_mutex_guard_in_match_scrutinee_when_lint_allowed() {
+   | ^
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:627:11
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:70:9
    |
-LL |     match rwlock.read().unwrap().to_number() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = rwlock.read().unwrap().to_number();
-LL ~     match value {
-   |
+LL |     let mutex = Mutex::new(State {});
+   |         ^ help: make this variable mutable: `mut`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:654:11
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:82:1
    |
-LL |     match mutex.lock().unwrap().foo() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex.lock().unwrap().foo();
-LL ~     match value {
-   |
+LL | fn should_not_trigger_lint_for_insignificant_drop() {
+   | ^ help: make this item public: `pub`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:716:11
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:82:1
    |
-LL |     match guard.take().len() {
-   |           ^^^^^^^^^^^^^^^^^^
-...
-LL |     };
-   |      - temporary lives until here
+LL | fn should_not_trigger_lint_for_insignificant_drop() {
+   | ^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:82:1
    |
-LL ~     let value = guard.take().len();
-LL ~     match value {
-   |
+LL | fn should_not_trigger_lint_for_insignificant_drop() {
+   | ^
 
-error: temporary with significant `Drop` in `for` loop condition will live until the end of the `for` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:741:16
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:95:1
    |
-LL |     for val in mutex.lock().unwrap().copy_old_lifetime() {
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     }
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex.lock().unwrap().copy_old_lifetime();
-LL ~     for val in value {
-   |
+LL | struct StateWithMutex {
+   | ^ help: make this item public: `pub`
 
-error: temporary with significant `Drop` in `for` loop condition will live until the end of the `for` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:780:17
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:99:1
    |
-LL |     for val in [mutex.lock().unwrap()[0], 2] {
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     }
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex.lock().unwrap()[0];
-LL ~     for val in [value, 2] {
-   |
+LL | struct MutexGuardWrapper<'a> {
+   | ^ help: make this item public: `pub`
 
-error: temporary with significant `Drop` in `if let` scrutinee will live until the end of the `if let` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:789:24
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:103:1
    |
-LL |     if let Some(val) = mutex.lock().unwrap().first().copied() {
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     }
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex.lock().unwrap().first().copied();
-LL ~     if let Some(val) = value {
-   |
+LL | impl<'a> MutexGuardWrapper<'a> {
+   | ^ help: make this item public: `pub`
 
-error: temporary with significant `Drop` in `while let` scrutinee will live until the end of the `while let` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:804:27
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:104:5
    |
-LL |     while let Some(val) = mutex.lock().unwrap().pop() {
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     }
-   |      - temporary lives until here
+LL |     fn get_the_value(&self) -> u64 {
+   |     ^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:104:5
+   |
+LL |     fn get_the_value(&self) -> u64 {
+   |     ^
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:815:11
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:104:23
+   |
+LL |     fn get_the_value(&self) -> u64 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:104:22
+   |
+LL |     fn get_the_value(&self) -> u64 {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:109:1
+   |
+LL | struct MutexGuardWrapperWrapper<'a> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:113:1
+   |
+LL | impl<'a> MutexGuardWrapperWrapper<'a> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:114:5
+   |
+LL |     fn get_the_value(&self) -> u64 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:114:5
+   |
+LL |     fn get_the_value(&self) -> u64 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:114:23
+   |
+LL |     fn get_the_value(&self) -> u64 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:114:22
+   |
+LL |     fn get_the_value(&self) -> u64 {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:119:1
+   |
+LL | impl StateWithMutex {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:120:5
+   |
+LL |     fn lock_m(&self) -> MutexGuardWrapper<'_> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:120:5
+   |
+LL |     fn lock_m(&self) -> MutexGuardWrapper<'_> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:120:16
+   |
+LL |     fn lock_m(&self) -> MutexGuardWrapper<'_> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:120:15
+   |
+LL |     fn lock_m(&self) -> MutexGuardWrapper<'_> {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:126:5
+   |
+LL |     fn lock_m_m(&self) -> MutexGuardWrapperWrapper<'_> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:126:5
+   |
+LL |     fn lock_m_m(&self) -> MutexGuardWrapperWrapper<'_> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:126:18
+   |
+LL |     fn lock_m_m(&self) -> MutexGuardWrapperWrapper<'_> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:126:17
+   |
+LL |     fn lock_m_m(&self) -> MutexGuardWrapperWrapper<'_> {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:134:5
+   |
+LL |     fn foo(&self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:134:5
+   |
+LL |     fn foo(&self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:134:13
+   |
+LL |     fn foo(&self) -> bool {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:134:12
+   |
+LL |     fn foo(&self) -> bool {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:138:5
+   |
+LL |     fn bar(&self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:138:5
+   |
+LL |     fn bar(&self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:138:13
+   |
+LL |     fn bar(&self) {}
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:138:12
+   |
+LL |     fn bar(&self) {}
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:141:1
+   |
+LL | fn should_trigger_lint_with_wrapped_mutex() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:141:1
+   |
+LL | fn should_trigger_lint_with_wrapped_mutex() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:141:1
+   |
+LL | fn should_trigger_lint_with_wrapped_mutex() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:142:9
+   |
+LL |     let s = StateWithMutex { m: Mutex::new(1) };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:162:1
+   |
+LL | fn should_trigger_lint_with_double_wrapped_mutex() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:162:1
+   |
+LL | fn should_trigger_lint_with_double_wrapped_mutex() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:162:1
+   |
+LL | fn should_trigger_lint_with_double_wrapped_mutex() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:163:9
+   |
+LL |     let s = StateWithMutex { m: Mutex::new(1) };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:184:1
+   |
+LL | struct Counter {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:189:1
+   |
+LL | struct CounterWrapper<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:190:14
+   |
+LL |     counter: &'a Counter,
+   |              ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:193:1
+   |
+LL | impl<'a> CounterWrapper<'a> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:194:5
+   |
+LL |     fn new(counter: &Counter) -> CounterWrapper {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:194:5
+   |
+LL |     fn new(counter: &Counter) -> CounterWrapper {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:194:12
+   |
+LL |     fn new(counter: &Counter) -> CounterWrapper {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:194:21
+   |
+LL |     fn new(counter: &Counter) -> CounterWrapper {
+   |                     ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:200:1
+   |
+LL | impl<'a> Drop for CounterWrapper<'a> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:201:5
+   |
+LL |     fn drop(&mut self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:201:5
+   |
+LL |     fn drop(&mut self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:201:18
+   |
+LL |     fn drop(&mut self) {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:201:13
+   |
+LL |     fn drop(&mut self) {
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:206:1
+   |
+LL | impl Counter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:207:5
+   |
+LL |     fn temp_increment(&self) -> Vec<CounterWrapper> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:207:5
+   |
+LL |     fn temp_increment(&self) -> Vec<CounterWrapper> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:207:24
+   |
+LL |     fn temp_increment(&self) -> Vec<CounterWrapper> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:207:23
+   |
+LL |     fn temp_increment(&self) -> Vec<CounterWrapper> {
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:212:1
+   |
+LL | fn should_trigger_lint_for_vec() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:212:1
+   |
+LL | fn should_trigger_lint_for_vec() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:212:1
+   |
+LL | fn should_trigger_lint_for_vec() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:213:9
+   |
+LL |     let counter = Counter { i: AtomicU64::new(0) };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:221:17
+   |
+LL |             let current_count = counter.i.load(Ordering::Relaxed);
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:223:13
+   |
+LL |             assert_eq!(current_count, 0);
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:223:13
+   |
+LL |             assert_eq!(current_count, 0);
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:223:13
+   |
+LL |             assert_eq!(current_count, 0);
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:223:13
+   |
+LL |             assert_eq!(current_count, 0);
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:223:13
+   |
+LL |             assert_eq!(current_count, 0);
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:231:1
+   |
+LL | struct StateWithField {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:238:1
+   |
+LL | fn should_trigger_lint_for_tuple_in_scrutinee() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:238:1
+   |
+LL | fn should_trigger_lint_for_tuple_in_scrutinee() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:238:1
+   |
+LL | fn should_trigger_lint_for_tuple_in_scrutinee() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:239:9
+   |
+LL |     let mutex1 = Mutex::new(StateWithField { s: "one".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:262:13
+   |
+LL |         let mutex2 = Mutex::new(StateWithField { s: "two".to_owned() });
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:280:1
+   |
+LL | fn should_not_trigger_lint_for_string_as_str() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:280:1
+   |
+LL | fn should_not_trigger_lint_for_string_as_str() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:280:1
+   |
+LL | fn should_not_trigger_lint_for_string_as_str() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:281:9
+   |
+LL |     let mutex1 = Mutex::new(StateWithField { s: "one".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:284:13
+   |
+LL |         let mutex2 = Mutex::new(StateWithField { s: "two".to_owned() });
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:285:13
+   |
+LL |         let mutex3 = Mutex::new(StateWithField { s: "three".to_owned() });
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:313:1
+   |
+LL | fn should_trigger_lint_for_accessing_field_in_mutex_in_one_side_of_binary_op() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:313:1
+   |
+LL | fn should_trigger_lint_for_accessing_field_in_mutex_in_one_side_of_binary_op() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:313:1
+   |
+LL | fn should_trigger_lint_for_accessing_field_in_mutex_in_one_side_of_binary_op() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:314:9
+   |
+LL |     let mutex = Mutex::new(StateWithField { s: "state".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:337:1
+   |
+LL | fn should_trigger_lint_for_accessing_fields_in_mutex_in_both_sides_of_binary_op() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:337:1
+   |
+LL | fn should_trigger_lint_for_accessing_fields_in_mutex_in_both_sides_of_binary_op() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:337:1
+   |
+LL | fn should_trigger_lint_for_accessing_fields_in_mutex_in_both_sides_of_binary_op() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:338:9
+   |
+LL |     let mutex1 = Mutex::new(StateWithField { s: "state".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:339:9
+   |
+LL |     let mutex2 = Mutex::new(StateWithField {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:370:1
+   |
+LL | fn should_not_trigger_lint_for_closure_in_scrutinee() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:370:1
+   |
+LL | fn should_not_trigger_lint_for_closure_in_scrutinee() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:370:1
+   |
+LL | fn should_not_trigger_lint_for_closure_in_scrutinee() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:371:9
+   |
+LL |     let mutex1 = Mutex::new(StateWithField { s: "one".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:373:9
+   |
+LL |     let get_mutex_guard = || mutex1.lock().unwrap().s.len();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:386:1
+   |
+LL | fn should_trigger_lint_for_return_from_closure_in_scrutinee() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:386:1
+   |
+LL | fn should_trigger_lint_for_return_from_closure_in_scrutinee() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:386:1
+   |
+LL | fn should_trigger_lint_for_return_from_closure_in_scrutinee() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:387:9
+   |
+LL |     let mutex1 = Mutex::new(StateWithField { s: "one".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:389:9
+   |
+LL |     let get_mutex_guard = || mutex1.lock().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:402:1
+   |
+LL | fn should_trigger_lint_for_return_from_match_in_scrutinee() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:402:1
+   |
+LL | fn should_trigger_lint_for_return_from_match_in_scrutinee() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:402:1
+   |
+LL | fn should_trigger_lint_for_return_from_match_in_scrutinee() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:403:9
+   |
+LL |     let mutex1 = Mutex::new(StateWithField { s: "one".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:404:9
+   |
+LL |     let mutex2 = Mutex::new(StateWithField { s: "two".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:406:9
+   |
+LL |     let i = 100;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:429:1
+   |
+LL | fn should_trigger_lint_for_return_from_if_in_scrutinee() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:429:1
+   |
+LL | fn should_trigger_lint_for_return_from_if_in_scrutinee() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:429:1
+   |
+LL | fn should_trigger_lint_for_return_from_if_in_scrutinee() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:430:9
+   |
+LL |     let mutex1 = Mutex::new(StateWithField { s: "one".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:431:9
+   |
+LL |     let mutex2 = Mutex::new(StateWithField { s: "two".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:433:9
+   |
+LL |     let i = 100;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:455:1
+   |
+LL | fn should_not_trigger_lint_for_if_in_scrutinee() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:455:1
+   |
+LL | fn should_not_trigger_lint_for_if_in_scrutinee() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:455:1
+   |
+LL | fn should_not_trigger_lint_for_if_in_scrutinee() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:456:9
+   |
+LL |     let mutex = Mutex::new(StateWithField { s: "state".to_owned() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:458:9
+   |
+LL |     let i = 100;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:475:1
+   |
+LL | struct StateWithBoxedMutexGuard {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:479:1
+   |
+LL | impl StateWithBoxedMutexGuard {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:480:5
+   |
+LL |     fn new() -> StateWithBoxedMutexGuard {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:480:5
+   |
+LL |     fn new() -> StateWithBoxedMutexGuard {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:483:5
+   |
+LL |     fn lock(&self) -> Box<MutexGuard<u64>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:483:5
+   |
+LL |     fn lock(&self) -> Box<MutexGuard<u64>> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:483:14
+   |
+LL |     fn lock(&self) -> Box<MutexGuard<u64>> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:483:13
+   |
+LL |     fn lock(&self) -> Box<MutexGuard<u64>> {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:488:1
+   |
+LL | fn should_trigger_lint_for_boxed_mutex_guard() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:488:1
+   |
+LL | fn should_trigger_lint_for_boxed_mutex_guard() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:488:1
+   |
+LL | fn should_trigger_lint_for_boxed_mutex_guard() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:489:9
+   |
+LL |     let s = StateWithBoxedMutexGuard::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:500:1
+   |
+LL | struct StateStringWithBoxedMutexGuard {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:504:1
+   |
+LL | impl StateStringWithBoxedMutexGuard {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:505:5
+   |
+LL |     fn new() -> StateStringWithBoxedMutexGuard {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:505:5
+   |
+LL |     fn new() -> StateStringWithBoxedMutexGuard {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:510:5
+   |
+LL |     fn lock(&self) -> Box<MutexGuard<String>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:510:5
+   |
+LL |     fn lock(&self) -> Box<MutexGuard<String>> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:510:14
+   |
+LL |     fn lock(&self) -> Box<MutexGuard<String>> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:510:13
+   |
+LL |     fn lock(&self) -> Box<MutexGuard<String>> {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:515:1
+   |
+LL | fn should_not_trigger_lint_for_string_ref() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:515:1
+   |
+LL | fn should_not_trigger_lint_for_string_ref() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:515:1
+   |
+LL | fn should_not_trigger_lint_for_string_ref() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:516:9
+   |
+LL |     let s = StateStringWithBoxedMutexGuard::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:518:9
+   |
+LL |     let matcher = String::from("A String");
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:529:1
+   |
+LL | struct StateWithIntField {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:537:1
+   |
+LL | fn should_trigger_lint_in_assign_expr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:537:1
+   |
+LL | fn should_trigger_lint_in_assign_expr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:537:1
+   |
+LL | fn should_trigger_lint_in_assign_expr() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:538:9
+   |
+LL |     let mutex = Mutex::new(StateWithIntField { i: 10 });
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:572:1
+   |
+LL | enum RecursiveEnum {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:571:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:571:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:571:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:571:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:571:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:571:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:571:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:573:9
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | enum RecursiveEnum {
+LL |     Foo(Option<Box<RecursiveEnum>>),
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:577:1
+   |
+LL | enum GenericRecursiveEnum<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:576:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:576:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:576:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:576:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:576:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:576:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:576:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:578:12
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | enum GenericRecursiveEnum<T> {
+LL |     Foo(T, Option<Box<GenericRecursiveEnum<T>>>),
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:581:1
+   |
+LL | fn should_not_cause_stack_overflow() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:581:1
+   |
+LL | fn should_not_cause_stack_overflow() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:581:1
+   |
+LL | fn should_not_cause_stack_overflow() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:584:9
+   |
+LL |     let f = RecursiveEnum::Foo(Some(Box::new(RecursiveEnum::Foo(None))));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:594:9
+   |
+LL |     let f = GenericRecursiveEnum::Foo(1u64, Some(Box::new(GenericRecursiveEnum::Foo(2u64, None))));
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:605:1
+   |
+LL | fn should_not_produce_lint_for_try_desugar() -> Result<u64, ParseIntError> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:605:1
+   |
+LL | fn should_not_produce_lint_for_try_desugar() -> Result<u64, ParseIntError> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:605:1
+   |
+LL | fn should_not_produce_lint_for_try_desugar() -> Result<u64, ParseIntError> {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:608:9
+   |
+LL |     let rwlock = RwLock::new("1".to_string());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:609:9
+   |
+LL |     let result = rwlock.read().unwrap().parse::<u64>()?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:615:1
+   |
+LL | struct ResultReturner {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:619:1
+   |
+LL | impl ResultReturner {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:620:5
+   |
+LL |     fn to_number(&self) -> Result<i64, ParseIntError> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:620:5
+   |
+LL |     fn to_number(&self) -> Result<i64, ParseIntError> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:620:19
+   |
+LL |     fn to_number(&self) -> Result<i64, ParseIntError> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:620:18
+   |
+LL |     fn to_number(&self) -> Result<i64, ParseIntError> {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:625:1
+   |
+LL | fn should_trigger_lint_for_non_ref_move_and_clone_suggestion() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:625:1
+   |
+LL | fn should_trigger_lint_for_non_ref_move_and_clone_suggestion() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:625:1
+   |
+LL | fn should_trigger_lint_for_non_ref_move_and_clone_suggestion() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:626:9
+   |
+LL |     let rwlock = RwLock::<ResultReturner>::new(ResultReturner { s: "1".to_string() });
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:634:1
+   |
+LL | fn should_not_trigger_lint_for_read_write_lock_for_loop() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:634:1
+   |
+LL | fn should_not_trigger_lint_for_read_write_lock_for_loop() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:634:1
+   |
+LL | fn should_not_trigger_lint_for_read_write_lock_for_loop() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:635:9
+   |
+LL |     let rwlock = RwLock::<Vec<String>>::new(vec!["1".to_string()]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:644:1
+   |
+LL | fn do_bar(mutex: &Mutex<State>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:644:1
+   |
+LL | fn do_bar(mutex: &Mutex<State>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:644:1
+   |
+LL | fn do_bar(mutex: &Mutex<State>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:644:11
+   |
+LL | fn do_bar(mutex: &Mutex<State>) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:644:18
+   |
+LL | fn do_bar(mutex: &Mutex<State>) {
+   |                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:648:1
+   |
+LL | fn should_trigger_lint_without_significant_drop_in_arm() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:648:1
+   |
+LL | fn should_trigger_lint_without_significant_drop_in_arm() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:648:1
+   |
+LL | fn should_trigger_lint_without_significant_drop_in_arm() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:649:9
+   |
+LL |     let mutex = Mutex::new(State {});
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:656:24
+   |
+LL |         true => do_bar(&mutex),
+   |                        ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:661:1
+   |
+LL | fn should_not_trigger_on_significant_iterator_drop() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:661:1
+   |
+LL | fn should_not_trigger_on_significant_iterator_drop() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:661:1
+   |
+LL | fn should_not_trigger_on_significant_iterator_drop() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:662:9
+   |
+LL |     let lines = std::io::stdin().lines();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:669:1
+   |
+LL | fn should_not_trigger_lint_if_place_expr_has_significant_drop() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:669:1
+   |
+LL | fn should_not_trigger_lint_if_place_expr_has_significant_drop() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:669:1
+   |
+LL | fn should_not_trigger_lint_if_place_expr_has_significant_drop() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:670:9
+   |
+LL |     let x = Mutex::new(vec![1, 2, 3]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:671:9
+   |
+LL |     let x_guard = x.lock().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:684:1
+   |
+LL | struct Guard<'a, T>(MutexGuard<'a, T>);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:686:1
+   |
+LL | struct Ref<'a, T>(&'a T);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:686:19
+   |
+LL | struct Ref<'a, T>(&'a T);
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:688:1
+   |
+LL | impl<'a, T> Guard<'a, T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:689:5
+   |
+LL |     fn guard(&self) -> &MutexGuard<T> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:689:5
+   |
+LL |     fn guard(&self) -> &MutexGuard<T> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:689:15
+   |
+LL |     fn guard(&self) -> &MutexGuard<T> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:689:14
+   |
+LL |     fn guard(&self) -> &MutexGuard<T> {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:689:24
+   |
+LL |     fn guard(&self) -> &MutexGuard<T> {
+   |                        ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:690:9
+   |
+LL |         &self.0
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:693:5
+   |
+LL |     fn guard_ref(&self) -> Ref<MutexGuard<T>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:693:5
+   |
+LL |     fn guard_ref(&self) -> Ref<MutexGuard<T>> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:693:19
+   |
+LL |     fn guard_ref(&self) -> Ref<MutexGuard<T>> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:693:18
+   |
+LL |     fn guard_ref(&self) -> Ref<MutexGuard<T>> {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:694:13
+   |
+LL |         Ref(&self.0)
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:697:5
+   |
+LL |     fn take(self) -> Box<MutexGuard<'a, T>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:697:5
+   |
+LL |     fn take(self) -> Box<MutexGuard<'a, T>> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:697:13
+   |
+LL |     fn take(self) -> Box<MutexGuard<'a, T>> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:702:1
+   |
+LL | fn should_not_trigger_for_significant_drop_ref() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:702:1
+   |
+LL | fn should_not_trigger_for_significant_drop_ref() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:702:1
+   |
+LL | fn should_not_trigger_for_significant_drop_ref() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:703:9
+   |
+LL |     let mutex = Mutex::new(vec![1, 2]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:704:9
+   |
+LL |     let guard = Guard(mutex.lock().unwrap());
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:723:1
+   |
+LL | struct Foo<'a>(&'a Vec<u32>);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:723:16
+   |
+LL | struct Foo<'a>(&'a Vec<u32>);
+   |                ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:725:1
+   |
+LL | impl<'a> Foo<'a> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:726:5
+   |
+LL |     fn copy_old_lifetime(&self) -> &'a Vec<u32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:726:5
+   |
+LL |     fn copy_old_lifetime(&self) -> &'a Vec<u32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:726:27
+   |
+LL |     fn copy_old_lifetime(&self) -> &'a Vec<u32> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:726:26
+   |
+LL |     fn copy_old_lifetime(&self) -> &'a Vec<u32> {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:726:36
+   |
+LL |     fn copy_old_lifetime(&self) -> &'a Vec<u32> {
+   |                                    ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:730:5
+   |
+LL |     fn reborrow_new_lifetime(&self) -> &Vec<u32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:730:5
+   |
+LL |     fn reborrow_new_lifetime(&self) -> &Vec<u32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:730:31
+   |
+LL |     fn reborrow_new_lifetime(&self) -> &Vec<u32> {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:730:30
+   |
+LL |     fn reborrow_new_lifetime(&self) -> &Vec<u32> {
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:730:40
+   |
+LL |     fn reborrow_new_lifetime(&self) -> &Vec<u32> {
+   |                                        ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:735:1
+   |
+LL | fn should_trigger_lint_if_and_only_if_lifetime_is_irrelevant() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:735:1
+   |
+LL | fn should_trigger_lint_if_and_only_if_lifetime_is_irrelevant() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:735:1
+   |
+LL | fn should_trigger_lint_if_and_only_if_lifetime_is_irrelevant() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:736:9
+   |
+LL |     let vec = Vec::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:737:9
+   |
+LL |     let mutex = Mutex::new(Foo(&vec));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:737:32
+   |
+LL |     let mutex = Mutex::new(Foo(&vec));
+   |                                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:753:1
+   |
+LL | fn should_not_trigger_lint_for_complex_lifetime() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:753:1
+   |
+LL | fn should_not_trigger_lint_for_complex_lifetime() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:753:1
+   |
+LL | fn should_not_trigger_lint_for_complex_lifetime() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:754:9
+   |
+LL |     let mutex = Mutex::new(vec!["hello".to_owned()]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:755:9
+   |
+LL |     let string = "world".to_owned();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:766:52
+   |
+LL |     for c in mutex.lock().unwrap().first().map(|_| &string).unwrap().chars() {
+   |                                                    ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:771:1
+   |
+LL | fn should_not_trigger_lint_with_explicit_drop() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:771:1
+   |
+LL | fn should_not_trigger_lint_with_explicit_drop() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:771:1
+   |
+LL | fn should_not_trigger_lint_with_explicit_drop() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:772:9
+   |
+LL |     let mutex = Mutex::new(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:786:1
+   |
+LL | fn should_trigger_lint_in_if_let() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:786:1
+   |
+LL | fn should_trigger_lint_in_if_let() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:786:1
+   |
+LL | fn should_trigger_lint_in_if_let() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:787:9
+   |
+LL |     let mutex = Mutex::new(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:801:1
+   |
+LL | fn should_trigger_lint_in_while_let() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:801:1
+   |
+LL | fn should_trigger_lint_in_while_let() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:801:1
+   |
+LL | fn should_trigger_lint_in_while_let() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:802:9
+   |
+LL |     let mutex = Mutex::new(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:810:1
+   |
+LL | async fn foo_async(mutex: &Mutex<i32>) -> Option<MutexGuard<'_, i32>> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:810:7
+   |
+LL | async fn foo_async(mutex: &Mutex<i32>) -> Option<MutexGuard<'_, i32>> {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:810:7
+   |
+LL | async fn foo_async(mutex: &Mutex<i32>) -> Option<MutexGuard<'_, i32>> {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:810:20
+   |
+LL | async fn foo_async(mutex: &Mutex<i32>) -> Option<MutexGuard<'_, i32>> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:810:27
+   |
+LL | async fn foo_async(mutex: &Mutex<i32>) -> Option<MutexGuard<'_, i32>> {
+   |                           ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:814:1
+   |
+LL | async fn should_trigger_lint_for_async(mutex: Mutex<i32>) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:814:7
+   |
+LL | async fn should_trigger_lint_for_async(mutex: Mutex<i32>) -> i32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:814:7
+   |
+LL | async fn should_trigger_lint_for_async(mutex: Mutex<i32>) -> i32 {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:814:40
+   |
+LL | async fn should_trigger_lint_for_async(mutex: Mutex<i32>) -> i32 {
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:815:22
    |
 LL |     match *foo_async(&mutex).await.unwrap() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     }
-   |      - temporary lives until here
+   |                      ^^^^^^
    |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = *foo_async(&mutex).await.unwrap();
-LL ~     match value {
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: temporary with significant `Drop` in `match` scrutinee will live until the end of the `match` expression
-  --> tests/ui/significant_drop_in_scrutinee.rs:835:19
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:822:1
    |
-LL |     let _ = match mutex.lock().unwrap().foo() {
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     };
-   |      - temporary lives until here
-   |
-   = note: this might lead to deadlocks or other unexpected behavior
-help: try moving the temporary above the match
-   |
-LL ~     let value = mutex.lock().unwrap().foo();
-LL ~     let _ = match value {
-   |
+LL | async fn should_not_trigger_lint_in_async_expansion(mutex: Mutex<i32>) -> i32 {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 31 previous errors
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:822:7
+   |
+LL | async fn should_not_trigger_lint_in_async_expansion(mutex: Mutex<i32>) -> i32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:822:7
+   |
+LL | async fn should_not_trigger_lint_in_async_expansion(mutex: Mutex<i32>) -> i32 {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:822:53
+   |
+LL | async fn should_not_trigger_lint_in_async_expansion(mutex: Mutex<i32>) -> i32 {
+   |                                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/significant_drop_in_scrutinee.rs:823:21
+   |
+LL |     match foo_async(&mutex).await {
+   |                     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:829:1
+   |
+LL | fn should_trigger_lint_in_match_expr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:829:1
+   |
+LL | fn should_trigger_lint_in_match_expr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:829:1
+   |
+LL | fn should_trigger_lint_in_match_expr() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/significant_drop_in_scrutinee.rs:830:9
+   |
+LL |     let mutex = Mutex::new(State {});
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/significant_drop_in_scrutinee.rs:842:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:842:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/significant_drop_in_scrutinee.rs:842:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 259 previous errors
 

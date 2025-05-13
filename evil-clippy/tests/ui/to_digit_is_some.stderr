@@ -1,29 +1,149 @@
-error: use of `.to_digit(..).is_some()`
-  --> tests/ui/to_digit_is_some.rs:7:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = d.to_digit(8).is_some();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `d.is_digit(8)`
-   |
-   = note: `-D clippy::to-digit-is-some` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::to_digit_is_some)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `.to_digit(..).is_some()`
-  --> tests/ui/to_digit_is_some.rs:9:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = char::to_digit(c, 8).is_some();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `char::is_digit(c, 8)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `.to_digit(..).is_some()`
-  --> tests/ui/to_digit_is_some.rs:16:9
+error: item must be `pub`
+  --> tests/ui/to_digit_is_some.rs:3:1
    |
-LL |         c.to_digit(8).is_some()
-   |         ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `c.is_digit(8)`
-
-error: use of `.to_digit(..).is_some()`
-  --> tests/ui/to_digit_is_some.rs:26:5
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     c.to_digit(8).is_some()
-   |     ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `c.is_digit(8)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/to_digit_is_some.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/to_digit_is_some.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/to_digit_is_some.rs:4:9
+   |
+LL |     let c = 'x';
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/to_digit_is_some.rs:5:9
+   |
+LL |     let d = &c;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/to_digit_is_some.rs:5:13
+   |
+LL |     let d = &c;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/to_digit_is_some.rs:14:1
+   |
+LL | mod cannot_lint_in_const_context {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/to_digit_is_some.rs:15:5
+   |
+LL |     fn without_const(c: char) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/to_digit_is_some.rs:15:5
+   |
+LL |     fn without_const(c: char) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/to_digit_is_some.rs:15:5
+   |
+LL |     fn without_const(c: char) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/to_digit_is_some.rs:15:22
+   |
+LL |     fn without_const(c: char) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/to_digit_is_some.rs:19:5
+   |
+LL |     const fn with_const(c: char) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/to_digit_is_some.rs:19:11
+   |
+LL |     const fn with_const(c: char) -> bool {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/to_digit_is_some.rs:19:11
+   |
+LL |     const fn with_const(c: char) -> bool {
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/to_digit_is_some.rs:19:25
+   |
+LL |     const fn with_const(c: char) -> bool {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/to_digit_is_some.rs:25:1
+   |
+LL | const fn with_const(c: char) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/to_digit_is_some.rs:25:7
+   |
+LL | const fn with_const(c: char) -> bool {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/to_digit_is_some.rs:25:7
+   |
+LL | const fn with_const(c: char) -> bool {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/to_digit_is_some.rs:25:21
+   |
+LL | const fn with_const(c: char) -> bool {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 19 previous errors
 

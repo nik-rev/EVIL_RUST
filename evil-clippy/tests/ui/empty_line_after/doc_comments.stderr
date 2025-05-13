@@ -1,208 +1,411 @@
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:6:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | / /// for the crate
-LL | |
-   | |_^
-LL |   fn first_in_crate() {}
-   |   ----------------- the comment documents this function
-   |
-   = note: `-D clippy::empty-line-after-doc-comments` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::empty_line_after_doc_comments)]`
-   = help: if the empty line is unintentional, remove it
-help: if the comment should document the crate use an inner doc comment
-   |
-LL ~ //! Meant to be an
-LL ~ //! inner doc comment
-LL ~ //! for the crate
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:14:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     /// for the module
-LL | |
-   | |_^
-LL |       fn first_in_module() {}
-   |       ------------------ the comment documents this function
-   |
-   = help: if the empty line is unintentional, remove it
-help: if the comment should document the parent module use an inner doc comment
-   |
-LL ~     //! Meant to be an
-LL ~     //! inner doc comment
-LL ~     //! for the module
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:27:5
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:8:1
    |
-LL | /     /// # Indented
-LL | |
-   | |_^
-LL |       /// Blank line
-LL |       fn indented() {}
-   |       ----------- the comment documents this function
+LL | fn first_in_crate() {}
+   | ^ help: make this item public: `pub`
    |
-   = help: if the empty line is unintentional, remove it
-help: if the documentation should include the empty line include it in the comment
-   |
-LL |     ///
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:34:1
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:8:1
    |
-LL | / /// This should produce a warning
-LL | |
-   | |_^
-LL |   fn with_doc_and_newline() {}
-   |   ----------------------- the comment documents this function
+LL | fn first_in_crate() {}
+   | ^
    |
-   = help: if the empty line is unintentional, remove it
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:8:1
+   |
+LL | fn first_in_crate() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: empty lines after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:44:1
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:10:1
    |
-LL | / /// This doc comment should produce a warning
-LL | |
-LL | | /** This is also a doc comment and is part of the warning
-LL | |  */
-LL | |
-   | |_^
-...
-LL |   fn three_attributes() {}
-   |   ------------------- the comment documents this function
-   |
-   = help: if the empty lines are unintentional, remove them
+LL | mod m {
+   | ^ help: make this item public: `pub`
 
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:56:5
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:16:5
    |
-LL | /     /// docs for `old_code`
-LL | |     // fn old_code() {}
-LL | |
-   | |_^
-LL |       fn new_code() {}
-   |       ----------- the comment documents this function
-   |
-   = help: if the empty line is unintentional, remove it
-help: if the doc comment should not document function `new_code` then comment it out
-   |
-LL |     // /// docs for `old_code`
-   |     ++
+LL |     fn first_in_module() {}
+   |     ^ help: make this item public: `pub`
 
-error: empty lines after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:63:5
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:16:5
    |
-LL | /     /// for OldA
-LL | |     // struct OldA;
-LL | |
-LL | |     /// Docs
-...  |
-LL | |
-   | |_^
-...
-LL |       struct Multiple;
-   |       --------------- the comment documents this struct
+LL |     fn first_in_module() {}
+   |     ^
    |
-   = help: if the empty lines are unintentional, remove them
-help: if the doc comment should not document struct `Multiple` then comment it out
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:16:5
    |
-LL ~     // /// Docs
-LL ~     // /// for OldA
-LL |     // struct OldA;
-LL |
-LL ~     // /// Docs
-LL ~     // /// for OldB
-   |
+LL |     fn first_in_module() {}
+   |     ^
 
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:78:5
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:19:1
    |
-LL | /     /**
-LL | |      * Meant to be inner doc comment
-LL | |      */
-LL | |
-   | |_^
-LL |       fn first_in_module() {}
-   |       ------------------ the comment documents this function
-   |
-   = help: if the empty line is unintentional, remove it
-help: if the comment should document the parent module use an inner doc comment
-   |
-LL -     /**
-LL +     /*!
-   |
+LL | mod some_mod {
+   | ^ help: make this item public: `pub`
 
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:85:5
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:22:5
    |
-LL | /     /**
-LL | |      * Docs for `old_code`
-LL | |      */
-LL | |     /* fn old_code() {} */
-LL | |
-   | |_^
-...
-LL |       fn new_code() {}
-   |       ----------- the comment documents this function
-   |
-   = help: if the empty line is unintentional, remove it
-help: if the doc comment should not document function `new_code` then comment it out
-   |
-LL -     /**
-LL +     /*
-   |
+LL |     mod some_inner_mod {
+   |     ^ help: make this item public: `pub`
 
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:96:5
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:23:9
    |
-LL | /     /// Docs for `old_code2`
-LL | |     /* fn old_code2() {} */
-LL | |
-   | |_^
-LL |       /// Docs for `new_code2`
-LL |       fn new_code2() {}
-   |       ------------ the comment documents this function
-   |
-   = help: if the empty line is unintentional, remove it
-help: if the doc comment should not document function `new_code2` then comment it out
-   |
-LL |     // /// Docs for `old_code2`
-   |     ++
+LL |         fn some_noop() {}
+   |         ^ help: make this item public: `pub`
 
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:152:5
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:23:9
    |
-LL | /     /// comment on assoc item
-LL | |
-LL | |
-   | |_^
-LL |       fn bar() {}
-   |       ------ the comment documents this function
+LL |         fn some_noop() {}
+   |         ^
    |
-   = help: if the empty line is unintentional, remove it
-help: if the doc comment should not document function `bar` then comment it out
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:23:9
    |
-LL |     // /// comment on assoc item
-   |     ++
+LL |         fn some_noop() {}
+   |         ^
 
-error: empty line after doc comment
-  --> tests/ui/empty_line_after/doc_comments.rs:159:1
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:30:5
    |
-LL | / /// Docs for this item.
-LL | | // fn some_item() {}
-LL | |
-   | |_^
-LL |   impl LineComment {} // or any other nameless item kind
-   |   - the comment documents this implementation
-   |
-   = help: if the empty line is unintentional, remove it
-help: if the doc comment should not document the following item then comment it out
-   |
-LL | // /// Docs for this item.
-   | ++
+LL |     fn indented() {}
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 12 previous errors
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:30:5
+   |
+LL |     fn indented() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:30:5
+   |
+LL |     fn indented() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:36:1
+   |
+LL | fn with_doc_and_newline() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:36:1
+   |
+LL | fn with_doc_and_newline() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:36:1
+   |
+LL | fn with_doc_and_newline() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:41:1
+   |
+LL | fn with_no_newline_and_comment() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:41:1
+   |
+LL | fn with_no_newline_and_comment() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:41:1
+   |
+LL | fn with_no_newline_and_comment() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:52:1
+   |
+LL | fn three_attributes() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:52:1
+   |
+LL | fn three_attributes() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:52:1
+   |
+LL | fn three_attributes() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:54:1
+   |
+LL | mod misattributed {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:59:5
+   |
+LL |     fn new_code() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:59:5
+   |
+LL |     fn new_code() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:59:5
+   |
+LL |     fn new_code() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:73:5
+   |
+LL |     struct Multiple;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:76:1
+   |
+LL | mod block_comments {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:82:5
+   |
+LL |     fn first_in_module() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:82:5
+   |
+LL |     fn first_in_module() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:82:5
+   |
+LL |     fn first_in_module() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:93:5
+   |
+LL |     fn new_code() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:93:5
+   |
+LL |     fn new_code() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:93:5
+   |
+LL |     fn new_code() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:100:5
+   |
+LL |     fn new_code2() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:100:5
+   |
+LL |     fn new_code2() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:100:5
+   |
+LL |     fn new_code2() {}
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:108:5
+   |
+LL | pub fn function() -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:108:5
+   |
+LL | pub fn function() -> bool {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:113:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:113:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:113:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/empty_line_after/doc_comments.rs:113:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/empty_line_after/doc_comments.rs:113:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:113:17
+   |
+LL | #[derive(Clone, Copy)]
+   |                 ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:127:1
+   |
+LL | struct LineComment;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:145:1
+   |
+LL | fn empty_line_in_cfg_attr() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:145:1
+   |
+LL | fn empty_line_in_cfg_attr() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:145:1
+   |
+LL | fn empty_line_in_cfg_attr() {}
+   | ^
+
+error: trait must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:147:1
+   |
+LL | / trait Foo {
+LL | |     fn bar();
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:147:1
+   |
+LL | trait Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:148:5
+   |
+LL |     fn bar();
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:148:5
+   |
+LL |     fn bar();
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:151:1
+   |
+LL | impl Foo for LineComment {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:155:5
+   |
+LL |     fn bar() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:155:5
+   |
+LL |     fn bar() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:162:1
+   |
+LL | impl LineComment {} // or any other nameless item kind
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/empty_line_after/doc_comments.rs:164:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:164:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_line_after/doc_comments.rs:164:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 49 previous errors
 

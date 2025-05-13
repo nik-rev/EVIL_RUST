@@ -1,41 +1,380 @@
-error: missing `#[inline]` for a function
-  --> tests/ui/missing_inline.rs:20:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:7:1
+   |
+LL | type Typedef = String;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:10:1
+   |
+LL | struct Foo; // ok
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:12:1
+   |
+LL | enum FooE {} // ok
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:15:1
+   |
+LL | mod module {} // ok
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:18:1
+   |
+LL | fn foo() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:18:1
+   |
+LL | fn foo() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:18:1
+   |
+LL | fn foo() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:20:5
    |
 LL | pub fn pub_foo() {}
-   | ^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = note: `-D clippy::missing-inline-in-public-items` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::missing_inline_in_public_items)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:20:5
+   |
+LL | pub fn pub_foo() {}
+   |     ^
 
-error: missing `#[inline]` for a default trait method
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:24:5
+   |
+LL | pub fn pub_foo_inline() {} // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:24:5
+   |
+LL | pub fn pub_foo_inline() {} // ok
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:26:5
+   |
+LL | pub fn pub_foo_inline_always() {} // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:26:5
+   |
+LL | pub fn pub_foo_inline_always() {} // ok
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:29:5
+   |
+LL | pub fn pub_foo_no_inline() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:29:5
+   |
+LL | pub fn pub_foo_no_inline() {}
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/missing_inline.rs:31:1
+   |
+LL | / trait Bar {
+LL | |     fn Bar_a(); // ok
+LL | |     fn Bar_b() {} // ok
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:31:1
+   |
+LL | trait Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:32:5
+   |
+LL |     fn Bar_a(); // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:32:5
+   |
+LL |     fn Bar_a(); // ok
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:33:5
+   |
+LL |     fn Bar_b() {} // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:33:5
+   |
+LL |     fn Bar_b() {} // ok
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/missing_inline.rs:36:1
+   |
+LL | / pub trait PubBar {
+LL | |     fn PubBar_a(); // ok
+LL | |     // missing #[inline]
+LL | |     fn PubBar_b() {}
+...  |
+LL | |     fn PubBar_c() {} // ok
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:37:5
+   |
+LL |     fn PubBar_a(); // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:37:5
+   |
+LL |     fn PubBar_a(); // ok
+   |     ^
+
+error: function must be `unsafe`
   --> tests/ui/missing_inline.rs:39:5
    |
 LL |     fn PubBar_b() {}
-   |     ^^^^^^^^^^^^^^^^
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:39:5
+   |
+LL |     fn PubBar_b() {}
+   |     ^
 
-error: missing `#[inline]` for a method
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:43:5
+   |
+LL |     fn PubBar_c() {} // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:43:5
+   |
+LL |     fn PubBar_c() {} // ok
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:47:1
+   |
+LL | impl PubBar for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:48:5
+   |
+LL |     fn PubBar_a() {} // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:48:5
+   |
+LL |     fn PubBar_a() {} // ok
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:49:5
+   |
+LL |     fn PubBar_b() {} // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:49:5
+   |
+LL |     fn PubBar_b() {} // ok
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:50:5
+   |
+LL |     fn PubBar_c() {} // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:50:5
+   |
+LL |     fn PubBar_c() {} // ok
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:54:1
+   |
+LL | impl PubBar for PubFoo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/missing_inline.rs:56:5
    |
 LL |     fn PubBar_a() {}
-   |     ^^^^^^^^^^^^^^^^
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:56:5
+   |
+LL |     fn PubBar_a() {}
+   |     ^
 
-error: missing `#[inline]` for a method
+error: function must be `unsafe`
   --> tests/ui/missing_inline.rs:60:5
    |
 LL |     fn PubBar_b() {}
-   |     ^^^^^^^^^^^^^^^^
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:60:5
+   |
+LL |     fn PubBar_b() {}
+   |     ^
 
-error: missing `#[inline]` for a method
+error: function must be `unsafe`
   --> tests/ui/missing_inline.rs:64:5
    |
 LL |     fn PubBar_c() {}
-   |     ^^^^^^^^^^^^^^^^
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:64:5
+   |
+LL |     fn PubBar_c() {}
+   |     ^
 
-error: missing `#[inline]` for a method
-  --> tests/ui/missing_inline.rs:76:5
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:69:1
+   |
+LL | impl Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:70:5
+   |
+LL |     fn FooImpl() {} // ok
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:70:5
+   |
+LL |     fn FooImpl() {} // ok
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:74:1
+   |
+LL | impl PubFoo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:76:9
    |
 LL |     pub fn PubFooImpl() {}
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:76:9
+   |
+LL |     pub fn PubFooImpl() {}
+   |         ^
 
-error: aborting due to 6 previous errors
+error: item must be `pub`
+  --> tests/ui/missing_inline.rs:81:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/missing_inline.rs:81:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_inline.rs:81:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/missing_inline.rs:81:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_inline.rs:81:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/missing_inline.rs:81:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/missing_inline.rs:81:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 40 previous errors
 

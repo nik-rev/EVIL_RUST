@@ -1,200 +1,265 @@
-error: references are not allowed
-  --> tests/ui/reference_used.rs:5:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/reference_used.rs:3:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/reference_used.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/reference_used.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:4:9
+   |
+LL |     let x = 10;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:5:9
    |
 LL |     let y = &x;
-   |             ^^
-   |
-   = help: use a raw borrowing instead: `&raw const`
-   = note: `-D clippy::reference-used` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::reference_used)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:8:13
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:8:9
    |
 LL |     let z = &mut 20;
-   |             ^^^^^^^
-   |
-   = help: use a raw borrowing instead: `&raw mut`
+   |         ^ help: make this variable mutable: `mut`
 
-error: `ref` is not allowed, as it binds by reference
-  --> tests/ui/reference_used.rs:11:13
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:11:10
    |
 LL |     let (a, ref b) = (1, 2);
-   |             ^^^^^
+   |          ^ help: make this variable mutable: `mut`
 
-error: `ref` is not allowed, as it binds by reference
-  --> tests/ui/reference_used.rs:15:17
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:11:17
    |
-LL |     if let Some(ref d) = c {
-   |                 ^^^^^
+LL |     let (a, ref b) = (1, 2);
+   |                 ^ help: make this variable mutable: `mut`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:21:17
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:14:9
+   |
+LL |     let c = Some(3);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:20:9
+   |
+LL |     let s = String::from("hello");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:21:9
    |
 LL |     let ref_s = &s;
-   |                 ^^
-   |
-   = help: use a raw borrowing instead: `&raw const`
+   |         ^ help: make this variable mutable: `mut`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:24:15
-   |
-LL |     takes_ref(&x);
-   |               ^^
-   |
-   = help: use a raw borrowing instead: `&raw const`
-
-error: references are not allowed
-  --> tests/ui/reference_used.rs:27:19
-   |
-LL |     takes_mut_ref(&mut 42);
-   |                   ^^^^^^^
-   |
-   = help: use a raw borrowing instead: `&raw mut`
-
-error: references are not allowed
-  --> tests/ui/reference_used.rs:30:33
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:30:9
    |
 LL |     let raw_const: *const i32 = &x;
-   |                                 ^^
-   |
-   = help: use a raw borrowing instead: `&raw const`
+   |         ^ help: make this variable mutable: `mut`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:32:29
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:32:9
    |
 LL |     let raw_mut: *mut i32 = &mut 100;
-   |                             ^^^^^^^^
-   |
-   = help: use a raw borrowing instead: `&raw mut`
+   |         ^ help: make this variable mutable: `mut`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:48:25
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:39:9
+   |
+LL |     let raw_v1 = &raw const x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:41:9
+   |
+LL |     let raw_v2 = &raw mut temp;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:48:9
    |
 LL |     let closure = |val: &i32| println!("{}", val);
-   |                         ^^^^
-   |
-   = help: use a raw pointer instead: `*const`
+   |         ^ help: make this variable mutable: `mut`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:50:13
-   |
-LL |     closure(&x);
-   |             ^^
-   |
-   = help: use a raw borrowing instead: `&raw const`
-
-error: references are not allowed
-  --> tests/ui/reference_used.rs:54:27
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:54:9
    |
 LL |     let closure_mut = |v: &mut i32| *v += 1;
-   |                           ^^^^^^^^
-   |
-   = help: use a raw pointer instead: `*raw`
+   |         ^ help: make this variable mutable: `mut`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:56:17
+error: item must be `pub`
+  --> tests/ui/reference_used.rs:59:5
    |
-LL |     closure_mut(&mut val);
-   |                 ^^^^^^^^
-   |
-   = help: use a raw borrowing instead: `&raw mut`
+LL |     struct RefStruct<'a> {
+   |     ^ help: make this item public: `pub`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:60:12
+error: trait must be `unsafe`
+  --> tests/ui/reference_used.rs:64:5
    |
-LL |         r: &'a i32,
-   |            ^^^^^^^
+LL | /     trait RefTrait {
+LL | |         fn ref_method(&self);
+LL | |
+LL | |     }
+   | |_____^
    |
-   = help: use a raw pointer instead: `*const`
+   = help: make this trait unsafe: `unsafe trait`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:65:23
+error: item must be `pub`
+  --> tests/ui/reference_used.rs:64:5
+   |
+LL |     trait RefTrait {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/reference_used.rs:65:9
    |
 LL |         fn ref_method(&self);
-   |                       ^^^^^
+   |         ^
    |
-   = help: use a raw pointer instead: `*const`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/reference_used.rs:65:9
+   |
+LL |         fn ref_method(&self);
+   |         ^
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:71:23
+error: parameter must be `mut`
+  --> tests/ui/reference_used.rs:65:24
+   |
+LL |         fn ref_method(&self);
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/reference_used.rs:69:5
+   |
+LL |     struct MyStruct;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/reference_used.rs:70:5
+   |
+LL |     impl RefTrait for MyStruct {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/reference_used.rs:71:9
    |
 LL |         fn ref_method(&self) {
-   |                       ^^^^^
+   |         ^
    |
-   = help: use a raw pointer instead: `*const`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/reference_used.rs:71:9
+   |
+LL |         fn ref_method(&self) {
+   |         ^
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:78:15
+error: parameter must be `mut`
+  --> tests/ui/reference_used.rs:71:24
+   |
+LL |         fn ref_method(&self) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:78:9
    |
 LL |     let arr: [&i32; 2] = [
-   |               ^^^^
-   |
-   = help: use a raw pointer instead: `*const`
+   |         ^ help: make this variable mutable: `mut`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:80:9
+error: variable must be `mut`
+  --> tests/ui/reference_used.rs:87:9
    |
-LL |         &x,
-   |         ^^
-   |
-   = help: use a raw borrowing instead: `&raw const`
+LL |     let tup: (
+   |         ^ help: make this variable mutable: `mut`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:82:9
-   |
-LL |         &42,
-   |         ^^^
-   |
-   = help: use a raw borrowing instead: `&raw const`
-
-error: references are not allowed
-  --> tests/ui/reference_used.rs:88:9
-   |
-LL |         &i32,
-   |         ^^^^
-   |
-   = help: use a raw pointer instead: `*const`
-
-error: references are not allowed
-  --> tests/ui/reference_used.rs:90:9
-   |
-LL |         &mut i32,
-   |         ^^^^^^^^
-   |
-   = help: use a raw pointer instead: `*raw`
-
-error: references are not allowed
-  --> tests/ui/reference_used.rs:93:9
-   |
-LL |         &x,
-   |         ^^
-   |
-   = help: use a raw borrowing instead: `&raw const`
-
-error: references are not allowed
-  --> tests/ui/reference_used.rs:95:9
-   |
-LL |         &mut val,
-   |         ^^^^^^^^
-   |
-   = help: use a raw borrowing instead: `&raw mut`
-
-error: references are not allowed
-  --> tests/ui/reference_used.rs:100:19
+error: item must be `pub`
+  --> tests/ui/reference_used.rs:100:1
    |
 LL | fn takes_ref(val: &i32) {
-   |                   ^^^^
-   |
-   = help: use a raw pointer instead: `*const`
+   | ^ help: make this item public: `pub`
 
-error: references are not allowed
-  --> tests/ui/reference_used.rs:105:23
+error: function must be `unsafe`
+  --> tests/ui/reference_used.rs:100:1
+   |
+LL | fn takes_ref(val: &i32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/reference_used.rs:100:1
+   |
+LL | fn takes_ref(val: &i32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/reference_used.rs:100:14
+   |
+LL | fn takes_ref(val: &i32) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/reference_used.rs:105:1
    |
 LL | fn takes_mut_ref(val: &mut i32) {
-   |                       ^^^^^^^^
-   |
-   = help: use a raw pointer instead: `*raw`
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 25 previous errors
+error: function must be `unsafe`
+  --> tests/ui/reference_used.rs:105:1
+   |
+LL | fn takes_mut_ref(val: &mut i32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/reference_used.rs:105:1
+   |
+LL | fn takes_mut_ref(val: &mut i32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/reference_used.rs:105:18
+   |
+LL | fn takes_mut_ref(val: &mut i32) {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 37 previous errors
 

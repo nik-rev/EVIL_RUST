@@ -1,69 +1,189 @@
-error: checking if a string is ascii using iterators
-  --> tests/ui/needless_character_iteration.rs:18:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     "foo".chars().all(|c| c.is_ascii());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"foo".is_ascii()`
-   |
-   = note: `-D clippy::needless-character-iteration` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_character_iteration)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: checking if a string is ascii using iterators
-  --> tests/ui/needless_character_iteration.rs:21:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     "foo".chars().any(|c| !c.is_ascii());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `!"foo".is_ascii()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: checking if a string is ascii using iterators
-  --> tests/ui/needless_character_iteration.rs:24:5
+error: item must be `pub`
+  --> tests/ui/needless_character_iteration.rs:5:1
+   |
+LL | struct S {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: references are not allowed
+  --> tests/ui/needless_character_iteration.rs:6:12
+   |
+LL |     field: &'static str,
+   |            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/needless_character_iteration.rs:4:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_character_iteration.rs:4:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_character_iteration.rs:4:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/needless_character_iteration.rs:9:1
+   |
+LL | impl S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_character_iteration.rs:10:5
+   |
+LL |     fn field(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_character_iteration.rs:10:5
+   |
+LL |     fn field(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_character_iteration.rs:10:15
+   |
+LL |     fn field(&self) -> &str {
+   |               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/needless_character_iteration.rs:10:14
+   |
+LL |     fn field(&self) -> &str {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_character_iteration.rs:10:24
+   |
+LL |     fn field(&self) -> &str {
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_character_iteration.rs:15:1
+   |
+LL | fn magic(_: char) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_character_iteration.rs:15:1
+   |
+LL | fn magic(_: char) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_character_iteration.rs:15:1
+   |
+LL | fn magic(_: char) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_character_iteration.rs:17:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_character_iteration.rs:17:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_character_iteration.rs:17:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/needless_character_iteration.rs:24:42
    |
 LL |     "foo".chars().all(|c| char::is_ascii(&c));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"foo".is_ascii()`
+   |                                          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: checking if a string is ascii using iterators
-  --> tests/ui/needless_character_iteration.rs:27:5
+error: references are not allowed
+  --> tests/ui/needless_character_iteration.rs:27:43
    |
 LL |     "foo".chars().any(|c| !char::is_ascii(&c));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `!"foo".is_ascii()`
-
-error: checking if a string is ascii using iterators
-  --> tests/ui/needless_character_iteration.rs:31:5
+   |                                           ^^
    |
-LL |     s.chars().all(|c| c.is_ascii());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.is_ascii()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: checking if a string is ascii using iterators
-  --> tests/ui/needless_character_iteration.rs:34:5
+error: variable must be `mut`
+  --> tests/ui/needless_character_iteration.rs:30:9
    |
-LL |     "foo".to_string().chars().any(|c| !c.is_ascii());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `!"foo".to_string().is_ascii()`
+LL |     let s = String::new();
+   |         ^ help: make this variable mutable: `mut`
 
-error: checking if a string is ascii using iterators
-  --> tests/ui/needless_character_iteration.rs:37:5
+error: variable must be `mut`
+  --> tests/ui/needless_character_iteration.rs:40:13
    |
-LL | /     "foo".chars().all(|c| {
-LL | |
-LL | |
-LL | |         let x = c;
-LL | |         x.is_ascii()
-LL | |     });
-   | |______^ help: try: `"foo".is_ascii()`
+LL |         let x = c;
+   |             ^ help: make this variable mutable: `mut`
 
-error: checking if a string is ascii using iterators
-  --> tests/ui/needless_character_iteration.rs:43:5
+error: variable must be `mut`
+  --> tests/ui/needless_character_iteration.rs:46:13
    |
-LL | /     "foo".chars().any(|c| {
-LL | |
-LL | |
-LL | |         let x = c;
-LL | |         !x.is_ascii()
-LL | |     });
-   | |______^ help: try: `!"foo".is_ascii()`
+LL |         let x = c;
+   |             ^ help: make this variable mutable: `mut`
 
-error: checking if a string is ascii using iterators
-  --> tests/ui/needless_character_iteration.rs:50:5
+error: variable must be `mut`
+  --> tests/ui/needless_character_iteration.rs:55:13
    |
-LL |     S::default().field().chars().all(|x| x.is_ascii());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `S::default().field().is_ascii()`
+LL |         let x = c;
+   |             ^ help: make this variable mutable: `mut`
 
-error: aborting due to 9 previous errors
+error: references are not allowed
+  --> tests/ui/needless_character_iteration.rs:64:54
+   |
+LL |     "foo".chars().map(|c| c).all(|c| !char::is_ascii(&c));
+   |                                                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 24 previous errors
 

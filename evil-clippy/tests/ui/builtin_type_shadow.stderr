@@ -1,11 +1,63 @@
-error: this generic shadows the built-in type `u32`
-  --> tests/ui/builtin_type_shadow.rs:4:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/builtin_type_shadow.rs:4:1
    |
 LL | fn foo<u32>(a: u32) -> u32 {
-   |        ^^^
+   | ^ help: make this item public: `pub`
    |
-   = note: `-D clippy::builtin-type-shadow` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::builtin_type_shadow)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/builtin_type_shadow.rs:4:1
+   |
+LL | fn foo<u32>(a: u32) -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/builtin_type_shadow.rs:4:1
+   |
+LL | fn foo<u32>(a: u32) -> u32 {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/builtin_type_shadow.rs:4:13
+   |
+LL | fn foo<u32>(a: u32) -> u32 {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/builtin_type_shadow.rs:9:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/builtin_type_shadow.rs:9:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/builtin_type_shadow.rs:9:1
+   |
+LL | fn main() {}
+   | ^
 
 error[E0308]: mismatched types
   --> tests/ui/builtin_type_shadow.rs:6:5
@@ -22,6 +74,6 @@ LL |     42
                         found type `{integer}`
    = note: the caller chooses a type for `u32` which can be different from `i32`
 
-error: aborting due to 2 previous errors
+error: aborting due to 8 previous errors
 
 For more information about this error, try `rustc --explain E0308`.

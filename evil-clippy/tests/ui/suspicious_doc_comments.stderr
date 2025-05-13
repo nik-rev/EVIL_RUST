@@ -1,125 +1,198 @@
-error: this is an outer doc comment and does not apply to the parent module or crate
-  --> tests/ui/suspicious_doc_comments.rs:6:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | ///! Fake module documentation.
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::suspicious-doc-comments` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suspicious_doc_comments)]`
-help: use an inner doc comment to document the parent module or crate
-   |
-LL - ///! Fake module documentation.
-LL + //! Fake module documentation.
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this is an outer doc comment and does not apply to the parent module or crate
-  --> tests/ui/suspicious_doc_comments.rs:11:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     ///! This module contains useful functions.
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: use an inner doc comment to document the parent module or crate
-   |
-LL -     ///! This module contains useful functions.
-LL +     //! This module contains useful functions.
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this is an outer doc comment and does not apply to the parent module or crate
-  --> tests/ui/suspicious_doc_comments.rs:24:5
+error: item must be `pub`
+  --> tests/ui/suspicious_doc_comments.rs:8:1
    |
-LL | /     /**! This module contains useful functions.
-LL | |      */
-   | |_______^
+LL | fn baz() {}
+   | ^ help: make this item public: `pub`
    |
-help: use an inner doc comment to document the parent module or crate
-   |
-LL ~     /*! This module contains useful functions.
-LL +      */
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this is an outer doc comment and does not apply to the parent module or crate
-  --> tests/ui/suspicious_doc_comments.rs:39:5
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:8:1
    |
-LL | /     ///! This module
-LL | |
-LL | |     ///! contains
-LL | |     ///! useful functions.
-   | |__________________________^
+LL | fn baz() {}
+   | ^
    |
-help: use an inner doc comment to document the parent module or crate
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:8:1
    |
-LL ~     //! This module
-LL |
-LL ~     //! contains
-LL ~     //! useful functions.
-   |
+LL | fn baz() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this is an outer doc comment and does not apply to the parent module or crate
-  --> tests/ui/suspicious_doc_comments.rs:48:5
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:14:9
    |
-LL | /     ///! a
-LL | |
-LL | |     ///! b
-   | |__________^
+LL |     pub fn bar() {}
+   |         ^
    |
-help: use an inner doc comment to document the parent module or crate
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:14:9
    |
-LL ~     //! a
-LL |
-LL ~     //! b
-   |
+LL |     pub fn bar() {}
+   |         ^
 
-error: this is an outer doc comment and does not apply to the parent module or crate
-  --> tests/ui/suspicious_doc_comments.rs:57:5
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:20:9
    |
-LL |     ///! a
-   |     ^^^^^^
+LL |     pub fn bar() {}
+   |         ^
    |
-help: use an inner doc comment to document the parent module or crate
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:20:9
    |
-LL -     ///! a
-LL +     //! a
-   |
+LL |     pub fn bar() {}
+   |         ^
 
-error: this is an outer doc comment and does not apply to the parent module or crate
-  --> tests/ui/suspicious_doc_comments.rs:64:5
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:28:9
    |
-LL | /     ///! a
-...  |
-LL | |     ///! b
-   | |__________^
+LL |     pub fn bar() {}
+   |         ^
    |
-help: use an inner doc comment to document the parent module or crate
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:28:9
    |
-LL ~     //! a
-LL |
-LL |
-LL ~     //! b
-   |
+LL |     pub fn bar() {}
+   |         ^
 
-error: this is an outer doc comment and does not apply to the parent module or crate
-  --> tests/ui/suspicious_doc_comments.rs:77:5
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:35:9
    |
-LL |     ///! Very cool macro
-   |     ^^^^^^^^^^^^^^^^^^^^
+LL |     pub fn bar() {}
+   |         ^
    |
-help: use an inner doc comment to document the parent module or crate
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:35:9
    |
-LL -     ///! Very cool macro
-LL +     //! Very cool macro
-   |
+LL |     pub fn bar() {}
+   |         ^
 
-error: this is an outer doc comment and does not apply to the parent module or crate
-  --> tests/ui/suspicious_doc_comments.rs:85:5
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:44:9
    |
-LL |     ///! Huh.
-   |     ^^^^^^^^^
+LL |     pub fn bar() {}
+   |         ^
    |
-help: use an inner doc comment to document the parent module or crate
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:44:9
    |
-LL -     ///! Huh.
-LL +     //! Huh.
-   |
+LL |     pub fn bar() {}
+   |         ^
 
-error: aborting due to 9 previous errors
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:53:9
+   |
+LL |     pub fn bar() {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:53:9
+   |
+LL |     pub fn bar() {}
+   |         ^
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:60:9
+   |
+LL |     pub fn bar() {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:60:9
+   |
+LL |     pub fn bar() {}
+   |         ^
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:68:9
+   |
+LL |     pub fn bar() {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:68:9
+   |
+LL |     pub fn bar() {}
+   |         ^
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:73:9
+   |
+LL |     pub fn bar() {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:73:9
+   |
+LL |     pub fn bar() {}
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/suspicious_doc_comments.rs:79:5
+   |
+LL |     macro_rules! x {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_doc_comments.rs:92:1
+   |
+LL | fn issue14265() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:92:1
+   |
+LL | fn issue14265() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:92:1
+   |
+LL | fn issue14265() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/suspicious_doc_comments.rs:94:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:94:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_doc_comments.rs:94:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 20 previous errors
 

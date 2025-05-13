@@ -1,130 +1,209 @@
-error: indexing into a string with a character position where a byte index is expected
-  --> tests/ui/char_indices_as_byte_indices.rs:13:24
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _ = prim[..idx];
-   |                        ^^^
-   |
-   = note: a character can take up more than one byte, so they are not interchangeable
-note: position comes from the enumerate iterator
-  --> tests/ui/char_indices_as_byte_indices.rs:12:10
-   |
-LL |     for (idx, _) in prim.chars().enumerate() {
-   |          ^^^                     ^^^^^^^^^^^
-   = note: `-D clippy::char-indices-as-byte-indices` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::char_indices_as_byte_indices)]`
-help: consider using `.char_indices()` instead
-   |
-LL -     for (idx, _) in prim.chars().enumerate() {
-LL +     for (idx, _) in prim.char_indices() {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: passing a character position to a method that expects a byte index
-  --> tests/ui/char_indices_as_byte_indices.rs:15:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         prim.split_at(idx);
-   |                       ^^^
-   |
-   = note: a character can take up more than one byte, so they are not interchangeable
-note: position comes from the enumerate iterator
-  --> tests/ui/char_indices_as_byte_indices.rs:12:10
-   |
-LL |     for (idx, _) in prim.chars().enumerate() {
-   |          ^^^                     ^^^^^^^^^^^
-help: consider using `.char_indices()` instead
-   |
-LL -     for (idx, _) in prim.chars().enumerate() {
-LL +     for (idx, _) in prim.char_indices() {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: passing a character position to a method that expects a byte index
-  --> tests/ui/char_indices_as_byte_indices.rs:19:49
+error: trait must be `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:4:1
    |
-LL |         let _ = prim[..prim.floor_char_boundary(idx)];
-   |                                                 ^^^
+LL | / trait StrExt {
+LL | |     fn use_index(&self, _: usize);
+LL | | }
+   | |_^
    |
-   = note: a character can take up more than one byte, so they are not interchangeable
-note: position comes from the enumerate iterator
-  --> tests/ui/char_indices_as_byte_indices.rs:12:10
-   |
-LL |     for (idx, _) in prim.chars().enumerate() {
-   |          ^^^                     ^^^^^^^^^^^
-help: consider using `.char_indices()` instead
-   |
-LL -     for (idx, _) in prim.chars().enumerate() {
-LL +     for (idx, _) in prim.char_indices() {
-   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: indexing into a string with a character position where a byte index is expected
-  --> tests/ui/char_indices_as_byte_indices.rs:29:24
+error: item must be `pub`
+  --> tests/ui/char_indices_as_byte_indices.rs:4:1
    |
-LL |         let _ = prim[..c.0];
-   |                        ^^^
+LL | trait StrExt {
+   | ^ help: make this item public: `pub`
    |
-   = note: a character can take up more than one byte, so they are not interchangeable
-note: position comes from the enumerate iterator
-  --> tests/ui/char_indices_as_byte_indices.rs:28:9
-   |
-LL |     for c in prim.chars().enumerate() {
-   |         ^                 ^^^^^^^^^^^
-help: consider using `.char_indices()` instead
-   |
-LL -     for c in prim.chars().enumerate() {
-LL +     for c in prim.char_indices() {
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: passing a character position to a method that expects a byte index
-  --> tests/ui/char_indices_as_byte_indices.rs:31:23
+error: function must be `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:5:5
    |
-LL |         prim.split_at(c.0);
-   |                       ^^^
+LL |     fn use_index(&self, _: usize);
+   |     ^
    |
-   = note: a character can take up more than one byte, so they are not interchangeable
-note: position comes from the enumerate iterator
-  --> tests/ui/char_indices_as_byte_indices.rs:28:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:5:5
    |
-LL |     for c in prim.chars().enumerate() {
-   |         ^                 ^^^^^^^^^^^
-help: consider using `.char_indices()` instead
-   |
-LL -     for c in prim.chars().enumerate() {
-LL +     for c in prim.char_indices() {
-   |
+LL |     fn use_index(&self, _: usize);
+   |     ^
 
-error: indexing into a string with a character position where a byte index is expected
-  --> tests/ui/char_indices_as_byte_indices.rs:36:26
+error: parameter must be `mut`
+  --> tests/ui/char_indices_as_byte_indices.rs:5:19
    |
-LL |         let _ = string[..idx];
-   |                          ^^^
+LL |     fn use_index(&self, _: usize);
+   |                   ^ help: make this parameter mutable: `mut`
    |
-   = note: a character can take up more than one byte, so they are not interchangeable
-note: position comes from the enumerate iterator
-  --> tests/ui/char_indices_as_byte_indices.rs:35:10
-   |
-LL |     for (idx, _) in string.chars().enumerate() {
-   |          ^^^                       ^^^^^^^^^^^
-help: consider using `.char_indices()` instead
-   |
-LL -     for (idx, _) in string.chars().enumerate() {
-LL +     for (idx, _) in string.char_indices() {
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: passing a character position to a method that expects a byte index
-  --> tests/ui/char_indices_as_byte_indices.rs:38:25
+error: references are not allowed
+  --> tests/ui/char_indices_as_byte_indices.rs:5:18
    |
-LL |         string.split_at(idx);
-   |                         ^^^
+LL |     fn use_index(&self, _: usize);
+   |                  ^^^^^
    |
-   = note: a character can take up more than one byte, so they are not interchangeable
-note: position comes from the enumerate iterator
-  --> tests/ui/char_indices_as_byte_indices.rs:35:10
-   |
-LL |     for (idx, _) in string.chars().enumerate() {
-   |          ^^^                       ^^^^^^^^^^^
-help: consider using `.char_indices()` instead
-   |
-LL -     for (idx, _) in string.chars().enumerate() {
-LL +     for (idx, _) in string.char_indices() {
-   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: aborting due to 7 previous errors
+error: item must be `pub`
+  --> tests/ui/char_indices_as_byte_indices.rs:7:1
+   |
+LL | impl StrExt for str {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:8:5
+   |
+LL |     fn use_index(&self, _: usize) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:8:5
+   |
+LL |     fn use_index(&self, _: usize) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/char_indices_as_byte_indices.rs:8:19
+   |
+LL |     fn use_index(&self, _: usize) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/char_indices_as_byte_indices.rs:8:18
+   |
+LL |     fn use_index(&self, _: usize) {}
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/char_indices_as_byte_indices.rs:11:1
+   |
+LL | fn bad(prim: &str, string: String) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:11:1
+   |
+LL | fn bad(prim: &str, string: String) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:11:1
+   |
+LL | fn bad(prim: &str, string: String) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/char_indices_as_byte_indices.rs:11:8
+   |
+LL | fn bad(prim: &str, string: String) {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/char_indices_as_byte_indices.rs:11:20
+   |
+LL | fn bad(prim: &str, string: String) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/char_indices_as_byte_indices.rs:11:14
+   |
+LL | fn bad(prim: &str, string: String) {
+   |              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/char_indices_as_byte_indices.rs:43:1
+   |
+LL | fn good(prim: &str, prim2: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:43:1
+   |
+LL | fn good(prim: &str, prim2: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:43:1
+   |
+LL | fn good(prim: &str, prim2: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/char_indices_as_byte_indices.rs:43:9
+   |
+LL | fn good(prim: &str, prim2: &str) {
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/char_indices_as_byte_indices.rs:43:21
+   |
+LL | fn good(prim: &str, prim2: &str) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/char_indices_as_byte_indices.rs:43:15
+   |
+LL | fn good(prim: &str, prim2: &str) {
+   |               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/char_indices_as_byte_indices.rs:43:28
+   |
+LL | fn good(prim: &str, prim2: &str) {
+   |                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/char_indices_as_byte_indices.rs:65:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:65:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/char_indices_as_byte_indices.rs:65:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 26 previous errors
 

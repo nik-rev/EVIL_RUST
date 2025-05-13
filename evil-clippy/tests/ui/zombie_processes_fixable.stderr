@@ -1,40 +1,102 @@
-error: spawned process is never `wait()`ed on
-  --> tests/ui/zombie_processes_fixable.rs:7:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = Command::new("").spawn().unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^- help: try: `.wait()`
-   |
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
-   = note: `-D clippy::zombie-processes` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::zombie_processes)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: spawned process is never `wait()`ed on
-  --> tests/ui/zombie_processes_fixable.rs:10:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     Command::new("").spawn().unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^- help: try: `.wait()`
-   |
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: spawned process is never `wait()`ed on
-  --> tests/ui/zombie_processes_fixable.rs:13:5
+error: item must be `pub`
+  --> tests/ui/zombie_processes_fixable.rs:6:1
    |
-LL |     spawn_proc();
-   |     ^^^^^^^^^^^^- help: try: `.wait()`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: spawned process is never `wait()`ed on
-  --> tests/ui/zombie_processes_fixable.rs:20:5
+error: function must be `unsafe`
+  --> tests/ui/zombie_processes_fixable.rs:6:1
    |
-LL |     Command::new("").spawn().unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^- help: try: `.wait()`
+LL | fn main() {
+   | ^
    |
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zombie_processes_fixable.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/zombie_processes_fixable.rs:19:1
+   |
+LL | fn not_main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zombie_processes_fixable.rs:19:1
+   |
+LL | fn not_main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zombie_processes_fixable.rs:19:1
+   |
+LL | fn not_main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/zombie_processes_fixable.rs:24:1
+   |
+LL | fn spawn_proc() -> Child {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zombie_processes_fixable.rs:24:1
+   |
+LL | fn spawn_proc() -> Child {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zombie_processes_fixable.rs:24:1
+   |
+LL | fn spawn_proc() -> Child {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/zombie_processes_fixable.rs:28:1
+   |
+LL | fn spawn_proc_2() -> Child {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zombie_processes_fixable.rs:28:1
+   |
+LL | fn spawn_proc_2() -> Child {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zombie_processes_fixable.rs:28:1
+   |
+LL | fn spawn_proc_2() -> Child {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 12 previous errors
 

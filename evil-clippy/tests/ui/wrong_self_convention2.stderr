@@ -1,20 +1,681 @@
-error: methods called `from_*` usually take no `self`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:4:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:4:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:4:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:6:1
+   |
+LL | mod issue6983 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:8:5
+   |
+LL | /     pub trait Trait {
+LL | |         fn to_thing(&self) -> Thing;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:9:9
+   |
+LL |         fn to_thing(&self) -> Thing;
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:9:9
+   |
+LL |         fn to_thing(&self) -> Thing;
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:9:22
+   |
+LL |         fn to_thing(&self) -> Thing;
+   |                      ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:9:21
+   |
+LL |         fn to_thing(&self) -> Thing;
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:12:5
+   |
+LL |     impl Trait for u8 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:14:9
+   |
+LL |         fn to_thing(&self) -> Thing {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:14:9
+   |
+LL |         fn to_thing(&self) -> Thing {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:14:22
+   |
+LL |         fn to_thing(&self) -> Thing {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:14:21
+   |
+LL |         fn to_thing(&self) -> Thing {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:19:5
+   |
+LL | /     trait ToU64 {
+LL | |         fn to_u64(self) -> u64;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:19:5
+   |
+LL |     trait ToU64 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:20:9
+   |
+LL |         fn to_u64(self) -> u64;
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:20:9
+   |
+LL |         fn to_u64(self) -> u64;
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:20:19
+   |
+LL |         fn to_u64(self) -> u64;
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:23:5
+   |
+LL |     struct FooNoCopy;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:25:5
+   |
+LL |     impl ToU64 for FooNoCopy {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:26:9
+   |
+LL |         fn to_u64(self) -> u64 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:26:9
+   |
+LL |         fn to_u64(self) -> u64 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:26:19
+   |
+LL |         fn to_u64(self) -> u64 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:32:1
+   |
+LL | mod issue7032 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:33:5
+   |
+LL | /     trait Foo {
+LL | |         fn from_usize(x: usize) -> Self;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:33:5
+   |
+LL |     trait Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:34:9
+   |
+LL |         fn from_usize(x: usize) -> Self;
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:34:9
+   |
+LL |         fn from_usize(x: usize) -> Self;
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:34:23
+   |
+LL |         fn from_usize(x: usize) -> Self;
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:37:5
+   |
+LL |     impl Foo for usize {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:38:9
+   |
+LL |         fn from_usize(x: usize) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:38:9
+   |
+LL |         fn from_usize(x: usize) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:38:23
+   |
+LL |         fn from_usize(x: usize) -> Self {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:44:1
+   |
+LL | mod issue7179 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:47:5
+   |
+LL |     impl S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:49:13
+   |
+LL |         pub fn from_be(s: Self) -> Self {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:49:13
+   |
+LL |         pub fn from_be(s: Self) -> Self {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:49:24
+   |
+LL |         pub fn from_be(s: Self) -> Self {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:54:13
+   |
+LL |         pub fn from_be_self(self) -> Self {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:54:13
+   |
+LL |         pub fn from_be_self(self) -> Self {
+   |             ^
+
+error: parameter must be `mut`
   --> tests/ui/wrong_self_convention2.rs:54:29
    |
 LL |         pub fn from_be_self(self) -> Self {
-   |                             ^^^^
-   |
-   = help: consider choosing a less ambiguous name
-   = note: `-D clippy::wrong-self-convention` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::wrong_self_convention)]`
+   |                             ^ help: make this parameter mutable: `mut`
 
-error: methods called `from_*` usually take no `self`
+error: trait must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:61:5
+   |
+LL | /     trait T {
+LL | |         // don't trigger (`s` is not `self`)
+LL | |         fn from_be(s: Self) -> Self;
+...  |
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:61:5
+   |
+LL |     trait T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:63:9
+   |
+LL |         fn from_be(s: Self) -> Self;
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:63:9
+   |
+LL |         fn from_be(s: Self) -> Self;
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:63:20
+   |
+LL |         fn from_be(s: Self) -> Self;
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:65:9
+   |
+LL |         fn from_be_self(self) -> Self;
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:65:9
+   |
+LL |         fn from_be_self(self) -> Self;
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/wrong_self_convention2.rs:65:25
    |
 LL |         fn from_be_self(self) -> Self;
-   |                         ^^^^
-   |
-   = help: consider choosing a less ambiguous name
+   |                         ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 2 previous errors
+error: trait must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:69:5
+   |
+LL | /     trait Foo: Sized {
+LL | |         fn as_byte_slice(slice: &[Self]) -> &[u8];
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:69:5
+   |
+LL |     trait Foo: Sized {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:70:9
+   |
+LL |         fn as_byte_slice(slice: &[Self]) -> &[u8];
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:70:9
+   |
+LL |         fn as_byte_slice(slice: &[Self]) -> &[u8];
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:70:26
+   |
+LL |         fn as_byte_slice(slice: &[Self]) -> &[u8];
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:70:33
+   |
+LL |         fn as_byte_slice(slice: &[Self]) -> &[u8];
+   |                                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:70:45
+   |
+LL |         fn as_byte_slice(slice: &[Self]) -> &[u8];
+   |                                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:74:1
+   |
+LL | mod issue3414 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:75:5
+   |
+LL |     struct CellLikeThing<T>(T);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:77:5
+   |
+LL |     impl<T> CellLikeThing<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:79:9
+   |
+LL |         fn into_inner(this: Self) -> T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:79:9
+   |
+LL |         fn into_inner(this: Self) -> T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:79:23
+   |
+LL |         fn into_inner(this: Self) -> T {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:84:5
+   |
+LL |     impl<T> std::ops::Deref for CellLikeThing<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:87:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:87:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:87:19
+   |
+LL |         fn deref(&self) -> &T {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:87:18
+   |
+LL |         fn deref(&self) -> &T {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:87:28
+   |
+LL |         fn deref(&self) -> &T {
+   |                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:88:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:94:1
+   |
+LL | mod issue4546 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:97:5
+   |
+LL |     struct S;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:98:5
+   |
+LL |     impl S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:99:13
+   |
+LL |         pub fn as_mut(self: Pin<&mut Self>) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:99:13
+   |
+LL |         pub fn as_mut(self: Pin<&mut Self>) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:99:23
+   |
+LL |         pub fn as_mut(self: Pin<&mut Self>) {}
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:99:33
+   |
+LL |         pub fn as_mut(self: Pin<&mut Self>) {}
+   |                                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:101:13
+   |
+LL |         pub fn as_other_thingy(self: Pin<&Self>) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:101:13
+   |
+LL |         pub fn as_other_thingy(self: Pin<&Self>) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:101:32
+   |
+LL |         pub fn as_other_thingy(self: Pin<&Self>) {}
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:101:42
+   |
+LL |         pub fn as_other_thingy(self: Pin<&Self>) {}
+   |                                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:103:13
+   |
+LL |         pub fn is_other_thingy(self: Pin<&Self>) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:103:13
+   |
+LL |         pub fn is_other_thingy(self: Pin<&Self>) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:103:32
+   |
+LL |         pub fn is_other_thingy(self: Pin<&Self>) {}
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:103:42
+   |
+LL |         pub fn is_other_thingy(self: Pin<&Self>) {}
+   |                                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:105:13
+   |
+LL |         pub fn to_mut(self: Pin<&mut Self>) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:105:13
+   |
+LL |         pub fn to_mut(self: Pin<&mut Self>) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:105:23
+   |
+LL |         pub fn to_mut(self: Pin<&mut Self>) {}
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:105:33
+   |
+LL |         pub fn to_mut(self: Pin<&mut Self>) {}
+   |                                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:107:13
+   |
+LL |         pub fn to_other_thingy(self: Pin<&Self>) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:107:13
+   |
+LL |         pub fn to_other_thingy(self: Pin<&Self>) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:107:32
+   |
+LL |         pub fn to_other_thingy(self: Pin<&Self>) {}
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:107:42
+   |
+LL |         pub fn to_other_thingy(self: Pin<&Self>) {}
+   |                                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:111:1
+   |
+LL | mod issue_8480_8513 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:112:5
+   |
+LL |     struct Cat(String);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/wrong_self_convention2.rs:114:5
+   |
+LL |     impl Cat {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:115:9
+   |
+LL |         fn is_animal(&mut self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wrong_self_convention2.rs:115:9
+   |
+LL |         fn is_animal(&mut self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/wrong_self_convention2.rs:115:27
+   |
+LL |         fn is_animal(&mut self) -> bool {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wrong_self_convention2.rs:115:22
+   |
+LL |         fn is_animal(&mut self) -> bool {
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 84 previous errors
 

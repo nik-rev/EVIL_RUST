@@ -1,35 +1,166 @@
-error: trait bound str: std::marker::Sized does not depend on any type or lifetime parameters
-  --> tests/ui/crashes/ice-3969.rs:20:10
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     str: Sized;
-   |          ^^^^^
-   |
-   = note: `-D trivial-bounds` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(trivial_bounds)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: trait bound for<'a> Dst<(dyn A + 'a)>: std::marker::Sized does not depend on any type or lifetime parameters
-  --> tests/ui/crashes/ice-3969.rs:25:30
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     for<'a> Dst<dyn A + 'a>: Sized,
-   |                              ^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: trait bound str: std::marker::Sized does not depend on any type or lifetime parameters
-  --> tests/ui/crashes/ice-3969.rs:33:10
+error: trait must be `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:10:1
    |
-LL |     str: Sized,
-   |          ^^^^^
-
-error: trait bound std::string::String: std::ops::Neg does not depend on any type or lifetime parameters
-  --> tests/ui/crashes/ice-3969.rs:41:13
+LL | trait A {}
+   | ^^^^^^^^^^
    |
-LL |     String: ::std::ops::Neg<Output = String>,
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: trait bound i32: std::iter::Iterator does not depend on any type or lifetime parameters
-  --> tests/ui/crashes/ice-3969.rs:49:10
+error: item must be `pub`
+  --> tests/ui/crashes/ice-3969.rs:10:1
    |
-LL |     i32: Iterator,
-   |          ^^^^^^^^
+LL | trait A {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 5 previous errors
+error: item must be `pub`
+  --> tests/ui/crashes/ice-3969.rs:12:1
+   |
+LL | impl A for i32 {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-3969.rs:14:1
+   |
+LL | struct Dst<X: ?Sized> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-3969.rs:18:1
+   |
+LL | struct TwoStrs(str, str)
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-3969.rs:23:1
+   |
+LL | fn unsized_local()
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:23:1
+   |
+LL | fn unsized_local()
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:23:1
+   |
+LL | fn unsized_local()
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/crashes/ice-3969.rs:28:9
+   |
+LL |     let x: Dst<dyn A> = *(Box::new(Dst { x: 1 }) as Box<Dst<dyn A>>);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-3969.rs:31:1
+   |
+LL | fn return_str() -> str
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:31:1
+   |
+LL | fn return_str() -> str
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:31:1
+   |
+LL | fn return_str() -> str
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-3969.rs:39:1
+   |
+LL | fn use_op(s: String) -> String
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:39:1
+   |
+LL | fn use_op(s: String) -> String
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:39:1
+   |
+LL | fn use_op(s: String) -> String
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/crashes/ice-3969.rs:39:11
+   |
+LL | fn use_op(s: String) -> String
+   |           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-3969.rs:47:1
+   |
+LL | fn use_for()
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:47:1
+   |
+LL | fn use_for()
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:47:1
+   |
+LL | fn use_for()
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-3969.rs:55:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:55:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-3969.rs:55:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 21 previous errors
 

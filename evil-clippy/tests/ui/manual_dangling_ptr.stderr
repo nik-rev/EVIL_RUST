@@ -1,65 +1,128 @@
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:7:24
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: *const u8 = 1 as *const _;
-   |                        ^^^^^^^^^^^^^ help: use: `std::ptr::dangling()`
-   |
-   = note: `-D clippy::manual-dangling-ptr` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_dangling_ptr)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:9:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = 2 as *const u32;
-   |             ^^^^^^^^^^^^^^^ help: use: `std::ptr::dangling::<u32>()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:11:13
+error: function must be `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:4:5
    |
-LL |     let _ = 4 as *mut f32;
-   |             ^^^^^^^^^^^^^ help: use: `std::ptr::dangling_mut::<f32>()`
-
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:14:13
+LL | pub fn foo(_const: *const f32, _mut: *mut i32) {}
+   |     ^
    |
-LL |     let _ = mem::align_of::<u8>() as *const u8;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use: `std::ptr::dangling::<u8>()`
-
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:16:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:4:5
    |
-LL |     let _ = mem::align_of::<u32>() as *const u32;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use: `std::ptr::dangling::<u32>()`
+LL | pub fn foo(_const: *const f32, _mut: *mut i32) {}
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:18:13
+error: parameter must be `mut`
+  --> tests/ui/manual_dangling_ptr.rs:4:12
    |
-LL |     let _ = mem::align_of::<usize>() as *const usize;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use: `std::ptr::dangling::<usize>()`
-
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:21:9
+LL | pub fn foo(_const: *const f32, _mut: *mut i32) {}
+   |            ^ help: make this parameter mutable: `mut`
    |
-LL |     foo(4 as *const _, 4 as *mut _);
-   |         ^^^^^^^^^^^^^ help: use: `std::ptr::dangling()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:21:24
+error: parameter must be `mut`
+  --> tests/ui/manual_dangling_ptr.rs:4:32
    |
-LL |     foo(4 as *const _, 4 as *mut _);
-   |                        ^^^^^^^^^^^ help: use: `std::ptr::dangling_mut()`
+LL | pub fn foo(_const: *const f32, _mut: *mut i32) {}
+   |                                ^ help: make this parameter mutable: `mut`
 
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:41:9
+error: item must be `pub`
+  --> tests/ui/manual_dangling_ptr.rs:6:1
    |
-LL |     foo(4 as *const _, 4 as *mut _);
-   |         ^^^^^^^^^^^^^ help: use: `std::ptr::dangling()`
-
-error: manual creation of a dangling pointer
-  --> tests/ui/manual_dangling_ptr.rs:41:24
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     foo(4 as *const _, 4 as *mut _);
-   |                        ^^^^^^^^^^^ help: use: `std::ptr::dangling_mut()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 10 previous errors
+error: function must be `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:6:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_dangling_ptr.rs:26:1
+   |
+LL | fn should_not_lint() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:26:1
+   |
+LL | fn should_not_lint() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:26:1
+   |
+LL | fn should_not_lint() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_dangling_ptr.rs:34:1
+   |
+LL | fn _msrv_1_83() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:34:1
+   |
+LL | fn _msrv_1_83() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:34:1
+   |
+LL | fn _msrv_1_83() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_dangling_ptr.rs:40:1
+   |
+LL | fn _msrv_1_84() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:40:1
+   |
+LL | fn _msrv_1_84() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_dangling_ptr.rs:40:1
+   |
+LL | fn _msrv_1_84() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

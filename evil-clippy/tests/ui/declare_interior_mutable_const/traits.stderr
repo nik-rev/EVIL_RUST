@@ -1,88 +1,262 @@
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:16:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     const ATOMIC: AtomicUsize;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::declare-interior-mutable-const` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::declare_interior_mutable_const)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:9:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         const $name: $ty = $e;
-   |         ^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     declare_const!(ANOTHER_ATOMIC: AtomicUsize = Self::ATOMIC);
-   |     ---------------------------------------------------------- in this macro invocation
-   |
-   = note: this error originates in the macro `declare_const` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:45:5
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:7:1
    |
-LL |     const TO_BE_CONCRETE: AtomicUsize = AtomicUsize::new(11);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:71:5
+LL | macro_rules! declare_const {
+   | ^ help: make this item public: `pub`
    |
-LL |     const TO_BE_UNFROZEN: Self::ToBeUnfrozen = AtomicUsize::new(13);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:73:5
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:15:1
    |
-LL |     const WRAPPED_TO_BE_UNFROZEN: Wrapper<Self::ToBeUnfrozen> = Wrapper(AtomicUsize::new(14));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:93:5
+LL | / trait ConcreteTypes {
+LL | |     const ATOMIC: AtomicUsize;
+LL | |
+LL | |     const INTEGER: u64;
+LL | |     const STRING: String;
+LL | |     declare_const!(ANOTHER_ATOMIC: AtomicUsize = Self::ATOMIC);
+LL | | }
+   | |_^
    |
-LL |     const BOUNDED: T::ToBeBounded;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:122:5
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:15:1
    |
-LL |     const SELF: Self = AtomicUsize::new(17);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | trait ConcreteTypes {
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:124:5
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:23:1
    |
-LL |     const WRAPPED_SELF: Option<Self> = Some(AtomicUsize::new(21));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | impl ConcreteTypes for u64 {
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:131:5
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:30:1
    |
-LL |     const DIRECT: Cell<T>;
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:133:5
+LL | / trait ConstDefault {
+LL | |     const DEFAULT: Self;
+LL | | }
+   | |_^
    |
-LL |     const INDIRECT: Cell<*const T>;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: make this trait unsafe: `unsafe trait`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:138:5
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:30:1
    |
-LL |     const DIRECT: Cell<T> = Cell::new(T::DEFAULT);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | trait ConstDefault {
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:151:5
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:35:1
    |
-LL |     const ATOMIC: AtomicUsize = AtomicUsize::new(18);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/traits.rs:158:5
+LL | / trait GenericTypes<T, U> {
+LL | |     const TO_REMAIN_GENERIC: T;
+LL | |     const TO_BE_CONCRETE: U;
+...  |
+LL | |     declare_const!(IN_MACRO: T = Self::TO_REMAIN_GENERIC);
+LL | | }
+   | |_^
    |
-LL |     const BOUNDED_ASSOC_TYPE: T::ToBeBounded = AtomicUsize::new(19);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: make this trait unsafe: `unsafe trait`
 
-error: aborting due to 13 previous errors
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:35:1
+   |
+LL | trait GenericTypes<T, U> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:43:1
+   |
+LL | impl<T: ConstDefault> GenericTypes<T, AtomicUsize> for u64 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:50:1
+   |
+LL | struct Wrapper<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:53:1
+   |
+LL | / trait AssocTypes {
+LL | |     type ToBeFrozen;
+LL | |     type ToBeUnfrozen;
+LL | |     type ToBeGenericParam;
+...  |
+LL | |     const WRAPPED_TO_BE_GENERIC_PARAM: Wrapper<Self::ToBeGenericParam>;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:53:1
+   |
+LL | trait AssocTypes {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:65:1
+   |
+LL | impl<T: ConstDefault> AssocTypes for Vec<T> {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:79:1
+   |
+LL | / trait AssocTypesHelper {
+LL | |     type NotToBeBounded;
+LL | |     type ToBeBounded;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:79:1
+   |
+LL | trait AssocTypesHelper {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:88:1
+   |
+LL | / trait AssocTypesFromGenericParam<T>
+LL | | where
+LL | |     T: AssocTypesHelper<ToBeBounded = AtomicUsize>,
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:88:1
+   |
+LL | trait AssocTypesFromGenericParam<T>
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:97:1
+   |
+LL | impl<T> AssocTypesFromGenericParam<T> for u64
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:108:1
+   |
+LL | / trait SelfType: Sized {
+LL | |     const SELF: Self;
+LL | |     // this was the one in the original issue (#5050).
+LL | |     const WRAPPED_SELF: Option<Self>;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:108:1
+   |
+LL | trait SelfType: Sized {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:114:1
+   |
+LL | impl SelfType for u64 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:119:1
+   |
+LL | impl SelfType for AtomicUsize {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:130:1
+   |
+LL | / trait BothOfCellAndGeneric<T> {
+LL | |     const DIRECT: Cell<T>;
+LL | |
+LL | |     const INDIRECT: Cell<*const T>;
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:130:1
+   |
+LL | trait BothOfCellAndGeneric<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:137:1
+   |
+LL | impl<T: ConstDefault> BothOfCellAndGeneric<T> for u64 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:143:1
+   |
+LL | struct Local<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:147:1
+   |
+LL | impl<T> Local<T>
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:162:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:162:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/declare_interior_mutable_const/traits.rs:162:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 33 previous errors
 

@@ -1,23 +1,395 @@
-error: the function `takes_an_immutable_reference` doesn't need a mutable reference
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/mut_reference.rs:3:1
+   |
+LL | fn takes_an_immutable_reference(a: &i32) {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_reference.rs:3:1
+   |
+LL | fn takes_an_immutable_reference(a: &i32) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_reference.rs:3:1
+   |
+LL | fn takes_an_immutable_reference(a: &i32) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_reference.rs:3:33
+   |
+LL | fn takes_an_immutable_reference(a: &i32) {}
+   |                                 ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:3:36
+   |
+LL | fn takes_an_immutable_reference(a: &i32) {}
+   |                                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/mut_reference.rs:4:1
+   |
+LL | fn takes_a_mutable_reference(a: &mut i32) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_reference.rs:4:1
+   |
+LL | fn takes_a_mutable_reference(a: &mut i32) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_reference.rs:4:1
+   |
+LL | fn takes_a_mutable_reference(a: &mut i32) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_reference.rs:4:30
+   |
+LL | fn takes_a_mutable_reference(a: &mut i32) {}
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:4:33
+   |
+LL | fn takes_a_mutable_reference(a: &mut i32) {}
+   |                                 ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_reference.rs:6:1
+   |
+LL | mod issue11268 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/mut_reference.rs:7:5
+   |
+LL |     macro_rules! x {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/mut_reference.rs:13:5
+   |
+LL |     fn f() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_reference.rs:13:5
+   |
+LL |     fn f() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_reference.rs:13:5
+   |
+LL |     fn f() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:9:16
+   |
+LL |             $f(&mut 1);
+   |                ^^^^^^
+...
+LL |         x!(super::takes_an_immutable_reference);
+   |         --------------------------------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `x` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:9:16
+   |
+LL |             $f(&mut 1);
+   |                ^^^^^^
+...
+LL |         x!(super::takes_a_mutable_reference);
+   |         ------------------------------------ in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `x` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/mut_reference.rs:19:1
+   |
+LL | struct MyStruct;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/mut_reference.rs:21:1
+   |
+LL | impl MyStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_reference.rs:22:5
+   |
+LL |     fn takes_an_immutable_reference(&self, a: &i32) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_reference.rs:22:5
+   |
+LL |     fn takes_an_immutable_reference(&self, a: &i32) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_reference.rs:22:38
+   |
+LL |     fn takes_an_immutable_reference(&self, a: &i32) {}
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_reference.rs:22:44
+   |
+LL |     fn takes_an_immutable_reference(&self, a: &i32) {}
+   |                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:22:37
+   |
+LL |     fn takes_an_immutable_reference(&self, a: &i32) {}
+   |                                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:22:47
+   |
+LL |     fn takes_an_immutable_reference(&self, a: &i32) {}
+   |                                               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_reference.rs:24:5
+   |
+LL |     fn takes_a_mutable_reference(&self, a: &mut i32) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_reference.rs:24:5
+   |
+LL |     fn takes_a_mutable_reference(&self, a: &mut i32) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_reference.rs:24:35
+   |
+LL |     fn takes_a_mutable_reference(&self, a: &mut i32) {}
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_reference.rs:24:41
+   |
+LL |     fn takes_a_mutable_reference(&self, a: &mut i32) {}
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:24:34
+   |
+LL |     fn takes_a_mutable_reference(&self, a: &mut i32) {}
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:24:44
+   |
+LL |     fn takes_a_mutable_reference(&self, a: &mut i32) {}
+   |                                            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_reference.rs:28:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_reference.rs:28:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_reference.rs:28:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
   --> tests/ui/mut_reference.rs:30:34
    |
 LL |     takes_an_immutable_reference(&mut 42);
    |                                  ^^^^^^^
    |
-   = note: `-D clippy::unnecessary-mut-passed` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_mut_passed)]`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: the function `as_ptr` doesn't need a mutable reference
+error: variable must be `mut`
+  --> tests/ui/mut_reference.rs:33:9
+   |
+LL |     let as_ptr: fn(&i32) = takes_an_immutable_reference;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:33:20
+   |
+LL |     let as_ptr: fn(&i32) = takes_an_immutable_reference;
+   |                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/mut_reference.rs:34:12
    |
 LL |     as_ptr(&mut 42);
    |            ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: the method `takes_an_immutable_reference` doesn't need a mutable reference
+error: variable must be `mut`
+  --> tests/ui/mut_reference.rs:38:9
+   |
+LL |     let my_struct = MyStruct;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/mut_reference.rs:39:44
    |
 LL |     my_struct.takes_an_immutable_reference(&mut 42);
    |                                            ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 3 previous errors
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:45:34
+   |
+LL |     takes_an_immutable_reference(&42);
+   |                                  ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/mut_reference.rs:46:9
+   |
+LL |     let as_ptr: fn(&i32) = takes_an_immutable_reference;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:46:20
+   |
+LL |     let as_ptr: fn(&i32) = takes_an_immutable_reference;
+   |                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:47:12
+   |
+LL |     as_ptr(&42);
+   |            ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:49:31
+   |
+LL |     takes_a_mutable_reference(&mut 42);
+   |                               ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/mut_reference.rs:50:9
+   |
+LL |     let as_ptr: fn(&mut i32) = takes_a_mutable_reference;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:50:20
+   |
+LL |     let as_ptr: fn(&mut i32) = takes_a_mutable_reference;
+   |                    ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:51:12
+   |
+LL |     as_ptr(&mut 42);
+   |            ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/mut_reference.rs:53:9
+   |
+LL |     let a = &mut 42;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:53:13
+   |
+LL |     let a = &mut 42;
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:57:44
+   |
+LL |     my_struct.takes_an_immutable_reference(&42);
+   |                                            ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/mut_reference.rs:58:41
+   |
+LL |     my_struct.takes_a_mutable_reference(&mut 42);
+   |                                         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 50 previous errors
 

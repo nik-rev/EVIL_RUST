@@ -1,58 +1,62 @@
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_os_str_debug_formatting.rs:15:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("{:?}", os_str);
-   |                      ^^^^^^
-   |
-   = help: use `Display` formatting and change this to `os_str.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
-   = note: `-D clippy::unnecessary-debug-formatting` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_debug_formatting)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_os_str_debug_formatting.rs:16:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("{:?}", os_string);
-   |                      ^^^^^^^^^
-   |
-   = help: use `Display` formatting and change this to `os_string.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_os_str_debug_formatting.rs:18:16
+error: item must be `pub`
+  --> tests/ui/unnecessary_os_str_debug_formatting.rs:6:1
    |
-LL |     println!("{os_str:?}");
-   |                ^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = help: use `Display` formatting and change this to `os_str.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_os_str_debug_formatting.rs:19:16
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_os_str_debug_formatting.rs:6:1
    |
-LL |     println!("{os_string:?}");
-   |                ^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-   = help: use `Display` formatting and change this to `os_string.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_os_str_debug_formatting.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: unnecessary `Debug` formatting in `format!` args
-  --> tests/ui/unnecessary_os_str_debug_formatting.rs:21:37
+error: variable must be `mut`
+  --> tests/ui/unnecessary_os_str_debug_formatting.rs:7:9
    |
-LL |     let _: String = format!("{:?}", os_str);
-   |                                     ^^^^^^
+LL |     let os_str = OsStr::new("abc");
+   |         ^ help: make this variable mutable: `mut`
    |
-   = help: use `Display` formatting and change this to `os_str.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: unnecessary `Debug` formatting in `format!` args
-  --> tests/ui/unnecessary_os_str_debug_formatting.rs:22:37
+error: variable must be `mut`
+  --> tests/ui/unnecessary_os_str_debug_formatting.rs:8:9
    |
-LL |     let _: String = format!("{:?}", os_string);
-   |                                     ^^^^^^^^^
-   |
-   = help: use `Display` formatting and change this to `os_string.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+LL |     let os_string = os_str.to_os_string();
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 6 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 8 previous errors
 

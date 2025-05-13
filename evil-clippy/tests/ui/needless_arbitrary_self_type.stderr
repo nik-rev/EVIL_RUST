@@ -1,53 +1,458 @@
-error: the type of the `self` parameter does not need to be arbitrary
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_arbitrary_self_type.rs:9:1
+   |
+LL | impl ValType {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:10:9
+   |
+LL |     pub fn bad(self: Self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:10:9
+   |
+LL |     pub fn bad(self: Self) {
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
   --> tests/ui/needless_arbitrary_self_type.rs:10:16
    |
 LL |     pub fn bad(self: Self) {
-   |                ^^^^^^^^^^ help: consider to change this parameter to: `self`
+   |                ^ help: make this parameter mutable: `mut`
    |
-   = note: `-D clippy::needless-arbitrary-self-type` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_arbitrary_self_type)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: the type of the `self` parameter does not need to be arbitrary
-  --> tests/ui/needless_arbitrary_self_type.rs:19:20
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:15:9
+   |
+LL |     pub fn good(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:15:9
+   |
+LL |     pub fn good(self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_arbitrary_self_type.rs:15:17
+   |
+LL |     pub fn good(self) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:19:9
    |
 LL |     pub fn mut_bad(mut self: Self) {
-   |                    ^^^^^^^^^^^^^^ help: consider to change this parameter to: `mut self`
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:19:9
+   |
+LL |     pub fn mut_bad(mut self: Self) {
+   |         ^
 
-error: the type of the `self` parameter does not need to be arbitrary
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:24:9
+   |
+LL |     pub fn mut_good(mut self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:24:9
+   |
+LL |     pub fn mut_good(mut self) {
+   |         ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:28:9
+   |
+LL |     pub fn ref_bad(self: &Self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:28:9
+   |
+LL |     pub fn ref_bad(self: &Self) {
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/needless_arbitrary_self_type.rs:28:20
    |
 LL |     pub fn ref_bad(self: &Self) {
-   |                    ^^^^^^^^^^^ help: consider to change this parameter to: `&self`
+   |                    ^ help: make this parameter mutable: `mut`
 
-error: the type of the `self` parameter does not need to be arbitrary
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:28:26
+   |
+LL |     pub fn ref_bad(self: &Self) {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:33:9
+   |
+LL |     pub fn ref_good(&self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:33:9
+   |
+LL |     pub fn ref_good(&self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_arbitrary_self_type.rs:33:22
+   |
+LL |     pub fn ref_good(&self) {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:33:21
+   |
+LL |     pub fn ref_good(&self) {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:37:9
+   |
+LL |     pub fn ref_bad_with_lifetime<'a>(self: &'a Self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:37:9
+   |
+LL |     pub fn ref_bad_with_lifetime<'a>(self: &'a Self) {
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/needless_arbitrary_self_type.rs:37:38
    |
 LL |     pub fn ref_bad_with_lifetime<'a>(self: &'a Self) {
-   |                                      ^^^^^^^^^^^^^^ help: consider to change this parameter to: `&'a self`
+   |                                      ^ help: make this parameter mutable: `mut`
 
-error: the type of the `self` parameter does not need to be arbitrary
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:37:44
+   |
+LL |     pub fn ref_bad_with_lifetime<'a>(self: &'a Self) {
+   |                                            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:42:9
+   |
+LL |     pub fn ref_good_with_lifetime<'a>(&'a self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:42:9
+   |
+LL |     pub fn ref_good_with_lifetime<'a>(&'a self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_arbitrary_self_type.rs:42:43
+   |
+LL |     pub fn ref_good_with_lifetime<'a>(&'a self) {
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:42:39
+   |
+LL |     pub fn ref_good_with_lifetime<'a>(&'a self) {
+   |                                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:46:9
+   |
+LL |     pub fn mut_ref_bad(self: &mut Self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:46:9
+   |
+LL |     pub fn mut_ref_bad(self: &mut Self) {
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/needless_arbitrary_self_type.rs:46:24
    |
 LL |     pub fn mut_ref_bad(self: &mut Self) {
-   |                        ^^^^^^^^^^^^^^^ help: consider to change this parameter to: `&mut self`
+   |                        ^ help: make this parameter mutable: `mut`
 
-error: the type of the `self` parameter does not need to be arbitrary
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:46:30
+   |
+LL |     pub fn mut_ref_bad(self: &mut Self) {
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:51:9
+   |
+LL |     pub fn mut_ref_good(&mut self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:51:9
+   |
+LL |     pub fn mut_ref_good(&mut self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_arbitrary_self_type.rs:51:30
+   |
+LL |     pub fn mut_ref_good(&mut self) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:51:25
+   |
+LL |     pub fn mut_ref_good(&mut self) {
+   |                         ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:55:9
+   |
+LL |     pub fn mut_ref_bad_with_lifetime<'a>(self: &'a mut Self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:55:9
+   |
+LL |     pub fn mut_ref_bad_with_lifetime<'a>(self: &'a mut Self) {
+   |         ^
+
+error: parameter must be `mut`
   --> tests/ui/needless_arbitrary_self_type.rs:55:42
    |
 LL |     pub fn mut_ref_bad_with_lifetime<'a>(self: &'a mut Self) {
-   |                                          ^^^^^^^^^^^^^^^^^^ help: consider to change this parameter to: `&'a mut self`
+   |                                          ^ help: make this parameter mutable: `mut`
 
-error: the type of the `self` parameter does not need to be arbitrary
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:55:48
+   |
+LL |     pub fn mut_ref_bad_with_lifetime<'a>(self: &'a mut Self) {
+   |                                                ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:60:9
+   |
+LL |     pub fn mut_ref_good_with_lifetime<'a>(&'a mut self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:60:9
+   |
+LL |     pub fn mut_ref_good_with_lifetime<'a>(&'a mut self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_arbitrary_self_type.rs:60:51
+   |
+LL |     pub fn mut_ref_good_with_lifetime<'a>(&'a mut self) {
+   |                                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:60:43
+   |
+LL |     pub fn mut_ref_good_with_lifetime<'a>(&'a mut self) {
+   |                                           ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:64:9
+   |
+LL |     pub fn mut_ref_mut_good(mut self: &mut Self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:64:9
+   |
+LL |     pub fn mut_ref_mut_good(mut self: &mut Self) {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:64:39
+   |
+LL |     pub fn mut_ref_mut_good(mut self: &mut Self) {
+   |                                       ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:68:9
+   |
+LL |     pub fn mut_ref_mut_ref_good(self: &&mut &mut Self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:68:9
+   |
+LL |     pub fn mut_ref_mut_ref_good(self: &&mut &mut Self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_arbitrary_self_type.rs:68:33
+   |
+LL |     pub fn mut_ref_mut_ref_good(self: &&mut &mut Self) {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:68:39
+   |
+LL |     pub fn mut_ref_mut_ref_good(self: &&mut &mut Self) {
+   |                                       ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:68:40
+   |
+LL |     pub fn mut_ref_mut_ref_good(self: &&mut &mut Self) {
+   |                                        ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:68:45
+   |
+LL |     pub fn mut_ref_mut_ref_good(self: &&mut &mut Self) {
+   |                                             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:73:1
+   |
+LL | / trait Foo<'r#struct> {
+LL | |     fn f1(self: &'r#struct Self) {}
+LL | |
+LL | |     fn f2(self: &'r#struct mut Self) {}
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_arbitrary_self_type.rs:73:1
+   |
+LL | trait Foo<'r#struct> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:74:5
+   |
+LL |     fn f1(self: &'r#struct Self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:74:5
+   |
+LL |     fn f1(self: &'r#struct Self) {}
+   |     ^
+
+error: parameter must be `mut`
   --> tests/ui/needless_arbitrary_self_type.rs:74:11
    |
 LL |     fn f1(self: &'r#struct Self) {}
-   |           ^^^^^^^^^^^^^^^^^^^^^ help: consider to change this parameter to: `&'r#struct self`
+   |           ^ help: make this parameter mutable: `mut`
 
-error: the type of the `self` parameter does not need to be arbitrary
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:74:17
+   |
+LL |     fn f1(self: &'r#struct Self) {}
+   |                 ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:76:5
+   |
+LL |     fn f2(self: &'r#struct mut Self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:76:5
+   |
+LL |     fn f2(self: &'r#struct mut Self) {}
+   |     ^
+
+error: parameter must be `mut`
   --> tests/ui/needless_arbitrary_self_type.rs:76:11
    |
 LL |     fn f2(self: &'r#struct mut Self) {}
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider to change this parameter to: `&'r#struct mut self`
+   |           ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 8 previous errors
+error: references are not allowed
+  --> tests/ui/needless_arbitrary_self_type.rs:76:17
+   |
+LL |     fn f2(self: &'r#struct mut Self) {}
+   |                 ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_arbitrary_self_type.rs:80:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:80:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_arbitrary_self_type.rs:80:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 52 previous errors
 

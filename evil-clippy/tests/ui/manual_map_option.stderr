@@ -1,210 +1,337 @@
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:14:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match Some(0) {
-LL | |
-LL | |         Some(_) => Some(2),
-LL | |         None::<u32> => None,
-LL | |     };
-   | |_____^ help: try: `Some(0).map(|_| 2)`
-   |
-   = note: `-D clippy::manual-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_map)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:20:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match Some(0) {
-LL | |
-LL | |         Some(x) => Some(x + 1),
-LL | |         _ => None,
-LL | |     };
-   | |_____^ help: try: `Some(0).map(|x| x + 1)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:26:5
+error: item must be `pub`
+  --> tests/ui/manual_map_option.rs:13:1
    |
-LL | /     match Some("") {
-LL | |
-LL | |         Some(x) => Some(x.is_empty()),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `Some("").map(|x| x.is_empty())`
-
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:32:5
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL | /     if let Some(x) = Some(0) {
-LL | |
-LL | |         Some(!x)
-LL | |     } else {
-LL | |         None
-LL | |     };
-   | |_____^ help: try: `Some(0).map(|x| !x)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:40:5
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option.rs:13:1
    |
-LL | /     match Some(0) {
-LL | |
-LL | |         Some(x) => { Some(std::convert::identity(x)) }
-LL | |         None => { None }
-LL | |     };
-   | |_____^ help: try: `Some(0).map(std::convert::identity)`
-
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:46:5
+LL | fn main() {
+   | ^
    |
-LL | /     match Some(&String::new()) {
-LL | |
-LL | |         Some(x) => Some(str::len(x)),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `Some(&String::new()).map(|x| str::len(x))`
-
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:57:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option.rs:13:1
    |
-LL | /     match &Some([0, 1]) {
-LL | |
-LL | |         Some(x) => Some(x[0]),
-LL | |         &None => None,
-LL | |     };
-   | |_____^ help: try: `Some([0, 1]).as_ref().map(|x| x[0])`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:63:5
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:46:16
    |
-LL | /     match &Some(0) {
-LL | |
-LL | |         &Some(x) => Some(x * 2),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `Some(0).map(|x| x * 2)`
-
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:69:5
+LL |     match Some(&String::new()) {
+   |                ^^^^^^^^^^^^^^
    |
-LL | /     match Some(String::new()) {
-LL | |
-LL | |         Some(ref x) => Some(x.is_empty()),
-LL | |         _ => None,
-LL | |     };
-   | |_____^ help: try: `Some(String::new()).as_ref().map(|x| x.is_empty())`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:75:5
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:57:11
    |
-LL | /     match &&Some(String::new()) {
-LL | |
-LL | |         Some(x) => Some(x.len()),
-LL | |         _ => None,
-LL | |     };
-   | |_____^ help: try: `Some(String::new()).as_ref().map(|x| x.len())`
-
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:81:5
+LL |     match &Some([0, 1]) {
+   |           ^^^^^^^^^^^^^
    |
-LL | /     match &&Some(0) {
-LL | |
-LL | |         &&Some(x) => Some(x + x),
-LL | |         &&_ => None,
-LL | |     };
-   | |_____^ help: try: `Some(0).map(|x| x + x)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:95:9
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:63:11
    |
-LL | /         match &mut Some(String::new()) {
-LL | |
-LL | |             Some(x) => Some(x.push_str("")),
-LL | |             None => None,
-LL | |         };
-   | |_________^ help: try: `Some(String::new()).as_mut().map(|x| x.push_str(""))`
-
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:102:5
+LL |     match &Some(0) {
+   |           ^^^^^^^^
    |
-LL | /     match &mut Some(String::new()) {
-LL | |
-LL | |         &mut Some(ref x) => Some(x.len()),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `Some(String::new()).as_ref().map(|x| x.len())`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:108:5
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/manual_map_option.rs:71:14
    |
-LL | /     match &mut &Some(String::new()) {
-LL | |
-LL | |         Some(x) => Some(x.is_empty()),
-LL | |         &mut _ => None,
-LL | |     };
-   | |_____^ help: try: `Some(String::new()).as_ref().map(|x| x.is_empty())`
+LL |         Some(ref x) => Some(x.is_empty()),
+   |              ^^^^^
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:114:5
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:75:11
    |
-LL | /     match Some((0, 1, 2)) {
-LL | |
-LL | |         Some((x, y, z)) => Some(x + y + z),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `Some((0, 1, 2)).map(|(x, y, z)| x + y + z)`
-
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:120:5
+LL |     match &&Some(String::new()) {
+   |           ^^^^^^^^^^^^^^^^^^^^^
    |
-LL | /     match Some([1, 2, 3]) {
-LL | |
-LL | |         Some([first, ..]) => Some(first),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `Some([1, 2, 3]).map(|[first, ..]| first)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:126:5
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:75:12
    |
-LL | /     match &Some((String::new(), "test")) {
-LL | |
-LL | |         Some((x, y)) => Some((y, x)),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `Some((String::new(), "test")).as_ref().map(|(x, y)| (y, x))`
-
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:196:5
+LL |     match &&Some(String::new()) {
+   |            ^^^^^^^^^^^^^^^^^^^^
    |
-LL | /     match option_env!("") {
-LL | |
-LL | |         Some(x) => Some(String::from(x)),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `option_env!("").map(String::from)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:217:12
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:81:11
    |
-LL |       } else if let Some(x) = Some(0) {
-   |  ____________^
-LL | |
-LL | |         Some(x + 1)
-LL | |     } else {
-LL | |         None
-LL | |     };
-   | |_____^ help: try: `{ Some(0).map(|x| x + 1) }`
-
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option.rs:226:12
+LL |     match &&Some(0) {
+   |           ^^^^^^^^^
    |
-LL |       } else if let Some(x) = Some(0) {
-   |  ____________^
-LL | |
-LL | |         Some(x + 1)
-LL | |     } else {
-LL | |         None
-LL | |     };
-   | |_____^ help: try: `{ Some(0).map(|x| x + 1) }`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 20 previous errors
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:81:12
+   |
+LL |     match &&Some(0) {
+   |            ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:88:11
+   |
+LL |     match &mut Some(String::new()) {
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:95:15
+   |
+LL |         match &mut Some(String::new()) {
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:102:11
+   |
+LL |     match &mut Some(String::new()) {
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/manual_map_option.rs:104:19
+   |
+LL |         &mut Some(ref x) => Some(x.len()),
+   |                   ^^^^^
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:108:11
+   |
+LL |     match &mut &Some(String::new()) {
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:108:16
+   |
+LL |     match &mut &Some(String::new()) {
+   |                ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:126:11
+   |
+LL |     match &Some((String::new(), "test")) {
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/manual_map_option.rs:133:15
+   |
+LL |         Some((ref x, y)) => Some((y, x)),
+   |               ^^^^^
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option.rs:148:5
+   |
+LL |     fn f1() -> Result<(), ()> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option.rs:148:5
+   |
+LL |     fn f1() -> Result<(), ()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option.rs:148:5
+   |
+LL |     fn f1() -> Result<(), ()> {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option.rs:164:9
+   |
+LL |     let x1 = (Some(String::new()), 0);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option.rs:165:9
+   |
+LL |     let x2 = x1.0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option.rs:171:5
+   |
+LL |     struct S1 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option.rs:175:5
+   |
+LL |     impl S1 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option.rs:176:9
+   |
+LL |         fn f(self) -> Option<(String, u32)> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option.rs:176:9
+   |
+LL |         fn f(self) -> Option<(String, u32)> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_map_option.rs:176:14
+   |
+LL |         fn f(self) -> Option<(String, u32)> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option.rs:191:9
+   |
+LL |     let x: Option<Vec<&[u8]>> = match Some(()) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:191:23
+   |
+LL |     let x: Option<Vec<&[u8]>> = match Some(()) {
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:196:11
+   |
+LL |     match option_env!("") {
+   |           ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option.rs:203:5
+   |
+LL |     async fn f2(x: u32) -> u32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option.rs:203:11
+   |
+LL |     async fn f2(x: u32) -> u32 {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option.rs:203:11
+   |
+LL |     async fn f2(x: u32) -> u32 {
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_map_option.rs:203:17
+   |
+LL |     async fn f2(x: u32) -> u32 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option.rs:207:5
+   |
+LL |     async fn f3() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option.rs:207:11
+   |
+LL |     async fn f3() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option.rs:207:11
+   |
+LL |     async fn f3() {
+   |           ^
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option.rs:234:5
+   |
+LL |     const fn f4() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option.rs:234:11
+   |
+LL |     const fn f4() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option.rs:234:11
+   |
+LL |     const fn f4() {
+   |           ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option.rs:242:9
+   |
+LL |     let s = &String::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:242:13
+   |
+LL |     let s = &String::new();
+   |             ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option.rs:244:19
+   |
+LL |     let _: Option<&str> = match Some(s) {
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 43 previous errors
 

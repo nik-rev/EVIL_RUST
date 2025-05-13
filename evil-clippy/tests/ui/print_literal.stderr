@@ -1,233 +1,74 @@
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:27:24
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     print!("Hello {}", "world");
-   |                        ^^^^^^^
-   |
-   = note: `-D clippy::print-literal` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::print_literal)]`
-help: try
-   |
-LL -     print!("Hello {}", "world");
-LL +     print!("Hello world");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:30:36
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("Hello {} {}", world, "world");
-   |                                    ^^^^^^^
-   |
-help: try
-   |
-LL -     println!("Hello {} {}", world, "world");
-LL +     println!("Hello {} world", world);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:33:26
+error: item must be `pub`
+  --> tests/ui/print_literal.rs:4:1
    |
-LL |     println!("Hello {}", "world");
-   |                          ^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: try
-   |
-LL -     println!("Hello {}", "world");
-LL +     println!("Hello world");
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:36:26
+error: function must be `unsafe`
+  --> tests/ui/print_literal.rs:4:1
    |
-LL |     println!("{} {:.4}", "a literal", 5);
-   |                          ^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/print_literal.rs:4:1
    |
-LL -     println!("{} {:.4}", "a literal", 5);
-LL +     println!("a literal {:.4}", 5);
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:42:25
+error: variable must be `mut`
+  --> tests/ui/print_literal.rs:8:9
    |
-LL |     println!("{0} {1}", "hello", "world");
-   |                         ^^^^^^^^^^^^^^^^
+LL |     let world = "world";
+   |         ^ help: make this variable mutable: `mut`
    |
-help: try
-   |
-LL -     println!("{0} {1}", "hello", "world");
-LL +     println!("hello world");
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:45:25
+error: item must be `pub`
+  --> tests/ui/print_literal.rs:82:1
    |
-LL |     println!("{1} {0}", "hello", "world");
-   |                         ^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!("{1} {0}", "hello", "world");
-LL +     println!("world hello");
-   |
+LL | fn issue_13959() {
+   | ^ help: make this item public: `pub`
 
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:49:35
+error: function must be `unsafe`
+  --> tests/ui/print_literal.rs:82:1
    |
-LL |     println!("{foo} {bar}", foo = "hello", bar = "world");
-   |                                   ^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue_13959() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/print_literal.rs:82:1
    |
-LL -     println!("{foo} {bar}", foo = "hello", bar = "world");
-LL +     println!("hello world");
-   |
+LL | fn issue_13959() {
+   | ^
 
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:52:35
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("{bar} {foo}", foo = "hello", bar = "world");
-   |                                   ^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!("{bar} {foo}", foo = "hello", bar = "world");
-LL +     println!("world hello");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:60:20
+error: missing `#![no_std]`
    |
-LL |     println!("{}", "{} \x00 \u{ab123} \\\u{ab123} {:?}");
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!("{}", "{} \x00 \u{ab123} \\\u{ab123} {:?}");
-LL +     println!("{{}} \x00 \u{ab123} \\\u{ab123} {{:?}}");
-   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:62:20
-   |
-LL |     println!("{}", "\\\u{1234}");
-   |                    ^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!("{}", "\\\u{1234}");
-LL +     println!("\\\u{1234}");
-   |
-
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:67:20
-   |
-LL |     println!("{}", r"\u{ab123} \u{{");
-   |                    ^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!("{}", r"\u{ab123} \u{{");
-LL +     println!("\\u{{ab123}} \\u{{{{");
-   |
-
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:69:21
-   |
-LL |     println!(r"{}", r"\u{ab123} \u{{");
-   |                     ^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!(r"{}", r"\u{ab123} \u{{");
-LL +     println!(r"\u{{ab123}} \u{{{{");
-   |
-
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:71:20
-   |
-LL |     println!("{}", r"\{ab123} \u{{");
-   |                    ^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!("{}", r"\{ab123} \u{{");
-LL +     println!("\\{{ab123}} \\u{{{{");
-   |
-
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:73:20
-   |
-LL |     println!("{}", "\\u{ab123}");
-   |                    ^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!("{}", "\\u{ab123}");
-LL +     println!("\\u{{ab123}}");
-   |
-
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:75:20
-   |
-LL |     println!("{}", "\\\\u{1234}");
-   |                    ^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!("{}", "\\\\u{1234}");
-LL +     println!("\\\\u{{1234}}");
-   |
-
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:78:35
-   |
-LL |     println!("mixed: {} {world}", "{hello}");
-   |                                   ^^^^^^^^^
-   |
-help: try
-   |
-LL -     println!("mixed: {} {world}", "{hello}");
-LL +     println!("mixed: {{hello}} {world}");
-   |
-
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:83:20
-   |
-LL |     println!("{}", r#"""#);
-   |                    ^^^^^^
-   |
-help: try
-   |
-LL -     println!("{}", r#"""#);
-LL +     println!("\"");
-   |
-
-error: literal with an empty format string
-  --> tests/ui/print_literal.rs:87:9
-   |
-LL | /         r#"
-LL | |
-LL | |         foo
-LL | |         \
-...  |
-LL | |         bar
-LL | | "#
-   | |__^
-   |
-help: try
-   |
-LL ~         "
-LL +
-LL +         foo
-LL +         \\
-LL +         \\\\
-LL +         \"
-LL +         \\\"
-LL +         bar
-LL ~ "
-   |
-
-error: aborting due to 18 previous errors
+error: aborting due to 9 previous errors
 

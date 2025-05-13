@@ -1,33 +1,97 @@
-error: ==-comparison of unit values detected. This will always be true
-  --> tests/ui/unit_cmp.rs:17:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       if {
-   |  ________^
-LL | |
-LL | |
-LL | |         true;
-LL | |     } == {
-LL | |         false;
-LL | |     } {}
-   | |_____^
-   |
-   = note: `-D clippy::unit-cmp` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unit_cmp)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: >-comparison of unit values detected. This will always be false
-  --> tests/ui/unit_cmp.rs:25:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       if {
-   |  ________^
-LL | |
-LL | |
-LL | |         true;
-LL | |     } > {
-LL | |         false;
-LL | |     } {}
-   | |_____^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `assert_eq` of unit values detected. This will always succeed
+error: item must be `pub`
+  --> tests/ui/unit_cmp.rs:9:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/unit_cmp.rs:9:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_cmp.rs:9:7
+   |
+LL | #[derive(PartialEq)]
+   |       ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_cmp.rs:9:7
+   |
+LL | #[derive(PartialEq)]
+   |       ^  --------- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/unit_cmp.rs:9:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unit_cmp.rs:9:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:9:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:9:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unit_cmp.rs:12:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_cmp.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_cmp.rs:12:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
   --> tests/ui/unit_cmp.rs:33:5
    |
 LL | /     assert_eq!(
@@ -37,8 +101,66 @@ LL | |             true;
 ...  |
 LL | |     );
    | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: `debug_assert_eq` of unit values detected. This will always succeed
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:33:5
+   |
+LL | /     assert_eq!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unit_cmp.rs:33:5
+   |
+LL | /     assert_eq!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:33:5
+   |
+LL | /     assert_eq!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:33:5
+   |
+LL | /     assert_eq!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
   --> tests/ui/unit_cmp.rs:42:5
    |
 LL | /     debug_assert_eq!(
@@ -48,8 +170,66 @@ LL | |             true;
 ...  |
 LL | |     );
    | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: `assert_ne` of unit values detected. This will always fail
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:42:5
+   |
+LL | /     debug_assert_eq!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unit_cmp.rs:42:5
+   |
+LL | /     debug_assert_eq!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:42:5
+   |
+LL | /     debug_assert_eq!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:42:5
+   |
+LL | /     debug_assert_eq!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
   --> tests/ui/unit_cmp.rs:52:5
    |
 LL | /     assert_ne!(
@@ -59,8 +239,66 @@ LL | |             true;
 ...  |
 LL | |     );
    | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: `debug_assert_ne` of unit values detected. This will always fail
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:52:5
+   |
+LL | /     assert_ne!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unit_cmp.rs:52:5
+   |
+LL | /     assert_ne!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:52:5
+   |
+LL | /     assert_ne!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:52:5
+   |
+LL | /     assert_ne!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
   --> tests/ui/unit_cmp.rs:61:5
    |
 LL | /     debug_assert_ne!(
@@ -70,6 +308,75 @@ LL | |             true;
 ...  |
 LL | |     );
    | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 6 previous errors
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:61:5
+   |
+LL | /     debug_assert_ne!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unit_cmp.rs:61:5
+   |
+LL | /     debug_assert_ne!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:61:5
+   |
+LL | /     debug_assert_ne!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unit_cmp.rs:61:5
+   |
+LL | /     debug_assert_ne!(
+LL | |
+LL | |         {
+LL | |             true;
+...  |
+LL | |     );
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 33 previous errors
 

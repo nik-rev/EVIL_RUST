@@ -1,166 +1,585 @@
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:32:29
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _: *const f32 = transmute(ptr);
-   |                             ^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::transmute-ptr-to-ptr` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::transmute_ptr_to_ptr)]`
-help: use `pointer::cast` instead
-   |
-LL -         let _: *const f32 = transmute(ptr);
-LL +         let _: *const f32 = ptr.cast::<f32>();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:35:27
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _: *mut f32 = transmute(mut_ptr);
-   |                           ^^^^^^^^^^^^^^^^^^
-   |
-help: use `pointer::cast` instead
-   |
-LL -         let _: *mut f32 = transmute(mut_ptr);
-LL +         let _: *mut f32 = mut_ptr.cast::<f32>();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: transmute from a reference to a reference
-  --> tests/ui/transmute_ptr_to_ptr.rs:39:23
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:10:1
+   |
+LL | unsafe fn transmute_lifetime_to_static<'a, T>(t: &'a T) -> &'static T {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:10:47
+   |
+LL | unsafe fn transmute_lifetime_to_static<'a, T>(t: &'a T) -> &'static T {
+   |                                               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:10:50
+   |
+LL | unsafe fn transmute_lifetime_to_static<'a, T>(t: &'a T) -> &'static T {
+   |                                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:10:60
+   |
+LL | unsafe fn transmute_lifetime_to_static<'a, T>(t: &'a T) -> &'static T {
+   |                                                            ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:11:26
+   |
+LL |     unsafe { transmute::<&'a T, &'static T>(t) }
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:11:33
+   |
+LL |     unsafe { transmute::<&'a T, &'static T>(t) }
+   |                                 ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:15:1
+   |
+LL | unsafe fn transmute_lifetime<'a, 'b, T>(t: &'a T, u: &'b T) -> &'b T {
+   | ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:15:41
+   |
+LL | unsafe fn transmute_lifetime<'a, 'b, T>(t: &'a T, u: &'b T) -> &'b T {
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:15:51
+   |
+LL | unsafe fn transmute_lifetime<'a, 'b, T>(t: &'a T, u: &'b T) -> &'b T {
+   |                                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:15:44
+   |
+LL | unsafe fn transmute_lifetime<'a, 'b, T>(t: &'a T, u: &'b T) -> &'b T {
+   |                                            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:15:54
+   |
+LL | unsafe fn transmute_lifetime<'a, 'b, T>(t: &'a T, u: &'b T) -> &'b T {
+   |                                                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:15:64
+   |
+LL | unsafe fn transmute_lifetime<'a, 'b, T>(t: &'a T, u: &'b T) -> &'b T {
+   |                                                                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:16:26
+   |
+LL |     unsafe { transmute::<&'a T, &'b T>(t) }
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:16:33
+   |
+LL |     unsafe { transmute::<&'a T, &'b T>(t) }
+   |                                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:19:1
+   |
+LL | struct LifetimeParam<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:20:8
+   |
+LL |     s: &'a str,
+   |        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:23:1
+   |
+LL | struct GenericParam<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:27:1
+   |
+LL | fn transmute_ptr_to_ptr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:27:1
+   |
+LL | fn transmute_ptr_to_ptr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:27:1
+   |
+LL | fn transmute_ptr_to_ptr() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:28:9
+   |
+LL |     let ptr = &1u32 as *const u32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:28:15
+   |
+LL |     let ptr = &1u32 as *const u32;
+   |               ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:29:9
+   |
+LL |     let mut_ptr = &mut 1u32 as *mut u32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:29:19
+   |
+LL |     let mut_ptr = &mut 1u32 as *mut u32;
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:39:16
    |
 LL |         let _: &f32 = transmute(&1u32);
-   |                       ^^^^^^^^^^^^^^^^ help: try: `&*(&1u32 as *const u32 as *const f32)`
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a reference to a reference
-  --> tests/ui/transmute_ptr_to_ptr.rs:42:23
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:39:33
+   |
+LL |         let _: &f32 = transmute(&1u32);
+   |                                 ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:42:16
    |
 LL |         let _: &f32 = transmute(&1f64);
-   |                       ^^^^^^^^^^^^^^^^ help: try: `&*(&1f64 as *const f64 as *const f32)`
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a reference to a reference
-  --> tests/ui/transmute_ptr_to_ptr.rs:47:27
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:42:33
+   |
+LL |         let _: &f32 = transmute(&1f64);
+   |                                 ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:47:16
    |
 LL |         let _: &mut f32 = transmute(&mut 1u32);
-   |                           ^^^^^^^^^^^^^^^^^^^^ help: try: `&mut *(&mut 1u32 as *mut u32 as *mut f32)`
+   |                ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: transmute from a reference to a reference
-  --> tests/ui/transmute_ptr_to_ptr.rs:50:37
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:47:37
+   |
+LL |         let _: &mut f32 = transmute(&mut 1u32);
+   |                                     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:50:16
    |
 LL |         let _: &GenericParam<f32> = transmute(&GenericParam { t: 1u32 });
-   |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*(&GenericParam { t: 1u32 } as *const GenericParam<u32> as *const GenericParam<f32>)`
+   |                ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a reference to a reference
-  --> tests/ui/transmute_ptr_to_ptr.rs:54:27
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:50:47
+   |
+LL |         let _: &GenericParam<f32> = transmute(&GenericParam { t: 1u32 });
+   |                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:53:13
+   |
+LL |         let u64_ref: &u64 = &0u64;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:53:22
+   |
+LL |         let u64_ref: &u64 = &0u64;
+   |                      ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:53:29
+   |
+LL |         let u64_ref: &u64 = &0u64;
+   |                             ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:54:13
    |
 LL |         let u8_ref: &u8 = transmute(u64_ref);
-   |                           ^^^^^^^^^^^^^^^^^^ help: try: `&*(u64_ref as *const u64 as *const u8)`
+   |             ^ help: make this variable mutable: `mut`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:57:29
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:54:21
    |
-LL |         let _: *const u32 = transmute(mut_ptr);
-   |                             ^^^^^^^^^^^^^^^^^^
+LL |         let u8_ref: &u8 = transmute(u64_ref);
+   |                     ^^^
    |
-help: use `pointer::cast_const` instead
-   |
-LL -         let _: *const u32 = transmute(mut_ptr);
-LL +         let _: *const u32 = mut_ptr.cast_const();
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:60:27
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:65:9
    |
-LL |         let _: *mut u32 = transmute(ptr);
-   |                           ^^^^^^^^^^^^^^
-   |
-help: use `pointer::cast_mut` instead
-   |
-LL -         let _: *mut u32 = transmute(ptr);
-LL +         let _: *mut u32 = ptr.cast_mut();
-   |
+LL |     let s = "hello world".to_owned();
+   |         ^ help: make this variable mutable: `mut`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:72:14
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:66:9
    |
-LL |     unsafe { transmute(v) }
-   |              ^^^^^^^^^^^^
-   |
-help: use an `as` cast instead
-   |
-LL -     unsafe { transmute(v) }
-LL +     unsafe { v as *const &() }
-   |
+LL |     let lp = LifetimeParam { s: &s };
+   |         ^ help: make this variable mutable: `mut`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:87:28
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:66:33
    |
-LL |         let _: *const i8 = transmute(ptr);
-   |                            ^^^^^^^^^^^^^^
+LL |     let lp = LifetimeParam { s: &s };
+   |                                 ^^
    |
-help: use an `as` cast instead
-   |
-LL -         let _: *const i8 = transmute(ptr);
-LL +         let _: *const i8 = ptr as *const i8;
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:95:28
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:67:12
    |
-LL |         let _: *const i8 = transmute(ptr);
-   |                            ^^^^^^^^^^^^^^
+LL |     let _: &LifetimeParam<'static> = unsafe { transmute(&lp) };
+   |            ^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: use `pointer::cast` instead
-   |
-LL -         let _: *const i8 = transmute(ptr);
-LL +         let _: *const i8 = ptr.cast::<i8>();
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:103:26
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:67:57
    |
-LL |         let _: *mut u8 = transmute(ptr);
-   |                          ^^^^^^^^^^^^^^
+LL |     let _: &LifetimeParam<'static> = unsafe { transmute(&lp) };
+   |                                                         ^^^
    |
-help: use an `as` cast instead
-   |
-LL -         let _: *mut u8 = transmute(ptr);
-LL +         let _: *mut u8 = ptr as *mut u8;
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:105:28
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:68:12
    |
-LL |         let _: *const u8 = transmute(mut_ptr);
-   |                            ^^^^^^^^^^^^^^^^^^
+LL |     let _: &GenericParam<&LifetimeParam<'static>> = unsafe { transmute(&GenericParam { t: &lp }) };
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: use an `as` cast instead
-   |
-LL -         let _: *const u8 = transmute(mut_ptr);
-LL +         let _: *const u8 = mut_ptr as *const u8;
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:113:26
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:68:26
    |
-LL |         let _: *mut u8 = transmute(ptr);
-   |                          ^^^^^^^^^^^^^^
+LL |     let _: &GenericParam<&LifetimeParam<'static>> = unsafe { transmute(&GenericParam { t: &lp }) };
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: use `pointer::cast_mut` instead
-   |
-LL -         let _: *mut u8 = transmute(ptr);
-LL +         let _: *mut u8 = ptr.cast_mut();
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer to a pointer
-  --> tests/ui/transmute_ptr_to_ptr.rs:115:28
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:68:72
    |
-LL |         let _: *const u8 = transmute(mut_ptr);
-   |                            ^^^^^^^^^^^^^^^^^^
+LL |     let _: &GenericParam<&LifetimeParam<'static>> = unsafe { transmute(&GenericParam { t: &lp }) };
+   |                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: use `pointer::cast_const` instead
-   |
-LL -         let _: *const u8 = transmute(mut_ptr);
-LL +         let _: *const u8 = mut_ptr.cast_const();
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 16 previous errors
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:68:91
+   |
+LL |     let _: &GenericParam<&LifetimeParam<'static>> = unsafe { transmute(&GenericParam { t: &lp }) };
+   |                                                                                           ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:71:1
+   |
+LL | fn lifetime_to_static(v: *mut &()) -> *const &'static () {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:71:1
+   |
+LL | fn lifetime_to_static(v: *mut &()) -> *const &'static () {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:71:1
+   |
+LL | fn lifetime_to_static(v: *mut &()) -> *const &'static () {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:71:23
+   |
+LL | fn lifetime_to_static(v: *mut &()) -> *const &'static () {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:71:31
+   |
+LL | fn lifetime_to_static(v: *mut &()) -> *const &'static () {
+   |                               ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:71:46
+   |
+LL | fn lifetime_to_static(v: *mut &()) -> *const &'static () {
+   |                                              ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:77:1
+   |
+LL | const _: &() = {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:77:10
+   |
+LL | const _: &() = {
+   |          ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:78:5
+   |
+LL |     struct Zst;
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:79:9
+   |
+LL |     let zst = &Zst;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:79:15
+   |
+LL |     let zst = &Zst;
+   |               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:81:26
+   |
+LL |     unsafe { transmute::<&'static Zst, &'static ()>(zst) }
+   |                          ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ptr.rs:81:40
+   |
+LL |     unsafe { transmute::<&'static Zst, &'static ()>(zst) }
+   |                                        ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:85:1
+   |
+LL | fn msrv_1_37(ptr: *const u8) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:85:1
+   |
+LL | fn msrv_1_37(ptr: *const u8) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:85:1
+   |
+LL | fn msrv_1_37(ptr: *const u8) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:85:14
+   |
+LL | fn msrv_1_37(ptr: *const u8) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:93:1
+   |
+LL | fn msrv_1_38(ptr: *const u8) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:93:1
+   |
+LL | fn msrv_1_38(ptr: *const u8) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:93:1
+   |
+LL | fn msrv_1_38(ptr: *const u8) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:93:14
+   |
+LL | fn msrv_1_38(ptr: *const u8) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:101:1
+   |
+LL | fn msrv_1_64(ptr: *const u8, mut_ptr: *mut u8) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:101:1
+   |
+LL | fn msrv_1_64(ptr: *const u8, mut_ptr: *mut u8) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:101:1
+   |
+LL | fn msrv_1_64(ptr: *const u8, mut_ptr: *mut u8) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:101:14
+   |
+LL | fn msrv_1_64(ptr: *const u8, mut_ptr: *mut u8) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:101:30
+   |
+LL | fn msrv_1_64(ptr: *const u8, mut_ptr: *mut u8) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:111:1
+   |
+LL | fn msrv_1_65(ptr: *const u8, mut_ptr: *mut u8) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:111:1
+   |
+LL | fn msrv_1_65(ptr: *const u8, mut_ptr: *mut u8) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:111:1
+   |
+LL | fn msrv_1_65(ptr: *const u8, mut_ptr: *mut u8) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:111:14
+   |
+LL | fn msrv_1_65(ptr: *const u8, mut_ptr: *mut u8) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ptr.rs:111:30
+   |
+LL | fn msrv_1_65(ptr: *const u8, mut_ptr: *mut u8) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ptr.rs:120:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:120:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ptr_to_ptr.rs:120:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 77 previous errors
 

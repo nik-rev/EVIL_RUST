@@ -1,194 +1,122 @@
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:15:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if x == "hello" {
-LL | |         if y == "world" {
-LL | |             println!("Hello world!");
-LL | |         }
-LL | |     }
-   | |_____^
-   |
-   = note: `-D clippy::collapsible-if` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::collapsible_if)]`
-help: collapse nested if block
-   |
-LL ~     if x == "hello"
-LL ~         && y == "world" {
-LL |             println!("Hello world!");
-LL ~         }
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:22:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if x == "hello" || x == "world" {
-LL | |         if y == "world" || y == "hello" {
-LL | |             println!("Hello world!");
-LL | |         }
-LL | |     }
-   | |_____^
-   |
-help: collapse nested if block
-   |
-LL ~     if (x == "hello" || x == "world") {
-LL ~         && (y == "world" || y == "hello") {
-LL |             println!("Hello world!");
-LL ~         }
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:29:5
+error: item must be `pub`
+  --> tests/ui/collapsible_if.rs:12:1
    |
-LL | /     if x == "hello" && x == "world" {
-LL | |         if y == "world" || y == "hello" {
-LL | |             println!("Hello world!");
-LL | |         }
-LL | |     }
-   | |_____^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: collapse nested if block
-   |
-LL ~     if x == "hello" && x == "world"
-LL ~         && (y == "world" || y == "hello") {
-LL |             println!("Hello world!");
-LL ~         }
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:36:5
+error: function must be `unsafe`
+  --> tests/ui/collapsible_if.rs:12:1
    |
-LL | /     if x == "hello" || x == "world" {
-LL | |         if y == "world" && y == "hello" {
-LL | |             println!("Hello world!");
-LL | |         }
-LL | |     }
-   | |_____^
+LL | fn main() {
+   | ^
    |
-help: collapse nested if block
+help: make this function unsafe: `unsafe`
+  --> tests/ui/collapsible_if.rs:12:1
    |
-LL ~     if (x == "hello" || x == "world") {
-LL ~         && y == "world" && y == "hello" {
-LL |             println!("Hello world!");
-LL ~         }
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:43:5
+error: variable must be `mut`
+  --> tests/ui/collapsible_if.rs:13:9
    |
-LL | /     if x == "hello" && x == "world" {
-LL | |         if y == "world" && y == "hello" {
-LL | |             println!("Hello world!");
-LL | |         }
-LL | |     }
-   | |_____^
+LL |     let x = "hello";
+   |         ^ help: make this variable mutable: `mut`
    |
-help: collapse nested if block
-   |
-LL ~     if x == "hello" && x == "world"
-LL ~         && y == "world" && y == "hello" {
-LL |             println!("Hello world!");
-LL ~         }
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:50:5
+error: variable must be `mut`
+  --> tests/ui/collapsible_if.rs:14:9
    |
-LL | /     if 42 == 1337 {
-LL | |         if 'a' != 'A' {
-LL | |             println!("world!")
-LL | |         }
-LL | |     }
-   | |_____^
-   |
-help: collapse nested if block
-   |
-LL ~     if 42 == 1337
-LL ~         && 'a' != 'A' {
-LL |             println!("world!")
-LL ~         }
-   |
+LL |     let y = "world";
+   |         ^ help: make this variable mutable: `mut`
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:86:5
+error: item must be `pub`
+  --> tests/ui/collapsible_if.rs:111:5
    |
-LL | /     if x == "hello" {
-LL | |         if y == "world" { // Collapsible
-LL | |             println!("Hello world!");
-LL | |         }
-LL | |     }
-   | |_____^
-   |
-help: collapse nested if block
-   |
-LL ~     if x == "hello"
-LL ~         && y == "world" { // Collapsible
-LL |             println!("Hello world!");
-LL ~         }
-   |
+LL |     fn truth() -> bool { true }
+   |     ^ help: make this item public: `pub`
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:114:5
+error: function must be `unsafe`
+  --> tests/ui/collapsible_if.rs:111:5
    |
-LL | /     if matches!(true, true) {
-LL | |         if matches!(true, true) {}
-LL | |     }
-   | |_____^
+LL |     fn truth() -> bool { true }
+   |     ^
    |
-help: collapse nested if block
+help: make this function unsafe: `unsafe`
+  --> tests/ui/collapsible_if.rs:111:5
    |
-LL ~     if matches!(true, true)
-LL ~         && matches!(true, true) {}
-   |
+LL |     fn truth() -> bool { true }
+   |     ^
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:120:5
+error: item must be `pub`
+  --> tests/ui/collapsible_if.rs:148:1
    |
-LL | /     if matches!(true, true) && truth() {
-LL | |         if matches!(true, true) {}
-LL | |     }
-   | |_____^
-   |
-help: collapse nested if block
-   |
-LL ~     if matches!(true, true) && truth()
-LL ~         && matches!(true, true) {}
-   |
+LL | fn layout_check() -> u32 {
+   | ^ help: make this item public: `pub`
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:132:5
+error: function must be `unsafe`
+  --> tests/ui/collapsible_if.rs:148:1
    |
-LL | /     if true {
-LL | |         if true {
-LL | |             println!("No comment, linted");
-LL | |         }
-LL | |     }
-   | |_____^
+LL | fn layout_check() -> u32 {
+   | ^
    |
-help: collapse nested if block
+help: make this function unsafe: `unsafe`
+  --> tests/ui/collapsible_if.rs:148:1
    |
-LL ~     if true
-LL ~         && true {
-LL |             println!("No comment, linted");
-LL ~         }
-   |
+LL | fn layout_check() -> u32 {
+   | ^
 
-error: this `if` statement can be collapsed
-  --> tests/ui/collapsible_if.rs:149:5
+error: item must be `pub`
+  --> tests/ui/collapsible_if.rs:157:1
    |
-LL | /     if true {
-LL | |         if true {
-...  |
-LL | |     }; 3
-   | |_____^
-   |
-help: collapse nested if block
-   |
-LL ~     if true
-LL ~         && true {
-LL |         }
-LL |         // This is a comment, do not collapse code to it
-LL ~     ; 3
-   |
+LL | fn issue14722() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 11 previous errors
+error: function must be `unsafe`
+  --> tests/ui/collapsible_if.rs:157:1
+   |
+LL | fn issue14722() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/collapsible_if.rs:157:1
+   |
+LL | fn issue14722() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/collapsible_if.rs:158:9
+   |
+LL |     let x = if true {
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

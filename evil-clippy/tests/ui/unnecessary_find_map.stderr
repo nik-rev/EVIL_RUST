@@ -1,47 +1,104 @@
-error: this `.find_map(..)` can be written more simply using `.find(..)`
-  --> tests/ui/unnecessary_find_map.rs:4:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (0..4).find_map(|x| if x > 1 { Some(x) } else { None });
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::unnecessary-find-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_find_map)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `.find_map(..)` can be written more simply using `.find(..)`
-  --> tests/ui/unnecessary_find_map.rs:7:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = (0..4).find_map(|x| {
-   |  _____________^
-LL | |
-LL | |
-LL | |         if x > 1 {
-...  |
-LL | |         None
-LL | |     });
-   | |______^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `.find_map(..)` can be written more simply using `.find(..)`
-  --> tests/ui/unnecessary_find_map.rs:15:13
+error: item must be `pub`
+  --> tests/ui/unnecessary_find_map.rs:3:1
    |
-LL |       let _ = (0..4).find_map(|x| match x {
-   |  _____________^
-LL | |
-LL | |         0 | 1 => None,
-LL | |         _ => Some(x),
-LL | |     });
-   | |______^
-
-error: this `.find_map(..)` can be written more simply using `.map(..).next()`
-  --> tests/ui/unnecessary_find_map.rs:21:13
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = (0..4).find_map(|x| Some(x + 1));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this `.find_map(..)` can be written more simply using `.find(..)`
-  --> tests/ui/unnecessary_find_map.rs:33:14
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_find_map.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_find_map.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_find_map.rs:27:1
+   |
+LL | fn find_map_none_changes_item_type() -> Option<bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_find_map.rs:27:1
+   |
+LL | fn find_map_none_changes_item_type() -> Option<bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_find_map.rs:27:1
+   |
+LL | fn find_map_none_changes_item_type() -> Option<bool> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_find_map.rs:31:1
+   |
+LL | fn issue11260() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_find_map.rs:31:1
+   |
+LL | fn issue11260() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_find_map.rs:31:1
+   |
+LL | fn issue11260() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_find_map.rs:32:9
+   |
+LL |     let y = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_find_map.rs:33:9
    |
 LL |     let _x = std::iter::once(1).find_map(|n| (n > 1).then_some(n));
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 5 previous errors
+error: variable must be `mut`
+  --> tests/ui/unnecessary_find_map.rs:35:9
+   |
+LL |     let _x = std::iter::once(1).find_map(|n| (n > 1).then_some(y)); // different option, so can't be just `.find()`
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

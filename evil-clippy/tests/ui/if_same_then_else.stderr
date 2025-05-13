@@ -1,110 +1,447 @@
-error: this `if` has identical blocks
-  --> tests/ui/if_same_then_else.rs:23:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       if true {
-   |  _____________^
-LL | |         Foo { bar: 42 };
-LL | |         0..10;
-LL | |         ..;
-...  |
-LL | |         foo();
-LL | |     } else {
-   | |_____^
-   |
-note: same as this
-  --> tests/ui/if_same_then_else.rs:31:12
-   |
-LL |       } else {
-   |  ____________^
-LL | |         Foo { bar: 42 };
-LL | |         0..10;
-LL | |         ..;
-...  |
-LL | |         foo();
-LL | |     }
-   | |_____^
-   = note: `-D clippy::if-same-then-else` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::if_same_then_else)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `if` has identical blocks
-  --> tests/ui/if_same_then_else.rs:67:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = if true { 0.0 } else { 0.0 };
-   |                     ^^^^^^^
-   |
-note: same as this
-  --> tests/ui/if_same_then_else.rs:67:34
-   |
-LL |     let _ = if true { 0.0 } else { 0.0 };
-   |                                  ^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `if` has identical blocks
-  --> tests/ui/if_same_then_else.rs:70:21
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:14:1
    |
-LL |     let _ = if true { -0.0 } else { -0.0 };
-   |                     ^^^^^^^^
+LL | struct Foo {
+   | ^ help: make this item public: `pub`
    |
-note: same as this
-  --> tests/ui/if_same_then_else.rs:70:35
-   |
-LL |     let _ = if true { -0.0 } else { -0.0 };
-   |                                   ^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this `if` has identical blocks
-  --> tests/ui/if_same_then_else.rs:82:21
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:18:1
    |
-LL |     let _ = if true { 42 } else { 42 };
-   |                     ^^^^^^
-   |
-note: same as this
-  --> tests/ui/if_same_then_else.rs:82:33
-   |
-LL |     let _ = if true { 42 } else { 42 };
-   |                                 ^^^^^^
+LL | fn foo() -> bool {
+   | ^ help: make this item public: `pub`
 
-error: this `if` has identical blocks
-  --> tests/ui/if_same_then_else.rs:85:13
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:18:1
    |
-LL |       if true {
-   |  _____________^
-LL | |         let bar = if true { 42 } else { 43 };
-LL | |
-LL | |         while foo() {
-...  |
-LL | |         bar + 1;
-LL | |     } else {
-   | |_____^
+LL | fn foo() -> bool {
+   | ^
    |
-note: same as this
-  --> tests/ui/if_same_then_else.rs:92:12
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:18:1
    |
-LL |       } else {
-   |  ____________^
-LL | |         let bar = if true { 42 } else { 43 };
-LL | |
-LL | |         while foo() {
-...  |
-LL | |         bar + 1;
-LL | |     }
-   | |_____^
+LL | fn foo() -> bool {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this `if` has identical blocks
-  --> tests/ui/if_same_then_else.rs:238:14
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:22:1
    |
-LL |           if x {
-   |  ______________^
-LL | |             0_u8.is_power_of_two()
-LL | |         } else {
-   | |_________^
+LL | fn if_same_then_else() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:22:1
    |
-note: same as this
-  --> tests/ui/if_same_then_else.rs:240:16
+LL | fn if_same_then_else() {
+   | ^
    |
-LL |           } else {
-   |  ________________^
-LL | |             0_u8.is_power_of_two()
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:22:1
+   |
+LL | fn if_same_then_else() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/if_same_then_else.rs:86:13
+   |
+LL |         let bar = if true { 42 } else { 43 };
+   |             ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/if_same_then_else.rs:93:13
+   |
+LL |         let bar = if true { 42 } else { 43 };
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:122:1
+   |
+LL | fn func() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:122:1
+   |
+LL | fn func() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:122:1
+   |
+LL | fn func() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:124:11
+   |
+LL |         f(&[0; 62]);
+   |           ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:125:11
+   |
+LL |         f(&[0; 4]);
+   |           ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:126:11
+   |
+LL |         f(&[0; 3]);
+   |           ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:128:11
+   |
+LL |         f(&[0; 62]);
+   |           ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:129:11
+   |
+LL |         f(&[0; 6]);
+   |           ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:130:11
+   |
+LL |         f(&[0; 6]);
+   |           ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:134:1
+   |
+LL | fn f(val: &[u8]) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:134:1
+   |
+LL | fn f(val: &[u8]) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:134:1
+   |
+LL | fn f(val: &[u8]) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_same_then_else.rs:134:6
+   |
+LL | fn f(val: &[u8]) {}
+   |      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:134:11
+   |
+LL | fn f(val: &[u8]) {}
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:136:1
+   |
+LL | mod issue_5698 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:137:5
+   |
+LL |     fn mul_not_always_commutative(x: i32, y: i32) -> i32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:137:5
+   |
+LL |     fn mul_not_always_commutative(x: i32, y: i32) -> i32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:137:5
+   |
+LL |     fn mul_not_always_commutative(x: i32, y: i32) -> i32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_same_then_else.rs:137:35
+   |
+LL |     fn mul_not_always_commutative(x: i32, y: i32) -> i32 {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/if_same_then_else.rs:137:43
+   |
+LL |     fn mul_not_always_commutative(x: i32, y: i32) -> i32 {
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:148:1
+   |
+LL | mod issue_8836 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:149:5
+   |
+LL |     fn do_not_lint() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:149:5
+   |
+LL |     fn do_not_lint() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:149:5
+   |
+LL |     fn do_not_lint() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:205:1
+   |
+LL | mod issue_11213 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:206:5
+   |
+LL |     fn reproducer(x: bool) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:206:5
+   |
+LL |     fn reproducer(x: bool) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:206:5
+   |
+LL |     fn reproducer(x: bool) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_same_then_else.rs:206:19
+   |
+LL |     fn reproducer(x: bool) -> bool {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:216:5
+   |
+LL |     fn v2(x: bool) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:216:5
+   |
+LL |     fn v2(x: bool) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:216:5
+   |
+LL |     fn v2(x: bool) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_same_then_else.rs:216:11
+   |
+LL |     fn v2(x: bool) -> bool {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:217:9
+   |
+LL | /         trait Helper {
+LL | |             fn is_u8(&self) -> bool;
 LL | |         }
    | |_________^
+   |
+   = help: make this trait unsafe: `unsafe trait`
 
-error: aborting due to 6 previous errors
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:217:9
+   |
+LL |         trait Helper {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:218:13
+   |
+LL |             fn is_u8(&self) -> bool;
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:218:13
+   |
+LL |             fn is_u8(&self) -> bool;
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_same_then_else.rs:218:23
+   |
+LL |             fn is_u8(&self) -> bool;
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:218:22
+   |
+LL |             fn is_u8(&self) -> bool;
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:220:9
+   |
+LL |         impl Helper for u8 {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:221:13
+   |
+LL |             fn is_u8(&self) -> bool {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:221:13
+   |
+LL |             fn is_u8(&self) -> bool {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_same_then_else.rs:221:23
+   |
+LL |             fn is_u8(&self) -> bool {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:221:22
+   |
+LL |             fn is_u8(&self) -> bool {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:225:9
+   |
+LL |         impl Helper for u16 {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:226:13
+   |
+LL |             fn is_u8(&self) -> bool {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:226:13
+   |
+LL |             fn is_u8(&self) -> bool {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_same_then_else.rs:226:23
+   |
+LL |             fn is_u8(&self) -> bool {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/if_same_then_else.rs:226:22
+   |
+LL |             fn is_u8(&self) -> bool {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:236:5
+   |
+LL |     fn do_lint(x: bool) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:236:5
+   |
+LL |     fn do_lint(x: bool) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:236:5
+   |
+LL |     fn do_lint(x: bool) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_same_then_else.rs:236:16
+   |
+LL |     fn do_lint(x: bool) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/if_same_then_else.rs:247:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_same_then_else.rs:247:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_same_then_else.rs:247:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 56 previous errors
 

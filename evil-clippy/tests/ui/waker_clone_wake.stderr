@@ -1,17 +1,185 @@
-error: cloning a `Waker` only to wake it
-  --> tests/ui/waker_clone_wake.rs:15:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     cx.waker().clone().wake();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `cx.waker().wake_by_ref()`
-   |
-   = note: `-D clippy::waker-clone-wake` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::waker_clone_wake)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: cloning a `Waker` only to wake it
-  --> tests/ui/waker_clone_wake.rs:18:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     mac!(cx).clone().wake();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `mac!(cx).wake_by_ref()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/waker_clone_wake.rs:1:10
+   |
+LL | #[derive(Clone)]
+   |          ^
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/waker_clone_wake.rs:1:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/waker_clone_wake.rs:1:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/waker_clone_wake.rs:1:10
+   |
+LL | #[derive(Clone)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/waker_clone_wake.rs:1:10
+   |
+LL | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/waker_clone_wake.rs:4:1
+   |
+LL | impl Custom {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/waker_clone_wake.rs:5:9
+   |
+LL |     pub fn wake(self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/waker_clone_wake.rs:5:9
+   |
+LL |     pub fn wake(self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/waker_clone_wake.rs:5:17
+   |
+LL |     pub fn wake(self) {}
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/waker_clone_wake.rs:8:1
+   |
+LL | macro_rules! mac {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/waker_clone_wake.rs:14:5
+   |
+LL | pub fn wake(cx: &mut std::task::Context) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/waker_clone_wake.rs:14:5
+   |
+LL | pub fn wake(cx: &mut std::task::Context) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/waker_clone_wake.rs:14:13
+   |
+LL | pub fn wake(cx: &mut std::task::Context) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/waker_clone_wake.rs:14:17
+   |
+LL | pub fn wake(cx: &mut std::task::Context) {
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/waker_clone_wake.rs:22:5
+   |
+LL | pub fn no_lint(cx: &mut std::task::Context, c: &Custom) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/waker_clone_wake.rs:22:5
+   |
+LL | pub fn no_lint(cx: &mut std::task::Context, c: &Custom) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/waker_clone_wake.rs:22:16
+   |
+LL | pub fn no_lint(cx: &mut std::task::Context, c: &Custom) {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/waker_clone_wake.rs:22:45
+   |
+LL | pub fn no_lint(cx: &mut std::task::Context, c: &Custom) {
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/waker_clone_wake.rs:22:20
+   |
+LL | pub fn no_lint(cx: &mut std::task::Context, c: &Custom) {
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/waker_clone_wake.rs:22:48
+   |
+LL | pub fn no_lint(cx: &mut std::task::Context, c: &Custom) {
+   |                                                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/waker_clone_wake.rs:25:9
+   |
+LL |     let w = cx.waker().clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/waker_clone_wake.rs:31:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/waker_clone_wake.rs:31:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/waker_clone_wake.rs:31:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

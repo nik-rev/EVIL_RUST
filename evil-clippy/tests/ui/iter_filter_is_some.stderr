@@ -1,65 +1,664 @@
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:15:58
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _ = vec![Some(1), None, Some(3)].into_iter().filter(Option::is_some);
-   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
-   |
-   = note: `-D clippy::iter-filter-is-some` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::iter_filter_is_some)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:18:58
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _ = vec![Some(1), None, Some(3)].into_iter().filter(|a| a.is_some());
-   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:22:58
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:13:1
    |
-LL |         let _ = vec![Some(1), None, Some(3)].into_iter().filter(|o| { o.is_some() });
-   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
-
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:29:14
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |             .filter(std::option::Option::is_some);
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:34:14
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:13:1
    |
-LL |             .filter(|a| std::option::Option::is_some(a));
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
-
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:38:58
+LL | fn main() {
+   | ^
    |
-LL |         let _ = vec![Some(1), None, Some(3)].into_iter().filter(|a| { std::option::Option::is_some(a) });
-   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
-
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:43:58
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:13:1
    |
-LL |         let _ = vec![Some(1), None, Some(3)].into_iter().filter(|&a| a.is_some());
-   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:47:58
-   |
-LL |         let _ = vec![Some(1), None, Some(3)].into_iter().filter(|&o| { o.is_some() });
-   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
-
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:52:58
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/iter_filter_is_some.rs:52:66
    |
 LL |         let _ = vec![Some(1), None, Some(3)].into_iter().filter(|ref a| a.is_some());
-   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
+   |                                                                  ^^^^^
+   |
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: `filter` for `is_some` on iterator over `Option`
-  --> tests/ui/iter_filter_is_some.rs:56:58
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/iter_filter_is_some.rs:56:66
    |
 LL |         let _ = vec![Some(1), None, Some(3)].into_iter().filter(|ref o| { o.is_some() });
-   |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `flatten` instead: `flatten()`
+   |                                                                  ^^^^^
 
-error: aborting due to 10 previous errors
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:61:1
+   |
+LL | fn avoid_linting_when_filter_has_side_effects() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:61:1
+   |
+LL | fn avoid_linting_when_filter_has_side_effects() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:61:1
+   |
+LL | fn avoid_linting_when_filter_has_side_effects() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:70:1
+   |
+LL | fn avoid_linting_when_commented() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:70:1
+   |
+LL | fn avoid_linting_when_commented() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:70:1
+   |
+LL | fn avoid_linting_when_commented() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:80:1
+   |
+LL | fn ice_12058() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:80:1
+   |
+LL | fn ice_12058() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:80:1
+   |
+LL | fn ice_12058() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:89:1
+   |
+LL | fn avoid_linting_map() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:89:1
+   |
+LL | fn avoid_linting_map() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:89:1
+   |
+LL | fn avoid_linting_map() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:103:1
+   |
+LL | fn avoid_false_positive_due_to_is_some_and_iterator_impl() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:103:1
+   |
+LL | fn avoid_false_positive_due_to_is_some_and_iterator_impl() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:103:1
+   |
+LL | fn avoid_false_positive_due_to_is_some_and_iterator_impl() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:105:5
+   |
+LL |     struct Foo {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:104:14
+   |
+LL |     #[derive(Default, Clone)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:104:11
+   |
+LL |     #[derive(Default, Clone)]
+   |           ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:104:11
+   |
+LL |     #[derive(Default, Clone)]
+   |           ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:104:23
+   |
+LL |     #[derive(Default, Clone)]
+   |                       ^
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:104:20
+   |
+LL |     #[derive(Default, Clone)]
+   |                    ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:104:20
+   |
+LL |     #[derive(Default, Clone)]
+   |                    ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:104:23
+   |
+LL |     #[derive(Default, Clone)]
+   |                       ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:104:23
+   |
+LL |     #[derive(Default, Clone)]
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:107:5
+   |
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:108:9
+   |
+LL |         fn is_some(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:108:9
+   |
+LL |         fn is_some(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:108:21
+   |
+LL |         fn is_some(&self) -> bool {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:108:20
+   |
+LL |         fn is_some(&self) -> bool {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:113:5
+   |
+LL |     impl Iterator for Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:115:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:115:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:115:22
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:115:17
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:120:9
+   |
+LL |     let data = vec![Foo::default()];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:127:1
+   |
+LL | fn avoid_false_positive_due_to_is_some_and_into_iterator_impl() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:127:1
+   |
+LL | fn avoid_false_positive_due_to_is_some_and_into_iterator_impl() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:127:1
+   |
+LL | fn avoid_false_positive_due_to_is_some_and_into_iterator_impl() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:129:5
+   |
+LL |     struct Foo {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:128:14
+   |
+LL |     #[derive(Default, Clone)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:128:11
+   |
+LL |     #[derive(Default, Clone)]
+   |           ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:128:11
+   |
+LL |     #[derive(Default, Clone)]
+   |           ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:128:23
+   |
+LL |     #[derive(Default, Clone)]
+   |                       ^
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:128:20
+   |
+LL |     #[derive(Default, Clone)]
+   |                    ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:128:20
+   |
+LL |     #[derive(Default, Clone)]
+   |                    ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:128:23
+   |
+LL |     #[derive(Default, Clone)]
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:128:23
+   |
+LL |     #[derive(Default, Clone)]
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:131:5
+   |
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:132:9
+   |
+LL |         fn is_some(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:132:9
+   |
+LL |         fn is_some(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:132:21
+   |
+LL |         fn is_some(&self) -> bool {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:132:20
+   |
+LL |         fn is_some(&self) -> bool {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:137:9
+   |
+LL |     let data = vec![Foo::default()];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:144:1
+   |
+LL | fn avoid_unpack_fp() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:144:1
+   |
+LL | fn avoid_unpack_fp() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:144:1
+   |
+LL | fn avoid_unpack_fp() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:155:9
+   |
+LL |     let m = HashMap::from([(1, 1)]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:160:1
+   |
+LL | fn avoid_fp_for_external() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:160:1
+   |
+LL | fn avoid_fp_for_external() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:160:1
+   |
+LL | fn avoid_fp_for_external() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:161:9
+   |
+LL |     let value = HashMap::from([(1, 1)]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:165:31
+   |
+LL |         .filter(|o| value.get(&1).is_some());
+   |                               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:167:9
+   |
+LL |     let value = Option::Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:174:1
+   |
+LL | fn avoid_fp_for_trivial() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:174:1
+   |
+LL | fn avoid_fp_for_trivial() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:174:1
+   |
+LL | fn avoid_fp_for_trivial() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:175:9
+   |
+LL |     let value = HashMap::from([(1, 1)]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:186:1
+   |
+LL | fn avoid_false_positive_due_to_method_name() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:186:1
+   |
+LL | fn avoid_false_positive_due_to_method_name() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:186:1
+   |
+LL | fn avoid_false_positive_due_to_method_name() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:187:5
+   |
+LL |     fn is_some(x: &Option<i32>) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:187:5
+   |
+LL |     fn is_some(x: &Option<i32>) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:187:5
+   |
+LL |     fn is_some(x: &Option<i32>) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:187:16
+   |
+LL |     fn is_some(x: &Option<i32>) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:187:19
+   |
+LL |     fn is_some(x: &Option<i32>) -> bool {
+   |                   ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:195:1
+   |
+LL | fn avoid_fp_due_to_trait_type() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:195:1
+   |
+LL | fn avoid_fp_due_to_trait_type() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:195:1
+   |
+LL | fn avoid_fp_due_to_trait_type() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:196:5
+   |
+LL |     struct Foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:199:5
+   |
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:200:9
+   |
+LL |         fn is_some(obj: &Option<i32>) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:200:9
+   |
+LL |         fn is_some(obj: &Option<i32>) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:200:20
+   |
+LL |         fn is_some(obj: &Option<i32>) -> bool {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:200:25
+   |
+LL |         fn is_some(obj: &Option<i32>) -> bool {
+   |                         ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:208:1
+   |
+LL | fn avoid_fp_with_call_to_outside_var() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:208:1
+   |
+LL | fn avoid_fp_with_call_to_outside_var() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:208:1
+   |
+LL | fn avoid_fp_with_call_to_outside_var() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:209:9
+   |
+LL |     let outside = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:219:37
+   |
+LL |         .filter(|o| Option::is_some(&outside));
+   |                                     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:224:50
+   |
+LL |         .filter(|o| std::option::Option::is_some(&outside));
+   |                                                  ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/iter_filter_is_some.rs:227:1
+   |
+LL | fn avoid_fp_with_call_to_outside_var_mix_match_types() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:227:1
+   |
+LL | fn avoid_fp_with_call_to_outside_var_mix_match_types() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_filter_is_some.rs:227:1
+   |
+LL | fn avoid_fp_with_call_to_outside_var_mix_match_types() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/iter_filter_is_some.rs:228:9
+   |
+LL |     let outside: Result<i32, ()> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:238:35
+   |
+LL |         .filter(|o| Result::is_ok(&outside));
+   |                                   ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/iter_filter_is_some.rs:243:48
+   |
+LL |         .filter(|o| std::result::Result::is_ok(&outside));
+   |                                                ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 82 previous errors
 

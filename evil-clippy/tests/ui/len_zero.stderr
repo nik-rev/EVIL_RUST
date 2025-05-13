@@ -1,170 +1,853 @@
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:88:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if x.len() == 0 {
-   |        ^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `x.is_empty()`
-   |
-   = note: `-D clippy::len-zero` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::len_zero)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:93:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if "".len() == 0 {}
-   |        ^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `"".is_empty()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: comparison to empty slice
-  --> tests/ui/len_zero.rs:103:20
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:10:1
    |
-LL |     println!("{}", *s1 == "");
-   |                    ^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `s1.is_empty()`
+LL | extern crate core;
+   | ^ help: make this item public: `pub`
    |
-   = note: `-D clippy::comparison-to-empty` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::comparison_to_empty)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: comparison to empty slice
-  --> tests/ui/len_zero.rs:105:20
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:14:1
    |
-LL |     println!("{}", **s2 == "");
-   |                    ^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `s2.is_empty()`
+LL | struct Wither;
+   | ^ help: make this item public: `pub`
 
-error: comparison to empty slice
-  --> tests/ui/len_zero.rs:107:20
+error: trait must be `unsafe`
+  --> tests/ui/len_zero.rs:16:1
    |
-LL |     println!("{}", ***s3 == "");
-   |                    ^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `s3.is_empty()`
-
-error: comparison to empty slice
-  --> tests/ui/len_zero.rs:109:20
+LL | / trait TraitsToo {
+LL | |     fn len(&self) -> isize;
+LL | |     // No error; `len` is private; see issue #1085.
+LL | | }
+   | |_^
    |
-LL |     println!("{}", ****s4 == "");
-   |                    ^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `s4.is_empty()`
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: comparison to empty slice
-  --> tests/ui/len_zero.rs:111:20
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:16:1
    |
-LL |     println!("{}", *****s5 == "");
-   |                    ^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `s5.is_empty()`
+LL | trait TraitsToo {
+   | ^ help: make this item public: `pub`
 
-error: comparison to empty slice
-  --> tests/ui/len_zero.rs:113:20
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:17:5
    |
-LL |     println!("{}", ******(s6) == "");
-   |                    ^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `(s6).is_empty()`
+LL |     fn len(&self) -> isize;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:17:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
 
-error: comparison to empty slice
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:17:13
+   |
+LL |     fn len(&self) -> isize;
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:17:12
+   |
+LL |     fn len(&self) -> isize;
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:21:1
+   |
+LL | impl TraitsToo for One {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:22:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:22:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:22:13
+   |
+LL |     fn len(&self) -> isize {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:22:12
+   |
+LL |     fn len(&self) -> isize {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:29:1
+   |
+LL | impl HasIsEmpty {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:30:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:30:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:30:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:30:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:34:5
+   |
+LL |     fn is_empty(&self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:34:5
+   |
+LL |     fn is_empty(&self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:34:18
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:34:17
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:41:1
+   |
+LL | impl HasWrongIsEmpty {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:42:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:42:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:42:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:42:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:46:9
+   |
+LL |     pub fn is_empty(&self, x: u32) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:46:9
+   |
+LL |     pub fn is_empty(&self, x: u32) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:46:22
+   |
+LL |     pub fn is_empty(&self, x: u32) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:46:28
+   |
+LL |     pub fn is_empty(&self, x: u32) -> bool {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:46:21
+   |
+LL |     pub fn is_empty(&self, x: u32) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/len_zero.rs:51:1
+   |
+LL | / pub trait WithIsEmpty {
+LL | |     fn len(&self) -> isize;
+LL | |     fn is_empty(&self) -> bool;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:52:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:52:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:52:13
+   |
+LL |     fn len(&self) -> isize;
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:52:12
+   |
+LL |     fn len(&self) -> isize;
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:53:5
+   |
+LL |     fn is_empty(&self) -> bool;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:53:5
+   |
+LL |     fn is_empty(&self) -> bool;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:53:18
+   |
+LL |     fn is_empty(&self) -> bool;
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:53:17
+   |
+LL |     fn is_empty(&self) -> bool;
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:56:1
+   |
+LL | impl WithIsEmpty for Wither {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:57:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:57:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:57:13
+   |
+LL |     fn len(&self) -> isize {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:57:12
+   |
+LL |     fn len(&self) -> isize {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:61:5
+   |
+LL |     fn is_empty(&self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:61:5
+   |
+LL |     fn is_empty(&self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:61:18
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:61:17
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:66:1
+   |
+LL | struct DerefToDerefToString;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:68:1
+   |
+LL | impl Deref for DerefToDerefToString {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:71:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:71:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:71:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:71:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:71:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:72:9
+   |
+LL |         &DerefToString {}
+   |         ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:76:1
+   |
+LL | struct DerefToString;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:78:1
+   |
+LL | impl Deref for DerefToString {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:81:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:81:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:81:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:81:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:81:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:86:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:86:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:86:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:87:9
+   |
+LL |     let x = [1, 2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:96:9
+   |
+LL |     let s = "Hello, world!";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:97:9
+   |
+LL |     let s1 = &s;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:97:14
+   |
+LL |     let s1 = &s;
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:98:9
+   |
+LL |     let s2 = &s1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:98:14
+   |
+LL |     let s2 = &s1;
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:99:9
+   |
+LL |     let s3 = &s2;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:99:14
+   |
+LL |     let s3 = &s2;
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:100:9
+   |
+LL |     let s4 = &s3;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:100:14
+   |
+LL |     let s4 = &s3;
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:101:9
+   |
+LL |     let s5 = &s4;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:101:14
+   |
+LL |     let s5 = &s4;
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:102:9
+   |
+LL |     let s6 = &s5;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:102:14
+   |
+LL |     let s6 = &s5;
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:116:9
+   |
+LL |     let d2s = DerefToDerefToString {};
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/len_zero.rs:117:20
    |
 LL |     println!("{}", &**d2s == "");
-   |                    ^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `(**d2s).is_empty()`
-
-error: comparison to empty slice
-  --> tests/ui/len_zero.rs:120:20
+   |                    ^^^^^^
    |
-LL |     println!("{}", std::borrow::Cow::Borrowed("") == "");
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `std::borrow::Cow::Borrowed("").is_empty()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:136:8
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:123:9
    |
-LL |     if has_is_empty.len() == 0 {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `has_is_empty.is_empty()`
+LL |     let y = One;
+   |         ^ help: make this variable mutable: `mut`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:140:8
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:129:9
    |
-LL |     if has_is_empty.len() != 0 {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!has_is_empty.is_empty()`
+LL |     let z: &dyn TraitsToo = &y;
+   |         ^ help: make this variable mutable: `mut`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:144:8
+error: references are not allowed
+  --> tests/ui/len_zero.rs:129:12
    |
-LL |     if has_is_empty.len() > 0 {
-   |        ^^^^^^^^^^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!has_is_empty.is_empty()`
-
-error: length comparison to one
-  --> tests/ui/len_zero.rs:148:8
+LL |     let z: &dyn TraitsToo = &y;
+   |            ^^^^^^^^^^^^^^
    |
-LL |     if has_is_empty.len() < 1 {
-   |        ^^^^^^^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `has_is_empty.is_empty()`
+   = help: use a raw pointer instead: `*const`
 
-error: length comparison to one
-  --> tests/ui/len_zero.rs:152:8
+error: references are not allowed
+  --> tests/ui/len_zero.rs:129:29
    |
-LL |     if has_is_empty.len() >= 1 {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!has_is_empty.is_empty()`
-
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:164:8
+LL |     let z: &dyn TraitsToo = &y;
+   |                             ^^
    |
-LL |     if 0 == has_is_empty.len() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `has_is_empty.is_empty()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:168:8
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:135:9
    |
-LL |     if 0 != has_is_empty.len() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!has_is_empty.is_empty()`
+LL |     let has_is_empty = HasIsEmpty;
+   |         ^ help: make this variable mutable: `mut`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:172:8
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:194:9
    |
-LL |     if 0 < has_is_empty.len() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!has_is_empty.is_empty()`
+LL |     let with_is_empty: &dyn WithIsEmpty = &Wither;
+   |         ^ help: make this variable mutable: `mut`
 
-error: length comparison to one
-  --> tests/ui/len_zero.rs:176:8
+error: references are not allowed
+  --> tests/ui/len_zero.rs:194:24
    |
-LL |     if 1 <= has_is_empty.len() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!has_is_empty.is_empty()`
-
-error: length comparison to one
-  --> tests/ui/len_zero.rs:180:8
+LL |     let with_is_empty: &dyn WithIsEmpty = &Wither;
+   |                        ^^^^^^^^^^^^^^^^
    |
-LL |     if 1 > has_is_empty.len() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `has_is_empty.is_empty()`
+   = help: use a raw pointer instead: `*const`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:195:8
+error: references are not allowed
+  --> tests/ui/len_zero.rs:194:43
    |
-LL |     if with_is_empty.len() == 0 {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `with_is_empty.is_empty()`
-
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:208:6
+LL |     let with_is_empty: &dyn WithIsEmpty = &Wither;
+   |                                           ^^^^^^^
    |
-LL |     (has_is_empty.len() > 0).then(|| println!("This can happen."));
-   |      ^^^^^^^^^^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!has_is_empty.is_empty()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:210:6
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:201:9
    |
-LL |     (has_is_empty.len() == 0).then(|| println!("Or this!"));
-   |      ^^^^^^^^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `has_is_empty.is_empty()`
+LL |     let has_wrong_is_empty = HasWrongIsEmpty;
+   |         ^ help: make this variable mutable: `mut`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:215:8
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:214:1
    |
-LL |     if b.len() != 0 {}
-   |        ^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!b.is_empty()`
+LL | fn test_slice(b: &[u8]) {
+   | ^ help: make this item public: `pub`
 
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:250:8
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:214:1
    |
-LL |     if has_is_empty.len() == compare_to!(0) {}
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `has_is_empty.is_empty()`
-
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:252:8
+LL | fn test_slice(b: &[u8]) {
+   | ^
    |
-LL |     if has_is_empty.len() == zero!() {}
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `has_is_empty.is_empty()`
-
-error: length comparison to zero
-  --> tests/ui/len_zero.rs:255:6
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:214:1
    |
-LL |     (compare_to!(0) < has_is_empty.len()).then(|| println!("This can happen."));
-   |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!has_is_empty.is_empty()`
+LL | fn test_slice(b: &[u8]) {
+   | ^
 
-error: aborting due to 27 previous errors
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:214:15
+   |
+LL | fn test_slice(b: &[u8]) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:214:18
+   |
+LL | fn test_slice(b: &[u8]) {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:220:1
+   |
+LL | fn binop_with_macros() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:220:1
+   |
+LL | fn binop_with_macros() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:220:1
+   |
+LL | fn binop_with_macros() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:221:5
+   |
+LL |     macro_rules! len {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:227:5
+   |
+LL |     macro_rules! compare_to {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:234:5
+   |
+LL |     macro_rules! zero {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/len_zero.rs:240:9
+   |
+LL |     let has_is_empty = HasIsEmpty;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:259:1
+   |
+LL | fn no_infinite_recursion() -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:259:1
+   |
+LL | fn no_infinite_recursion() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:259:1
+   |
+LL | fn no_infinite_recursion() -> bool {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:260:5
+   |
+LL |     struct S;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:262:5
+   |
+LL |     impl Deref for S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:264:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:264:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:264:19
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:264:18
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:264:28
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_zero.rs:269:5
+   |
+LL |     impl PartialEq<&'static str> for S {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:269:20
+   |
+LL |     impl PartialEq<&'static str> for S {
+   |                    ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_zero.rs:270:9
+   |
+LL |         fn eq(&self, _other: &&'static str) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_zero.rs:270:9
+   |
+LL |         fn eq(&self, _other: &&'static str) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:270:16
+   |
+LL |         fn eq(&self, _other: &&'static str) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/len_zero.rs:270:22
+   |
+LL |         fn eq(&self, _other: &&'static str) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:270:15
+   |
+LL |         fn eq(&self, _other: &&'static str) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:270:30
+   |
+LL |         fn eq(&self, _other: &&'static str) -> bool {
+   |                              ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/len_zero.rs:270:31
+   |
+LL |         fn eq(&self, _other: &&'static str) -> bool {
+   |                               ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 110 previous errors
 

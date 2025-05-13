@@ -1,105 +1,260 @@
-error: use the `?` operator instead of an `and_then` call
-  --> tests/ui/return_and_then.rs:5:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /         opt.and_then(|n| {
-LL | |
-LL | |             let mut ret = n + 1;
-LL | |             ret += n;
-LL | |             if n > 1 { Some(ret) } else { None }
-LL | |         })
-   | |__________^
-   |
-   = note: `-D clippy::return-and-then` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::return_and_then)]`
-help: try
-   |
-LL ~         let n = opt?;
-LL +
-LL +         let mut ret = n + 1;
-LL +         ret += n;
-LL +         if n > 1 { Some(ret) } else { None }
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use the `?` operator instead of an `and_then` call
-  --> tests/ui/return_and_then.rs:14:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         opt.and_then(|n| test_opt_block(Some(n)))
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL ~         let n = opt?;
-LL +         test_opt_block(Some(n))
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use the `?` operator instead of an `and_then` call
-  --> tests/ui/return_and_then.rs:19:9
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:3:1
    |
-LL |         gen_option(1).and_then(|n| test_opt_block(Some(n)))
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: try
-   |
-LL ~         let n = gen_option(1)?;
-LL +         test_opt_block(Some(n))
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: use the `?` operator instead of an `and_then` call
-  --> tests/ui/return_and_then.rs:24:9
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:3:1
    |
-LL |         opt.and_then(|n| if n > 1 { Ok(n + 1) } else { Err(n) })
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:3:1
    |
-LL ~         let n = opt?;
-LL +         if n > 1 { Ok(n + 1) } else { Err(n) }
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: use the `?` operator instead of an `and_then` call
-  --> tests/ui/return_and_then.rs:29:9
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:4:5
    |
-LL |         opt.and_then(|n| test_res_block(Ok(n)))
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL ~         let n = opt?;
-LL +         test_res_block(Ok(n))
-   |
+LL |     fn test_opt_block(opt: Option<i32>) -> Option<i32> {
+   |     ^ help: make this item public: `pub`
 
-error: use the `?` operator instead of an `and_then` call
-  --> tests/ui/return_and_then.rs:35:9
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:4:5
    |
-LL |         Some("").and_then(|x| if x.len() > 2 { Some(3) } else { None })
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn test_opt_block(opt: Option<i32>) -> Option<i32> {
+   |     ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:4:5
    |
-LL ~         let x = Some("")?;
-LL +         if x.len() > 2 { Some(3) } else { None }
-   |
+LL |     fn test_opt_block(opt: Option<i32>) -> Option<i32> {
+   |     ^
 
-error: use the `?` operator instead of an `and_then` call
-  --> tests/ui/return_and_then.rs:41:9
+error: parameter must be `mut`
+  --> tests/ui/return_and_then.rs:4:23
    |
-LL | /         Some(match (vec![1, 2, 3], vec![1, 2, 4]) {
-LL | |
-LL | |             (a, _) if a.len() > 1 => a,
-LL | |             (_, b) => b,
-LL | |         })
-LL | |         .and_then(|x| if x.len() > 2 { Some(3) } else { None })
-   | |_______________________________________________________________^
+LL |     fn test_opt_block(opt: Option<i32>) -> Option<i32> {
+   |                       ^ help: make this parameter mutable: `mut`
    |
-help: try
-   |
-LL ~         let x = Some(match (vec![1, 2, 3], vec![1, 2, 4]) {
-LL +
-LL +             (a, _) if a.len() > 1 => a,
-LL +             (_, b) => b,
-LL +         })?;
-LL +         if x.len() > 2 { Some(3) } else { None }
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 7 previous errors
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:13:5
+   |
+LL |     fn test_opt_func(opt: Option<i32>) -> Option<i32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:13:5
+   |
+LL |     fn test_opt_func(opt: Option<i32>) -> Option<i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:13:5
+   |
+LL |     fn test_opt_func(opt: Option<i32>) -> Option<i32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_and_then.rs:13:22
+   |
+LL |     fn test_opt_func(opt: Option<i32>) -> Option<i32> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:18:5
+   |
+LL |     fn test_call_chain() -> Option<i32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:18:5
+   |
+LL |     fn test_call_chain() -> Option<i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:18:5
+   |
+LL |     fn test_call_chain() -> Option<i32> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:23:5
+   |
+LL |     fn test_res_block(opt: Result<i32, i32>) -> Result<i32, i32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:23:5
+   |
+LL |     fn test_res_block(opt: Result<i32, i32>) -> Result<i32, i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:23:5
+   |
+LL |     fn test_res_block(opt: Result<i32, i32>) -> Result<i32, i32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_and_then.rs:23:23
+   |
+LL |     fn test_res_block(opt: Result<i32, i32>) -> Result<i32, i32> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:28:5
+   |
+LL |     fn test_res_func(opt: Result<i32, i32>) -> Result<i32, i32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:28:5
+   |
+LL |     fn test_res_func(opt: Result<i32, i32>) -> Result<i32, i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:28:5
+   |
+LL |     fn test_res_func(opt: Result<i32, i32>) -> Result<i32, i32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_and_then.rs:28:22
+   |
+LL |     fn test_res_func(opt: Result<i32, i32>) -> Result<i32, i32> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:33:5
+   |
+LL |     fn test_ref_only() -> Option<i32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:33:5
+   |
+LL |     fn test_ref_only() -> Option<i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:33:5
+   |
+LL |     fn test_ref_only() -> Option<i32> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:39:5
+   |
+LL |     fn test_tmp_only() -> Option<i32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:39:5
+   |
+LL |     fn test_tmp_only() -> Option<i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:39:5
+   |
+LL |     fn test_tmp_only() -> Option<i32> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:50:5
+   |
+LL |     fn test_tmp_ref() -> Option<String> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:50:5
+   |
+LL |     fn test_tmp_ref() -> Option<String> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:50:5
+   |
+LL |     fn test_tmp_ref() -> Option<String> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:57:5
+   |
+LL |     fn test_unconsumed_tmp() -> Option<i32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:57:5
+   |
+LL |     fn test_unconsumed_tmp() -> Option<i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:57:5
+   |
+LL |     fn test_unconsumed_tmp() -> Option<i32> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/return_and_then.rs:68:1
+   |
+LL | fn gen_option(n: i32) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_and_then.rs:68:1
+   |
+LL | fn gen_option(n: i32) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_and_then.rs:68:1
+   |
+LL | fn gen_option(n: i32) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_and_then.rs:68:15
+   |
+LL | fn gen_option(n: i32) -> Option<i32> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 31 previous errors
 

@@ -1,108 +1,319 @@
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:10:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:6:5
+   |
+LL | pub fn small_err() -> Result<(), u128> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:6:5
+   |
+LL | pub fn small_err() -> Result<(), u128> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:10:5
    |
 LL | pub fn large_err() -> Result<(), [u8; 512]> {
-   |                       ^^^^^^^^^^^^^^^^^^^^^ the `Err`-variant is at least 512 bytes
+   |     ^
    |
-   = help: try reducing the size of `[u8; 512]`, for example by boxing large elements or replacing it with `Box<[u8; 512]>`
-   = note: `-D clippy::result-large-err` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::result_large_err)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:10:5
+   |
+LL | pub fn large_err() -> Result<(), [u8; 512]> {
+   |     ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:23:21
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:22:1
+   |
+LL | impl FullyDefinedLargeError {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:23:9
    |
 LL |     pub fn ret() -> Result<(), Self> {
-   |                     ^^^^^^^^^^^^^^^^ the `Err`-variant is at least 240 bytes
+   |         ^
    |
-   = help: try reducing the size of `FullyDefinedLargeError`, for example by boxing large elements or replacing it with `Box<FullyDefinedLargeError>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:23:9
+   |
+LL |     pub fn ret() -> Result<(), Self> {
+   |         ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:30:26
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:30:5
    |
 LL | pub fn struct_error() -> Result<(), FullyDefinedLargeError> {
-   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the `Err`-variant is at least 240 bytes
+   |     ^
    |
-   = help: try reducing the size of `FullyDefinedLargeError`, for example by boxing large elements or replacing it with `Box<FullyDefinedLargeError>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:30:5
+   |
+LL | pub fn struct_error() -> Result<(), FullyDefinedLargeError> {
+   |     ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:37:45
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:36:1
+   |
+LL | type Fdlr<T> = std::result::Result<T, FullyDefinedLargeError>;
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:37:5
    |
 LL | pub fn large_err_via_type_alias<T>(x: T) -> Fdlr<T> {
-   |                                             ^^^^^^^ the `Err`-variant is at least 240 bytes
+   |     ^
    |
-   = help: try reducing the size of `FullyDefinedLargeError`, for example by boxing large elements or replacing it with `Box<FullyDefinedLargeError>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:37:5
+   |
+LL | pub fn large_err_via_type_alias<T>(x: T) -> Fdlr<T> {
+   |     ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:47:34
+error: parameter must be `mut`
+  --> tests/ui/result_large_err.rs:37:36
+   |
+LL | pub fn large_err_via_type_alias<T>(x: T) -> Fdlr<T> {
+   |                                    ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:43:5
+   |
+LL | pub fn param_small_error<R>() -> Result<(), (R, u128)> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:43:5
+   |
+LL | pub fn param_small_error<R>() -> Result<(), (R, u128)> {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:47:5
    |
 LL | pub fn param_large_error<R>() -> Result<(), (u128, R, FullyDefinedLargeError)> {
-   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the `Err`-variant is at least 256 bytes
+   |     ^
    |
-   = help: try reducing the size of `(u128, R, FullyDefinedLargeError)`, for example by boxing large elements or replacing it with `Box<(u128, R, FullyDefinedLargeError)>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:47:5
+   |
+LL | pub fn param_large_error<R>() -> Result<(), (u128, R, FullyDefinedLargeError)> {
+   |     ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:60:34
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:59:1
    |
-LL |     _Omg([u8; 512]),
-   |     --------------- the largest variant contains at least 512 bytes
-...
+LL | impl LargeErrorVariants<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:60:9
+   |
 LL |     pub fn large_enum_error() -> Result<(), Self> {
-   |                                  ^^^^^^^^^^^^^^^^
+   |         ^
    |
-   = help: try reducing the size of `LargeErrorVariants<()>`, for example by boxing large elements or replacing it with `Box<LargeErrorVariants<()>>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:60:9
+   |
+LL |     pub fn large_enum_error() -> Result<(), Self> {
+   |         ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:74:30
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:67:1
    |
-LL |     _Biggest([u8; 1024]),
-   |     -------------------- the largest variant contains at least 1024 bytes
-LL |     _AlsoBig([u8; 512]),
-   |     ------------------- the variant `_AlsoBig` contains at least 512 bytes
-...
+LL | enum MultipleLargeVariants {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:73:1
+   |
+LL | impl MultipleLargeVariants {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:74:5
+   |
 LL |     fn large_enum_error() -> Result<(), Self> {
-   |                              ^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: try reducing the size of `MultipleLargeVariants`, for example by boxing large elements or replacing it with `Box<MultipleLargeVariants>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:74:5
+   |
+LL |     fn large_enum_error() -> Result<(), Self> {
+   |     ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:82:25
+error: trait must be `unsafe`
+  --> tests/ui/result_large_err.rs:81:1
+   |
+LL | / trait TraitForcesLargeError {
+LL | |     fn large_error() -> Result<(), [u8; 512]> {
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:81:1
+   |
+LL | trait TraitForcesLargeError {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:82:5
    |
 LL |     fn large_error() -> Result<(), [u8; 512]> {
-   |                         ^^^^^^^^^^^^^^^^^^^^^ the `Err`-variant is at least 512 bytes
+   |     ^
    |
-   = help: try reducing the size of `[u8; 512]`, for example by boxing large elements or replacing it with `Box<[u8; 512]>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:82:5
+   |
+LL |     fn large_error() -> Result<(), [u8; 512]> {
+   |     ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:103:29
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:89:1
+   |
+LL | struct TraitImpl;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:91:1
+   |
+LL | impl TraitForcesLargeError for TraitImpl {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:93:5
+   |
+LL |     fn large_error() -> Result<(), [u8; 512]> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:93:5
+   |
+LL |     fn large_error() -> Result<(), [u8; 512]> {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:103:5
    |
 LL | pub fn large_union_err() -> Result<(), FullyDefinedUnionError> {
-   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the `Err`-variant is at least 512 bytes
+   |     ^
    |
-   = help: try reducing the size of `FullyDefinedUnionError`, for example by boxing large elements or replacing it with `Box<FullyDefinedUnionError>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:103:5
+   |
+LL | pub fn large_union_err() -> Result<(), FullyDefinedUnionError> {
+   |     ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:114:40
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:114:5
    |
 LL | pub fn param_large_union<T: Copy>() -> Result<(), UnionError<T>> {
-   |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^ the `Err`-variant is at least 512 bytes
+   |     ^
    |
-   = help: try reducing the size of `UnionError<T>`, for example by boxing large elements or replacing it with `Box<UnionError<T>>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:114:5
+   |
+LL | pub fn param_large_union<T: Copy>() -> Result<(), UnionError<T>> {
+   |     ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:125:34
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:125:5
    |
 LL | pub fn array_error_subst<U>() -> Result<(), ArrayError<i32, U>> {
-   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the `Err`-variant is at least 128 bytes
+   |     ^
    |
-   = help: try reducing the size of `ArrayError<i32, U>`, for example by boxing large elements or replacing it with `Box<ArrayError<i32, U>>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:125:5
+   |
+LL | pub fn array_error_subst<U>() -> Result<(), ArrayError<i32, U>> {
+   |     ^
 
-error: the `Err`-variant returned from this function is very large
-  --> tests/ui/result_large_err.rs:131:31
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:131:5
    |
 LL | pub fn array_error<T, U>() -> Result<(), ArrayError<(i32, T), U>> {
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the `Err`-variant is at least 128 bytes
+   |     ^
    |
-   = help: try reducing the size of `ArrayError<(i32, T), U>`, for example by boxing large elements or replacing it with `Box<ArrayError<(i32, T), U>>`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:131:5
+   |
+LL | pub fn array_error<T, U>() -> Result<(), ArrayError<(i32, T), U>> {
+   |     ^
 
-error: aborting due to 12 previous errors
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:138:1
+   |
+LL | enum Empty {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:139:1
+   |
+LL | fn _empty_error() -> Result<(), Empty> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:139:1
+   |
+LL | fn _empty_error() -> Result<(), Empty> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:139:1
+   |
+LL | fn _empty_error() -> Result<(), Empty> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/result_large_err.rs:143:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_large_err.rs:143:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_large_err.rs:143:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 34 previous errors
 

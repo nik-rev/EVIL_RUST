@@ -1,71 +1,1961 @@
-error: the borrowed expression implements the required traits
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:15:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:15:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:15:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:16:37
    |
 LL |     let _ = Command::new("ls").args(&["-a", "-l"]).status().unwrap();
-   |                                     ^^^^^^^^^^^^^ help: change this to: `["-a", "-l"]`
+   |                                     ^^^^^^^^^^^^^
    |
-   = note: `-D clippy::needless-borrows-for-generic-args` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_borrows_for_generic_args)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: the borrowed expression implements the required traits
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:18:33
    |
 LL |     let _ = Path::new(".").join(&&".");
-   |                                 ^^^^^ help: change this to: `"."`
+   |                                 ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the borrowed expression implements the required traits
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:18:34
+   |
+LL |     let _ = Path::new(".").join(&&".");
+   |                                  ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:20:26
+   |
+LL |     let _ = Any::type_id(&""); // Don't lint. `Any` is only bound
+   |                          ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:21:22
+   |
+LL |     let _ = Box::new(&""); // Don't lint. Type parameter appears in return type
+   |                      ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:22:32
+   |
+LL |     let _ = Some("").unwrap_or(&"");
+   |                                ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:23:33
    |
 LL |     let _ = std::fs::write("x", &"".to_string());
-   |                                 ^^^^^^^^^^^^^^^ help: change this to: `"".to_string()`
+   |                                 ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the borrowed expression implements the required traits
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:28:9
+   |
+LL |         struct X;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:27:18
+   |
+LL |         #[derive(Clone, Copy)]
+   |                  ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:27:15
+   |
+LL |         #[derive(Clone, Copy)]
+   |               ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:27:15
+   |
+LL |         #[derive(Clone, Copy)]
+   |               ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:27:18
+   |
+LL |         #[derive(Clone, Copy)]
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:27:18
+   |
+LL |         #[derive(Clone, Copy)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:27:25
+   |
+LL |         #[derive(Clone, Copy)]
+   |                         ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:30:9
+   |
+LL |         impl Deref for X {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:32:13
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:32:13
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:32:23
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:32:22
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:32:32
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |                                ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:37:9
+   |
+LL |         fn deref_target_is_x<T: Deref<Target = X>>(_: T) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:37:9
+   |
+LL |         fn deref_target_is_x<T: Deref<Target = X>>(_: T) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:37:9
+   |
+LL |         fn deref_target_is_x<T: Deref<Target = X>>(_: T) {}
+   |         ^
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:39:27
    |
 LL |         deref_target_is_x(&X);
-   |                           ^^ help: change this to: `X`
+   |                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the borrowed expression implements the required traits
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:43:9
+   |
+LL |         fn multiple_constraints<T, U, V, X, Y>(_: T)
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:43:9
+   |
+LL |         fn multiple_constraints<T, U, V, X, Y>(_: T)
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:43:9
+   |
+LL |         fn multiple_constraints<T, U, V, X, Y>(_: T)
+   |         ^
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:53:30
    |
 LL |         multiple_constraints(&[[""]]);
-   |                              ^^^^^^^ help: change this to: `[[""]]`
+   |                              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the borrowed expression implements the required traits
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:58:9
+   |
+LL |         struct X;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:57:18
+   |
+LL |         #[derive(Clone, Copy)]
+   |                  ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:57:15
+   |
+LL |         #[derive(Clone, Copy)]
+   |               ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:57:15
+   |
+LL |         #[derive(Clone, Copy)]
+   |               ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:57:18
+   |
+LL |         #[derive(Clone, Copy)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:57:18
+   |
+LL |         #[derive(Clone, Copy)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:57:25
+   |
+LL |         #[derive(Clone, Copy)]
+   |                         ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:60:9
+   |
+LL |         impl Deref for X {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:62:13
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:62:13
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:62:23
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:62:22
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:62:32
+   |
+LL |             fn deref(&self) -> &Self::Target {
+   |                                ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:67:9
+   |
+LL |         fn multiple_constraints_normalizes_to_same<T, U, V>(_: T, _: V)
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:67:9
+   |
+LL |         fn multiple_constraints_normalizes_to_same<T, U, V>(_: T, _: V)
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:67:9
+   |
+LL |         fn multiple_constraints_normalizes_to_same<T, U, V>(_: T, _: V)
+   |         ^
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:74:49
    |
 LL |         multiple_constraints_normalizes_to_same(&X, X);
-   |                                                 ^^ help: change this to: `X`
+   |                                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the borrowed expression implements the required traits
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:78:9
+   |
+LL |         fn only_sized<T>(_: T) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:78:9
+   |
+LL |         fn only_sized<T>(_: T) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:78:9
+   |
+LL |         fn only_sized<T>(_: T) {}
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:79:20
+   |
+LL |         only_sized(&""); // Don't lint. `Sized` is only bound
+   |                    ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:82:9
+   |
+LL |         fn ref_as_ref_path<T: 'static>(_: &'static T)
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:82:9
+   |
+LL |         fn ref_as_ref_path<T: 'static>(_: &'static T)
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:82:9
+   |
+LL |         fn ref_as_ref_path<T: 'static>(_: &'static T)
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:84:13
+   |
+LL |             &'static T: AsRef<Path>,
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:82:43
+   |
+LL |         fn ref_as_ref_path<T: 'static>(_: &'static T)
+   |                                           ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:88:25
+   |
+LL |         ref_as_ref_path(&""); // Don't lint. Argument type is not a type parameter
+   |                         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:91:9
+   |
+LL | /         trait RefsOnly {
+LL | |             type Referent;
+LL | |         }
+   | |_________^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:91:9
+   |
+LL |         trait RefsOnly {
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:95:9
+   |
+LL |         impl<T> RefsOnly for &T {
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:95:30
+   |
+LL |         impl<T> RefsOnly for &T {
+   |                              ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:99:9
+   |
+LL |         fn refs_only<T, U>(_: T)
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:99:9
+   |
+LL |         fn refs_only<T, U>(_: T)
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:99:9
+   |
+LL |         fn refs_only<T, U>(_: T)
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:105:19
+   |
+LL |         refs_only(&()); // Don't lint. `&T` implements trait, but `T` doesn't
+   |                   ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:108:9
+   |
+LL |         fn multiple_constraints_normalizes_to_different<T, U, V>(_: T, _: U)
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:108:9
+   |
+LL |         fn multiple_constraints_normalizes_to_different<T, U, V>(_: T, _: U)
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:108:9
+   |
+LL |         fn multiple_constraints_normalizes_to_different<T, U, V>(_: T, _: U)
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:115:54
+   |
+LL |         multiple_constraints_normalizes_to_different(&[[""]], &[""]); // Don't lint. Projected type appears in arguments
+   |                                                      ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:115:63
+   |
+LL |         multiple_constraints_normalizes_to_different(&[[""]], &[""]); // Don't lint. Projected type appears in arguments
+   |                                                               ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:120:9
+   |
+LL |         struct Iter;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:119:18
+   |
+LL |         #[derive(Clone, Copy)]
+   |                  ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:119:15
+   |
+LL |         #[derive(Clone, Copy)]
+   |               ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:119:15
+   |
+LL |         #[derive(Clone, Copy)]
+   |               ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:119:18
+   |
+LL |         #[derive(Clone, Copy)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:119:18
+   |
+LL |         #[derive(Clone, Copy)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:119:25
+   |
+LL |         #[derive(Clone, Copy)]
+   |                         ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:121:9
+   |
+LL |         impl Iterator for Iter {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:123:13
+   |
+LL |             fn next(&mut self) -> Option<Self::Item> {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:123:13
+   |
+LL |             fn next(&mut self) -> Option<Self::Item> {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:123:26
+   |
+LL |             fn next(&mut self) -> Option<Self::Item> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:123:21
+   |
+LL |             fn next(&mut self) -> Option<Self::Item> {
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:127:9
+   |
+LL |         fn takes_iter(_: impl Iterator) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:127:9
+   |
+LL |         fn takes_iter(_: impl Iterator) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:127:9
+   |
+LL |         fn takes_iter(_: impl Iterator) {}
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:128:9
+   |
+LL |         fn dont_warn(mut x: Iter) {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:128:9
+   |
+LL |         fn dont_warn(mut x: Iter) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:128:9
+   |
+LL |         fn dont_warn(mut x: Iter) {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:129:24
+   |
+LL |             takes_iter(&mut x);
+   |                        ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:132:9
+   |
+LL |         fn warn(mut x: &mut Iter) {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:132:9
+   |
+LL |         fn warn(mut x: &mut Iter) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:132:9
+   |
+LL |         fn warn(mut x: &mut Iter) {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:132:24
+   |
+LL |         fn warn(mut x: &mut Iter) {
+   |                        ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:133:24
    |
 LL |             takes_iter(&mut x)
-   |                        ^^^^^^ help: change this to: `x`
+   |                        ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: the borrowed expression implements the required traits
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:139:41
+   |
+LL |         let _ = Command::new("ls").args(&["-a", "-l"]).status().unwrap();
+   |                                         ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:143:41
    |
 LL |         let _ = Command::new("ls").args(&["-a", "-l"]).status().unwrap();
-   |                                         ^^^^^^^^^^^^^ help: change this to: `["-a", "-l"]`
+   |                                         ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the borrowed expression implements the required traits
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:147:13
+   |
+LL |         let env = "env".to_owned();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:148:13
+   |
+LL |         let arg = "arg".to_owned();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:149:13
+   |
+LL |         let f = |arg| {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:150:17
+   |
+LL |             let loc = "loc".to_owned();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:151:41
+   |
+LL |             let _ = std::fs::write("x", &env); // Don't lint. In environment
+   |                                         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:152:41
+   |
+LL |             let _ = std::fs::write("x", &arg);
+   |                                         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:153:41
+   |
+LL |             let _ = std::fs::write("x", &loc);
+   |                                         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:155:37
+   |
+LL |         let _ = std::fs::write("x", &env); // Don't lint. Borrowed by `f`
+   |                                     ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:160:9
+   |
+LL |         struct X;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:159:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:159:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:159:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:159:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:159:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:159:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:159:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:162:9
+   |
+LL |         impl Drop for X {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:163:13
+   |
+LL |             fn drop(&mut self) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:163:13
+   |
+LL |             fn drop(&mut self) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:163:26
+   |
+LL |             fn drop(&mut self) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:163:21
+   |
+LL |             fn drop(&mut self) {}
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:166:9
+   |
+LL |         fn f(_: impl Debug) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:166:9
+   |
+LL |         fn f(_: impl Debug) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:166:9
+   |
+LL |         fn f(_: impl Debug) {}
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:168:13
+   |
+LL |         let x = X;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:169:11
+   |
+LL |         f(&x); // Don't lint, not copy, passed by a reference to a variable
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:172:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:172:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:172:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:174:13
+   |
+LL |         let x = String::new();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:175:11
+   |
+LL |         f(&x);
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:178:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:178:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:178:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:179:9
+   |
+LL |         fn f2(_: impl AsRef<str>) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:179:9
+   |
+LL |         fn f2(_: impl AsRef<str>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:179:9
+   |
+LL |         fn f2(_: impl AsRef<str>) {}
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:181:13
+   |
+LL |         let x = String::new();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:182:11
+   |
+LL |         f(&x);
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:183:12
+   |
+LL |         f2(&x);
+   |            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:188:9
+   |
+LL |         struct A;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:190:9
+   |
+LL |         impl Extend<u8> for A {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:191:13
+   |
+LL |             fn extend<T: IntoIterator<Item = u8>>(&mut self, _: T) {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:191:13
+   |
+LL |             fn extend<T: IntoIterator<Item = u8>>(&mut self, _: T) {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:191:56
+   |
+LL |             fn extend<T: IntoIterator<Item = u8>>(&mut self, _: T) {
+   |                                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:191:51
+   |
+LL |             fn extend<T: IntoIterator<Item = u8>>(&mut self, _: T) {
+   |                                                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:196:9
+   |
+LL |         impl<'a> Extend<&'a u8> for A {
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:196:25
+   |
+LL |         impl<'a> Extend<&'a u8> for A {
+   |                         ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:197:13
+   |
+LL |             fn extend<T: IntoIterator<Item = &'a u8>>(&mut self, _: T) {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:197:13
+   |
+LL |             fn extend<T: IntoIterator<Item = &'a u8>>(&mut self, _: T) {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:197:60
+   |
+LL |             fn extend<T: IntoIterator<Item = &'a u8>>(&mut self, _: T) {
+   |                                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:197:46
+   |
+LL |             fn extend<T: IntoIterator<Item = &'a u8>>(&mut self, _: T) {
+   |                                              ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:197:55
+   |
+LL |             fn extend<T: IntoIterator<Item = &'a u8>>(&mut self, _: T) {
+   |                                                       ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:203:18
+   |
+LL |         a.extend(&[]); // vs a.extend([]);
+   |                  ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:207:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:207:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:207:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:209:13
+   |
+LL |         let x = String::new();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:211:15
+   |
+LL |             f(&x);
+   |               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:216:9
+   |
+LL |         fn foo<D: Display>(_it: impl IntoIterator<Item = D>) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:216:9
+   |
+LL |         fn foo<D: Display>(_it: impl IntoIterator<Item = D>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:216:9
+   |
+LL |         fn foo<D: Display>(_it: impl IntoIterator<Item = D>) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:216:28
+   |
+LL |         fn foo<D: Display>(_it: impl IntoIterator<Item = D>) {}
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:218:13
+   |
+LL |             &[0]
+   |             ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:220:13
+   |
+LL |             &[] as &[u32]
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:220:20
+   |
+LL |             &[] as &[u32]
+   |                    ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:224:9
+   |
+LL |         struct S;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:226:9
+   |
+LL |         impl S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:227:13
+   |
+LL |             fn foo<D: Display>(&self, _it: impl IntoIterator<Item = D>) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:227:13
+   |
+LL |             fn foo<D: Display>(&self, _it: impl IntoIterator<Item = D>) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:227:33
+   |
+LL |             fn foo<D: Display>(&self, _it: impl IntoIterator<Item = D>) {}
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:227:39
+   |
+LL |             fn foo<D: Display>(&self, _it: impl IntoIterator<Item = D>) {}
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:227:32
+   |
+LL |             fn foo<D: Display>(&self, _it: impl IntoIterator<Item = D>) {}
+   |                                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:231:13
+   |
+LL |             &[0]
+   |             ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:233:13
+   |
+LL |             &[] as &[u32]
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:233:20
+   |
+LL |             &[] as &[u32]
+   |                    ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:238:9
+   |
+LL |         fn foo<T: AsRef<[u8]>>(t: T) {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:238:9
+   |
+LL |         fn foo<T: AsRef<[u8]>>(t: T) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:238:9
+   |
+LL |         fn foo<T: AsRef<[u8]>>(t: T) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:238:32
+   |
+LL |         fn foo<T: AsRef<[u8]>>(t: T) {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:240:17
+   |
+LL |             let _t: &[u8] = t.as_ref();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:240:21
+   |
+LL |             let _t: &[u8] = t.as_ref();
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:243:13
+   |
+LL |         let a: [u8; 100] = [0u8; 100];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:250:15
+   |
+LL |         foo::<&[u8]>(&a);
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:250:22
+   |
+LL |         foo::<&[u8]>(&a);
+   |                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:254:15
+   |
+LL |         foo::<&[u8; 100]>(&a);
+   |               ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:254:27
+   |
+LL |         foo::<&[u8; 100]>(&a);
+   |                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:255:13
    |
 LL |         foo(&a);
-   |             ^^ help: change this to: `a`
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the borrowed expression implements the required traits
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:259:9
+   |
+LL |         struct S;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:261:9
+   |
+LL |         impl S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:262:13
+   |
+LL |             fn foo<T: AsRef<[u8]>>(t: T) {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:262:13
+   |
+LL |             fn foo<T: AsRef<[u8]>>(t: T) {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:262:36
+   |
+LL |             fn foo<T: AsRef<[u8]>>(t: T) {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:264:21
+   |
+LL |                 let _t: &[u8] = t.as_ref();
+   |                     ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:264:25
+   |
+LL |                 let _t: &[u8] = t.as_ref();
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:268:13
+   |
+LL |         let a: [u8; 100] = [0u8; 100];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:269:18
+   |
+LL |         S::foo::<&[u8; 100]>(&a);
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:269:30
+   |
+LL |         S::foo::<&[u8; 100]>(&a);
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:272:9
+   |
+LL |         struct S;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:274:9
+   |
+LL |         impl S {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:275:13
+   |
+LL |             fn foo<T: AsRef<[u8]>>(&self, t: T) {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:275:13
+   |
+LL |             fn foo<T: AsRef<[u8]>>(&self, t: T) {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:275:37
+   |
+LL |             fn foo<T: AsRef<[u8]>>(&self, t: T) {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:275:43
+   |
+LL |             fn foo<T: AsRef<[u8]>>(&self, t: T) {
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:275:36
+   |
+LL |             fn foo<T: AsRef<[u8]>>(&self, t: T) {
+   |                                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:277:21
+   |
+LL |                 let _t: &[u8] = t.as_ref();
+   |                     ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:277:25
+   |
+LL |                 let _t: &[u8] = t.as_ref();
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:281:13
+   |
+LL |         let a: [u8; 100] = [0u8; 100];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:282:17
+   |
+LL |         S.foo::<&[u8; 100]>(&a);
+   |                 ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:282:29
+   |
+LL |         S.foo::<&[u8; 100]>(&a);
+   |                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: static must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:286:16
+   |
+LL |         static SOME_STATIC: String = String::new();
+   |                ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:286:9
+   |
+LL |         static SOME_STATIC: String = String::new();
+   |         ^ help: make this item public: `pub`
+
+error: static must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:288:16
+   |
+LL |         static UNIT: () = compute(&SOME_STATIC);
+   |                ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:288:9
+   |
+LL |         static UNIT: () = compute(&SOME_STATIC);
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:288:35
+   |
+LL |         static UNIT: () = compute(&SOME_STATIC);
+   |                                   ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:290:19
+   |
+LL |         pub const fn compute<T>(_: T)
+   |                   ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:290:19
+   |
+LL |         pub const fn compute<T>(_: T)
+   |                   ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:298:9
+   |
+LL |         struct CustomDrop(String);
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:300:9
+   |
+LL |         impl Drop for CustomDrop {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:301:13
+   |
+LL |             fn drop(&mut self) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:301:13
+   |
+LL |             fn drop(&mut self) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:301:26
+   |
+LL |             fn drop(&mut self) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:301:21
+   |
+LL |             fn drop(&mut self) {}
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:304:9
+   |
+LL |         fn check_str<P: AsRef<str>>(_to: P) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:304:9
+   |
+LL |         fn check_str<P: AsRef<str>>(_to: P) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:304:9
+   |
+LL |         fn check_str<P: AsRef<str>>(_to: P) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:304:37
+   |
+LL |         fn check_str<P: AsRef<str>>(_to: P) {}
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:306:9
+   |
+LL |         fn test() {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:306:9
+   |
+LL |         fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:306:9
+   |
+LL |         fn test() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:307:17
+   |
+LL |             let owner = CustomDrop(String::default());
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:308:23
+   |
+LL |             check_str(&owner.0); // Don't lint. `owner` can't be partially moved because it impl Drop
+   |                       ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:313:9
+   |
+LL |         struct X(Vec<u8>);
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:312:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:312:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:312:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:312:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:312:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:312:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:312:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:313:18
+   |
+LL |         #[derive(Debug)]
+   |                  ----- in this derive macro expansion
+LL |         struct X(Vec<u8>);
+   |                  ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:313:18
+   |
+LL |         #[derive(Debug)]
+   |                  ----- in this derive macro expansion
+LL |         struct X(Vec<u8>);
+   |                  ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:315:9
+   |
+LL |         fn f(_: impl Debug) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:315:9
+   |
+LL |         fn f(_: impl Debug) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:315:9
+   |
+LL |         fn f(_: impl Debug) {}
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:317:13
+   |
+LL |         let x = X(vec![]);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:318:11
+   |
+LL |         f(&x); // Don't lint, makes x unavailable later
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:322:9
+   |
+LL |         struct X;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:321:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:321:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:321:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:321:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:321:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:321:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:321:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:324:9
+   |
+LL |         impl Drop for X {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:325:13
+   |
+LL |             fn drop(&mut self) {}
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:325:13
+   |
+LL |             fn drop(&mut self) {}
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:325:26
+   |
+LL |             fn drop(&mut self) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:325:21
+   |
+LL |             fn drop(&mut self) {}
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:328:9
+   |
+LL |         fn f(_: impl Debug) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:328:9
+   |
+LL |         fn f(_: impl Debug) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:328:9
+   |
+LL |         fn f(_: impl Debug) {}
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:331:9
+   |
+LL |         struct Y(X);
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:330:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:330:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:330:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:330:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:330:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:330:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:330:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:331:18
+   |
+LL |         #[derive(Debug)]
+   |                  ----- in this derive macro expansion
+LL |         struct Y(X);
+   |                  ^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:331:18
+   |
+LL |         #[derive(Debug)]
+   |                  ----- in this derive macro expansion
+LL |         struct Y(X);
+   |                  ^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:333:13
+   |
+LL |         let y = Y(X);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:334:11
+   |
+LL |         f(&y); // Don't lint. Not copy, passed by a reference to value
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:337:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:337:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:337:9
+   |
+LL |         fn f(_: impl AsRef<str>) {}
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:338:13
+   |
+LL |         let x = String::new();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:339:11
+   |
+LL |         f(&x); // Don't lint, not a copy, makes it unavailable later
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:340:11
    |
 LL |         f(&String::new()); // Lint, makes no difference
-   |           ^^^^^^^^^^^^^^ help: change this to: `String::new()`
+   |           ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the borrowed expression implements the required traits
+error: variable must be `mut`
+  --> tests/ui/needless_borrows_for_generic_args.rs:343:13
+   |
+LL |         let y = "".to_owned();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:344:11
+   |
+LL |         f(&y); // Don't lint
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrows_for_generic_args.rs:345:11
    |
 LL |         f(&"".to_owned()); // Lint
-   |           ^^^^^^^^^^^^^^ help: change this to: `"".to_owned()`
+   |           ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 11 previous errors
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:350:9
+   |
+LL |         fn takes_writer<T: std::io::Write>(_: T) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:350:9
+   |
+LL |         fn takes_writer<T: std::io::Write>(_: T) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:350:9
+   |
+LL |         fn takes_writer<T: std::io::Write>(_: T) {}
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrows_for_generic_args.rs:352:9
+   |
+LL |         fn issue_12856(mut buffer: &mut Vec<u8>) {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:352:9
+   |
+LL |         fn issue_12856(mut buffer: &mut Vec<u8>) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrows_for_generic_args.rs:352:9
+   |
+LL |         fn issue_12856(mut buffer: &mut Vec<u8>) {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:352:36
+   |
+LL |         fn issue_12856(mut buffer: &mut Vec<u8>) {
+   |                                    ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_borrows_for_generic_args.rs:353:26
+   |
+LL |             takes_writer(&mut buffer); // Don't lint, would make buffer unavailable later
+   |                          ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 249 previous errors
 

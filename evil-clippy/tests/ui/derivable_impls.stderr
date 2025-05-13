@@ -1,191 +1,860 @@
-error: this `impl` can be derived
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:5:1
+   |
+LL | struct FooDefault<'a> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: references are not allowed
+  --> tests/ui/derivable_impls.rs:17:8
+   |
+LL |     l: &'a [i32],
+   |        ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:20:1
    |
-LL | / impl std::default::Default for FooDefault<'_> {
-LL | |
-LL | |     fn default() -> Self {
-LL | |         Self {
-...  |
-LL | | }
-   | |_^
-   |
-   = note: `-D clippy::derivable-impls` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::derivable_impls)]`
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ struct FooDefault<'a> {
-   |
+LL | impl std::default::Default for FooDefault<'_> {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:22:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:22:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/derivable_impls.rs:35:16
+   |
+LL |             l: &[],
+   |                ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:40:1
+   |
+LL | struct TupleDefault(bool, i32, u64);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:42:1
    |
-LL | / impl std::default::Default for TupleDefault {
-LL | |
-LL | |     fn default() -> Self {
-LL | |         Self(false, 0, 0u64)
-LL | |     }
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ struct TupleDefault(bool, i32, u64);
-   |
+LL | impl std::default::Default for TupleDefault {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:44:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:44:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:49:1
+   |
+LL | struct FooND1 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:53:1
+   |
+LL | impl std::default::Default for FooND1 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:54:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:54:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:59:1
+   |
+LL | struct FooND2 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:63:1
+   |
+LL | impl std::default::Default for FooND2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:64:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:64:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:69:1
+   |
+LL | struct FooNDNew {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:73:1
+   |
+LL | impl FooNDNew {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:74:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:74:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:79:1
+   |
+LL | impl Default for FooNDNew {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:80:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:80:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:85:1
+   |
+LL | struct FooNDVec(Vec<i32>);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:87:1
+   |
+LL | impl Default for FooNDVec {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:88:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:88:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:93:1
+   |
+LL | struct StrDefault<'a>(&'a str);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/derivable_impls.rs:93:23
+   |
+LL | struct StrDefault<'a>(&'a str);
+   |                       ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:95:1
    |
-LL | / impl Default for StrDefault<'_> {
-LL | |
-LL | |     fn default() -> Self {
-LL | |         Self("")
-LL | |     }
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ struct StrDefault<'a>(&'a str);
-   |
+LL | impl Default for StrDefault<'_> {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:97:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:97:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:103:1
+   |
+LL | struct AlreadyDerived(i32, bool);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:102:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:102:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:102:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:105:1
+   |
+LL | macro_rules! mac {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:110:9
+   |
+LL |         struct X(u32);
+   |         ^ help: make this item public: `pub`
+...
+LL | mac!(0);
+   | ------- in this macro invocation
+   |
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:111:9
+   |
+LL |         impl Default for X {
+   |         ^ help: make this item public: `pub`
+...
+LL | mac!(0);
+   | ------- in this macro invocation
+   |
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:112:13
+   |
+LL |             fn default() -> Self {
+   |             ^
+...
+LL | mac!(0);
+   | ------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:112:13
+   |
+LL |             fn default() -> Self {
+   |             ^
+...
+LL | mac!(0);
+   | ------- in this macro invocation
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:121:1
+   |
+LL | struct Y(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:122:1
    |
-LL | / impl Default for Y {
-LL | |
-LL | |     fn default() -> Self {
-LL | |         Self(mac!())
-LL | |     }
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ struct Y(u32);
-   |
+LL | impl Default for Y {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:124:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:124:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:129:1
+   |
+LL | struct RustIssue26925<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:138:1
+   |
+LL | impl<T> Default for RustIssue26925<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:139:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:139:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:144:1
+   |
+LL | struct SpecializedImpl<A, B> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:149:1
+   |
+LL | impl<T: Default> Default for SpecializedImpl<T, T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:150:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:150:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:158:1
+   |
+LL | struct WithoutSelfCurly {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:162:1
    |
-LL | / impl Default for WithoutSelfCurly {
-LL | |
-LL | |     fn default() -> Self {
-LL | |         WithoutSelfCurly { a: false }
-LL | |     }
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ struct WithoutSelfCurly {
-   |
+LL | impl Default for WithoutSelfCurly {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:164:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:164:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:169:1
+   |
+LL | struct WithoutSelfParan(bool);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:171:1
    |
-LL | / impl Default for WithoutSelfParan {
-LL | |
-LL | |     fn default() -> Self {
-LL | |         WithoutSelfParan(false)
-LL | |     }
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ struct WithoutSelfParan(bool);
-   |
+LL | impl Default for WithoutSelfParan {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:173:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:173:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:184:1
+   |
+LL | impl Default for SpecializedImpl2<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:185:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:185:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:194:1
    |
-LL | / impl Default for DirectDefaultDefaultCall {
-LL | |
-LL | |     fn default() -> Self {
-...  |
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ pub struct DirectDefaultDefaultCall {
-   |
+LL | impl Default for DirectDefaultDefaultCall {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:196:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:196:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:206:1
    |
-LL | / impl Default for EquivalentToDefaultDefaultCallVec {
-LL | |
-LL | |     fn default() -> Self {
-...  |
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ pub struct EquivalentToDefaultDefaultCallVec {
-   |
+LL | impl Default for EquivalentToDefaultDefaultCallVec {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:208:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:208:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:218:1
+   |
+LL | impl S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:219:5
+   |
+LL |     fn new() -> S {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:219:5
+   |
+LL |     fn new() -> S {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:224:1
+   |
+LL | impl Default for S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:225:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:225:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:234:1
    |
-LL | / impl Default for EquivalentToDefaultDefaultCallLocal {
-LL | |
-LL | |     fn default() -> Self {
-...  |
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ pub struct EquivalentToDefaultDefaultCallLocal {
-   |
+LL | impl Default for EquivalentToDefaultDefaultCallLocal {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:236:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:236:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:251:1
+   |
+LL | impl Default for Color {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:252:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:252:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:263:1
+   |
+LL | impl Default for Color2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:265:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:265:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:274:1
    |
-LL | / impl Default for RepeatDefault1 {
-LL | |
-LL | |     fn default() -> Self {
-LL | |         RepeatDefault1 { a: [0; 32] }
-LL | |     }
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute
-   |
-LL + #[derive(Default)]
-LL ~ pub struct RepeatDefault1 {
-   |
+LL | impl Default for RepeatDefault1 {
+   | ^ help: make this item public: `pub`
 
-error: this `impl` can be derived
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:276:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:276:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:285:1
+   |
+LL | impl Default for RepeatDefault2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:286:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:286:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:298:1
+   |
+LL | impl Default for IntOrString {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:299:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:299:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
   --> tests/ui/derivable_impls.rs:309:1
    |
-LL | / impl Default for SimpleEnum {
-LL | |
-LL | |     fn default() -> Self {
-LL | |         SimpleEnum::Bar
-LL | |     }
-LL | | }
-   | |_^
-   |
-help: replace the manual implementation with a derive attribute and mark the default variant
-   |
-LL + #[derive(Default)]
-LL ~ pub enum SimpleEnum {
-LL |     Foo,
-LL ~     #[default]
-LL ~     Bar,
-   |
+LL | impl Default for SimpleEnum {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 11 previous errors
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:311:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:311:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:322:1
+   |
+LL | impl Default for NonExhaustiveEnum {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:323:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:323:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:331:1
+   |
+LL | struct DefaultType;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:330:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:330:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:330:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:333:1
+   |
+LL | struct GenericType<T = DefaultType> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:337:1
+   |
+LL | impl Default for GenericType {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:338:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:338:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:343:1
+   |
+LL | struct InnerGenericType<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:347:1
+   |
+LL | impl Default for InnerGenericType<DefaultType> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:348:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:348:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:353:1
+   |
+LL | struct OtherGenericType<T = DefaultType> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:357:1
+   |
+LL | impl Default for OtherGenericType {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:358:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:358:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:365:1
+   |
+LL | mod issue10158 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/derivable_impls.rs:366:5
+   |
+LL |     pub trait T {}
+   |     ^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:368:14
+   |
+LL |     #[derive(Default)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:368:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:368:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:370:5
+   |
+LL |     impl T for S {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:376:5
+   |
+LL |     impl Default for Outer {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:377:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:377:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:386:1
+   |
+LL | mod issue11368 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:391:5
+   |
+LL |     impl Default for A {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:393:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:393:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/derivable_impls.rs:399:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/derivable_impls.rs:399:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/derivable_impls.rs:399:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 102 previous errors
 

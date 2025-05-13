@@ -1,40 +1,409 @@
-error: `fn` that only maps over argument
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: static must be `mut`
+  --> tests/ui/single_option_map.rs:5:8
+   |
+LL | static ATOM: AtomicUsize = AtomicUsize::new(42);
+   |        ^ help: make this static mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:5:1
+   |
+LL | static ATOM: AtomicUsize = AtomicUsize::new(42);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: static must be `mut`
+  --> tests/ui/single_option_map.rs:6:8
+   |
+LL | static MAYBE_ATOMIC: Option<&AtomicUsize> = Some(&ATOM);
+   |        ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:6:1
+   |
+LL | static MAYBE_ATOMIC: Option<&AtomicUsize> = Some(&ATOM);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/single_option_map.rs:6:29
+   |
+LL | static MAYBE_ATOMIC: Option<&AtomicUsize> = Some(&ATOM);
+   |                             ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/single_option_map.rs:6:50
+   |
+LL | static MAYBE_ATOMIC: Option<&AtomicUsize> = Some(&ATOM);
+   |                                                  ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
   --> tests/ui/single_option_map.rs:8:1
    |
-LL | / fn h(arg: Option<u32>) -> Option<u32> {
-LL | |
-LL | |
-LL | |     arg.map(|x| x * 2)
-LL | | }
-   | |_^
-   |
-   = help: move the `.map` to the caller or to an `_opt` function
-   = note: `-D clippy::single-option-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::single_option_map)]`
+LL | fn h(arg: Option<u32>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
 
-error: `fn` that only maps over argument
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:8:1
+   |
+LL | fn h(arg: Option<u32>) -> Option<u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:8:1
+   |
+LL | fn h(arg: Option<u32>) -> Option<u32> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:8:6
+   |
+LL | fn h(arg: Option<u32>) -> Option<u32> {
+   |      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
   --> tests/ui/single_option_map.rs:14:1
    |
-LL | / fn j(arg: Option<u64>) -> Option<u64> {
-LL | |
-LL | |
-LL | |     arg.map(|x| x * 2)
-LL | | }
-   | |_^
-   |
-   = help: move the `.map` to the caller or to an `_opt` function
+LL | fn j(arg: Option<u64>) -> Option<u64> {
+   | ^ help: make this item public: `pub`
 
-error: `fn` that only maps over argument
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:14:1
+   |
+LL | fn j(arg: Option<u64>) -> Option<u64> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:14:1
+   |
+LL | fn j(arg: Option<u64>) -> Option<u64> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:14:6
+   |
+LL | fn j(arg: Option<u64>) -> Option<u64> {
+   |      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:20:1
+   |
+LL | fn mul_args(a: String, b: u64) -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:20:1
+   |
+LL | fn mul_args(a: String, b: u64) -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:20:1
+   |
+LL | fn mul_args(a: String, b: u64) -> String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:20:13
+   |
+LL | fn mul_args(a: String, b: u64) -> String {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:20:24
+   |
+LL | fn mul_args(a: String, b: u64) -> String {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
   --> tests/ui/single_option_map.rs:24:1
    |
-LL | / fn mul_args_opt(a: Option<String>, b: u64) -> Option<String> {
-LL | |
-LL | |
-LL | |     a.map(|val| mul_args(val, b + 1))
-LL | | }
-   | |_^
-   |
-   = help: move the `.map` to the caller or to an `_opt` function
+LL | fn mul_args_opt(a: Option<String>, b: u64) -> Option<String> {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:24:1
+   |
+LL | fn mul_args_opt(a: Option<String>, b: u64) -> Option<String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:24:1
+   |
+LL | fn mul_args_opt(a: Option<String>, b: u64) -> Option<String> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:24:17
+   |
+LL | fn mul_args_opt(a: Option<String>, b: u64) -> Option<String> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:24:36
+   |
+LL | fn mul_args_opt(a: Option<String>, b: u64) -> Option<String> {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:31:1
+   |
+LL | fn maps_static_option() -> Option<usize> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:31:1
+   |
+LL | fn maps_static_option() -> Option<usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:31:1
+   |
+LL | fn maps_static_option() -> Option<usize> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:36:1
+   |
+LL | fn manipulate(i: i32) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:36:1
+   |
+LL | fn manipulate(i: i32) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:36:1
+   |
+LL | fn manipulate(i: i32) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:36:15
+   |
+LL | fn manipulate(i: i32) -> i32 {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:40:1
+   |
+LL | fn manipulate_opt(opt_i: Option<i32>) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:40:1
+   |
+LL | fn manipulate_opt(opt_i: Option<i32>) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:40:1
+   |
+LL | fn manipulate_opt(opt_i: Option<i32>) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:40:19
+   |
+LL | fn manipulate_opt(opt_i: Option<i32>) -> Option<i32> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:45:1
+   |
+LL | fn map_not_arg(arg: Option<u32>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:45:1
+   |
+LL | fn map_not_arg(arg: Option<u32>) -> Option<u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:45:1
+   |
+LL | fn map_not_arg(arg: Option<u32>) -> Option<u32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:45:16
+   |
+LL | fn map_not_arg(arg: Option<u32>) -> Option<u32> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:51:1
+   |
+LL | fn manipulate_opt_explicit(opt_i: Option<i32>) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:51:1
+   |
+LL | fn manipulate_opt_explicit(opt_i: Option<i32>) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:51:1
+   |
+LL | fn manipulate_opt_explicit(opt_i: Option<i32>) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:51:28
+   |
+LL | fn manipulate_opt_explicit(opt_i: Option<i32>) -> Option<i32> {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:56:1
+   |
+LL | fn multi_args(a: String, b: bool, c: u64) -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:56:1
+   |
+LL | fn multi_args(a: String, b: bool, c: u64) -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:56:1
+   |
+LL | fn multi_args(a: String, b: bool, c: u64) -> String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:56:15
+   |
+LL | fn multi_args(a: String, b: bool, c: u64) -> String {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:56:26
+   |
+LL | fn multi_args(a: String, b: bool, c: u64) -> String {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:56:35
+   |
+LL | fn multi_args(a: String, b: bool, c: u64) -> String {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:61:1
+   |
+LL | fn multi_args_opt(a: Option<String>, b: bool, c: u64) -> Option<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:61:1
+   |
+LL | fn multi_args_opt(a: Option<String>, b: bool, c: u64) -> Option<String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:61:1
+   |
+LL | fn multi_args_opt(a: Option<String>, b: bool, c: u64) -> Option<String> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:61:19
+   |
+LL | fn multi_args_opt(a: Option<String>, b: bool, c: u64) -> Option<String> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:61:38
+   |
+LL | fn multi_args_opt(a: Option<String>, b: bool, c: u64) -> Option<String> {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_option_map.rs:61:47
+   |
+LL | fn multi_args_opt(a: Option<String>, b: bool, c: u64) -> Option<String> {
+   |                                               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_option_map.rs:65:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_option_map.rs:65:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_option_map.rs:65:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/single_option_map.rs:66:9
+   |
+LL |     let answer = Some(42u32);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/single_option_map.rs:67:9
+   |
+LL |     let h_result = h(answer);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/single_option_map.rs:69:9
+   |
+LL |     let answer = Some(42u64);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/single_option_map.rs:70:9
+   |
+LL |     let j_result = j(answer);
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 54 previous errors
 

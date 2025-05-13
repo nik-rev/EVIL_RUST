@@ -1,83 +1,398 @@
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:11:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = if a > b { a - b } else { b - a };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `abs_diff`: `a.abs_diff(b)`
-   |
-   = note: `-D clippy::manual-abs-diff` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_abs_diff)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:13:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = if a < b { b - a } else { a - b };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `abs_diff`: `b.abs_diff(a)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:16:13
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:5:1
    |
-LL |     let _ = if 5 > b { 5 - b } else { b - 5 };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `abs_diff`: `b.abs_diff(5)`
-
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:18:13
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = if b > 5 { b - 5 } else { 5 - b };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `abs_diff`: `b.abs_diff(5)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:21:13
+error: function must be `unsafe`
+  --> tests/ui/manual_abs_diff.rs:5:1
    |
-LL |     let _ = if a >= b { a - b } else { b - a };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `abs_diff`: `a.abs_diff(b)`
-
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:23:13
+LL | fn main() {
+   | ^
    |
-LL |     let _ = if a <= b { b - a } else { a - b };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `abs_diff`: `b.abs_diff(a)`
-
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:32:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_abs_diff.rs:5:1
    |
-LL |       let _ = if (a + b) > (c + d) {
-   |  _____________^
-LL | |
-LL | |         (a + b) - (c + d)
-LL | |     } else {
-LL | |         (c + d) - (a + b)
-LL | |     };
-   | |_____^ help: replace with `abs_diff`: `(a + b).abs_diff(c + d)`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:38:13
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:6:9
    |
-LL |       let _ = if (a + b) < (c + d) {
-   |  _____________^
-LL | |
-LL | |         (c + d) - (a + b)
-LL | |     } else {
-LL | |         (a + b) - (c + d)
-LL | |     };
-   | |_____^ help: replace with `abs_diff`: `(c + d).abs_diff(a + b)`
+LL |     let a: usize = 5;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:48:22
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:7:9
+   |
+LL |     let b: usize = 3;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:8:9
+   |
+LL |     let c: usize = 8;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:9:9
+   |
+LL |     let d: usize = 11;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:45:5
+   |
+LL |     const A: usize = 5;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:46:5
+   |
+LL |     const B: usize = 3;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:48:5
    |
 LL |     const _: usize = if A > B { A - B } else { B - A };
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `abs_diff`: `A.abs_diff(B)`
+   |     ^ help: make this item public: `pub`
 
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:53:13
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:51:9
    |
-LL |     let _ = if a > b { a - b } else { b - a };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `abs_diff`: `a.abs_diff(b)`
+LL |     let a = Duration::from_secs(3);
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual absolute difference pattern without using `abs_diff`
-  --> tests/ui/manual_abs_diff.rs:59:13
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:52:9
    |
-LL |     let _ = if a > b { (a - b) as u32 } else { (b - a) as u32 };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `abs_diff`: `a.abs_diff(b)`
+LL |     let b = Duration::from_secs(5);
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 11 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:56:9
+   |
+LL |     let a: i32 = 3;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:57:9
+   |
+LL |     let b: i32 = -5;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:64:1
+   |
+LL | fn fixme() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_abs_diff.rs:64:1
+   |
+LL | fn fixme() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_abs_diff.rs:64:1
+   |
+LL | fn fixme() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:65:9
+   |
+LL |     let a: usize = 5;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:66:9
+   |
+LL |     let b: usize = 3;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:67:9
+   |
+LL |     let c: usize = 8;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:68:9
+   |
+LL |     let d: usize = 11;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:71:13
+   |
+LL |         let out;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:97:9
+   |
+LL |     let a: i32 = 3;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:98:9
+   |
+LL |     let b: i32 = 5;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:102:1
+   |
+LL | fn non_primitive_ty() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_abs_diff.rs:102:1
+   |
+LL | fn non_primitive_ty() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_abs_diff.rs:102:1
+   |
+LL | fn non_primitive_ty() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:104:5
+   |
+LL |     struct S(i32);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:103:14
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_abs_diff.rs:103:11
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |           ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_abs_diff.rs:103:11
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |           ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/manual_abs_diff.rs:103:14
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_abs_diff.rs:103:14
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |              ^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:103:18
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                  ^
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:103:18
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                  ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_abs_diff.rs:103:15
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |               ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_abs_diff.rs:103:15
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |               ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/manual_abs_diff.rs:103:18
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_abs_diff.rs:103:18
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                  ^
+
+error: references are not allowed
+  --> tests/ui/manual_abs_diff.rs:103:18
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_abs_diff.rs:103:18
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:103:29
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                             ^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_abs_diff.rs:103:26
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                          ^  ---------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_abs_diff.rs:103:26
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                          ^  ---------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/manual_abs_diff.rs:103:29
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_abs_diff.rs:103:29
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                             ^
+
+error: references are not allowed
+  --> tests/ui/manual_abs_diff.rs:103:29
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                             ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_abs_diff.rs:103:29
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                             ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: references are not allowed
+  --> tests/ui/manual_abs_diff.rs:104:14
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                             ---------- in this derive macro expansion
+LL |     struct S(i32);
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_abs_diff.rs:104:14
+   |
+LL |     #[derive(Eq, PartialEq, PartialOrd)]
+   |                             ---------- in this derive macro expansion
+LL |     struct S(i32);
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/manual_abs_diff.rs:106:5
+   |
+LL |     impl std::ops::Sub for S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_abs_diff.rs:109:9
+   |
+LL |         fn sub(self, rhs: Self) -> Self::Output {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_abs_diff.rs:109:9
+   |
+LL |         fn sub(self, rhs: Self) -> Self::Output {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_abs_diff.rs:109:16
+   |
+LL |         fn sub(self, rhs: Self) -> Self::Output {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_abs_diff.rs:109:22
+   |
+LL |         fn sub(self, rhs: Self) -> Self::Output {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:114:10
+   |
+LL |     let (a, b) = (S(10), S(20));
+   |          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_abs_diff.rs:114:13
+   |
+LL |     let (a, b) = (S(10), S(20));
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 54 previous errors
 

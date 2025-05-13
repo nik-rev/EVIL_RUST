@@ -1,94 +1,185 @@
-error: called `Option::take()` on a temporary value
-  --> tests/ui/needless_option_take.rs:23:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x.as_ref().take();
-   |     ^^^^^^^^^^-------
-   |               |
-   |               help: remove
-   |
-   = note: `as_ref` creates a temporary value, so calling take() has no effect
-   = note: `-D clippy::needless-option-take` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_option_take)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `Option::take()` on a temporary value
-  --> tests/ui/needless_option_take.rs:31:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_option_take.rs:1:1
+   |
+LL | struct MyStruct;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_option_take.rs:3:1
+   |
+LL | impl MyStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_option_take.rs:4:9
+   |
+LL |     pub fn get_option() -> Option<Self> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_option_take.rs:4:9
+   |
+LL |     pub fn get_option() -> Option<Self> {
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/needless_option_take.rs:9:1
+   |
+LL | fn return_option() -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_option_take.rs:9:1
+   |
+LL | fn return_option() -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_option_take.rs:9:1
+   |
+LL | fn return_option() -> Option<i32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_option_take.rs:13:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_option_take.rs:13:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_option_take.rs:13:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:19:9
+   |
+LL |     let x = Some(3);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:22:9
+   |
+LL |     let x = Some(3);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:28:9
+   |
+LL |     let y = x.as_mut();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:31:9
    |
 LL |     let y = x.as_mut().take();
-   |             ^^^^^^^^^^-------
-   |                       |
-   |                       help: remove
-   |
-   = note: `as_mut` creates a temporary value, so calling take() has no effect
+   |         ^ help: make this variable mutable: `mut`
 
-error: called `Option::take()` on a temporary value
-  --> tests/ui/needless_option_take.rs:34:13
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:34:9
    |
 LL |     let y = x.replace(289).take();
-   |             ^^^^^^^^^^^^^^-------
-   |                           |
-   |                           help: remove
-   |
-   = note: `replace` creates a temporary value, so calling take() has no effect
+   |         ^ help: make this variable mutable: `mut`
 
-error: called `Option::take()` on a temporary value
-  --> tests/ui/needless_option_take.rs:37:13
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:37:9
    |
 LL |     let y = Some(3).as_mut().take();
-   |             ^^^^^^^^^^^^^^^^-------
-   |                             |
-   |                             help: remove
-   |
-   = note: `as_mut` creates a temporary value, so calling take() has no effect
+   |         ^ help: make this variable mutable: `mut`
 
-error: called `Option::take()` on a temporary value
-  --> tests/ui/needless_option_take.rs:40:13
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:40:9
    |
 LL |     let y = Option::as_mut(&mut x).take();
-   |             ^^^^^^^^^^^^^^^^^^^^^^-------
-   |                                   |
-   |                                   help: remove
-   |
-   = note: `as_mut` creates a temporary value, so calling take() has no effect
+   |         ^ help: make this variable mutable: `mut`
 
-error: called `Option::take()` on a temporary value
-  --> tests/ui/needless_option_take.rs:44:13
+error: references are not allowed
+  --> tests/ui/needless_option_take.rs:40:28
+   |
+LL |     let y = Option::as_mut(&mut x).take();
+   |                            ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:43:9
+   |
+LL |     let x = return_option();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:44:9
    |
 LL |     let x = return_option().take();
-   |             ^^^^^^^^^^^^^^^-------
-   |                            |
-   |                            help: remove
-   |
-   = note: `return_option` creates a temporary value, so calling take() has no effect
+   |         ^ help: make this variable mutable: `mut`
 
-error: called `Option::take()` on a temporary value
-  --> tests/ui/needless_option_take.rs:48:13
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:47:9
+   |
+LL |     let x = MyStruct::get_option();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:48:9
    |
 LL |     let x = MyStruct::get_option().take();
-   |             ^^^^^^^^^^^^^^^^^^^^^^-------
-   |                                   |
-   |                                   help: remove
-   |
-   = note: `get_option` creates a temporary value, so calling take() has no effect
+   |         ^ help: make this variable mutable: `mut`
 
-error: called `Option::take()` on a temporary value
-  --> tests/ui/needless_option_take.rs:54:13
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:53:9
+   |
+LL |     let y = my_vec.first();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:54:9
    |
 LL |     let y = my_vec.first().take();
-   |             ^^^^^^^^^^^^^^-------
-   |                           |
-   |                           help: remove
-   |
-   = note: `first` creates a temporary value, so calling take() has no effect
+   |         ^ help: make this variable mutable: `mut`
 
-error: called `Option::take()` on a temporary value
-  --> tests/ui/needless_option_take.rs:57:13
+error: variable must be `mut`
+  --> tests/ui/needless_option_take.rs:57:9
    |
 LL |     let y = my_vec.first().take();
-   |             ^^^^^^^^^^^^^^-------
-   |                           |
-   |                           help: remove
-   |
-   = note: `first` creates a temporary value, so calling take() has no effect
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 9 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 26 previous errors
 

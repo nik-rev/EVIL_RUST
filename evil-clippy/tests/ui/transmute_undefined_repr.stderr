@@ -1,97 +1,575 @@
-error: transmute from `Ty2<u32, i32>` which has an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:34:33
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _: Ty2C<u32, i32> = transmute(value::<Ty2<u32, i32>>());
-   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::transmute-undefined-repr` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::transmute_undefined_repr)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: transmute into `Ty2<u32, i32>` which has an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:38:32
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _: Ty2<u32, i32> = transmute(value::<Ty2C<u32, i32>>());
-   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: transmute from `Ty<Ty2<u32, i32>>` to `Ty2<u32, f32>`, both of which have an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:47:32
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:14:1
    |
-LL |         let _: Ty2<u32, f32> = transmute(value::<Ty<Ty2<u32, i32>>>());
-   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn value<T>() -> T {
+   | ^ help: make this item public: `pub`
    |
-   = note: two instances of the same generic type (`Ty2`) may have different layouts
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: transmute from `Ty2<u32, f32>` to `Ty<Ty2<u32, i32>>`, both of which have an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:51:36
+error: function must be `unsafe`
+  --> tests/ui/transmute_undefined_repr.rs:14:1
    |
-LL |         let _: Ty<Ty2<u32, i32>> = transmute(value::<Ty2<u32, f32>>());
-   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn value<T>() -> T {
+   | ^
    |
-   = note: two instances of the same generic type (`Ty2`) may have different layouts
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_undefined_repr.rs:14:1
+   |
+LL | fn value<T>() -> T {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: transmute from `Ty<&Ty2<u32, i32>>` to `&Ty2<u32, f32>`, both of which have an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:58:33
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:18:1
+   |
+LL | struct Empty;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:19:1
+   |
+LL | struct Ty<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:20:1
+   |
+LL | struct Ty2<T, U>(T, U);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:23:1
+   |
+LL | struct Ty2C<T, U>(T, U);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:25:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_undefined_repr.rs:25:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_undefined_repr.rs:25:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:54:19
+   |
+LL |         let _: Ty<&()> = transmute(value::<&()>());
+   |                   ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:54:44
+   |
+LL |         let _: Ty<&()> = transmute(value::<&()>());
+   |                                            ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:55:16
+   |
+LL |         let _: &() = transmute(value::<Ty<&()>>());
+   |                ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:55:43
+   |
+LL |         let _: &() = transmute(value::<Ty<&()>>());
+   |                                           ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:58:16
    |
 LL |         let _: &Ty2<u32, f32> = transmute(value::<Ty<&Ty2<u32, i32>>>());
-   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                ^^^^^^^^^^^^^^
    |
-   = note: two instances of the same generic type (`Ty2`) may have different layouts
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from `&Ty2<u32, f32>` to `Ty<&Ty2<u32, i32>>`, both of which have an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:62:37
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:58:54
+   |
+LL |         let _: &Ty2<u32, f32> = transmute(value::<Ty<&Ty2<u32, i32>>>());
+   |                                                      ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:62:19
    |
 LL |         let _: Ty<&Ty2<u32, i32>> = transmute(value::<&Ty2<u32, f32>>());
-   |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                   ^^^^^^^^^^^^^^
    |
-   = note: two instances of the same generic type (`Ty2`) may have different layouts
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from `std::boxed::Box<Ty2<u32, u32>>` to `&mut Ty2<u32, f32>`, both of which have an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:91:45
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:62:55
+   |
+LL |         let _: Ty<&Ty2<u32, i32>> = transmute(value::<&Ty2<u32, f32>>());
+   |                                                       ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:66:46
+   |
+LL |         let _: Ty<usize> = transmute(value::<&Ty2<u32, i32>>());
+   |                                              ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:68:16
+   |
+LL |         let _: &Ty2<u32, i32> = transmute(value::<Ty<usize>>());
+   |                ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:82:16
+   |
+LL |         let _: &'static mut Ty2<u32, u32> = transmute(value::<Box<Ty2<u32, u32>>>());
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:84:55
+   |
+LL |         let _: Box<Ty2<u32, u32>> = transmute(value::<&'static mut Ty2<u32, u32>>());
+   |                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:91:16
    |
 LL |         let _: &'static mut Ty2<u32, f32> = transmute(value::<Box<Ty2<u32, u32>>>());
-   |                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: two instances of the same generic type (`Ty2`) may have different layouts
+   = help: use a raw pointer instead: `*raw`
 
-error: transmute from `&mut Ty2<u32, f32>` to `std::boxed::Box<Ty2<u32, u32>>`, both of which have an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:95:37
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:95:55
    |
 LL |         let _: Box<Ty2<u32, u32>> = transmute(value::<&'static mut Ty2<u32, f32>>());
-   |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: two instances of the same generic type (`Ty2`) may have different layouts
+   = help: use a raw pointer instead: `*raw`
 
-error: transmute into `*const Ty2<u32, u32>` which has an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:191:39
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:99:49
    |
-LL |         let _: *const Ty2<u32, u32> = transmute(value::<*const Ty2C<u32, Ty2<u32, u32>>>());
-   |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |         let _: *const () = transmute(value::<Ty<&Ty2<u32, f32>>>());
+   |                                                 ^^^^^^^^^^^^^^
    |
-   = note: the contained type `Ty2<u32, u32>` has an undefined layout
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from `*const Ty2<u32, u32>` which has an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:195:50
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:101:19
    |
-LL |         let _: *const Ty2C<u32, Ty2<u32, u32>> = transmute(value::<*const Ty2<u32, u32>>());
-   |                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |         let _: Ty<&Ty2<u32, f32>> = transmute(value::<*const ()>());
+   |                   ^^^^^^^^^^^^^^
    |
-   = note: the contained type `Ty2<u32, u32>` has an undefined layout
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from `std::vec::Vec<Ty2<U, i32>>` to `std::vec::Vec<Ty2<T, u32>>`, both of which have an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:241:35
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:104:53
    |
-LL |         let _: Vec<Ty2<T, u32>> = transmute(value::<Vec<Ty2<U, i32>>>());
-   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |         let _: *const c_void = transmute(value::<Ty<&Ty2<u32, f32>>>());
+   |                                                     ^^^^^^^^^^^^^^
    |
-   = note: two instances of the same generic type (`Vec`) may have different layouts
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from `std::vec::Vec<Ty2<T, u32>>` to `std::vec::Vec<Ty2<U, i32>>`, both of which have an undefined layout
-  --> tests/ui/transmute_undefined_repr.rs:245:35
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:106:19
    |
-LL |         let _: Vec<Ty2<U, i32>> = transmute(value::<Vec<Ty2<T, u32>>>());
-   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |         let _: Ty<&Ty2<u32, f32>> = transmute(value::<*const c_void>());
+   |                   ^^^^^^^^^^^^^^
    |
-   = note: two instances of the same generic type (`Vec`) may have different layouts
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 12 previous errors
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:108:9
+   |
+LL |         enum Erase {}
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:110:52
+   |
+LL |         let _: *const Erase = transmute(value::<Ty<&Ty2<u32, f32>>>());
+   |                                                    ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:112:19
+   |
+LL |         let _: Ty<&Ty2<u32, f32>> = transmute(value::<*const Erase>());
+   |                   ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:114:9
+   |
+LL |         struct Erase2(
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:119:53
+   |
+LL |         let _: *const Erase2 = transmute(value::<Ty<&Ty2<u32, f32>>>());
+   |                                                     ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:121:19
+   |
+LL |         let _: Ty<&Ty2<u32, f32>> = transmute(value::<*const Erase2>());
+   |                   ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:124:46
+   |
+LL |         let _: *const () = transmute(value::<&&[u8]>());
+   |                                              ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:124:47
+   |
+LL |         let _: *const () = transmute(value::<&&[u8]>());
+   |                                               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:126:16
+   |
+LL |         let _: &&[u8] = transmute(value::<*const ()>());
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:126:17
+   |
+LL |         let _: &&[u8] = transmute(value::<*const ()>());
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:129:48
+   |
+LL |         let _: *mut c_void = transmute(value::<&mut &[u8]>());
+   |                                                ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:129:53
+   |
+LL |         let _: *mut c_void = transmute(value::<&mut &[u8]>());
+   |                                                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:131:16
+   |
+LL |         let _: &mut &[u8] = transmute(value::<*mut c_void>());
+   |                ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:131:21
+   |
+LL |         let _: &mut &[u8] = transmute(value::<*mut c_void>());
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:134:31
+   |
+LL |         let _: [u8; size_of::<&[u8]>()] = transmute(value::<&[u8]>());
+   |                               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:134:61
+   |
+LL |         let _: [u8; size_of::<&[u8]>()] = transmute(value::<&[u8]>());
+   |                                                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:136:16
+   |
+LL |         let _: &[u8] = transmute(value::<[u8; size_of::<&[u8]>()]>());
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:136:57
+   |
+LL |         let _: &[u8] = transmute(value::<[u8; size_of::<&[u8]>()]>());
+   |                                                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:139:47
+   |
+LL |         let _: [usize; 2] = transmute(value::<&[u8]>());
+   |                                               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:141:16
+   |
+LL |         let _: &[u8] = transmute(value::<[usize; 2]>());
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:164:51
+   |
+LL |         let _: (usize, usize) = transmute(value::<&[u8]>());
+   |                                                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:166:16
+   |
+LL |         let _: &[u8] = transmute(value::<(usize, usize)>());
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/transmute_undefined_repr.rs:168:9
+   |
+LL |         trait Trait {}
+   |         ^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:168:9
+   |
+LL |         trait Trait {}
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:170:51
+   |
+LL |         let _: (isize, isize) = transmute(value::<&dyn Trait>());
+   |                                                   ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:171:16
+   |
+LL |         let _: &dyn Trait = transmute(value::<(isize, isize)>());
+   |                ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:179:19
+   |
+LL |         let _: Ty<&[u32]> = transmute::<&[u32], _>(value::<&Vec<u32>>());
+   |                   ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:179:41
+   |
+LL |         let _: Ty<&[u32]> = transmute::<&[u32], _>(value::<&Vec<u32>>());
+   |                                         ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:179:60
+   |
+LL |         let _: Ty<&[u32]> = transmute::<&[u32], _>(value::<&Vec<u32>>());
+   |                                                            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_undefined_repr.rs:205:1
+   |
+LL | fn _with_generics<T: 'static, U: 'static>() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_undefined_repr.rs:205:1
+   |
+LL | fn _with_generics<T: 'static, U: 'static>() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_undefined_repr.rs:205:1
+   |
+LL | fn _with_generics<T: 'static, U: 'static>() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:211:16
+   |
+LL |         let _: &u32 = transmute(value::<&T>());
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:211:41
+   |
+LL |         let _: &u32 = transmute(value::<&T>());
+   |                                         ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:213:16
+   |
+LL |         let _: &T = transmute(value::<&u32>());
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:213:39
+   |
+LL |         let _: &T = transmute(value::<&u32>());
+   |                                       ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:221:19
+   |
+LL |         let _: Ty<&u32> = transmute(value::<&T>());
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:221:45
+   |
+LL |         let _: Ty<&u32> = transmute(value::<&T>());
+   |                                             ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:223:19
+   |
+LL |         let _: Ty<&T> = transmute(value::<&u32>());
+   |                   ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:223:43
+   |
+LL |         let _: Ty<&T> = transmute(value::<&u32>());
+   |                                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:231:16
+   |
+LL |         let _: &Ty2<u32, u32> = transmute(value::<&Ty2<T, U>>());
+   |                ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:231:51
+   |
+LL |         let _: &Ty2<u32, u32> = transmute(value::<&Ty2<T, U>>());
+   |                                                   ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:233:16
+   |
+LL |         let _: &Ty2<T, U> = transmute(value::<&Ty2<u32, u32>>());
+   |                ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_undefined_repr.rs:233:47
+   |
+LL |         let _: &Ty2<T, U> = transmute(value::<&Ty2<u32, u32>>());
+   |                                               ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 73 previous errors
 

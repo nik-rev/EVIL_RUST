@@ -1,40 +1,104 @@
-error: this closure returns the unit type which also implements Ord
-  --> tests/ui/unit_return_expecting_ord.rs:18:25
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     structs.sort_by_key(|s| {
-   |                         ^^^
-   |
-help: probably caused by this trailing semicolon
-  --> tests/ui/unit_return_expecting_ord.rs:21:24
-   |
-LL |         double(s.field);
-   |                        ^
-   = note: `-D clippy::unit-return-expecting-ord` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unit_return_expecting_ord)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this closure returns the unit type which also implements PartialOrd
-  --> tests/ui/unit_return_expecting_ord.rs:24:30
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     structs.is_sorted_by_key(|s| {
-   |                              ^^^
-   |
-help: probably caused by this trailing semicolon
-  --> tests/ui/unit_return_expecting_ord.rs:27:24
-   |
-LL |         double(s.field);
-   |                        ^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this closure returns the unit type which also implements PartialOrd
-  --> tests/ui/unit_return_expecting_ord.rs:29:30
+error: item must be `pub`
+  --> tests/ui/unit_return_expecting_ord.rs:6:1
    |
-LL |     structs.is_sorted_by_key(|s| {
-   |                              ^^^
-
-error: this closure returns the unit type which also implements Ord
-  --> tests/ui/unit_return_expecting_ord.rs:41:25
+LL | struct Struct {
+   | ^ help: make this item public: `pub`
    |
-LL |     structs.sort_by_key(|s| unit(s.field));
-   |                         ^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/unit_return_expecting_ord.rs:10:1
+   |
+LL | fn double(i: isize) -> isize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_return_expecting_ord.rs:10:1
+   |
+LL | fn double(i: isize) -> isize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_return_expecting_ord.rs:10:1
+   |
+LL | fn double(i: isize) -> isize {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/unit_return_expecting_ord.rs:10:11
+   |
+LL | fn double(i: isize) -> isize {
+   |           ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/unit_return_expecting_ord.rs:14:1
+   |
+LL | fn unit(_i: isize) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_return_expecting_ord.rs:14:1
+   |
+LL | fn unit(_i: isize) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_return_expecting_ord.rs:14:1
+   |
+LL | fn unit(_i: isize) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unit_return_expecting_ord.rs:14:9
+   |
+LL | fn unit(_i: isize) {}
+   |         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unit_return_expecting_ord.rs:16:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_return_expecting_ord.rs:16:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_return_expecting_ord.rs:16:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

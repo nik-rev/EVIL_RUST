@@ -1,283 +1,981 @@
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:9:39
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:7:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:7:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:7:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:8:9
+   |
+LL |     let sample = [1; 5];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:9:9
    |
 LL |     let indirect_iter = sample.iter().collect::<Vec<_>>();
-   |                                       ^^^^^^^
-...
-LL |     indirect_iter.into_iter().map(|x| (x, x + 1)).collect::<HashMap<_, _>>();
-   |     ------------------------- the iterator could be used here instead
-   |
-   = note: `-D clippy::needless-collect` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_collect)]`
-help: use the original Iterator instead of collecting it and then producing a new one
-   |
-LL ~     
-LL |
-LL |
-LL ~     sample.iter().map(|x| (x, x + 1)).collect::<HashMap<_, _>>();
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:13:38
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:13:9
    |
 LL |     let indirect_len = sample.iter().collect::<VecDeque<_>>();
-   |                                      ^^^^^^^
-...
-LL |     indirect_len.len();
-   |     ------------------ the iterator could be used here instead
-   |
-help: take the original Iterator's count instead of collecting it and finding the length
-   |
-LL ~     
-LL |
-LL |
-LL ~     sample.iter().count();
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:17:40
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:17:9
    |
 LL |     let indirect_empty = sample.iter().collect::<VecDeque<_>>();
-   |                                        ^^^^^^^
-...
-LL |     indirect_empty.is_empty();
-   |     ------------------------- the iterator could be used here instead
-   |
-help: check if the original Iterator has anything instead of collecting it and seeing if it's empty
-   |
-LL ~     
-LL |
-LL |
-LL ~     sample.iter().next().is_none();
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:21:43
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:21:9
    |
 LL |     let indirect_contains = sample.iter().collect::<VecDeque<_>>();
-   |                                           ^^^^^^^
-...
-LL |     indirect_contains.contains(&&5);
-   |     ------------------------------- the iterator could be used here instead
-   |
-help: check if the original Iterator contains an element instead of collecting then checking
-   |
-LL ~     
-LL |
-LL |
-LL ~     sample.iter().any(|x| x == &5);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:35:48
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:24:32
+   |
+LL |     indirect_contains.contains(&&5);
+   |                                ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:24:33
+   |
+LL |     indirect_contains.contains(&&5);
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:25:9
+   |
+LL |     let indirect_negative = sample.iter().collect::<Vec<_>>();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:33:9
+   |
+LL |     let a = "a".to_string();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:34:9
+   |
+LL |     let sample = vec![a.clone(), "b".to_string(), "c".to_string()];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:35:9
    |
 LL |     let non_copy_contains = sample.into_iter().collect::<Vec<_>>();
-   |                                                ^^^^^^^
-...
-LL |     non_copy_contains.contains(&a);
-   |     ------------------------------ the iterator could be used here instead
-   |
-help: check if the original Iterator contains an element instead of collecting then checking
-   |
-LL ~     
-LL |
-LL |
-LL ~     sample.into_iter().any(|x| x == a);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:66:51
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:38:32
+   |
+LL |     non_copy_contains.contains(&a);
+   |                                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:41:9
+   |
+LL |     let vec_a = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:42:9
+   |
+LL |     let vec_b = vec_a.iter().collect::<Vec<_>>();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:44:9
+   |
+LL |     let other_vec = vec![1, 3, 12, 4, 16, 2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:45:9
+   |
+LL |     let we_got_the_same_numbers = other_vec.iter().filter(|item| vec_b.contains(item)).collect::<Vec<_>>();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:48:9
+   |
+LL |     let sample = [1; 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:49:9
+   |
+LL |     let multiple_indirect = sample.iter().collect::<Vec<_>>();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:50:9
+   |
+LL |     let sample2 = vec![2, 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:54:13
+   |
+LL |         let found = sample2
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:61:1
+   |
+LL | mod issue7110 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:65:5
+   |
+LL |     fn lint_vec(string: &str) -> usize {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:65:5
+   |
+LL |     fn lint_vec(string: &str) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:65:5
+   |
+LL |     fn lint_vec(string: &str) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:65:17
+   |
+LL |     fn lint_vec(string: &str) -> usize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:65:25
+   |
+LL |     fn lint_vec(string: &str) -> usize {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:66:13
    |
 LL |         let buffer: Vec<&str> = string.split('/').collect();
-   |                                                   ^^^^^^^
-...
-LL |         buffer.len()
-   |         ------------ the iterator could be used here instead
-   |
-help: take the original Iterator's count instead of collecting it and finding the length
-   |
-LL ~         
-LL |
-LL |
-LL ~         string.split('/').count()
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:73:55
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:66:25
+   |
+LL |         let buffer: Vec<&str> = string.split('/').collect();
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:71:5
+   |
+LL |     fn lint_vec_deque() -> usize {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:71:5
+   |
+LL |     fn lint_vec_deque() -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:71:5
+   |
+LL |     fn lint_vec_deque() -> usize {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:72:13
+   |
+LL |         let sample = [1; 5];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:73:13
    |
 LL |         let indirect_len: VecDeque<_> = sample.iter().collect();
-   |                                                       ^^^^^^^
-...
-LL |         indirect_len.len()
-   |         ------------------ the iterator could be used here instead
-   |
-help: take the original Iterator's count instead of collecting it and finding the length
-   |
-LL ~         
-LL |
-LL |
-LL ~         sample.iter().count()
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:80:57
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:78:5
+   |
+LL |     fn lint_linked_list() -> usize {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:78:5
+   |
+LL |     fn lint_linked_list() -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:78:5
+   |
+LL |     fn lint_linked_list() -> usize {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:79:13
+   |
+LL |         let sample = [1; 5];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:80:13
    |
 LL |         let indirect_len: LinkedList<_> = sample.iter().collect();
-   |                                                         ^^^^^^^
-...
-LL |         indirect_len.len()
-   |         ------------------ the iterator could be used here instead
-   |
-help: take the original Iterator's count instead of collecting it and finding the length
-   |
-LL ~         
-LL |
-LL |
-LL ~         sample.iter().count()
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:87:57
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:85:5
+   |
+LL |     fn lint_binary_heap() -> usize {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:85:5
+   |
+LL |     fn lint_binary_heap() -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:85:5
+   |
+LL |     fn lint_binary_heap() -> usize {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:86:13
+   |
+LL |         let sample = [1; 5];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:87:13
    |
 LL |         let indirect_len: BinaryHeap<_> = sample.iter().collect();
-   |                                                         ^^^^^^^
-...
-LL |         indirect_len.len()
-   |         ------------------ the iterator could be used here instead
-   |
-help: take the original Iterator's count instead of collecting it and finding the length
-   |
-LL ~         
-LL |
-LL |
-LL ~         sample.iter().count()
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:149:59
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:92:5
+   |
+LL |     fn dont_lint(string: &str) -> usize {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:92:5
+   |
+LL |     fn dont_lint(string: &str) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:92:5
+   |
+LL |     fn dont_lint(string: &str) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:92:18
+   |
+LL |     fn dont_lint(string: &str) -> usize {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:92:26
+   |
+LL |     fn dont_lint(string: &str) -> usize {
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:93:13
+   |
+LL |         let buffer: Vec<&str> = string.split('/').collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:93:25
+   |
+LL |         let buffer: Vec<&str> = string.split('/').collect();
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:94:21
+   |
+LL |         for buff in &buffer {
+   |                     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:101:1
+   |
+LL | mod issue7975 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:104:5
+   |
+LL |     fn direct_mapping_with_used_mutable_reference() -> Vec<()> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:104:5
+   |
+LL |     fn direct_mapping_with_used_mutable_reference() -> Vec<()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:104:5
+   |
+LL |     fn direct_mapping_with_used_mutable_reference() -> Vec<()> {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:105:13
+   |
+LL |         let test_vec: Vec<()> = vec![];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:107:13
+   |
+LL |         let mut_ref = &mut vec_2;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:107:23
+   |
+LL |         let mut_ref = &mut vec_2;
+   |                       ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:108:13
+   |
+LL |         let collected_vec: Vec<_> = test_vec.into_iter().map(|_| mut_ref.push(())).collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:112:5
+   |
+LL |     fn indirectly_mapping_with_used_mutable_reference() -> Vec<()> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:112:5
+   |
+LL |     fn indirectly_mapping_with_used_mutable_reference() -> Vec<()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:112:5
+   |
+LL |     fn indirectly_mapping_with_used_mutable_reference() -> Vec<()> {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:113:13
+   |
+LL |         let test_vec: Vec<()> = vec![];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:115:13
+   |
+LL |         let mut_ref = &mut vec_2;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:115:23
+   |
+LL |         let mut_ref = &mut vec_2;
+   |                       ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:116:13
+   |
+LL |         let collected_vec: Vec<_> = test_vec.into_iter().map(|_| mut_ref.push(())).collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:117:13
+   |
+LL |         let iter = collected_vec.into_iter();
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:121:5
+   |
+LL |     fn indirect_collect_after_indirect_mapping_with_used_mutable_reference() -> Vec<()> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:121:5
+   |
+LL |     fn indirect_collect_after_indirect_mapping_with_used_mutable_reference() -> Vec<()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:121:5
+   |
+LL |     fn indirect_collect_after_indirect_mapping_with_used_mutable_reference() -> Vec<()> {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:122:13
+   |
+LL |         let test_vec: Vec<()> = vec![];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:124:13
+   |
+LL |         let mut_ref = &mut vec_2;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:124:23
+   |
+LL |         let mut_ref = &mut vec_2;
+   |                       ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:125:13
+   |
+LL |         let collected_vec: Vec<_> = test_vec.into_iter().map(|_| mut_ref.push(())).collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:126:13
+   |
+LL |         let iter = collected_vec.into_iter();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:127:13
+   |
+LL |         let mapped_iter = iter.map(|_| mut_ref.push(()));
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:132:1
+   |
+LL | fn allow_test() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:132:1
+   |
+LL | fn allow_test() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:132:1
+   |
+LL | fn allow_test() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:134:9
+   |
+LL |     let v = [1].iter().collect::<Vec<_>>();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:138:1
+   |
+LL | mod issue_8553 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:139:5
+   |
+LL |     fn test_for() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:139:5
+   |
+LL |     fn test_for() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:139:5
+   |
+LL |     fn test_for() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:140:13
+   |
+LL |         let vec = vec![1, 2];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:141:13
+   |
+LL |         let w: Vec<usize> = vec.iter().map(|i| i * i).collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:145:24
+   |
+LL |             w.contains(&i);
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:149:17
    |
 LL |             let y: Vec<usize> = vec.iter().map(|k| k * k).collect();
-   |                                                           ^^^^^^^
-...
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:152:17
+   |
+LL |             let z: Vec<usize> = vec.iter().map(|k| k * k).collect();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:154:24
+   |
 LL |             y.contains(&i);
-   |             -------------- the iterator could be used here instead
+   |                        ^^
    |
-help: check if the original Iterator contains an element instead of collecting then checking
-   |
-LL ~             
-LL |
-...
-LL |             // Do lint
-LL ~             vec.iter().map(|k| k * k).any(|x| x == i);
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:176:59
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:157:28
+   |
+LL |                 z.contains(&j);
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:162:20
+   |
+LL |         w.contains(&0);
+   |                    ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:165:5
+   |
+LL |     fn test_while() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:165:5
+   |
+LL |     fn test_while() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:165:5
+   |
+LL |     fn test_while() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:166:13
+   |
+LL |         let vec = vec![1, 2];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:167:13
+   |
+LL |         let x: Vec<usize> = vec.iter().map(|i| i * i).collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:171:24
+   |
+LL |             x.contains(&n);
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:176:17
    |
 LL |             let y: Vec<usize> = vec.iter().map(|k| k * k).collect();
-   |                                                           ^^^^^^^
-...
-LL |             y.contains(&n);
-   |             -------------- the iterator could be used here instead
-   |
-help: check if the original Iterator contains an element instead of collecting then checking
-   |
-LL ~             
-LL |
-...
-LL |             // Do lint
-LL ~             vec.iter().map(|k| k * k).any(|x| x == n);
-   |
+   |                 ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:207:63
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:179:17
+   |
+LL |             let z: Vec<usize> = vec.iter().map(|k| k * k).collect();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:181:24
+   |
+LL |             y.contains(&n);
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:185:28
+   |
+LL |                 z.contains(&n);
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:191:5
+   |
+LL |     fn test_loop() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:191:5
+   |
+LL |     fn test_loop() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:191:5
+   |
+LL |     fn test_loop() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:192:13
+   |
+LL |         let vec = vec![1, 2];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:193:13
+   |
+LL |         let x: Vec<usize> = vec.iter().map(|i| i * i).collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:198:28
+   |
+LL |                 x.contains(&n);
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:207:21
    |
 LL |                 let y: Vec<usize> = vec.iter().map(|k| k * k).collect();
-   |                                                               ^^^^^^^
-...
-LL |                 y.contains(&n);
-   |                 -------------- the iterator could be used here instead
-   |
-help: check if the original Iterator contains an element instead of collecting then checking
-   |
-LL ~                 
-LL |
-...
-LL |                 // Do lint
-LL ~                 vec.iter().map(|k| k * k).any(|x| x == n);
-   |
+   |                     ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:245:59
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:210:21
+   |
+LL |                 let z: Vec<usize> = vec.iter().map(|k| k * k).collect();
+   |                     ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:212:28
+   |
+LL |                 y.contains(&n);
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:217:36
+   |
+LL |                         z.contains(&n);
+   |                                    ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:229:5
+   |
+LL |     fn test_while_let() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:229:5
+   |
+LL |     fn test_while_let() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:229:5
+   |
+LL |     fn test_while_let() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:230:13
+   |
+LL |         let vec = vec![1, 2];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:231:13
+   |
+LL |         let x: Vec<usize> = vec.iter().map(|i| i * i).collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:232:13
+   |
+LL |         let optional = Some(0);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:237:28
+   |
+LL |                 x.contains(&n);
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:245:17
    |
 LL |             let y: Vec<usize> = vec.iter().map(|k| k * k).collect();
-   |                                                           ^^^^^^^
-...
-LL |                 y.contains(&n);
-   |                 -------------- the iterator could be used here instead
-   |
-help: check if the original Iterator contains an element instead of collecting then checking
-   |
-LL ~             
-LL |
-...
-LL |                 // Do lint
-LL ~                 vec.iter().map(|k| k * k).any(|x| x == n);
-   |
+   |                 ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:272:26
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:248:17
+   |
+LL |             let z: Vec<usize> = vec.iter().map(|k| k * k).collect();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:251:28
+   |
+LL |                 y.contains(&n);
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect_indirect.rs:260:32
+   |
+LL |                     z.contains(&n);
+   |                                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:269:5
+   |
+LL |     fn test_if_cond() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:269:5
+   |
+LL |     fn test_if_cond() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:269:5
+   |
+LL |     fn test_if_cond() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:270:13
+   |
+LL |         let vec = vec![1, 2];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:271:13
+   |
+LL |         let v: Vec<usize> = vec.iter().map(|i| i * i).collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:272:13
    |
 LL |         let w = v.iter().collect::<Vec<_>>();
-   |                          ^^^^^^^
-...
-LL |         for _ in 0..w.len() {
-   |                     ------- the iterator could be used here instead
-   |
-help: take the original Iterator's count instead of collecting it and finding the length
-   |
-LL ~         
-LL |
-LL |
-LL |         // Do lint
-LL ~         for _ in 0..v.iter().count() {
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:296:30
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:281:5
    |
-LL |         let mut w = v.iter().collect::<Vec<_>>();
-   |                              ^^^^^^^
-...
-LL |         while 1 == w.len() {
-   |                    ------- the iterator could be used here instead
-   |
-help: take the original Iterator's count instead of collecting it and finding the length
-   |
-LL ~         
-LL |
-LL |
-LL |         // Do lint
-LL ~         while 1 == v.iter().count() {
-   |
+LL |     fn test_if_cond_false_case() {
+   |     ^ help: make this item public: `pub`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect_indirect.rs:320:30
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:281:5
    |
-LL |         let mut w = v.iter().collect::<Vec<_>>();
-   |                              ^^^^^^^
-...
-LL |         while let Some(i) = Some(w.len()) {
-   |                                  ------- the iterator could be used here instead
+LL |     fn test_if_cond_false_case() {
+   |     ^
    |
-help: take the original Iterator's count instead of collecting it and finding the length
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:281:5
    |
-LL ~         
-LL |
-LL |
-LL |         // Do lint
-LL ~         while let Some(i) = Some(v.iter().count()) {
-   |
+LL |     fn test_if_cond_false_case() {
+   |     ^
 
-error: aborting due to 16 previous errors
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:282:13
+   |
+LL |         let vec = vec![1, 2];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:283:13
+   |
+LL |         let v: Vec<usize> = vec.iter().map(|i| i * i).collect();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect_indirect.rs:284:13
+   |
+LL |         let w = v.iter().collect::<Vec<_>>();
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:293:5
+   |
+LL |     fn test_while_cond() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:293:5
+   |
+LL |     fn test_while_cond() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:293:5
+   |
+LL |     fn test_while_cond() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:305:5
+   |
+LL |     fn test_while_cond_false_case() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:305:5
+   |
+LL |     fn test_while_cond_false_case() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:305:5
+   |
+LL |     fn test_while_cond_false_case() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:317:5
+   |
+LL |     fn test_while_let_cond() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:317:5
+   |
+LL |     fn test_while_let_cond() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:317:5
+   |
+LL |     fn test_while_let_cond() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_collect_indirect.rs:329:5
+   |
+LL |     fn test_while_let_cond_false_case() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:329:5
+   |
+LL |     fn test_while_let_cond_false_case() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect_indirect.rs:329:5
+   |
+LL |     fn test_while_let_cond_false_case() {
+   |     ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 134 previous errors
 

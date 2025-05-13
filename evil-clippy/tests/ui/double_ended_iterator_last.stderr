@@ -1,34 +1,439 @@
-error: called `Iterator::last` on a `DoubleEndedIterator`; this will needlessly iterate the entire iterator
-  --> tests/ui/double_ended_iterator_last.rs:5:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     s.split(' ').last()
-   |     ^^^^^^^^^^^^^------
-   |                  |
-   |                  help: try: `next_back()`
-   |
-   = note: `-D clippy::double-ended-iterator-last` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::double_ended_iterator_last)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `Iterator::last` on a `DoubleEndedIterator`; this will needlessly iterate the entire iterator
-  --> tests/ui/double_ended_iterator_last.rs:22:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = DeIterator.last();
-   |             ^^^^^^^^^^^------
-   |                        |
-   |                        help: try: `next_back()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: called `Iterator::last` on a `DoubleEndedIterator`; this will needlessly iterate the entire iterator
-  --> tests/ui/double_ended_iterator_last.rs:96:36
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:4:5
    |
-LL |     println!("Last element is {}", v.last().unwrap().0);
-   |                                    ^^^^^^^^
+LL | pub fn last_arg(s: &str) -> Option<&str> {
+   |     ^
    |
-   = note: this change will alter drop order which may be undesirable
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:4:5
    |
-LL ~     let mut v = v.into_iter();
-LL ~     println!("Last element is {}", v.next_back().unwrap().0);
-   |
+LL | pub fn last_arg(s: &str) -> Option<&str> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 3 previous errors
+error: parameter must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:4:17
+   |
+LL | pub fn last_arg(s: &str) -> Option<&str> {
+   |                 ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:4:20
+   |
+LL | pub fn last_arg(s: &str) -> Option<&str> {
+   |                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:4:36
+   |
+LL | pub fn last_arg(s: &str) -> Option<&str> {
+   |                                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:8:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:8:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:8:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:10:5
+   |
+LL |     struct DeIterator;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:11:5
+   |
+LL |     impl Iterator for DeIterator {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:13:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:13:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:13:22
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:13:17
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:17:5
+   |
+LL |     impl DoubleEndedIterator for DeIterator {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:18:9
+   |
+LL |         fn next_back(&mut self) -> Option<Self::Item> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:18:9
+   |
+LL |         fn next_back(&mut self) -> Option<Self::Item> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:18:27
+   |
+LL |         fn next_back(&mut self) -> Option<Self::Item> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:18:22
+   |
+LL |         fn next_back(&mut self) -> Option<Self::Item> {
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:27:5
+   |
+LL |     struct SimpleIterator;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:28:5
+   |
+LL |     impl Iterator for SimpleIterator {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:30:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:30:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:30:22
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:30:17
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:37:5
+   |
+LL |     struct CustomLast;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:38:5
+   |
+LL |     impl Iterator for CustomLast {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:40:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:40:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:40:22
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:40:17
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:43:9
+   |
+LL |         fn last(self) -> Option<Self::Item> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:43:9
+   |
+LL |         fn last(self) -> Option<Self::Item> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:43:17
+   |
+LL |         fn last(self) -> Option<Self::Item> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:47:5
+   |
+LL |     impl DoubleEndedIterator for CustomLast {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:48:9
+   |
+LL |         fn next_back(&mut self) -> Option<Self::Item> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:48:9
+   |
+LL |         fn next_back(&mut self) -> Option<Self::Item> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:48:27
+   |
+LL |         fn next_back(&mut self) -> Option<Self::Item> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:48:22
+   |
+LL |         fn next_back(&mut self) -> Option<Self::Item> {
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:57:1
+   |
+LL | fn issue_14139() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:57:1
+   |
+LL | fn issue_14139() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:57:1
+   |
+LL | fn issue_14139() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:59:9
+   |
+LL |     let subindex = index.by_ref().take(3);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:70:9
+   |
+LL |     let subindex = &mut subindex;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:70:20
+   |
+LL |     let subindex = &mut subindex;
+   |                    ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:76:9
+   |
+LL |     let subindex = &mut subindex;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:76:20
+   |
+LL |     let subindex = &mut subindex;
+   |                    ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:81:10
+   |
+LL |     let (subindex, _) = (index.by_ref().take(3), 42);
+   |          ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:86:1
+   |
+LL | fn drop_order() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:86:1
+   |
+LL | fn drop_order() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:86:1
+   |
+LL | fn drop_order() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:87:5
+   |
+LL |     struct S(&'static str);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:87:14
+   |
+LL |     struct S(&'static str);
+   |              ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:88:5
+   |
+LL |     impl std::ops::Drop for S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:89:9
+   |
+LL |         fn drop(&mut self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:89:9
+   |
+LL |         fn drop(&mut self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:89:22
+   |
+LL |         fn drop(&mut self) {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last.rs:89:17
+   |
+LL |         fn drop(&mut self) {
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:94:9
+   |
+LL |     let v = vec![S("one"), S("two"), S("three")];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:95:9
+   |
+LL |     let v = v.into_iter();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last.rs:101:1
+   |
+LL | fn issue_14444() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:101:1
+   |
+LL | fn issue_14444() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last.rs:101:1
+   |
+LL | fn issue_14444() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last.rs:103:9
+   |
+LL |     let last_square = [1, 2, 3]
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 56 previous errors
 

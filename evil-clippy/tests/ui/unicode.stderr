@@ -1,32 +1,264 @@
-error: invisible character detected
-  --> tests/ui/unicode.rs:5:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     print!("Here >​< is a ZWS, and ​another");
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider replacing the string with: `"Here >\u{200B}< is a ZWS, and \u{200B}another"`
-   |
-   = note: `-D clippy::invisible-characters` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::invisible_characters)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: invisible character detected
-  --> tests/ui/unicode.rs:8:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     print!("Here >­< is a SHY, and ­another");
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider replacing the string with: `"Here >\u{AD}< is a SHY, and \u{AD}another"`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: invisible character detected
-  --> tests/ui/unicode.rs:11:12
+error: item must be `pub`
+  --> tests/ui/unicode.rs:4:1
    |
-LL |     print!("Here >⁠< is a WJ, and ⁠another");
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider replacing the string with: `"Here >\u{2060}< is a WJ, and \u{2060}another"`
+LL | fn zero() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: non-NFC Unicode sequence detected
-  --> tests/ui/unicode.rs:18:12
+error: function must be `unsafe`
+  --> tests/ui/unicode.rs:4:1
    |
-LL |     print!("̀àh?");
-   |            ^^^^^ help: consider replacing the string with: `"̀àh?"`
+LL | fn zero() {
+   | ^
    |
-   = note: `-D clippy::unicode-not-nfc` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unicode_not_nfc)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unicode.rs:4:1
+   |
+LL | fn zero() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:17:1
+   |
+LL | fn canon() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unicode.rs:17:1
+   |
+LL | fn canon() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unicode.rs:17:1
+   |
+LL | fn canon() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:23:1
+   |
+LL | mod non_ascii_literal {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:26:5
+   |
+LL |     fn uni() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unicode.rs:26:5
+   |
+LL |     fn uni() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unicode.rs:26:5
+   |
+LL |     fn uni() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:33:5
+   |
+LL |     fn single_quote() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unicode.rs:33:5
+   |
+LL |     fn single_quote() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unicode.rs:33:5
+   |
+LL |     fn single_quote() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:34:9
+   |
+LL |         const _EMPTY_BLOCK: char = '▱';
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:36:9
+   |
+LL |         const _FULL_BLOCK: char = '▰';
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:41:5
+   |
+LL |     #[test]
+   |     ------- in this procedural macro expansion
+LL |     pub fn issue_7739() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/unicode.rs:41:9
+   |
+LL |     pub fn issue_7739() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unicode.rs:41:9
+   |
+LL |     pub fn issue_7739() {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:45:5
+   |
+LL |     mod issue_8263 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:51:9
+   |
+LL |         #[test]
+   |         ------- in this procedural macro expansion
+LL |         #[allow(clippy::non_ascii_literal)]
+LL |         fn allowed() {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:51:9
+   |
+LL |         fn allowed() {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unicode.rs:51:9
+   |
+LL |         fn allowed() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unicode.rs:51:9
+   |
+LL |         fn allowed() {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:56:9
+   |
+LL |         #[test]
+   |         ------- in this procedural macro expansion
+LL |         fn denied() {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:56:9
+   |
+LL |         fn denied() {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unicode.rs:56:9
+   |
+LL |         fn denied() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unicode.rs:56:9
+   |
+LL |         fn denied() {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/unicode.rs:63:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unicode.rs:63:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unicode.rs:63:1
+   |
+LL | fn main() {
+   | ^
+
+error: function must be `unsafe`
+   |
+   = help: make this function unsafe: `unsafe`
+
+error: references are not allowed
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/unicode.rs:41:5
+   |
+LL |       #[test]
+   |       ------- in this procedural macro expansion
+LL | /     pub fn issue_7739() {
+LL | |         // Ryū crate: https://github.com/dtolnay/ryu
+LL | |     }
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unicode.rs:51:9
+   |
+LL |           #[test]
+   |           ------- in this procedural macro expansion
+LL |           #[allow(clippy::non_ascii_literal)]
+LL | /         fn allowed() {
+LL | |             let _ = "悲しいかな、ここに日本語を書くことはできない。";
+LL | |         }
+   | |_________^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unicode.rs:56:9
+   |
+LL |           #[test]
+   |           ------- in this procedural macro expansion
+LL | /         fn denied() {
+LL | |             let _ = "悲しいかな、ここに日本語を書くことはできない。";
+LL | |
+LL | |         }
+   | |_________^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
 error: literal non-ASCII character detected
   --> tests/ui/unicode.rs:27:16
@@ -64,5 +296,5 @@ note: the lint level is defined here
 LL |         #![deny(clippy::non_ascii_literal)]
    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-error: aborting due to 8 previous errors
+error: aborting due to 35 previous errors
 

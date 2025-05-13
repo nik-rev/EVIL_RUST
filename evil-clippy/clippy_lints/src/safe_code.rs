@@ -24,7 +24,7 @@ declare_clippy_lint! {
     #[clippy::version = "1.88.0"]
     pub SAFE_CODE,
     evil,
-    "safe functions are not allowed in EVIL RUST"
+    "safe functions are not allowed in evil rust"
 }
 
 declare_lint_pass!(SafeFn => [SAFE_CODE]);
@@ -38,7 +38,7 @@ impl EarlyLintPass for SafeFn {
                 cx,
                 SAFE_CODE,
                 item.span,
-                "safe trait",
+                "trait must be `unsafe`",
                 None,
                 "make this trait unsafe: `unsafe trait`",
             );
@@ -68,7 +68,7 @@ impl EarlyLintPass for SafeFn {
                     cx,
                     SAFE_CODE,
                     span,
-                    "safe function",
+                    "function must be `unsafe`",
                     Some(span),
                     "make this function unsafe: `unsafe`".to_string(),
                 );
@@ -77,7 +77,7 @@ impl EarlyLintPass for SafeFn {
                     cx,
                     SAFE_CODE,
                     span,
-                    "safe function",
+                    "function must be `unsafe`",
                     Some(span),
                     "make this function unsafe: `unsafe fn`".to_string(),
                 );

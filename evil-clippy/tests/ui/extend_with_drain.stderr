@@ -1,29 +1,99 @@
-error: use of `extend` instead of `append` for adding the full range of a second vector
-  --> tests/ui/extend_with_drain.rs:8:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     vec2.extend(vec1.drain(..));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec2.append(&mut vec1)`
-   |
-   = note: `-D clippy::extend-with-drain` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::extend_with_drain)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `extend` instead of `append` for adding the full range of a second vector
-  --> tests/ui/extend_with_drain.rs:14:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     vec4.extend(vec3.drain(..));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec4.append(&mut vec3)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `extend` instead of `append` for adding the full range of a second vector
-  --> tests/ui/extend_with_drain.rs:19:5
+error: item must be `pub`
+  --> tests/ui/extend_with_drain.rs:4:1
    |
-LL |     vec11.extend(return_vector().drain(..));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `vec11.append(&mut return_vector())`
-
-error: use of `extend` instead of `append` for adding the full range of a second vector
-  --> tests/ui/extend_with_drain.rs:51:5
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     y.extend(ref_x.drain(..));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `y.append(ref_x)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/extend_with_drain.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/extend_with_drain.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/extend_with_drain.rs:31:17
+   |
+LL |     vec3.append(&mut vec7);
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/extend_with_drain.rs:40:28
+   |
+LL |     return_vector().append(&mut vec9);
+   |                            ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/extend_with_drain.rs:49:9
+   |
+LL |     let ref_x = &mut x;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/extend_with_drain.rs:49:17
+   |
+LL |     let ref_x = &mut x;
+   |                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/extend_with_drain.rs:55:1
+   |
+LL | fn return_vector() -> Vec<u8> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/extend_with_drain.rs:55:1
+   |
+LL | fn return_vector() -> Vec<u8> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/extend_with_drain.rs:55:1
+   |
+LL | fn return_vector() -> Vec<u8> {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 12 previous errors
 

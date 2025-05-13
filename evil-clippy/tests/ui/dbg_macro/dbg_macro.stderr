@@ -1,234 +1,555 @@
-error: the `dbg!` macro is intended as a debugging tool
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:9:1
+   |
+LL | fn foo(n: u32) -> u32 {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:9:1
+   |
+LL | fn foo(n: u32) -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:9:1
+   |
+LL | fn foo(n: u32) -> u32 {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/dbg_macro/dbg_macro.rs:9:8
+   |
+LL | fn foo(n: u32) -> u32 {
+   |        ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:10:22
    |
 LL |     if let Some(n) = dbg!(n.checked_sub(4)) { n } else { n }
    |                      ^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::dbg-macro` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::dbg_macro)]`
-help: remove the invocation before committing it to a version control system
-   |
-LL -     if let Some(n) = dbg!(n.checked_sub(4)) { n } else { n }
-LL +     if let Some(n) = n.checked_sub(4) { n } else { n }
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:13:1
+   |
+LL | fn bar(_: ()) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:13:1
+   |
+LL | fn bar(_: ()) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:13:1
+   |
+LL | fn bar(_: ()) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:15:1
+   |
+LL | fn factorial(n: u32) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:15:1
+   |
+LL | fn factorial(n: u32) -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:15:1
+   |
+LL | fn factorial(n: u32) -> u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/dbg_macro/dbg_macro.rs:15:14
+   |
+LL | fn factorial(n: u32) -> u32 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:16:8
    |
 LL |     if dbg!(n <= 1) {
    |        ^^^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     if dbg!(n <= 1) {
-LL +     if n <= 1 {
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:19:9
    |
 LL |         dbg!(1)
    |         ^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -         dbg!(1)
-LL +         1
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:22:9
    |
 LL |         dbg!(n * factorial(n - 1))
    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -         dbg!(n * factorial(n - 1))
-LL +         n * factorial(n - 1)
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:27:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:27:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:27:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:28:5
    |
 LL |     dbg!(42);
    |     ^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!(42);
-LL +     42;
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:31:14
    |
 LL |     foo(3) + dbg!(factorial(4));
    |              ^^^^^^^^^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     foo(3) + dbg!(factorial(4));
-LL +     foo(3) + factorial(4);
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:34:5
    |
 LL |     dbg!(1, 2, 3, 4, 5);
    |     ^^^^^^^^^^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!(1, 2, 3, 4, 5);
-LL +     (1, 2, 3, 4, 5);
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
-  --> tests/ui/dbg_macro/dbg_macro.rs:56:5
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro.rs:34:5
    |
-LL |     dbg!();
-   |     ^^^^^^
+LL |     dbg!(1, 2, 3, 4, 5);
+   |     ^^^^^^^^^^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!();
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
-  --> tests/ui/dbg_macro/dbg_macro.rs:60:13
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro.rs:34:5
    |
-LL |     let _ = dbg!();
-   |             ^^^^^^
+LL |     dbg!(1, 2, 3, 4, 5);
+   |     ^^^^^^^^^^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     let _ = dbg!();
-LL +     let _ = ();
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
-  --> tests/ui/dbg_macro/dbg_macro.rs:63:9
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro.rs:34:5
    |
-LL |     bar(dbg!());
-   |         ^^^^^^
+LL |     dbg!(1, 2, 3, 4, 5);
+   |     ^^^^^^^^^^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     bar(dbg!());
-LL +     bar(());
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
-  --> tests/ui/dbg_macro/dbg_macro.rs:66:10
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro.rs:34:5
    |
-LL |     foo!(dbg!());
-   |          ^^^^^^
+LL |     dbg!(1, 2, 3, 4, 5);
+   |     ^^^^^^^^^^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     foo!(dbg!());
-LL +     foo!(());
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
-  --> tests/ui/dbg_macro/dbg_macro.rs:69:16
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:38:1
    |
-LL |     foo2!(foo!(dbg!()));
-   |                ^^^^^^
-   |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     foo2!(foo!(dbg!()));
-LL +     foo2!(foo!(()));
-   |
+LL | fn issue9914() {
+   | ^ help: make this item public: `pub`
 
-error: the `dbg!` macro is intended as a debugging tool
-  --> tests/ui/dbg_macro/dbg_macro.rs:51:13
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:38:1
    |
-LL |             dbg!();
-   |             ^^^^^^
+LL | fn issue9914() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:38:1
+   |
+LL | fn issue9914() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:39:5
+   |
+LL |     macro_rules! foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:44:5
+   |
+LL |     macro_rules! foo2 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:49:5
+   |
+LL |     macro_rules! expand_to_dbg {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:75:1
+   |
+LL | mod issue7274 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:76:5
+   |
+LL | /     trait Thing<'b> {
+LL | |         fn foo(&self);
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:76:5
+   |
+LL |     trait Thing<'b> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:77:9
+   |
+LL |         fn foo(&self);
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:77:9
+   |
+LL |         fn foo(&self);
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/dbg_macro/dbg_macro.rs:77:17
+   |
+LL |         fn foo(&self);
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro.rs:77:16
+   |
+LL |         fn foo(&self);
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:80:5
+   |
+LL |     macro_rules! define_thing {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:90:5
+   |
+LL |     struct MyThing;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:82:13
+   |
+LL |               impl<'a> Thing<'a> for $thing {
+   |               ^ help: make this item public: `pub`
 ...
-LL |     expand_to_dbg!();
-   |     ---------------- in this macro invocation
+LL | /     define_thing!(MyThing, {
+LL | |         dbg!(2);
+LL | |
+LL | |     });
+   | |______- in this macro invocation
    |
-   = note: this error originates in the macro `expand_to_dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
-help: remove the invocation before committing it to a version control system
-   |
-LL -             dbg!();
-   |
+   = note: this error originates in the macro `define_thing` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:83:17
+   |
+LL |                   fn foo<'b>(&self) {
+   |                   ^
+...
+LL | /     define_thing!(MyThing, {
+LL | |         dbg!(2);
+LL | |
+LL | |     });
+   | |______- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:83:17
+   |
+LL |                   fn foo<'b>(&self) {
+   |                   ^
+...
+LL | /     define_thing!(MyThing, {
+LL | |         dbg!(2);
+LL | |
+LL | |     });
+   | |______- in this macro invocation
+   = note: this error originates in the macro `define_thing` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/dbg_macro/dbg_macro.rs:83:29
+   |
+LL |                   fn foo<'b>(&self) {
+   |                               ^ help: make this parameter mutable: `mut`
+...
+LL | /     define_thing!(MyThing, {
+LL | |         dbg!(2);
+LL | |
+LL | |     });
+   | |______- in this macro invocation
+   |
+   = note: this error originates in the macro `define_thing` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro.rs:83:28
+   |
+LL |                   fn foo<'b>(&self) {
+   |                              ^^^^^
+...
+LL | /     define_thing!(MyThing, {
+LL | |         dbg!(2);
+LL | |
+LL | |     });
+   | |______- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `define_thing` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:92:9
    |
 LL |         dbg!(2);
    |         ^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -         dbg!(2);
-LL +         2;
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:98:1
+   |
+LL | #[test]
+   | ------- in this procedural macro expansion
+LL | pub fn issue8481() {
+   | ^
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:98:5
+   |
+LL | pub fn issue8481() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:98:5
+   |
+LL | pub fn issue8481() {
+   |     ^
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:99:5
    |
 LL |     dbg!(1);
    |     ^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!(1);
-LL +     1;
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:104:1
+   |
+LL | fn foo2() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:104:1
+   |
+LL | fn foo2() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:104:1
+   |
+LL | fn foo2() {
+   | ^
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:105:5
    |
 LL |     dbg!(1);
    |     ^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!(1);
-LL +     1;
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:110:1
+   |
+LL | mod mod1 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:111:5
+   |
+LL |     fn func() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:111:5
+   |
+LL |     fn func() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:111:5
+   |
+LL |     fn func() {
+   |     ^
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:112:9
    |
 LL |         dbg!(1);
    |         ^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -         dbg!(1);
-LL +         1;
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:117:1
+   |
+LL | mod issue12131 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro.rs:118:5
+   |
+LL |     fn dbg_in_print(s: &str) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:118:5
+   |
+LL |     fn dbg_in_print(s: &str) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro.rs:118:5
+   |
+LL |     fn dbg_in_print(s: &str) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/dbg_macro/dbg_macro.rs:118:21
+   |
+LL |     fn dbg_in_print(s: &str) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro.rs:118:24
+   |
+LL |     fn dbg_in_print(s: &str) {
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:119:31
    |
 LL |         println!("dbg: {:?}", dbg!(s));
    |                               ^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -         println!("dbg: {:?}", dbg!(s));
-LL +         println!("dbg: {:?}", s);
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro.rs:122:22
    |
 LL |         print!("{}", dbg!(s));
    |                      ^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -         print!("{}", dbg!(s));
-LL +         print!("{}", s);
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 19 previous errors
+error: function must be `unsafe`
+   |
+   = help: make this function unsafe: `unsafe`
+
+error: references are not allowed
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro.rs:98:1
+   |
+LL |   #[test]
+   |   ------- in this procedural macro expansion
+LL | / pub fn issue8481() {
+LL | |     dbg!(1);
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 63 previous errors
 

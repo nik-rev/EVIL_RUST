@@ -1,217 +1,715 @@
-error: this pattern takes a reference on something that is being dereferenced
-  --> tests/ui/needless_borrowed_ref.rs:30:34
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrowed_ref.rs:10:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrowed_ref.rs:10:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrowed_ref.rs:10:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrowed_ref.rs:12:1
+   |
+LL | struct Struct {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrowed_ref.rs:18:1
+   |
+LL | struct TupleStruct(u8, u8, u8);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrowed_ref.rs:20:1
+   |
+LL | fn should_lint(
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrowed_ref.rs:20:1
+   |
+LL | fn should_lint(
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrowed_ref.rs:20:1
+   |
+LL | fn should_lint(
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:21:5
+   |
+LL |     array: [u8; 4],
+   |     ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:22:5
+   |
+LL |     slice: &[u8],
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:23:5
+   |
+LL |     slice_of_refs: &[&u8],
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:24:5
+   |
+LL |     vec: Vec<u8>,
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:25:5
+   |
+LL |     tuple: (u8, u8, u8),
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:26:5
+   |
+LL |     tuple_struct: TupleStruct,
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:27:5
+   |
+LL |     s: Struct,
+   |     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:22:12
+   |
+LL |     slice: &[u8],
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:23:20
+   |
+LL |     slice_of_refs: &[&u8],
+   |                    ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:23:22
+   |
+LL |     slice_of_refs: &[&u8],
+   |                      ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:30:35
    |
 LL |     let _ = v.iter_mut().filter(|&ref a| a.is_empty());
-   |                                  ^^^^^^
-   |
-   = note: `-D clippy::needless-borrowed-reference` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_borrowed_reference)]`
-help: try removing the `&ref` part
-   |
-LL -     let _ = v.iter_mut().filter(|&ref a| a.is_empty());
-LL +     let _ = v.iter_mut().filter(|a| a.is_empty());
-   |
+   |                                   ^^^^^
 
-error: this pattern takes a reference on something that is being dereferenced
-  --> tests/ui/needless_borrowed_ref.rs:35:17
+error: variable must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:33:9
+   |
+LL |     let var = 3;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:34:9
+   |
+LL |     let thingy = Some(&var);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:34:23
+   |
+LL |     let thingy = Some(&var);
+   |                       ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:35:18
    |
 LL |     if let Some(&ref v) = thingy {}
-   |                 ^^^^^^
-   |
-help: try removing the `&ref` part
-   |
-LL -     if let Some(&ref v) = thingy {}
-LL +     if let Some(v) = thingy {}
-   |
+   |                  ^^^^^
 
-error: this pattern takes a reference on something that is being dereferenced
-  --> tests/ui/needless_borrowed_ref.rs:38:14
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:38:15
    |
 LL |     if let &[&ref a, ref b] = slice_of_refs {}
-   |              ^^^^^^
-   |
-help: try removing the `&ref` part
-   |
-LL -     if let &[&ref a, ref b] = slice_of_refs {}
-LL +     if let &[a, ref b] = slice_of_refs {}
-   |
+   |               ^^^^^
 
-error: dereferencing a slice pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:41:9
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:38:22
+   |
+LL |     if let &[&ref a, ref b] = slice_of_refs {}
+   |                      ^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:41:15
    |
 LL |     let &[ref a, ..] = &array;
-   |         ^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     let &[ref a, ..] = &array;
-LL +     let [a, ..] = &array;
-   |
+   |               ^ help: make this variable mutable: `mut`
 
-error: dereferencing a slice pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:43:9
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:41:10
+   |
+LL |     let &[ref a, ..] = &array;
+   |          ^ help: make this parameter mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:41:11
+   |
+LL |     let &[ref a, ..] = &array;
+   |           ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:41:24
+   |
+LL |     let &[ref a, ..] = &array;
+   |                        ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:43:15
    |
 LL |     let &[ref a, ref b, ..] = &array;
-   |         ^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     let &[ref a, ref b, ..] = &array;
-LL +     let [a, b, ..] = &array;
-   |
+   |               ^ help: make this variable mutable: `mut`
 
-error: dereferencing a slice pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:46:12
+error: variable must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:43:22
+   |
+LL |     let &[ref a, ref b, ..] = &array;
+   |                      ^ help: make this variable mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:43:10
+   |
+LL |     let &[ref a, ref b, ..] = &array;
+   |          ^ help: make this parameter mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:43:11
+   |
+LL |     let &[ref a, ref b, ..] = &array;
+   |           ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:43:18
+   |
+LL |     let &[ref a, ref b, ..] = &array;
+   |                  ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:43:31
+   |
+LL |     let &[ref a, ref b, ..] = &array;
+   |                               ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:46:14
    |
 LL |     if let &[ref a, ref b] = slice {}
-   |            ^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &[ref a, ref b] = slice {}
-LL +     if let [a, b] = slice {}
-   |
+   |              ^^^^^
 
-error: dereferencing a slice pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:48:12
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:46:21
+   |
+LL |     if let &[ref a, ref b] = slice {}
+   |                     ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:48:14
    |
 LL |     if let &[ref a, ref b] = &vec[..] {}
-   |            ^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &[ref a, ref b] = &vec[..] {}
-LL +     if let [a, b] = &vec[..] {}
-   |
+   |              ^^^^^
 
-error: dereferencing a slice pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:51:12
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:48:21
+   |
+LL |     if let &[ref a, ref b] = &vec[..] {}
+   |                     ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:48:30
+   |
+LL |     if let &[ref a, ref b] = &vec[..] {}
+   |                              ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:51:14
    |
 LL |     if let &[ref a, ref b, ..] = slice {}
-   |            ^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &[ref a, ref b, ..] = slice {}
-LL +     if let [a, b, ..] = slice {}
-   |
+   |              ^^^^^
 
-error: dereferencing a slice pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:53:12
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:51:21
+   |
+LL |     if let &[ref a, ref b, ..] = slice {}
+   |                     ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:53:14
    |
 LL |     if let &[ref a, .., ref b] = slice {}
-   |            ^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &[ref a, .., ref b] = slice {}
-LL +     if let [a, .., b] = slice {}
-   |
+   |              ^^^^^
 
-error: dereferencing a slice pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:55:12
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:53:25
+   |
+LL |     if let &[ref a, .., ref b] = slice {}
+   |                         ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:55:18
    |
 LL |     if let &[.., ref a, ref b] = slice {}
-   |            ^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &[.., ref a, ref b] = slice {}
-LL +     if let [.., a, b] = slice {}
-   |
+   |                  ^^^^^
 
-error: dereferencing a slice pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:58:12
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:55:25
+   |
+LL |     if let &[.., ref a, ref b] = slice {}
+   |                         ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:58:14
    |
 LL |     if let &[ref a, _] = slice {}
-   |            ^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &[ref a, _] = slice {}
-LL +     if let [a, _] = slice {}
-   |
+   |              ^^^^^
 
-error: dereferencing a tuple pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:61:12
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:61:14
    |
 LL |     if let &(ref a, ref b, ref c) = &tuple {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &(ref a, ref b, ref c) = &tuple {}
-LL +     if let (a, b, c) = &tuple {}
-   |
+   |              ^^^^^
 
-error: dereferencing a tuple pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:63:12
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:61:21
+   |
+LL |     if let &(ref a, ref b, ref c) = &tuple {}
+   |                     ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:61:28
+   |
+LL |     if let &(ref a, ref b, ref c) = &tuple {}
+   |                            ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:61:37
+   |
+LL |     if let &(ref a, ref b, ref c) = &tuple {}
+   |                                     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:63:14
    |
 LL |     if let &(ref a, _, ref c) = &tuple {}
-   |            ^^^^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &(ref a, _, ref c) = &tuple {}
-LL +     if let (a, _, c) = &tuple {}
-   |
+   |              ^^^^^
 
-error: dereferencing a tuple pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:65:12
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:63:24
+   |
+LL |     if let &(ref a, _, ref c) = &tuple {}
+   |                        ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:63:33
+   |
+LL |     if let &(ref a, _, ref c) = &tuple {}
+   |                                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:65:14
    |
 LL |     if let &(ref a, ..) = &tuple {}
-   |            ^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &(ref a, ..) = &tuple {}
-LL +     if let (a, ..) = &tuple {}
-   |
+   |              ^^^^^
 
-error: dereferencing a tuple pattern where every element takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:68:12
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:65:27
+   |
+LL |     if let &(ref a, ..) = &tuple {}
+   |                           ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:68:25
    |
 LL |     if let &TupleStruct(ref a, ..) = &tuple_struct {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &TupleStruct(ref a, ..) = &tuple_struct {}
-LL +     if let TupleStruct(a, ..) = &tuple_struct {}
-   |
+   |                         ^^^^^
 
-error: dereferencing a struct pattern where every field's pattern takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:71:12
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:68:38
    |
-LL |       if let &Struct {
-   |  ____________^
-LL | |
-LL | |         ref a,
-LL | |         b: ref b,
-LL | |         c: ref renamed,
-LL | |     } = &s
-   | |_____^
+LL |     if let &TupleStruct(ref a, ..) = &tuple_struct {}
+   |                                      ^^^^^^^^^^^^^
    |
-help: try removing the `&` and `ref` parts
-   |
-LL ~     if let Struct {
-LL |
-LL ~         a,
-LL ~         b: b,
-LL ~         c: renamed,
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: dereferencing a struct pattern where every field's pattern takes a reference
-  --> tests/ui/needless_borrowed_ref.rs:79:12
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:73:9
+   |
+LL |         ref a,
+   |         ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:74:12
+   |
+LL |         b: ref b,
+   |            ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:75:12
+   |
+LL |         c: ref renamed,
+   |            ^^^^^^^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:76:9
+   |
+LL |     } = &s
+   |         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:79:22
    |
 LL |     if let &Struct { ref a, b: _, .. } = &s {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try removing the `&` and `ref` parts
-   |
-LL -     if let &Struct { ref a, b: _, .. } = &s {}
-LL +     if let Struct { a, b: _, .. } = &s {}
-   |
+   |                      ^^^^^
 
-error: aborting due to 17 previous errors
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:79:42
+   |
+LL |     if let &Struct { ref a, b: _, .. } = &s {}
+   |                                          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrowed_ref.rs:83:1
+   |
+LL | fn should_not_lint(
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrowed_ref.rs:83:1
+   |
+LL | fn should_not_lint(
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrowed_ref.rs:83:1
+   |
+LL | fn should_not_lint(
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:84:5
+   |
+LL |     array: [u8; 4],
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:85:5
+   |
+LL |     slice: &[u8],
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:86:5
+   |
+LL |     slice_of_refs: &[&u8],
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:87:5
+   |
+LL |     vec: Vec<u8>,
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:88:5
+   |
+LL |     tuple: (u8, u8, u8),
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:89:5
+   |
+LL |     tuple_struct: TupleStruct,
+   |     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:90:5
+   |
+LL |     s: Struct,
+   |     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:85:12
+   |
+LL |     slice: &[u8],
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:86:20
+   |
+LL |     slice_of_refs: &[&u8],
+   |                    ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:86:22
+   |
+LL |     slice_of_refs: &[&u8],
+   |                      ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:93:14
+   |
+LL |     if let &[ref a, b] = slice {}
+   |              ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:94:14
+   |
+LL |     if let &[ref a, .., b] = slice {}
+   |              ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:96:14
+   |
+LL |     if let &(ref a, b, ..) = &tuple {}
+   |              ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:96:30
+   |
+LL |     if let &(ref a, b, ..) = &tuple {}
+   |                              ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:97:25
+   |
+LL |     if let &TupleStruct(ref a, b, ..) = &tuple_struct {}
+   |                         ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:97:41
+   |
+LL |     if let &TupleStruct(ref a, b, ..) = &tuple_struct {}
+   |                                         ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:98:22
+   |
+LL |     if let &Struct { ref a, b, .. } = &s {}
+   |                      ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:98:39
+   |
+LL |     if let &Struct { ref a, b, .. } = &s {}
+   |                                       ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:101:15
+   |
+LL |     if let (&[ref a], _) | ([], ref a) = (slice_of_refs, &1u8) {}
+   |               ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:101:33
+   |
+LL |     if let (&[ref a], _) | ([], ref a) = (slice_of_refs, &1u8) {}
+   |                                 ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:101:58
+   |
+LL |     if let (&[ref a], _) | ([], ref a) = (slice_of_refs, &1u8) {}
+   |                                                          ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:108:20
+   |
+LL |     if let &(..) = &tuple {}
+   |                    ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:109:31
+   |
+LL |     if let &TupleStruct(..) = &tuple_struct {}
+   |                               ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:110:29
+   |
+LL |     if let &Struct { .. } = &s {}
+   |                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:113:9
+   |
+LL |     let thingy2 = Some(&mut var2);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:113:24
+   |
+LL |     let thingy2 = Some(&mut var2);
+   |                        ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:114:22
+   |
+LL |     if let Some(&mut ref mut v) = thingy2 {
+   |                      ^^^^^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:119:22
+   |
+LL |     if let Some(&mut ref v) = thingy2 {
+   |                      ^^^^^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrowed_ref.rs:127:1
+   |
+LL | enum Animal {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrowed_ref.rs:132:1
+   |
+LL | fn foo(a: &Animal, b: &Animal) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrowed_ref.rs:132:1
+   |
+LL | fn foo(a: &Animal, b: &Animal) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrowed_ref.rs:132:1
+   |
+LL | fn foo(a: &Animal, b: &Animal) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:132:8
+   |
+LL | fn foo(a: &Animal, b: &Animal) {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrowed_ref.rs:132:20
+   |
+LL | fn foo(a: &Animal, b: &Animal) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:132:11
+   |
+LL | fn foo(a: &Animal, b: &Animal) {
+   |           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrowed_ref.rs:132:23
+   |
+LL | fn foo(a: &Animal, b: &Animal) {
+   |                       ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:135:28
+   |
+LL |         (&Animal::Cat(v), &ref k) | (&ref k, &Animal::Cat(v)) => (),
+   |                            ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrowed_ref.rs:135:39
+   |
+LL |         (&Animal::Cat(v), &ref k) | (&ref k, &Animal::Cat(v)) => (),
+   |                                       ^^^^^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 105 previous errors
 

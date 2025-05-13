@@ -1,38 +1,185 @@
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into_unfixable.rs:3:1
+   |
+LL | struct InMacro(String);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into_unfixable.rs:5:1
+   |
+LL | macro_rules! in_macro {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into_unfixable.rs:11:1
    |
 LL | impl Into<InMacro> for String {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: replace the `Into` implementation with `From<std::string::String>`
-   = note: `-D clippy::from-over-into` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::from_over_into)]`
+   | ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: function must be `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:14:5
+   |
+LL |     fn into(self) -> InMacro {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:14:5
+   |
+LL |     fn into(self) -> InMacro {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into_unfixable.rs:14:13
+   |
+LL |     fn into(self) -> InMacro {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into_unfixable.rs:19:1
+   |
+LL | struct WeirdUpperSelf;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into_unfixable.rs:21:1
    |
 LL | impl Into<WeirdUpperSelf> for &'static [u8] {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: replace the `Into` implementation with `From<&'static [u8]>`
+   | ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: references are not allowed
+  --> tests/ui/from_over_into_unfixable.rs:21:31
+   |
+LL | impl Into<WeirdUpperSelf> for &'static [u8] {
+   |                               ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:24:5
+   |
+LL |     fn into(self) -> WeirdUpperSelf {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:24:5
+   |
+LL |     fn into(self) -> WeirdUpperSelf {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into_unfixable.rs:24:13
+   |
+LL |     fn into(self) -> WeirdUpperSelf {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into_unfixable.rs:30:1
+   |
+LL | struct ContainsVal;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into_unfixable.rs:32:1
    |
 LL | impl Into<u8> for ContainsVal {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: `impl From<Local> for Foreign` is allowed by the orphan rules, for more information see
-           https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence
-   = help: replace the `Into` implementation with `From<ContainsVal>`
+   | ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: function must be `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:35:5
+   |
+LL |     fn into(self) -> u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:35:5
+   |
+LL |     fn into(self) -> u8 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into_unfixable.rs:35:13
+   |
+LL |     fn into(self) -> u8 {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/from_over_into_unfixable.rs:36:13
+   |
+LL |         let val = 1;
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
   --> tests/ui/from_over_into_unfixable.rs:45:1
    |
 LL | impl<T> Into<Rval<Self>> for Lval<T> {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: replace the `Into` implementation with `From<Lval<T>>`
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:48:5
+   |
+LL |     fn into(self) -> Rval<Self> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:48:5
+   |
+LL |     fn into(self) -> Rval<Self> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into_unfixable.rs:48:13
+   |
+LL |     fn into(self) -> Rval<Self> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into_unfixable.rs:53:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:53:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into_unfixable.rs:53:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 24 previous errors
 

@@ -1,124 +1,140 @@
-error: format specifiers have no effect on `format_args!()`
-  --> tests/ui/unused_format_specs.rs:12:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("{:5}.", format_args!(""));
-   |               ^^^^
-   |
-   = note: `-D clippy::unused-format-specs` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unused_format_specs)]`
-help: for the width to apply consider using `format!()`
-   |
-LL -     println!("{:5}.", format_args!(""));
-LL +     println!("{:5}.", format!(""));
-   |
-help: if the current behavior is intentional, remove the format specifiers
-   |
-LL -     println!("{:5}.", format_args!(""));
-LL +     println!("{}.", format_args!(""));
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: format specifiers have no effect on `format_args!()`
-  --> tests/ui/unused_format_specs.rs:16:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("{:.3}", format_args!("abcde"));
-   |               ^^^^^
-   |
-help: for the precision to apply consider using `format!()`
-   |
-LL -     println!("{:.3}", format_args!("abcde"));
-LL +     println!("{:.3}", format!("abcde"));
-   |
-help: if the current behavior is intentional, remove the format specifiers
-   |
-LL -     println!("{:.3}", format_args!("abcde"));
-LL +     println!("{}", format_args!("abcde"));
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: format specifiers have no effect on `format_args!()`
-  --> tests/ui/unused_format_specs.rs:19:15
+error: item must be `pub`
+  --> tests/ui/unused_format_specs.rs:4:1
    |
-LL |     println!("{:5}.", format_args_from_macro!());
-   |               ^^^^
+LL | macro_rules! format_args_from_macro {
+   | ^ help: make this item public: `pub`
    |
-   = help: for the width to apply consider using `format!()`
-help: if the current behavior is intentional, remove the format specifiers
-   |
-LL -     println!("{:5}.", format_args_from_macro!());
-LL +     println!("{}.", format_args_from_macro!());
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: format specifiers have no effect on `format_args!()`
-  --> tests/ui/unused_format_specs.rs:23:15
+error: item must be `pub`
+  --> tests/ui/unused_format_specs.rs:10:1
    |
-LL |     println!("{args:5}");
-   |               ^^^^^^^^
-   |
-   = help: for the width to apply consider using `format!()`
-help: if the current behavior is intentional, remove the format specifiers
-   |
-LL -     println!("{args:5}");
-LL +     println!("{args}");
-   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: format specifiers have no effect on `format_args!()`
-  --> tests/ui/unused_format_specs.rs:48:25
+error: function must be `unsafe`
+  --> tests/ui/unused_format_specs.rs:10:1
    |
-LL |     usr_println!(true, "{:5}.", format_args!(""));
-   |                         ^^^^
+LL | fn main() {
+   | ^
    |
-help: for the width to apply consider using `format!()`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_format_specs.rs:10:1
    |
-LL -     usr_println!(true, "{:5}.", format_args!(""));
-LL +     usr_println!(true, "{:5}.", format!(""));
-   |
-help: if the current behavior is intentional, remove the format specifiers
-   |
-LL -     usr_println!(true, "{:5}.", format_args!(""));
-LL +     usr_println!(true, "{}.", format_args!(""));
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: format specifiers have no effect on `format_args!()`
-  --> tests/ui/unused_format_specs.rs:52:25
+error: variable must be `mut`
+  --> tests/ui/unused_format_specs.rs:22:9
    |
-LL |     usr_println!(true, "{:.3}", format_args!("abcde"));
-   |                         ^^^^^
+LL |     let args = format_args!("");
+   |         ^ help: make this variable mutable: `mut`
    |
-help: for the precision to apply consider using `format!()`
-   |
-LL -     usr_println!(true, "{:.3}", format_args!("abcde"));
-LL +     usr_println!(true, "{:.3}", format!("abcde"));
-   |
-help: if the current behavior is intentional, remove the format specifiers
-   |
-LL -     usr_println!(true, "{:.3}", format_args!("abcde"));
-LL +     usr_println!(true, "{}", format_args!("abcde"));
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: format specifiers have no effect on `format_args!()`
-  --> tests/ui/unused_format_specs.rs:55:25
+error: item must be `pub`
+  --> tests/ui/unused_format_specs.rs:27:1
    |
-LL |     usr_println!(true, "{:5}.", format_args_from_macro!());
-   |                         ^^^^
-   |
-   = help: for the width to apply consider using `format!()`
-help: if the current behavior is intentional, remove the format specifiers
-   |
-LL -     usr_println!(true, "{:5}.", format_args_from_macro!());
-LL +     usr_println!(true, "{}.", format_args_from_macro!());
-   |
+LL | fn should_not_lint() {
+   | ^ help: make this item public: `pub`
 
-error: format specifiers have no effect on `format_args!()`
-  --> tests/ui/unused_format_specs.rs:59:25
+error: function must be `unsafe`
+  --> tests/ui/unused_format_specs.rs:27:1
    |
-LL |     usr_println!(true, "{args:5}");
-   |                         ^^^^^^^^
+LL | fn should_not_lint() {
+   | ^
    |
-   = help: for the width to apply consider using `format!()`
-help: if the current behavior is intentional, remove the format specifiers
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_format_specs.rs:27:1
    |
-LL -     usr_println!(true, "{args:5}");
-LL +     usr_println!(true, "{args}");
-   |
+LL | fn should_not_lint() {
+   | ^
 
-error: aborting due to 8 previous errors
+error: variable must be `mut`
+  --> tests/ui/unused_format_specs.rs:33:9
+   |
+LL |     let args = format_args!("");
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_format_specs.rs:38:1
+   |
+LL | macro_rules! usr_println {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_format_specs.rs:46:1
+   |
+LL | fn should_lint_user() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_format_specs.rs:46:1
+   |
+LL | fn should_lint_user() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_format_specs.rs:46:1
+   |
+LL | fn should_lint_user() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unused_format_specs.rs:58:9
+   |
+LL |     let args = format_args!("");
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_format_specs.rs:63:1
+   |
+LL | fn should_not_lint_user() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_format_specs.rs:63:1
+   |
+LL | fn should_not_lint_user() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_format_specs.rs:63:1
+   |
+LL | fn should_not_lint_user() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unused_format_specs.rs:69:9
+   |
+LL |     let args = format_args!("");
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 18 previous errors
 

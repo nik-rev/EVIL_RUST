@@ -1,185 +1,683 @@
-error: replacing an `Option` with `None`
-  --> tests/ui/mem_replace.rs:13:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:11:1
+   |
+LL | fn replace_option_with_none() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:11:1
+   |
+LL | fn replace_option_with_none() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:11:1
+   |
+LL | fn replace_option_with_none() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:13:26
    |
 LL |     let _ = mem::replace(&mut an_option, None);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider `Option::take()` instead: `an_option.take()`
+   |                          ^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::mem-replace-option-with-none` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mem_replace_option_with_none)]`
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: replacing an `Option` with `None`
-  --> tests/ui/mem_replace.rs:16:13
+error: variable must be `mut`
+  --> tests/ui/mem_replace.rs:15:9
    |
-LL |     let _ = mem::replace(an_option, None);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider `Option::take()` instead: `an_option.take()`
+LL |     let an_option = &mut Some(1);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:22:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:15:21
+   |
+LL |     let an_option = &mut Some(1);
+   |                     ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:20:1
+   |
+LL | fn replace_with_default() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:20:1
+   |
+LL | fn replace_with_default() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:20:1
+   |
+LL | fn replace_with_default() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:22:31
    |
 LL |     let _ = std::mem::replace(&mut s, String::default());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut s)`
+   |                               ^^^^^^
    |
-   = note: `-D clippy::mem-replace-with-default` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mem_replace_with_default)]`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:24:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:24:31
    |
 LL |     let _ = std::mem::replace(&mut s, String::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut s)`
-
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:28:13
+   |                               ^^^^^^
    |
-LL |     let _ = std::mem::replace(s, String::default());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(s)`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:30:13
+error: variable must be `mut`
+  --> tests/ui/mem_replace.rs:27:9
    |
-LL |     let _ = std::mem::replace(s, String::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(s)`
+LL |     let s = &mut String::from("foo");
+   |         ^ help: make this variable mutable: `mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:32:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:27:13
    |
-LL |     let _ = std::mem::replace(s, Default::default());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(s)`
+LL |     let s = &mut String::from("foo");
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:36:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:36:31
    |
 LL |     let _ = std::mem::replace(&mut v, Vec::default());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut v)`
+   |                               ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:38:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:38:31
    |
 LL |     let _ = std::mem::replace(&mut v, Default::default());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut v)`
+   |                               ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:40:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:40:31
    |
 LL |     let _ = std::mem::replace(&mut v, Vec::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut v)`
+   |                               ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:42:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:42:31
    |
 LL |     let _ = std::mem::replace(&mut v, vec![]);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut v)`
+   |                               ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:46:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:46:31
    |
 LL |     let _ = std::mem::replace(&mut hash_map, HashMap::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut hash_map)`
+   |                               ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:50:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:50:31
    |
 LL |     let _ = std::mem::replace(&mut btree_map, BTreeMap::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut btree_map)`
+   |                               ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:54:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:54:31
    |
 LL |     let _ = std::mem::replace(&mut vd, VecDeque::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut vd)`
+   |                               ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:58:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:57:31
+   |
+LL |     let mut hash_set: HashSet<&str> = HashSet::new();
+   |                               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:58:31
    |
 LL |     let _ = std::mem::replace(&mut hash_set, HashSet::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut hash_set)`
+   |                               ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:62:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:61:33
+   |
+LL |     let mut btree_set: BTreeSet<&str> = BTreeSet::new();
+   |                                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:62:31
    |
 LL |     let _ = std::mem::replace(&mut btree_set, BTreeSet::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut btree_set)`
+   |                               ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:66:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:66:31
    |
 LL |     let _ = std::mem::replace(&mut list, LinkedList::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut list)`
+   |                               ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:70:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:70:31
    |
 LL |     let _ = std::mem::replace(&mut binary_heap, BinaryHeap::new());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut binary_heap)`
+   |                               ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:74:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:74:31
    |
 LL |     let _ = std::mem::replace(&mut tuple, (vec![], BinaryHeap::new()));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut tuple)`
+   |                               ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:78:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:78:31
    |
 LL |     let _ = std::mem::replace(&mut refstr, "");
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut refstr)`
+   |                               ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:82:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:81:20
+   |
+LL |     let mut slice: &[i32] = &[1, 2, 3];
+   |                    ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:81:29
+   |
+LL |     let mut slice: &[i32] = &[1, 2, 3];
+   |                             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:82:31
    |
 LL |     let _ = std::mem::replace(&mut slice, &[]);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut slice)`
+   |                               ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:119:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:82:43
+   |
+LL |     let _ = std::mem::replace(&mut slice, &[]);
+   |                                           ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:88:1
+   |
+LL | fn dont_lint_primitive() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:88:1
+   |
+LL | fn dont_lint_primitive() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:88:1
+   |
+LL | fn dont_lint_primitive() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:90:31
+   |
+LL |     let _ = std::mem::replace(&mut pbool, false);
+   |                               ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:93:31
+   |
+LL |     let _ = std::mem::replace(&mut pint, 0);
+   |                               ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:99:1
+   |
+LL | fn dont_lint_not_used() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:99:1
+   |
+LL | fn dont_lint_not_used() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:99:1
+   |
+LL | fn dont_lint_not_used() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:101:23
+   |
+LL |     std::mem::replace(&mut s, String::default());
+   |                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:104:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:104:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:104:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:111:1
+   |
+LL | fn msrv_1_39() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:111:1
+   |
+LL | fn msrv_1_39() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:111:1
+   |
+LL | fn msrv_1_39() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:113:31
    |
 LL |     let _ = std::mem::replace(&mut s, String::default());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut s)`
+   |                               ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing an `Option` with `None`
-  --> tests/ui/mem_replace.rs:150:13
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:117:1
+   |
+LL | fn msrv_1_40() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:117:1
+   |
+LL | fn msrv_1_40() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:117:1
+   |
+LL | fn msrv_1_40() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:119:31
+   |
+LL |     let _ = std::mem::replace(&mut s, String::default());
+   |                               ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:123:1
+   |
+LL | fn issue9824() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:123:1
+   |
+LL | fn issue9824() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:123:1
+   |
+LL | fn issue9824() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:124:5
+   |
+LL |     struct Foo<'a>(Option<&'a str>);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:124:27
+   |
+LL |     struct Foo<'a>(Option<&'a str>);
+   |                           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:125:5
+   |
+LL |     impl<'a> std::ops::Deref for Foo<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:126:30
+   |
+LL |         type Target = Option<&'a str>;
+   |                              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:128:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:128:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/mem_replace.rs:128:19
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:128:18
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:128:28
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:129:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:132:5
+   |
+LL |     impl<'a> std::ops::DerefMut for Foo<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:133:9
+   |
+LL |         fn deref_mut(&mut self) -> &mut Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:133:9
+   |
+LL |         fn deref_mut(&mut self) -> &mut Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/mem_replace.rs:133:27
+   |
+LL |         fn deref_mut(&mut self) -> &mut Self::Target {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:133:22
+   |
+LL |         fn deref_mut(&mut self) -> &mut Self::Target {
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:133:36
+   |
+LL |         fn deref_mut(&mut self) -> &mut Self::Target {
+   |                                    ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:134:13
+   |
+LL |             &mut self.0
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:138:5
+   |
+LL |     struct Bar {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:150:31
    |
 LL |     let _ = std::mem::replace(&mut f.0, None);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider `Option::take()` instead: `f.0.take()`
+   |                               ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing an `Option` with `None`
-  --> tests/ui/mem_replace.rs:152:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:152:31
    |
 LL |     let _ = std::mem::replace(&mut *f, None);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider `Option::take()` instead: `(*f).take()`
+   |                               ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing an `Option` with `None`
-  --> tests/ui/mem_replace.rs:154:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:154:31
    |
 LL |     let _ = std::mem::replace(&mut b.opt, None);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider `Option::take()` instead: `b.opt.take()`
+   |                               ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing a value of type `T` with `T::default()` is better expressed using `std::mem::take`
-  --> tests/ui/mem_replace.rs:157:13
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:157:31
    |
 LL |     let _ = std::mem::replace(&mut b.val, String::default());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::mem::take(&mut b.val)`
+   |                               ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: replacing an `Option` with `Some(..)`
-  --> tests/ui/mem_replace.rs:164:20
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:162:1
+   |
+LL | fn mem_replace_option_with_some() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:162:1
+   |
+LL | fn mem_replace_option_with_some() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:162:1
+   |
+LL | fn mem_replace_option_with_some() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/mem_replace.rs:164:9
    |
 LL |     let replaced = mem::replace(&mut an_option, Some(1));
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider `Option::replace()` instead: `an_option.replace(1)`
-   |
-   = note: `-D clippy::mem-replace-option-with-some` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mem_replace_option_with_some)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: replacing an `Option` with `Some(..)`
-  --> tests/ui/mem_replace.rs:168:20
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:164:33
+   |
+LL |     let replaced = mem::replace(&mut an_option, Some(1));
+   |                                 ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:167:25
+   |
+LL |     let mut an_option = &mut Some(0);
+   |                         ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/mem_replace.rs:168:9
    |
 LL |     let replaced = mem::replace(an_option, Some(1));
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider `Option::replace()` instead: `an_option.replace(1)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: replacing an `Option` with `Some(..)`
-  --> tests/ui/mem_replace.rs:173:20
+error: variable must be `mut`
+  --> tests/ui/mem_replace.rs:172:9
+   |
+LL |     let b = true;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mem_replace.rs:173:9
    |
 LL |     let replaced = mem::replace(if b { &mut opt1 } else { &mut opt2 }, Some(1));
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider `Option::replace()` instead: `(if b { &mut opt1 } else { &mut opt2 }).replace(1)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 29 previous errors
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:173:40
+   |
+LL |     let replaced = mem::replace(if b { &mut opt1 } else { &mut opt2 }, Some(1));
+   |                                        ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:173:59
+   |
+LL |     let replaced = mem::replace(if b { &mut opt1 } else { &mut opt2 }, Some(1));
+   |                                                           ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/mem_replace.rs:178:1
+   |
+LL | fn mem_replace_option_with_some_bad_msrv() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mem_replace.rs:178:1
+   |
+LL | fn mem_replace_option_with_some_bad_msrv() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mem_replace.rs:178:1
+   |
+LL | fn mem_replace_option_with_some_bad_msrv() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/mem_replace.rs:180:9
+   |
+LL |     let replaced = mem::replace(&mut an_option, Some(1));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mem_replace.rs:180:33
+   |
+LL |     let replaced = mem::replace(&mut an_option, Some(1));
+   |                                 ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 85 previous errors
 

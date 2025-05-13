@@ -1,43 +1,86 @@
-error: repeating `Vec::with_capacity` using `vec![x; n]`, which does not retain capacity
-  --> tests/ui/repeat_vec_with_capacity.rs:6:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         vec![Vec::<()>::with_capacity(42); 123];
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: only the last `Vec` will have the capacity
-   = note: `-D clippy::repeat-vec-with-capacity` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::repeat_vec_with_capacity)]`
-help: if you intended to initialize multiple `Vec`s with an initial capacity, try
-   |
-LL -         vec![Vec::<()>::with_capacity(42); 123];
-LL +         (0..123).map(|_| Vec::<()>::with_capacity(42)).collect::<Vec<_>>();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: repeating `Vec::with_capacity` using `vec![x; n]`, which does not retain capacity
-  --> tests/ui/repeat_vec_with_capacity.rs:12:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         vec![Vec::<()>::with_capacity(42); n];
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: only the last `Vec` will have the capacity
-help: if you intended to initialize multiple `Vec`s with an initial capacity, try
-   |
-LL -         vec![Vec::<()>::with_capacity(42); n];
-LL +         (0..n).map(|_| Vec::<()>::with_capacity(42)).collect::<Vec<_>>();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: repeating `Vec::with_capacity` using `iter::repeat`, which does not retain capacity
-  --> tests/ui/repeat_vec_with_capacity.rs:27:9
+error: item must be `pub`
+  --> tests/ui/repeat_vec_with_capacity.rs:4:1
    |
-LL |         std::iter::repeat(Vec::<()>::with_capacity(42));
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = note: none of the yielded `Vec`s will have the requested capacity
-help: if you intended to create an iterator that yields `Vec`s with an initial capacity, try
-   |
-LL -         std::iter::repeat(Vec::<()>::with_capacity(42));
-LL +         std::iter::repeat_with(|| Vec::<()>::with_capacity(42));
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/repeat_vec_with_capacity.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/repeat_vec_with_capacity.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/repeat_vec_with_capacity.rs:11:13
+   |
+LL |         let n = 123;
+   |             ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/repeat_vec_with_capacity.rs:17:9
+   |
+LL |         macro_rules! from_macro {
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/repeat_vec_with_capacity.rs:32:9
+   |
+LL |         macro_rules! from_macro {
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/repeat_vec_with_capacity.rs:42:1
+   |
+LL | fn msrv_check() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/repeat_vec_with_capacity.rs:42:1
+   |
+LL | fn msrv_check() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/repeat_vec_with_capacity.rs:42:1
+   |
+LL | fn msrv_check() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

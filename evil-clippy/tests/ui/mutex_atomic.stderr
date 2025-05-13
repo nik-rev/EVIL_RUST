@@ -1,74 +1,85 @@
-error: consider using an `AtomicBool` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:7:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     Mutex::new(true);
-   |     ^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::mutex-atomic` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mutex_atomic)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: consider using an `AtomicUsize` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:10:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     Mutex::new(5usize);
-   |     ^^^^^^^^^^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: consider using an `AtomicIsize` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:13:5
+error: item must be `pub`
+  --> tests/ui/mutex_atomic.rs:5:1
    |
-LL |     Mutex::new(9isize);
-   |     ^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: consider using an `AtomicPtr` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:17:5
+error: function must be `unsafe`
+  --> tests/ui/mutex_atomic.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mutex_atomic.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/mutex_atomic.rs:17:16
    |
 LL |     Mutex::new(&x as *const u32);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: consider using an `AtomicPtr` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:20:5
+error: references are not allowed
+  --> tests/ui/mutex_atomic.rs:20:16
    |
 LL |     Mutex::new(&mut x as *mut u32);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: consider using an `AtomicU32` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:23:5
+   |                ^^^^^^
    |
-LL |     Mutex::new(0u32);
-   |     ^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::mutex-integer` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mutex_integer)]`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: consider using an `AtomicI32` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:26:5
-   |
-LL |     Mutex::new(0i32);
-   |     ^^^^^^^^^^^^^^^^
-
-error: consider using an `AtomicU8` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:30:5
-   |
-LL |     Mutex::new(0u8);
-   |     ^^^^^^^^^^^^^^^
-
-error: consider using an `AtomicI16` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:33:5
-   |
-LL |     Mutex::new(0i16);
-   |     ^^^^^^^^^^^^^^^^
-
-error: consider using an `AtomicI8` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:36:25
+error: variable must be `mut`
+  --> tests/ui/mutex_atomic.rs:36:9
    |
 LL |     let _x: Mutex<i8> = Mutex::new(0);
-   |                         ^^^^^^^^^^^^^
-
-error: consider using an `AtomicI64` instead of a `Mutex` here; if you just want the locking behavior and not the internal type, consider using `Mutex<()>`
-  --> tests/ui/mutex_atomic.rs:40:5
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     Mutex::new(X);
-   |     ^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/mutex_atomic.rs:39:5
+   |
+LL |     const X: i64 = 0;
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/mutex_atomic.rs:46:13
+   |
+LL |         let _x: Mutex<i128> = Mutex::new(0);
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
 error: aborting due to 11 previous errors
 

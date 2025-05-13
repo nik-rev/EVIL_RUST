@@ -1,74 +1,133 @@
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding2.rs:17:36
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |               Some((iter, _item)) => match iter.size_hint() {
-   |  ____________________________________^
-LL | |
-LL | |                 (min, max) => (min.saturating_add(1), max.and_then(|max| max.checked_add(1))),
-LL | |             },
-   | |_____________^
-   |
-   = note: `-D clippy::match-single-binding` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::match_single_binding)]`
-help: consider using a `let` statement
-   |
-LL ~             Some((iter, _item)) => {
-LL +                 let (min, max) = iter.size_hint();
-LL +                 (min.saturating_add(1), max.and_then(|max| max.checked_add(1)))
-LL ~             },
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this match could be written as a `let` statement
-  --> tests/ui/match_single_binding2.rs:31:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /             match get_tup() {
-LL | |
-LL | |                 (a, b) => println!("a {:?} and b {:?}", a, b),
-LL | |             }
-   | |_____________^
-   |
-help: consider using a `let` statement
-   |
-LL ~             let (a, b) = get_tup();
-LL +             println!("a {:?} and b {:?}", a, b)
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this match could be replaced by its scrutinee and body
-  --> tests/ui/match_single_binding2.rs:43:5
+error: item must be `pub`
+  --> tests/ui/match_single_binding2.rs:5:1
    |
-LL | /     match side_effects() {
-LL | |
-LL | |         _ => println!("Side effects"),
-LL | |     }
-   | |_____^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: consider using the scrutinee and body instead
-   |
-LL ~     side_effects();
-LL +     println!("Side effects");
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this match could be replaced by its scrutinee and body
-  --> tests/ui/match_single_binding2.rs:51:5
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding2.rs:5:1
    |
-LL | /     match match x {
-LL | |
-LL | |         0 => 1,
-LL | |         _ => 2,
-LL | |     } {
-LL | |         _ => println!("Single branch"),
-LL | |     }
-   | |_____^
+LL | fn main() {
+   | ^
    |
-help: consider using the scrutinee and body instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding2.rs:5:1
    |
-LL ~     match x {
-LL +
-LL +         0 => 1,
-LL +         _ => 2,
-LL +     };
-LL +     println!("Single branch")
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/match_single_binding2.rs:7:5
+   |
+LL |     struct AppendIter<I>
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_single_binding2.rs:15:5
+   |
+LL |     fn size_hint<I: Iterator>(iter: &AppendIter<I>) -> (usize, Option<usize>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding2.rs:15:5
+   |
+LL |     fn size_hint<I: Iterator>(iter: &AppendIter<I>) -> (usize, Option<usize>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding2.rs:15:5
+   |
+LL |     fn size_hint<I: Iterator>(iter: &AppendIter<I>) -> (usize, Option<usize>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_single_binding2.rs:15:31
+   |
+LL |     fn size_hint<I: Iterator>(iter: &AppendIter<I>) -> (usize, Option<usize>) {
+   |                               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/match_single_binding2.rs:15:37
+   |
+LL |     fn size_hint<I: Iterator>(iter: &AppendIter<I>) -> (usize, Option<usize>) {
+   |                                     ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/match_single_binding2.rs:16:15
+   |
+LL |         match &iter.inner {
+   |               ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/match_single_binding2.rs:26:9
+   |
+LL |     let opt = Some((5, 2));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_single_binding2.rs:27:9
+   |
+LL |     let get_tup = || -> (i32, i32) { (1, 2) };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_single_binding2.rs:39:5
+   |
+LL |     fn side_effects() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_single_binding2.rs:39:5
+   |
+LL |     fn side_effects() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_single_binding2.rs:39:5
+   |
+LL |     fn side_effects() {}
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/match_single_binding2.rs:50:9
+   |
+LL |     let x = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

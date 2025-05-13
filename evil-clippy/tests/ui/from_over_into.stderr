@@ -1,127 +1,479 @@
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:7:1
+   |
+LL | struct StringWrapper(String);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into.rs:9:1
    |
 LL | impl Into<StringWrapper> for String {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::from-over-into` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::from_over_into)]`
-help: replace the `Into` implementation with `From<std::string::String>`
-   |
-LL ~ impl From<String> for StringWrapper {
-LL |
-LL ~     fn from(val: String) -> Self {
-LL ~         StringWrapper(val)
-   |
+   | ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:11:5
+   |
+LL |     fn into(self) -> StringWrapper {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:11:5
+   |
+LL |     fn into(self) -> StringWrapper {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into.rs:11:13
+   |
+LL |     fn into(self) -> StringWrapper {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:16:1
+   |
+LL | struct SelfType(String);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into.rs:18:1
    |
 LL | impl Into<SelfType> for String {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: replace the `Into` implementation with `From<std::string::String>`
-   |
-LL ~ impl From<String> for SelfType {
-LL |
-LL ~     fn from(val: String) -> Self {
-LL ~         SelfType(String::new())
-   |
+   | ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:20:5
+   |
+LL |     fn into(self) -> SelfType {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:20:5
+   |
+LL |     fn into(self) -> SelfType {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into.rs:20:13
+   |
+LL |     fn into(self) -> SelfType {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:26:1
+   |
+LL | struct X;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:25:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:25:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:25:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:28:1
+   |
+LL | impl X {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/from_over_into.rs:29:16
+   |
+LL |     const FOO: &'static str = "a";
+   |                ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:32:1
+   |
+LL | struct SelfKeywords;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into.rs:34:1
    |
 LL | impl Into<SelfKeywords> for X {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: replace the `Into` implementation with `From<X>`
-   |
-LL ~ impl From<X> for SelfKeywords {
-LL |
-LL ~     fn from(val: X) -> Self {
-LL ~         let _ = X;
-LL ~         let _ = X::FOO;
-LL ~         let _: X = val;
-   |
+   | ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:36:5
+   |
+LL |     fn into(self) -> SelfKeywords {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:36:5
+   |
+LL |     fn into(self) -> SelfKeywords {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into.rs:36:13
+   |
+LL |     fn into(self) -> SelfKeywords {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:45:1
+   |
+LL | struct ExplicitPaths(bool);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into.rs:47:1
    |
 LL | impl core::convert::Into<bool> for crate::ExplicitPaths {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: `impl From<Local> for Foreign` is allowed by the orphan rules, for more information see
-           https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence
-help: replace the `Into` implementation with `From<ExplicitPaths>`
-   |
-LL ~ impl core::convert::From<crate::ExplicitPaths> for bool {
-LL |
-LL ~     fn from(mut val: crate::ExplicitPaths) -> Self {
-LL ~         let in_closure = || val.0;
-LL |
-LL ~         val.0 = false;
-LL ~         val.0
-   |
+   | ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:49:5
+   |
+LL |     fn into(mut self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:49:5
+   |
+LL |     fn into(mut self) -> bool {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/from_over_into.rs:50:13
+   |
+LL |         let in_closure = || self.0;
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:58:1
+   |
+LL | struct A(String);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:60:1
+   |
+LL | impl From<String> for A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:61:5
+   |
+LL |     fn from(s: String) -> A {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:61:5
+   |
+LL |     fn from(s: String) -> A {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into.rs:61:13
+   |
+LL |     fn from(s: String) -> A {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:66:1
+   |
+LL | struct PathInExpansion;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into.rs:68:1
    |
 LL | impl Into<String> for PathInExpansion {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: `impl From<Local> for Foreign` is allowed by the orphan rules, for more information see
-           https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence
-help: replace the `Into` implementation with `From<PathInExpansion>`
-   |
-LL ~ impl From<PathInExpansion> for String {
-LL |
-LL ~     fn from(val: PathInExpansion) -> Self {
-   |
+   | ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:70:5
+   |
+LL |     fn into(self) -> String {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:70:5
+   |
+LL |     fn into(self) -> String {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into.rs:70:13
+   |
+LL |     fn into(self) -> String {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:72:9
+   |
+LL |         panic!()
+   |         ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:72:9
+   |
+LL |         panic!()
+   |         ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:72:9
+   |
+LL |         panic!()
+   |         ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:77:1
+   |
+LL | fn msrv_1_40() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:77:1
+   |
+LL | fn msrv_1_40() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:77:1
+   |
+LL | fn msrv_1_40() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:78:5
+   |
+LL |     struct FromOverInto<T>(Vec<T>);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:80:5
+   |
+LL |     impl<T> Into<FromOverInto<T>> for Vec<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:81:9
+   |
+LL |         fn into(self) -> FromOverInto<T> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:81:9
+   |
+LL |         fn into(self) -> FromOverInto<T> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into.rs:81:17
+   |
+LL |         fn into(self) -> FromOverInto<T> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:88:1
+   |
+LL | fn msrv_1_41() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:88:1
+   |
+LL | fn msrv_1_41() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:88:1
+   |
+LL | fn msrv_1_41() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:89:5
+   |
+LL |     struct FromOverInto<T>(Vec<T>);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into.rs:91:5
    |
 LL |     impl<T> Into<FromOverInto<T>> for Vec<T> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: replace the `Into` implementation with `From<std::vec::Vec<T>>`
-   |
-LL ~     impl<T> From<Vec<T>> for FromOverInto<T> {
-LL |
-LL ~         fn from(val: Vec<T>) -> Self {
-LL ~             FromOverInto(val)
-   |
+   |     ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:93:9
+   |
+LL |         fn into(self) -> FromOverInto<T> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:93:9
+   |
+LL |         fn into(self) -> FromOverInto<T> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into.rs:93:17
+   |
+LL |         fn into(self) -> FromOverInto<T> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:99:1
+   |
+LL | fn issue_12138() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:99:1
+   |
+LL | fn issue_12138() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:99:1
+   |
+LL | fn issue_12138() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:100:5
+   |
+LL |     struct Hello;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into.rs:102:5
    |
 LL |     impl Into<()> for Hello {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: `impl From<Local> for Foreign` is allowed by the orphan rules, for more information see
-           https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence
-help: replace the `Into` implementation with `From<issue_12138::Hello>`
-   |
-LL ~     impl From<Hello> for () {
-LL |
-LL ~         fn from(val: Hello) {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: an implementation of `From` is preferred since it gives you `Into<_>` for free where the reverse isn't true
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:104:9
+   |
+LL |         fn into(self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:104:9
+   |
+LL |         fn into(self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into.rs:104:17
+   |
+LL |         fn into(self) {}
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:108:1
+   |
+LL | fn issue_112502() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:108:1
+   |
+LL | fn issue_112502() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:108:1
+   |
+LL | fn issue_112502() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:109:5
+   |
+LL |     struct MyInt(i64);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/from_over_into.rs:111:5
    |
 LL |     impl Into<i64> for MyInt {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: `impl From<Local> for Foreign` is allowed by the orphan rules, for more information see
-           https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence
-help: replace the `Into` implementation with `From<issue_112502::MyInt>`
-   |
-LL ~     impl From<MyInt> for i64 {
-LL |
-LL ~         fn from(val: MyInt) -> Self {
-LL ~             val.0
-   |
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 8 previous errors
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:113:9
+   |
+LL |         fn into(self: MyInt) -> i64 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:113:9
+   |
+LL |         fn into(self: MyInt) -> i64 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_over_into.rs:113:17
+   |
+LL |         fn into(self: MyInt) -> i64 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/from_over_into.rs:119:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_over_into.rs:119:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_over_into.rs:119:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 61 previous errors
 

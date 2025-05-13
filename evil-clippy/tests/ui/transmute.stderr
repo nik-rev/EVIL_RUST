@@ -1,122 +1,365 @@
-error: transmute from a reference to a pointer
-  --> tests/ui/transmute.rs:33:27
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _: *const T = core::mem::transmute(t);
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `t as *const T`
-   |
-   = note: `-D clippy::useless-transmute` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::useless_transmute)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: transmute from a reference to a pointer
-  --> tests/ui/transmute.rs:36:25
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _: *mut T = core::mem::transmute(t);
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `t as *const T as *mut T`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: transmute from a reference to a pointer
-  --> tests/ui/transmute.rs:39:27
+error: item must be `pub`
+  --> tests/ui/transmute.rs:11:1
    |
-LL |         let _: *const U = core::mem::transmute(t);
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `t as *const T as *const U`
+LL | extern crate core;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: transmute from a type (`std::vec::Vec<i32>`) to itself
-  --> tests/ui/transmute.rs:47:27
+error: item must be `pub`
+  --> tests/ui/transmute.rs:16:1
    |
-LL |         let _: Vec<i32> = core::mem::transmute(my_vec());
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn my_int() -> Usize {
+   | ^ help: make this item public: `pub`
 
-error: transmute from a type (`std::vec::Vec<i32>`) to itself
-  --> tests/ui/transmute.rs:50:27
+error: function must be `unsafe`
+  --> tests/ui/transmute.rs:16:1
    |
-LL |         let _: Vec<i32> = core::mem::transmute(my_vec());
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn my_int() -> Usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute.rs:16:1
+   |
+LL | fn my_int() -> Usize {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: transmute from a type (`std::vec::Vec<i32>`) to itself
-  --> tests/ui/transmute.rs:53:27
+error: item must be `pub`
+  --> tests/ui/transmute.rs:20:1
    |
-LL |         let _: Vec<i32> = std::mem::transmute(my_vec());
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn my_vec() -> MyVec<i32> {
+   | ^ help: make this item public: `pub`
 
-error: transmute from a type (`std::vec::Vec<i32>`) to itself
-  --> tests/ui/transmute.rs:56:27
+error: function must be `unsafe`
+  --> tests/ui/transmute.rs:20:1
    |
-LL |         let _: Vec<i32> = std::mem::transmute(my_vec());
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn my_vec() -> MyVec<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute.rs:20:1
+   |
+LL | fn my_vec() -> MyVec<i32> {
+   | ^
 
-error: transmute from a type (`std::vec::Vec<i32>`) to itself
-  --> tests/ui/transmute.rs:59:27
+error: item must be `pub`
+  --> tests/ui/transmute.rs:26:1
    |
-LL |         let _: Vec<i32> = my_transmute(my_vec());
-   |                           ^^^^^^^^^^^^^^^^^^^^^^
+LL | unsafe fn _generic<'a, T, U: 'a>(t: &'a T) {
+   | ^ help: make this item public: `pub`
 
-error: transmute from an integer to a pointer
-  --> tests/ui/transmute.rs:62:31
+error: parameter must be `mut`
+  --> tests/ui/transmute.rs:26:34
    |
-LL |         let _: *const usize = std::mem::transmute(5_isize);
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `5_isize as *const usize`
+LL | unsafe fn _generic<'a, T, U: 'a>(t: &'a T) {
+   |                                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: transmute from an integer to a pointer
-  --> tests/ui/transmute.rs:67:31
+error: references are not allowed
+  --> tests/ui/transmute.rs:26:37
    |
-LL |         let _: *const usize = std::mem::transmute(1 + 1usize);
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `(1 + 1usize) as *const usize`
+LL | unsafe fn _generic<'a, T, U: 'a>(t: &'a T) {
+   |                                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: transmute from a type (`*const Usize`) to the type that it points to (`Usize`)
-  --> tests/ui/transmute.rs:99:24
+error: references are not allowed
+  --> tests/ui/transmute.rs:31:16
    |
-LL |         let _: Usize = core::mem::transmute(int_const_ptr);
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |         let _: &'a U = core::mem::transmute(t);
+   |                ^^^^^
    |
-   = note: `-D clippy::crosspointer-transmute` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::crosspointer_transmute)]`
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a type (`*mut Usize`) to the type that it points to (`Usize`)
-  --> tests/ui/transmute.rs:102:24
+error: item must be `pub`
+  --> tests/ui/transmute.rs:45:1
    |
-LL |         let _: Usize = core::mem::transmute(int_mut_ptr);
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn useless() {
+   | ^ help: make this item public: `pub`
 
-error: transmute from a type (`Usize`) to a pointer to that type (`*const Usize`)
-  --> tests/ui/transmute.rs:105:31
+error: function must be `unsafe`
+  --> tests/ui/transmute.rs:45:1
    |
-LL |         let _: *const Usize = core::mem::transmute(my_int());
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn useless() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute.rs:45:1
+   |
+LL | fn useless() {
+   | ^
 
-error: transmute from a type (`Usize`) to a pointer to that type (`*mut Usize`)
-  --> tests/ui/transmute.rs:108:29
+error: item must be `pub`
+  --> tests/ui/transmute.rs:73:5
    |
-LL |         let _: *mut Usize = core::mem::transmute(my_int());
-   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     unsafe fn _f<'a, 'b>(x: &'a u32) -> &'b u32 {
+   |     ^ help: make this item public: `pub`
 
-error: transmute from a `u8` to a `bool`
-  --> tests/ui/transmute.rs:115:28
+error: parameter must be `mut`
+  --> tests/ui/transmute.rs:73:26
    |
-LL |     let _: bool = unsafe { std::mem::transmute(0_u8) };
-   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `0_u8 != 0`
-   |
-   = note: `-D clippy::transmute-int-to-bool` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::transmute_int_to_bool)]`
+LL |     unsafe fn _f<'a, 'b>(x: &'a u32) -> &'b u32 {
+   |                          ^ help: make this parameter mutable: `mut`
 
-error: transmute from a `&[u8]` to a `&str`
-  --> tests/ui/transmute.rs:122:28
+error: references are not allowed
+  --> tests/ui/transmute.rs:73:29
+   |
+LL |     unsafe fn _f<'a, 'b>(x: &'a u32) -> &'b u32 {
+   |                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute.rs:73:41
+   |
+LL |     unsafe fn _f<'a, 'b>(x: &'a u32) -> &'b u32 {
+   |                                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute.rs:77:5
+   |
+LL |     unsafe fn _f2<'a, 'b>(x: *const (dyn Iterator<Item = u32> + 'a)) -> *const (dyn Iterator<Item = u32> + 'b) {
+   |     ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute.rs:77:27
+   |
+LL |     unsafe fn _f2<'a, 'b>(x: *const (dyn Iterator<Item = u32> + 'a)) -> *const (dyn Iterator<Item = u32> + 'b) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/transmute.rs:81:5
+   |
+LL |     unsafe fn _f3<'a, 'b>(x: fn(&'a u32)) -> fn(&'b u32) {
+   |     ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute.rs:81:27
+   |
+LL |     unsafe fn _f3<'a, 'b>(x: fn(&'a u32)) -> fn(&'b u32) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute.rs:81:33
+   |
+LL |     unsafe fn _f3<'a, 'b>(x: fn(&'a u32)) -> fn(&'b u32) {
+   |                                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute.rs:81:49
+   |
+LL |     unsafe fn _f3<'a, 'b>(x: fn(&'a u32)) -> fn(&'b u32) {
+   |                                                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute.rs:85:5
+   |
+LL |     unsafe fn _f4<'a, 'b>(x: std::borrow::Cow<'a, str>) -> std::borrow::Cow<'b, str> {
+   |     ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute.rs:85:27
+   |
+LL |     unsafe fn _f4<'a, 'b>(x: std::borrow::Cow<'a, str>) -> std::borrow::Cow<'b, str> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/transmute.rs:90:1
+   |
+LL | struct Usize(usize);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/transmute.rs:93:1
+   |
+LL | fn crosspointer() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute.rs:93:1
+   |
+LL | fn crosspointer() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute.rs:93:1
+   |
+LL | fn crosspointer() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/transmute.rs:95:9
+   |
+LL |     let int_const_ptr: *const Usize = &int as *const Usize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute.rs:95:39
+   |
+LL |     let int_const_ptr: *const Usize = &int as *const Usize;
+   |                                       ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute.rs:96:9
+   |
+LL |     let int_mut_ptr: *mut Usize = &mut int as *mut Usize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute.rs:96:35
+   |
+LL |     let int_mut_ptr: *mut Usize = &mut int as *mut Usize;
+   |                                   ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/transmute.rs:114:1
+   |
+LL | fn int_to_bool() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute.rs:114:1
+   |
+LL | fn int_to_bool() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute.rs:114:1
+   |
+LL | fn int_to_bool() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/transmute.rs:119:1
+   |
+LL | fn bytes_to_str(mb: &mut [u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute.rs:119:1
+   |
+LL | fn bytes_to_str(mb: &mut [u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute.rs:119:1
+   |
+LL | fn bytes_to_str(mb: &mut [u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/transmute.rs:119:17
+   |
+LL | fn bytes_to_str(mb: &mut [u8]) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute.rs:119:21
+   |
+LL | fn bytes_to_str(mb: &mut [u8]) {
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/transmute.rs:120:5
+   |
+LL |     const B: &[u8] = b"";
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/transmute.rs:120:14
+   |
+LL |     const B: &[u8] = b"";
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute.rs:122:12
    |
 LL |     let _: &str = unsafe { std::mem::transmute(B) };
-   |                            ^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::str::from_utf8(B).unwrap()`
+   |            ^^^^
    |
-   = note: `-D clippy::transmute-bytes-to-str` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::transmute_bytes_to_str)]`
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a `&mut [u8]` to a `&mut str`
-  --> tests/ui/transmute.rs:125:32
+error: references are not allowed
+  --> tests/ui/transmute.rs:125:12
    |
 LL |     let _: &mut str = unsafe { std::mem::transmute(mb) };
-   |                                ^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::str::from_utf8_mut(mb).unwrap()`
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: transmute from a `&[u8]` to a `&str`
-  --> tests/ui/transmute.rs:128:30
+error: item must be `pub`
+  --> tests/ui/transmute.rs:128:5
    |
 LL |     const _: &str = unsafe { std::mem::transmute(B) };
-   |                              ^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::str::from_utf8_unchecked(B)`
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 18 previous errors
+error: references are not allowed
+  --> tests/ui/transmute.rs:128:14
+   |
+LL |     const _: &str = unsafe { std::mem::transmute(B) };
+   |              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute.rs:132:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute.rs:132:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute.rs:132:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 48 previous errors
 

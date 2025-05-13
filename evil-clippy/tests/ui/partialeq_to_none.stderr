@@ -1,113 +1,285 @@
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:14:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if f != None { "yay" } else { "nay" }
-   |        ^^^^^^^^^ help: use `Option::is_some()` instead: `f.is_some()`
-   |
-   = note: `-D clippy::partialeq-to-none` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::partialeq_to_none)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:45:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = x == None;
-   |             ^^^^^^^^^ help: use `Option::is_none()` instead: `x.is_none()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:47:13
+error: item must be `pub`
+  --> tests/ui/partialeq_to_none.rs:4:1
    |
-LL |     let _ = x != None;
-   |             ^^^^^^^^^ help: use `Option::is_some()` instead: `x.is_some()`
+LL | struct Foobar;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:49:13
+error: item must be `pub`
+  --> tests/ui/partialeq_to_none.rs:6:1
    |
-LL |     let _ = None == x;
-   |             ^^^^^^^^^ help: use `Option::is_none()` instead: `x.is_none()`
+LL | impl PartialEq<Option<()>> for Foobar {
+   | ^ help: make this item public: `pub`
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:51:13
+error: function must be `unsafe`
+  --> tests/ui/partialeq_to_none.rs:7:5
    |
-LL |     let _ = None != x;
-   |             ^^^^^^^^^ help: use `Option::is_some()` instead: `x.is_some()`
+LL |     fn eq(&self, _: &Option<()>) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/partialeq_to_none.rs:7:5
+   |
+LL |     fn eq(&self, _: &Option<()>) -> bool {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:54:8
+error: parameter must be `mut`
+  --> tests/ui/partialeq_to_none.rs:7:12
    |
-LL |     if foobar() == None {}
-   |        ^^^^^^^^^^^^^^^^ help: use `Option::is_none()` instead: `foobar().is_none()`
+LL |     fn eq(&self, _: &Option<()>) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:57:8
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:7:11
    |
-LL |     if bar().ok() != None {}
-   |        ^^^^^^^^^^^^^^^^^^ help: use `Option::is_some()` instead: `bar().ok().is_some()`
+LL |     fn eq(&self, _: &Option<()>) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:60:13
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:7:21
    |
-LL |     let _ = Some(1 + 2) != None;
-   |             ^^^^^^^^^^^^^^^^^^^ help: use `Option::is_some()` instead: `Some(1 + 2).is_some()`
+LL |     fn eq(&self, _: &Option<()>) -> bool {
+   |                     ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:63:13
+error: item must be `pub`
+  --> tests/ui/partialeq_to_none.rs:13:1
    |
-LL |     let _ = { Some(0) } == None;
-   |             ^^^^^^^^^^^^^^^^^^^ help: use `Option::is_none()` instead: `{ Some(0) }.is_none()`
+LL | fn foo(f: Option<u32>) -> &'static str {
+   | ^ help: make this item public: `pub`
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:66:13
+error: function must be `unsafe`
+  --> tests/ui/partialeq_to_none.rs:13:1
    |
-LL |       let _ = {
-   |  _____________^
-LL | |
-LL | |         /*
-LL | |           This comment runs long
-LL | |         */
-LL | |         Some(1)
-LL | |     } != None;
-   | |_____________^
+LL | fn foo(f: Option<u32>) -> &'static str {
+   | ^
    |
-help: use `Option::is_some()` instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/partialeq_to_none.rs:13:1
    |
-LL ~     let _ = {
-LL +
-LL +         /*
-LL +           This comment runs long
-LL +         */
-LL +         Some(1)
-LL ~     }.is_some();
-   |
+LL | fn foo(f: Option<u32>) -> &'static str {
+   | ^
 
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:77:13
+error: parameter must be `mut`
+  --> tests/ui/partialeq_to_none.rs:13:8
+   |
+LL | fn foo(f: Option<u32>) -> &'static str {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:13:27
+   |
+LL | fn foo(f: Option<u32>) -> &'static str {
+   |                           ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/partialeq_to_none.rs:18:1
+   |
+LL | fn foobar() -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/partialeq_to_none.rs:18:1
+   |
+LL | fn foobar() -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/partialeq_to_none.rs:18:1
+   |
+LL | fn foobar() -> Option<()> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/partialeq_to_none.rs:22:1
+   |
+LL | fn bar() -> Result<(), ()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/partialeq_to_none.rs:22:1
+   |
+LL | fn bar() -> Result<(), ()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/partialeq_to_none.rs:22:1
+   |
+LL | fn bar() -> Result<(), ()> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/partialeq_to_none.rs:26:1
+   |
+LL | fn optref() -> &'static &'static Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/partialeq_to_none.rs:26:1
+   |
+LL | fn optref() -> &'static &'static Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/partialeq_to_none.rs:26:1
+   |
+LL | fn optref() -> &'static &'static Option<()> {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:26:16
+   |
+LL | fn optref() -> &'static &'static Option<()> {
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:26:25
+   |
+LL | fn optref() -> &'static &'static Option<()> {
+   |                         ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:27:5
+   |
+LL |     &&None
+   |     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:27:6
+   |
+LL |     &&None
+   |      ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/partialeq_to_none.rs:30:5
+   |
+LL | pub fn macro_expansion() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/partialeq_to_none.rs:30:5
+   |
+LL | pub fn macro_expansion() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/partialeq_to_none.rs:31:5
+   |
+LL |     macro_rules! foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/partialeq_to_none.rs:42:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/partialeq_to_none.rs:42:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/partialeq_to_none.rs:42:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/partialeq_to_none.rs:43:9
+   |
+LL |     let x = Some(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:77:25
    |
 LL |     let _ = optref() == &&None;
-   |             ^^^^^^^^^^^^^^^^^^ help: use `Option::is_none()` instead: `optref().is_none()`
+   |                         ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: binary comparison to literal `Option::None`
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:77:26
+   |
+LL |     let _ = optref() == &&None;
+   |                          ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/partialeq_to_none.rs:79:13
    |
 LL |     let _ = &&None != optref();
-   |             ^^^^^^^^^^^^^^^^^^ help: use `Option::is_some()` instead: `optref().is_some()`
-
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:81:13
+   |             ^^^^^^
    |
-LL |     let _ = **optref() == None;
-   |             ^^^^^^^^^^^^^^^^^^ help: use `Option::is_none()` instead: `optref().is_none()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: binary comparison to literal `Option::None`
+error: references are not allowed
+  --> tests/ui/partialeq_to_none.rs:79:14
+   |
+LL |     let _ = &&None != optref();
+   |              ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/partialeq_to_none.rs:83:13
    |
 LL |     let _ = &None != *optref();
-   |             ^^^^^^^^^^^^^^^^^^ help: use `Option::is_some()` instead: `optref().is_some()`
-
-error: binary comparison to literal `Option::None`
-  --> tests/ui/partialeq_to_none.rs:87:13
+   |             ^^^^^
    |
-LL |     let _ = None != *x;
-   |             ^^^^^^^^^^ help: use `Option::is_some()` instead: `(*x).is_some()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 15 previous errors
+error: variable must be `mut`
+  --> tests/ui/partialeq_to_none.rs:86:9
+   |
+LL |     let x = Box::new(Option::<()>::None);
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 35 previous errors
 

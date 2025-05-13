@@ -1,244 +1,2434 @@
-error: elided lifetime has a name
-  --> tests/ui/ptr_arg.rs:314:56
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     fn cow_good_ret_ty<'a>(input: &'a Cow<'a, str>) -> &str {
-   |                        -- lifetime `'a` declared here  ^ this elided lifetime gets resolved as `'a`
-   |
-   = note: `-D elided-named-lifetimes` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(elided_named_lifetimes)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: writing `&Vec` instead of `&[_]` involves a new object where a slice will do
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:13:1
+   |
+LL | fn do_vec(x: &Vec<i64>) {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:13:1
+   |
+LL | fn do_vec(x: &Vec<i64>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:13:1
+   |
+LL | fn do_vec(x: &Vec<i64>) {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:13:11
+   |
+LL | fn do_vec(x: &Vec<i64>) {
+   |           ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:13:14
    |
 LL | fn do_vec(x: &Vec<i64>) {
-   |              ^^^^^^^^^ help: change this to: `&[i64]`
+   |              ^^^^^^^^^
    |
-   = note: `-D clippy::ptr-arg` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::ptr_arg)]`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: writing `&mut Vec` instead of `&mut [_]` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:19:1
+   |
+LL | fn do_vec_mut(x: &mut Vec<i64>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:19:1
+   |
+LL | fn do_vec_mut(x: &mut Vec<i64>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:19:1
+   |
+LL | fn do_vec_mut(x: &mut Vec<i64>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:19:15
+   |
+LL | fn do_vec_mut(x: &mut Vec<i64>) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:19:18
    |
 LL | fn do_vec_mut(x: &mut Vec<i64>) {
-   |                  ^^^^^^^^^^^^^ help: change this to: `&mut [i64]`
+   |                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: writing `&mut Vec` instead of `&mut [_]` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:25:1
+   |
+LL | fn do_vec_mut2(x: &mut Vec<i64>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:25:1
+   |
+LL | fn do_vec_mut2(x: &mut Vec<i64>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:25:1
+   |
+LL | fn do_vec_mut2(x: &mut Vec<i64>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:25:16
+   |
+LL | fn do_vec_mut2(x: &mut Vec<i64>) {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:25:19
    |
 LL | fn do_vec_mut2(x: &mut Vec<i64>) {
-   |                   ^^^^^^^^^^^^^ help: change this to: `&mut [i64]`
+   |                   ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: writing `&String` instead of `&str` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:32:1
+   |
+LL | fn do_str(x: &String) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:32:1
+   |
+LL | fn do_str(x: &String) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:32:1
+   |
+LL | fn do_str(x: &String) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:32:11
+   |
+LL | fn do_str(x: &String) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:32:14
    |
 LL | fn do_str(x: &String) {
-   |              ^^^^^^^ help: change this to: `&str`
+   |              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&mut String` instead of `&mut str` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:38:1
+   |
+LL | fn do_str_mut(x: &mut String) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:38:1
+   |
+LL | fn do_str_mut(x: &mut String) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:38:1
+   |
+LL | fn do_str_mut(x: &mut String) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:38:15
+   |
+LL | fn do_str_mut(x: &mut String) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:38:18
    |
 LL | fn do_str_mut(x: &mut String) {
-   |                  ^^^^^^^^^^^ help: change this to: `&mut str`
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: writing `&PathBuf` instead of `&Path` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:44:1
+   |
+LL | fn do_path(x: &PathBuf) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:44:1
+   |
+LL | fn do_path(x: &PathBuf) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:44:1
+   |
+LL | fn do_path(x: &PathBuf) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:44:12
+   |
+LL | fn do_path(x: &PathBuf) {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:44:15
    |
 LL | fn do_path(x: &PathBuf) {
-   |               ^^^^^^^^ help: change this to: `&Path`
+   |               ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&mut PathBuf` instead of `&mut Path` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:50:1
+   |
+LL | fn do_path_mut(x: &mut PathBuf) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:50:1
+   |
+LL | fn do_path_mut(x: &mut PathBuf) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:50:1
+   |
+LL | fn do_path_mut(x: &mut PathBuf) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:50:16
+   |
+LL | fn do_path_mut(x: &mut PathBuf) {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:50:19
    |
 LL | fn do_path_mut(x: &mut PathBuf) {
-   |                   ^^^^^^^^^^^^ help: change this to: `&mut Path`
+   |                   ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: writing `&Vec` instead of `&[_]` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:56:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:56:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:56:1
+   |
+LL | fn main() {}
+   | ^
+
+error: trait must be `unsafe`
+  --> tests/ui/ptr_arg.rs:58:1
+   |
+LL | / trait Foo {
+LL | |     type Item;
+LL | |     fn do_vec(x: &Vec<i64>);
+...  |
+LL | |     fn do_item(x: &Self::Item);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:58:1
+   |
+LL | trait Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:60:5
+   |
+LL |     fn do_vec(x: &Vec<i64>);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:60:5
+   |
+LL |     fn do_vec(x: &Vec<i64>);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:60:15
+   |
+LL |     fn do_vec(x: &Vec<i64>);
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:60:18
    |
 LL |     fn do_vec(x: &Vec<i64>);
-   |                  ^^^^^^^^^ help: change this to: `&[i64]`
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&Vec` instead of `&[_]` involves a new object where a slice will do
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:63:5
+   |
+LL |     fn do_item(x: &Self::Item);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:63:5
+   |
+LL |     fn do_item(x: &Self::Item);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:63:16
+   |
+LL |     fn do_item(x: &Self::Item);
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:63:19
+   |
+LL |     fn do_item(x: &Self::Item);
+   |                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:66:1
+   |
+LL | struct Bar;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:69:1
+   |
+LL | impl Foo for Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:71:5
+   |
+LL |     fn do_vec(x: &Vec<i64>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:71:5
+   |
+LL |     fn do_vec(x: &Vec<i64>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:71:15
+   |
+LL |     fn do_vec(x: &Vec<i64>) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:71:18
+   |
+LL |     fn do_vec(x: &Vec<i64>) {}
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:72:5
+   |
+LL |     fn do_item(x: &Vec<u8>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:72:5
+   |
+LL |     fn do_item(x: &Vec<u8>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:72:16
+   |
+LL |     fn do_item(x: &Vec<u8>) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:72:19
+   |
+LL |     fn do_item(x: &Vec<u8>) {}
+   |                   ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:75:1
+   |
+LL | fn cloned(x: &Vec<u8>) -> Vec<u8> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:75:1
+   |
+LL | fn cloned(x: &Vec<u8>) -> Vec<u8> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:75:1
+   |
+LL | fn cloned(x: &Vec<u8>) -> Vec<u8> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:75:11
+   |
+LL | fn cloned(x: &Vec<u8>) -> Vec<u8> {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:75:14
    |
 LL | fn cloned(x: &Vec<u8>) -> Vec<u8> {
    |              ^^^^^^^^
    |
-help: change this to
-   |
-LL ~ fn cloned(x: &[u8]) -> Vec<u8> {
-LL |
-LL |
-LL ~     let e = x.to_owned();
-LL |     let f = e.clone(); // OK
-LL |     let g = x;
-LL ~     let h = g.to_owned();
-LL |     let i = (e).clone();
-LL ~     x.to_owned()
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&String` instead of `&str` involves a new object where a slice will do
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:78:9
+   |
+LL |     let e = x.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:79:9
+   |
+LL |     let f = e.clone(); // OK
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:80:9
+   |
+LL |     let g = x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:81:9
+   |
+LL |     let h = g.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:82:9
+   |
+LL |     let i = (e).clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:86:1
+   |
+LL | fn str_cloned(x: &String) -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:86:1
+   |
+LL | fn str_cloned(x: &String) -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:86:1
+   |
+LL | fn str_cloned(x: &String) -> String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:86:15
+   |
+LL | fn str_cloned(x: &String) -> String {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:86:18
    |
 LL | fn str_cloned(x: &String) -> String {
    |                  ^^^^^^^
    |
-help: change this to
-   |
-LL ~ fn str_cloned(x: &str) -> String {
-LL |
-LL |
-LL ~     let a = x.to_owned();
-LL ~     let b = x.to_owned();
-LL |     let c = b.clone();
-LL |     let d = a.clone().clone().clone();
-LL ~     x.to_owned()
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&PathBuf` instead of `&Path` involves a new object where a slice will do
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:89:9
+   |
+LL |     let a = x.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:90:9
+   |
+LL |     let b = x.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:91:9
+   |
+LL |     let c = b.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:92:9
+   |
+LL |     let d = a.clone().clone().clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:96:1
+   |
+LL | fn path_cloned(x: &PathBuf) -> PathBuf {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:96:1
+   |
+LL | fn path_cloned(x: &PathBuf) -> PathBuf {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:96:1
+   |
+LL | fn path_cloned(x: &PathBuf) -> PathBuf {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:96:16
+   |
+LL | fn path_cloned(x: &PathBuf) -> PathBuf {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:96:19
    |
 LL | fn path_cloned(x: &PathBuf) -> PathBuf {
    |                   ^^^^^^^^
    |
-help: change this to
-   |
-LL ~ fn path_cloned(x: &Path) -> PathBuf {
-LL |
-LL |
-LL ~     let a = x.to_path_buf();
-LL ~     let b = x.to_path_buf();
-LL |     let c = b.clone();
-LL |     let d = a.clone().clone().clone();
-LL ~     x.to_path_buf()
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&String` instead of `&str` involves a new object where a slice will do
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:99:9
+   |
+LL |     let a = x.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:100:9
+   |
+LL |     let b = x.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:101:9
+   |
+LL |     let c = b.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:102:9
+   |
+LL |     let d = a.clone().clone().clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:106:1
+   |
+LL | fn false_positive_capacity(x: &Vec<u8>, y: &String) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:106:1
+   |
+LL | fn false_positive_capacity(x: &Vec<u8>, y: &String) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:106:1
+   |
+LL | fn false_positive_capacity(x: &Vec<u8>, y: &String) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:106:28
+   |
+LL | fn false_positive_capacity(x: &Vec<u8>, y: &String) {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:106:41
+   |
+LL | fn false_positive_capacity(x: &Vec<u8>, y: &String) {
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:106:31
+   |
+LL | fn false_positive_capacity(x: &Vec<u8>, y: &String) {
+   |                               ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:106:44
    |
 LL | fn false_positive_capacity(x: &Vec<u8>, y: &String) {
    |                                            ^^^^^^^
    |
-help: change this to
-   |
-LL ~ fn false_positive_capacity(x: &Vec<u8>, y: &str) {
-LL |
-LL |
-LL |     let a = x.capacity();
-LL ~     let b = y.to_owned();
-LL ~     let c = y;
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: using a reference to `Cow` is not recommended
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:109:9
+   |
+LL |     let a = x.capacity();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:110:9
+   |
+LL |     let b = y.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:111:9
+   |
+LL |     let c = y.as_str();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:114:1
+   |
+LL | fn false_positive_capacity_too(x: &String) -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:114:1
+   |
+LL | fn false_positive_capacity_too(x: &String) -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:114:1
+   |
+LL | fn false_positive_capacity_too(x: &String) -> String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:114:32
+   |
+LL | fn false_positive_capacity_too(x: &String) -> String {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:114:35
+   |
+LL | fn false_positive_capacity_too(x: &String) -> String {
+   |                                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:122:1
+   |
+LL | fn test_cow_with_ref(c: &Cow<[i32]>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:122:1
+   |
+LL | fn test_cow_with_ref(c: &Cow<[i32]>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:122:1
+   |
+LL | fn test_cow_with_ref(c: &Cow<[i32]>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:122:22
+   |
+LL | fn test_cow_with_ref(c: &Cow<[i32]>) {}
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:122:25
    |
 LL | fn test_cow_with_ref(c: &Cow<[i32]>) {}
-   |                         ^^^^^^^^^^^ help: change this to: `&[i32]`
+   |                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&String` instead of `&str` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:125:1
+   |
+LL | fn test_cow(c: Cow<[i32]>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:125:1
+   |
+LL | fn test_cow(c: Cow<[i32]>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:125:1
+   |
+LL | fn test_cow(c: Cow<[i32]>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:125:13
+   |
+LL | fn test_cow(c: Cow<[i32]>) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_arg.rs:126:9
+   |
+LL |     let _c = c;
+   |         ^ help: make this variable mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/ptr_arg.rs:129:1
+   |
+LL | / trait Foo2 {
+LL | |     fn do_string(&self);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:129:1
+   |
+LL | trait Foo2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:130:5
+   |
+LL |     fn do_string(&self);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:130:5
+   |
+LL |     fn do_string(&self);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:130:19
+   |
+LL |     fn do_string(&self);
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:130:18
+   |
+LL |     fn do_string(&self);
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:134:1
+   |
+LL | impl Foo2 for String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:135:5
+   |
+LL |     fn do_string(&self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:135:5
+   |
+LL |     fn do_string(&self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:135:19
+   |
+LL |     fn do_string(&self) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:135:18
+   |
+LL |     fn do_string(&self) {}
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:139:1
+   |
+LL | mod issue_5644 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:143:5
+   |
+LL |     fn allowed(
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:143:5
+   |
+LL |     fn allowed(
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:143:5
+   |
+LL |     fn allowed(
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:144:35
+   |
+LL |         #[allow(clippy::ptr_arg)] _v: &Vec<u32>,
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:145:35
+   |
+LL |         #[allow(clippy::ptr_arg)] _s: &String,
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:146:35
+   |
+LL |         #[allow(clippy::ptr_arg)] _p: &PathBuf,
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:147:35
+   |
+LL |         #[allow(clippy::ptr_arg)] _c: &Cow<[i32]>,
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:148:36
+   |
+LL |         #[expect(clippy::ptr_arg)] _expect: &Cow<[i32]>,
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:144:39
+   |
+LL |         #[allow(clippy::ptr_arg)] _v: &Vec<u32>,
+   |                                       ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:145:39
+   |
+LL |         #[allow(clippy::ptr_arg)] _s: &String,
+   |                                       ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:146:39
+   |
+LL |         #[allow(clippy::ptr_arg)] _p: &PathBuf,
+   |                                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:147:39
+   |
+LL |         #[allow(clippy::ptr_arg)] _c: &Cow<[i32]>,
+   |                                       ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:148:45
+   |
+LL |         #[expect(clippy::ptr_arg)] _expect: &Cow<[i32]>,
+   |                                             ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:152:5
+   |
+LL |     fn some_allowed(#[allow(clippy::ptr_arg)] _v: &Vec<u32>, _s: &String) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:152:5
+   |
+LL |     fn some_allowed(#[allow(clippy::ptr_arg)] _v: &Vec<u32>, _s: &String) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:152:5
+   |
+LL |     fn some_allowed(#[allow(clippy::ptr_arg)] _v: &Vec<u32>, _s: &String) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:152:47
+   |
+LL |     fn some_allowed(#[allow(clippy::ptr_arg)] _v: &Vec<u32>, _s: &String) {}
+   |                                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:152:62
+   |
+LL |     fn some_allowed(#[allow(clippy::ptr_arg)] _v: &Vec<u32>, _s: &String) {}
+   |                                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:152:51
+   |
+LL |     fn some_allowed(#[allow(clippy::ptr_arg)] _v: &Vec<u32>, _s: &String) {}
+   |                                                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:152:66
    |
 LL |     fn some_allowed(#[allow(clippy::ptr_arg)] _v: &Vec<u32>, _s: &String) {}
-   |                                                                  ^^^^^^^ help: change this to: `&str`
+   |                                                                  ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&Vec` instead of `&[_]` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:155:5
+   |
+LL |     struct S;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:156:5
+   |
+LL |     impl S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:157:9
+   |
+LL |         fn allowed(
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:157:9
+   |
+LL |         fn allowed(
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:158:39
+   |
+LL |             #[allow(clippy::ptr_arg)] _v: &Vec<u32>,
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:159:39
+   |
+LL |             #[allow(clippy::ptr_arg)] _s: &String,
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:160:39
+   |
+LL |             #[allow(clippy::ptr_arg)] _p: &PathBuf,
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:161:39
+   |
+LL |             #[allow(clippy::ptr_arg)] _c: &Cow<[i32]>,
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:162:40
+   |
+LL |             #[expect(clippy::ptr_arg)] _expect: &Cow<[i32]>,
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:158:43
+   |
+LL |             #[allow(clippy::ptr_arg)] _v: &Vec<u32>,
+   |                                           ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:159:43
+   |
+LL |             #[allow(clippy::ptr_arg)] _s: &String,
+   |                                           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:160:43
+   |
+LL |             #[allow(clippy::ptr_arg)] _p: &PathBuf,
+   |                                           ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:161:43
+   |
+LL |             #[allow(clippy::ptr_arg)] _c: &Cow<[i32]>,
+   |                                           ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:162:49
+   |
+LL |             #[expect(clippy::ptr_arg)] _expect: &Cow<[i32]>,
+   |                                                 ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/ptr_arg.rs:167:5
+   |
+LL | /     trait T {
+LL | |         fn allowed(
+LL | |             #[allow(clippy::ptr_arg)] _v: &Vec<u32>,
+LL | |             #[allow(clippy::ptr_arg)] _s: &String,
+...  |
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:167:5
+   |
+LL |     trait T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:168:9
+   |
+LL |         fn allowed(
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:168:9
+   |
+LL |         fn allowed(
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:169:39
+   |
+LL |             #[allow(clippy::ptr_arg)] _v: &Vec<u32>,
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:170:39
+   |
+LL |             #[allow(clippy::ptr_arg)] _s: &String,
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:171:39
+   |
+LL |             #[allow(clippy::ptr_arg)] _p: &PathBuf,
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:172:39
+   |
+LL |             #[allow(clippy::ptr_arg)] _c: &Cow<[i32]>,
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:173:40
+   |
+LL |             #[expect(clippy::ptr_arg)] _expect: &Cow<[i32]>,
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:169:43
+   |
+LL |             #[allow(clippy::ptr_arg)] _v: &Vec<u32>,
+   |                                           ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:170:43
+   |
+LL |             #[allow(clippy::ptr_arg)] _s: &String,
+   |                                           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:171:43
+   |
+LL |             #[allow(clippy::ptr_arg)] _p: &PathBuf,
+   |                                           ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:172:43
+   |
+LL |             #[allow(clippy::ptr_arg)] _c: &Cow<[i32]>,
+   |                                           ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:173:49
+   |
+LL |             #[expect(clippy::ptr_arg)] _expect: &Cow<[i32]>,
+   |                                                 ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:179:1
+   |
+LL | mod issue6509 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:182:5
+   |
+LL |     fn foo_vec(vec: &Vec<u8>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:182:5
+   |
+LL |     fn foo_vec(vec: &Vec<u8>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:182:5
+   |
+LL |     fn foo_vec(vec: &Vec<u8>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:182:16
+   |
+LL |     fn foo_vec(vec: &Vec<u8>) {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:182:21
    |
 LL |     fn foo_vec(vec: &Vec<u8>) {
    |                     ^^^^^^^^
    |
-help: change this to
-   |
-LL ~     fn foo_vec(vec: &[u8]) {
-LL |
-LL |
-LL ~         let _ = vec.to_owned().pop();
-LL ~         let _ = vec.to_owned().clone();
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&PathBuf` instead of `&Path` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:189:5
+   |
+LL |     fn foo_path(path: &PathBuf) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:189:5
+   |
+LL |     fn foo_path(path: &PathBuf) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:189:5
+   |
+LL |     fn foo_path(path: &PathBuf) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:189:17
+   |
+LL |     fn foo_path(path: &PathBuf) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:189:23
    |
 LL |     fn foo_path(path: &PathBuf) {
    |                       ^^^^^^^^
    |
-help: change this to
-   |
-LL ~     fn foo_path(path: &Path) {
-LL |
-LL |
-LL ~         let _ = path.to_path_buf().pop();
-LL ~         let _ = path.to_path_buf().clone();
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&PathBuf` instead of `&Path` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:196:5
+   |
+LL |     fn foo_str(str: &PathBuf) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:196:5
+   |
+LL |     fn foo_str(str: &PathBuf) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:196:5
+   |
+LL |     fn foo_str(str: &PathBuf) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:196:16
+   |
+LL |     fn foo_str(str: &PathBuf) {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:196:21
    |
 LL |     fn foo_str(str: &PathBuf) {
    |                     ^^^^^^^^
    |
-help: change this to
-   |
-LL ~     fn foo_str(str: &Path) {
-LL |
-LL |
-LL ~         let _ = str.to_path_buf().pop();
-LL ~         let _ = str.to_path_buf().clone();
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&mut Vec` instead of `&mut [_]` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:204:1
+   |
+LL | fn mut_vec_slice_methods(v: &mut Vec<u32>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:204:1
+   |
+LL | fn mut_vec_slice_methods(v: &mut Vec<u32>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:204:1
+   |
+LL | fn mut_vec_slice_methods(v: &mut Vec<u32>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:204:26
+   |
+LL | fn mut_vec_slice_methods(v: &mut Vec<u32>) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:204:29
    |
 LL | fn mut_vec_slice_methods(v: &mut Vec<u32>) {
-   |                             ^^^^^^^^^^^^^ help: change this to: `&mut [u32]`
+   |                             ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: writing `&mut Vec` instead of `&mut [_]` involves a new object where a slice will do
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:210:1
+   |
+LL | fn mut_vec_vec_methods(v: &mut Vec<u32>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:210:1
+   |
+LL | fn mut_vec_vec_methods(v: &mut Vec<u32>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:210:1
+   |
+LL | fn mut_vec_vec_methods(v: &mut Vec<u32>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:210:24
+   |
+LL | fn mut_vec_vec_methods(v: &mut Vec<u32>) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:210:27
+   |
+LL | fn mut_vec_vec_methods(v: &mut Vec<u32>) {
+   |                           ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:214:1
+   |
+LL | fn vec_contains(v: &Vec<u32>) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:214:1
+   |
+LL | fn vec_contains(v: &Vec<u32>) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:214:1
+   |
+LL | fn vec_contains(v: &Vec<u32>) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:214:17
+   |
+LL | fn vec_contains(v: &Vec<u32>) -> bool {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:214:20
+   |
+LL | fn vec_contains(v: &Vec<u32>) -> bool {
+   |                    ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:218:1
+   |
+LL | fn fn_requires_vec(v: &Vec<u32>) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:218:1
+   |
+LL | fn fn_requires_vec(v: &Vec<u32>) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:218:1
+   |
+LL | fn fn_requires_vec(v: &Vec<u32>) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:218:20
+   |
+LL | fn fn_requires_vec(v: &Vec<u32>) -> bool {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:218:23
+   |
+LL | fn fn_requires_vec(v: &Vec<u32>) -> bool {
+   |                       ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:222:1
+   |
+LL | fn impl_fn_requires_vec(v: &Vec<u32>, f: impl Fn(&Vec<u32>)) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:222:1
+   |
+LL | fn impl_fn_requires_vec(v: &Vec<u32>, f: impl Fn(&Vec<u32>)) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:222:1
+   |
+LL | fn impl_fn_requires_vec(v: &Vec<u32>, f: impl Fn(&Vec<u32>)) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:222:25
+   |
+LL | fn impl_fn_requires_vec(v: &Vec<u32>, f: impl Fn(&Vec<u32>)) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:222:39
+   |
+LL | fn impl_fn_requires_vec(v: &Vec<u32>, f: impl Fn(&Vec<u32>)) {
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:222:28
+   |
+LL | fn impl_fn_requires_vec(v: &Vec<u32>, f: impl Fn(&Vec<u32>)) {
+   |                            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:222:50
+   |
+LL | fn impl_fn_requires_vec(v: &Vec<u32>, f: impl Fn(&Vec<u32>)) {
+   |                                                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:226:1
+   |
+LL | fn dyn_fn_requires_vec(v: &Vec<u32>, f: &dyn Fn(&Vec<u32>)) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:226:1
+   |
+LL | fn dyn_fn_requires_vec(v: &Vec<u32>, f: &dyn Fn(&Vec<u32>)) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:226:1
+   |
+LL | fn dyn_fn_requires_vec(v: &Vec<u32>, f: &dyn Fn(&Vec<u32>)) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:226:24
+   |
+LL | fn dyn_fn_requires_vec(v: &Vec<u32>, f: &dyn Fn(&Vec<u32>)) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:226:38
+   |
+LL | fn dyn_fn_requires_vec(v: &Vec<u32>, f: &dyn Fn(&Vec<u32>)) {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:226:27
+   |
+LL | fn dyn_fn_requires_vec(v: &Vec<u32>, f: &dyn Fn(&Vec<u32>)) {
+   |                           ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:226:41
+   |
+LL | fn dyn_fn_requires_vec(v: &Vec<u32>, f: &dyn Fn(&Vec<u32>)) {
+   |                                         ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:226:49
+   |
+LL | fn dyn_fn_requires_vec(v: &Vec<u32>, f: &dyn Fn(&Vec<u32>)) {
+   |                                                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:231:1
+   |
+LL | type A = Vec<u8>;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:232:1
+   |
+LL | fn aliased(a: &A) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:232:1
+   |
+LL | fn aliased(a: &A) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:232:1
+   |
+LL | fn aliased(a: &A) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:232:12
+   |
+LL | fn aliased(a: &A) {}
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:232:15
+   |
+LL | fn aliased(a: &A) {}
+   |               ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/ptr_arg.rs:235:1
+   |
+LL | / pub trait Trait {
+LL | |     fn f(v: &mut Vec<i32>);
+LL | |     fn f2(v: &mut Vec<i32>) {}
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:236:5
+   |
+LL |     fn f(v: &mut Vec<i32>);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:236:5
+   |
+LL |     fn f(v: &mut Vec<i32>);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:236:10
+   |
+LL |     fn f(v: &mut Vec<i32>);
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:236:13
+   |
+LL |     fn f(v: &mut Vec<i32>);
+   |             ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:237:5
+   |
+LL |     fn f2(v: &mut Vec<i32>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:237:5
+   |
+LL |     fn f2(v: &mut Vec<i32>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:237:11
+   |
+LL |     fn f2(v: &mut Vec<i32>) {}
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:237:14
+   |
+LL |     fn f2(v: &mut Vec<i32>) {}
+   |              ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:241:1
+   |
+LL | fn two_vecs(a: &mut Vec<u32>, b: &mut Vec<u32>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:241:1
+   |
+LL | fn two_vecs(a: &mut Vec<u32>, b: &mut Vec<u32>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:241:1
+   |
+LL | fn two_vecs(a: &mut Vec<u32>, b: &mut Vec<u32>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:241:13
+   |
+LL | fn two_vecs(a: &mut Vec<u32>, b: &mut Vec<u32>) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:241:31
+   |
+LL | fn two_vecs(a: &mut Vec<u32>, b: &mut Vec<u32>) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:241:16
+   |
+LL | fn two_vecs(a: &mut Vec<u32>, b: &mut Vec<u32>) {
+   |                ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:241:34
+   |
+LL | fn two_vecs(a: &mut Vec<u32>, b: &mut Vec<u32>) {
+   |                                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:249:1
+   |
+LL | fn cow_conditional_to_mut(a: &mut Cow<str>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:249:1
+   |
+LL | fn cow_conditional_to_mut(a: &mut Cow<str>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:249:1
+   |
+LL | fn cow_conditional_to_mut(a: &mut Cow<str>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:249:27
+   |
+LL | fn cow_conditional_to_mut(a: &mut Cow<str>) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:249:30
+   |
+LL | fn cow_conditional_to_mut(a: &mut Cow<str>) {
+   |                              ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:256:1
+   |
+LL | fn dyn_trait_ok(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:256:1
+   |
+LL | fn dyn_trait_ok(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:256:1
+   |
+LL | fn dyn_trait_ok(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:256:17
+   |
+LL | fn dyn_trait_ok(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:256:35
+   |
+LL | fn dyn_trait_ok(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:256:51
+   |
+LL | fn dyn_trait_ok(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   |                                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:256:20
+   |
+LL | fn dyn_trait_ok(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   |                    ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:256:38
+   |
+LL | fn dyn_trait_ok(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   |                                      ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:256:54
+   |
+LL | fn dyn_trait_ok(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   |                                                      ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: trait must be `unsafe`
+  --> tests/ui/ptr_arg.rs:257:5
+   |
+LL |     trait T {}
+   |     ^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:257:5
+   |
+LL |     trait T {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:258:5
+   |
+LL |     impl<U> T for Vec<U> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:259:5
+   |
+LL |     impl T for String {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:260:5
+   |
+LL |     impl T for PathBuf {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:261:5
+   |
+LL |     fn takes_dyn(_: &mut dyn T) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:261:5
+   |
+LL |     fn takes_dyn(_: &mut dyn T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:261:5
+   |
+LL |     fn takes_dyn(_: &mut dyn T) {}
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:261:21
+   |
+LL |     fn takes_dyn(_: &mut dyn T) {}
+   |                     ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:268:1
+   |
+LL | fn dyn_trait(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:268:1
+   |
+LL | fn dyn_trait(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:268:1
+   |
+LL | fn dyn_trait(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:268:14
+   |
+LL | fn dyn_trait(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:268:32
+   |
+LL | fn dyn_trait(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:268:48
+   |
+LL | fn dyn_trait(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:268:17
    |
 LL | fn dyn_trait(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
-   |                 ^^^^^^^^^^^^^ help: change this to: `&mut [u32]`
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: writing `&mut String` instead of `&mut str` involves a new object where a slice will do
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:268:35
    |
 LL | fn dyn_trait(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
-   |                                   ^^^^^^^^^^^ help: change this to: `&mut str`
+   |                                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: writing `&mut PathBuf` instead of `&mut Path` involves a new object where a slice will do
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:268:51
    |
 LL | fn dyn_trait(a: &mut Vec<u32>, b: &mut String, c: &mut PathBuf) {
-   |                                                   ^^^^^^^^^^^^ help: change this to: `&mut Path`
+   |                                                   ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: using a reference to `Cow` is not recommended
+error: trait must be `unsafe`
+  --> tests/ui/ptr_arg.rs:273:5
+   |
+LL |     trait T {}
+   |     ^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:273:5
+   |
+LL |     trait T {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:274:5
+   |
+LL |     impl<U> T for Vec<U> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:275:5
+   |
+LL |     impl<U> T for [U] {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:276:5
+   |
+LL |     impl T for String {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:277:5
+   |
+LL |     impl T for str {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:278:5
+   |
+LL |     impl T for PathBuf {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:279:5
+   |
+LL |     impl T for Path {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:280:5
+   |
+LL |     fn takes_dyn(_: &mut dyn T) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:280:5
+   |
+LL |     fn takes_dyn(_: &mut dyn T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:280:5
+   |
+LL |     fn takes_dyn(_: &mut dyn T) {}
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:280:21
+   |
+LL |     fn takes_dyn(_: &mut dyn T) {}
+   |                     ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:287:1
+   |
+LL | mod issue_9218 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:290:5
+   |
+LL |     fn cow_non_elided_lifetime<'a>(input: &Cow<'a, str>) -> &'a str {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:290:5
+   |
+LL |     fn cow_non_elided_lifetime<'a>(input: &Cow<'a, str>) -> &'a str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:290:5
+   |
+LL |     fn cow_non_elided_lifetime<'a>(input: &Cow<'a, str>) -> &'a str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:290:36
+   |
+LL |     fn cow_non_elided_lifetime<'a>(input: &Cow<'a, str>) -> &'a str {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:290:43
+   |
+LL |     fn cow_non_elided_lifetime<'a>(input: &Cow<'a, str>) -> &'a str {
+   |                                           ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:290:61
+   |
+LL |     fn cow_non_elided_lifetime<'a>(input: &Cow<'a, str>) -> &'a str {
+   |                                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:295:5
+   |
+LL |     fn cow_elided_lifetime<'a>(input: &'a Cow<str>) -> &'a str {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:295:5
+   |
+LL |     fn cow_elided_lifetime<'a>(input: &'a Cow<str>) -> &'a str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:295:5
+   |
+LL |     fn cow_elided_lifetime<'a>(input: &'a Cow<str>) -> &'a str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:295:32
+   |
+LL |     fn cow_elided_lifetime<'a>(input: &'a Cow<str>) -> &'a str {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:295:39
    |
 LL |     fn cow_elided_lifetime<'a>(input: &'a Cow<str>) -> &'a str {
-   |                                       ^^^^^^^^^^^^ help: change this to: `&str`
+   |                                       ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: using a reference to `Cow` is not recommended
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:295:56
+   |
+LL |     fn cow_elided_lifetime<'a>(input: &'a Cow<str>) -> &'a str {
+   |                                                        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:302:5
+   |
+LL |     fn cow_bad_ret_ty_1<'a>(input: &'a Cow<'a, str>) -> &'static str {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:302:5
+   |
+LL |     fn cow_bad_ret_ty_1<'a>(input: &'a Cow<'a, str>) -> &'static str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:302:5
+   |
+LL |     fn cow_bad_ret_ty_1<'a>(input: &'a Cow<'a, str>) -> &'static str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:302:29
+   |
+LL |     fn cow_bad_ret_ty_1<'a>(input: &'a Cow<'a, str>) -> &'static str {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:302:36
    |
 LL |     fn cow_bad_ret_ty_1<'a>(input: &'a Cow<'a, str>) -> &'static str {
-   |                                    ^^^^^^^^^^^^^^^^ help: change this to: `&str`
+   |                                    ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: using a reference to `Cow` is not recommended
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:302:57
+   |
+LL |     fn cow_bad_ret_ty_1<'a>(input: &'a Cow<'a, str>) -> &'static str {
+   |                                                         ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:307:5
+   |
+LL |     fn cow_bad_ret_ty_2<'a, 'b>(input: &'a Cow<'a, str>) -> &'b str {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:307:5
+   |
+LL |     fn cow_bad_ret_ty_2<'a, 'b>(input: &'a Cow<'a, str>) -> &'b str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:307:5
+   |
+LL |     fn cow_bad_ret_ty_2<'a, 'b>(input: &'a Cow<'a, str>) -> &'b str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:307:33
+   |
+LL |     fn cow_bad_ret_ty_2<'a, 'b>(input: &'a Cow<'a, str>) -> &'b str {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:307:40
    |
 LL |     fn cow_bad_ret_ty_2<'a, 'b>(input: &'a Cow<'a, str>) -> &'b str {
-   |                                        ^^^^^^^^^^^^^^^^ help: change this to: `&str`
+   |                                        ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&String` instead of `&str` involves a new object where a slice will do
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:307:61
+   |
+LL |     fn cow_bad_ret_ty_2<'a, 'b>(input: &'a Cow<'a, str>) -> &'b str {
+   |                                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:314:5
+   |
+LL |     fn cow_good_ret_ty<'a>(input: &'a Cow<'a, str>) -> &str {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:314:5
+   |
+LL |     fn cow_good_ret_ty<'a>(input: &'a Cow<'a, str>) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:314:5
+   |
+LL |     fn cow_good_ret_ty<'a>(input: &'a Cow<'a, str>) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:314:28
+   |
+LL |     fn cow_good_ret_ty<'a>(input: &'a Cow<'a, str>) -> &str {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:314:35
+   |
+LL |     fn cow_good_ret_ty<'a>(input: &'a Cow<'a, str>) -> &str {
+   |                                   ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:314:56
+   |
+LL |     fn cow_good_ret_ty<'a>(input: &'a Cow<'a, str>) -> &str {
+   |                                                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:320:1
+   |
+LL | mod issue_11181 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:321:5
+   |
+LL |     extern "C" fn allowed(_v: &Vec<u32>) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:321:5
+   |
+LL |     extern "C" fn allowed(_v: &Vec<u32>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:321:5
+   |
+LL |     extern "C" fn allowed(_v: &Vec<u32>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:321:27
+   |
+LL |     extern "C" fn allowed(_v: &Vec<u32>) {}
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:321:31
+   |
+LL |     extern "C" fn allowed(_v: &Vec<u32>) {}
+   |                               ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:323:5
+   |
+LL |     struct S;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:324:5
+   |
+LL |     impl S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:325:9
+   |
+LL |         extern "C" fn allowed(_v: &Vec<u32>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:325:9
+   |
+LL |         extern "C" fn allowed(_v: &Vec<u32>) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:325:31
+   |
+LL |         extern "C" fn allowed(_v: &Vec<u32>) {}
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:325:35
+   |
+LL |         extern "C" fn allowed(_v: &Vec<u32>) {}
+   |                                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/ptr_arg.rs:328:5
+   |
+LL | /     trait T {
+LL | |         extern "C" fn allowed(_v: &Vec<u32>) {}
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:328:5
+   |
+LL |     trait T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:329:9
+   |
+LL |         extern "C" fn allowed(_v: &Vec<u32>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:329:9
+   |
+LL |         extern "C" fn allowed(_v: &Vec<u32>) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:329:31
+   |
+LL |         extern "C" fn allowed(_v: &Vec<u32>) {}
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:329:35
+   |
+LL |         extern "C" fn allowed(_v: &Vec<u32>) {}
+   |                                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:333:1
+   |
+LL | mod issue_13308 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:336:5
+   |
+LL |     fn repro(source: &str, destination: &mut String) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:336:5
+   |
+LL |     fn repro(source: &str, destination: &mut String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:336:5
+   |
+LL |     fn repro(source: &str, destination: &mut String) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:336:14
+   |
+LL |     fn repro(source: &str, destination: &mut String) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:336:28
+   |
+LL |     fn repro(source: &str, destination: &mut String) {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:336:22
+   |
+LL |     fn repro(source: &str, destination: &mut String) {
+   |                      ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:336:41
+   |
+LL |     fn repro(source: &str, destination: &mut String) {
+   |                                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:339:5
+   |
+LL |     fn repro2(source: &str, destination: &mut String) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:339:5
+   |
+LL |     fn repro2(source: &str, destination: &mut String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:339:5
+   |
+LL |     fn repro2(source: &str, destination: &mut String) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:339:15
+   |
+LL |     fn repro2(source: &str, destination: &mut String) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:339:29
+   |
+LL |     fn repro2(source: &str, destination: &mut String) {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:339:23
+   |
+LL |     fn repro2(source: &str, destination: &mut String) {
+   |                       ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:339:42
+   |
+LL |     fn repro2(source: &str, destination: &mut String) {
+   |                                          ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:343:5
+   |
+LL |     fn h1(_: &<String as Deref>::Target) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:343:5
+   |
+LL |     fn h1(_: &<String as Deref>::Target) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:343:5
+   |
+LL |     fn h1(_: &<String as Deref>::Target) {}
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:343:14
+   |
+LL |     fn h1(_: &<String as Deref>::Target) {}
+   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:344:5
+   |
+LL |     fn h2<T: Deref>(_: T, _: &T::Target) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:344:5
+   |
+LL |     fn h2<T: Deref>(_: T, _: &T::Target) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:344:5
+   |
+LL |     fn h2<T: Deref>(_: T, _: &T::Target) {}
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/ptr_arg.rs:344:30
+   |
+LL |     fn h2<T: Deref>(_: T, _: &T::Target) {}
+   |                              ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ptr_arg.rs:347:5
+   |
+LL |     fn good(v1: &String, v2: &String) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_arg.rs:347:5
+   |
+LL |     fn good(v1: &String, v2: &String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_arg.rs:347:5
+   |
+LL |     fn good(v1: &String, v2: &String) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:347:13
+   |
+LL |     fn good(v1: &String, v2: &String) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ptr_arg.rs:347:26
+   |
+LL |     fn good(v1: &String, v2: &String) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:347:17
    |
 LL |     fn good(v1: &String, v2: &String) {
-   |                 ^^^^^^^ help: change this to: `&str`
+   |                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: writing `&String` instead of `&str` involves a new object where a slice will do
+error: references are not allowed
   --> tests/ui/ptr_arg.rs:347:30
    |
 LL |     fn good(v1: &String, v2: &String) {
-   |                              ^^^^^^^ help: change this to: `&str`
+   |                              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 27 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 315 previous errors
 

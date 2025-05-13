@@ -1,112 +1,92 @@
-error: &-masking with zero
-  --> tests/ui/bit_masks.rs:14:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x & 0 == 0;
-   |     ^^^^^^^^^^
-   |
-   = note: `-D clippy::bad-bit-mask` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::bad_bit_mask)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this operation will always return zero. This is likely not the intended outcome
-  --> tests/ui/bit_masks.rs:14:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x & 0 == 0;
-   |     ^^^^^
-   |
-   = note: `#[deny(clippy::erasing_op)]` on by default
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: incompatible bit mask: `_ & 2` can never be equal to `1`
-  --> tests/ui/bit_masks.rs:20:5
+error: item must be `pub`
+  --> tests/ui/bit_masks.rs:1:1
    |
-LL |     x & 2 == 1;
-   |     ^^^^^^^^^^
+LL | const THREE_BITS: i64 = 7;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: incompatible bit mask: `_ | 3` can never be equal to `2`
-  --> tests/ui/bit_masks.rs:26:5
+error: item must be `pub`
+  --> tests/ui/bit_masks.rs:2:1
    |
-LL |     x | 3 == 2;
-   |     ^^^^^^^^^^
+LL | const EVEN_MORE_REDIRECTION: i64 = THREE_BITS;
+   | ^ help: make this item public: `pub`
 
-error: incompatible bit mask: `_ & 1` will never be higher than `1`
-  --> tests/ui/bit_masks.rs:29:5
+error: item must be `pub`
+  --> tests/ui/bit_masks.rs:11:1
    |
-LL |     x & 1 > 1;
-   |     ^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: incompatible bit mask: `_ | 2` will always be higher than `1`
-  --> tests/ui/bit_masks.rs:35:5
+error: function must be `unsafe`
+  --> tests/ui/bit_masks.rs:11:1
    |
-LL |     x | 2 > 1;
-   |     ^^^^^^^^^
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bit_masks.rs:11:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: incompatible bit mask: `_ & 7` can never be equal to `8`
-  --> tests/ui/bit_masks.rs:44:5
+error: variable must be `mut`
+  --> tests/ui/bit_masks.rs:12:9
    |
-LL |     x & THREE_BITS == 8;
-   |     ^^^^^^^^^^^^^^^^^^^
+LL |     let x = 5;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: incompatible bit mask: `_ | 7` will never be lower than `7`
-  --> tests/ui/bit_masks.rs:47:5
+error: item must be `pub`
+  --> tests/ui/bit_masks.rs:72:1
    |
-LL |     x | EVEN_MORE_REDIRECTION < 7;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn ineffective() {
+   | ^ help: make this item public: `pub`
 
-error: &-masking with zero
-  --> tests/ui/bit_masks.rs:50:5
+error: function must be `unsafe`
+  --> tests/ui/bit_masks.rs:72:1
    |
-LL |     0 & x == 0;
-   |     ^^^^^^^^^^
+LL | fn ineffective() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bit_masks.rs:72:1
+   |
+LL | fn ineffective() {
+   | ^
 
-error: this operation will always return zero. This is likely not the intended outcome
-  --> tests/ui/bit_masks.rs:50:5
+error: variable must be `mut`
+  --> tests/ui/bit_masks.rs:73:9
    |
-LL |     0 & x == 0;
-   |     ^^^^^
+LL |     let x = 5;
+   |         ^ help: make this variable mutable: `mut`
 
-error: incompatible bit mask: `_ | 2` will always be higher than `1`
-  --> tests/ui/bit_masks.rs:57:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     1 < 2 | x;
-   |     ^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: incompatible bit mask: `_ | 3` can never be equal to `2`
-  --> tests/ui/bit_masks.rs:60:5
+error: missing `#![no_std]`
    |
-LL |     2 == 3 | x;
-   |     ^^^^^^^^^^
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
-error: incompatible bit mask: `_ & 2` can never be equal to `1`
-  --> tests/ui/bit_masks.rs:63:5
-   |
-LL |     1 == x & 2;
-   |     ^^^^^^^^^^
-
-error: ineffective bit mask: `x | 1` compared to `3`, is the same as x compared directly
-  --> tests/ui/bit_masks.rs:75:5
-   |
-LL |     x | 1 > 3;
-   |     ^^^^^^^^^
-   |
-   = note: `-D clippy::ineffective-bit-mask` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::ineffective_bit_mask)]`
-
-error: ineffective bit mask: `x | 1` compared to `4`, is the same as x compared directly
-  --> tests/ui/bit_masks.rs:78:5
-   |
-LL |     x | 1 < 4;
-   |     ^^^^^^^^^
-
-error: ineffective bit mask: `x | 1` compared to `3`, is the same as x compared directly
-  --> tests/ui/bit_masks.rs:81:5
-   |
-LL |     x | 1 <= 3;
-   |     ^^^^^^^^^^
-
-error: ineffective bit mask: `x | 1` compared to `8`, is the same as x compared directly
-  --> tests/ui/bit_masks.rs:84:5
-   |
-LL |     x | 1 >= 8;
-   |     ^^^^^^^^^^
-
-error: aborting due to 17 previous errors
+error: aborting due to 12 previous errors
 

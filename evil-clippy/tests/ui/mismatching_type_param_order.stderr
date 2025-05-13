@@ -1,84 +1,155 @@
-error: `Foo` has a similarly named generic type parameter `B` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:11:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mismatching_type_param_order.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mismatching_type_param_order.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:5:5
+   |
+LL |     struct Foo<A, B> {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:11:5
    |
 LL |     impl<B, A> Foo<B, A> {}
-   |                    ^
-   |
-   = help: try `A`, or a name that does not conflict with `Foo`'s generic params
-   = note: `-D clippy::mismatching-type-param-order` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mismatching_type_param_order)]`
+   |     ^ help: make this item public: `pub`
 
-error: `Foo` has a similarly named generic type parameter `A` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:11:23
-   |
-LL |     impl<B, A> Foo<B, A> {}
-   |                       ^
-   |
-   = help: try `B`, or a name that does not conflict with `Foo`'s generic params
-
-error: `Foo` has a similarly named generic type parameter `A` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:16:23
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:16:5
    |
 LL |     impl<C, A> Foo<C, A> {}
-   |                       ^
-   |
-   = help: try `B`, or a name that does not conflict with `Foo`'s generic params
+   |     ^ help: make this item public: `pub`
 
-error: `FooLifetime` has a similarly named generic type parameter `B` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:28:44
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:20:5
+   |
+LL |     impl<A, B> Foo<A, B> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:22:5
+   |
+LL |     struct FooLifetime<'l, 'm, A, B> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/mismatching_type_param_order.rs:23:12
+   |
+LL |         x: &'l A,
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/mismatching_type_param_order.rs:24:12
+   |
+LL |         y: &'m B,
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:28:5
    |
 LL |     impl<'m, 'l, B, A> FooLifetime<'m, 'l, B, A> {}
-   |                                            ^
-   |
-   = help: try `A`, or a name that does not conflict with `FooLifetime`'s generic params
+   |     ^ help: make this item public: `pub`
 
-error: `FooLifetime` has a similarly named generic type parameter `A` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:28:47
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:32:5
    |
-LL |     impl<'m, 'l, B, A> FooLifetime<'m, 'l, B, A> {}
-   |                                               ^
-   |
-   = help: try `B`, or a name that does not conflict with `FooLifetime`'s generic params
+LL |     struct Bar {
+   |     ^ help: make this item public: `pub`
 
-error: `FooEnum` has a similarly named generic type parameter `C` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:46:27
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:37:5
+   |
+LL |     impl Bar {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:40:5
+   |
+LL |     enum FooEnum<A, B, C> {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:46:5
    |
 LL |     impl<C, A, B> FooEnum<C, A, B> {}
-   |                           ^
-   |
-   = help: try `A`, or a name that does not conflict with `FooEnum`'s generic params
+   |     ^ help: make this item public: `pub`
 
-error: `FooEnum` has a similarly named generic type parameter `A` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:46:30
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:52:5
    |
-LL |     impl<C, A, B> FooEnum<C, A, B> {}
-   |                              ^
-   |
-   = help: try `B`, or a name that does not conflict with `FooEnum`'s generic params
+LL |     union FooUnion<A: Copy, B>
+   |     ^ help: make this item public: `pub`
 
-error: `FooEnum` has a similarly named generic type parameter `B` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:46:33
-   |
-LL |     impl<C, A, B> FooEnum<C, A, B> {}
-   |                                 ^
-   |
-   = help: try `C`, or a name that does not conflict with `FooEnum`'s generic params
-
-error: `FooUnion` has a similarly named generic type parameter `B` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:60:31
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:60:5
    |
 LL |     impl<B: Copy, A> FooUnion<B, A> where A: Copy {}
-   |                               ^
-   |
-   = help: try `A`, or a name that does not conflict with `FooUnion`'s generic params
+   |     ^ help: make this item public: `pub`
 
-error: `FooUnion` has a similarly named generic type parameter `A` in its declaration, but in a different order
-  --> tests/ui/mismatching_type_param_order.rs:60:34
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:64:5
    |
-LL |     impl<B: Copy, A> FooUnion<B, A> where A: Copy {}
-   |                                  ^
-   |
-   = help: try `B`, or a name that does not conflict with `FooUnion`'s generic params
+LL |     impl<A, B> FooUnion<A, B>
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 10 previous errors
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:72:5
+   |
+LL |     impl<K, V, B> Foo<(K, V), B> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/mismatching_type_param_order.rs:73:5
+   |
+LL |     impl<K, V, A> Foo<(K, V), A> {}
+   |     ^ help: make this item public: `pub`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

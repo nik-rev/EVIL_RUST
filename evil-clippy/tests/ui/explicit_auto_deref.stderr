@@ -1,281 +1,2898 @@
-error: deref which would be done by auto-deref
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:17:1
+   |
+LL | / trait CallableStr {
+LL | |     type T: Fn(&str);
+LL | |     fn callable_str(&self) -> Self::T;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:17:1
+   |
+LL | trait CallableStr {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:18:16
+   |
+LL |     type T: Fn(&str);
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:19:5
+   |
+LL |     fn callable_str(&self) -> Self::T;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:19:5
+   |
+LL |     fn callable_str(&self) -> Self::T;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:19:22
+   |
+LL |     fn callable_str(&self) -> Self::T;
+   |                      ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:19:21
+   |
+LL |     fn callable_str(&self) -> Self::T;
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:21:1
+   |
+LL | impl CallableStr for () {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:22:17
+   |
+LL |     type T = fn(&str);
+   |                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:23:5
+   |
+LL |     fn callable_str(&self) -> Self::T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:23:5
+   |
+LL |     fn callable_str(&self) -> Self::T {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:23:22
+   |
+LL |     fn callable_str(&self) -> Self::T {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:23:21
+   |
+LL |     fn callable_str(&self) -> Self::T {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:24:9
+   |
+LL |         fn f(_: &str) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:24:9
+   |
+LL |         fn f(_: &str) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:24:9
+   |
+LL |         fn f(_: &str) {}
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:24:17
+   |
+LL |         fn f(_: &str) {}
+   |                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:28:1
+   |
+LL | impl CallableStr for i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:30:5
+   |
+LL |     fn callable_str(&self) -> Self::T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:30:5
+   |
+LL |     fn callable_str(&self) -> Self::T {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:30:22
+   |
+LL |     fn callable_str(&self) -> Self::T {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:30:21
+   |
+LL |     fn callable_str(&self) -> Self::T {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:35:1
+   |
+LL | / trait CallableT<U: ?Sized> {
+LL | |     type T: Fn(&U);
+LL | |     fn callable_t(&self) -> Self::T;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:35:1
+   |
+LL | trait CallableT<U: ?Sized> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:36:16
+   |
+LL |     type T: Fn(&U);
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:37:5
+   |
+LL |     fn callable_t(&self) -> Self::T;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:37:5
+   |
+LL |     fn callable_t(&self) -> Self::T;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:37:20
+   |
+LL |     fn callable_t(&self) -> Self::T;
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:37:19
+   |
+LL |     fn callable_t(&self) -> Self::T;
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:39:1
+   |
+LL | impl<U: ?Sized> CallableT<U> for () {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:40:17
+   |
+LL |     type T = fn(&U);
+   |                 ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:41:5
+   |
+LL |     fn callable_t(&self) -> Self::T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:41:5
+   |
+LL |     fn callable_t(&self) -> Self::T {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:41:20
+   |
+LL |     fn callable_t(&self) -> Self::T {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:41:19
+   |
+LL |     fn callable_t(&self) -> Self::T {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:42:9
+   |
+LL |         fn f<U: ?Sized>(_: &U) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:42:9
+   |
+LL |         fn f<U: ?Sized>(_: &U) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:42:9
+   |
+LL |         fn f<U: ?Sized>(_: &U) {}
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:42:28
+   |
+LL |         fn f<U: ?Sized>(_: &U) {}
+   |                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:46:1
+   |
+LL | impl<U: ?Sized> CallableT<U> for i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:48:5
+   |
+LL |     fn callable_t(&self) -> Self::T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:48:5
+   |
+LL |     fn callable_t(&self) -> Self::T {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:48:20
+   |
+LL |     fn callable_t(&self) -> Self::T {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:48:19
+   |
+LL |     fn callable_t(&self) -> Self::T {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:53:1
+   |
+LL | fn f_str(_: &str) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:53:1
+   |
+LL | fn f_str(_: &str) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:53:1
+   |
+LL | fn f_str(_: &str) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:53:13
+   |
+LL | fn f_str(_: &str) {}
+   |             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:54:1
+   |
+LL | fn f_string(_: &String) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:54:1
+   |
+LL | fn f_string(_: &String) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:54:1
+   |
+LL | fn f_string(_: &String) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:54:16
+   |
+LL | fn f_string(_: &String) {}
+   |                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:55:1
+   |
+LL | fn f_t<T>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:55:1
+   |
+LL | fn f_t<T>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:55:1
+   |
+LL | fn f_t<T>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:56:1
+   |
+LL | fn f_ref_t<T: ?Sized>(_: &T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:56:1
+   |
+LL | fn f_ref_t<T: ?Sized>(_: &T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:56:1
+   |
+LL | fn f_ref_t<T: ?Sized>(_: &T) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:56:26
+   |
+LL | fn f_ref_t<T: ?Sized>(_: &T) {}
+   |                          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:58:1
+   |
+LL | fn f_str_t<T>(_: &str, _: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:58:1
+   |
+LL | fn f_str_t<T>(_: &str, _: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:58:1
+   |
+LL | fn f_str_t<T>(_: &str, _: T) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:58:18
+   |
+LL | fn f_str_t<T>(_: &str, _: T) {}
+   |                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:60:1
+   |
+LL | fn f_box_t<T>(_: &Box<T>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:60:1
+   |
+LL | fn f_box_t<T>(_: &Box<T>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:60:1
+   |
+LL | fn f_box_t<T>(_: &Box<T>) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:60:18
+   |
+LL | fn f_box_t<T>(_: &Box<T>) {}
+   |                  ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:63:5
+   |
+LL |     fn var(_: u32, ...);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:63:5
+   |
+LL |     fn var(_: u32, ...);
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:66:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:66:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:66:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:67:9
+   |
+LL |     let s = String::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:69:12
+   |
+LL |     let _: &str = &*s;
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:69:19
    |
 LL |     let _: &str = &*s;
-   |                   ^^^ help: try: `&s`
+   |                   ^^^
    |
-   = note: `-D clippy::explicit-auto-deref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::explicit_auto_deref)]`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:71:12
+   |
+LL |     let _: &str = &*{ String::new() };
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:71:19
    |
 LL |     let _: &str = &*{ String::new() };
-   |                   ^^^^^^^^^^^^^^^^^^^ help: try: `&{ String::new() }`
+   |                   ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:73:12
+   |
+LL |     let _: &str = &mut *{ String::new() };
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:73:19
    |
 LL |     let _: &str = &mut *{ String::new() };
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&mut { String::new() }`
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:75:13
+   |
+LL |     let _ = &*s; // Don't lint. Inferred type would change.
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:76:12
+   |
+LL |     let _: &_ = &*s; // Don't lint. Inferred type would change.
+   |            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:76:17
+   |
+LL |     let _: &_ = &*s; // Don't lint. Inferred type would change.
+   |                 ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:78:11
    |
 LL |     f_str(&*s);
-   |           ^^^ help: try: `&s`
+   |           ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:80:9
+   |
+LL |     f_t(&*s); // Don't lint. Inferred type would change.
+   |         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:81:13
+   |
+LL |     f_ref_t(&*s); // Don't lint. Inferred type would change.
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:83:13
    |
 LL |     f_str_t(&*s, &*s); // Don't lint second param.
-   |             ^^^ help: try: `&s`
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:83:18
+   |
+LL |     f_str_t(&*s, &*s); // Don't lint second param.
+   |                  ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:87:9
+   |
+LL |     let b = Box::new(Box::new(Box::new(5)));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:88:12
+   |
+LL |     let _: &Box<i32> = &**b;
+   |            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:88:24
    |
 LL |     let _: &Box<i32> = &**b;
-   |                        ^^^^ help: try: `&b`
+   |                        ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:90:12
+   |
+LL |     let _: &Box<_> = &**b; // Don't lint. Inferred type would change.
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:90:22
+   |
+LL |     let _: &Box<_> = &**b; // Don't lint. Inferred type would change.
+   |                      ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:92:13
+   |
+LL |     f_box_t(&**b); // Don't lint. Inferred type would change.
+   |             ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:94:9
+   |
+LL |     let c = |_x: &str| ();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:94:18
+   |
+LL |     let c = |_x: &str| ();
+   |                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:95:7
    |
 LL |     c(&*s);
-   |       ^^^ help: try: `&s`
+   |       ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:98:9
+   |
+LL |     let c = |_x| ();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:99:7
+   |
+LL |     c(&*s); // Don't lint. Inferred type would change.
+   |       ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:101:5
+   |
+LL |     fn _f(x: &String) -> &str {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:101:5
+   |
+LL |     fn _f(x: &String) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:101:5
+   |
+LL |     fn _f(x: &String) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:101:11
+   |
+LL |     fn _f(x: &String) -> &str {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:101:14
+   |
+LL |     fn _f(x: &String) -> &str {
+   |              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:101:26
+   |
+LL |     fn _f(x: &String) -> &str {
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:102:9
    |
 LL |         &**x
-   |         ^^^^ help: try: `x`
+   |         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:106:5
+   |
+LL |     fn _f1(x: &String) -> &str {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:106:5
+   |
+LL |     fn _f1(x: &String) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:106:5
+   |
+LL |     fn _f1(x: &String) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:106:12
+   |
+LL |     fn _f1(x: &String) -> &str {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:106:15
+   |
+LL |     fn _f1(x: &String) -> &str {
+   |               ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:106:27
+   |
+LL |     fn _f1(x: &String) -> &str {
+   |                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:107:11
    |
 LL |         { &**x }
-   |           ^^^^ help: try: `x`
+   |           ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:111:5
+   |
+LL |     fn _f2(x: &String) -> &str {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:111:5
+   |
+LL |     fn _f2(x: &String) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:111:5
+   |
+LL |     fn _f2(x: &String) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:111:12
+   |
+LL |     fn _f2(x: &String) -> &str {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:111:15
+   |
+LL |     fn _f2(x: &String) -> &str {
+   |               ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:111:27
+   |
+LL |     fn _f2(x: &String) -> &str {
+   |                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:112:9
    |
 LL |         &**{ x }
-   |         ^^^^^^^^ help: try: `{ x }`
+   |         ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:116:5
+   |
+LL |     fn _f3(x: &Box<Box<Box<i32>>>) -> &Box<i32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:116:5
+   |
+LL |     fn _f3(x: &Box<Box<Box<i32>>>) -> &Box<i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:116:5
+   |
+LL |     fn _f3(x: &Box<Box<Box<i32>>>) -> &Box<i32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:116:12
+   |
+LL |     fn _f3(x: &Box<Box<Box<i32>>>) -> &Box<i32> {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:116:15
+   |
+LL |     fn _f3(x: &Box<Box<Box<i32>>>) -> &Box<i32> {
+   |               ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:116:39
+   |
+LL |     fn _f3(x: &Box<Box<Box<i32>>>) -> &Box<i32> {
+   |                                       ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:117:9
    |
 LL |         &***x
-   |         ^^^^^ help: try: `x`
+   |         ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:121:5
+   |
+LL |     fn _f4(
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:121:5
+   |
+LL |     fn _f4(
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:121:5
+   |
+LL |     fn _f4(
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:122:9
+   |
+LL |         x: String,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:123:9
+   |
+LL |         f1: impl Fn(&str),
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:124:9
+   |
+LL |         f2: &dyn Fn(&str),
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:125:9
+   |
+LL |         f3: fn(&str),
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:126:9
+   |
+LL |         f4: impl CallableStr,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:127:9
+   |
+LL |         f5: <() as CallableStr>::T,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:128:9
+   |
+LL |         f6: <i32 as CallableStr>::T,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:129:9
+   |
+LL |         f7: &dyn CallableStr<T = fn(&str)>,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:130:9
+   |
+LL |         f8: impl CallableT<str>,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:131:9
+   |
+LL |         f9: <() as CallableT<str>>::T,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:132:9
+   |
+LL |         f10: <i32 as CallableT<str>>::T,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:133:9
+   |
+LL |         f11: &dyn CallableT<str, T = fn(&str)>,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:123:21
+   |
+LL |         f1: impl Fn(&str),
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:124:13
+   |
+LL |         f2: &dyn Fn(&str),
+   |             ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:124:21
+   |
+LL |         f2: &dyn Fn(&str),
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:125:16
+   |
+LL |         f3: fn(&str),
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:129:13
+   |
+LL |         f7: &dyn CallableStr<T = fn(&str)>,
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:129:37
+   |
+LL |         f7: &dyn CallableStr<T = fn(&str)>,
+   |                                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:133:14
+   |
+LL |         f11: &dyn CallableT<str, T = fn(&str)>,
+   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:133:41
+   |
+LL |         f11: &dyn CallableT<str, T = fn(&str)>,
+   |                                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:135:12
    |
 LL |         f1(&*x);
-   |            ^^^ help: try: `&x`
+   |            ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:137:12
    |
 LL |         f2(&*x);
-   |            ^^^ help: try: `&x`
+   |            ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:139:12
    |
 LL |         f3(&*x);
-   |            ^^^ help: try: `&x`
+   |            ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:141:27
    |
 LL |         f4.callable_str()(&*x);
-   |                           ^^^ help: try: `&x`
+   |                           ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:143:12
    |
 LL |         f5(&*x);
-   |            ^^^ help: try: `&x`
+   |            ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:145:12
    |
 LL |         f6(&*x);
-   |            ^^^ help: try: `&x`
+   |            ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:147:27
    |
 LL |         f7.callable_str()(&*x);
-   |                           ^^^ help: try: `&x`
+   |                           ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:149:25
    |
 LL |         f8.callable_t()(&*x);
-   |                         ^^^ help: try: `&x`
+   |                         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:151:12
    |
 LL |         f9(&*x);
-   |            ^^^ help: try: `&x`
+   |            ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:153:13
    |
 LL |         f10(&*x);
-   |             ^^^ help: try: `&x`
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:155:26
    |
 LL |         f11.callable_t()(&*x);
-   |                          ^^^ help: try: `&x`
+   |                          ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:159:5
+   |
+LL |     struct S1<'a>(&'a str);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:159:19
+   |
+LL |     struct S1<'a>(&'a str);
+   |                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:160:16
    |
 LL |     let _ = S1(&*s);
-   |                ^^^ help: try: `&s`
+   |                ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:163:5
+   |
+LL |     struct S2<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:164:12
+   |
+LL |         s: &'a str,
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:166:21
    |
 LL |     let _ = S2 { s: &*s };
-   |                     ^^^ help: try: `&s`
+   |                     ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:169:5
+   |
+LL |     struct S3<'a, T: ?Sized>(&'a T);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:169:30
+   |
+LL |     struct S3<'a, T: ?Sized>(&'a T);
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:170:16
+   |
+LL |     let _ = S3(&*s); // Don't lint. Inferred type would change.
+   |                ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:172:5
+   |
+LL |     struct S4<'a, T: ?Sized> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:173:12
+   |
+LL |         s: &'a T,
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:175:21
+   |
+LL |     let _ = S4 { s: &*s }; // Don't lint. Inferred type would change.
+   |                     ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:177:5
+   |
+LL |     enum E1<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:178:12
+   |
+LL |         S1(&'a str),
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:179:17
+   |
+LL |         S2 { s: &'a str },
+   |                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:181:5
+   |
+LL |     impl<'a> E1<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:182:9
+   |
+LL |         fn m1(s: &'a String) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:182:9
+   |
+LL |         fn m1(s: &'a String) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:182:15
+   |
+LL |         fn m1(s: &'a String) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:182:18
+   |
+LL |         fn m1(s: &'a String) {
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:183:30
    |
 LL |             let _ = Self::S1(&**s);
-   |                              ^^^^ help: try: `s`
+   |                              ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:185:35
    |
 LL |             let _ = Self::S2 { s: &**s };
-   |                                   ^^^^ help: try: `s`
+   |                                   ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:189:20
    |
 LL |     let _ = E1::S1(&*s);
-   |                    ^^^ help: try: `&s`
+   |                    ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:191:25
    |
 LL |     let _ = E1::S2 { s: &*s };
-   |                         ^^^ help: try: `&s`
-
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:210:13
+   |                         ^^^
    |
-LL |     let _ = (*b).foo;
-   |             ^^^^ help: try: `b`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:212:13
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:194:5
    |
-LL |     let _ = (**b).foo;
-   |             ^^^^^ help: try: `b`
+LL |     enum E2<'a, T: ?Sized> {
+   |     ^ help: make this item public: `pub`
 
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:228:19
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:195:12
    |
-LL |     let _ = f_str(*ref_str);
-   |                   ^^^^^^^^ help: try: `ref_str`
-
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:231:19
+LL |         S1(&'a T),
+   |            ^^^^^
    |
-LL |     let _ = f_str(**ref_ref_str);
-   |                   ^^^^^^^^^^^^^ help: try: `ref_ref_str`
+   = help: use a raw pointer instead: `*const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:196:17
+   |
+LL |         S2 { s: &'a T },
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:198:20
+   |
+LL |     let _ = E2::S1(&*s); // Don't lint. Inferred type would change.
+   |                    ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:199:25
+   |
+LL |     let _ = E2::S2 { s: &*s }; // Don't lint. Inferred type would change.
+   |                         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:201:9
+   |
+LL |     let ref_s = &s;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:201:17
+   |
+LL |     let ref_s = &s;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:202:12
+   |
+LL |     let _: &String = &*ref_s; // Don't lint reborrow.
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:202:22
+   |
+LL |     let _: &String = &*ref_s; // Don't lint reborrow.
+   |                      ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:203:14
+   |
+LL |     f_string(&*ref_s); // Don't lint reborrow.
+   |              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:205:5
+   |
+LL |     struct S5 {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:208:9
+   |
+LL |     let b = Box::new(Box::new(S5 { foo: 5 }));
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:215:5
+   |
+LL |     struct S6 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:218:5
+   |
+LL |     impl core::ops::Deref for S6 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:220:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:220:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:220:19
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:220:18
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:220:28
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:221:13
+   |
+LL |             &self.foo
+   |             ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:224:9
+   |
+LL |     let s6 = S6 { foo: S5 { foo: 5 } };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:227:9
+   |
+LL |     let ref_str = &"foo";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:227:19
+   |
+LL |     let ref_str = &"foo";
+   |                   ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:230:9
+   |
+LL |     let ref_ref_str = &ref_str;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:230:23
+   |
+LL |     let ref_ref_str = &ref_str;
+   |                       ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:234:5
+   |
+LL |     fn _f5(x: &u32) -> u32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:234:5
+   |
+LL |     fn _f5(x: &u32) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:234:5
+   |
+LL |     fn _f5(x: &u32) -> u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:234:12
+   |
+LL |     fn _f5(x: &u32) -> u32 {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:234:15
+   |
+LL |     fn _f5(x: &u32) -> u32 {
+   |               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:242:11
+   |
+LL |     f_str(&&*ref_str); // `needless_borrow` will suggest removing both references
+   |           ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:242:12
    |
 LL |     f_str(&&*ref_str); // `needless_borrow` will suggest removing both references
-   |            ^^^^^^^^^ help: try: `ref_str`
+   |            ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:245:11
+   |
+LL |     f_str(&&**ref_str); // `needless_borrow` will suggest removing only one reference
+   |           ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:245:12
    |
 LL |     f_str(&&**ref_str); // `needless_borrow` will suggest removing only one reference
-   |            ^^^^^^^^^^ help: try: `ref_str`
+   |            ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:256:41
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:249:9
+   |
+LL |     let x = &&40;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:249:13
+   |
+LL |     let x = &&40;
+   |             ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:249:14
+   |
+LL |     let x = &&40;
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:251:16
+   |
+LL |         var(0, &**x);
+   |                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:254:9
+   |
+LL |     let s = &"str";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:254:13
+   |
+LL |     let s = &"str";
+   |             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:256:19
    |
 LL |     let _ = || -> &'static str { return *s };
-   |                                         ^^ help: try: `s`
+   |                   ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: deref which would be done by auto-deref
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:259:5
+   |
+LL |     struct X;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:260:5
+   |
+LL |     struct Y(X);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:261:5
+   |
+LL |     impl core::ops::Deref for Y {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:263:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:263:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:263:19
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:263:18
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:263:28
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:264:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:267:12
+   |
+LL |     let _: &X = &*{ Y(X) };
+   |            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:267:17
+   |
+LL |     let _: &X = &*{ Y(X) };
+   |                 ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:268:12
+   |
+LL |     let _: &X = &*match 0 {
+   |            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:268:17
+   |
+LL |       let _: &X = &*match 0 {
+   |  _________________^
+LL | |         #[rustfmt::skip]
+LL | |         0 => { Y(X) },
+LL | |         _ => panic!(),
+LL | |     };
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:271:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:271:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:271:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:273:12
+   |
+LL |     let _: &X = &*if true { Y(X) } else { panic!() };
+   |            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:273:17
+   |
+LL |     let _: &X = &*if true { Y(X) } else { panic!() };
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:273:43
+   |
+LL |     let _: &X = &*if true { Y(X) } else { panic!() };
+   |                                           ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:273:43
+   |
+LL |     let _: &X = &*if true { Y(X) } else { panic!() };
+   |                                           ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:273:43
+   |
+LL |     let _: &X = &*if true { Y(X) } else { panic!() };
+   |                                           ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:275:5
+   |
+LL |     fn deref_to_u<U, T: core::ops::Deref<Target = U>>(x: &T) -> &U {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:275:5
+   |
+LL |     fn deref_to_u<U, T: core::ops::Deref<Target = U>>(x: &T) -> &U {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:275:5
+   |
+LL |     fn deref_to_u<U, T: core::ops::Deref<Target = U>>(x: &T) -> &U {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:275:55
+   |
+LL |     fn deref_to_u<U, T: core::ops::Deref<Target = U>>(x: &T) -> &U {
+   |                                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:275:58
+   |
+LL |     fn deref_to_u<U, T: core::ops::Deref<Target = U>>(x: &T) -> &U {
+   |                                                          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:275:65
+   |
+LL |     fn deref_to_u<U, T: core::ops::Deref<Target = U>>(x: &T) -> &U {
+   |                                                                 ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:276:9
    |
 LL |         &**x
-   |         ^^^^ help: try: `x`
-
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:300:8
+   |         ^^^^
    |
-LL |     c1(*x);
-   |        ^^ help: try: `x`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:304:20
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:280:17
    |
-LL |             return *x;
-   |                    ^^ help: try: `x`
-
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:307:9
+LL |     let _ = |x: &'static Box<dyn Iterator<Item = u32>>| -> &'static dyn Iterator<Item = u32> { &**x };
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |         *x
-   |         ^^ help: try: `x`
+   = help: use a raw pointer instead: `*const`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:280:60
+   |
+LL |     let _ = |x: &'static Box<dyn Iterator<Item = u32>>| -> &'static dyn Iterator<Item = u32> { &**x };
+   |                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:280:96
+   |
+LL |     let _ = |x: &'static Box<dyn Iterator<Item = u32>>| -> &'static dyn Iterator<Item = u32> { &**x };
+   |                                                                                                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:281:5
+   |
+LL |     fn ret_any(x: &Box<dyn std::any::Any>) -> &dyn std::any::Any {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:281:5
+   |
+LL |     fn ret_any(x: &Box<dyn std::any::Any>) -> &dyn std::any::Any {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:281:5
+   |
+LL |     fn ret_any(x: &Box<dyn std::any::Any>) -> &dyn std::any::Any {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:281:16
+   |
+LL |     fn ret_any(x: &Box<dyn std::any::Any>) -> &dyn std::any::Any {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:281:19
+   |
+LL |     fn ret_any(x: &Box<dyn std::any::Any>) -> &dyn std::any::Any {
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:281:47
+   |
+LL |     fn ret_any(x: &Box<dyn std::any::Any>) -> &dyn std::any::Any {
+   |                                               ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:282:9
+   |
+LL |         &**x
+   |         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:285:9
+   |
+LL |     let x = String::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:286:25
+   |
+LL |     let _: *const str = &*x;
+   |                         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:288:5
+   |
+LL |     struct S7([u32; 1]);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:289:5
+   |
+LL |     impl core::ops::Deref for S7 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:291:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:291:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:291:19
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:291:18
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:291:28
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:292:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:295:9
+   |
+LL |     let x = S7([0]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:296:12
+   |
+LL |     let _: &[u32] = &*x;
+   |            ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:296:21
+   |
+LL |     let _: &[u32] = &*x;
+   |                     ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:298:9
+   |
+LL |     let c1 = |_: &Vec<&u32>| {};
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:298:18
+   |
+LL |     let c1 = |_: &Vec<&u32>| {};
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:298:23
+   |
+LL |     let c1 = |_: &Vec<&u32>| {};
+   |                       ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:299:9
+   |
+LL |     let x = &&vec![&1u32];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:299:13
+   |
+LL |     let x = &&vec![&1u32];
+   |             ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:299:14
+   |
+LL |     let x = &&vec![&1u32];
+   |              ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:299:20
+   |
+LL |     let x = &&vec![&1u32];
+   |                    ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:302:29
+   |
+LL |     let _ = for<'a, 'b> |x: &'a &'a Vec<&'b u32>, b: bool| -> &'a Vec<&'b u32> {
+   |                             ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:302:33
+   |
+LL |     let _ = for<'a, 'b> |x: &'a &'a Vec<&'b u32>, b: bool| -> &'a Vec<&'b u32> {
+   |                                 ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:302:41
+   |
+LL |     let _ = for<'a, 'b> |x: &'a &'a Vec<&'b u32>, b: bool| -> &'a Vec<&'b u32> {
+   |                                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:302:63
+   |
+LL |     let _ = for<'a, 'b> |x: &'a &'a Vec<&'b u32>, b: bool| -> &'a Vec<&'b u32> {
+   |                                                               ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:302:71
+   |
+LL |     let _ = for<'a, 'b> |x: &'a &'a Vec<&'b u32>, b: bool| -> &'a Vec<&'b u32> {
+   |                                                                       ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:311:5
+   |
+LL | /     trait WithAssoc {
+LL | |         type Assoc: ?Sized;
+LL | |         fn to_assoc(&self) -> &Self::Assoc {
+LL | |             panic!()
+LL | |         }
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:311:5
+   |
+LL |     trait WithAssoc {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:313:9
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:313:9
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:313:22
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:313:21
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:313:31
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |                               ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:314:13
+   |
+LL |             panic!()
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:314:13
+   |
+LL |             panic!()
+   |             ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:314:13
+   |
+LL |             panic!()
+   |             ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:317:5
+   |
+LL |     impl WithAssoc for String {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:320:5
+   |
+LL |     fn takes_assoc<T: WithAssoc>(_: &T::Assoc) -> T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:320:5
+   |
+LL |     fn takes_assoc<T: WithAssoc>(_: &T::Assoc) -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:320:5
+   |
+LL |     fn takes_assoc<T: WithAssoc>(_: &T::Assoc) -> T {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:320:37
+   |
+LL |     fn takes_assoc<T: WithAssoc>(_: &T::Assoc) -> T {
+   |                                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:323:33
+   |
+LL |     let _: String = takes_assoc(&*String::new());
+   |                                 ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:326:5
+   |
+LL |     fn takes_ref(_: &i32) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:326:5
+   |
+LL |     fn takes_ref(_: &i32) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:326:5
+   |
+LL |     fn takes_ref(_: &i32) {}
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:326:21
+   |
+LL |     fn takes_ref(_: &i32) {}
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:327:25
+   |
+LL |     takes_ref(*Box::new(&0i32));
+   |                         ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:330:5
+   |
+LL |     impl<'a> WithAssoc for &'a u32 {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:330:28
+   |
+LL |     impl<'a> WithAssoc for &'a u32 {
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:332:9
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:332:9
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:332:22
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:332:21
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:332:31
+   |
+LL |         fn to_assoc(&self) -> &Self::Assoc {
+   |                               ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:336:5
+   |
+LL |     fn return_dyn_assoc<'a>(x: &'a &'a u32) -> &'a <&'a u32 as WithAssoc>::Assoc {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:336:5
+   |
+LL |     fn return_dyn_assoc<'a>(x: &'a &'a u32) -> &'a <&'a u32 as WithAssoc>::Assoc {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:336:5
+   |
+LL |     fn return_dyn_assoc<'a>(x: &'a &'a u32) -> &'a <&'a u32 as WithAssoc>::Assoc {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:336:29
+   |
+LL |     fn return_dyn_assoc<'a>(x: &'a &'a u32) -> &'a <&'a u32 as WithAssoc>::Assoc {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:336:32
+   |
+LL |     fn return_dyn_assoc<'a>(x: &'a &'a u32) -> &'a <&'a u32 as WithAssoc>::Assoc {
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:336:36
+   |
+LL |     fn return_dyn_assoc<'a>(x: &'a &'a u32) -> &'a <&'a u32 as WithAssoc>::Assoc {
+   |                                    ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:336:48
+   |
+LL |     fn return_dyn_assoc<'a>(x: &'a &'a u32) -> &'a <&'a u32 as WithAssoc>::Assoc {
+   |                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:336:53
+   |
+LL |     fn return_dyn_assoc<'a>(x: &'a &'a u32) -> &'a <&'a u32 as WithAssoc>::Assoc {
+   |                                                     ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:341:12
+   |
+LL |     let _: &mut u32 = match &mut Some(&mut 0u32) {
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:341:29
+   |
+LL |     let _: &mut u32 = match &mut Some(&mut 0u32) {
+   |                             ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:341:39
+   |
+LL |     let _: &mut u32 = match &mut Some(&mut 0u32) {
+   |                                       ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:342:20
    |
 LL |         Some(x) => &mut *x,
-   |                    ^^^^^^^ help: try: `x`
-
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:376:22
+   |                    ^^^^^^^
    |
-LL |         let _ = &mut (*{ x.u }).x;
-   |                      ^^^^^^^^^^ help: try: `{ x.u }`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:383:22
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:344:17
    |
-LL |         let _ = &mut (**x.u).x;
-   |                      ^^^^^^^ help: try: `(*x.u)`
+LL |         None => panic!(),
+   |                 ^^^^^^^^
 
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:385:22
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:344:17
    |
-LL |         let _ = &mut (**{ x.u }).x;
-   |                      ^^^^^^^^^^^ help: try: `{ x.u }`
+LL |         None => panic!(),
+   |                 ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:344:17
+   |
+LL |         None => panic!(),
+   |                 ^^^^^^^^
 
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:390:22
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:349:5
+   |
+LL |     struct Wrap<T>(T);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:348:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:348:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:348:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:348:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:348:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:349:20
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ----- in this derive macro expansion
+LL |     struct Wrap<T>(T);
+   |                    ^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:348:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:350:5
+   |
+LL |     impl<T> core::ops::Deref for Wrap<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:352:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:352:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:352:19
+   |
+LL |         fn deref(&self) -> &T {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:352:18
+   |
+LL |         fn deref(&self) -> &T {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:352:28
+   |
+LL |         fn deref(&self) -> &T {
+   |                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:353:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:356:5
+   |
+LL |     impl<T> core::ops::DerefMut for Wrap<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:357:9
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:357:9
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:357:27
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:357:22
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:357:36
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |                                    ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:358:13
+   |
+LL |             &mut self.0
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:362:5
+   |
+LL |     union U<T: Copy> {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:367:5
+   |
+LL |     struct S8 {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:368:12
+   |
+LL |         x: &'static str,
+   |            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:366:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:366:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:366:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:366:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:366:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:368:12
+   |
+LL |         x: &'static str,
+   |            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:366:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:375:17
    |
 LL |         let _ = &mut (*x.u).x;
-   |                      ^^^^^^ help: try: `x.u`
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: deref which would be done by auto-deref
-  --> tests/ui/explicit_auto_deref.rs:392:22
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:376:17
    |
 LL |         let _ = &mut (*{ x.u }).x;
-   |                      ^^^^^^^^^^ help: try: `{ x.u }`
+   |                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: deref which would be done by auto-deref
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:378:17
+   |
+LL |         let _ = &mut ({ *x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:383:17
+   |
+LL |         let _ = &mut (**x.u).x;
+   |                 ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:385:17
+   |
+LL |         let _ = &mut (**{ x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:387:17
+   |
+LL |         let _ = &mut ({ **x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:390:17
+   |
+LL |         let _ = &mut (*x.u).x;
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:392:17
+   |
+LL |         let _ = &mut (*{ x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:394:17
+   |
+LL |         let _ = &mut ({ *x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:398:1
+   |
+LL | mod issue_12969 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:401:5
+   |
+LL |     struct Wrapper<T>(T);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:403:5
+   |
+LL |     impl<T> Deref for Wrapper<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:406:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:406:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:406:19
+   |
+LL |         fn deref(&self) -> &T {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:406:18
+   |
+LL |         fn deref(&self) -> &T {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:406:28
+   |
+LL |         fn deref(&self) -> &T {
+   |                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:407:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:411:5
+   |
+LL |     fn foo(_bar: &str) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:411:5
+   |
+LL |     fn foo(_bar: &str) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:411:5
+   |
+LL |     fn foo(_bar: &str) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:411:12
+   |
+LL |     fn foo(_bar: &str) {}
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:411:18
+   |
+LL |     fn foo(_bar: &str) {}
+   |                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:413:5
+   |
+LL |     fn bar() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:413:5
+   |
+LL |     fn bar() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:413:5
+   |
+LL |     fn bar() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:414:13
+   |
+LL |         let wrapped_bar = Wrapper("");
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/explicit_auto_deref.rs:416:13
    |
 LL |         foo(&*wrapped_bar);
-   |             ^^^^^^^^^^^^^ help: try: `&wrapped_bar`
+   |             ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 46 previous errors
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:421:1
+   |
+LL | mod issue_9841 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:422:5
+   |
+LL |     fn takes_array_ref<T, const N: usize>(array: &&[T; N]) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:422:5
+   |
+LL |     fn takes_array_ref<T, const N: usize>(array: &&[T; N]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:422:5
+   |
+LL |     fn takes_array_ref<T, const N: usize>(array: &&[T; N]) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:422:43
+   |
+LL |     fn takes_array_ref<T, const N: usize>(array: &&[T; N]) {
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:422:50
+   |
+LL |     fn takes_array_ref<T, const N: usize>(array: &&[T; N]) {
+   |                                                  ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:422:51
+   |
+LL |     fn takes_array_ref<T, const N: usize>(array: &&[T; N]) {
+   |                                                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:426:5
+   |
+LL |     fn takes_array_ref_ref<T, const N: usize>(array: &&&[T; N]) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:426:5
+   |
+LL |     fn takes_array_ref_ref<T, const N: usize>(array: &&&[T; N]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:426:5
+   |
+LL |     fn takes_array_ref_ref<T, const N: usize>(array: &&&[T; N]) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:426:47
+   |
+LL |     fn takes_array_ref_ref<T, const N: usize>(array: &&&[T; N]) {
+   |                                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:426:54
+   |
+LL |     fn takes_array_ref_ref<T, const N: usize>(array: &&&[T; N]) {
+   |                                                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:426:55
+   |
+LL |     fn takes_array_ref_ref<T, const N: usize>(array: &&&[T; N]) {
+   |                                                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:426:56
+   |
+LL |     fn takes_array_ref_ref<T, const N: usize>(array: &&&[T; N]) {
+   |                                                        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_auto_deref.rs:430:5
+   |
+LL |     fn takes_slice<T>(slice: &[T]) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:430:5
+   |
+LL |     fn takes_slice<T>(slice: &[T]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_auto_deref.rs:430:5
+   |
+LL |     fn takes_slice<T>(slice: &[T]) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_auto_deref.rs:430:23
+   |
+LL |     fn takes_slice<T>(slice: &[T]) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_auto_deref.rs:430:30
+   |
+LL |     fn takes_slice<T>(slice: &[T]) {
+   |                              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 367 previous errors
 

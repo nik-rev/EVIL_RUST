@@ -1,71 +1,161 @@
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:20:10
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     b || diverge();
-   |          ^^^^^^^^^
-   |
-   = note: `-D clippy::diverging-sub-expression` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::diverging_sub_expression)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:23:10
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     b || A.foo();
-   |          ^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:34:26
+error: item must be `pub`
+  --> tests/ui/diverging_sub_expression.rs:5:1
    |
-LL |             6 => true || return,
-   |                          ^^^^^^
-
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:37:26
+LL | fn diverge() -> ! {
+   | ^ help: make this item public: `pub`
    |
-LL |             7 => true || continue,
-   |                          ^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:42:26
+error: function must be `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:5:1
    |
-LL |             3 => true || diverge(),
-   |                          ^^^^^^^^^
-
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:47:30
+LL | fn diverge() -> ! {
+   | ^
    |
-LL |                 _ => true || panic!("boo"),
-   |                              ^^^^^^^^^^^^^
-
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:52:29
+help: make this function unsafe: `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:5:1
    |
-LL |             15 => true || { return; },
-   |                             ^^^^^^
+LL | fn diverge() -> ! {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:55:30
+error: item must be `pub`
+  --> tests/ui/diverging_sub_expression.rs:9:1
    |
-LL |             16 => false || { return; },
-   |                              ^^^^^^
+LL | struct A;
+   | ^ help: make this item public: `pub`
 
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:59:29
+error: item must be `pub`
+  --> tests/ui/diverging_sub_expression.rs:11:1
    |
-LL |             17 => true || { return },
-   |                             ^^^^^^
+LL | impl A {
+   | ^ help: make this item public: `pub`
 
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:62:30
+error: function must be `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:12:5
    |
-LL |             18 => false || { return },
-   |                              ^^^^^^
-
-error: sub-expression diverges
-  --> tests/ui/diverging_sub_expression.rs:73:26
+LL |     fn foo(&self) -> ! {
+   |     ^
    |
-LL |             _ => true || break,
-   |                          ^^^^^
+help: make this function unsafe: `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:12:5
+   |
+LL |     fn foo(&self) -> ! {
+   |     ^
 
-error: aborting due to 11 previous errors
+error: parameter must be `mut`
+  --> tests/ui/diverging_sub_expression.rs:12:13
+   |
+LL |     fn foo(&self) -> ! {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/diverging_sub_expression.rs:12:12
+   |
+LL |     fn foo(&self) -> ! {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/diverging_sub_expression.rs:18:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:18:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:18:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/diverging_sub_expression.rs:19:9
+   |
+LL |     let b = true;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/diverging_sub_expression.rs:29:1
+   |
+LL | fn foobar() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:29:1
+   |
+LL | fn foobar() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:29:1
+   |
+LL | fn foobar() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/diverging_sub_expression.rs:31:13
+   |
+LL |         let x = match 5 {
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/diverging_sub_expression.rs:81:1
+   |
+LL | fn ignore_todo() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:81:1
+   |
+LL | fn ignore_todo() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/diverging_sub_expression.rs:81:1
+   |
+LL | fn ignore_todo() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/diverging_sub_expression.rs:82:9
+   |
+LL |     let x: u32 = todo!();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 20 previous errors
 

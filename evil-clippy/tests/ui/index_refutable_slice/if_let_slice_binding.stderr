@@ -1,3 +1,562 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:4:1
+   |
+LL | enum SomeEnum<T> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:11:1
+   |
+LL | fn lintable_examples() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:11:1
+   |
+LL | fn lintable_examples() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:11:1
+   |
+LL | fn lintable_examples() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:13:9
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:13:23
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:13:38
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                                      ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:21:9
+   |
+LL |     let slice: Option<[u32; 3]> = Some([1, 2, 3]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:29:9
+   |
+LL |     let slice: Option<[u32; 9]> = Some([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:38:9
+   |
+LL |     let slice_wrapped: SomeEnum<[u32; 3]> = SomeEnum::One([5, 6, 7]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:46:9
+   |
+LL |     let a_wrapped: SomeEnum<[u32; 3]> = SomeEnum::One([9, 5, 1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:47:9
+   |
+LL |     let b_wrapped: Option<[u32; 2]> = Some([4, 6]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:57:9
+   |
+LL |     let slice: Option<[String; 2]> = Some([String::from("1"), String::from("2")]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:58:17
+   |
+LL |     if let Some(ref slice) = slice {
+   |                 ^^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:67:9
+   |
+LL |     let slice: Option<[String; 2]> = Some([String::from("1"), String::from("2")]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:68:26
+   |
+LL |     if let Some(slice) = &slice {
+   |                          ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:76:1
+   |
+LL | fn slice_index_above_limit() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:76:1
+   |
+LL | fn slice_index_above_limit() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:76:1
+   |
+LL | fn slice_index_above_limit() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:77:9
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:77:23
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:77:38
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                                      ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:85:1
+   |
+LL | fn slice_is_used() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:85:1
+   |
+LL | fn slice_is_used() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:85:1
+   |
+LL | fn slice_is_used() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:86:9
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:86:23
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:86:38
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                                      ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:91:9
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:91:23
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:91:38
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                                      ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:96:9
+   |
+LL |     let opt: Option<[String; 2]> = Some([String::from("Hello"), String::from("world")]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:105:1
+   |
+LL | fn check_slice_as_arg() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:105:1
+   |
+LL | fn check_slice_as_arg() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:105:1
+   |
+LL | fn check_slice_as_arg() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:106:5
+   |
+LL |     fn is_interesting<T>(slice: &[T; 2]) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:106:5
+   |
+LL |     fn is_interesting<T>(slice: &[T; 2]) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:106:5
+   |
+LL |     fn is_interesting<T>(slice: &[T; 2]) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:106:26
+   |
+LL |     fn is_interesting<T>(slice: &[T; 2]) -> bool {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:106:33
+   |
+LL |     fn is_interesting<T>(slice: &[T; 2]) -> bool {
+   |                                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:110:9
+   |
+LL |     let slice_wrapped: Option<[String; 2]> = Some([String::from("Hello"), String::from("world")]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:111:26
+   |
+LL |     if let Some(slice) = &slice_wrapped {
+   |                          ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:119:1
+   |
+LL | fn check_slice_in_struct() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:119:1
+   |
+LL | fn check_slice_in_struct() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:119:1
+   |
+LL | fn check_slice_in_struct() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:121:5
+   |
+LL |     struct Wrapper<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:122:23
+   |
+LL |         inner: Option<&'a [String]>,
+   |                       ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:120:14
+   |
+LL |     #[derive(Debug)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:120:11
+   |
+LL |     #[derive(Debug)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:120:11
+   |
+LL |     #[derive(Debug)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:120:14
+   |
+LL |     #[derive(Debug)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:120:14
+   |
+LL |     #[derive(Debug)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:120:14
+   |
+LL |     #[derive(Debug)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:120:14
+   |
+LL |     #[derive(Debug)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:122:9
+   |
+LL |     #[derive(Debug)]
+   |              ----- in this derive macro expansion
+LL |     struct Wrapper<'a> {
+LL |         inner: Option<&'a [String]>,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:123:9
+   |
+LL |     #[derive(Debug)]
+   |              ----- in this derive macro expansion
+...
+LL |         is_awesome: bool,
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:123:9
+   |
+LL |     #[derive(Debug)]
+   |              ----- in this derive macro expansion
+...
+LL |         is_awesome: bool,
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:126:5
+   |
+LL |     impl<'a> Wrapper<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:127:9
+   |
+LL |         fn is_super_awesome(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:127:9
+   |
+LL |         fn is_super_awesome(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:127:30
+   |
+LL |         fn is_super_awesome(&self) -> bool {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:127:29
+   |
+LL |         fn is_super_awesome(&self) -> bool {
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:132:9
+   |
+LL |     let inner = &[String::from("New"), String::from("World")];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:132:17
+   |
+LL |     let inner = &[String::from("New"), String::from("World")];
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:133:9
+   |
+LL |     let wrap = Wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:161:1
+   |
+LL | fn mutable_slice_index() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:161:1
+   |
+LL | fn mutable_slice_index() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:161:1
+   |
+LL | fn mutable_slice_index() {
+   | ^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:164:17
+   |
+LL |     if let Some(ref mut slice) = slice {
+   |                 ^^^^^^^^^^^^^
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:171:26
+   |
+LL |     if let Some(slice) = &mut slice {
+   |                          ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:179:1
+   |
+LL | fn binding_with_sub_pattern() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:179:1
+   |
+LL | fn binding_with_sub_pattern() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:179:1
+   |
+LL | fn binding_with_sub_pattern() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:180:9
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:180:23
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:180:38
+   |
+LL |     let slice: Option<&[u32]> = Some(&[1, 2, 3]);
+   |                                      ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:186:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:186:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:186:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: this binding can be a slice pattern to avoid indexing
   --> tests/ui/index_refutable_slice/if_let_slice_binding.rs:14:17
    |
@@ -148,5 +707,5 @@ LL |         if wrap.is_super_awesome() {
 LL ~             println!("This is super awesome! {}", slice_0);
    |
 
-error: aborting due to 10 previous errors
+error: aborting due to 82 previous errors
 

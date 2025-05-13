@@ -1,85 +1,196 @@
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_path_debug_formatting.rs:30:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("{:?}", os_str);
-   |                      ^^^^^^
-   |
-   = help: use `Display` formatting and change this to `os_str.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
-   = note: `-D clippy::unnecessary-debug-formatting` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_debug_formatting)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_path_debug_formatting.rs:31:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("{:?}", os_string);
-   |                      ^^^^^^^^^
-   |
-   = help: use `Display` formatting and change this to `os_string.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_path_debug_formatting.rs:33:22
+error: item must be `pub`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:8:1
    |
-LL |     println!("{:?}", path);
-   |                      ^^^^
+LL | struct DerefPath<'a> {
+   | ^ help: make this item public: `pub`
    |
-   = help: use `Display` formatting and change this to `path.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_path_debug_formatting.rs:34:22
+error: references are not allowed
+  --> tests/ui/unnecessary_path_debug_formatting.rs:9:11
    |
-LL |     println!("{:?}", path_buf);
-   |                      ^^^^^^^^
+LL |     path: &'a Path,
+   |           ^^^^^^^^
    |
-   = help: use `Display` formatting and change this to `path_buf.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_path_debug_formatting.rs:36:16
+error: item must be `pub`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:12:1
    |
-LL |     println!("{path:?}");
-   |                ^^^^
-   |
-   = help: use `Display` formatting and change this to `path.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+LL | impl Deref for DerefPath<'_> {
+   | ^ help: make this item public: `pub`
 
-error: unnecessary `Debug` formatting in `println!` args
-  --> tests/ui/unnecessary_path_debug_formatting.rs:37:16
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:14:5
    |
-LL |     println!("{path_buf:?}");
-   |                ^^^^^^^^
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
    |
-   = help: use `Display` formatting and change this to `path_buf.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:14:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: unnecessary `Debug` formatting in `format!` args
-  --> tests/ui/unnecessary_path_debug_formatting.rs:39:37
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:14:15
    |
-LL |     let _: String = format!("{:?}", path);
-   |                                     ^^^^
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
    |
-   = help: use `Display` formatting and change this to `path.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: unnecessary `Debug` formatting in `format!` args
-  --> tests/ui/unnecessary_path_debug_formatting.rs:40:37
+error: references are not allowed
+  --> tests/ui/unnecessary_path_debug_formatting.rs:14:14
    |
-LL |     let _: String = format!("{:?}", path_buf);
-   |                                     ^^^^^^^^
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
    |
-   = help: use `Display` formatting and change this to `path_buf.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+   = help: use a raw pointer instead: `*const`
 
-error: unnecessary `Debug` formatting in `println!` args
+error: references are not allowed
+  --> tests/ui/unnecessary_path_debug_formatting.rs:14:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:19:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:19:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:19:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:20:9
+   |
+LL |     let path = Path::new("/a/b/c");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:21:9
+   |
+LL |     let path_buf = path.to_path_buf();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:22:9
+   |
+LL |     let os_str = OsStr::new("abc");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:23:9
+   |
+LL |     let os_string = os_str.to_os_string();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:42:9
+   |
+LL |     let deref_path = DerefPath { path };
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/unnecessary_path_debug_formatting.rs:43:22
    |
 LL |     println!("{:?}", &*deref_path);
    |                      ^^^^^^^^^^^^
    |
-   = help: use `Display` formatting and change this to `&*deref_path.display()`
-   = note: switching to `Display` formatting will change how the value is shown; escaped characters will no longer be escaped and surrounding quotes will be removed
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 9 previous errors
+error: item must be `pub`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:47:1
+   |
+LL | #[test]
+   | ------- in this procedural macro expansion
+LL | fn issue_14345() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:47:1
+   |
+LL | fn issue_14345() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:47:1
+   |
+LL | fn issue_14345() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:47:1
+   |
+LL | fn issue_14345() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_path_debug_formatting.rs:48:9
+   |
+LL |     let input = std::path::Path::new("/foo/bar");
+   |         ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+   |
+   = help: make this function unsafe: `unsafe`
+
+error: references are not allowed
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_path_debug_formatting.rs:47:1
+   |
+LL |   #[test]
+   |   ------- in this procedural macro expansion
+LL | / fn issue_14345() {
+LL | |     let input = std::path::Path::new("/foo/bar");
+LL | |     assert!(input.ends_with("baz"), "{input:?}");
+LL | | }
+   | |_^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 26 previous errors
 

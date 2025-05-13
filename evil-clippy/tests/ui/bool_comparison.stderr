@@ -1,155 +1,349 @@
-error: equality checks against true are unnecessary
-  --> tests/ui/bool_comparison.rs:7:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if x == true {
-   |        ^^^^^^^^^ help: try simplifying it as shown: `x`
-   |
-   = note: `-D clippy::bool-comparison` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::bool_comparison)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: equality checks against false can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:13:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if x == false {
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `!x`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: equality checks against true are unnecessary
-  --> tests/ui/bool_comparison.rs:19:8
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:5:1
    |
-LL |     if true == x {
-   |        ^^^^^^^^^ help: try simplifying it as shown: `x`
-
-error: equality checks against false can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:25:8
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     if false == x {
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `!x`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: inequality checks against true can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:31:8
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:5:1
    |
-LL |     if x != true {
-   |        ^^^^^^^^^ help: try simplifying it as shown: `!x`
-
-error: inequality checks against false are unnecessary
-  --> tests/ui/bool_comparison.rs:37:8
+LL | fn main() {
+   | ^
    |
-LL |     if x != false {
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `x`
-
-error: inequality checks against true can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:43:8
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:5:1
    |
-LL |     if true != x {
-   |        ^^^^^^^^^ help: try simplifying it as shown: `!x`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: inequality checks against false are unnecessary
-  --> tests/ui/bool_comparison.rs:49:8
+error: variable must be `mut`
+  --> tests/ui/bool_comparison.rs:6:9
    |
-LL |     if false != x {
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `x`
-
-error: less than comparison against true can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:55:8
+LL |     let x = true;
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     if x < true {
-   |        ^^^^^^^^ help: try simplifying it as shown: `!x`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: greater than checks against false are unnecessary
-  --> tests/ui/bool_comparison.rs:61:8
+error: variable must be `mut`
+  --> tests/ui/bool_comparison.rs:79:9
    |
-LL |     if false < x {
-   |        ^^^^^^^^^ help: try simplifying it as shown: `x`
+LL |     let y = true;
+   |         ^ help: make this variable mutable: `mut`
 
-error: greater than checks against false are unnecessary
-  --> tests/ui/bool_comparison.rs:67:8
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:95:1
    |
-LL |     if x > false {
-   |        ^^^^^^^^^ help: try simplifying it as shown: `x`
+LL | fn issue3703() {
+   | ^ help: make this item public: `pub`
 
-error: less than comparison against true can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:73:8
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:95:1
    |
-LL |     if true > x {
-   |        ^^^^^^^^ help: try simplifying it as shown: `!x`
-
-error: order comparisons between booleans can be simplified
-  --> tests/ui/bool_comparison.rs:80:8
+LL | fn issue3703() {
+   | ^
    |
-LL |     if x < y {
-   |        ^^^^^ help: try simplifying it as shown: `!x & y`
-
-error: order comparisons between booleans can be simplified
-  --> tests/ui/bool_comparison.rs:86:8
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:95:1
    |
-LL |     if x > y {
-   |        ^^^^^ help: try simplifying it as shown: `x & !y`
+LL | fn issue3703() {
+   | ^
 
-error: this comparison might be written more concisely
-  --> tests/ui/bool_comparison.rs:135:8
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:96:5
    |
-LL |     if a == !b {};
-   |        ^^^^^^^ help: try simplifying it as shown: `a != b`
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
 
-error: this comparison might be written more concisely
-  --> tests/ui/bool_comparison.rs:137:8
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:97:5
    |
-LL |     if !a == b {};
-   |        ^^^^^^^ help: try simplifying it as shown: `a != b`
+LL |     impl PartialEq<bool> for Foo {
+   |     ^ help: make this item public: `pub`
 
-error: this comparison might be written more concisely
-  --> tests/ui/bool_comparison.rs:142:8
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:98:9
    |
-LL |     if b == !a {};
-   |        ^^^^^^^ help: try simplifying it as shown: `b != a`
-
-error: this comparison might be written more concisely
-  --> tests/ui/bool_comparison.rs:144:8
+LL |         fn eq(&self, _: &bool) -> bool {
+   |         ^
    |
-LL |     if !b == a {};
-   |        ^^^^^^^ help: try simplifying it as shown: `b != a`
-
-error: equality checks against false can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:169:8
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:98:9
    |
-LL |     if false == m!(func) {}
-   |        ^^^^^^^^^^^^^^^^^ help: try simplifying it as shown: `!m!(func)`
+LL |         fn eq(&self, _: &bool) -> bool {
+   |         ^
 
-error: equality checks against false can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:171:8
+error: parameter must be `mut`
+  --> tests/ui/bool_comparison.rs:98:16
    |
-LL |     if m!(func) == false {}
-   |        ^^^^^^^^^^^^^^^^^ help: try simplifying it as shown: `!m!(func)`
+LL |         fn eq(&self, _: &bool) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
 
-error: equality checks against true are unnecessary
-  --> tests/ui/bool_comparison.rs:173:8
+error: references are not allowed
+  --> tests/ui/bool_comparison.rs:98:15
    |
-LL |     if true == m!(func) {}
-   |        ^^^^^^^^^^^^^^^^ help: try simplifying it as shown: `m!(func)`
-
-error: equality checks against true are unnecessary
-  --> tests/ui/bool_comparison.rs:175:8
+LL |         fn eq(&self, _: &bool) -> bool {
+   |               ^^^^^
    |
-LL |     if m!(func) == true {}
-   |        ^^^^^^^^^^^^^^^^ help: try simplifying it as shown: `m!(func)`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: equality checks against false can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:193:14
+error: references are not allowed
+  --> tests/ui/bool_comparison.rs:98:25
    |
-LL |     let _ = ((1 < 2) == false) as usize;
-   |              ^^^^^^^^^^^^^^^^ help: try simplifying it as shown: `1 >= 2`
-
-error: equality checks against false can be replaced by a negation
-  --> tests/ui/bool_comparison.rs:195:14
+LL |         fn eq(&self, _: &bool) -> bool {
+   |                         ^^^^^
    |
-LL |     let _ = (false == m!(func)) as usize;
-   |              ^^^^^^^^^^^^^^^^^ help: try simplifying it as shown: `!m!(func)`
+   = help: use a raw pointer instead: `*const`
 
-error: this comparison might be written more concisely
-  --> tests/ui/bool_comparison.rs:199:14
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:102:5
    |
-LL |     let _ = ((1 < 2) == !m!(func)) as usize;
-   |              ^^^^^^^^^^^^^^^^^^^^ help: try simplifying it as shown: `(1 < 2) != m!(func)`
+LL |     impl PartialEq<Foo> for bool {
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 25 previous errors
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:103:9
+   |
+LL |         fn eq(&self, _: &Foo) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:103:9
+   |
+LL |         fn eq(&self, _: &Foo) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/bool_comparison.rs:103:16
+   |
+LL |         fn eq(&self, _: &Foo) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/bool_comparison.rs:103:15
+   |
+LL |         fn eq(&self, _: &Foo) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/bool_comparison.rs:103:25
+   |
+LL |         fn eq(&self, _: &Foo) -> bool {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:107:5
+   |
+LL |     impl PartialOrd<bool> for Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:108:9
+   |
+LL |         fn partial_cmp(&self, _: &bool) -> Option<std::cmp::Ordering> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:108:9
+   |
+LL |         fn partial_cmp(&self, _: &bool) -> Option<std::cmp::Ordering> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/bool_comparison.rs:108:25
+   |
+LL |         fn partial_cmp(&self, _: &bool) -> Option<std::cmp::Ordering> {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/bool_comparison.rs:108:24
+   |
+LL |         fn partial_cmp(&self, _: &bool) -> Option<std::cmp::Ordering> {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/bool_comparison.rs:108:34
+   |
+LL |         fn partial_cmp(&self, _: &bool) -> Option<std::cmp::Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:112:5
+   |
+LL |     impl PartialOrd<Foo> for bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:113:9
+   |
+LL |         fn partial_cmp(&self, _: &Foo) -> Option<std::cmp::Ordering> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:113:9
+   |
+LL |         fn partial_cmp(&self, _: &Foo) -> Option<std::cmp::Ordering> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/bool_comparison.rs:113:25
+   |
+LL |         fn partial_cmp(&self, _: &Foo) -> Option<std::cmp::Ordering> {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/bool_comparison.rs:113:24
+   |
+LL |         fn partial_cmp(&self, _: &Foo) -> Option<std::cmp::Ordering> {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/bool_comparison.rs:113:34
+   |
+LL |         fn partial_cmp(&self, _: &Foo) -> Option<std::cmp::Ordering> {
+   |                                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:131:1
+   |
+LL | fn issue4983() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:131:1
+   |
+LL | fn issue4983() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:131:1
+   |
+LL | fn issue4983() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/bool_comparison.rs:132:9
+   |
+LL |     let a = true;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/bool_comparison.rs:133:9
+   |
+LL |     let b = false;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:150:1
+   |
+LL | macro_rules! m {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:156:1
+   |
+LL | fn func() -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:156:1
+   |
+LL | fn func() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:156:1
+   |
+LL | fn func() -> bool {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:161:1
+   |
+LL | fn issue3973() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:161:1
+   |
+LL | fn issue3973() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:161:1
+   |
+LL | fn issue3973() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/bool_comparison.rs:179:9
+   |
+LL |     let is_debug = false;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/bool_comparison.rs:184:9
+   |
+LL |     let is_debug = true;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/bool_comparison.rs:192:1
+   |
+LL | fn issue9907() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bool_comparison.rs:192:1
+   |
+LL | fn issue9907() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bool_comparison.rs:192:1
+   |
+LL | fn issue9907() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 44 previous errors
 

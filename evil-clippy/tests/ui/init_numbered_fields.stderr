@@ -1,35 +1,104 @@
-error: used a field initializer for a tuple struct
-  --> tests/ui/init_numbered_fields.rs:17:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = TupleStruct {
-   |  _____________^
-LL | |
-LL | |         0: 1u32,
-LL | |         1: 42,
-LL | |         2: 23u8,
-LL | |     };
-   | |_____^ help: use tuple initialization: `TupleStruct(1u32, 42, 23u8)`
-   |
-   = note: `-D clippy::init-numbered-fields` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::init_numbered_fields)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: used a field initializer for a tuple struct
-  --> tests/ui/init_numbered_fields.rs:25:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = TupleStruct {
-   |  _____________^
-LL | |
-LL | |         0: 1u32,
-LL | |         2: 2u8,
-LL | |         1: 3u32,
-LL | |     };
-   | |_____^ help: use tuple initialization: `TupleStruct(1u32, 3u32, 2u8)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: used a field initializer for a tuple struct
-  --> tests/ui/init_numbered_fields.rs:51:13
+error: item must be `pub`
+  --> tests/ui/init_numbered_fields.rs:4:1
    |
-LL |     let _ = TupleStructVec { 0: vec![0, 1, 2, 3] };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use tuple initialization: `TupleStructVec(vec![0, 1, 2, 3])`
+LL | struct TupleStruct(u32, u32, u8);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/init_numbered_fields.rs:3:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/init_numbered_fields.rs:3:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/init_numbered_fields.rs:3:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/init_numbered_fields.rs:7:1
+   |
+LL | macro_rules! tuple_struct_init {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/init_numbered_fields.rs:13:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/init_numbered_fields.rs:13:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/init_numbered_fields.rs:13:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/init_numbered_fields.rs:14:9
+   |
+LL |     let tuple_struct = TupleStruct::default();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/init_numbered_fields.rs:43:5
+   |
+LL |     type Alias = TupleStruct;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/init_numbered_fields.rs:49:5
+   |
+LL |     struct TupleStructVec(Vec<usize>);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/init_numbered_fields.rs:55:9
+   |
+LL |         struct S(i32, i32);
+   |         ^ help: make this item public: `pub`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 14 previous errors
 

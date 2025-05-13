@@ -1,19 +1,133 @@
-error: called `Iterator::last` on a `DoubleEndedIterator`; this will needlessly iterate the entire iterator
-  --> tests/ui/double_ended_iterator_last_unfixable.rs:23:36
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("Last element is {}", v.0.last().unwrap().0);
-   |                                    ^^^^------
-   |                                        |
-   |                                        help: try: `next_back()`
-   |
-   = note: this change will alter drop order which may be undesirable
-note: this must be made mutable to use `.next_back()`
-  --> tests/ui/double_ended_iterator_last_unfixable.rs:23:36
-   |
-LL |     println!("Last element is {}", v.0.last().unwrap().0);
-   |                                    ^^^
-   = note: `-D clippy::double-ended-iterator-last` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::double_ended_iterator_last)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:6:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:8:9
+   |
+LL |     let subindex = (index.by_ref().take(3), 42);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:13:1
+   |
+LL | fn drop_order() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:13:1
+   |
+LL | fn drop_order() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:13:1
+   |
+LL | fn drop_order() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:14:5
+   |
+LL |     struct S(&'static str);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:14:14
+   |
+LL |     struct S(&'static str);
+   |              ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:15:5
+   |
+LL |     impl std::ops::Drop for S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:16:9
+   |
+LL |         fn drop(&mut self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:16:9
+   |
+LL |         fn drop(&mut self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:16:22
+   |
+LL |         fn drop(&mut self) {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:16:17
+   |
+LL |         fn drop(&mut self) {
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:21:9
+   |
+LL |     let v = vec![S("one"), S("two"), S("three")];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/double_ended_iterator_last_unfixable.rs:22:9
+   |
+LL |     let v = (v.into_iter(), 42);
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

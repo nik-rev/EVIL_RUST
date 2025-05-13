@@ -1,64 +1,103 @@
-error: creating a `Box` from a void raw pointer
-  --> tests/ui/from_raw_with_void_ptr.rs:11:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = unsafe { Box::from_raw(ptr) };
-   |                      ^^^^^^^^^^^^^^^^^^
-   |
-help: cast this to a pointer of the appropriate type
-  --> tests/ui/from_raw_with_void_ptr.rs:11:36
-   |
-LL |     let _ = unsafe { Box::from_raw(ptr) };
-   |                                    ^^^
-   = note: `-D clippy::from-raw-with-void-ptr` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::from_raw_with_void_ptr)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: creating a `Rc` from a void raw pointer
-  --> tests/ui/from_raw_with_void_ptr.rs:23:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = unsafe { Rc::from_raw(ptr) };
-   |                      ^^^^^^^^^^^^^^^^^
-   |
-help: cast this to a pointer of the appropriate type
-  --> tests/ui/from_raw_with_void_ptr.rs:23:35
-   |
-LL |     let _ = unsafe { Rc::from_raw(ptr) };
-   |                                   ^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: creating a `Arc` from a void raw pointer
-  --> tests/ui/from_raw_with_void_ptr.rs:28:22
+error: item must be `pub`
+  --> tests/ui/from_raw_with_void_ptr.rs:8:1
    |
-LL |     let _ = unsafe { Arc::from_raw(ptr) };
-   |                      ^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: cast this to a pointer of the appropriate type
-  --> tests/ui/from_raw_with_void_ptr.rs:28:36
-   |
-LL |     let _ = unsafe { Arc::from_raw(ptr) };
-   |                                    ^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: creating a `Weak` from a void raw pointer
-  --> tests/ui/from_raw_with_void_ptr.rs:33:22
+error: function must be `unsafe`
+  --> tests/ui/from_raw_with_void_ptr.rs:8:1
    |
-LL |     let _ = unsafe { std::rc::Weak::from_raw(ptr) };
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: cast this to a pointer of the appropriate type
-  --> tests/ui/from_raw_with_void_ptr.rs:33:46
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_raw_with_void_ptr.rs:8:1
    |
-LL |     let _ = unsafe { std::rc::Weak::from_raw(ptr) };
-   |                                              ^^^
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: creating a `Weak` from a void raw pointer
-  --> tests/ui/from_raw_with_void_ptr.rs:38:22
+error: variable must be `mut`
+  --> tests/ui/from_raw_with_void_ptr.rs:10:9
    |
-LL |     let _ = unsafe { std::sync::Weak::from_raw(ptr) };
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     let ptr = Box::into_raw(Box::new(42usize)) as *mut c_void;
+   |         ^ help: make this variable mutable: `mut`
    |
-help: cast this to a pointer of the appropriate type
-  --> tests/ui/from_raw_with_void_ptr.rs:38:48
-   |
-LL |     let _ = unsafe { std::sync::Weak::from_raw(ptr) };
-   |                                                ^^^
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 5 previous errors
+error: variable must be `mut`
+  --> tests/ui/from_raw_with_void_ptr.rs:18:9
+   |
+LL |     let should_not_lint_ptr = Box::into_raw(Box::new(12u8)) as *mut u8;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/from_raw_with_void_ptr.rs:22:9
+   |
+LL |     let ptr = Rc::into_raw(Rc::new(42usize)) as *mut c_void;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/from_raw_with_void_ptr.rs:27:9
+   |
+LL |     let ptr = Arc::into_raw(Arc::new(42usize)) as *mut c_void;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/from_raw_with_void_ptr.rs:32:9
+   |
+LL |     let ptr = std::rc::Weak::into_raw(Rc::downgrade(&Rc::new(42usize))) as *mut c_void;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/from_raw_with_void_ptr.rs:32:53
+   |
+LL |     let ptr = std::rc::Weak::into_raw(Rc::downgrade(&Rc::new(42usize))) as *mut c_void;
+   |                                                     ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/from_raw_with_void_ptr.rs:37:9
+   |
+LL |     let ptr = std::sync::Weak::into_raw(Arc::downgrade(&Arc::new(42usize))) as *mut c_void;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/from_raw_with_void_ptr.rs:37:56
+   |
+LL |     let ptr = std::sync::Weak::into_raw(Arc::downgrade(&Arc::new(42usize))) as *mut c_void;
+   |                                                        ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 14 previous errors
 

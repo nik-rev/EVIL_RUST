@@ -1,113 +1,673 @@
-error: constants have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:8:17
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:6:1
+   |
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:5:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_static_lifetimes.rs:5:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_static_lifetimes.rs:5:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:5:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:5:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:5:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:5:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:8:1
    |
 LL | const VAR_ONE: &'static str = "Test constant #1"; // ERROR: Consider removing 'static.
-   |                -^^^^^^^---- help: consider removing `'static`: `&str`
-   |
-   = note: `-D clippy::redundant-static-lifetimes` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_static_lifetimes)]`
+   | ^ help: make this item public: `pub`
 
-error: constants have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:13:21
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:8:16
+   |
+LL | const VAR_ONE: &'static str = "Test constant #1"; // ERROR: Consider removing 'static.
+   |                ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:11:1
+   |
+LL | const VAR_TWO: &str = "Test constant #2"; // This line should not raise a warning.
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:11:16
+   |
+LL | const VAR_TWO: &str = "Test constant #2"; // This line should not raise a warning.
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:13:1
    |
 LL | const VAR_THREE: &[&'static str] = &["one", "two"]; // ERROR: Consider removing 'static
-   |                    -^^^^^^^---- help: consider removing `'static`: `&str`
+   | ^ help: make this item public: `pub`
 
-error: constants have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:16:32
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:13:18
+   |
+LL | const VAR_THREE: &[&'static str] = &["one", "two"]; // ERROR: Consider removing 'static
+   |                  ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:13:20
+   |
+LL | const VAR_THREE: &[&'static str] = &["one", "two"]; // ERROR: Consider removing 'static
+   |                    ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:13:36
+   |
+LL | const VAR_THREE: &[&'static str] = &["one", "two"]; // ERROR: Consider removing 'static
+   |                                    ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:16:1
    |
 LL | const VAR_FOUR: (&str, (&str, &'static str), &'static str) = ("on", ("th", "th"), "on"); // ERROR: Consider removing 'static
-   |                               -^^^^^^^---- help: consider removing `'static`: `&str`
+   | ^ help: make this item public: `pub`
 
-error: constants have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:16:47
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:16:18
    |
 LL | const VAR_FOUR: (&str, (&str, &'static str), &'static str) = ("on", ("th", "th"), "on"); // ERROR: Consider removing 'static
-   |                                              -^^^^^^^---- help: consider removing `'static`: `&str`
+   |                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: constants have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:20:17
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:16:25
+   |
+LL | const VAR_FOUR: (&str, (&str, &'static str), &'static str) = ("on", ("th", "th"), "on"); // ERROR: Consider removing 'static
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:16:31
+   |
+LL | const VAR_FOUR: (&str, (&str, &'static str), &'static str) = ("on", ("th", "th"), "on"); // ERROR: Consider removing 'static
+   |                               ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:16:46
+   |
+LL | const VAR_FOUR: (&str, (&str, &'static str), &'static str) = ("on", ("th", "th"), "on"); // ERROR: Consider removing 'static
+   |                                              ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:20:1
    |
 LL | const VAR_SIX: &'static u8 = &5;
-   |                -^^^^^^^--- help: consider removing `'static`: `&u8`
+   | ^ help: make this item public: `pub`
 
-error: constants have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:23:20
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:20:16
+   |
+LL | const VAR_SIX: &'static u8 = &5;
+   |                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:20:30
+   |
+LL | const VAR_SIX: &'static u8 = &5;
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:23:1
    |
 LL | const VAR_HEIGHT: &'static Foo = &Foo {};
-   |                   -^^^^^^^---- help: consider removing `'static`: `&Foo`
+   | ^ help: make this item public: `pub`
 
-error: constants have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:26:19
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:23:19
+   |
+LL | const VAR_HEIGHT: &'static Foo = &Foo {};
+   |                   ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:23:34
+   |
+LL | const VAR_HEIGHT: &'static Foo = &Foo {};
+   |                                  ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:26:1
    |
 LL | const VAR_SLICE: &'static [u8] = b"Test constant #1"; // ERROR: Consider removing 'static.
-   |                  -^^^^^^^----- help: consider removing `'static`: `&[u8]`
+   | ^ help: make this item public: `pub`
 
-error: constants have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:29:19
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:26:18
+   |
+LL | const VAR_SLICE: &'static [u8] = b"Test constant #1"; // ERROR: Consider removing 'static.
+   |                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:29:1
    |
 LL | const VAR_TUPLE: &'static (u8, u8) = &(1, 2); // ERROR: Consider removing 'static.
-   |                  -^^^^^^^--------- help: consider removing `'static`: `&(u8, u8)`
+   | ^ help: make this item public: `pub`
 
-error: constants have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:32:19
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:29:18
+   |
+LL | const VAR_TUPLE: &'static (u8, u8) = &(1, 2); // ERROR: Consider removing 'static.
+   |                  ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:29:38
+   |
+LL | const VAR_TUPLE: &'static (u8, u8) = &(1, 2); // ERROR: Consider removing 'static.
+   |                                      ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:32:1
    |
 LL | const VAR_ARRAY: &'static [u8; 1] = b"T"; // ERROR: Consider removing 'static.
-   |                  -^^^^^^^-------- help: consider removing `'static`: `&[u8; 1]`
+   | ^ help: make this item public: `pub`
 
-error: statics have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:35:25
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:32:18
+   |
+LL | const VAR_ARRAY: &'static [u8; 1] = b"T"; // ERROR: Consider removing 'static.
+   |                  ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:35:8
    |
 LL | static STATIC_VAR_ONE: &'static str = "Test static #1"; // ERROR: Consider removing 'static.
-   |                        -^^^^^^^---- help: consider removing `'static`: `&str`
+   |        ^ help: make this static mutable: `mut`
 
-error: statics have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:40:29
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:35:1
+   |
+LL | static STATIC_VAR_ONE: &'static str = "Test static #1"; // ERROR: Consider removing 'static.
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:35:24
+   |
+LL | static STATIC_VAR_ONE: &'static str = "Test static #1"; // ERROR: Consider removing 'static.
+   |                        ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:38:8
+   |
+LL | static STATIC_VAR_TWO: &str = "Test static #2"; // This line should not raise a warning.
+   |        ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:38:1
+   |
+LL | static STATIC_VAR_TWO: &str = "Test static #2"; // This line should not raise a warning.
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:38:24
+   |
+LL | static STATIC_VAR_TWO: &str = "Test static #2"; // This line should not raise a warning.
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:40:8
    |
 LL | static STATIC_VAR_THREE: &[&'static str] = &["one", "two"]; // ERROR: Consider removing 'static
-   |                            -^^^^^^^---- help: consider removing `'static`: `&str`
+   |        ^ help: make this static mutable: `mut`
 
-error: statics have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:43:25
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:40:1
+   |
+LL | static STATIC_VAR_THREE: &[&'static str] = &["one", "two"]; // ERROR: Consider removing 'static
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:40:26
+   |
+LL | static STATIC_VAR_THREE: &[&'static str] = &["one", "two"]; // ERROR: Consider removing 'static
+   |                          ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:40:28
+   |
+LL | static STATIC_VAR_THREE: &[&'static str] = &["one", "two"]; // ERROR: Consider removing 'static
+   |                            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:40:44
+   |
+LL | static STATIC_VAR_THREE: &[&'static str] = &["one", "two"]; // ERROR: Consider removing 'static
+   |                                            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:43:8
    |
 LL | static STATIC_VAR_SIX: &'static u8 = &5;
-   |                        -^^^^^^^--- help: consider removing `'static`: `&u8`
+   |        ^ help: make this static mutable: `mut`
 
-error: statics have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:46:28
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:43:1
+   |
+LL | static STATIC_VAR_SIX: &'static u8 = &5;
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:43:24
+   |
+LL | static STATIC_VAR_SIX: &'static u8 = &5;
+   |                        ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:43:38
+   |
+LL | static STATIC_VAR_SIX: &'static u8 = &5;
+   |                                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:46:8
    |
 LL | static STATIC_VAR_HEIGHT: &'static Foo = &Foo {};
-   |                           -^^^^^^^---- help: consider removing `'static`: `&Foo`
+   |        ^ help: make this static mutable: `mut`
 
-error: statics have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:49:27
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:46:1
+   |
+LL | static STATIC_VAR_HEIGHT: &'static Foo = &Foo {};
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:46:27
+   |
+LL | static STATIC_VAR_HEIGHT: &'static Foo = &Foo {};
+   |                           ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:46:42
+   |
+LL | static STATIC_VAR_HEIGHT: &'static Foo = &Foo {};
+   |                                          ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:49:8
    |
 LL | static STATIC_VAR_SLICE: &'static [u8] = b"Test static #3"; // ERROR: Consider removing 'static.
-   |                          -^^^^^^^----- help: consider removing `'static`: `&[u8]`
+   |        ^ help: make this static mutable: `mut`
 
-error: statics have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:52:27
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:49:1
+   |
+LL | static STATIC_VAR_SLICE: &'static [u8] = b"Test static #3"; // ERROR: Consider removing 'static.
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:49:26
+   |
+LL | static STATIC_VAR_SLICE: &'static [u8] = b"Test static #3"; // ERROR: Consider removing 'static.
+   |                          ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:52:8
    |
 LL | static STATIC_VAR_TUPLE: &'static (u8, u8) = &(1, 2); // ERROR: Consider removing 'static.
-   |                          -^^^^^^^--------- help: consider removing `'static`: `&(u8, u8)`
+   |        ^ help: make this static mutable: `mut`
 
-error: statics have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:55:27
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:52:1
+   |
+LL | static STATIC_VAR_TUPLE: &'static (u8, u8) = &(1, 2); // ERROR: Consider removing 'static.
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:52:26
+   |
+LL | static STATIC_VAR_TUPLE: &'static (u8, u8) = &(1, 2); // ERROR: Consider removing 'static.
+   |                          ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:52:46
+   |
+LL | static STATIC_VAR_TUPLE: &'static (u8, u8) = &(1, 2); // ERROR: Consider removing 'static.
+   |                                              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:55:8
    |
 LL | static STATIC_VAR_ARRAY: &'static [u8; 1] = b"T"; // ERROR: Consider removing 'static.
-   |                          -^^^^^^^-------- help: consider removing `'static`: `&[u8; 1]`
+   |        ^ help: make this static mutable: `mut`
 
-error: statics have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:58:31
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:55:1
+   |
+LL | static STATIC_VAR_ARRAY: &'static [u8; 1] = b"T"; // ERROR: Consider removing 'static.
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:55:26
+   |
+LL | static STATIC_VAR_ARRAY: &'static [u8; 1] = b"T"; // ERROR: Consider removing 'static.
+   |                          ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:58:1
    |
 LL | static mut STATIC_MUT_SLICE: &'static mut [u32] = &mut [0];
-   |                              -^^^^^^^---------- help: consider removing `'static`: `&mut [u32]`
+   | ^ help: make this item public: `pub`
 
-error: statics have by default a `'static` lifetime
-  --> tests/ui/redundant_static_lifetimes.rs:88:16
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:58:30
+   |
+LL | static mut STATIC_MUT_SLICE: &'static mut [u32] = &mut [0];
+   |                              ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:58:51
+   |
+LL | static mut STATIC_MUT_SLICE: &'static mut [u32] = &mut [0];
+   |                                                   ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:61:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_static_lifetimes.rs:61:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_static_lifetimes.rs:61:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:62:9
+   |
+LL |     let false_positive: &'static str = "test";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:62:25
+   |
+LL |     let false_positive: &'static str = "test";
+   |                         ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/redundant_static_lifetimes.rs:69:1
+   |
+LL | / trait Bar {
+LL | |     const TRAIT_VAR: &'static str;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:69:1
+   |
+LL | trait Bar {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:70:22
+   |
+LL |     const TRAIT_VAR: &'static str;
+   |                      ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:73:1
+   |
+LL | impl Foo {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:74:21
+   |
+LL |     const IMPL_VAR: &'static str = "var";
+   |                     ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:77:1
+   |
+LL | impl Bar for Foo {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:78:22
+   |
+LL |     const TRAIT_VAR: &'static str = "foo";
+   |                      ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:82:1
+   |
+LL | fn msrv_1_16() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_static_lifetimes.rs:82:1
+   |
+LL | fn msrv_1_16() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_static_lifetimes.rs:82:1
+   |
+LL | fn msrv_1_16() {
+   | ^
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:83:12
+   |
+LL |     static V: &'static u8 = &16;
+   |            ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:83:5
+   |
+LL |     static V: &'static u8 = &16;
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:83:15
+   |
+LL |     static V: &'static u8 = &16;
+   |               ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:83:29
+   |
+LL |     static V: &'static u8 = &16;
+   |                             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:87:1
+   |
+LL | fn msrv_1_17() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_static_lifetimes.rs:87:1
+   |
+LL | fn msrv_1_17() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_static_lifetimes.rs:87:1
+   |
+LL | fn msrv_1_17() {
+   | ^
+
+error: static must be `mut`
+  --> tests/ui/redundant_static_lifetimes.rs:88:12
    |
 LL |     static V: &'static u8 = &17;
-   |               -^^^^^^^--- help: consider removing `'static`: `&u8`
+   |            ^ help: make this static mutable: `mut`
 
-error: aborting due to 18 previous errors
+error: item must be `pub`
+  --> tests/ui/redundant_static_lifetimes.rs:88:5
+   |
+LL |     static V: &'static u8 = &17;
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:88:15
+   |
+LL |     static V: &'static u8 = &17;
+   |               ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_static_lifetimes.rs:88:29
+   |
+LL |     static V: &'static u8 = &17;
+   |                             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 92 previous errors
 

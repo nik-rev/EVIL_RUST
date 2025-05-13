@@ -1,123 +1,690 @@
-error: this pattern creates a reference to a reference
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:6:1
+   |
+LL | fn f1(_: &str) {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:6:1
+   |
+LL | fn f1(_: &str) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:6:1
+   |
+LL | fn f1(_: &str) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:6:10
+   |
+LL | fn f1(_: &str) {}
+   |          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:7:1
+   |
+LL | macro_rules! m1 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:12:1
+   |
+LL | macro_rules! m3 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:17:1
+   |
+LL | macro_rules! if_chain {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:36:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:36:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:36:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:37:9
+   |
+LL |     let x = String::new();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:40:12
+   |
+LL |     let _: &String = match Some(x.clone()) {
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrow_pat.rs:41:14
+   |
+LL |         Some(ref x) => x,
+   |              ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:46:12
+   |
+LL |     let _: &&mut String = match Some(&mut x.clone()) {
+   |            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:46:13
+   |
+LL |     let _: &&mut String = match Some(&mut x.clone()) {
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:46:38
+   |
+LL |     let _: &&mut String = match Some(&mut x.clone()) {
+   |                                      ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrow_pat.rs:47:14
+   |
+LL |         Some(ref x) => x,
+   |              ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:52:12
+   |
+LL |     let _: &String = match Some(&x) {
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:52:33
+   |
+LL |     let _: &String = match Some(&x) {
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:58:12
+   |
+LL |     let _: &String = match Some(&x) {
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:58:33
+   |
+LL |     let _: &String = match Some(&x) {
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:59:14
    |
 LL |         Some(ref x) => x,
-   |              ^^^^^ help: try: `x`
-   |
-   = note: `-D clippy::needless-borrow` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_borrow)]`
+   |              ^^^^^
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:65:12
+   |
+LL |     let _: &String = match Some(&x) {
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:65:33
+   |
+LL |     let _: &String = match Some(&x) {
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:66:14
    |
 LL |         Some(ref x) => *x,
    |              ^^^^^
-   |
-help: try
-   |
-LL -         Some(ref x) => *x,
-LL +         Some(x) => x,
-   |
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:72:12
+   |
+LL |     let _: &String = match Some(&x) {
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:72:33
+   |
+LL |     let _: &String = match Some(&x) {
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:73:14
    |
 LL |         Some(ref x) => {
    |              ^^^^^
-   |
-help: try
-   |
-LL ~         Some(x) => {
-LL |
-LL |
-LL |             f1(x);
-LL ~             f1(x);
-   |
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:84:16
+   |
+LL |     match Some(&x) {
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:85:14
    |
 LL |         Some(ref x) => m1!(x),
-   |              ^^^^^ help: try: `x`
+   |              ^^^^^
 
-error: this pattern creates a reference to a reference
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:91:15
    |
 LL |     let _ = |&ref x: &&String| {
-   |               ^^^^^ help: try: `x`
+   |               ^^^^^
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:91:22
+   |
+LL |     let _ = |&ref x: &&String| {
+   |                      ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:91:23
+   |
+LL |     let _ = |&ref x: &&String| {
+   |                       ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:94:16
+   |
+LL |         let _: &String = x;
+   |                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:98:14
+   |
+LL |     let (ref y,) = (&x,);
+   |              ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:98:10
    |
 LL |     let (ref y,) = (&x,);
    |          ^^^^^
-   |
-help: try
-   |
-LL ~     let (y,) = (&x,);
-LL |
-LL |
-LL ~     let _: &String = y;
-   |
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:98:21
+   |
+LL |     let (ref y,) = (&x,);
+   |                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:101:12
+   |
+LL |     let _: &String = *y;
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:103:9
+   |
+LL |     let y = &&x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:103:13
+   |
+LL |     let y = &&x;
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:103:14
+   |
+LL |     let y = &&x;
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:105:12
+   |
+LL |     let _: &String = *y;
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:107:9
+   |
+LL |     let x = (0, 0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:109:29
+   |
+LL |     let _: u32 = match Some(&x) {
+   |                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:110:14
    |
 LL |         Some(ref x) => x.0,
-   |              ^^^^^ help: try: `x`
+   |              ^^^^^
 
-error: this pattern creates a reference to a reference
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:115:5
+   |
+LL |     enum E {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:116:11
+   |
+LL |         A(&'static u32),
+   |           ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:117:11
+   |
+LL |         B(&'static u32),
+   |           ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:120:12
+   |
+LL |     let _: &u32 = match E::A(&0) {
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:120:30
+   |
+LL |     let _: &u32 = match E::A(&0) {
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:121:14
    |
 LL |         E::A(ref x) | E::B(ref x) => *x,
-   |              ^^^^^         ^^^^^
-   |
-help: try
-   |
-LL -         E::A(ref x) | E::B(ref x) => *x,
-LL +         E::A(x) | E::B(x) => x,
-   |
+   |              ^^^^^
 
-error: this pattern creates a reference to a reference
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrow_pat.rs:121:28
+   |
+LL |         E::A(ref x) | E::B(ref x) => *x,
+   |                            ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:128:21
    |
 LL |         if let Some(ref x) = Some(&String::new());
-   |                     ^^^^^ help: try: `x`
+   |                     ^^^^^
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:128:35
+   |
+LL |         if let Some(ref x) = Some(&String::new());
+   |                                   ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:138:1
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:138:1
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:138:1
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:138:16
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:138:12
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:138:12
    |
 LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
    |            ^^^^^
-   |
-help: try
-   |
-LL ~ fn f2<'a>(&x: &&'a String) -> &'a String {
-LL |
-LL |
-LL |     let _: &String = x;
-LL ~     x
-   |
 
-error: this pattern creates a reference to a reference
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:138:19
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:138:20
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |                    ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:138:35
+   |
+LL | fn f2<'a>(&ref x: &&'a String) -> &'a String {
+   |                                   ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:141:12
+   |
+LL |     let _: &String = x;
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:145:1
+   |
+LL | / trait T1 {
+LL | |     // Err, reference to a &String
+LL | |     fn f(&ref x: &&String) {
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:145:1
+   |
+LL | trait T1 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:147:5
+   |
+LL |     fn f(&ref x: &&String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:147:5
+   |
+LL |     fn f(&ref x: &&String) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:147:15
+   |
+LL |     fn f(&ref x: &&String) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/needless_borrow_pat.rs:147:11
    |
 LL |     fn f(&ref x: &&String) {
-   |           ^^^^^ help: try: `x`
+   |           ^ help: make this parameter mutable: `mut`
 
-error: this pattern creates a reference to a reference
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_borrow_pat.rs:147:11
+   |
+LL |     fn f(&ref x: &&String) {
+   |           ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:147:18
+   |
+LL |     fn f(&ref x: &&String) {
+   |                  ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:147:19
+   |
+LL |     fn f(&ref x: &&String) {
+   |                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:150:16
+   |
+LL |         let _: &String = x;
+   |                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:154:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:155:1
+   |
+LL | impl T1 for S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:157:5
+   |
+LL |     fn f(&ref x: &&String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:157:5
+   |
+LL |     fn f(&ref x: &&String) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:157:15
+   |
+LL |     fn f(&ref x: &&String) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:157:11
+   |
+LL |     fn f(&ref x: &&String) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
   --> tests/ui/needless_borrow_pat.rs:157:11
    |
 LL |     fn f(&ref x: &&String) {
    |           ^^^^^
-   |
-help: try
-   |
-LL ~     fn f(&x: &&String) {
-LL |
-LL |
-LL ~         let _: &String = x;
-   |
 
-error: aborting due to 12 previous errors
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:157:18
+   |
+LL |     fn f(&ref x: &&String) {
+   |                  ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:157:19
+   |
+LL |     fn f(&ref x: &&String) {
+   |                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:160:16
+   |
+LL |         let _: &String = *x;
+   |                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:167:1
+   |
+LL | enum Foo<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:168:9
+   |
+LL |     Str(&'a str),
+   |         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow_pat.rs:166:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:166:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow_pat.rs:166:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:166:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow_pat.rs:166:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:166:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:166:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow_pat.rs:168:9
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | enum Foo<'a> {
+LL |     Str(&'a str),
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 92 previous errors
 

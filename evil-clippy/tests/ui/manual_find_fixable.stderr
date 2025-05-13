@@ -1,143 +1,755 @@
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:10:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for &v in ARRAY {
-LL | |
-LL | |         if v == n {
-LL | |             return Some(v);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `ARRAY.iter().find(|&&v| v == n).copied()`
-   |
-   = note: `-D clippy::manual-find` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_find)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:20:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for (a, _) in arr {
-LL | |
-LL | |         if a % 2 == 0 {
-LL | |             return Some(a);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `arr.into_iter().map(|(a, _)| a).find(|&a| a % 2 == 0)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:34:5
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:7:1
    |
-LL | /     for el in arr {
-LL | |
-LL | |         if el.name.len() == 10 {
-LL | |             return Some(el);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `arr.into_iter().find(|el| el.name.len() == 10)`
+LL | const ARRAY: &[u32; 5] = &[2, 7, 1, 9, 3];
+   | ^ help: make this item public: `pub`
    |
-   = note: you may need to dereference some variables
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:45:5
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:7:14
    |
-LL | /     for Tuple(a, _) in arr {
-LL | |
-LL | |         if a >= 3 {
-LL | |             return Some(a);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `arr.into_iter().map(|Tuple(a, _)| a).find(|&a| a >= 3)`
+LL | const ARRAY: &[u32; 5] = &[2, 7, 1, 9, 3];
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:61:5
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:7:26
    |
-LL | /     for el in arr {
-LL | |
-LL | |         if el.should_keep() {
-LL | |             return Some(el);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `arr.into_iter().find(|el| el.should_keep())`
+LL | const ARRAY: &[u32; 5] = &[2, 7, 1, 9, 3];
+   |                          ^^^^^^^^^^^^^^^^
    |
-   = note: you may need to dereference some variables
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:72:5
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:9:1
    |
-LL | /     for el in arr {
-LL | |
-LL | |         if f(el) == 20 {
-LL | |             return Some(el);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `arr.into_iter().find(|&el| f(el) == 20)`
+LL | fn lookup(n: u32) -> Option<u32> {
+   | ^ help: make this item public: `pub`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:83:5
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:9:1
    |
-LL | /     for &el in arr.values() {
-LL | |
-LL | |         if f(el) {
-LL | |             return Some(el);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `arr.values().find(|&&el| f(el)).copied()`
+LL | fn lookup(n: u32) -> Option<u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:9:1
+   |
+LL | fn lookup(n: u32) -> Option<u32> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:93:5
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:9:11
    |
-LL | /     for el in arr {
-LL | |
-LL | |         if el.is_true {
-LL | |             return Some(el);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `arr.into_iter().find(|el| el.is_true)`
+LL | fn lookup(n: u32) -> Option<u32> {
+   |           ^ help: make this parameter mutable: `mut`
    |
-   = note: you may need to dereference some variables
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:124:5
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:19:1
    |
-LL | /     for (_, &x) in v {
-LL | |
-LL | |         if x > 10 {
-LL | |             return Some(x);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `v.into_iter().map(|(_, &x)| x).find(|&x| x > 10)`
+LL | fn with_pat(arr: Vec<(u32, u32)>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:134:5
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:19:1
    |
-LL | /     for &(_, &x) in v {
-LL | |
-LL | |         if x > 10 {
-LL | |             return Some(x);
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `v.iter().map(|&(_, &x)| x).find(|&x| x > 10)`
-
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:144:5
+LL | fn with_pat(arr: Vec<(u32, u32)>) -> Option<u32> {
+   | ^
    |
-LL | /     for x in arr {
-LL | |
-LL | |         if x >= 5 {
-LL | |             return Some(x);
-...  |
-LL | |     return None;
-   | |________________^ help: replace with an iterator: `arr.into_iter().find(|&x| x >= 5)`
-
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find_fixable.rs:200:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:19:1
    |
-LL | /         for x in arr {
-LL | |
-LL | |             if x < 1 {
-LL | |                 return Some(x);
-...  |
-LL | |         None
-   | |____________^ help: replace with an iterator: `arr.into_iter().find(|&x| x < 1)`
+LL | fn with_pat(arr: Vec<(u32, u32)>) -> Option<u32> {
+   | ^
 
-error: aborting due to 12 previous errors
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:19:13
+   |
+LL | fn with_pat(arr: Vec<(u32, u32)>) -> Option<u32> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:29:1
+   |
+LL | struct Data {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:33:1
+   |
+LL | fn with_struct(arr: Vec<Data>) -> Option<Data> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:33:1
+   |
+LL | fn with_struct(arr: Vec<Data>) -> Option<Data> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:33:1
+   |
+LL | fn with_struct(arr: Vec<Data>) -> Option<Data> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:33:16
+   |
+LL | fn with_struct(arr: Vec<Data>) -> Option<Data> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:43:1
+   |
+LL | struct Tuple(usize, usize);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:44:1
+   |
+LL | fn with_tuple_struct(arr: Vec<Tuple>) -> Option<usize> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:44:1
+   |
+LL | fn with_tuple_struct(arr: Vec<Tuple>) -> Option<usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:44:1
+   |
+LL | fn with_tuple_struct(arr: Vec<Tuple>) -> Option<usize> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:44:22
+   |
+LL | fn with_tuple_struct(arr: Vec<Tuple>) -> Option<usize> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:54:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:55:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:56:5
+   |
+LL |     fn should_keep(&self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:56:5
+   |
+LL |     fn should_keep(&self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:56:21
+   |
+LL |     fn should_keep(&self) -> bool {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:56:20
+   |
+LL |     fn should_keep(&self) -> bool {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:60:1
+   |
+LL | fn with_method_call(arr: Vec<A>) -> Option<A> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:60:1
+   |
+LL | fn with_method_call(arr: Vec<A>) -> Option<A> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:60:1
+   |
+LL | fn with_method_call(arr: Vec<A>) -> Option<A> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:60:21
+   |
+LL | fn with_method_call(arr: Vec<A>) -> Option<A> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:70:1
+   |
+LL | fn with_closure(arr: Vec<u32>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:70:1
+   |
+LL | fn with_closure(arr: Vec<u32>) -> Option<u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:70:1
+   |
+LL | fn with_closure(arr: Vec<u32>) -> Option<u32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:70:17
+   |
+LL | fn with_closure(arr: Vec<u32>) -> Option<u32> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_find_fixable.rs:71:9
+   |
+LL |     let f = |el: u32| -> u32 { el + 10 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:81:1
+   |
+LL | fn with_closure2(arr: HashMap<String, i32>) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:81:1
+   |
+LL | fn with_closure2(arr: HashMap<String, i32>) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:81:1
+   |
+LL | fn with_closure2(arr: HashMap<String, i32>) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:81:18
+   |
+LL | fn with_closure2(arr: HashMap<String, i32>) -> Option<i32> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_find_fixable.rs:82:9
+   |
+LL |     let f = |el: i32| -> bool { el == 10 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:92:1
+   |
+LL | fn with_bool(arr: Vec<Data>) -> Option<Data> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:92:1
+   |
+LL | fn with_bool(arr: Vec<Data>) -> Option<Data> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:92:1
+   |
+LL | fn with_bool(arr: Vec<Data>) -> Option<Data> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:92:14
+   |
+LL | fn with_bool(arr: Vec<Data>) -> Option<Data> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:102:1
+   |
+LL | fn with_side_effects(arr: Vec<u32>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:102:1
+   |
+LL | fn with_side_effects(arr: Vec<u32>) -> Option<u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:102:1
+   |
+LL | fn with_side_effects(arr: Vec<u32>) -> Option<u32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:102:22
+   |
+LL | fn with_side_effects(arr: Vec<u32>) -> Option<u32> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:112:1
+   |
+LL | fn with_else(arr: Vec<u32>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:112:1
+   |
+LL | fn with_else(arr: Vec<u32>) -> Option<u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:112:1
+   |
+LL | fn with_else(arr: Vec<u32>) -> Option<u32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:112:14
+   |
+LL | fn with_else(arr: Vec<u32>) -> Option<u32> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:123:1
+   |
+LL | fn tuple_with_ref(v: [(u8, &u8); 3]) -> Option<u8> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:123:1
+   |
+LL | fn tuple_with_ref(v: [(u8, &u8); 3]) -> Option<u8> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:123:1
+   |
+LL | fn tuple_with_ref(v: [(u8, &u8); 3]) -> Option<u8> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:123:19
+   |
+LL | fn tuple_with_ref(v: [(u8, &u8); 3]) -> Option<u8> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:123:28
+   |
+LL | fn tuple_with_ref(v: [(u8, &u8); 3]) -> Option<u8> {
+   |                            ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:133:1
+   |
+LL | fn ref_to_tuple_with_ref(v: &[(u8, &u8)]) -> Option<u8> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:133:1
+   |
+LL | fn ref_to_tuple_with_ref(v: &[(u8, &u8)]) -> Option<u8> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:133:1
+   |
+LL | fn ref_to_tuple_with_ref(v: &[(u8, &u8)]) -> Option<u8> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:133:26
+   |
+LL | fn ref_to_tuple_with_ref(v: &[(u8, &u8)]) -> Option<u8> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:133:29
+   |
+LL | fn ref_to_tuple_with_ref(v: &[(u8, &u8)]) -> Option<u8> {
+   |                             ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:133:36
+   |
+LL | fn ref_to_tuple_with_ref(v: &[(u8, &u8)]) -> Option<u8> {
+   |                                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:143:1
+   |
+LL | fn explicit_ret(arr: Vec<i32>) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:143:1
+   |
+LL | fn explicit_ret(arr: Vec<i32>) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:143:1
+   |
+LL | fn explicit_ret(arr: Vec<i32>) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:143:17
+   |
+LL | fn explicit_ret(arr: Vec<i32>) -> Option<i32> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:153:1
+   |
+LL | fn plus_one(a: i32) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:153:1
+   |
+LL | fn plus_one(a: i32) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:153:1
+   |
+LL | fn plus_one(a: i32) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:153:13
+   |
+LL | fn plus_one(a: i32) -> Option<i32> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:156:1
+   |
+LL | fn fn_instead_of_some(a: &[i32]) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:156:1
+   |
+LL | fn fn_instead_of_some(a: &[i32]) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:156:1
+   |
+LL | fn fn_instead_of_some(a: &[i32]) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:156:23
+   |
+LL | fn fn_instead_of_some(a: &[i32]) -> Option<i32> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:156:26
+   |
+LL | fn fn_instead_of_some(a: &[i32]) -> Option<i32> {
+   |                          ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:165:1
+   |
+LL | fn for_in_condition(a: &[i32], b: bool) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:165:1
+   |
+LL | fn for_in_condition(a: &[i32], b: bool) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:165:1
+   |
+LL | fn for_in_condition(a: &[i32], b: bool) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:165:21
+   |
+LL | fn for_in_condition(a: &[i32], b: bool) -> Option<i32> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:165:32
+   |
+LL | fn for_in_condition(a: &[i32], b: bool) -> Option<i32> {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:165:24
+   |
+LL | fn for_in_condition(a: &[i32], b: bool) -> Option<i32> {
+   |                        ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:176:1
+   |
+LL | fn intermediate_statements(a: &[i32]) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:176:1
+   |
+LL | fn intermediate_statements(a: &[i32]) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:176:1
+   |
+LL | fn intermediate_statements(a: &[i32]) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:176:28
+   |
+LL | fn intermediate_statements(a: &[i32]) -> Option<i32> {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:176:31
+   |
+LL | fn intermediate_statements(a: &[i32]) -> Option<i32> {
+   |                               ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:188:1
+   |
+LL | fn mixed_binding_modes(arr: Vec<(i32, String)>) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:188:1
+   |
+LL | fn mixed_binding_modes(arr: Vec<(i32, String)>) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:188:1
+   |
+LL | fn mixed_binding_modes(arr: Vec<(i32, String)>) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:188:24
+   |
+LL | fn mixed_binding_modes(arr: Vec<(i32, String)>) -> Option<i32> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:197:1
+   |
+LL | fn as_closure() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:197:1
+   |
+LL | fn as_closure() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:197:1
+   |
+LL | fn as_closure() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_find_fixable.rs:199:9
+   |
+LL |     let f = |arr: Vec<i32>| -> Option<i32> {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:210:1
+   |
+LL | fn in_block(a: &[i32]) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:210:1
+   |
+LL | fn in_block(a: &[i32]) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:210:1
+   |
+LL | fn in_block(a: &[i32]) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:210:13
+   |
+LL | fn in_block(a: &[i32]) -> Option<i32> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_find_fixable.rs:210:16
+   |
+LL | fn in_block(a: &[i32]) -> Option<i32> {
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_find_fixable.rs:211:9
+   |
+LL |     let should_be_none = {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:226:1
+   |
+LL | fn mut_binding(v: Vec<String>) -> Option<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:226:1
+   |
+LL | fn mut_binding(v: Vec<String>) -> Option<String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:226:1
+   |
+LL | fn mut_binding(v: Vec<String>) -> Option<String> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:226:16
+   |
+LL | fn mut_binding(v: Vec<String>) -> Option<String> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:235:1
+   |
+LL | fn subpattern(v: Vec<[u32; 32]>) -> Option<[u32; 32]> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:235:1
+   |
+LL | fn subpattern(v: Vec<[u32; 32]>) -> Option<[u32; 32]> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:235:1
+   |
+LL | fn subpattern(v: Vec<[u32; 32]>) -> Option<[u32; 32]> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:235:15
+   |
+LL | fn subpattern(v: Vec<[u32; 32]>) -> Option<[u32; 32]> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:244:1
+   |
+LL | fn two_bindings(v: Vec<(u8, u8)>) -> Option<u8> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:244:1
+   |
+LL | fn two_bindings(v: Vec<(u8, u8)>) -> Option<u8> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:244:1
+   |
+LL | fn two_bindings(v: Vec<(u8, u8)>) -> Option<u8> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find_fixable.rs:244:17
+   |
+LL | fn two_bindings(v: Vec<(u8, u8)>) -> Option<u8> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_fixable.rs:253:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_fixable.rs:253:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_fixable.rs:253:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 96 previous errors
 

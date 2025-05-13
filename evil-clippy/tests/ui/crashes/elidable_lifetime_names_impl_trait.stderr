@@ -1,3 +1,124 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:4:1
+   |
+LL | trait Foo {}
+   | ^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:4:1
+   |
+LL | trait Foo {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:6:1
+   |
+LL | struct Bar;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:8:1
+   |
+LL | struct Baz<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:9:10
+   |
+LL |     bar: &'a Bar,
+   |          ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:12:1
+   |
+LL | impl<'a> Foo for Baz<'a> {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:15:1
+   |
+LL | impl Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:16:5
+   |
+LL |     fn baz<'a>(&'a self) -> impl Foo + 'a {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:16:5
+   |
+LL |     fn baz<'a>(&'a self) -> impl Foo + 'a {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:16:20
+   |
+LL |     fn baz<'a>(&'a self) -> impl Foo + 'a {
+   |                    ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:16:16
+   |
+LL |     fn baz<'a>(&'a self) -> impl Foo + 'a {
+   |                ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:23:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:23:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:23:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: the following explicit lifetimes could be elided: 'a
   --> tests/ui/crashes/elidable_lifetime_names_impl_trait.rs:12:6
    |
@@ -27,5 +148,5 @@ LL -     fn baz<'a>(&'a self) -> impl Foo + 'a {
 LL +     fn baz(&self) -> impl Foo + '_ {
    |
 
-error: aborting due to 2 previous errors
+error: aborting due to 18 previous errors
 

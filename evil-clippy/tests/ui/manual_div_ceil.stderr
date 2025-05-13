@@ -1,129 +1,181 @@
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:25:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (x + (y - 1)) / y;
-   |             ^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `x.div_ceil(y)`
-   |
-   = note: `-D clippy::manual-div-ceil` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_div_ceil)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:27:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = ((y - 1) + x) / y;
-   |             ^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `x.div_ceil(y)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:29:13
+error: item must be `pub`
+  --> tests/ui/manual_div_ceil.rs:3:1
    |
-LL |     let _ = (x + y - 1) / y;
-   |             ^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `x.div_ceil(y)`
+LL | macro_rules! y {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:32:13
+error: item must be `pub`
+  --> tests/ui/manual_div_ceil.rs:13:1
    |
-LL |     let _ = (7_u32 + (4 - 1)) / 4;
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `7_u32.div_ceil(4)`
+LL | macro_rules! eight {
+   | ^ help: make this item public: `pub`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:34:13
+error: item must be `pub`
+  --> tests/ui/manual_div_ceil.rs:19:1
    |
-LL |     let _ = (7_i32 as u32 + (4 - 1)) / 4;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `(7_i32 as u32).div_ceil(4)`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:6:17
+error: function must be `unsafe`
+  --> tests/ui/manual_div_ceil.rs:19:1
    |
-LL |         let _ = (x + 7) / 8;
-   |                 ^^^^^^^^^^^ help: consider using `.div_ceil()`: `x.div_ceil(8)`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_div_ceil.rs:19:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:20:9
+   |
+LL |     let x = 7_u32;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:21:9
+   |
+LL |     let y = 4_u32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:22:9
+   |
+LL |     let z = 11_u32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:43:9
+   |
+LL |     let x_i = 7_i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:44:9
+   |
+LL |     let y_i = 4_i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:45:9
+   |
+LL |     let z_i = 11_i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:5:13
+   |
+LL |         let x = 33u32;
+   |             ^ help: make this variable mutable: `mut`
 ...
 LL |     y!();
    |     ---- in this macro invocation
    |
    = note: this error originates in the macro `y` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:8:17
+error: item must be `pub`
+  --> tests/ui/manual_div_ceil.rs:60:1
    |
-LL |         let _ = (7 + x) / 8;
-   |                 ^^^^^^^^^^^ help: consider using `.div_ceil()`: `x.div_ceil(8)`
-...
-LL |     y!();
-   |     ---- in this macro invocation
-   |
-   = note: this error originates in the macro `y` (in Nightly builds, run with -Z macro-backtrace for more info)
+LL | fn issue_13843() {
+   | ^ help: make this item public: `pub`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:56:13
+error: function must be `unsafe`
+  --> tests/ui/manual_div_ceil.rs:60:1
    |
-LL |     let _ = (33u32 + 7) / eight!();
-   |             ^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `33u32.div_ceil(eight!())`
-
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:62:13
+LL | fn issue_13843() {
+   | ^
    |
-LL |     let _ = (2048 + x - 1) / x;
-   |             ^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `2048_usize.div_ceil(x)`
-
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:66:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_div_ceil.rs:60:1
    |
-LL |     let _ = (2048usize + x - 1) / x;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `2048usize.div_ceil(x)`
+LL | fn issue_13843() {
+   | ^
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:70:13
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:61:9
    |
-LL |     let _ = (2048_usize + x - 1) / x;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `2048_usize.div_ceil(x)`
+LL |     let x = 3usize;
+   |         ^ help: make this variable mutable: `mut`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:74:13
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:65:9
    |
-LL |     let _ = (x + 4 - 1) / 4;
-   |             ^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `x.div_ceil(4)`
+LL |     let x = 5usize;
+   |         ^ help: make this variable mutable: `mut`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:77:18
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:69:9
    |
-LL |     let _: u32 = (2048 + 6 - 1) / 6;
-   |                  ^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `2048_u32.div_ceil(6)`
+LL |     let x = 5usize;
+   |         ^ help: make this variable mutable: `mut`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:79:20
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:73:9
    |
-LL |     let _: usize = (2048 + 6 - 1) / 6;
-   |                    ^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `2048_usize.div_ceil(6)`
+LL |     let x = 2048usize;
+   |         ^ help: make this variable mutable: `mut`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:81:18
+error: item must be `pub`
+  --> tests/ui/manual_div_ceil.rs:91:1
    |
-LL |     let _: u32 = (0x2048 + 0x6 - 1) / 0x6;
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `0x2048_u32.div_ceil(0x6)`
+LL | fn issue_13950() {
+   | ^ help: make this item public: `pub`
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:84:13
+error: function must be `unsafe`
+  --> tests/ui/manual_div_ceil.rs:91:1
    |
-LL |     let _ = (2048 + 6u32 - 1) / 6u32;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `2048_u32.div_ceil(6u32)`
-
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:87:13
+LL | fn issue_13950() {
+   | ^
    |
-LL |     let _ = (1_000_000 + 6u32 - 1) / 6u32;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.div_ceil()`: `1_000_000_u32.div_ceil(6u32)`
-
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:93:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_div_ceil.rs:91:1
    |
-LL |     let _ = (x + 7) / 8;
-   |             ^^^^^^^^^^^ help: consider using `.div_ceil()`: `x.div_ceil(8)`
+LL | fn issue_13950() {
+   | ^
 
-error: manually reimplementing `div_ceil`
-  --> tests/ui/manual_div_ceil.rs:95:13
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:92:9
    |
-LL |     let _ = (7 + x) / 8;
-   |             ^^^^^^^^^^^ help: consider using `.div_ceil()`: `x.div_ceil(8)`
+LL |     let x = 33u32;
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 19 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_div_ceil.rs:98:9
+   |
+LL |     let y = -33i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 25 previous errors
 

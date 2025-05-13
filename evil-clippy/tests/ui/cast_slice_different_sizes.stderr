@@ -1,140 +1,359 @@
-error: casting between raw pointers to `[i32]` (element size 4) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:10:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:5:9
+   |
+LL |     let x: [i32; 3] = [1_i32, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:6:9
+   |
+LL |     let r_x = &x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cast_slice_different_sizes.rs:6:15
+   |
+LL |     let r_x = &x;
+   |               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:9:9
+   |
+LL |     let a = r_x as *const [i32];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:10:9
    |
 LL |     let b = a as *const [u8];
-   |             ^^^^^^^^^^^^^^^^ help: replace with `ptr::slice_from_raw_parts`: `core::ptr::slice_from_raw_parts(a as *const u8, ..)`
-   |
-   = note: `#[deny(clippy::cast_slice_different_sizes)]` on by default
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting between raw pointers to `[u8]` (element size 1) and `[u32]` (element size 4) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:13:13
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:13:9
    |
 LL |     let c = b as *const [u32];
-   |             ^^^^^^^^^^^^^^^^^ help: replace with `ptr::slice_from_raw_parts`: `core::ptr::slice_from_raw_parts(b as *const u32, ..)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting between raw pointers to `[i32]` (element size 4) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:17:16
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:17:9
    |
 LL |     let loss = r_x as *const [i32] as *const [u8];
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `ptr::slice_from_raw_parts`: `core::ptr::slice_from_raw_parts(r_x as *const [i32] as *const u8, ..)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting between raw pointers to `[i32]` (element size 4) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:25:24
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:22:9
+   |
+LL |     let restore = r_x as *const [i32] as *const [u8] as *const [u32];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:25:9
    |
 LL |     let loss_block_1 = { r_x as *const [i32] } as *const [u8];
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `ptr::slice_from_raw_parts`: `core::ptr::slice_from_raw_parts({ r_x as *const [i32] } as *const u8, ..)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting between raw pointers to `[i32]` (element size 4) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:28:24
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:28:9
    |
-LL |       let loss_block_2 = {
-   |  ________________________^
-LL | |
-LL | |
-LL | |         let _ = ();
-LL | |         r_x as *const [i32]
-LL | |     } as *const [u8];
-   | |____________________^
-   |
-help: replace with `ptr::slice_from_raw_parts`
-   |
-LL ~     let loss_block_2 = core::ptr::slice_from_raw_parts({
-LL +
-LL + 
-LL +         let _ = ();
-LL +         r_x as *const [i32]
-LL ~     } as *const u8, ..);
-   |
+LL |     let loss_block_2 = {
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting between raw pointers to `[i32]` (element size 4) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:47:27
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:36:9
+   |
+LL |     let restore_block_1 = { r_x as *const [i32] } as *const [u8] as *const [u32];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:37:9
+   |
+LL |     let restore_block_2 = { ({ r_x as *const [i32] }) as *const [u8] } as *const [u32];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:38:9
+   |
+LL |     let restore_block_3 = {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:47:9
    |
 LL |     let long_chain_loss = r_x as *const [i32] as *const [u32] as *const [u16] as *const [i8] as *const [u8];
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with `ptr::slice_from_raw_parts`: `core::ptr::slice_from_raw_parts(r_x as *const [i32] as *const u8, ..)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting between raw pointers to `[u16]` (element size 2) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:64:36
+error: variable must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:50:9
    |
-LL |   fn bar(x: *mut [u16]) -> *mut [u8] {
-   |  ____________________________________^
-LL | |
-LL | |
-LL | |     x as *mut [u8]
-LL | | }
-   | |_^ help: replace with `ptr::slice_from_raw_parts_mut`: `core::ptr::slice_from_raw_parts_mut(x as *mut u8, ..)`
+LL |     let long_chain_restore =
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting between raw pointers to `[u16]` (element size 2) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:70:36
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:55:1
    |
-LL |   fn uwu(x: *mut [u16]) -> *mut [u8] {
-   |  ____________________________________^
-LL | |
-LL | |
-LL | |     x as *mut _
-LL | | }
-   | |_^ help: replace with `ptr::slice_from_raw_parts_mut`: `core::ptr::slice_from_raw_parts_mut(x as *mut u8, ..)`
+LL | fn foo(x: *mut [u8]) -> *mut [u8] {
+   | ^ help: make this item public: `pub`
 
-error: casting between raw pointers to `[u16]` (element size 2) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:76:37
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:55:1
    |
-LL |   fn bar2(x: *mut [u16]) -> *mut [u8] {
-   |  _____________________________________^
-LL | |
-LL | |
-LL | |     x as _
-LL | | }
-   | |_^ help: replace with `ptr::slice_from_raw_parts_mut`: `core::ptr::slice_from_raw_parts_mut(x as *mut u8, ..)`
-
-error: casting between raw pointers to `[u16]` (element size 2) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:83:39
+LL | fn foo(x: *mut [u8]) -> *mut [u8] {
+   | ^
    |
-LL |   fn bar3(x: *mut [u16]) -> *const [u8] {
-   |  _______________________________________^
-LL | |
-LL | |
-LL | |     x as _
-LL | | }
-   | |_^ help: replace with `ptr::slice_from_raw_parts`: `core::ptr::slice_from_raw_parts(x as *const u8, ..)`
-
-error: casting between raw pointers to `[u16]` (element size 2) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:90:39
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:55:1
    |
-LL |   fn bar4(x: *const [u16]) -> *mut [u8] {
-   |  _______________________________________^
-LL | |
-LL | |
-LL | |     x as _
-LL | | }
-   | |_^ help: replace with `ptr::slice_from_raw_parts_mut`: `core::ptr::slice_from_raw_parts_mut(x as *mut u8, ..)`
+LL | fn foo(x: *mut [u8]) -> *mut [u8] {
+   | ^
 
-error: casting between raw pointers to `[u16]` (element size 2) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:97:39
+error: parameter must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:55:8
    |
-LL |   fn blocks(x: *mut [u16]) -> *mut [u8] {
-   |  _______________________________________^
-LL | |
-LL | |
-LL | |     ({ x }) as _
-LL | | }
-   | |_^ help: replace with `ptr::slice_from_raw_parts_mut`: `core::ptr::slice_from_raw_parts_mut(({ x }) as *mut u8, ..)`
+LL | fn foo(x: *mut [u8]) -> *mut [u8] {
+   |        ^ help: make this parameter mutable: `mut`
 
-error: casting between raw pointers to `[u16]` (element size 2) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:103:44
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:59:1
    |
-LL |   fn more_blocks(x: *mut [u16]) -> *mut [u8] {
-   |  ____________________________________________^
-LL | |
-LL | |
-LL | |     { ({ x }) as _ }
-LL | |
-LL | | }
-   | |_^ help: replace with `ptr::slice_from_raw_parts_mut`: `core::ptr::slice_from_raw_parts_mut(({ x }) as *mut u8, ..)`
+LL | fn foo2(x: *mut [u8]) -> *mut [u8] {
+   | ^ help: make this item public: `pub`
 
-error: casting between raw pointers to `[u16]` (element size 2) and `[u8]` (element size 1) does not adjust the count
-  --> tests/ui/cast_slice_different_sizes.rs:106:5
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:59:1
    |
-LL |     { ({ x }) as _ }
-   |     ^^^^^^^^^^^^^^^^ help: replace with `ptr::slice_from_raw_parts_mut`: `core::ptr::slice_from_raw_parts_mut(({ x }) as *mut u8, ..)`
+LL | fn foo2(x: *mut [u8]) -> *mut [u8] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:59:1
+   |
+LL | fn foo2(x: *mut [u8]) -> *mut [u8] {
+   | ^
 
-error: aborting due to 14 previous errors
+error: parameter must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:59:9
+   |
+LL | fn foo2(x: *mut [u8]) -> *mut [u8] {
+   |         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:64:1
+   |
+LL | fn bar(x: *mut [u16]) -> *mut [u8] {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:64:1
+   |
+LL | fn bar(x: *mut [u16]) -> *mut [u8] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:64:1
+   |
+LL | fn bar(x: *mut [u16]) -> *mut [u8] {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:64:8
+   |
+LL | fn bar(x: *mut [u16]) -> *mut [u8] {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:70:1
+   |
+LL | fn uwu(x: *mut [u16]) -> *mut [u8] {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:70:1
+   |
+LL | fn uwu(x: *mut [u16]) -> *mut [u8] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:70:1
+   |
+LL | fn uwu(x: *mut [u16]) -> *mut [u8] {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:70:8
+   |
+LL | fn uwu(x: *mut [u16]) -> *mut [u8] {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:76:1
+   |
+LL | fn bar2(x: *mut [u16]) -> *mut [u8] {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:76:1
+   |
+LL | fn bar2(x: *mut [u16]) -> *mut [u8] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:76:1
+   |
+LL | fn bar2(x: *mut [u16]) -> *mut [u8] {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:76:9
+   |
+LL | fn bar2(x: *mut [u16]) -> *mut [u8] {
+   |         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:83:1
+   |
+LL | fn bar3(x: *mut [u16]) -> *const [u8] {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:83:1
+   |
+LL | fn bar3(x: *mut [u16]) -> *const [u8] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:83:1
+   |
+LL | fn bar3(x: *mut [u16]) -> *const [u8] {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:83:9
+   |
+LL | fn bar3(x: *mut [u16]) -> *const [u8] {
+   |         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:90:1
+   |
+LL | fn bar4(x: *const [u16]) -> *mut [u8] {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:90:1
+   |
+LL | fn bar4(x: *const [u16]) -> *mut [u8] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:90:1
+   |
+LL | fn bar4(x: *const [u16]) -> *mut [u8] {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:90:9
+   |
+LL | fn bar4(x: *const [u16]) -> *mut [u8] {
+   |         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:97:1
+   |
+LL | fn blocks(x: *mut [u16]) -> *mut [u8] {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:97:1
+   |
+LL | fn blocks(x: *mut [u16]) -> *mut [u8] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:97:1
+   |
+LL | fn blocks(x: *mut [u16]) -> *mut [u8] {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:97:11
+   |
+LL | fn blocks(x: *mut [u16]) -> *mut [u8] {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast_slice_different_sizes.rs:103:1
+   |
+LL | fn more_blocks(x: *mut [u16]) -> *mut [u8] {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:103:1
+   |
+LL | fn more_blocks(x: *mut [u16]) -> *mut [u8] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_slice_different_sizes.rs:103:1
+   |
+LL | fn more_blocks(x: *mut [u16]) -> *mut [u8] {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast_slice_different_sizes.rs:103:16
+   |
+LL | fn more_blocks(x: *mut [u16]) -> *mut [u8] {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 48 previous errors
 

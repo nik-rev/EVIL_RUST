@@ -1,46 +1,194 @@
-error: passing a unit value to a function
-  --> tests/ui/unit_arg_empty_blocks.rs:16:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     foo({});
-   |     ^^^^--^
-   |         |
-   |         help: use a unit literal instead: `()`
-   |
-   = note: `-D clippy::unit-arg` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unit_arg)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: passing a unit value to a function
-  --> tests/ui/unit_arg_empty_blocks.rs:18:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     foo3({}, 2, 2);
-   |     ^^^^^--^^^^^^^
-   |          |
-   |          help: use a unit literal instead: `()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: passing unit values to a function
-  --> tests/ui/unit_arg_empty_blocks.rs:20:5
+error: item must be `pub`
+  --> tests/ui/unit_arg_empty_blocks.rs:7:1
    |
-LL |     taking_two_units({}, foo(0));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn foo<T: Debug>(t: T) {
+   | ^ help: make this item public: `pub`
    |
-help: move the expression in front of the call and replace it with the unit literal `()`
-   |
-LL ~     foo(0);
-LL ~     taking_two_units((), ());
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: passing unit values to a function
-  --> tests/ui/unit_arg_empty_blocks.rs:22:5
+error: function must be `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:7:1
    |
-LL |     taking_three_units({}, foo(0), foo(1));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn foo<T: Debug>(t: T) {
+   | ^
    |
-help: move the expressions in front of the call and replace them with the unit literal `()`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:7:1
    |
-LL ~     foo(0);
-LL +     foo(1);
-LL ~     taking_three_units((), (), ());
-   |
+LL | fn foo<T: Debug>(t: T) {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 4 previous errors
+error: parameter must be `mut`
+  --> tests/ui/unit_arg_empty_blocks.rs:7:18
+   |
+LL | fn foo<T: Debug>(t: T) {
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/unit_arg_empty_blocks.rs:11:1
+   |
+LL | fn foo3<T1: Debug, T2: Debug, T3: Debug>(t1: T1, t2: T2, t3: T3) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:11:1
+   |
+LL | fn foo3<T1: Debug, T2: Debug, T3: Debug>(t1: T1, t2: T2, t3: T3) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:11:1
+   |
+LL | fn foo3<T1: Debug, T2: Debug, T3: Debug>(t1: T1, t2: T2, t3: T3) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unit_arg_empty_blocks.rs:11:42
+   |
+LL | fn foo3<T1: Debug, T2: Debug, T3: Debug>(t1: T1, t2: T2, t3: T3) {
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unit_arg_empty_blocks.rs:11:50
+   |
+LL | fn foo3<T1: Debug, T2: Debug, T3: Debug>(t1: T1, t2: T2, t3: T3) {
+   |                                                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unit_arg_empty_blocks.rs:11:58
+   |
+LL | fn foo3<T1: Debug, T2: Debug, T3: Debug>(t1: T1, t2: T2, t3: T3) {
+   |                                                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unit_arg_empty_blocks.rs:15:1
+   |
+LL | fn bad() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:15:1
+   |
+LL | fn bad() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:15:1
+   |
+LL | fn bad() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unit_arg_empty_blocks.rs:26:1
+   |
+LL | fn taking_two_units(a: (), b: ()) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:26:1
+   |
+LL | fn taking_two_units(a: (), b: ()) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:26:1
+   |
+LL | fn taking_two_units(a: (), b: ()) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unit_arg_empty_blocks.rs:26:21
+   |
+LL | fn taking_two_units(a: (), b: ()) {}
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unit_arg_empty_blocks.rs:26:28
+   |
+LL | fn taking_two_units(a: (), b: ()) {}
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unit_arg_empty_blocks.rs:27:1
+   |
+LL | fn taking_three_units(a: (), b: (), c: ()) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:27:1
+   |
+LL | fn taking_three_units(a: (), b: (), c: ()) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:27:1
+   |
+LL | fn taking_three_units(a: (), b: (), c: ()) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unit_arg_empty_blocks.rs:27:23
+   |
+LL | fn taking_three_units(a: (), b: (), c: ()) {}
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unit_arg_empty_blocks.rs:27:30
+   |
+LL | fn taking_three_units(a: (), b: (), c: ()) {}
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unit_arg_empty_blocks.rs:27:37
+   |
+LL | fn taking_three_units(a: (), b: (), c: ()) {}
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unit_arg_empty_blocks.rs:29:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:29:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_arg_empty_blocks.rs:29:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 25 previous errors
 

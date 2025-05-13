@@ -1,162 +1,1121 @@
-error: the following explicit lifetimes could be elided: 'a, 'b
-  --> tests/ui/elidable_lifetime_names.rs:9:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:3:1
+   |
+LL | type Ref<'r> = &'r u8;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:3:16
+   |
+LL | type Ref<'r> = &'r u8;
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:6:1
+   |
+LL | fn lifetime_param_1<'a>(_x: Ref<'a>, _y: &'a u8) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:6:1
+   |
+LL | fn lifetime_param_1<'a>(_x: Ref<'a>, _y: &'a u8) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:6:1
+   |
+LL | fn lifetime_param_1<'a>(_x: Ref<'a>, _y: &'a u8) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:6:25
+   |
+LL | fn lifetime_param_1<'a>(_x: Ref<'a>, _y: &'a u8) {}
+   |                         ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:6:38
+   |
+LL | fn lifetime_param_1<'a>(_x: Ref<'a>, _y: &'a u8) {}
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:6:42
+   |
+LL | fn lifetime_param_1<'a>(_x: Ref<'a>, _y: &'a u8) {}
+   |                                          ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:9:1
    |
 LL | fn lifetime_param_2<'a, 'b>(_x: Ref<'a>, _y: &'b u8) {}
-   |                     ^^  ^^          ^^        ^^
-   |
-   = note: `-D clippy::elidable-lifetime-names` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::elidable_lifetime_names)]`
-help: elide the lifetimes
-   |
-LL - fn lifetime_param_2<'a, 'b>(_x: Ref<'a>, _y: &'b u8) {}
-LL + fn lifetime_param_2(_x: Ref<'_>, _y: &u8) {}
-   |
+   | ^ help: make this item public: `pub`
 
-error: the following explicit lifetimes could be elided: 'a
-  --> tests/ui/elidable_lifetime_names.rs:34:15
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:9:1
+   |
+LL | fn lifetime_param_2<'a, 'b>(_x: Ref<'a>, _y: &'b u8) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:9:1
+   |
+LL | fn lifetime_param_2<'a, 'b>(_x: Ref<'a>, _y: &'b u8) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:9:29
+   |
+LL | fn lifetime_param_2<'a, 'b>(_x: Ref<'a>, _y: &'b u8) {}
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:9:42
+   |
+LL | fn lifetime_param_2<'a, 'b>(_x: Ref<'a>, _y: &'b u8) {}
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:9:46
+   |
+LL | fn lifetime_param_2<'a, 'b>(_x: Ref<'a>, _y: &'b u8) {}
+   |                                              ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:12:1
+   |
+LL | fn lifetime_param_3<'a, 'b: 'a>(_x: Ref<'a>, _y: &'b u8) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:12:1
+   |
+LL | fn lifetime_param_3<'a, 'b: 'a>(_x: Ref<'a>, _y: &'b u8) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:12:1
+   |
+LL | fn lifetime_param_3<'a, 'b: 'a>(_x: Ref<'a>, _y: &'b u8) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:12:33
+   |
+LL | fn lifetime_param_3<'a, 'b: 'a>(_x: Ref<'a>, _y: &'b u8) {}
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:12:46
+   |
+LL | fn lifetime_param_3<'a, 'b: 'a>(_x: Ref<'a>, _y: &'b u8) {}
+   |                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:12:50
+   |
+LL | fn lifetime_param_3<'a, 'b: 'a>(_x: Ref<'a>, _y: &'b u8) {}
+   |                                                  ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:15:1
+   |
+LL | fn lifetime_param_4<'a, 'b>(_x: Ref<'a>, _y: &'b u8)
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:15:1
+   |
+LL | fn lifetime_param_4<'a, 'b>(_x: Ref<'a>, _y: &'b u8)
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:15:1
+   |
+LL | fn lifetime_param_4<'a, 'b>(_x: Ref<'a>, _y: &'b u8)
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:15:29
+   |
+LL | fn lifetime_param_4<'a, 'b>(_x: Ref<'a>, _y: &'b u8)
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:15:42
+   |
+LL | fn lifetime_param_4<'a, 'b>(_x: Ref<'a>, _y: &'b u8)
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:15:46
+   |
+LL | fn lifetime_param_4<'a, 'b>(_x: Ref<'a>, _y: &'b u8)
+   |                                              ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:21:1
+   |
+LL | struct Lt<'a, I: 'static> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:22:8
+   |
+LL |     x: &'a I,
+   |        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:26:1
+   |
+LL | fn fn_bound<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:26:1
+   |
+LL | fn fn_bound<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:26:1
+   |
+LL | fn fn_bound<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:26:23
+   |
+LL | fn fn_bound<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:26:38
+   |
+LL | fn fn_bound<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:34:1
    |
 LL | fn fn_bound_2<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
-   |               ^^               ^^                   ^^
-   |
-help: elide the lifetimes
-   |
-LL - fn fn_bound_2<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
-LL + fn fn_bound_2<F, I>(_m: Lt<'_, I>, _f: F) -> Lt<'_, I>
-   |
+   | ^ help: make this item public: `pub`
 
-error: the following explicit lifetimes could be elided: 'a
-  --> tests/ui/elidable_lifetime_names.rs:44:19
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:34:1
+   |
+LL | fn fn_bound_2<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:34:1
+   |
+LL | fn fn_bound_2<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:34:25
+   |
+LL | fn fn_bound_2<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:34:40
+   |
+LL | fn fn_bound_2<'a, F, I>(_m: Lt<'a, I>, _f: F) -> Lt<'a, I>
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:41:1
+   |
+LL | struct Foo<'a>(&'a u8);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:41:16
+   |
+LL | struct Foo<'a>(&'a u8);
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:44:1
    |
 LL | fn struct_with_lt<'a>(_foo: Foo<'a>) -> &'a str {
-   |                   ^^            ^^       ^^
-   |
-help: elide the lifetimes
-   |
-LL - fn struct_with_lt<'a>(_foo: Foo<'a>) -> &'a str {
-LL + fn struct_with_lt(_foo: Foo<'_>) -> &str {
-   |
+   | ^ help: make this item public: `pub`
 
-error: the following explicit lifetimes could be elided: 'b
-  --> tests/ui/elidable_lifetime_names.rs:59:25
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:44:1
+   |
+LL | fn struct_with_lt<'a>(_foo: Foo<'a>) -> &'a str {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:44:1
+   |
+LL | fn struct_with_lt<'a>(_foo: Foo<'a>) -> &'a str {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:44:23
+   |
+LL | fn struct_with_lt<'a>(_foo: Foo<'a>) -> &'a str {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:44:41
+   |
+LL | fn struct_with_lt<'a>(_foo: Foo<'a>) -> &'a str {
+   |                                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:49:1
+   |
+LL | fn struct_with_lt2<'a>(_foo: &'a Foo) -> &'a str {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:49:1
+   |
+LL | fn struct_with_lt2<'a>(_foo: &'a Foo) -> &'a str {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:49:1
+   |
+LL | fn struct_with_lt2<'a>(_foo: &'a Foo) -> &'a str {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:49:24
+   |
+LL | fn struct_with_lt2<'a>(_foo: &'a Foo) -> &'a str {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:49:30
+   |
+LL | fn struct_with_lt2<'a>(_foo: &'a Foo) -> &'a str {
+   |                              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:49:42
+   |
+LL | fn struct_with_lt2<'a>(_foo: &'a Foo) -> &'a str {
+   |                                          ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:54:1
+   |
+LL | fn struct_with_lt3<'a>(_foo: &Foo<'a>) -> &'a str {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:54:1
+   |
+LL | fn struct_with_lt3<'a>(_foo: &Foo<'a>) -> &'a str {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:54:1
+   |
+LL | fn struct_with_lt3<'a>(_foo: &Foo<'a>) -> &'a str {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:54:24
+   |
+LL | fn struct_with_lt3<'a>(_foo: &Foo<'a>) -> &'a str {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:54:30
+   |
+LL | fn struct_with_lt3<'a>(_foo: &Foo<'a>) -> &'a str {
+   |                              ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:54:43
+   |
+LL | fn struct_with_lt3<'a>(_foo: &Foo<'a>) -> &'a str {
+   |                                           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:59:1
    |
 LL | fn struct_with_lt4a<'a, 'b>(_foo: &'a Foo<'b>) -> &'a str {
-   |                         ^^                ^^
-   |
-help: elide the lifetimes
-   |
-LL - fn struct_with_lt4a<'a, 'b>(_foo: &'a Foo<'b>) -> &'a str {
-LL + fn struct_with_lt4a<'a>(_foo: &'a Foo<'_>) -> &'a str {
-   |
+   | ^ help: make this item public: `pub`
 
-error: the following explicit lifetimes could be elided: 'a
-  --> tests/ui/elidable_lifetime_names.rs:66:18
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:59:1
+   |
+LL | fn struct_with_lt4a<'a, 'b>(_foo: &'a Foo<'b>) -> &'a str {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:59:1
+   |
+LL | fn struct_with_lt4a<'a, 'b>(_foo: &'a Foo<'b>) -> &'a str {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:59:29
+   |
+LL | fn struct_with_lt4a<'a, 'b>(_foo: &'a Foo<'b>) -> &'a str {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:59:35
+   |
+LL | fn struct_with_lt4a<'a, 'b>(_foo: &'a Foo<'b>) -> &'a str {
+   |                                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:59:51
+   |
+LL | fn struct_with_lt4a<'a, 'b>(_foo: &'a Foo<'b>) -> &'a str {
+   |                                                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:63:1
+   |
+LL | type FooAlias<'a> = Foo<'a>;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:66:1
    |
 LL | fn alias_with_lt<'a>(_foo: FooAlias<'a>) -> &'a str {
-   |                  ^^                 ^^       ^^
-   |
-help: elide the lifetimes
-   |
-LL - fn alias_with_lt<'a>(_foo: FooAlias<'a>) -> &'a str {
-LL + fn alias_with_lt(_foo: FooAlias<'_>) -> &str {
-   |
+   | ^ help: make this item public: `pub`
 
-error: the following explicit lifetimes could be elided: 'b
-  --> tests/ui/elidable_lifetime_names.rs:81:24
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:66:1
+   |
+LL | fn alias_with_lt<'a>(_foo: FooAlias<'a>) -> &'a str {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:66:1
+   |
+LL | fn alias_with_lt<'a>(_foo: FooAlias<'a>) -> &'a str {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:66:22
+   |
+LL | fn alias_with_lt<'a>(_foo: FooAlias<'a>) -> &'a str {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:66:45
+   |
+LL | fn alias_with_lt<'a>(_foo: FooAlias<'a>) -> &'a str {
+   |                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:71:1
+   |
+LL | fn alias_with_lt2<'a>(_foo: &'a FooAlias) -> &'a str {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:71:1
+   |
+LL | fn alias_with_lt2<'a>(_foo: &'a FooAlias) -> &'a str {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:71:1
+   |
+LL | fn alias_with_lt2<'a>(_foo: &'a FooAlias) -> &'a str {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:71:23
+   |
+LL | fn alias_with_lt2<'a>(_foo: &'a FooAlias) -> &'a str {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:71:29
+   |
+LL | fn alias_with_lt2<'a>(_foo: &'a FooAlias) -> &'a str {
+   |                             ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:71:46
+   |
+LL | fn alias_with_lt2<'a>(_foo: &'a FooAlias) -> &'a str {
+   |                                              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:76:1
+   |
+LL | fn alias_with_lt3<'a>(_foo: &FooAlias<'a>) -> &'a str {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:76:1
+   |
+LL | fn alias_with_lt3<'a>(_foo: &FooAlias<'a>) -> &'a str {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:76:1
+   |
+LL | fn alias_with_lt3<'a>(_foo: &FooAlias<'a>) -> &'a str {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:76:23
+   |
+LL | fn alias_with_lt3<'a>(_foo: &FooAlias<'a>) -> &'a str {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:76:29
+   |
+LL | fn alias_with_lt3<'a>(_foo: &FooAlias<'a>) -> &'a str {
+   |                             ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:76:47
+   |
+LL | fn alias_with_lt3<'a>(_foo: &FooAlias<'a>) -> &'a str {
+   |                                               ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:81:1
    |
 LL | fn alias_with_lt4a<'a, 'b>(_foo: &'a FooAlias<'b>) -> &'a str {
-   |                        ^^                     ^^
-   |
-help: elide the lifetimes
-   |
-LL - fn alias_with_lt4a<'a, 'b>(_foo: &'a FooAlias<'b>) -> &'a str {
-LL + fn alias_with_lt4a<'a>(_foo: &'a FooAlias<'_>) -> &'a str {
-   |
+   | ^ help: make this item public: `pub`
 
-error: the following explicit lifetimes could be elided: 'a
-  --> tests/ui/elidable_lifetime_names.rs:91:24
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:81:1
+   |
+LL | fn alias_with_lt4a<'a, 'b>(_foo: &'a FooAlias<'b>) -> &'a str {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:81:1
+   |
+LL | fn alias_with_lt4a<'a, 'b>(_foo: &'a FooAlias<'b>) -> &'a str {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:81:28
+   |
+LL | fn alias_with_lt4a<'a, 'b>(_foo: &'a FooAlias<'b>) -> &'a str {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:81:34
+   |
+LL | fn alias_with_lt4a<'a, 'b>(_foo: &'a FooAlias<'b>) -> &'a str {
+   |                                  ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:81:55
+   |
+LL | fn alias_with_lt4a<'a, 'b>(_foo: &'a FooAlias<'b>) -> &'a str {
+   |                                                       ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:86:1
+   |
+LL | struct Cow<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:87:8
+   |
+LL |     x: &'a str,
+   |        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:91:1
    |
 LL | fn out_return_type_lts<'a>(e: &'a str) -> Cow<'a> {
-   |                        ^^      ^^             ^^
-   |
-help: elide the lifetimes
-   |
-LL - fn out_return_type_lts<'a>(e: &'a str) -> Cow<'a> {
-LL + fn out_return_type_lts(e: &str) -> Cow<'_> {
-   |
+   | ^ help: make this item public: `pub`
 
-error: the following explicit lifetimes could be elided: 'a
-  --> tests/ui/elidable_lifetime_names.rs:103:10
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:91:1
+   |
+LL | fn out_return_type_lts<'a>(e: &'a str) -> Cow<'a> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:91:1
+   |
+LL | fn out_return_type_lts<'a>(e: &'a str) -> Cow<'a> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:91:28
+   |
+LL | fn out_return_type_lts<'a>(e: &'a str) -> Cow<'a> {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:91:31
+   |
+LL | fn out_return_type_lts<'a>(e: &'a str) -> Cow<'a> {
+   |                               ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:95:1
+   |
+LL | mod issue2944 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:96:5
+   |
+LL |     trait Foo {}
+   |     ^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:96:5
+   |
+LL |     trait Foo {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:97:5
+   |
+LL |     struct Bar;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:98:5
+   |
+LL |     struct Baz<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:99:14
+   |
+LL |         bar: &'a Bar,
+   |              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:103:5
    |
 LL |     impl<'a> Foo for Baz<'a> {}
-   |          ^^              ^^
-   |
-help: elide the lifetimes
-   |
-LL -     impl<'a> Foo for Baz<'a> {}
-LL +     impl Foo for Baz<'_> {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: the following explicit lifetimes could be elided: 'a
-  --> tests/ui/elidable_lifetime_names.rs:106:16
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:104:5
+   |
+LL |     impl Bar {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:106:9
    |
 LL |         fn baz<'a>(&'a self) -> impl Foo + 'a {
-   |                ^^   ^^                     ^^
+   |         ^
    |
-help: elide the lifetimes
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:106:9
    |
-LL -         fn baz<'a>(&'a self) -> impl Foo + 'a {
-LL +         fn baz(&self) -> impl Foo + '_ {
-   |
+LL |         fn baz<'a>(&'a self) -> impl Foo + 'a {
+   |         ^
 
-error: the following explicit lifetimes could be elided: 'py
-  --> tests/ui/elidable_lifetime_names.rs:139:14
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:106:24
+   |
+LL |         fn baz<'a>(&'a self) -> impl Foo + 'a {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:106:20
+   |
+LL |         fn baz<'a>(&'a self) -> impl Foo + 'a {
+   |                    ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:112:1
+   |
+LL | mod issue13923 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:113:5
+   |
+LL |     struct Py<'py> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:114:15
+   |
+LL |         data: &'py str,
+   |               ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:117:5
+   |
+LL |     enum Content<'t, 'py> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:119:12
+   |
+LL |         T1(&'t str),
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:120:12
+   |
+LL |         T2(&'t str),
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:123:5
+   |
+LL |     enum ContentString<'t> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:124:12
+   |
+LL |         T1(&'t str),
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:125:12
+   |
+LL |         T2(&'t str),
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:128:5
    |
 LL |     impl<'t, 'py> ContentString<'t> {
-   |              ^^^
-LL |         // `'py` can be elided because of `&self`
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:130:9
+   |
+LL |         fn map_content1(self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:130:9
+   |
+LL |         fn map_content1(self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:130:25
+   |
+LL |         fn map_content1(self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:130:31
+   |
+LL |         fn map_content1(self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:130:46
+   |
+LL |         fn map_content1(self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                                              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:130:58
+   |
+LL |         fn map_content1(self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                                                          ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:139:5
+   |
+LL |     impl<'t, 'py> ContentString<'t> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:141:9
+   |
 LL |         fn map_content2(&self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
-   |                                                                                   ^^^
+   |         ^
    |
-help: elide the lifetimes
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:141:9
    |
-LL ~     impl<'t> ContentString<'t> {
-LL |         // `'py` can be elided because of `&self`
-LL ~         fn map_content2(&self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, '_> {
-   |
+LL |         fn map_content2(&self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |         ^
 
-error: the following explicit lifetimes could be elided: 'py
-  --> tests/ui/elidable_lifetime_names.rs:150:14
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:141:26
+   |
+LL |         fn map_content2(&self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:141:32
+   |
+LL |         fn map_content2(&self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:141:25
+   |
+LL |         fn map_content2(&self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:141:47
+   |
+LL |         fn map_content2(&self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                                               ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:141:59
+   |
+LL |         fn map_content2(&self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                                                           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:150:5
    |
 LL |     impl<'t, 'py> ContentString<'t> {
-   |              ^^^
-LL |         // `'py` can be elided because of `&'_ self`
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:152:9
+   |
 LL |         fn map_content3(&'_ self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
-   |                                                                                      ^^^
+   |         ^
    |
-help: elide the lifetimes
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:152:9
    |
-LL ~     impl<'t> ContentString<'t> {
-LL |         // `'py` can be elided because of `&'_ self`
-LL ~         fn map_content3(&'_ self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, '_> {
-   |
+LL |         fn map_content3(&'_ self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |         ^
 
-error: the following explicit lifetimes could be elided: 'py
-  --> tests/ui/elidable_lifetime_names.rs:171:14
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:152:29
+   |
+LL |         fn map_content3(&'_ self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:152:35
+   |
+LL |         fn map_content3(&'_ self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:152:25
+   |
+LL |         fn map_content3(&'_ self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                         ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:152:50
+   |
+LL |         fn map_content3(&'_ self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                                                  ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:152:62
+   |
+LL |         fn map_content3(&'_ self, f: impl FnOnce(&'t str) -> &'t str) -> Content<'t, 'py> {
+   |                                                              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:160:5
    |
 LL |     impl<'t, 'py> ContentString<'t> {
-   |              ^^^
-...
-LL |         ) -> Content<'t, 'py> {
-   |                          ^^^
-   |
-help: elide the lifetimes
-   |
-LL ~     impl<'t> ContentString<'t> {
-LL |         // `'py` can be elided because of `&Self`
-...
-LL |             o: &'t str,
-LL ~         ) -> Content<'t, '_> {
-   |
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 12 previous errors
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:162:9
+   |
+LL |         fn map_content4(self, f: impl FnOnce(&'t str) -> &'t str, o: &'t str) -> Content<'t, 'py> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:162:9
+   |
+LL |         fn map_content4(self, f: impl FnOnce(&'t str) -> &'t str, o: &'t str) -> Content<'t, 'py> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:162:25
+   |
+LL |         fn map_content4(self, f: impl FnOnce(&'t str) -> &'t str, o: &'t str) -> Content<'t, 'py> {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:162:31
+   |
+LL |         fn map_content4(self, f: impl FnOnce(&'t str) -> &'t str, o: &'t str) -> Content<'t, 'py> {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:162:67
+   |
+LL |         fn map_content4(self, f: impl FnOnce(&'t str) -> &'t str, o: &'t str) -> Content<'t, 'py> {
+   |                                                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:162:46
+   |
+LL |         fn map_content4(self, f: impl FnOnce(&'t str) -> &'t str, o: &'t str) -> Content<'t, 'py> {
+   |                                              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:162:58
+   |
+LL |         fn map_content4(self, f: impl FnOnce(&'t str) -> &'t str, o: &'t str) -> Content<'t, 'py> {
+   |                                                          ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:162:70
+   |
+LL |         fn map_content4(self, f: impl FnOnce(&'t str) -> &'t str, o: &'t str) -> Content<'t, 'py> {
+   |                                                                      ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:171:5
+   |
+LL |     impl<'t, 'py> ContentString<'t> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:173:9
+   |
+LL |         fn map_content5(
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:173:9
+   |
+LL |         fn map_content5(
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:174:13
+   |
+LL |             self: std::pin::Pin<&Self>,
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:175:13
+   |
+LL |             f: impl FnOnce(&'t str) -> &'t str,
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:176:13
+   |
+LL |             o: &'t str,
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:174:33
+   |
+LL |             self: std::pin::Pin<&Self>,
+   |                                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:175:28
+   |
+LL |             f: impl FnOnce(&'t str) -> &'t str,
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:175:40
+   |
+LL |             f: impl FnOnce(&'t str) -> &'t str,
+   |                                        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:176:16
+   |
+LL |             o: &'t str,
+   |                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:185:5
+   |
+LL |     struct Cx<'a, 'b> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:186:12
+   |
+LL |         a: &'a u32,
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:187:12
+   |
+LL |         b: &'b u32,
+   |            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/elidable_lifetime_names.rs:191:5
+   |
+LL |     fn one_explicit<'b>(x: Cx<'_, 'b>) -> &'b u32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:191:5
+   |
+LL |     fn one_explicit<'b>(x: Cx<'_, 'b>) -> &'b u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/elidable_lifetime_names.rs:191:5
+   |
+LL |     fn one_explicit<'b>(x: Cx<'_, 'b>) -> &'b u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/elidable_lifetime_names.rs:191:25
+   |
+LL |     fn one_explicit<'b>(x: Cx<'_, 'b>) -> &'b u32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/elidable_lifetime_names.rs:191:43
+   |
+LL |     fn one_explicit<'b>(x: Cx<'_, 'b>) -> &'b u32 {
+   |                                           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 147 previous errors
 

@@ -1,76 +1,98 @@
-error: `filter_map()` will run forever if the iterator repeatedly produces an `Err`
-  --> tests/ui/lines_filter_map_ok.rs:9:31
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     BufReader::new(f).lines().filter_map(Result::ok).for_each(|_| ());
-   |                               ^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `map_while(Result::ok)`
-   |
-note: this expression returning a `std::io::Lines` may produce an infinite number of `Err` in case of a read error
-  --> tests/ui/lines_filter_map_ok.rs:9:5
-   |
-LL |     BufReader::new(f).lines().filter_map(Result::ok).for_each(|_| ());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
-   = note: `-D clippy::lines-filter-map-ok` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::lines_filter_map_ok)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `flat_map()` will run forever if the iterator repeatedly produces an `Err`
-  --> tests/ui/lines_filter_map_ok.rs:13:31
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     BufReader::new(f).lines().flat_map(Result::ok).for_each(|_| ());
-   |                               ^^^^^^^^^^^^^^^^^^^^ help: replace with: `map_while(Result::ok)`
-   |
-note: this expression returning a `std::io::Lines` may produce an infinite number of `Err` in case of a read error
-  --> tests/ui/lines_filter_map_ok.rs:13:5
-   |
-LL |     BufReader::new(f).lines().flat_map(Result::ok).for_each(|_| ());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `flatten()` will run forever if the iterator repeatedly produces an `Err`
-  --> tests/ui/lines_filter_map_ok.rs:17:31
+error: item must be `pub`
+  --> tests/ui/lines_filter_map_ok.rs:6:1
    |
-LL |     BufReader::new(f).lines().flatten().for_each(|_| ());
-   |                               ^^^^^^^^^ help: replace with: `map_while(Result::ok)`
+LL | fn main() -> io::Result<()> {
+   | ^ help: make this item public: `pub`
    |
-note: this expression returning a `std::io::Lines` may produce an infinite number of `Err` in case of a read error
-  --> tests/ui/lines_filter_map_ok.rs:17:5
-   |
-LL |     BufReader::new(f).lines().flatten().for_each(|_| ());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `filter_map()` will run forever if the iterator repeatedly produces an `Err`
-  --> tests/ui/lines_filter_map_ok.rs:22:25
+error: function must be `unsafe`
+  --> tests/ui/lines_filter_map_ok.rs:6:1
    |
-LL |     io::stdin().lines().filter_map(Result::ok).for_each(|_| ());
-   |                         ^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `map_while(Result::ok)`
+LL | fn main() -> io::Result<()> {
+   | ^
    |
-note: this expression returning a `std::io::Lines` may produce an infinite number of `Err` in case of a read error
-  --> tests/ui/lines_filter_map_ok.rs:22:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/lines_filter_map_ok.rs:6:1
    |
-LL |     io::stdin().lines().filter_map(Result::ok).for_each(|_| ());
-   |     ^^^^^^^^^^^^^^^^^^^
+LL | fn main() -> io::Result<()> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: `filter_map()` will run forever if the iterator repeatedly produces an `Err`
-  --> tests/ui/lines_filter_map_ok.rs:25:25
+error: variable must be `mut`
+  --> tests/ui/lines_filter_map_ok.rs:7:9
    |
-LL |     io::stdin().lines().filter_map(|x| x.ok()).for_each(|_| ());
-   |                         ^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `map_while(Result::ok)`
+LL |     let f = std::fs::File::open("/")?;
+   |         ^ help: make this variable mutable: `mut`
    |
-note: this expression returning a `std::io::Lines` may produce an infinite number of `Err` in case of a read error
-  --> tests/ui/lines_filter_map_ok.rs:25:5
-   |
-LL |     io::stdin().lines().filter_map(|x| x.ok()).for_each(|_| ());
-   |     ^^^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: `flatten()` will run forever if the iterator repeatedly produces an `Err`
-  --> tests/ui/lines_filter_map_ok.rs:28:25
+error: variable must be `mut`
+  --> tests/ui/lines_filter_map_ok.rs:12:9
    |
-LL |     io::stdin().lines().flatten().for_each(|_| ());
-   |                         ^^^^^^^^^ help: replace with: `map_while(Result::ok)`
-   |
-note: this expression returning a `std::io::Lines` may produce an infinite number of `Err` in case of a read error
-  --> tests/ui/lines_filter_map_ok.rs:28:5
-   |
-LL |     io::stdin().lines().flatten().for_each(|_| ());
-   |     ^^^^^^^^^^^^^^^^^^^
+LL |     let f = std::fs::File::open("/")?;
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 6 previous errors
+error: variable must be `mut`
+  --> tests/ui/lines_filter_map_ok.rs:16:9
+   |
+LL |     let f = std::fs::File::open("/")?;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/lines_filter_map_ok.rs:20:9
+   |
+LL |     let s = "foo\nbar\nbaz\n";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/lines_filter_map_ok.rs:42:1
+   |
+LL | fn msrv_check() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/lines_filter_map_ok.rs:42:1
+   |
+LL | fn msrv_check() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/lines_filter_map_ok.rs:42:1
+   |
+LL | fn msrv_check() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/lines_filter_map_ok.rs:43:9
+   |
+LL |     let _lines = BufReader::new(std::fs::File::open("some-path").unwrap())
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

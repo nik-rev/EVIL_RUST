@@ -1,207 +1,185 @@
-error: unnecessary `if let` since only the `Some` variant of the iterator element is used
-  --> tests/ui/manual_flatten.rs:7:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       for n in x {
-   |       ^        - help: try: `x.into_iter().flatten()`
-   |  _____|
-   | |
-LL | |
-LL | |
-LL | |         if let Some(y) = n {
-...  |
-LL | |     }
-   | |_____^
-   |
-help: ...and remove the `if let` statement in the for loop
-  --> tests/ui/manual_flatten.rs:10:9
-   |
-LL | /         if let Some(y) = n {
-LL | |             println!("{}", y);
-LL | |         }
-   | |_________^
-   = note: `-D clippy::manual-flatten` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_flatten)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnecessary `if let` since only the `Ok` variant of the iterator element is used
-  --> tests/ui/manual_flatten.rs:17:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       for n in y.clone() {
-   |       ^        --------- help: try: `y.clone().into_iter().flatten()`
-   |  _____|
-   | |
-LL | |
-LL | |
-LL | |         if let Ok(n) = n {
-LL | |             println!("{}", n);
-LL | |         };
-LL | |     }
-   | |_____^
-   |
-help: ...and remove the `if let` statement in the for loop
-  --> tests/ui/manual_flatten.rs:20:9
-   |
-LL | /         if let Ok(n) = n {
-LL | |             println!("{}", n);
-LL | |         };
-   | |_________^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnecessary `if let` since only the `Ok` variant of the iterator element is used
-  --> tests/ui/manual_flatten.rs:26:5
+error: item must be `pub`
+  --> tests/ui/manual_flatten.rs:4:1
    |
-LL |       for n in &y {
-   |       ^        -- help: try: `y.iter().flatten()`
-   |  _____|
-   | |
-LL | |
-LL | |
-LL | |         if let Ok(n) = n {
-...  |
-LL | |     }
-   | |_____^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: ...and remove the `if let` statement in the for loop
-  --> tests/ui/manual_flatten.rs:29:9
-   |
-LL | /         if let Ok(n) = n {
-LL | |             println!("{}", n);
-LL | |         }
-   | |_________^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unnecessary `if let` since only the `Ok` variant of the iterator element is used
-  --> tests/ui/manual_flatten.rs:36:5
+error: function must be `unsafe`
+  --> tests/ui/manual_flatten.rs:4:1
    |
-LL |       for n in z {
-   |       ^        - help: try: `z.iter().flatten()`
-   |  _____|
-   | |
-LL | |
-LL | |
-LL | |         if let Ok(n) = n {
-...  |
-LL | |     }
-   | |_____^
+LL | fn main() {
+   | ^
    |
-help: ...and remove the `if let` statement in the for loop
-  --> tests/ui/manual_flatten.rs:39:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_flatten.rs:4:1
    |
-LL | /         if let Ok(n) = n {
-LL | |             println!("{}", n);
-LL | |         }
-   | |_________^
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: unnecessary `if let` since only the `Some` variant of the iterator element is used
-  --> tests/ui/manual_flatten.rs:47:5
+error: variable must be `mut`
+  --> tests/ui/manual_flatten.rs:6:9
    |
-LL |       for n in z {
-   |       ^        - help: try: `z.flatten()`
-   |  _____|
-   | |
-LL | |
-LL | |
-LL | |         if let Some(m) = n {
-...  |
-LL | |     }
-   | |_____^
+LL |     let x = vec![Some(1), Some(2), Some(3)];
+   |         ^ help: make this variable mutable: `mut`
    |
-help: ...and remove the `if let` statement in the for loop
-  --> tests/ui/manual_flatten.rs:50:9
-   |
-LL | /         if let Some(m) = n {
-LL | |             println!("{}", m);
-LL | |         }
-   | |_________^
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: unnecessary `if let` since only the `Some` variant of the iterator element is used
-  --> tests/ui/manual_flatten.rs:82:5
+error: variable must be `mut`
+  --> tests/ui/manual_flatten.rs:16:9
    |
-LL |       for n in &vec_of_ref {
-   |       ^        ----------- help: try: `vec_of_ref.iter().copied().flatten()`
-   |  _____|
-   | |
-LL | |
-LL | |
-LL | |         if let Some(n) = n {
-...  |
-LL | |     }
-   | |_____^
-   |
-help: ...and remove the `if let` statement in the for loop
-  --> tests/ui/manual_flatten.rs:85:9
-   |
-LL | /         if let Some(n) = n {
-LL | |             println!("{:?}", n);
-LL | |         }
-   | |_________^
+LL |     let y: Vec<Result<i32, i32>> = vec![];
+   |         ^ help: make this variable mutable: `mut`
 
-error: unnecessary `if let` since only the `Some` variant of the iterator element is used
-  --> tests/ui/manual_flatten.rs:91:5
+error: references are not allowed
+  --> tests/ui/manual_flatten.rs:26:14
    |
-LL |       for n in vec_of_ref {
-   |       ^        ---------- help: try: `vec_of_ref.iter().copied().flatten()`
-   |  _____|
-   | |
-LL | |
-LL | |
-LL | |         if let Some(n) = n {
-...  |
-LL | |     }
-   | |_____^
+LL |     for n in &y {
+   |              ^^
    |
-help: ...and remove the `if let` statement in the for loop
-  --> tests/ui/manual_flatten.rs:94:9
-   |
-LL | /         if let Some(n) = n {
-LL | |             println!("{:?}", n);
-LL | |         }
-   | |_________^
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: unnecessary `if let` since only the `Some` variant of the iterator element is used
-  --> tests/ui/manual_flatten.rs:100:5
+error: variable must be `mut`
+  --> tests/ui/manual_flatten.rs:35:9
    |
-LL |       for n in slice_of_ref {
-   |       ^        ------------ help: try: `slice_of_ref.iter().copied().flatten()`
-   |  _____|
-   | |
-LL | |
-LL | |
-LL | |         if let Some(n) = n {
-...  |
-LL | |     }
-   | |_____^
-   |
-help: ...and remove the `if let` statement in the for loop
-  --> tests/ui/manual_flatten.rs:103:9
-   |
-LL | /         if let Some(n) = n {
-LL | |             println!("{:?}", n);
-LL | |         }
-   | |_________^
+LL |     let z = &y;
+   |         ^ help: make this variable mutable: `mut`
 
-error: unnecessary `if let` since only the `Some` variant of the iterator element is used
-  --> tests/ui/manual_flatten.rs:132:5
+error: references are not allowed
+  --> tests/ui/manual_flatten.rs:35:13
    |
-LL | /     for n in vec![
-LL | |
-LL | |
-LL | |         Some(1),
-...  |
-LL | |     }
-   | |_____^
+LL |     let z = &y;
+   |             ^^
    |
-help: remove the `if let` statement in the for loop and then...
-  --> tests/ui/manual_flatten.rs:139:9
-   |
-LL | /         if let Some(n) = n {
-LL | |             println!("{:?}", n);
-LL | |         }
-   | |_________^
-help: try
-   |
-LL |     for n in vec![
-...
-LL |         Some(3)
-LL ~     ].iter().flatten() {
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 9 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_flatten.rs:45:9
+   |
+LL |     let z = vec![Some(1), Some(2), Some(3)];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_flatten.rs:46:9
+   |
+LL |     let z = z.iter();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_flatten.rs:58:9
+   |
+LL |     let z = vec![Some(1), Some(2), Some(3)];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_flatten.rs:81:9
+   |
+LL |     let vec_of_ref = vec![&Some(1)];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_flatten.rs:81:27
+   |
+LL |     let vec_of_ref = vec![&Some(1)];
+   |                           ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_flatten.rs:82:14
+   |
+LL |     for n in &vec_of_ref {
+   |              ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_flatten.rs:90:9
+   |
+LL |     let vec_of_ref = &vec_of_ref;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_flatten.rs:90:22
+   |
+LL |     let vec_of_ref = &vec_of_ref;
+   |                      ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_flatten.rs:99:9
+   |
+LL |     let slice_of_ref = &[&Some(1)];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_flatten.rs:99:24
+   |
+LL |     let slice_of_ref = &[&Some(1)];
+   |                        ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_flatten.rs:99:26
+   |
+LL |     let slice_of_ref = &[&Some(1)];
+   |                          ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/manual_flatten.rs:108:5
+   |
+LL |     struct Test {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_flatten.rs:130:1
+   |
+LL | fn run_unformatted_tests() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_flatten.rs:130:1
+   |
+LL | fn run_unformatted_tests() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_flatten.rs:130:1
+   |
+LL | fn run_unformatted_tests() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 25 previous errors
 

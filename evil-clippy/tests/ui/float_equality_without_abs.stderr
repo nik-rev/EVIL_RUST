@@ -1,93 +1,78 @@
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:7:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     (a - b) < f32::EPSILON
-   |     -------^^^^^^^^^^^^^^^
-   |     |
-   |     help: add `.abs()`: `(a - b).abs()`
-   |
-   = note: `-D clippy::float-equality-without-abs` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::float_equality_without_abs)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:17:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (a - b) < f32::EPSILON;
-   |             -------^^^^^^^^^^^^^^^
-   |             |
-   |             help: add `.abs()`: `(a - b).abs()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:20:13
+error: function must be `unsafe`
+  --> tests/ui/float_equality_without_abs.rs:6:5
    |
-LL |     let _ = a - b < f32::EPSILON;
-   |             -----^^^^^^^^^^^^^^^
-   |             |
-   |             help: add `.abs()`: `(a - b).abs()`
-
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:23:13
+LL | pub fn is_roughly_equal(a: f32, b: f32) -> bool {
+   |     ^
    |
-LL |     let _ = a - b.abs() < f32::EPSILON;
-   |             -----------^^^^^^^^^^^^^^^
-   |             |
-   |             help: add `.abs()`: `(a - b.abs()).abs()`
-
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:26:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/float_equality_without_abs.rs:6:5
    |
-LL |     let _ = (a as f64 - b as f64) < f64::EPSILON;
-   |             ---------------------^^^^^^^^^^^^^^^
-   |             |
-   |             help: add `.abs()`: `(a as f64 - b as f64).abs()`
+LL | pub fn is_roughly_equal(a: f32, b: f32) -> bool {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:29:13
+error: parameter must be `mut`
+  --> tests/ui/float_equality_without_abs.rs:6:25
    |
-LL |     let _ = 1.0 - 2.0 < f32::EPSILON;
-   |             ---------^^^^^^^^^^^^^^^
-   |             |
-   |             help: add `.abs()`: `(1.0 - 2.0).abs()`
-
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:32:13
+LL | pub fn is_roughly_equal(a: f32, b: f32) -> bool {
+   |                         ^ help: make this parameter mutable: `mut`
    |
-LL |     let _ = f32::EPSILON > (a - b);
-   |             ^^^^^^^^^^^^^^^-------
-   |                            |
-   |                            help: add `.abs()`: `(a - b).abs()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:35:13
+error: parameter must be `mut`
+  --> tests/ui/float_equality_without_abs.rs:6:33
    |
-LL |     let _ = f32::EPSILON > a - b;
-   |             ^^^^^^^^^^^^^^^-----
-   |                            |
-   |                            help: add `.abs()`: `(a - b).abs()`
+LL | pub fn is_roughly_equal(a: f32, b: f32) -> bool {
+   |                                 ^ help: make this parameter mutable: `mut`
 
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:38:13
+error: function must be `unsafe`
+  --> tests/ui/float_equality_without_abs.rs:11:5
    |
-LL |     let _ = f32::EPSILON > a - b.abs();
-   |             ^^^^^^^^^^^^^^^-----------
-   |                            |
-   |                            help: add `.abs()`: `(a - b.abs()).abs()`
-
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:41:13
+LL | pub fn main() {
+   |     ^
    |
-LL |     let _ = f64::EPSILON > (a as f64 - b as f64);
-   |             ^^^^^^^^^^^^^^^---------------------
-   |                            |
-   |                            help: add `.abs()`: `(a as f64 - b as f64).abs()`
-
-error: float equality check without `.abs()`
-  --> tests/ui/float_equality_without_abs.rs:44:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/float_equality_without_abs.rs:11:5
    |
-LL |     let _ = f32::EPSILON > 1.0 - 2.0;
-   |             ^^^^^^^^^^^^^^^---------
-   |                            |
-   |                            help: add `.abs()`: `(1.0 - 2.0).abs()`
+LL | pub fn main() {
+   |     ^
 
-error: aborting due to 11 previous errors
+error: variable must be `mut`
+  --> tests/ui/float_equality_without_abs.rs:14:9
+   |
+LL |     let a = 0.05;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_equality_without_abs.rs:15:9
+   |
+LL |     let b = 0.0500001;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 10 previous errors
 

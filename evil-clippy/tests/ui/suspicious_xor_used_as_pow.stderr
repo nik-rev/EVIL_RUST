@@ -1,92 +1,68 @@
-error: `^` is not the exponentiation operator
-  --> tests/ui/suspicious_xor_used_as_pow.rs:21:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = 2 ^ 5;
-   |             ^^^^^
-   |
-   = note: `-D clippy::suspicious-xor-used-as-pow` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suspicious_xor_used_as_pow)]`
-help: did you mean to write
-   |
-LL -     let _ = 2 ^ 5;
-LL +     let _ = 2.pow(5);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `^` is not the exponentiation operator
-  --> tests/ui/suspicious_xor_used_as_pow.rs:24:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = 2i32 ^ 9i32;
-   |             ^^^^^^^^^^^
-   |
-help: did you mean to write
-   |
-LL -     let _ = 2i32 ^ 9i32;
-LL +     let _ = 2i32.pow(9i32);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `^` is not the exponentiation operator
-  --> tests/ui/suspicious_xor_used_as_pow.rs:27:13
+error: item must be `pub`
+  --> tests/ui/suspicious_xor_used_as_pow.rs:5:1
    |
-LL |     let _ = 2i32 ^ 2i32;
-   |             ^^^^^^^^^^^
+LL | macro_rules! macro_test {
+   | ^ help: make this item public: `pub`
    |
-help: did you mean to write
-   |
-LL -     let _ = 2i32 ^ 2i32;
-LL +     let _ = 2i32.pow(2i32);
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `^` is not the exponentiation operator
-  --> tests/ui/suspicious_xor_used_as_pow.rs:30:13
+error: item must be `pub`
+  --> tests/ui/suspicious_xor_used_as_pow.rs:11:1
    |
-LL |     let _ = 50i32 ^ 3i32;
-   |             ^^^^^^^^^^^^
-   |
-help: did you mean to write
-   |
-LL -     let _ = 50i32 ^ 3i32;
-LL +     let _ = 50i32.pow(3i32);
-   |
+LL | macro_rules! macro_test_inside {
+   | ^ help: make this item public: `pub`
 
-error: `^` is not the exponentiation operator
-  --> tests/ui/suspicious_xor_used_as_pow.rs:33:13
+error: item must be `pub`
+  --> tests/ui/suspicious_xor_used_as_pow.rs:19:1
    |
-LL |     let _ = 5i32 ^ 8i32;
-   |             ^^^^^^^^^^^
-   |
-help: did you mean to write
-   |
-LL -     let _ = 5i32 ^ 8i32;
-LL +     let _ = 5i32.pow(8i32);
-   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: `^` is not the exponentiation operator
-  --> tests/ui/suspicious_xor_used_as_pow.rs:36:13
+error: function must be `unsafe`
+  --> tests/ui/suspicious_xor_used_as_pow.rs:19:1
    |
-LL |     let _ = 2i32 ^ 32i32;
-   |             ^^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: did you mean to write
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_xor_used_as_pow.rs:19:1
    |
-LL -     let _ = 2i32 ^ 32i32;
-LL +     let _ = 2i32.pow(32i32);
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: `^` is not the exponentiation operator
-  --> tests/ui/suspicious_xor_used_as_pow.rs:13:9
+error: variable must be `mut`
+  --> tests/ui/suspicious_xor_used_as_pow.rs:42:9
    |
-LL |         1 ^ 2 // should warn even if inside macro
-   |         ^^^^^
-...
-LL |     macro_test_inside!();
-   |     -------------------- in this macro invocation
+LL |     let x = 0x02;
+   |         ^ help: make this variable mutable: `mut`
    |
-   = note: this error originates in the macro `macro_test_inside` (in Nightly builds, run with -Z macro-backtrace for more info)
-help: did you mean to write
-   |
-LL -         1 ^ 2 // should warn even if inside macro
-LL +         1.pow(2) // should warn even if inside macro
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 7 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 9 previous errors
 

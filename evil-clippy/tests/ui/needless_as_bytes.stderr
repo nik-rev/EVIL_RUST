@@ -1,53 +1,381 @@
-error: needless call to `as_bytes`
-  --> tests/ui/needless_as_bytes.rs:17:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if "some string".as_bytes().is_empty() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: `is_empty()` can be called directly on strings: `"some string".is_empty()`
-   |
-   = note: `-D clippy::needless-as-bytes` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_as_bytes)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: needless call to `as_bytes`
-  --> tests/ui/needless_as_bytes.rs:20:30
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         println!("len = {}", "some string".as_bytes().len());
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: `len()` can be called directly on strings: `"some string".len()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: needless call to `bytes`
-  --> tests/ui/needless_as_bytes.rs:23:8
+error: item must be `pub`
+  --> tests/ui/needless_as_bytes.rs:5:1
    |
-LL |     if "some string".bytes().is_empty() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: `is_empty()` can be called directly on strings: `"some string".is_empty()`
-
-error: needless call to `bytes`
-  --> tests/ui/needless_as_bytes.rs:26:30
+LL | struct S;
+   | ^ help: make this item public: `pub`
    |
-LL |         println!("len = {}", "some string".bytes().len());
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: `len()` can be called directly on strings: `"some string".len()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: needless call to `as_bytes`
-  --> tests/ui/needless_as_bytes.rs:31:8
+error: item must be `pub`
+  --> tests/ui/needless_as_bytes.rs:7:1
    |
-LL |     if s.as_bytes().is_empty() {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^ help: `is_empty()` can be called directly on strings: `s.is_empty()`
+LL | impl S {
+   | ^ help: make this item public: `pub`
 
-error: needless call to `as_bytes`
-  --> tests/ui/needless_as_bytes.rs:34:30
+error: function must be `unsafe`
+  --> tests/ui/needless_as_bytes.rs:8:5
    |
-LL |         println!("len = {}", s.as_bytes().len());
-   |                              ^^^^^^^^^^^^^^^^^^ help: `len()` can be called directly on strings: `s.len()`
-
-error: needless call to `bytes`
-  --> tests/ui/needless_as_bytes.rs:37:8
+LL |     fn as_bytes(&self) -> &[u8] {
+   |     ^
    |
-LL |     if s.bytes().is_empty() {
-   |        ^^^^^^^^^^^^^^^^^^^^ help: `is_empty()` can be called directly on strings: `s.is_empty()`
-
-error: needless call to `bytes`
-  --> tests/ui/needless_as_bytes.rs:40:30
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_as_bytes.rs:8:5
    |
-LL |         println!("len = {}", s.bytes().len());
-   |                              ^^^^^^^^^^^^^^^ help: `len()` can be called directly on strings: `s.len()`
+LL |     fn as_bytes(&self) -> &[u8] {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 8 previous errors
+error: parameter must be `mut`
+  --> tests/ui/needless_as_bytes.rs:8:18
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:8:17
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:8:27
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:9:9
+   |
+LL |         &[]
+   |         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_as_bytes.rs:11:5
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_as_bytes.rs:11:5
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_as_bytes.rs:11:15
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:11:14
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:11:24
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:12:9
+   |
+LL |         &[]
+   |         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_as_bytes.rs:16:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_as_bytes.rs:16:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_as_bytes.rs:16:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_as_bytes.rs:30:9
+   |
+LL |     let s = String::from("yet another string");
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:47:14
+   |
+LL |     let _ = (&String::new() as &dyn AsBytes).as_bytes().len();
+   |              ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:47:32
+   |
+LL |     let _ = (&String::new() as &dyn AsBytes).as_bytes().len();
+   |                                ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_as_bytes.rs:48:5
+   |
+LL |     macro_rules! m {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:59:14
+   |
+LL |     let _ = (&String::new() as &dyn Bytes).bytes().len();
+   |              ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:59:32
+   |
+LL |     let _ = (&String::new() as &dyn Bytes).bytes().len();
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_as_bytes.rs:60:5
+   |
+LL |     macro_rules! m {
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_as_bytes.rs:72:1
+   |
+LL | / pub trait AsBytes {
+LL | |     fn as_bytes(&self) -> &[u8];
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_as_bytes.rs:73:5
+   |
+LL |     fn as_bytes(&self) -> &[u8];
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_as_bytes.rs:73:5
+   |
+LL |     fn as_bytes(&self) -> &[u8];
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_as_bytes.rs:73:18
+   |
+LL |     fn as_bytes(&self) -> &[u8];
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:73:17
+   |
+LL |     fn as_bytes(&self) -> &[u8];
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:73:27
+   |
+LL |     fn as_bytes(&self) -> &[u8];
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_as_bytes.rs:76:1
+   |
+LL | impl AsBytes for String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_as_bytes.rs:77:5
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_as_bytes.rs:77:5
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_as_bytes.rs:77:18
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:77:17
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:77:27
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:78:9
+   |
+LL |         &[]
+   |         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_as_bytes.rs:82:1
+   |
+LL | / pub trait Bytes {
+LL | |     fn bytes(&self) -> &[u8];
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_as_bytes.rs:83:5
+   |
+LL |     fn bytes(&self) -> &[u8];
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_as_bytes.rs:83:5
+   |
+LL |     fn bytes(&self) -> &[u8];
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_as_bytes.rs:83:15
+   |
+LL |     fn bytes(&self) -> &[u8];
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:83:14
+   |
+LL |     fn bytes(&self) -> &[u8];
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:83:24
+   |
+LL |     fn bytes(&self) -> &[u8];
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_as_bytes.rs:86:1
+   |
+LL | impl Bytes for String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_as_bytes.rs:87:5
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_as_bytes.rs:87:5
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_as_bytes.rs:87:15
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:87:14
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:87:24
+   |
+LL |     fn bytes(&self) -> &[u8] {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_as_bytes.rs:88:9
+   |
+LL |         &[]
+   |         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 47 previous errors
 

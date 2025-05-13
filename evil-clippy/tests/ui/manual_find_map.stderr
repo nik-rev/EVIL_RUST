@@ -1,277 +1,333 @@
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:9:19
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (0..).find(|n| to_opt(*n).is_some()).map(|a| to_opt(a).unwrap());
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|a| to_opt(a))`
-   |
-note: the suggestion might change the behavior of the program when merging `filter` and `map`, because this expression potentially contains side effects and will only execute once
-  --> tests/ui/manual_find_map.rs:9:28
-   |
-LL |     let _ = (0..).find(|n| to_opt(*n).is_some()).map(|a| to_opt(a).unwrap());
-   |                            ^^^^^^^^^^
-   = note: `-D clippy::manual-find-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_find_map)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:13:19
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (0..).find(|&n| to_opt(n).is_some()).map(|a| to_opt(a).expect("hi"));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|a| to_opt(a))`
-   |
-note: the suggestion might change the behavior of the program when merging `filter` and `map`, because this expression potentially contains side effects and will only execute once
-  --> tests/ui/manual_find_map.rs:13:29
-   |
-LL |     let _ = (0..).find(|&n| to_opt(n).is_some()).map(|a| to_opt(a).expect("hi"));
-   |                             ^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:17:19
+error: item must be `pub`
+  --> tests/ui/manual_find_map.rs:7:1
    |
-LL |     let _ = (0..).find(|&n| to_res(n).is_ok()).map(|a| to_res(a).unwrap_or(1));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|a| to_res(a).ok())`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-note: the suggestion might change the behavior of the program when merging `filter` and `map`, because this expression potentially contains side effects and will only execute once
-  --> tests/ui/manual_find_map.rs:17:29
-   |
-LL |     let _ = (0..).find(|&n| to_res(n).is_ok()).map(|a| to_res(a).unwrap_or(1));
-   |                             ^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:21:10
+error: function must be `unsafe`
+  --> tests/ui/manual_find_map.rs:7:1
    |
-LL |           .find(|&x| to_ref(to_opt(x)).is_some())
-   |  __________^
-LL | |
-LL | |         .map(|y| to_ref(to_opt(y)).unwrap());
-   | |____________________________________________^ help: try: `find_map(|y| *to_ref(to_opt(y)))`
+LL | fn main() {
+   | ^
    |
-note: the suggestion might change the behavior of the program when merging `filter` and `map`, because this expression potentially contains side effects and will only execute once
-  --> tests/ui/manual_find_map.rs:21:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_map.rs:7:1
    |
-LL |         .find(|&x| to_ref(to_opt(x)).is_some())
-   |                    ^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:25:10
+error: item must be `pub`
+  --> tests/ui/manual_find_map.rs:40:1
    |
-LL |           .find(|x| to_ref(to_opt(*x)).is_some())
-   |  __________^
-LL | |
-LL | |         .map(|y| to_ref(to_opt(y)).unwrap());
-   | |____________________________________________^ help: try: `find_map(|y| *to_ref(to_opt(y)))`
-   |
-note: the suggestion might change the behavior of the program when merging `filter` and `map`, because this expression potentially contains side effects and will only execute once
-  --> tests/ui/manual_find_map.rs:25:19
-   |
-LL |         .find(|x| to_ref(to_opt(*x)).is_some())
-   |                   ^^^^^^^^^^^^^^^^^^
+LL | fn simple_equal() {
+   | ^ help: make this item public: `pub`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:30:10
+error: function must be `unsafe`
+  --> tests/ui/manual_find_map.rs:40:1
    |
-LL |           .find(|&x| to_ref(to_res(x)).is_ok())
-   |  __________^
-LL | |
-LL | |         .map(|y| to_ref(to_res(y)).unwrap());
-   | |____________________________________________^ help: try: `find_map(|y| to_ref(to_res(y)).ok())`
+LL | fn simple_equal() {
+   | ^
    |
-note: the suggestion might change the behavior of the program when merging `filter` and `map`, because this expression potentially contains side effects and will only execute once
-  --> tests/ui/manual_find_map.rs:30:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_map.rs:40:1
    |
-LL |         .find(|&x| to_ref(to_res(x)).is_ok())
-   |                    ^^^^^^^^^^^^^^^^^
+LL | fn simple_equal() {
+   | ^
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:34:10
-   |
-LL |           .find(|x| to_ref(to_res(*x)).is_ok())
-   |  __________^
-LL | |
-LL | |         .map(|y| to_ref(to_res(y)).unwrap());
-   | |____________________________________________^ help: try: `find_map(|y| to_ref(to_res(y)).ok())`
-   |
-note: the suggestion might change the behavior of the program when merging `filter` and `map`, because this expression potentially contains side effects and will only execute once
-  --> tests/ui/manual_find_map.rs:34:19
-   |
-LL |         .find(|x| to_ref(to_res(*x)).is_ok())
-   |                   ^^^^^^^^^^^^^^^^^^
-
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:41:26
-   |
-LL |     iter::<Option<u8>>().find(|x| x.is_some()).map(|x| x.unwrap());
-   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x)`
-
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:43:27
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:43:12
    |
 LL |     iter::<&Option<u8>>().find(|x| x.is_some()).map(|x| x.unwrap());
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| *x)`
+   |            ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:45:28
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:45:12
    |
 LL |     iter::<&&Option<u8>>().find(|x| x.is_some()).map(|x| x.unwrap());
-   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| **x)`
+   |            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:47:27
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:45:13
+   |
+LL |     iter::<&&Option<u8>>().find(|x| x.is_some()).map(|x| x.unwrap());
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:47:19
    |
 LL |     iter::<Option<&u8>>().find(|x| x.is_some()).map(|x| x.cloned().unwrap());
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x.cloned())`
+   |                   ^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:49:28
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:49:12
    |
 LL |     iter::<&Option<&u8>>().find(|x| x.is_some()).map(|x| x.cloned().unwrap());
-   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x.cloned())`
+   |            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:51:31
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:49:20
+   |
+LL |     iter::<&Option<&u8>>().find(|x| x.is_some()).map(|x| x.cloned().unwrap());
+   |                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:51:12
    |
 LL |     iter::<&Option<String>>().find(|x| x.is_some()).map(|x| x.as_deref().unwrap());
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x.as_deref())`
+   |            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:53:31
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:53:19
    |
 LL |     iter::<Option<&String>>().find(|&x| to_ref(x).is_some()).map(|y| to_ref(y).cloned().unwrap());
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|y| to_ref(y).cloned())`
+   |                   ^^^^^^^
    |
-note: the suggestion might change the behavior of the program when merging `filter` and `map`, because this expression potentially contains side effects and will only execute once
-  --> tests/ui/manual_find_map.rs:53:41
-   |
-LL |     iter::<Option<&String>>().find(|&x| to_ref(x).is_some()).map(|y| to_ref(y).cloned().unwrap());
-   |                                         ^^^^^^^^^
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:56:30
-   |
-LL |     iter::<Result<u8, ()>>().find(|x| x.is_ok()).map(|x| x.unwrap());
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x.ok())`
-
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:58:31
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:58:12
    |
 LL |     iter::<&Result<u8, ()>>().find(|x| x.is_ok()).map(|x| x.unwrap());
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x.ok())`
+   |            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:60:32
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:60:12
    |
 LL |     iter::<&&Result<u8, ()>>().find(|x| x.is_ok()).map(|x| x.unwrap());
-   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x.ok())`
+   |            ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:62:31
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:60:13
+   |
+LL |     iter::<&&Result<u8, ()>>().find(|x| x.is_ok()).map(|x| x.unwrap());
+   |             ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:62:19
    |
 LL |     iter::<Result<&u8, ()>>().find(|x| x.is_ok()).map(|x| x.cloned().unwrap());
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x.cloned().ok())`
+   |                   ^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:64:32
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:64:12
    |
 LL |     iter::<&Result<&u8, ()>>().find(|x| x.is_ok()).map(|x| x.cloned().unwrap());
-   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x.cloned().ok())`
+   |            ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:66:35
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:64:20
+   |
+LL |     iter::<&Result<&u8, ()>>().find(|x| x.is_ok()).map(|x| x.cloned().unwrap());
+   |                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:66:12
    |
 LL |     iter::<&Result<String, ()>>().find(|x| x.is_ok()).map(|x| x.as_deref().unwrap());
-   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|x| x.as_deref().ok())`
+   |            ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:68:35
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:68:19
    |
 LL |     iter::<Result<&String, ()>>().find(|&x| to_ref(x).is_ok()).map(|y| to_ref(y).cloned().unwrap());
-   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `find_map(|y| to_ref(y).cloned().ok())`
+   |                   ^^^^^^^
    |
-note: the suggestion might change the behavior of the program when merging `filter` and `map`, because this expression potentially contains side effects and will only execute once
-  --> tests/ui/manual_find_map.rs:68:45
-   |
-LL |     iter::<Result<&String, ()>>().find(|&x| to_ref(x).is_ok()).map(|y| to_ref(y).cloned().unwrap());
-   |                                             ^^^^^^^^^
+   = help: use a raw pointer instead: `*const`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:117:10
+error: item must be `pub`
+  --> tests/ui/manual_find_map.rs:72:1
    |
-LL |           .find(|f| f.option_field.is_some())
-   |  __________^
-LL | |
-LL | |         .map(|f| f.option_field.clone().unwrap());
-   | |_________________________________________________^ help: try: `find_map(|f| f.option_field.clone())`
+LL | fn no_lint() {
+   | ^ help: make this item public: `pub`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:123:10
+error: function must be `unsafe`
+  --> tests/ui/manual_find_map.rs:72:1
    |
-LL |           .find(|f| f.ref_field.is_some())
-   |  __________^
-LL | |
-LL | |         .map(|f| f.ref_field.cloned().unwrap());
-   | |_______________________________________________^ help: try: `find_map(|f| f.ref_field.cloned())`
-
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:129:10
+LL | fn no_lint() {
+   | ^
    |
-LL |           .find(|f| f.ref_field.is_some())
-   |  __________^
-LL | |
-LL | |         .map(|f| f.ref_field.copied().unwrap());
-   | |_______________________________________________^ help: try: `find_map(|f| f.ref_field.copied())`
-
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:135:10
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_map.rs:72:1
    |
-LL |           .find(|f| f.result_field.is_ok())
-   |  __________^
-LL | |
-LL | |         .map(|f| f.result_field.clone().unwrap());
-   | |_________________________________________________^ help: try: `find_map(|f| f.result_field.clone().ok())`
+LL | fn no_lint() {
+   | ^
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:141:10
+error: item must be `pub`
+  --> tests/ui/manual_find_map.rs:86:1
    |
-LL |           .find(|f| f.result_field.is_ok())
-   |  __________^
-LL | |
-LL | |         .map(|f| f.result_field.as_ref().unwrap());
-   | |__________________________________________________^ help: try: `find_map(|f| f.result_field.as_ref().ok())`
+LL | fn iter<T>() -> impl Iterator<Item = T> {
+   | ^ help: make this item public: `pub`
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:147:10
+error: function must be `unsafe`
+  --> tests/ui/manual_find_map.rs:86:1
    |
-LL |           .find(|f| f.result_field.is_ok())
-   |  __________^
-LL | |
-LL | |         .map(|f| f.result_field.as_deref().unwrap());
-   | |____________________________________________________^ help: try: `find_map(|f| f.result_field.as_deref().ok())`
-
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:153:10
+LL | fn iter<T>() -> impl Iterator<Item = T> {
+   | ^
    |
-LL |           .find(|f| f.result_field.is_ok())
-   |  __________^
-LL | |
-LL | |         .map(|f| f.result_field.as_mut().unwrap());
-   | |__________________________________________________^ help: try: `find_map(|f| f.result_field.as_mut().ok())`
-
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:159:10
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_map.rs:86:1
    |
-LL |           .find(|f| f.result_field.is_ok())
-   |  __________^
-LL | |
-LL | |         .map(|f| f.result_field.as_deref_mut().unwrap());
-   | |________________________________________________________^ help: try: `find_map(|f| f.result_field.as_deref_mut().ok())`
+LL | fn iter<T>() -> impl Iterator<Item = T> {
+   | ^
 
-error: `find(..).map(..)` can be simplified as `find_map(..)`
-  --> tests/ui/manual_find_map.rs:165:10
+error: item must be `pub`
+  --> tests/ui/manual_find_map.rs:90:1
    |
-LL |           .find(|f| f.result_field.is_ok())
-   |  __________^
-LL | |
-LL | |         .map(|f| f.result_field.to_owned().unwrap());
-   | |____________________________________________________^ help: try: `find_map(|f| f.result_field.to_owned().ok())`
+LL | fn to_opt<T>(_: T) -> Option<T> {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 30 previous errors
+error: function must be `unsafe`
+  --> tests/ui/manual_find_map.rs:90:1
+   |
+LL | fn to_opt<T>(_: T) -> Option<T> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_map.rs:90:1
+   |
+LL | fn to_opt<T>(_: T) -> Option<T> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_find_map.rs:94:1
+   |
+LL | fn to_res<T>(_: T) -> Result<T, ()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_map.rs:94:1
+   |
+LL | fn to_res<T>(_: T) -> Result<T, ()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_map.rs:94:1
+   |
+LL | fn to_res<T>(_: T) -> Result<T, ()> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_find_map.rs:98:1
+   |
+LL | fn to_ref<'a, T>(_: T) -> &'a T {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_map.rs:98:1
+   |
+LL | fn to_ref<'a, T>(_: T) -> &'a T {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_map.rs:98:1
+   |
+LL | fn to_ref<'a, T>(_: T) -> &'a T {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:98:27
+   |
+LL | fn to_ref<'a, T>(_: T) -> &'a T {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_map.rs:102:1
+   |
+LL | struct Issue8920<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:105:23
+   |
+LL |     ref_field: Option<&'a usize>,
+   |                       ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_find_map.rs:108:1
+   |
+LL | fn issue_8920() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find_map.rs:108:1
+   |
+LL | fn issue_8920() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find_map.rs:108:1
+   |
+LL | fn issue_8920() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/manual_find_map.rs:112:25
+   |
+LL |         ref_field: Some(&1),
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 40 previous errors
 

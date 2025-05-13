@@ -1,53 +1,726 @@
-error: this argument (N byte) is passed by value, but might be more efficient if passed by reference (limit: N byte)
-  --> tests/ui/large_types_passed_by_value.rs:20:11
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:8:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:8:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:8:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:8:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:8:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:8:17
+   |
+LL | #[derive(Clone, Copy)]
+   |                 ^
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:13:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:13:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:13:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:13:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:13:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:13:17
+   |
+LL | #[derive(Clone, Copy)]
+   |                 ^
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:16:1
+   |
+LL | fn small(a: Small, b: SmallAndCopy) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:16:1
+   |
+LL | fn small(a: Small, b: SmallAndCopy) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:16:1
+   |
+LL | fn small(a: Small, b: SmallAndCopy) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:16:10
+   |
+LL | fn small(a: Small, b: SmallAndCopy) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:16:20
+   |
+LL | fn small(a: Small, b: SmallAndCopy) {}
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:17:1
+   |
+LL | fn not_copy(a: Large) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:17:1
+   |
+LL | fn not_copy(a: Large) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:17:1
+   |
+LL | fn not_copy(a: Large) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:17:13
+   |
+LL | fn not_copy(a: Large) {}
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:18:1
+   |
+LL | fn by_ref(a: &Large, b: &LargeAndCopy) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:18:1
+   |
+LL | fn by_ref(a: &Large, b: &LargeAndCopy) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:18:1
+   |
+LL | fn by_ref(a: &Large, b: &LargeAndCopy) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:18:11
+   |
+LL | fn by_ref(a: &Large, b: &LargeAndCopy) {}
+   |           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:18:22
+   |
+LL | fn by_ref(a: &Large, b: &LargeAndCopy) {}
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:18:14
+   |
+LL | fn by_ref(a: &Large, b: &LargeAndCopy) {}
+   |              ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:18:25
+   |
+LL | fn by_ref(a: &Large, b: &LargeAndCopy) {}
+   |                         ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:19:1
+   |
+LL | fn mutable(mut a: LargeAndCopy) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:19:1
+   |
+LL | fn mutable(mut a: LargeAndCopy) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:19:1
+   |
+LL | fn mutable(mut a: LargeAndCopy) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:20:1
    |
 LL | fn bad(a: LargeAndCopy) {}
-   |           ^^^^^^^^^^^^ help: consider passing by reference instead: `&LargeAndCopy`
-   |
-   = note: `-D clippy::large-types-passed-by-value` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::large_types_passed_by_value)]`
+   | ^ help: make this item public: `pub`
 
-error: this argument (N byte) is passed by value, but might be more efficient if passed by reference (limit: N byte)
-  --> tests/ui/large_types_passed_by_value.rs:26:37
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:20:1
+   |
+LL | fn bad(a: LargeAndCopy) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:20:1
+   |
+LL | fn bad(a: LargeAndCopy) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:20:8
+   |
+LL | fn bad(a: LargeAndCopy) {}
+   |        ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:22:5
+   |
+LL | pub fn bad_but_pub(a: LargeAndCopy) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:22:5
+   |
+LL | pub fn bad_but_pub(a: LargeAndCopy) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:22:20
+   |
+LL | pub fn bad_but_pub(a: LargeAndCopy) {}
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:24:1
+   |
+LL | impl LargeAndCopy {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:25:5
+   |
+LL |     fn self_is_ok(self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:25:5
+   |
+LL |     fn self_is_ok(self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:25:19
+   |
+LL |     fn self_is_ok(self) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:26:5
    |
 LL |     fn other_is_not_ok(self, other: LargeAndCopy) {}
-   |                                     ^^^^^^^^^^^^ help: consider passing by reference instead: `&LargeAndCopy`
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:26:5
+   |
+LL |     fn other_is_not_ok(self, other: LargeAndCopy) {}
+   |     ^
 
-error: this argument (N byte) is passed by value, but might be more efficient if passed by reference (limit: N byte)
-  --> tests/ui/large_types_passed_by_value.rs:33:36
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:26:24
+   |
+LL |     fn other_is_not_ok(self, other: LargeAndCopy) {}
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:26:30
+   |
+LL |     fn other_is_not_ok(self, other: LargeAndCopy) {}
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:28:5
+   |
+LL |     fn unless_other_can_change(self, mut other: LargeAndCopy) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:28:5
+   |
+LL |     fn unless_other_can_change(self, mut other: LargeAndCopy) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:28:32
+   |
+LL |     fn unless_other_can_change(self, mut other: LargeAndCopy) {}
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:29:9
+   |
+LL |     pub fn or_were_in_public(self, other: LargeAndCopy) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:29:9
+   |
+LL |     pub fn or_were_in_public(self, other: LargeAndCopy) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:29:30
+   |
+LL |     pub fn or_were_in_public(self, other: LargeAndCopy) {}
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:29:36
+   |
+LL |     pub fn or_were_in_public(self, other: LargeAndCopy) {}
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:32:1
+   |
+LL | / trait LargeTypeDevourer {
+LL | |     fn devoure_array(&self, array: [u8; 6666]);
+LL | |
+LL | |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy));
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:32:1
+   |
+LL | trait LargeTypeDevourer {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:33:5
    |
 LL |     fn devoure_array(&self, array: [u8; 6666]);
-   |                                    ^^^^^^^^^^ help: consider passing by reference instead: `&[u8; 6666]`
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:33:5
+   |
+LL |     fn devoure_array(&self, array: [u8; 6666]);
+   |     ^
 
-error: this argument (N byte) is passed by value, but might be more efficient if passed by reference (limit: N byte)
-  --> tests/ui/large_types_passed_by_value.rs:35:34
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:33:23
+   |
+LL |     fn devoure_array(&self, array: [u8; 6666]);
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:33:29
+   |
+LL |     fn devoure_array(&self, array: [u8; 6666]);
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:33:22
+   |
+LL |     fn devoure_array(&self, array: [u8; 6666]);
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:35:5
    |
 LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy));
-   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider passing by reference instead: `&(LargeAndCopy, LargeAndCopy)`
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:35:5
+   |
+LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy));
+   |     ^
 
-error: this argument (N byte) is passed by value, but might be more efficient if passed by reference (limit: N byte)
-  --> tests/ui/large_types_passed_by_value.rs:37:50
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:35:23
+   |
+LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy));
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:35:29
+   |
+LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy));
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:35:22
+   |
+LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy));
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:37:5
    |
 LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy));
-   |                                                  ^^^^^^^^^^ help: consider passing by reference instead: `&[u8; 6666]`
-
-error: this argument (N byte) is passed by value, but might be more efficient if passed by reference (limit: N byte)
-  --> tests/ui/large_types_passed_by_value.rs:37:67
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:37:5
    |
 LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy));
-   |                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider passing by reference instead: `&(LargeAndCopy, LargeAndCopy)`
+   |     ^
 
-error: this argument (N byte) is passed by value, but might be more efficient if passed by reference (limit: N byte)
-  --> tests/ui/large_types_passed_by_value.rs:64:17
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:37:37
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy));
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:37:43
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy));
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:37:62
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy));
+   |                                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:37:36
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy));
+   |                                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:42:1
+   |
+LL | / pub trait PubLargeTypeDevourer {
+LL | |     fn devoure_array_in_public(&self, array: [u8; 6666]);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:43:5
+   |
+LL |     fn devoure_array_in_public(&self, array: [u8; 6666]);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:43:5
+   |
+LL |     fn devoure_array_in_public(&self, array: [u8; 6666]);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:43:33
+   |
+LL |     fn devoure_array_in_public(&self, array: [u8; 6666]);
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:43:39
+   |
+LL |     fn devoure_array_in_public(&self, array: [u8; 6666]);
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:43:32
+   |
+LL |     fn devoure_array_in_public(&self, array: [u8; 6666]);
+   |                                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:46:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:47:1
+   |
+LL | impl LargeTypeDevourer for S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:48:5
+   |
+LL |     fn devoure_array(&self, array: [u8; 6666]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:48:5
+   |
+LL |     fn devoure_array(&self, array: [u8; 6666]) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:48:23
+   |
+LL |     fn devoure_array(&self, array: [u8; 6666]) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:48:29
+   |
+LL |     fn devoure_array(&self, array: [u8; 6666]) {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:48:22
+   |
+LL |     fn devoure_array(&self, array: [u8; 6666]) {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:51:5
+   |
+LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy)) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:51:5
+   |
+LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy)) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:51:23
+   |
+LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy)) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:51:29
+   |
+LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy)) {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:51:22
+   |
+LL |     fn devoure_tuple(&self, tup: (LargeAndCopy, LargeAndCopy)) {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:54:5
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy)) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:54:5
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy)) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:54:37
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy)) {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:54:43
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy)) {
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:54:62
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy)) {
+   |                                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_types_passed_by_value.rs:54:36
+   |
+LL |     fn devoure_array_and_tuple_wow(&self, array: [u8; 6666], tup: (LargeAndCopy, LargeAndCopy)) {
+   |                                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:60:1
+   |
+LL | fn foo_always(x: LargeAndCopy) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:60:1
+   |
+LL | fn foo_always(x: LargeAndCopy) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:60:1
+   |
+LL | fn foo_always(x: LargeAndCopy) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:60:15
+   |
+LL | fn foo_always(x: LargeAndCopy) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:64:1
    |
 LL | fn foo_never(x: LargeAndCopy) {
-   |                 ^^^^^^^^^^^^ help: consider passing by reference instead: `&LargeAndCopy`
+   | ^ help: make this item public: `pub`
 
-error: this argument (N byte) is passed by value, but might be more efficient if passed by reference (limit: N byte)
-  --> tests/ui/large_types_passed_by_value.rs:69:11
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:64:1
+   |
+LL | fn foo_never(x: LargeAndCopy) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:64:1
+   |
+LL | fn foo_never(x: LargeAndCopy) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:64:14
+   |
+LL | fn foo_never(x: LargeAndCopy) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:69:1
    |
 LL | fn foo(x: LargeAndCopy) {
-   |           ^^^^^^^^^^^^ help: consider passing by reference instead: `&LargeAndCopy`
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 8 previous errors
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:69:1
+   |
+LL | fn foo(x: LargeAndCopy) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:69:1
+   |
+LL | fn foo(x: LargeAndCopy) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_types_passed_by_value.rs:69:8
+   |
+LL | fn foo(x: LargeAndCopy) {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/large_types_passed_by_value.rs:74:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:74:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_types_passed_by_value.rs:74:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 91 previous errors
 

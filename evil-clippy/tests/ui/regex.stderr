@@ -1,249 +1,496 @@
-error: trivial regex
-  --> tests/ui/regex.rs:20:45
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/regex.rs:11:1
+   |
+LL | extern crate regex;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/regex.rs:16:1
+   |
+LL | const OPENING_PAREN: &str = "(";
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/regex.rs:16:22
+   |
+LL | const OPENING_PAREN: &str = "(";
+   |                      ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/regex.rs:17:1
+   |
+LL | const NOT_A_REAL_REGEX: &str = "foobar";
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/regex.rs:17:25
+   |
+LL | const NOT_A_REAL_REGEX: &str = "foobar";
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/regex.rs:19:1
+   |
+LL | fn syntax_error() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/regex.rs:19:1
+   |
+LL | fn syntax_error() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/regex.rs:19:1
+   |
+LL | fn syntax_error() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:20:9
    |
 LL |     let pipe_in_wrong_position = Regex::new("|");
-   |                                             ^^^
+   |         ^ help: make this variable mutable: `mut`
    |
-   = help: the regex is unlikely to be useful as it is
-   = note: `-D clippy::trivial-regex` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::trivial_regex)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:22:60
+error: variable must be `mut`
+  --> tests/ui/regex.rs:22:9
    |
 LL |     let pipe_in_wrong_position_builder = RegexBuilder::new("|");
-   |                                                            ^^^
-   |
-   = help: the regex is unlikely to be useful as it is
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex syntax error: invalid character class range, the start must be <= the end
-  --> tests/ui/regex.rs:24:42
+error: variable must be `mut`
+  --> tests/ui/regex.rs:24:9
    |
 LL |     let wrong_char_ranice = Regex::new("[z-a]");
-   |                                          ^^^
-   |
-   = note: `-D clippy::invalid-regex` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::invalid_regex)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex syntax error: invalid character class range, the start must be <= the end
-  --> tests/ui/regex.rs:27:37
+error: variable must be `mut`
+  --> tests/ui/regex.rs:27:9
    |
 LL |     let some_unicode = Regex::new("[é-è]");
-   |                                     ^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex parse error:
-           (
-           ^
-       error: unclosed group
-  --> tests/ui/regex.rs:30:33
+error: variable must be `mut`
+  --> tests/ui/regex.rs:30:9
    |
 LL |     let some_regex = Regex::new(OPENING_PAREN);
-   |                                 ^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:33:53
+error: variable must be `mut`
+  --> tests/ui/regex.rs:33:9
    |
 LL |     let binary_pipe_in_wrong_position = BRegex::new("|");
-   |                                                     ^^^
-   |
-   = help: the regex is unlikely to be useful as it is
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex parse error:
-           (
-           ^
-       error: unclosed group
-  --> tests/ui/regex.rs:35:41
+error: variable must be `mut`
+  --> tests/ui/regex.rs:35:9
    |
 LL |     let some_binary_regex = BRegex::new(OPENING_PAREN);
-   |                                         ^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex parse error:
-           (
-           ^
-       error: unclosed group
-  --> tests/ui/regex.rs:37:56
+error: variable must be `mut`
+  --> tests/ui/regex.rs:37:9
    |
 LL |     let some_binary_regex_builder = BRegexBuilder::new(OPENING_PAREN);
-   |                                                        ^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex parse error:
-           (
-           ^
-       error: unclosed group
-  --> tests/ui/regex.rs:50:37
+error: variable must be `mut`
+  --> tests/ui/regex.rs:40:9
+   |
+LL |     let closing_paren = ")";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:41:9
+   |
+LL |     let not_linted = Regex::new(closing_paren);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:43:9
+   |
+LL |     let set = RegexSet::new(&[r"[a-z]+@[a-z]+\.(com|org|net)", r"[a-z]+\.(com|org|net)"]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/regex.rs:43:29
+   |
+LL |     let set = RegexSet::new(&[r"[a-z]+@[a-z]+\.(com|org|net)", r"[a-z]+\.(com|org|net)"]);
+   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:44:9
+   |
+LL |     let bset = BRegexSet::new(&[
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/regex.rs:44:31
+   |
+LL |       let bset = BRegexSet::new(&[
+   |  _______________________________^
+LL | |         r"[a-z]+@[a-z]+\.(com|org|net)",
+LL | |         r"[a-z]+\.(com|org|net)",
+LL | |         r".", // regression test
+LL | |     ]);
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:50:9
    |
 LL |     let set_error = RegexSet::new(&[OPENING_PAREN, r"[a-z]+\.(com|org|net)"]);
-   |                                     ^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex parse error:
-           (
-           ^
-       error: unclosed group
-  --> tests/ui/regex.rs:52:39
+error: references are not allowed
+  --> tests/ui/regex.rs:50:35
+   |
+LL |     let set_error = RegexSet::new(&[OPENING_PAREN, r"[a-z]+\.(com|org|net)"]);
+   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:52:9
    |
 LL |     let bset_error = BRegexSet::new(&[OPENING_PAREN, r"[a-z]+\.(com|org|net)"]);
-   |                                       ^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex parse error:
-           \b\c
-             ^^
-       error: unrecognized escape sequence
-  --> tests/ui/regex.rs:60:42
+error: references are not allowed
+  --> tests/ui/regex.rs:52:37
+   |
+LL |     let bset_error = BRegexSet::new(&[OPENING_PAREN, r"[a-z]+\.(com|org|net)"]);
+   |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:56:9
+   |
+LL |     let raw_string_error = Regex::new(r"[...\/...]");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:57:9
+   |
+LL |     let raw_string_error = Regex::new(r#"[...\/...]"#);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:60:9
    |
 LL |     let escaped_string_span = Regex::new("\\b\\c");
-   |                                          ^^^^^^^^
-   |
-   = help: consider using a raw string literal: `r".."`
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex syntax error: duplicate flag
-  --> tests/ui/regex.rs:63:34
+error: variable must be `mut`
+  --> tests/ui/regex.rs:63:9
    |
 LL |     let aux_span = Regex::new("(?ixi)");
-   |                                  ^ ^
+   |         ^ help: make this variable mutable: `mut`
 
-error: regex syntax error: pattern can match invalid UTF-8
-  --> tests/ui/regex.rs:69:53
+error: variable must be `mut`
+  --> tests/ui/regex.rs:66:9
+   |
+LL |     let should_not_lint = Regex::new("(?u).");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:67:9
+   |
+LL |     let should_not_lint = BRegex::new("(?u).");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:68:9
+   |
+LL |     let invalid_utf8_should_not_lint = BRegex::new("(?-u).");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:69:9
    |
 LL |     let invalid_utf8_should_lint = Regex::new("(?-u).");
-   |                                                     ^
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:74:33
+error: item must be `pub`
+  --> tests/ui/regex.rs:73:1
+   |
+LL | fn trivial_regex() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/regex.rs:73:1
+   |
+LL | fn trivial_regex() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/regex.rs:73:1
+   |
+LL | fn trivial_regex() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:74:9
    |
 LL |     let trivial_eq = Regex::new("^foobar$");
-   |                                 ^^^^^^^^^^
-   |
-   = help: consider using `==` on `str`s
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:77:48
+error: variable must be `mut`
+  --> tests/ui/regex.rs:77:9
    |
 LL |     let trivial_eq_builder = RegexBuilder::new("^foobar$");
-   |                                                ^^^^^^^^^^
-   |
-   = help: consider using `==` on `str`s
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:80:42
+error: variable must be `mut`
+  --> tests/ui/regex.rs:80:9
    |
 LL |     let trivial_starts_with = Regex::new("^foobar");
-   |                                          ^^^^^^^^^
-   |
-   = help: consider using `str::starts_with`
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:83:40
+error: variable must be `mut`
+  --> tests/ui/regex.rs:83:9
    |
 LL |     let trivial_ends_with = Regex::new("foobar$");
-   |                                        ^^^^^^^^^
-   |
-   = help: consider using `str::ends_with`
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:86:39
+error: variable must be `mut`
+  --> tests/ui/regex.rs:86:9
    |
 LL |     let trivial_contains = Regex::new("foobar");
-   |                                       ^^^^^^^^
-   |
-   = help: consider using `str::contains`
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:89:39
+error: variable must be `mut`
+  --> tests/ui/regex.rs:89:9
    |
 LL |     let trivial_contains = Regex::new(NOT_A_REAL_REGEX);
-   |                                       ^^^^^^^^^^^^^^^^
-   |
-   = help: consider using `str::contains`
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:92:40
+error: variable must be `mut`
+  --> tests/ui/regex.rs:92:9
    |
 LL |     let trivial_backslash = Regex::new("a\\.b");
-   |                                        ^^^^^^^
-   |
-   = help: consider using `str::contains`
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:96:36
+error: variable must be `mut`
+  --> tests/ui/regex.rs:96:9
    |
 LL |     let trivial_empty = Regex::new("");
-   |                                    ^^
-   |
-   = help: the regex is unlikely to be useful as it is
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:99:36
+error: variable must be `mut`
+  --> tests/ui/regex.rs:99:9
    |
 LL |     let trivial_empty = Regex::new("^");
-   |                                    ^^^
-   |
-   = help: the regex is unlikely to be useful as it is
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:102:36
+error: variable must be `mut`
+  --> tests/ui/regex.rs:102:9
    |
 LL |     let trivial_empty = Regex::new("^$");
-   |                                    ^^^^
-   |
-   = help: consider using `str::is_empty`
+   |         ^ help: make this variable mutable: `mut`
 
-error: trivial regex
-  --> tests/ui/regex.rs:105:44
+error: variable must be `mut`
+  --> tests/ui/regex.rs:105:9
    |
 LL |     let binary_trivial_empty = BRegex::new("^$");
-   |                                            ^^^^
-   |
-   = help: consider using `str::is_empty`
+   |         ^ help: make this variable mutable: `mut`
 
-error: compiling a regex in a loop
-  --> tests/ui/regex.rs:132:21
+error: variable must be `mut`
+  --> tests/ui/regex.rs:109:9
+   |
+LL |     let non_trivial_dot = Regex::new("a.b");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:110:9
+   |
+LL |     let non_trivial_dot_builder = RegexBuilder::new("a.b");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:111:9
+   |
+LL |     let non_trivial_dot = Regex::new(".");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:112:9
+   |
+LL |     let non_trivial_dot = BRegex::new(".");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:113:9
+   |
+LL |     let non_trivial_eq = Regex::new("^foo|bar$");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:114:9
+   |
+LL |     let non_trivial_starts_with = Regex::new("^foo|bar");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:115:9
+   |
+LL |     let non_trivial_ends_with = Regex::new("^foo|bar");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:116:9
+   |
+LL |     let non_trivial_ends_with = Regex::new("foo|bar");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:117:9
+   |
+LL |     let non_trivial_binary = BRegex::new("foo|bar");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:118:9
+   |
+LL |     let non_trivial_binary_builder = BRegexBuilder::new("foo|bar");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:121:9
+   |
+LL |     let a_byte_of_unicode = BRegex::new(r"\p{C}");
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/regex.rs:128:1
+   |
+LL | fn regex_creation_in_loops() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/regex.rs:128:1
+   |
+LL | fn regex_creation_in_loops() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/regex.rs:128:1
+   |
+LL | fn regex_creation_in_loops() {
+   | ^
+
+error: static must be `mut`
+  --> tests/ui/regex.rs:130:16
+   |
+LL |         static STATIC_REGEX: std::sync::LazyLock<Regex> = std::sync::LazyLock::new(|| Regex::new("a.b").unwrap());
+   |                ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/regex.rs:130:9
+   |
+LL |         static STATIC_REGEX: std::sync::LazyLock<Regex> = std::sync::LazyLock::new(|| Regex::new("a.b").unwrap());
+   |         ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:132:13
    |
 LL |         let regex = Regex::new("a.b");
-   |                     ^^^^^^^^^^
-   |
-help: move the regex construction outside this loop
-  --> tests/ui/regex.rs:129:5
-   |
-LL |     loop {
-   |     ^^^^
-   = note: `-D clippy::regex-creation-in-loops` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::regex_creation_in_loops)]`
+   |             ^ help: make this variable mutable: `mut`
 
-error: compiling a regex in a loop
-  --> tests/ui/regex.rs:134:21
+error: variable must be `mut`
+  --> tests/ui/regex.rs:134:13
    |
 LL |         let regex = BRegex::new("a.b");
-   |                     ^^^^^^^^^^^
-   |
-help: move the regex construction outside this loop
-  --> tests/ui/regex.rs:129:5
-   |
-LL |     loop {
-   |     ^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: compiling a regex in a loop
-  --> tests/ui/regex.rs:140:25
+error: variable must be `mut`
+  --> tests/ui/regex.rs:137:13
+   |
+LL |         let allowed_regex = Regex::new("a.b");
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/regex.rs:140:17
    |
 LL |             let regex = Regex::new("a.b");
-   |                         ^^^^^^^^^^
-   |
-help: move the regex construction outside this loop
-  --> tests/ui/regex.rs:129:5
-   |
-LL |     loop {
-   |     ^^^^
+   |                 ^ help: make this variable mutable: `mut`
 
-error: compiling a regex in a loop
-  --> tests/ui/regex.rs:145:32
+error: variable must be `mut`
+  --> tests/ui/regex.rs:145:17
    |
 LL |             let nested_regex = Regex::new("a.b");
-   |                                ^^^^^^^^^^
-   |
-help: move the regex construction outside this loop
-  --> tests/ui/regex.rs:144:9
-   |
-LL |         for _ in 0..10 {
-   |         ^^^^^^^^^^^^^^
+   |                 ^ help: make this variable mutable: `mut`
 
-error: aborting due to 28 previous errors
+error: variable must be `mut`
+  --> tests/ui/regex.rs:151:13
+   |
+LL |         let dependant_regex = Regex::new(&format!("{i}"));
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/regex.rs:151:42
+   |
+LL |         let dependant_regex = Regex::new(&format!("{i}"));
+   |                                          ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/regex.rs:155:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/regex.rs:155:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/regex.rs:155:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 74 previous errors
 

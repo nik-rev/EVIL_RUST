@@ -1,29 +1,116 @@
-error: use of `#[inline]` on trait method `default_inline` which has no body
-  --> tests/ui/inline_fn_without_body.rs:5:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       #[inline]
-   |  _____-^^^^^^^^
-LL | |
-   | |____- help: remove
-   |
-   = note: `-D clippy::inline-fn-without-body` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::inline_fn_without_body)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `#[inline]` on trait method `always_inline` which has no body
-  --> tests/ui/inline_fn_without_body.rs:9:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       #[inline(always)]
-   |  _____-^^^^^^^^^^^^^^^^
-LL | |
-   | |____- help: remove
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `#[inline]` on trait method `never_inline` which has no body
-  --> tests/ui/inline_fn_without_body.rs:13:5
+error: trait must be `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:4:1
    |
-LL |       #[inline(never)]
-   |  _____-^^^^^^^^^^^^^^^
+LL | / trait Foo {
+LL | |     #[inline]
 LL | |
-   | |____- help: remove
+LL | |     fn default_inline();
+...  |
+LL | |     fn has_body() {}
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/inline_fn_without_body.rs:4:1
+   |
+LL | trait Foo {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:7:5
+   |
+LL |     fn default_inline();
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:7:5
+   |
+LL |     fn default_inline();
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:11:5
+   |
+LL |     fn always_inline();
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:11:5
+   |
+LL |     fn always_inline();
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:15:5
+   |
+LL |     fn never_inline();
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:15:5
+   |
+LL |     fn never_inline();
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:18:5
+   |
+LL |     fn has_body() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:18:5
+   |
+LL |     fn has_body() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/inline_fn_without_body.rs:21:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:21:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/inline_fn_without_body.rs:21:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 12 previous errors
 

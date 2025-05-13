@@ -1,75 +1,809 @@
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:13:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:6:1
+   |
+LL | async fn func1(n: usize) -> usize {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:6:7
+   |
+LL | async fn func1(n: usize) -> usize {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:6:7
+   |
+LL | async fn func1(n: usize) -> usize {
+   |       ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:6:16
+   |
+LL | async fn func1(n: usize) -> usize {
+   |                ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:10:1
+   |
+LL | async fn func2() -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:10:7
+   |
+LL | async fn func2() -> String {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:10:7
+   |
+LL | async fn func2() -> String {
+   |       ^
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:11:9
+   |
+LL |     let s = String::from("some string");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:12:9
+   |
+LL |     let f = async { (*s).to_owned() };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:13:9
    |
 LL |     let x = async { f.await };
-   |             ^^^^^^^^^^^^^^^^^ help: you can reduce it to: `f`
-   |
-   = note: `-D clippy::redundant-async-block` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_async_block)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:21:16
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:18:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:18:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:18:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:19:9
+   |
+LL |     let fut1 = async { 17 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:21:9
    |
 LL |     let fut2 = async { fut1.await };
-   |                ^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `fut1`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:26:16
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:24:9
+   |
+LL |     let fut1 = async { 25 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:26:9
    |
 LL |     let fut2 = async move { fut1.await };
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `fut1`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:30:15
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:30:9
    |
 LL |     let fut = async { async { 42 }.await };
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `async { 42 }`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:47:5
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:34:9
    |
-LL |     async move { fut.await }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `fut`
+LL |     let fut = async {
+   |         ^ help: make this variable mutable: `mut`
 
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:61:5
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:40:9
    |
-LL |     async move { fut.await }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `fut`
+LL |     let fut = async { func1(func2().await.len()).await };
+   |         ^ help: make this variable mutable: `mut`
 
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:67:5
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:44:1
    |
-LL |     async { f.await }
-   |     ^^^^^^^^^^^^^^^^^ help: you can reduce it to: `f`
+LL | fn capture_local() -> impl Future<Output = i32> {
+   | ^ help: make this item public: `pub`
 
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:91:5
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:44:1
    |
-LL |     async { async { f().await + 1 }.await }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `async { f().await + 1 }`
+LL | fn capture_local() -> impl Future<Output = i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:44:1
+   |
+LL | fn capture_local() -> impl Future<Output = i32> {
+   | ^
 
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:155:13
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:45:9
    |
-LL |             async { async { 42 }.await }
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `async { 42 }`
-...
-LL |     mac!()
-   |     ------ in this macro invocation
-   |
-   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+LL |     let fut = async { 17 };
+   |         ^ help: make this variable mutable: `mut`
 
-error: this async expression only awaits a single future
-  --> tests/ui/redundant_async_block.rs:176:13
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:51:1
    |
-LL |             async { async { $e }.await }
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `async { $e }`
-...
-LL |     mac!(42)
-   |     -------- in this macro invocation
-   |
-   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+LL | fn capture_local_closure(s: &str) -> impl Future<Output = &str> {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 10 previous errors
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:51:1
+   |
+LL | fn capture_local_closure(s: &str) -> impl Future<Output = &str> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:51:1
+   |
+LL | fn capture_local_closure(s: &str) -> impl Future<Output = &str> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:51:26
+   |
+LL | fn capture_local_closure(s: &str) -> impl Future<Output = &str> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:51:29
+   |
+LL | fn capture_local_closure(s: &str) -> impl Future<Output = &str> {
+   |                             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:51:59
+   |
+LL | fn capture_local_closure(s: &str) -> impl Future<Output = &str> {
+   |                                                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:52:9
+   |
+LL |     let f = move || std::future::ready(s);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:58:1
+   |
+LL | fn capture_arg(s: &str) -> impl Future<Output = &str> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:58:1
+   |
+LL | fn capture_arg(s: &str) -> impl Future<Output = &str> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:58:1
+   |
+LL | fn capture_arg(s: &str) -> impl Future<Output = &str> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:58:16
+   |
+LL | fn capture_arg(s: &str) -> impl Future<Output = &str> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:58:19
+   |
+LL | fn capture_arg(s: &str) -> impl Future<Output = &str> {
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:58:49
+   |
+LL | fn capture_arg(s: &str) -> impl Future<Output = &str> {
+   |                                                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:59:9
+   |
+LL |     let fut = async move { s };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:65:1
+   |
+LL | fn capture_future_arg<T>(f: impl Future<Output = T>) -> impl Future<Output = T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:65:1
+   |
+LL | fn capture_future_arg<T>(f: impl Future<Output = T>) -> impl Future<Output = T> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:65:1
+   |
+LL | fn capture_future_arg<T>(f: impl Future<Output = T>) -> impl Future<Output = T> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:65:26
+   |
+LL | fn capture_future_arg<T>(f: impl Future<Output = T>) -> impl Future<Output = T> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:71:1
+   |
+LL | fn capture_func_result<FN, F, T>(f: FN) -> impl Future<Output = T>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:71:1
+   |
+LL | fn capture_func_result<FN, F, T>(f: FN) -> impl Future<Output = T>
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:71:1
+   |
+LL | fn capture_func_result<FN, F, T>(f: FN) -> impl Future<Output = T>
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:71:34
+   |
+LL | fn capture_func_result<FN, F, T>(f: FN) -> impl Future<Output = T>
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:80:1
+   |
+LL | fn double_future(f: impl Future<Output = impl Future<Output = u32>>) -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:80:1
+   |
+LL | fn double_future(f: impl Future<Output = impl Future<Output = u32>>) -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:80:1
+   |
+LL | fn double_future(f: impl Future<Output = impl Future<Output = u32>>) -> impl Future<Output = u32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:80:18
+   |
+LL | fn double_future(f: impl Future<Output = impl Future<Output = u32>>) -> impl Future<Output = u32> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:85:1
+   |
+LL | fn await_in_async<F, R>(f: F) -> impl Future<Output = u32>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:85:1
+   |
+LL | fn await_in_async<F, R>(f: F) -> impl Future<Output = u32>
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:85:1
+   |
+LL | fn await_in_async<F, R>(f: F) -> impl Future<Output = u32>
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:85:25
+   |
+LL | fn await_in_async<F, R>(f: F) -> impl Future<Output = u32>
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:96:1
+   |
+LL | struct F {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:95:10
+   |
+LL | #[derive(Debug, Clone)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:95:7
+   |
+LL | #[derive(Debug, Clone)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:95:7
+   |
+LL | #[derive(Debug, Clone)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:95:10
+   |
+LL | #[derive(Debug, Clone)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:95:10
+   |
+LL | #[derive(Debug, Clone)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:95:10
+   |
+LL | #[derive(Debug, Clone)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:95:10
+   |
+LL | #[derive(Debug, Clone)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:95:17
+   |
+LL | #[derive(Debug, Clone)]
+   |                 ^
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:95:14
+   |
+LL | #[derive(Debug, Clone)]
+   |              ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:95:14
+   |
+LL | #[derive(Debug, Clone)]
+   |              ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:95:17
+   |
+LL | #[derive(Debug, Clone)]
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:95:17
+   |
+LL | #[derive(Debug, Clone)]
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:98:1
+   |
+LL | impl F {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:99:11
+   |
+LL |     async fn run(&self) {}
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:99:11
+   |
+LL |     async fn run(&self) {}
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:99:19
+   |
+LL |     async fn run(&self) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:99:18
+   |
+LL |     async fn run(&self) {}
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:102:11
+   |
+LL | pub async fn run() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:102:11
+   |
+LL | pub async fn run() {
+   |           ^
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:103:9
+   |
+LL |     let f = F {};
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:104:9
+   |
+LL |     let c = f.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:107:9
+   |
+LL |     let _f = f;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:110:1
+   |
+LL | fn spawn<F: Future + 'static>(_: F) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:110:1
+   |
+LL | fn spawn<F: Future + 'static>(_: F) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:110:1
+   |
+LL | fn spawn<F: Future + 'static>(_: F) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:112:1
+   |
+LL | async fn work(_: &str) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:112:7
+   |
+LL | async fn work(_: &str) {}
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:112:7
+   |
+LL | async fn work(_: &str) {}
+   |       ^
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:112:18
+   |
+LL | async fn work(_: &str) {}
+   |                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:114:1
+   |
+LL | fn capture() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:114:1
+   |
+LL | fn capture() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:114:1
+   |
+LL | fn capture() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:115:9
+   |
+LL |     let val = "Hello World".to_owned();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/redundant_async_block.rs:117:24
+   |
+LL |     spawn(async { work(&{ val }).await });
+   |                        ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:120:1
+   |
+LL | fn await_from_macro() -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:120:1
+   |
+LL | fn await_from_macro() -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:120:1
+   |
+LL | fn await_from_macro() -> impl Future<Output = u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:121:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:131:1
+   |
+LL | fn async_expr_from_macro() -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:131:1
+   |
+LL | fn async_expr_from_macro() -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:131:1
+   |
+LL | fn async_expr_from_macro() -> impl Future<Output = u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:132:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:141:1
+   |
+LL | fn async_expr_from_macro_deep() -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:141:1
+   |
+LL | fn async_expr_from_macro_deep() -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:141:1
+   |
+LL | fn async_expr_from_macro_deep() -> impl Future<Output = u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:142:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:151:1
+   |
+LL | fn all_from_macro() -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:151:1
+   |
+LL | fn all_from_macro() -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:151:1
+   |
+LL | fn all_from_macro() -> impl Future<Output = u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:152:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:162:1
+   |
+LL | fn parts_from_macro() -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:162:1
+   |
+LL | fn parts_from_macro() -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:162:1
+   |
+LL | fn parts_from_macro() -> impl Future<Output = u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:163:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:172:1
+   |
+LL | fn safe_parts_from_macro() -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:172:1
+   |
+LL | fn safe_parts_from_macro() -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:172:1
+   |
+LL | fn safe_parts_from_macro() -> impl Future<Output = u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:173:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:183:1
+   |
+LL | fn parts_from_macro_deep() -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:183:1
+   |
+LL | fn parts_from_macro_deep() -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:183:1
+   |
+LL | fn parts_from_macro_deep() -> impl Future<Output = u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:184:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_async_block.rs:190:9
+   |
+LL |     let f = std::future::ready(42);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:194:1
+   |
+LL | fn await_from_macro_deep() -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:194:1
+   |
+LL | fn await_from_macro_deep() -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:194:1
+   |
+LL | fn await_from_macro_deep() -> impl Future<Output = u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:195:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/redundant_async_block.rs:204:1
+   |
+LL | fn from_into_future(a: impl IntoFuture<Output = u32>) -> impl Future<Output = u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_async_block.rs:204:1
+   |
+LL | fn from_into_future(a: impl IntoFuture<Output = u32>) -> impl Future<Output = u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_async_block.rs:204:1
+   |
+LL | fn from_into_future(a: impl IntoFuture<Output = u32>) -> impl Future<Output = u32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/redundant_async_block.rs:204:21
+   |
+LL | fn from_into_future(a: impl IntoFuture<Output = u32>) -> impl Future<Output = u32> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 104 previous errors
 

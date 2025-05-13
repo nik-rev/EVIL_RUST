@@ -1,185 +1,74 @@
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:31:27
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     write!(v, "Hello {}", "world");
-   |                           ^^^^^^^
-   |
-   = note: `-D clippy::write-literal` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::write_literal)]`
-help: try
-   |
-LL -     write!(v, "Hello {}", "world");
-LL +     write!(v, "Hello world");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:34:39
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     writeln!(v, "Hello {} {}", world, "world");
-   |                                       ^^^^^^^
-   |
-help: try
-   |
-LL -     writeln!(v, "Hello {} {}", world, "world");
-LL +     writeln!(v, "Hello {} world", world);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:37:29
+error: item must be `pub`
+  --> tests/ui/write_literal.rs:6:1
    |
-LL |     writeln!(v, "Hello {}", "world");
-   |                             ^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: try
-   |
-LL -     writeln!(v, "Hello {}", "world");
-LL +     writeln!(v, "Hello world");
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:40:29
+error: function must be `unsafe`
+  --> tests/ui/write_literal.rs:6:1
    |
-LL |     writeln!(v, "{} {:.4}", "a literal", 5);
-   |                             ^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/write_literal.rs:6:1
    |
-LL -     writeln!(v, "{} {:.4}", "a literal", 5);
-LL +     writeln!(v, "a literal {:.4}", 5);
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:46:28
+error: variable must be `mut`
+  --> tests/ui/write_literal.rs:12:9
    |
-LL |     writeln!(v, "{0} {1}", "hello", "world");
-   |                            ^^^^^^^^^^^^^^^^
+LL |     let world = "world";
+   |         ^ help: make this variable mutable: `mut`
    |
-help: try
-   |
-LL -     writeln!(v, "{0} {1}", "hello", "world");
-LL +     writeln!(v, "hello world");
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:49:28
+error: item must be `pub`
+  --> tests/ui/write_literal.rs:73:1
    |
-LL |     writeln!(v, "{1} {0}", "hello", "world");
-   |                            ^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     writeln!(v, "{1} {0}", "hello", "world");
-LL +     writeln!(v, "world hello");
-   |
+LL | fn issue_13959() {
+   | ^ help: make this item public: `pub`
 
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:53:38
+error: function must be `unsafe`
+  --> tests/ui/write_literal.rs:73:1
    |
-LL |     writeln!(v, "{foo} {bar}", foo = "hello", bar = "world");
-   |                                      ^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue_13959() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/write_literal.rs:73:1
    |
-LL -     writeln!(v, "{foo} {bar}", foo = "hello", bar = "world");
-LL +     writeln!(v, "hello world");
-   |
+LL | fn issue_13959() {
+   | ^
 
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:56:38
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     writeln!(v, "{bar} {foo}", foo = "hello", bar = "world");
-   |                                      ^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     writeln!(v, "{bar} {foo}", foo = "hello", bar = "world");
-LL +     writeln!(v, "world hello");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:60:32
+error: missing `#![no_std]`
    |
-LL |     writeln!(v, "{0} {1} {2}", "hello", 2, "world");
-   |                                ^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     writeln!(v, "{0} {1} {2}", "hello", 2, "world");
-LL +     writeln!(v, "hello {0} world", 2);
-   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:63:32
-   |
-LL |     writeln!(v, "{2} {1} {0}", "hello", 2, "world");
-   |                                ^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     writeln!(v, "{2} {1} {0}", "hello", 2, "world");
-LL +     writeln!(v, "world {0} hello", 2);
-   |
-
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:66:39
-   |
-LL |     writeln!(v, "{0} {1} {2}, {bar}", "hello", 2, 3, bar = 4);
-   |                                       ^^^^^^^
-   |
-help: try
-   |
-LL -     writeln!(v, "{0} {1} {2}, {bar}", "hello", 2, 3, bar = 4);
-LL +     writeln!(v, "hello {0} {1}, {bar}", 2, 3, bar = 4);
-   |
-
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:69:41
-   |
-LL |     writeln!(v, "{0} {1} {2}, {3} {4}", "hello", 2, 3, "world", 4);
-   |                                         ^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     writeln!(v, "{0} {1} {2}, {3} {4}", "hello", 2, 3, "world", 4);
-LL +     writeln!(v, "hello {0} {1}, world {2}", 2, 3, 4);
-   |
-
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:75:23
-   |
-LL |     writeln!(v, "{}", r#"""#);
-   |                       ^^^^^^
-   |
-help: try
-   |
-LL -     writeln!(v, "{}", r#"""#);
-LL +     writeln!(v, "\"");
-   |
-
-error: literal with an empty format string
-  --> tests/ui/write_literal.rs:80:9
-   |
-LL | /         r#"
-LL | |
-LL | |         foo
-LL | |         \
-...  |
-LL | |         bar
-LL | | "#
-   | |__^
-   |
-help: try
-   |
-LL ~         "
-LL +
-LL +         foo
-LL +         \\
-LL +         \\\\
-LL +         \"
-LL +         \\\"
-LL +         bar
-LL ~ "
-   |
-
-error: aborting due to 14 previous errors
+error: aborting due to 9 previous errors
 

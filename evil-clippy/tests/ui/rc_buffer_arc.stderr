@@ -1,53 +1,144 @@
-error: usage of `Arc<T>` when T is a buffer type
-  --> tests/ui/rc_buffer_arc.rs:10:11
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     bad1: Arc<String>,
-   |           ^^^^^^^^^^^ help: try: `Arc<str>`
-   |
-   = note: `-D clippy::rc-buffer` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::rc_buffer)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: usage of `Arc<T>` when T is a buffer type
-  --> tests/ui/rc_buffer_arc.rs:12:11
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     bad2: Arc<PathBuf>,
-   |           ^^^^^^^^^^^^ help: try: `Arc<std::path::Path>`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: usage of `Arc<T>` when T is a buffer type
-  --> tests/ui/rc_buffer_arc.rs:14:11
+error: item must be `pub`
+  --> tests/ui/rc_buffer_arc.rs:8:1
    |
-LL |     bad3: Arc<Vec<u8>>,
-   |           ^^^^^^^^^^^^ help: try: `Arc<[u8]>`
-
-error: usage of `Arc<T>` when T is a buffer type
-  --> tests/ui/rc_buffer_arc.rs:16:11
+LL | struct S {
+   | ^ help: make this item public: `pub`
    |
-LL |     bad4: Arc<OsString>,
-   |           ^^^^^^^^^^^^^ help: try: `Arc<std::ffi::OsStr>`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: usage of `Arc<T>` when T is a buffer type
-  --> tests/ui/rc_buffer_arc.rs:23:17
+error: item must be `pub`
+  --> tests/ui/rc_buffer_arc.rs:23:1
    |
 LL | fn func_bad1(_: Arc<String>) {}
-   |                 ^^^^^^^^^^^ help: try: `Arc<str>`
+   | ^ help: make this item public: `pub`
 
-error: usage of `Arc<T>` when T is a buffer type
-  --> tests/ui/rc_buffer_arc.rs:25:17
+error: function must be `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:23:1
+   |
+LL | fn func_bad1(_: Arc<String>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:23:1
+   |
+LL | fn func_bad1(_: Arc<String>) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/rc_buffer_arc.rs:25:1
    |
 LL | fn func_bad2(_: Arc<PathBuf>) {}
-   |                 ^^^^^^^^^^^^ help: try: `Arc<std::path::Path>`
+   | ^ help: make this item public: `pub`
 
-error: usage of `Arc<T>` when T is a buffer type
-  --> tests/ui/rc_buffer_arc.rs:27:17
+error: function must be `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:25:1
+   |
+LL | fn func_bad2(_: Arc<PathBuf>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:25:1
+   |
+LL | fn func_bad2(_: Arc<PathBuf>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/rc_buffer_arc.rs:27:1
    |
 LL | fn func_bad3(_: Arc<Vec<u8>>) {}
-   |                 ^^^^^^^^^^^^ help: try: `Arc<[u8]>`
+   | ^ help: make this item public: `pub`
 
-error: usage of `Arc<T>` when T is a buffer type
-  --> tests/ui/rc_buffer_arc.rs:29:17
+error: function must be `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:27:1
+   |
+LL | fn func_bad3(_: Arc<Vec<u8>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:27:1
+   |
+LL | fn func_bad3(_: Arc<Vec<u8>>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/rc_buffer_arc.rs:29:1
    |
 LL | fn func_bad4(_: Arc<OsString>) {}
-   |                 ^^^^^^^^^^^^^ help: try: `Arc<std::ffi::OsStr>`
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 8 previous errors
+error: function must be `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:29:1
+   |
+LL | fn func_bad4(_: Arc<OsString>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:29:1
+   |
+LL | fn func_bad4(_: Arc<OsString>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/rc_buffer_arc.rs:32:1
+   |
+LL | fn func_good1(_: Arc<Mutex<String>>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:32:1
+   |
+LL | fn func_good1(_: Arc<Mutex<String>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:32:1
+   |
+LL | fn func_good1(_: Arc<Mutex<String>>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/rc_buffer_arc.rs:34:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:34:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_buffer_arc.rs:34:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

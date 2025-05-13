@@ -1,23 +1,201 @@
-error: calling `as_bytes` after slicing a string
-  --> tests/ui/sliced_string_as_bytes.rs:28:17
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/sliced_string_as_bytes.rs:6:1
+   |
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/sliced_string_as_bytes.rs:8:1
+   |
+LL | struct Bar;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/sliced_string_as_bytes.rs:10:1
+   |
+LL | impl Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/sliced_string_as_bytes.rs:11:5
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/sliced_string_as_bytes.rs:11:5
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/sliced_string_as_bytes.rs:11:18
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/sliced_string_as_bytes.rs:11:17
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/sliced_string_as_bytes.rs:11:27
+   |
+LL |     fn as_bytes(&self) -> &[u8] {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/sliced_string_as_bytes.rs:12:9
+   |
+LL |         &[0, 1, 2, 3]
+   |         ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/sliced_string_as_bytes.rs:16:1
+   |
+LL | impl Index<Range<usize>> for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/sliced_string_as_bytes.rs:19:5
+   |
+LL |     fn index(&self, _: Range<usize>) -> &Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/sliced_string_as_bytes.rs:19:5
+   |
+LL |     fn index(&self, _: Range<usize>) -> &Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/sliced_string_as_bytes.rs:19:15
+   |
+LL |     fn index(&self, _: Range<usize>) -> &Self::Output {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/sliced_string_as_bytes.rs:19:14
+   |
+LL |     fn index(&self, _: Range<usize>) -> &Self::Output {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/sliced_string_as_bytes.rs:19:41
+   |
+LL |     fn index(&self, _: Range<usize>) -> &Self::Output {
+   |                                         ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/sliced_string_as_bytes.rs:20:9
+   |
+LL |         &Bar
+   |         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/sliced_string_as_bytes.rs:24:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/sliced_string_as_bytes.rs:24:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/sliced_string_as_bytes.rs:24:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/sliced_string_as_bytes.rs:25:9
+   |
+LL |     let s = "Lorem ipsum";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/sliced_string_as_bytes.rs:26:9
+   |
+LL |     let string: String = "dolor sit amet".to_owned();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/sliced_string_as_bytes.rs:28:9
    |
 LL |     let bytes = s[1..5].as_bytes();
-   |                 ^^^^^^^^^^^^^^^^^^ help: try: `&s.as_bytes()[1..5]`
-   |
-   = note: `-D clippy::sliced-string-as-bytes` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::sliced_string_as_bytes)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: calling `as_bytes` after slicing a string
-  --> tests/ui/sliced_string_as_bytes.rs:30:17
+error: variable must be `mut`
+  --> tests/ui/sliced_string_as_bytes.rs:30:9
    |
 LL |     let bytes = string[1..].as_bytes();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&string.as_bytes()[1..]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: calling `as_bytes` after slicing a string
-  --> tests/ui/sliced_string_as_bytes.rs:32:17
+error: variable must be `mut`
+  --> tests/ui/sliced_string_as_bytes.rs:32:9
    |
 LL |     let bytes = "consectetur adipiscing"[..=5].as_bytes();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&"consectetur adipiscing".as_bytes()[..=5]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 3 previous errors
+error: variable must be `mut`
+  --> tests/ui/sliced_string_as_bytes.rs:35:9
+   |
+LL |     let f = Foo;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/sliced_string_as_bytes.rs:36:9
+   |
+LL |     let bytes = f[0..4].as_bytes();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 27 previous errors
 

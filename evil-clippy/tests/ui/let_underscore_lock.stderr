@@ -1,36 +1,104 @@
-error: non-binding `let` on a synchronization lock
-  --> tests/ui/let_underscore_lock.rs:10:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = p_m.lock();
-   |     ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using an underscore-prefixed named binding or dropping explicitly with `std::mem::drop`
-   = note: `-D clippy::let-underscore-lock` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::let_underscore_lock)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: non-binding `let` on a synchronization lock
-  --> tests/ui/let_underscore_lock.rs:14:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = p_m1.lock();
-   |     ^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using an underscore-prefixed named binding or dropping explicitly with `std::mem::drop`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: non-binding `let` on a synchronization lock
-  --> tests/ui/let_underscore_lock.rs:18:5
+error: item must be `pub`
+  --> tests/ui/let_underscore_lock.rs:3:1
    |
-LL |     let _ = p_rw.read();
-   |     ^^^^^^^^^^^^^^^^^^^^
+LL | extern crate parking_lot;
+   | ^ help: make this item public: `pub`
    |
-   = help: consider using an underscore-prefixed named binding or dropping explicitly with `std::mem::drop`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: non-binding `let` on a synchronization lock
-  --> tests/ui/let_underscore_lock.rs:20:5
+error: item must be `pub`
+  --> tests/ui/let_underscore_lock.rs:5:1
    |
-LL |     let _ = p_rw.write();
-   |     ^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using an underscore-prefixed named binding or dropping explicitly with `std::mem::drop`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_lock.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_lock.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/let_underscore_lock.rs:9:9
+   |
+LL |     let p_m: Mutex<()> = Mutex::const_new(RawMutex::INIT, ());
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_underscore_lock.rs:13:9
+   |
+LL |     let p_m1 = Mutex::new(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_underscore_lock.rs:17:9
+   |
+LL |     let p_rw = RwLock::new(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_lock.rs:30:1
+   |
+LL | fn uplifted() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_lock.rs:30:1
+   |
+LL | fn uplifted() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_lock.rs:30:1
+   |
+LL | fn uplifted() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/let_underscore_lock.rs:33:9
+   |
+LL |     let m = std::sync::Mutex::new(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_underscore_lock.rs:34:9
+   |
+LL |     let rw = std::sync::RwLock::new(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 14 previous errors
 

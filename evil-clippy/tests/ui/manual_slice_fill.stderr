@@ -1,42 +1,411 @@
-error: manually filling a slice
-  --> tests/ui/manual_slice_fill.rs:25:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for i in 0..some_slice.len() {
-LL | |
-LL | |         some_slice[i] = 0;
-LL | |     }
-   | |_____^ help: try: `some_slice.fill(0);`
-   |
-   = note: `-D clippy::manual-slice-fill` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_slice_fill)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manually filling a slice
-  --> tests/ui/manual_slice_fill.rs:31:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for i in 0..some_slice.len() {
-LL | |
-LL | |         some_slice[i] = x;
-LL | |     }
-   | |_____^ help: try: `some_slice.fill(x);`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manually filling a slice
-  --> tests/ui/manual_slice_fill.rs:36:5
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:4:1
    |
-LL | /     for i in &mut some_slice {
-LL | |
-LL | |         *i = 0;
-LL | |     }
-   | |_____^ help: try: `some_slice.fill(0);`
-
-error: manually filling a slice
-  --> tests/ui/manual_slice_fill.rs:43:5
+LL | macro_rules! assign_element {
+   | ^ help: make this item public: `pub`
    |
-LL | /     for i in 0..some_slice.len() {
-LL | |
-LL | |         some_slice[i] = 0;
-LL | |         // foo
-LL | |     }
-   | |_____^ help: try: `some_slice.fill(0);`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:10:1
+   |
+LL | macro_rules! assign_element_2 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:16:1
+   |
+LL | struct NoClone;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:18:1
+   |
+LL | fn num() -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:18:1
+   |
+LL | fn num() -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:18:1
+   |
+LL | fn num() -> usize {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:22:1
+   |
+LL | fn should_lint() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:22:1
+   |
+LL | fn should_lint() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:22:1
+   |
+LL | fn should_lint() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_slice_fill.rs:30:9
+   |
+LL |     let x = 5;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:36:14
+   |
+LL |     for i in &mut some_slice {
+   |              ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:50:1
+   |
+LL | fn should_not_lint() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:50:1
+   |
+LL | fn should_not_lint() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:50:1
+   |
+LL | fn should_not_lint() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_slice_fill.rs:78:9
+   |
+LL |     let another_slice = [1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:93:14
+   |
+LL |     for i in &mut some_slice {
+   |              ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:98:14
+   |
+LL |     for i in &mut some_slice {
+   |              ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:105:14
+   |
+LL |     for i in &mut some_slice {
+   |              ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:111:14
+   |
+LL |     for i in &mut vec {
+   |              ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:116:1
+   |
+LL | fn issue_14192() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:116:1
+   |
+LL | fn issue_14192() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:116:1
+   |
+LL | fn issue_14192() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:132:1
+   |
+LL | fn issue14189() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:132:1
+   |
+LL | fn issue14189() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:132:1
+   |
+LL | fn issue14189() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:135:14
+   |
+LL |     for b in &mut tmp {
+   |              ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:140:1
+   |
+LL | mod issue14685 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:144:5
+   |
+LL |     struct ZipList<T>(T);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:143:14
+   |
+LL |     #[derive(Clone)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:143:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:143:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/manual_slice_fill.rs:143:14
+   |
+LL |     #[derive(Clone)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:143:14
+   |
+LL |     #[derive(Clone)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:144:23
+   |
+LL |     #[derive(Clone)]
+   |              ----- in this derive macro expansion
+LL |     struct ZipList<T>(T);
+   |                       ^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:146:5
+   |
+LL |     impl<T> ZipList<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:147:9
+   |
+LL |         fn len(&self) -> usize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:147:9
+   |
+LL |         fn len(&self) -> usize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_slice_fill.rs:147:17
+   |
+LL |         fn len(&self) -> usize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:147:16
+   |
+LL |         fn len(&self) -> usize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:151:9
+   |
+LL |         fn is_empty(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:151:9
+   |
+LL |         fn is_empty(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_slice_fill.rs:151:22
+   |
+LL |         fn is_empty(&self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:151:21
+   |
+LL |         fn is_empty(&self) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:156:5
+   |
+LL |     impl<T> Index<usize> for ZipList<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:159:9
+   |
+LL |         fn index(&self, _: usize) -> &Self::Output {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:159:9
+   |
+LL |         fn index(&self, _: usize) -> &Self::Output {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_slice_fill.rs:159:19
+   |
+LL |         fn index(&self, _: usize) -> &Self::Output {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:159:18
+   |
+LL |         fn index(&self, _: usize) -> &Self::Output {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:159:38
+   |
+LL |         fn index(&self, _: usize) -> &Self::Output {
+   |                                      ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:164:5
+   |
+LL |     impl<T> IndexMut<usize> for ZipList<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:165:9
+   |
+LL |         fn index_mut(&mut self, _: usize) -> &mut Self::Output {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:165:9
+   |
+LL |         fn index_mut(&mut self, _: usize) -> &mut Self::Output {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_slice_fill.rs:165:27
+   |
+LL |         fn index_mut(&mut self, _: usize) -> &mut Self::Output {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:165:22
+   |
+LL |         fn index_mut(&mut self, _: usize) -> &mut Self::Output {
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/manual_slice_fill.rs:165:46
+   |
+LL |         fn index_mut(&mut self, _: usize) -> &mut Self::Output {
+   |                                              ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/manual_slice_fill.rs:170:5
+   |
+LL |     fn index_mut(mut zl: ZipList<usize>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_slice_fill.rs:170:5
+   |
+LL |     fn index_mut(mut zl: ZipList<usize>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_slice_fill.rs:170:5
+   |
+LL |     fn index_mut(mut zl: ZipList<usize>) {
+   |     ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 51 previous errors
 

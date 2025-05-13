@@ -1,125 +1,307 @@
-error: swapping temporary values has no effect
-  --> tests/ui/swap_with_temporary_unfixable.rs:20:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     swap(&mut func(), &mut func());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:20:15
-   |
-LL |     swap(&mut func(), &mut func());
-   |               ^^^^^^
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:20:28
-   |
-LL |     swap(&mut func(), &mut func());
-   |                            ^^^^^^
-   = note: `-D clippy::swap-with-temporary` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::swap_with_temporary)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: swapping temporary values has no effect
-  --> tests/ui/swap_with_temporary_unfixable.rs:23:17
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if matches!(swap(&mut func(), &mut func()), ()) {
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:23:27
-   |
-LL |     if matches!(swap(&mut func(), &mut func()), ()) {
-   |                           ^^^^^^
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:23:40
-   |
-LL |     if matches!(swap(&mut func(), &mut func()), ()) {
-   |                                        ^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary_unfixable.rs:28:17
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary_unfixable.rs:6:1
+   |
+LL | fn func() -> String {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/swap_with_temporary_unfixable.rs:6:1
+   |
+LL | fn func() -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/swap_with_temporary_unfixable.rs:6:1
+   |
+LL | fn func() -> String {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary_unfixable.rs:10:1
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/swap_with_temporary_unfixable.rs:10:1
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/swap_with_temporary_unfixable.rs:10:1
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/swap_with_temporary_unfixable.rs:10:26
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   |                          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:10:29
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   |                             ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:10:45
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   |                                             ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary_unfixable.rs:14:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/swap_with_temporary_unfixable.rs:14:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/swap_with_temporary_unfixable.rs:14:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/swap_with_temporary_unfixable.rs:18:9
+   |
+LL |     let z = &mut zz;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:18:13
+   |
+LL |     let z = &mut zz;
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:20:10
+   |
+LL |     swap(&mut func(), &mut func());
+   |          ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:20:23
+   |
+LL |     swap(&mut func(), &mut func());
+   |                       ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:23:22
+   |
+LL |     if matches!(swap(&mut func(), &mut func()), ()) {
+   |                      ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:23:35
+   |
+LL |     if matches!(swap(&mut func(), &mut func()), ()) {
+   |                                   ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:28:25
    |
 LL |     if matches!(swap(z, &mut func()), ()) {
-   |                 ^^^^^^^^^^^^^^^^^^^^
+   |                         ^^^^^^^^^^^
    |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:28:30
-   |
-LL |     if matches!(swap(z, &mut func()), ()) {
-   |                              ^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary_unfixable.rs:45:5
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary_unfixable.rs:33:5
    |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:35:13
+   |
+LL |             &mut $x
+   |             ^^^^^^^
+...
 LL |     swap(mac!(refmut func()), z);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |          ------------------- in this macro invocation
    |
-note: this is a mutable reference to a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:45:10
-   |
-LL |     swap(mac!(refmut func()), z);
-   |          ^^^^^^^^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: swapping temporary values has no effect
-  --> tests/ui/swap_with_temporary_unfixable.rs:47:5
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:47:10
    |
 LL |     swap(&mut mac!(funcall func), &mut mac!(funcall func));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |          ^^^^^^^^^^^^^^^^^^^^^^^
    |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:47:15
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:47:35
    |
 LL |     swap(&mut mac!(funcall func), &mut mac!(funcall func));
-   |               ^^^^^^^^^^^^^^^^^^
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:47:40
+   |                                   ^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     swap(&mut mac!(funcall func), &mut mac!(funcall func));
-   |                                        ^^^^^^^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: swapping temporary values has no effect
-  --> tests/ui/swap_with_temporary_unfixable.rs:49:5
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:35:13
    |
+LL |             &mut $x
+   |             ^^^^^^^
+...
 LL |     swap(mac!(refmut), mac!(refmut));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |          ------------ in this macro invocation
    |
-note: this is a mutable reference to a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:49:10
-   |
-LL |     swap(mac!(refmut), mac!(refmut));
-   |          ^^^^^^^^^^^^
-note: this is a mutable reference to a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:49:24
-   |
-LL |     swap(mac!(refmut), mac!(refmut));
-   |                        ^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary_unfixable.rs:51:5
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:35:13
    |
+LL |             &mut $x
+   |             ^^^^^^^
+...
+LL |     swap(mac!(refmut), mac!(refmut));
+   |                        ------------ in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:35:13
+   |
+LL |             &mut $x
+   |             ^^^^^^^
+...
 LL |     swap(mac!(refmut y), mac!(refmut));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |          -------------- in this macro invocation
    |
-note: this is a mutable reference to a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:51:26
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:35:13
    |
+LL |             &mut $x
+   |             ^^^^^^^
+...
 LL |     swap(mac!(refmut y), mac!(refmut));
-   |                          ^^^^^^^^^^^^
+   |                          ------------ in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: swapping temporary values has no effect
-  --> tests/ui/swap_with_temporary_unfixable.rs:57:5
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary_unfixable.rs:55:1
    |
-LL |     std::mem::swap(&mut v1.last_mut().unwrap(), &mut v2.last_mut().unwrap());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:57:25
-   |
-LL |     std::mem::swap(&mut v1.last_mut().unwrap(), &mut v2.last_mut().unwrap());
-   |                         ^^^^^^^^^^^^^^^^^^^^^^
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary_unfixable.rs:57:54
-   |
-LL |     std::mem::swap(&mut v1.last_mut().unwrap(), &mut v2.last_mut().unwrap());
-   |                                                      ^^^^^^^^^^^^^^^^^^^^^^
+LL | fn bug(v1: &mut [i32], v2: &mut [i32]) {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 8 previous errors
+error: function must be `unsafe`
+  --> tests/ui/swap_with_temporary_unfixable.rs:55:1
+   |
+LL | fn bug(v1: &mut [i32], v2: &mut [i32]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/swap_with_temporary_unfixable.rs:55:1
+   |
+LL | fn bug(v1: &mut [i32], v2: &mut [i32]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/swap_with_temporary_unfixable.rs:55:8
+   |
+LL | fn bug(v1: &mut [i32], v2: &mut [i32]) {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/swap_with_temporary_unfixable.rs:55:24
+   |
+LL | fn bug(v1: &mut [i32], v2: &mut [i32]) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:55:12
+   |
+LL | fn bug(v1: &mut [i32], v2: &mut [i32]) {
+   |            ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:55:28
+   |
+LL | fn bug(v1: &mut [i32], v2: &mut [i32]) {
+   |                            ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:57:20
+   |
+LL |     std::mem::swap(&mut v1.last_mut().unwrap(), &mut v2.last_mut().unwrap());
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary_unfixable.rs:57:49
+   |
+LL |     std::mem::swap(&mut v1.last_mut().unwrap(), &mut v2.last_mut().unwrap());
+   |                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 36 previous errors
 

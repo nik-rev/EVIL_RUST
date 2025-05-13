@@ -1,82 +1,146 @@
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:21:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     min(1, max(3, x));
-   |     ^^^^^^^^^^^^^^^^^
-   |
-   = note: `#[deny(clippy::min_max)]` on by default
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:24:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     min(max(3, x), 1);
-   |     ^^^^^^^^^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:27:5
+error: item must be `pub`
+  --> tests/ui/min_max.rs:5:1
    |
-LL |     max(min(x, 1), 3);
-   |     ^^^^^^^^^^^^^^^^^
-
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:30:5
+LL | const LARGE: usize = 3;
+   | ^ help: make this item public: `pub`
    |
-LL |     max(3, min(x, 1));
-   |     ^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:33:5
+error: item must be `pub`
+  --> tests/ui/min_max.rs:7:1
    |
-LL |     my_max(3, my_min(x, 1));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
+LL | struct NotOrd(u64);
+   | ^ help: make this item public: `pub`
 
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:44:5
+error: item must be `pub`
+  --> tests/ui/min_max.rs:9:1
    |
-LL |     min("Apple", max("Zoo", s));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | impl NotOrd {
+   | ^ help: make this item public: `pub`
 
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:47:5
+error: function must be `unsafe`
+  --> tests/ui/min_max.rs:10:5
    |
-LL |     max(min(s, "Apple"), "Zoo");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:53:5
+LL |     fn min(self, x: u64) -> NotOrd {
+   |     ^
    |
-LL |     x.min(1).max(3);
-   |     ^^^^^^^^^^^^^^^
-
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:56:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/min_max.rs:10:5
    |
-LL |     x.max(3).min(1);
-   |     ^^^^^^^^^^^^^^^
+LL |     fn min(self, x: u64) -> NotOrd {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:59:5
+error: parameter must be `mut`
+  --> tests/ui/min_max.rs:10:12
    |
-LL |     f.max(3f32).min(1f32);
-   |     ^^^^^^^^^^^^^^^^^^^^^
-
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:66:5
+LL |     fn min(self, x: u64) -> NotOrd {
+   |            ^ help: make this parameter mutable: `mut`
    |
-LL |     max(x.min(1), 3);
-   |     ^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:71:5
+error: parameter must be `mut`
+  --> tests/ui/min_max.rs:10:18
    |
-LL |     s.max("Zoo").min("Apple");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn min(self, x: u64) -> NotOrd {
+   |                  ^ help: make this parameter mutable: `mut`
 
-error: this `min`/`max` combination leads to constant result
-  --> tests/ui/min_max.rs:74:5
+error: function must be `unsafe`
+  --> tests/ui/min_max.rs:14:5
    |
-LL |     s.min("Apple").max("Zoo");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn max(self, x: u64) -> NotOrd {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/min_max.rs:14:5
+   |
+LL |     fn max(self, x: u64) -> NotOrd {
+   |     ^
 
-error: aborting due to 13 previous errors
+error: parameter must be `mut`
+  --> tests/ui/min_max.rs:14:12
+   |
+LL |     fn max(self, x: u64) -> NotOrd {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/min_max.rs:14:18
+   |
+LL |     fn max(self, x: u64) -> NotOrd {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/min_max.rs:19:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/min_max.rs:19:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/min_max.rs:19:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/min_max.rs:20:9
+   |
+LL |     let x = 2usize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/min_max.rs:40:9
+   |
+LL |     let y = 2isize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/min_max.rs:43:9
+   |
+LL |     let s = "Hello";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/min_max.rs:52:9
+   |
+LL |     let f = 3f32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/min_max.rs:79:9
+   |
+LL |     let not_ord = NotOrd(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 20 previous errors
 

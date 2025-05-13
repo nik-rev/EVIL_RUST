@@ -1,383 +1,535 @@
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:44:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x + 0;
-   |     ^^^^^ help: consider reducing it to: `x`
-   |
-   = note: `-D clippy::identity-op` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::identity_op)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:47:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x + (1 - 1);
-   |     ^^^^^^^^^^^ help: consider reducing it to: `x`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:51:5
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:16:1
    |
-LL |     0 + x;
-   |     ^^^^^ help: consider reducing it to: `x`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:56:5
+LL | const ONE: i64 = 1;
+   | ^ help: make this item public: `pub`
    |
-LL |     x | (0);
-   |     ^^^^^^^ help: consider reducing it to: `x`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:61:5
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:17:1
    |
-LL |     x * 1;
-   |     ^^^^^ help: consider reducing it to: `x`
+LL | const NEG_ONE: i64 = -1;
+   | ^ help: make this item public: `pub`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:64:5
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:18:1
    |
-LL |     1 * x;
-   |     ^^^^^ help: consider reducing it to: `x`
+LL | const ZERO: i64 = 0;
+   | ^ help: make this item public: `pub`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:72:5
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:20:1
    |
-LL |     -1 & x;
-   |     ^^^^^^ help: consider reducing it to: `x`
+LL | struct A(String);
+   | ^ help: make this item public: `pub`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:77:5
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:22:1
    |
-LL |     u & 255;
-   |     ^^^^^^^ help: consider reducing it to: `u`
+LL | impl std::ops::Shl<i32> for A {
+   | ^ help: make this item public: `pub`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:82:5
+error: function must be `unsafe`
+  --> tests/ui/identity_op.rs:24:5
    |
-LL |     42 << 0;
-   |     ^^^^^^^ help: consider reducing it to: `42`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:85:5
+LL |     fn shl(mut self, other: i32) -> Self {
+   |     ^
    |
-LL |     1 >> 0;
-   |     ^^^^^^ help: consider reducing it to: `1`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:88:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/identity_op.rs:24:5
    |
-LL |     42 >> 0;
-   |     ^^^^^^^ help: consider reducing it to: `42`
+LL |     fn shl(mut self, other: i32) -> Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this operation has no effect
+error: parameter must be `mut`
+  --> tests/ui/identity_op.rs:24:22
+   |
+LL |     fn shl(mut self, other: i32) -> Self {
+   |                      ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:30:1
+   |
+LL | struct Length(u8);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:31:1
+   |
+LL | struct Meter;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:33:1
+   |
+LL | impl core::ops::Mul<Meter> for u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/identity_op.rs:35:5
+   |
+LL |     fn mul(self, _: Meter) -> Length {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/identity_op.rs:35:5
+   |
+LL |     fn mul(self, _: Meter) -> Length {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/identity_op.rs:35:12
+   |
+LL |     fn mul(self, _: Meter) -> Length {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:41:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/identity_op.rs:41:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/identity_op.rs:41:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:42:9
+   |
+LL |     let x = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:76:9
+   |
+LL |     let u: u8 = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/identity_op.rs:91:5
    |
 LL |     &x >> 0;
-   |     ^^^^^^^ help: consider reducing it to: `x`
+   |     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:94:5
+error: references are not allowed
+  --> tests/ui/identity_op.rs:94:10
    |
 LL |     x >> &0;
-   |     ^^^^^^^ help: consider reducing it to: `x`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:103:5
+   |          ^^
    |
-LL |     2 % 3;
-   |     ^^^^^ help: consider reducing it to: `2`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:106:5
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:99:9
    |
-LL |     -2 % 3;
-   |     ^^^^^^ help: consider reducing it to: `-2`
+LL |     let b = a << 0; // no error: non-integer
+   |         ^ help: make this variable mutable: `mut`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:109:5
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:123:9
    |
-LL |     2 % -3 + x;
-   |     ^^^^^^ help: consider reducing it to: `2`
+LL |     let a = 0;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:112:5
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:124:9
    |
-LL |     -2 % -3 + x;
-   |     ^^^^^^^ help: consider reducing it to: `-2`
+LL |     let b = true;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:115:9
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:157:5
    |
-LL |     x + 1 % 3;
-   |         ^^^^^ help: consider reducing it to: `1`
+LL |     fn f(_: i32) {
+   |     ^ help: make this item public: `pub`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:125:5
+error: function must be `unsafe`
+  --> tests/ui/identity_op.rs:157:5
    |
-LL |     0 + if b { 1 } else { 2 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `(if b { 1 } else { 2 })`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:128:5
+LL |     fn f(_: i32) {
+   |     ^
    |
-LL |     0 + if b { 1 } else { 2 } + if b { 3 } else { 4 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `(if b { 1 } else { 2 })`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:131:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/identity_op.rs:157:5
    |
-LL |     0 + match a { 0 => 10, _ => 20 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `(match a { 0 => 10, _ => 20 })`
+LL |     fn f(_: i32) {
+   |     ^
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:134:5
-   |
-LL |     0 + match a { 0 => 10, _ => 20 } + match a { 0 => 30, _ => 40 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `(match a { 0 => 10, _ => 20 })`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:137:5
-   |
-LL |     0 + if b { 1 } else { 2 } + match a { 0 => 30, _ => 40 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `(if b { 1 } else { 2 })`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:140:5
-   |
-LL |     0 + match a { 0 => 10, _ => 20 } + if b { 3 } else { 4 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `(match a { 0 => 10, _ => 20 })`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:143:5
-   |
-LL |     (if b { 1 } else { 2 }) + 0;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `((if b { 1 } else { 2 }))`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:147:5
-   |
-LL |     0 + { a } + 3;
-   |     ^^^^^^^^^ help: consider reducing it to: `({ a })`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:150:5
-   |
-LL |     0 + { a } * 2;
-   |     ^^^^^^^^^^^^^ help: consider reducing it to: `({ a } * 2)`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:153:5
-   |
-LL |     0 + loop { let mut c = 0; if c == 10 { break c; } c += 1; } + { a * 2 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `(loop { let mut c = 0; if c == 10 { break c; } c += 1; })`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:161:7
-   |
-LL |     f(1 * a + { 8 * 5 });
-   |       ^^^^^ help: consider reducing it to: `a`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:164:7
-   |
-LL |     f(0 + if b { 1 } else { 2 } + 3);
-   |       ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `if b { 1 } else { 2 }`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:168:20
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:168:5
    |
 LL |     const _: i32 = { 2 * 4 } + 0 + 3;
-   |                    ^^^^^^^^^^^^^ help: consider reducing it to: `{ 2 * 4 }`
+   |     ^ help: make this item public: `pub`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:171:20
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:171:5
    |
 LL |     const _: i32 = 0 + { 1 + 2 * 3 } + 3;
-   |                    ^^^^^^^^^^^^^^^^^ help: consider reducing it to: `{ 1 + 2 * 3 }`
+   |     ^ help: make this item public: `pub`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:175:5
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:196:9
    |
-LL |     0 + a as usize;
-   |     ^^^^^^^^^^^^^^ help: consider reducing it to: `a as usize`
+LL |     let x = 0i32;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:178:13
-   |
-LL |     let _ = 0 + a as usize;
-   |             ^^^^^^^^^^^^^^ help: consider reducing it to: `a as usize`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:181:5
-   |
-LL |     0 + { a } as usize;
-   |     ^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `({ a } as usize)`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:185:9
-   |
-LL |     2 * (0 + { a });
-   |         ^^^^^^^^^^^ help: consider reducing it to: `{ a }`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:188:5
-   |
-LL |     1 * ({ a } + 4);
-   |     ^^^^^^^^^^^^^^^ help: consider reducing it to: `(({ a } + 4))`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:191:5
-   |
-LL |     1 * 1;
-   |     ^^^^^ help: consider reducing it to: `1`
-
-error: this operation has no effect
+error: references are not allowed
   --> tests/ui/identity_op.rs:197:18
    |
 LL |     let _: i32 = &x + 0;
-   |                  ^^^^^^ help: consider reducing it to: `x`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:203:5
+   |                  ^^
    |
-LL |     0 + if a { 1 } else { 2 } + if b { 3 } else { 5 }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `(if a { 1 } else { 2 })`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:215:22
+error: function must be `unsafe`
+  --> tests/ui/identity_op.rs:202:5
    |
-LL |         let _: i32 = *x + 0;
-   |                      ^^^^^^ help: consider reducing it to: `*x`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:218:22
+LL | pub fn decide(a: bool, b: bool) -> u32 {
+   |     ^
    |
-LL |         let _: i32 = x + 0;
-   |                      ^^^^^ help: consider reducing it to: `*x`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:223:22
+help: make this function unsafe: `unsafe`
+  --> tests/ui/identity_op.rs:202:5
    |
-LL |         let _: i32 = **x + 0;
-   |                      ^^^^^^^ help: consider reducing it to: `**x`
+LL | pub fn decide(a: bool, b: bool) -> u32 {
+   |     ^
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:227:22
+error: parameter must be `mut`
+  --> tests/ui/identity_op.rs:202:15
    |
-LL |         let _: i32 = *x + 0;
-   |                      ^^^^^^ help: consider reducing it to: `**x`
+LL | pub fn decide(a: bool, b: bool) -> u32 {
+   |               ^ help: make this parameter mutable: `mut`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:233:22
+error: parameter must be `mut`
+  --> tests/ui/identity_op.rs:202:24
    |
-LL |         let _: i32 = ***x + 0;
-   |                      ^^^^^^^^ help: consider reducing it to: `***x`
+LL | pub fn decide(a: bool, b: bool) -> u32 {
+   |                        ^ help: make this parameter mutable: `mut`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:236:22
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:212:1
    |
-LL |         let _: i32 = **x + 0;
-   |                      ^^^^^^^ help: consider reducing it to: `***x`
+LL | fn issue_12050() {
+   | ^ help: make this item public: `pub`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:240:22
+error: function must be `unsafe`
+  --> tests/ui/identity_op.rs:212:1
+   |
+LL | fn issue_12050() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/identity_op.rs:212:1
+   |
+LL | fn issue_12050() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:214:13
+   |
+LL |         let x = &0i32;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:214:17
+   |
+LL |         let x = &0i32;
+   |                 ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:222:13
+   |
+LL |         let x = &&0i32;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:222:17
+   |
+LL |         let x = &&0i32;
+   |                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:222:18
+   |
+LL |         let x = &&0i32;
+   |                  ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:226:13
+   |
+LL |         let x = &&0i32;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:226:17
+   |
+LL |         let x = &&0i32;
+   |                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:226:18
+   |
+LL |         let x = &&0i32;
+   |                  ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:232:13
+   |
+LL |         let x = &&&0i32;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:232:17
+   |
+LL |         let x = &&&0i32;
+   |                 ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:232:18
+   |
+LL |         let x = &&&0i32;
+   |                  ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:232:19
+   |
+LL |         let x = &&&0i32;
+   |                   ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:239:13
+   |
+LL |         let x = 0i32;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:240:23
    |
 LL |         let _: i32 = *&x + 0;
-   |                      ^^^^^^^ help: consider reducing it to: `*&x`
+   |                       ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:243:22
+error: references are not allowed
+  --> tests/ui/identity_op.rs:243:24
    |
 LL |         let _: i32 = **&&x + 0;
-   |                      ^^^^^^^^^ help: consider reducing it to: `**&&x`
+   |                        ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:246:22
+error: references are not allowed
+  --> tests/ui/identity_op.rs:243:25
+   |
+LL |         let _: i32 = **&&x + 0;
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:246:23
    |
 LL |         let _: i32 = *&*&x + 0;
-   |                      ^^^^^^^^^ help: consider reducing it to: `*&*&x`
+   |                       ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:249:22
+error: references are not allowed
+  --> tests/ui/identity_op.rs:246:25
+   |
+LL |         let _: i32 = *&*&x + 0;
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:249:24
    |
 LL |         let _: i32 = **&&*&x + 0;
-   |                      ^^^^^^^^^^^ help: consider reducing it to: `**&&*&x`
+   |                        ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:256:22
+error: references are not allowed
+  --> tests/ui/identity_op.rs:249:25
    |
 LL |         let _: i32 = **&&*&x + 0;
-   |                      ^^^^^^^^^^^ help: consider reducing it to: `***&&*&x`
+   |                         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:259:22
+error: references are not allowed
+  --> tests/ui/identity_op.rs:249:27
    |
 LL |         let _: i32 = **&&*&x + 0;
-   |                      ^^^^^^^^^^^ help: consider reducing it to: `***&&*&x`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:268:18
+   |                           ^^
    |
-LL |     let _: u64 = (x + y + 0i32) as u64;
-   |                  ^^^^^^^^^^^^^^ help: consider reducing it to: `(x + y)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:272:25
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:255:13
    |
-LL |     let _: u64 = 1u64 & (x + y + 0i32) as u64;
-   |                         ^^^^^^^^^^^^^^ help: consider reducing it to: `(x + y)`
+LL |         let x = &0i32;
+   |             ^ help: make this variable mutable: `mut`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:276:25
+error: references are not allowed
+  --> tests/ui/identity_op.rs:255:17
    |
-LL |     let _: u64 = 1u64 & ((x + y) + 0i32) as u64;
-   |                         ^^^^^^^^^^^^^^^^ help: consider reducing it to: `((x + y))`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:280:25
+LL |         let x = &0i32;
+   |                 ^^^^^
    |
-LL |     let _: u64 = 5u64 + ((x + y) + 0i32) as u64;
-   |                         ^^^^^^^^^^^^^^^^ help: consider reducing it to: `((x + y))`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:284:14
+error: references are not allowed
+  --> tests/ui/identity_op.rs:256:24
    |
-LL |     let _ = -(x + y + 0i32);
-   |              ^^^^^^^^^^^^^^ help: consider reducing it to: `(x + y)`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:288:14
+LL |         let _: i32 = **&&*&x + 0;
+   |                        ^^^^^
    |
-LL |     let _ = -(x / y / 1i32);
-   |              ^^^^^^^^^^^^^^ help: consider reducing it to: `(x / y)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:292:20
+error: references are not allowed
+  --> tests/ui/identity_op.rs:256:25
    |
-LL |     let _ = 2i32 * (x + y + 0i32);
-   |                    ^^^^^^^^^^^^^^ help: consider reducing it to: `(x + y)`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:297:20
+LL |         let _: i32 = **&&*&x + 0;
+   |                         ^^^^
    |
-LL |     let _ = 2i32 - (x - y - 0i32);
-   |                    ^^^^^^^^^^^^^^ help: consider reducing it to: `(x - y)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:302:17
+error: references are not allowed
+  --> tests/ui/identity_op.rs:256:27
    |
-LL |     let _ = 2 + (x + (y * z) + 0);
-   |                 ^^^^^^^^^^^^^^^^^ help: consider reducing it to: `(x + (y * z))`
-
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:307:20
+LL |         let _: i32 = **&&*&x + 0;
+   |                           ^^
    |
-LL |     let _ = 2i32 + (x * y * 1i32);
-   |                    ^^^^^^^^^^^^^^ help: consider reducing it to: `(x * y)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this operation has no effect
-  --> tests/ui/identity_op.rs:312:25
+error: references are not allowed
+  --> tests/ui/identity_op.rs:259:24
    |
-LL |     let _: u64 = 1u64 + ((x as i32 + y as i32) as u64 + 0u64);
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `((x as i32 + y as i32) as u64)`
+LL |         let _: i32 = **&&*&x + 0;
+   |                        ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 63 previous errors
+error: references are not allowed
+  --> tests/ui/identity_op.rs:259:25
+   |
+LL |         let _: i32 = **&&*&x + 0;
+   |                         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/identity_op.rs:259:27
+   |
+LL |         let _: i32 = **&&*&x + 0;
+   |                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/identity_op.rs:264:1
+   |
+LL | fn issue_13470() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/identity_op.rs:264:1
+   |
+LL | fn issue_13470() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/identity_op.rs:264:1
+   |
+LL | fn issue_13470() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:265:9
+   |
+LL |     let x = 1i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:266:9
+   |
+LL |     let y = 1i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:301:9
+   |
+LL |     let z = 1i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:310:9
+   |
+LL |     let x = 1i16;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/identity_op.rs:311:9
+   |
+LL |     let y = 1i16;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 72 previous errors
 

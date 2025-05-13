@@ -1,59 +1,349 @@
-error: `Vec<T>` is already on the heap, the boxing is unnecessary
-  --> tests/ui/vec_box_sized.rs:26:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:9:1
+   |
+LL | struct SizedStruct(i32);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:10:1
+   |
+LL | struct UnsizedStruct([i32]);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:11:1
+   |
+LL | struct BigStruct([i32; 10000]);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:13:1
+   |
+LL | struct DummyAllocator;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:14:1
+   |
+LL | unsafe impl Allocator for DummyAllocator {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec_box_sized.rs:15:5
+   |
+LL |     fn allocate(&self, layout: Layout) -> Result<NonNull<[u8]>, AllocError> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec_box_sized.rs:15:5
+   |
+LL |     fn allocate(&self, layout: Layout) -> Result<NonNull<[u8]>, AllocError> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/vec_box_sized.rs:15:18
+   |
+LL |     fn allocate(&self, layout: Layout) -> Result<NonNull<[u8]>, AllocError> {
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/vec_box_sized.rs:15:24
+   |
+LL |     fn allocate(&self, layout: Layout) -> Result<NonNull<[u8]>, AllocError> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/vec_box_sized.rs:15:17
+   |
+LL |     fn allocate(&self, layout: Layout) -> Result<NonNull<[u8]>, AllocError> {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: parameter must be `mut`
+  --> tests/ui/vec_box_sized.rs:18:27
+   |
+LL |     unsafe fn deallocate(&self, ptr: NonNull<u8>, layout: Layout) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/vec_box_sized.rs:18:33
+   |
+LL |     unsafe fn deallocate(&self, ptr: NonNull<u8>, layout: Layout) {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/vec_box_sized.rs:18:51
+   |
+LL |     unsafe fn deallocate(&self, ptr: NonNull<u8>, layout: Layout) {
+   |                                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/vec_box_sized.rs:18:26
+   |
+LL |     unsafe fn deallocate(&self, ptr: NonNull<u8>, layout: Layout) {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:24:1
+   |
+LL | mod should_trigger {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:26:5
    |
 LL |     const C: Vec<Box<i32>> = Vec::new();
-   |              ^^^^^^^^^^^^^ help: try: `Vec<i32>`
-   |
-   = note: `-D clippy::vec-box` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::vec_box)]`
+   |     ^ help: make this item public: `pub`
 
-error: `Vec<T>` is already on the heap, the boxing is unnecessary
-  --> tests/ui/vec_box_sized.rs:28:15
+error: static must be `mut`
+  --> tests/ui/vec_box_sized.rs:28:12
    |
 LL |     static S: Vec<Box<i32>> = Vec::new();
-   |               ^^^^^^^^^^^^^ help: try: `Vec<i32>`
+   |            ^ help: make this static mutable: `mut`
 
-error: `Vec<T>` is already on the heap, the boxing is unnecessary
-  --> tests/ui/vec_box_sized.rs:32:21
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:28:5
    |
-LL |         sized_type: Vec<Box<SizedStruct>>,
-   |                     ^^^^^^^^^^^^^^^^^^^^^ help: try: `Vec<SizedStruct>`
+LL |     static S: Vec<Box<i32>> = Vec::new();
+   |     ^ help: make this item public: `pub`
 
-error: `Vec<T>` is already on the heap, the boxing is unnecessary
-  --> tests/ui/vec_box_sized.rs:36:14
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:31:5
+   |
+LL |     struct StructWithVecBox {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:36:5
    |
 LL |     struct A(Vec<Box<SizedStruct>>);
-   |              ^^^^^^^^^^^^^^^^^^^^^ help: try: `Vec<SizedStruct>`
+   |     ^ help: make this item public: `pub`
 
-error: `Vec<T>` is already on the heap, the boxing is unnecessary
-  --> tests/ui/vec_box_sized.rs:38:18
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:38:5
    |
 LL |     struct B(Vec<Vec<Box<(u32)>>>);
-   |                  ^^^^^^^^^^^^^^^ help: try: `Vec<u32>`
+   |     ^ help: make this item public: `pub`
 
-error: `Vec<T>` is already on the heap, the boxing is unnecessary
-  --> tests/ui/vec_box_sized.rs:41:42
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:41:5
    |
 LL |     fn allocator_global_defined_vec() -> Vec<Box<i32>, std::alloc::Global> {
-   |                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Vec<i32>`
+   |     ^ help: make this item public: `pub`
 
-error: `Vec<T>` is already on the heap, the boxing is unnecessary
-  --> tests/ui/vec_box_sized.rs:45:42
+error: function must be `unsafe`
+  --> tests/ui/vec_box_sized.rs:41:5
+   |
+LL |     fn allocator_global_defined_vec() -> Vec<Box<i32>, std::alloc::Global> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec_box_sized.rs:41:5
+   |
+LL |     fn allocator_global_defined_vec() -> Vec<Box<i32>, std::alloc::Global> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:45:5
    |
 LL |     fn allocator_global_defined_box() -> Vec<Box<i32, std::alloc::Global>> {
-   |                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Vec<i32>`
+   |     ^ help: make this item public: `pub`
 
-error: `Vec<T>` is already on the heap, the boxing is unnecessary
-  --> tests/ui/vec_box_sized.rs:49:29
+error: function must be `unsafe`
+  --> tests/ui/vec_box_sized.rs:45:5
+   |
+LL |     fn allocator_global_defined_box() -> Vec<Box<i32, std::alloc::Global>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec_box_sized.rs:45:5
+   |
+LL |     fn allocator_global_defined_box() -> Vec<Box<i32, std::alloc::Global>> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:49:5
    |
 LL |     fn allocator_match() -> Vec<Box<i32, DummyAllocator>, DummyAllocator> {
-   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Vec<i32>`
+   |     ^ help: make this item public: `pub`
 
-error: `Vec<T>` is already on the heap, the boxing is unnecessary
-  --> tests/ui/vec_box_sized.rs:87:23
+error: function must be `unsafe`
+  --> tests/ui/vec_box_sized.rs:49:5
+   |
+LL |     fn allocator_match() -> Vec<Box<i32, DummyAllocator>, DummyAllocator> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec_box_sized.rs:49:5
+   |
+LL |     fn allocator_match() -> Vec<Box<i32, DummyAllocator>, DummyAllocator> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:56:1
+   |
+LL | mod should_not_trigger {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:59:5
+   |
+LL |     struct C(Vec<Box<UnsizedStruct>>);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:60:5
+   |
+LL |     struct D(Vec<Box<BigStruct>>);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:62:5
+   |
+LL |     struct StructWithVecBoxButItsUnsized {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:66:5
+   |
+LL |     struct TraitVec<T: ?Sized> {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:71:5
+   |
+LL |     fn allocator_mismatch() -> Vec<Box<i32, DummyAllocator>> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec_box_sized.rs:71:5
+   |
+LL |     fn allocator_mismatch() -> Vec<Box<i32, DummyAllocator>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec_box_sized.rs:71:5
+   |
+LL |     fn allocator_mismatch() -> Vec<Box<i32, DummyAllocator>> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:74:5
+   |
+LL |     fn allocator_mismatch_2() -> Vec<Box<i32>, DummyAllocator> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec_box_sized.rs:74:5
+   |
+LL |     fn allocator_mismatch_2() -> Vec<Box<i32>, DummyAllocator> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec_box_sized.rs:74:5
+   |
+LL |     fn allocator_mismatch_2() -> Vec<Box<i32>, DummyAllocator> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:79:1
+   |
+LL | mod inner_mod {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:80:5
+   |
+LL |     mod inner {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:84:5
+   |
+LL |     mod inner2 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec_box_sized.rs:87:13
    |
 LL |         pub fn f() -> Vec<Box<S>> {
-   |                       ^^^^^^^^^^^ help: try: `Vec<S>`
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec_box_sized.rs:87:13
+   |
+LL |         pub fn f() -> Vec<Box<S>> {
+   |             ^
 
-error: aborting due to 9 previous errors
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:95:1
+   |
+LL | fn in_closure() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec_box_sized.rs:95:1
+   |
+LL | fn in_closure() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec_box_sized.rs:95:1
+   |
+LL | fn in_closure() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/vec_box_sized.rs:99:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec_box_sized.rs:99:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec_box_sized.rs:99:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 47 previous errors
 

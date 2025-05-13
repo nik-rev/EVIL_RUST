@@ -1,19 +1,161 @@
-error: called `inspect(..).for_each(..)` on an `Iterator`
-  --> tests/ui/inspect_for_each.rs:7:19
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       a.into_iter().inspect(|x| assert!(*x > 0)).for_each(|x| {
-   |  ___________________^
-LL | |
-LL | |
-LL | |         let y = do_some(x);
-LL | |         let z = do_more(y);
-LL | |         b.push(z);
-LL | |     });
-   | |______^
-   |
-   = help: move the code from `inspect(..)` to `for_each(..)` and remove the `inspect(..)`
-   = note: `-D clippy::inspect-for-each` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::inspect_for_each)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/inspect_for_each.rs:3:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/inspect_for_each.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/inspect_for_each.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/inspect_for_each.rs:4:9
+   |
+LL |     let a: Vec<usize> = vec![1, 2, 3, 4, 5];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/inspect_for_each.rs:10:13
+   |
+LL |         let y = do_some(x);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/inspect_for_each.rs:11:13
+   |
+LL |         let z = do_more(y);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/inspect_for_each.rs:15:5
+   |
+LL |     assert_eq!(b, vec![4, 5, 6, 7, 8]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/inspect_for_each.rs:15:5
+   |
+LL |     assert_eq!(b, vec![4, 5, 6, 7, 8]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/inspect_for_each.rs:15:5
+   |
+LL |     assert_eq!(b, vec![4, 5, 6, 7, 8]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/inspect_for_each.rs:15:5
+   |
+LL |     assert_eq!(b, vec![4, 5, 6, 7, 8]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/inspect_for_each.rs:15:5
+   |
+LL |     assert_eq!(b, vec![4, 5, 6, 7, 8]);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/inspect_for_each.rs:18:1
+   |
+LL | fn do_some(a: usize) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/inspect_for_each.rs:18:1
+   |
+LL | fn do_some(a: usize) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/inspect_for_each.rs:18:1
+   |
+LL | fn do_some(a: usize) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/inspect_for_each.rs:18:12
+   |
+LL | fn do_some(a: usize) -> usize {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/inspect_for_each.rs:22:1
+   |
+LL | fn do_more(a: usize) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/inspect_for_each.rs:22:1
+   |
+LL | fn do_more(a: usize) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/inspect_for_each.rs:22:1
+   |
+LL | fn do_more(a: usize) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/inspect_for_each.rs:22:12
+   |
+LL | fn do_more(a: usize) -> usize {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 20 previous errors
 

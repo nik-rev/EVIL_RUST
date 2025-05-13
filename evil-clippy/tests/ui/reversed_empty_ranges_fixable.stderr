@@ -1,52 +1,87 @@
-error: this range is empty so it will yield no values
-  --> tests/ui/reversed_empty_ranges_fixable.rs:9:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     (42..=21).for_each(|x| println!("{}", x));
-   |     ^^^^^^^^^
-   |
-   = note: `-D clippy::reversed-empty-ranges` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::reversed_empty_ranges)]`
-help: consider using the following if you are attempting to iterate over this range in reverse
-   |
-LL -     (42..=21).for_each(|x| println!("{}", x));
-LL +     (21..=42).rev().for_each(|x| println!("{}", x));
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this range is empty so it will yield no values
-  --> tests/ui/reversed_empty_ranges_fixable.rs:11:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (ANSWER..21).filter(|x| x % 2 == 0).take(10).collect::<Vec<_>>();
-   |             ^^^^^^^^^^^^
-   |
-help: consider using the following if you are attempting to iterate over this range in reverse
-   |
-LL -     let _ = (ANSWER..21).filter(|x| x % 2 == 0).take(10).collect::<Vec<_>>();
-LL +     let _ = (21..ANSWER).rev().filter(|x| x % 2 == 0).take(10).collect::<Vec<_>>();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this range is empty so it will yield no values
-  --> tests/ui/reversed_empty_ranges_fixable.rs:14:14
+error: item must be `pub`
+  --> tests/ui/reversed_empty_ranges_fixable.rs:4:1
    |
-LL |     for _ in -21..=-42 {}
-   |              ^^^^^^^^^
+LL | const ANSWER: i32 = 42;
+   | ^ help: make this item public: `pub`
    |
-help: consider using the following if you are attempting to iterate over this range in reverse
-   |
-LL -     for _ in -21..=-42 {}
-LL +     for _ in (-42..=-21).rev() {}
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this range is empty so it will yield no values
-  --> tests/ui/reversed_empty_ranges_fixable.rs:16:14
+error: item must be `pub`
+  --> tests/ui/reversed_empty_ranges_fixable.rs:6:1
    |
-LL |     for _ in 42u32..21u32 {}
-   |              ^^^^^^^^^^^^
-   |
-help: consider using the following if you are attempting to iterate over this range in reverse
-   |
-LL -     for _ in 42u32..21u32 {}
-LL +     for _ in (21u32..42u32).rev() {}
-   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/reversed_empty_ranges_fixable.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/reversed_empty_ranges_fixable.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/reversed_empty_ranges_fixable.rs:24:9
+   |
+LL |     let arr = [1, 2, 3, 4, 5];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/reversed_empty_ranges_fixable.rs:25:13
+   |
+LL |     let _ = &arr[1..=3];
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/reversed_empty_ranges_fixable.rs:26:13
+   |
+LL |     let _ = &arr[1..3];
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/reversed_empty_ranges_fixable.rs:32:13
+   |
+LL |     let _ = &arr[0..0];
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

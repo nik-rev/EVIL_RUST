@@ -1,41 +1,447 @@
-error: strict comparison of `f32` or `f64`
-  --> tests/ui/float_cmp.rs:72:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     ONE as f64 != 2.0;
-   |     ^^^^^^^^^^^^^^^^^ help: consider comparing them within some margin of error: `(ONE as f64 - 2.0).abs() > error_margin`
-   |
-   = note: `-D clippy::float-cmp` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::float_cmp)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: strict comparison of `f32` or `f64`
-  --> tests/ui/float_cmp.rs:79:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x == 1.0;
-   |     ^^^^^^^^ help: consider comparing them within some margin of error: `(x - 1.0).abs() < error_margin`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: strict comparison of `f32` or `f64`
-  --> tests/ui/float_cmp.rs:84:5
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:14:1
    |
-LL |     twice(x) != twice(ONE as f64);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider comparing them within some margin of error: `(twice(x) - twice(ONE as f64)).abs() > error_margin`
-
-error: strict comparison of `f32` or `f64`
-  --> tests/ui/float_cmp.rs:105:5
+LL | const ZERO: f32 = 0.0;
+   | ^ help: make this item public: `pub`
    |
-LL |     NON_ZERO_ARRAY[i] == NON_ZERO_ARRAY[j];
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider comparing them within some margin of error: `(NON_ZERO_ARRAY[i] - NON_ZERO_ARRAY[j]).abs() < error_margin`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: strict comparison of `f32` or `f64` arrays
-  --> tests/ui/float_cmp.rs:111:5
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:15:1
    |
-LL |     a1 == a2;
-   |     ^^^^^^^^
+LL | const ONE: f32 = ZERO + 1.0;
+   | ^ help: make this item public: `pub`
 
-error: strict comparison of `f32` or `f64`
-  --> tests/ui/float_cmp.rs:114:5
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:17:1
    |
-LL |     a1[0] == a2[0];
-   |     ^^^^^^^^^^^^^^ help: consider comparing them within some margin of error: `(a1[0] - a2[0]).abs() < error_margin`
+LL | fn twice<T>(x: T) -> T
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 6 previous errors
+error: function must be `unsafe`
+  --> tests/ui/float_cmp.rs:17:1
+   |
+LL | fn twice<T>(x: T) -> T
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/float_cmp.rs:17:1
+   |
+LL | fn twice<T>(x: T) -> T
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/float_cmp.rs:17:13
+   |
+LL | fn twice<T>(x: T) -> T
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:24:1
+   |
+LL | fn eq_fl(x: f32, y: f32) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/float_cmp.rs:24:1
+   |
+LL | fn eq_fl(x: f32, y: f32) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/float_cmp.rs:24:1
+   |
+LL | fn eq_fl(x: f32, y: f32) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/float_cmp.rs:24:10
+   |
+LL | fn eq_fl(x: f32, y: f32) -> bool {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/float_cmp.rs:24:18
+   |
+LL | fn eq_fl(x: f32, y: f32) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:28:1
+   |
+LL | fn fl_eq(x: f32, y: f32) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/float_cmp.rs:28:1
+   |
+LL | fn fl_eq(x: f32, y: f32) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/float_cmp.rs:28:1
+   |
+LL | fn fl_eq(x: f32, y: f32) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/float_cmp.rs:28:10
+   |
+LL | fn fl_eq(x: f32, y: f32) -> bool {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/float_cmp.rs:28:18
+   |
+LL | fn fl_eq(x: f32, y: f32) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:32:1
+   |
+LL | struct X {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:36:1
+   |
+LL | impl PartialEq for X {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/float_cmp.rs:37:5
+   |
+LL |     fn eq(&self, o: &X) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/float_cmp.rs:37:5
+   |
+LL |     fn eq(&self, o: &X) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/float_cmp.rs:37:12
+   |
+LL |     fn eq(&self, o: &X) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/float_cmp.rs:37:18
+   |
+LL |     fn eq(&self, o: &X) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:37:11
+   |
+LL |     fn eq(&self, o: &X) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:37:21
+   |
+LL |     fn eq(&self, o: &X) -> bool {
+   |                     ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:46:1
+   |
+LL | impl PartialEq<f32> for X {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/float_cmp.rs:47:5
+   |
+LL |     fn eq(&self, o: &f32) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/float_cmp.rs:47:5
+   |
+LL |     fn eq(&self, o: &f32) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/float_cmp.rs:47:12
+   |
+LL |     fn eq(&self, o: &f32) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/float_cmp.rs:47:18
+   |
+LL |     fn eq(&self, o: &f32) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:47:11
+   |
+LL |     fn eq(&self, o: &f32) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:47:21
+   |
+LL |     fn eq(&self, o: &f32) -> bool {
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:56:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/float_cmp.rs:56:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/float_cmp.rs:56:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:63:9
+   |
+LL |     let x = X { val: 1.0 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:77:9
+   |
+LL |     let x: f64 = 1.0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:92:9
+   |
+LL |     let xs: [f32; 1] = [0.0];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:93:9
+   |
+LL |     let a: *const f32 = xs.as_ptr();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:94:9
+   |
+LL |     let b: *const f32 = xs.as_ptr();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:96:5
+   |
+LL |     assert_eq!(a, b); // no errors
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:96:5
+   |
+LL |     assert_eq!(a, b); // no errors
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:96:5
+   |
+LL |     assert_eq!(a, b); // no errors
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:96:5
+   |
+LL |     assert_eq!(a, b); // no errors
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:96:5
+   |
+LL |     assert_eq!(a, b); // no errors
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:98:5
+   |
+LL |     const ZERO_ARRAY: [f32; 2] = [0.0, 0.0];
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/float_cmp.rs:99:5
+   |
+LL |     const NON_ZERO_ARRAY: [f32; 2] = [0.0, 0.1];
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:101:9
+   |
+LL |     let i = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:102:9
+   |
+LL |     let j = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:108:9
+   |
+LL |     let a1: [f32; 1] = [0.0];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:109:9
+   |
+LL |     let a2: [f32; 1] = [1.1];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:118:9
+   |
+LL |     let x32 = 3.21f32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/float_cmp.rs:127:9
+   |
+LL |     let x64 = 3.21f64;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:137:5
+   |
+LL |     &0.0 == &ZERO;
+   |     ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:137:13
+   |
+LL |     &0.0 == &ZERO;
+   |             ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:138:5
+   |
+LL |     &&&&0.0 == &&&&ZERO;
+   |     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:138:6
+   |
+LL |     &&&&0.0 == &&&&ZERO;
+   |      ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:138:7
+   |
+LL |     &&&&0.0 == &&&&ZERO;
+   |       ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:138:8
+   |
+LL |     &&&&0.0 == &&&&ZERO;
+   |        ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:138:16
+   |
+LL |     &&&&0.0 == &&&&ZERO;
+   |                ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:138:17
+   |
+LL |     &&&&0.0 == &&&&ZERO;
+   |                 ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:138:18
+   |
+LL |     &&&&0.0 == &&&&ZERO;
+   |                  ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/float_cmp.rs:138:19
+   |
+LL |     &&&&0.0 == &&&&ZERO;
+   |                   ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 60 previous errors
 

@@ -1,100 +1,167 @@
-error: `assert!(true)` will be optimized out by the compiler
-  --> tests/ui/assertions_on_constants.rs:10:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     assert!(true);
-   |     ^^^^^^^^^^^^^
-   |
-   = help: remove it
-   = note: `-D clippy::assertions-on-constants` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::assertions_on_constants)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `assert!(false)` should probably be replaced
-  --> tests/ui/assertions_on_constants.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     assert!(false);
-   |     ^^^^^^^^^^^^^^
-   |
-   = help: use `panic!()` or `unreachable!()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `assert!(true)` will be optimized out by the compiler
-  --> tests/ui/assertions_on_constants.rs:16:5
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:3:1
    |
-LL |     assert!(true, "true message");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | macro_rules! assert_const {
+   | ^ help: make this item public: `pub`
    |
-   = help: remove it
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `assert!(false, ..)` should probably be replaced
-  --> tests/ui/assertions_on_constants.rs:19:5
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:9:1
    |
-LL |     assert!(false, "false message");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use `panic!(..)` or `unreachable!(..)`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: `assert!(false, ..)` should probably be replaced
+error: function must be `unsafe`
+  --> tests/ui/assertions_on_constants.rs:9:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_constants.rs:9:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_constants.rs:22:9
+   |
+LL |     let msg = "panic message";
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:23:5
+   |
+LL |     assert!(false, "{}", msg.to_uppercase());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function must be `unsafe`
   --> tests/ui/assertions_on_constants.rs:23:5
    |
 LL |     assert!(false, "{}", msg.to_uppercase());
    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = help: use `panic!(..)` or `unreachable!(..)`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assertions_on_constants.rs:23:5
+   |
+LL |     assert!(false, "{}", msg.to_uppercase());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-error: `assert!(true)` will be optimized out by the compiler
-  --> tests/ui/assertions_on_constants.rs:27:5
+error: parameter must be `mut`
+  --> tests/ui/assertions_on_constants.rs:23:5
    |
-LL |     assert!(B);
-   |     ^^^^^^^^^^
-   |
-   = help: remove it
+LL |     assert!(false, "{}", msg.to_uppercase());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-error: `assert!(false)` should probably be replaced
-  --> tests/ui/assertions_on_constants.rs:31:5
+error: references are not allowed
+  --> tests/ui/assertions_on_constants.rs:23:5
    |
-LL |     assert!(C);
-   |     ^^^^^^^^^^
+LL |     assert!(false, "{}", msg.to_uppercase());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = help: use `panic!()` or `unreachable!()`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: `assert!(false, ..)` should probably be replaced
-  --> tests/ui/assertions_on_constants.rs:34:5
+error: references are not allowed
+  --> tests/ui/assertions_on_constants.rs:23:5
    |
-LL |     assert!(C, "C message");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
+LL |     assert!(false, "{}", msg.to_uppercase());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = help: use `panic!(..)` or `unreachable!(..)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: `debug_assert!(true)` will be optimized out by the compiler
-  --> tests/ui/assertions_on_constants.rs:37:5
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:26:5
    |
-LL |     debug_assert!(true);
-   |     ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: remove it
+LL |     const B: bool = true;
+   |     ^ help: make this item public: `pub`
 
-error: `assert!(true)` will be optimized out by the compiler
-  --> tests/ui/assertions_on_constants.rs:54:19
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:30:5
+   |
+LL |     const C: bool = false;
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/assertions_on_constants.rs:48:9
+   |
+LL |     let flag: bool = cfg!(not(feature = "asdf"));
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:51:5
+   |
+LL |     const CFG_FLAG: &bool = &cfg!(feature = "hey");
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/assertions_on_constants.rs:51:21
+   |
+LL |     const CFG_FLAG: &bool = &cfg!(feature = "hey");
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assertions_on_constants.rs:51:29
+   |
+LL |     const CFG_FLAG: &bool = &cfg!(feature = "hey");
+   |                             ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:54:5
    |
 LL |     const _: () = assert!(true);
-   |                   ^^^^^^^^^^^^^
-   |
-   = help: remove it
+   |     ^ help: make this item public: `pub`
 
-error: `assert!(true)` will be optimized out by the compiler
-  --> tests/ui/assertions_on_constants.rs:57:5
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:61:5
    |
-LL |     assert!(8 == (7 + 1));
-   |     ^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: remove it
+LL |     const N: usize = 1024;
+   |     ^ help: make this item public: `pub`
 
-error: `assert!(true)` will be optimized out by the compiler
-  --> tests/ui/assertions_on_constants.rs:66:5
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:62:5
    |
-LL |     assert!(true);
-   |     ^^^^^^^^^^^^^
-   |
-   = help: remove it
+LL |     const _: () = assert!(N.is_power_of_two());
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 12 previous errors
+error: item must be `pub`
+  --> tests/ui/assertions_on_constants.rs:65:1
+   |
+LL | const _: () = {
+   | ^ help: make this item public: `pub`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

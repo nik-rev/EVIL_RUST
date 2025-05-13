@@ -1,23 +1,182 @@
-error: unnecessary semicolon
-  --> tests/ui/unnecessary_semicolon.rs:29:6
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     };
-   |      ^ help: remove
-   |
-   = note: `-D clippy::unnecessary-semicolon` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_semicolon)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnecessary semicolon
-  --> tests/ui/unnecessary_semicolon.rs:35:6
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     };
-   |      ^ help: remove
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnecessary semicolon
-  --> tests/ui/unnecessary_semicolon.rs:57:6
+error: item must be `pub`
+  --> tests/ui/unnecessary_semicolon.rs:9:1
    |
-LL |     };
-   |      ^ help: remove
+LL | fn no_lint(mut x: u32) -> Option<u32> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:9:1
+   |
+LL | fn no_lint(mut x: u32) -> Option<u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:9:1
+   |
+LL | fn no_lint(mut x: u32) -> Option<u32> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_semicolon.rs:13:13
+   |
+LL |         let y = 3;
+   |             ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_semicolon.rs:14:9
+   |
+LL |         dbg!(x + y)
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_semicolon.rs:25:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:25:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:25:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_semicolon.rs:40:1
+   |
+LL | fn borrow_issue() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:40:1
+   |
+LL | fn borrow_issue() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:40:1
+   |
+LL | fn borrow_issue() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_semicolon.rs:41:9
+   |
+LL |     let v = std::cell::RefCell::new(Some(vec![1]));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_semicolon.rs:42:11
+   |
+LL |     match &*v.borrow() {
+   |           ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_semicolon.rs:44:13
+   |
+LL |             dbg!(v);
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_semicolon.rs:51:1
+   |
+LL | fn no_borrow_issue(a: u32, b: u32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:51:1
+   |
+LL | fn no_borrow_issue(a: u32, b: u32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:51:1
+   |
+LL | fn no_borrow_issue(a: u32, b: u32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_semicolon.rs:51:20
+   |
+LL | fn no_borrow_issue(a: u32, b: u32) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_semicolon.rs:51:28
+   |
+LL | fn no_borrow_issue(a: u32, b: u32) {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_semicolon.rs:54:13
+   |
+LL |             dbg!(v);
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_semicolon.rs:61:1
+   |
+LL | fn issue14100() -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:61:1
+   |
+LL | fn issue14100() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_semicolon.rs:61:1
+   |
+LL | fn issue14100() -> bool {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 22 previous errors
 

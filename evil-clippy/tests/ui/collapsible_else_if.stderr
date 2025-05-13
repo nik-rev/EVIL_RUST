@@ -1,154 +1,80 @@
-error: this `else { if .. }` block can be collapsed
-  --> tests/ui/collapsible_else_if.rs:11:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       } else {
-   |  ____________^
-LL | |         if y == "world" {
-LL | |             println!("world!")
-LL | |         }
-LL | |     }
-   | |_____^
-   |
-   = note: `-D clippy::collapsible-else-if` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::collapsible_else_if)]`
-help: collapse nested if block
-   |
-LL ~     } else if y == "world" {
-LL +         println!("world!")
-LL +     }
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `else { if .. }` block can be collapsed
-  --> tests/ui/collapsible_else_if.rs:20:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       } else {
-   |  ____________^
-LL | |         if let Some(42) = Some(42) {
-LL | |             println!("world!")
-LL | |         }
-LL | |     }
-   | |_____^
-   |
-help: collapse nested if block
-   |
-LL ~     } else if let Some(42) = Some(42) {
-LL +         println!("world!")
-LL +     }
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `else { if .. }` block can be collapsed
-  --> tests/ui/collapsible_else_if.rs:29:12
+error: item must be `pub`
+  --> tests/ui/collapsible_else_if.rs:5:1
    |
-LL |       } else {
-   |  ____________^
-LL | |         if y == "world" {
-LL | |             println!("world")
-...  |
-LL | |     }
-   | |_____^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: collapse nested if block
-   |
-LL ~     } else if y == "world" {
-LL +         println!("world")
-LL +     }
-LL +     else {
-LL +         println!("!")
-LL +     }
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this `else { if .. }` block can be collapsed
-  --> tests/ui/collapsible_else_if.rs:41:12
+error: function must be `unsafe`
+  --> tests/ui/collapsible_else_if.rs:5:1
    |
-LL |       } else {
-   |  ____________^
-LL | |         if let Some(42) = Some(42) {
-LL | |             println!("world")
-...  |
-LL | |     }
-   | |_____^
+LL | fn main() {
+   | ^
    |
-help: collapse nested if block
+help: make this function unsafe: `unsafe`
+  --> tests/ui/collapsible_else_if.rs:5:1
    |
-LL ~     } else if let Some(42) = Some(42) {
-LL +         println!("world")
-LL +     }
-LL +     else {
-LL +         println!("!")
-LL +     }
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this `else { if .. }` block can be collapsed
-  --> tests/ui/collapsible_else_if.rs:53:12
+error: variable must be `mut`
+  --> tests/ui/collapsible_else_if.rs:6:9
    |
-LL |       } else {
-   |  ____________^
-LL | |         if let Some(42) = Some(42) {
-LL | |             println!("world")
-...  |
-LL | |     }
-   | |_____^
+LL |     let x = "hello";
+   |         ^ help: make this variable mutable: `mut`
    |
-help: collapse nested if block
-   |
-LL ~     } else if let Some(42) = Some(42) {
-LL +         println!("world")
-LL +     }
-LL +     else {
-LL +         println!("!")
-LL +     }
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this `else { if .. }` block can be collapsed
-  --> tests/ui/collapsible_else_if.rs:65:12
+error: variable must be `mut`
+  --> tests/ui/collapsible_else_if.rs:7:9
    |
-LL |       } else {
-   |  ____________^
-LL | |         if x == "hello" {
-LL | |             println!("world")
-...  |
-LL | |     }
-   | |_____^
-   |
-help: collapse nested if block
-   |
-LL ~     } else if x == "hello" {
-LL +         println!("world")
-LL +     }
-LL +     else {
-LL +         println!("!")
-LL +     }
-   |
+LL |     let y = "world";
+   |         ^ help: make this variable mutable: `mut`
 
-error: this `else { if .. }` block can be collapsed
-  --> tests/ui/collapsible_else_if.rs:77:12
+error: item must be `pub`
+  --> tests/ui/collapsible_else_if.rs:98:1
    |
-LL |       } else {
-   |  ____________^
-LL | |         if let Some(42) = Some(42) {
-LL | |             println!("world")
-...  |
-LL | |     }
-   | |_____^
-   |
-help: collapse nested if block
-   |
-LL ~     } else if let Some(42) = Some(42) {
-LL +         println!("world")
-LL +     }
-LL +     else {
-LL +         println!("!")
-LL +     }
-   |
+LL | fn issue_7318() {
+   | ^ help: make this item public: `pub`
 
-error: this `else { if .. }` block can be collapsed
-  --> tests/ui/collapsible_else_if.rs:100:10
+error: function must be `unsafe`
+  --> tests/ui/collapsible_else_if.rs:98:1
    |
-LL |       }else{
-   |  __________^
-LL | |         if false {}
-LL | |     }
-   | |_____^ help: collapse nested if block: `if false {}`
+LL | fn issue_7318() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/collapsible_else_if.rs:98:1
+   |
+LL | fn issue_7318() {
+   | ^
 
-error: aborting due to 8 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 10 previous errors
 

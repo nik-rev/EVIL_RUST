@@ -1,102 +1,165 @@
-error: calling `.parse()` on a string without trimming the trailing newline character
-  --> tests/ui/read_line_without_trim.rs:12:25
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/read_line_without_trim.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/read_line_without_trim.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/read_line_without_trim.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/read_line_without_trim.rs:6:32
+   |
+LL |     std::io::stdin().read_line(&mut input).unwrap();
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/read_line_without_trim.rs:8:9
+   |
+LL |     let _x: i32 = input.parse().unwrap(); // don't trigger here, newline character is popped
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/read_line_without_trim.rs:11:32
+   |
+LL |     std::io::stdin().read_line(&mut input).unwrap();
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/read_line_without_trim.rs:12:9
    |
 LL |     let _x: i32 = input.parse().unwrap();
-   |                   ----- ^^^^^^^
-   |                   |
-   |                   help: try: `input.trim_end()`
-   |
-note: call to `.read_line()` here, which leaves a trailing newline character in the buffer, which in turn will cause the checking to always fail
-  --> tests/ui/read_line_without_trim.rs:11:5
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/read_line_without_trim.rs:16:32
    |
 LL |     std::io::stdin().read_line(&mut input).unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   = note: `-D clippy::read-line-without-trim` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::read_line_without_trim)]`
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: calling `.parse()` on a string without trimming the trailing newline character
-  --> tests/ui/read_line_without_trim.rs:17:20
+error: variable must be `mut`
+  --> tests/ui/read_line_without_trim.rs:17:9
    |
 LL |     let _x = input.parse::<i32>().unwrap();
-   |              ----- ^^^^^^^^^^^^^^
-   |              |
-   |              help: try: `input.trim_end()`
-   |
-note: call to `.read_line()` here, which leaves a trailing newline character in the buffer, which in turn will cause the checking to always fail
-  --> tests/ui/read_line_without_trim.rs:16:5
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/read_line_without_trim.rs:21:32
    |
 LL |     std::io::stdin().read_line(&mut input).unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: calling `.parse()` on a string without trimming the trailing newline character
-  --> tests/ui/read_line_without_trim.rs:22:20
+error: variable must be `mut`
+  --> tests/ui/read_line_without_trim.rs:22:9
    |
 LL |     let _x = input.parse::<u32>().unwrap();
-   |              ----- ^^^^^^^^^^^^^^
-   |              |
-   |              help: try: `input.trim_end()`
-   |
-note: call to `.read_line()` here, which leaves a trailing newline character in the buffer, which in turn will cause the checking to always fail
-  --> tests/ui/read_line_without_trim.rs:21:5
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/read_line_without_trim.rs:26:32
    |
 LL |     std::io::stdin().read_line(&mut input).unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: calling `.parse()` on a string without trimming the trailing newline character
-  --> tests/ui/read_line_without_trim.rs:27:20
+error: variable must be `mut`
+  --> tests/ui/read_line_without_trim.rs:27:9
    |
 LL |     let _x = input.parse::<f32>().unwrap();
-   |              ----- ^^^^^^^^^^^^^^
-   |              |
-   |              help: try: `input.trim_end()`
-   |
-note: call to `.read_line()` here, which leaves a trailing newline character in the buffer, which in turn will cause the checking to always fail
-  --> tests/ui/read_line_without_trim.rs:26:5
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/read_line_without_trim.rs:31:32
    |
 LL |     std::io::stdin().read_line(&mut input).unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: calling `.parse()` on a string without trimming the trailing newline character
-  --> tests/ui/read_line_without_trim.rs:32:20
+error: variable must be `mut`
+  --> tests/ui/read_line_without_trim.rs:32:9
    |
 LL |     let _x = input.parse::<bool>().unwrap();
-   |              ----- ^^^^^^^^^^^^^^^
-   |              |
-   |              help: try: `input.trim_end()`
-   |
-note: call to `.read_line()` here, which leaves a trailing newline character in the buffer, which in turn will cause the checking to always fail
-  --> tests/ui/read_line_without_trim.rs:31:5
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/read_line_without_trim.rs:36:32
    |
 LL |     std::io::stdin().read_line(&mut input).unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: comparing a string literal without trimming the trailing newline character
-  --> tests/ui/read_line_without_trim.rs:43:8
+error: variable must be `mut`
+  --> tests/ui/read_line_without_trim.rs:38:9
    |
-LL |     if input == "foo" {
-   |        -----^^^^^^^^^
-   |        |
-   |        help: try: `input.trim_end()`
-   |
-note: call to `.read_line()` here, which leaves a trailing newline character in the buffer, which in turn will cause the comparison to always fail
-  --> tests/ui/read_line_without_trim.rs:42:5
+LL |     let _x = input.parse::<String>().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/read_line_without_trim.rs:42:32
    |
 LL |     std::io::stdin().read_line(&mut input).unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: checking the end of a string without trimming the trailing newline character
-  --> tests/ui/read_line_without_trim.rs:50:8
-   |
-LL |     if input.ends_with("foo") {
-   |        -----^^^^^^^^^^^^^^^^^
-   |        |
-   |        help: try: `input.trim_end()`
-   |
-note: call to `.read_line()` here, which leaves a trailing newline character in the buffer, which in turn will cause the parsing to always fail
-  --> tests/ui/read_line_without_trim.rs:49:5
+error: references are not allowed
+  --> tests/ui/read_line_without_trim.rs:49:32
    |
 LL |     std::io::stdin().read_line(&mut input).unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 7 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 22 previous errors
 

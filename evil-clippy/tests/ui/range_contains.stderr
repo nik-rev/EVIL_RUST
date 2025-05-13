@@ -1,131 +1,134 @@
-error: manual `Range::contains` implementation
-  --> tests/ui/range_contains.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x >= 8 && x < 12;
-   |     ^^^^^^^^^^^^^^^^ help: use: `(8..12).contains(&x)`
-   |
-   = note: `-D clippy::manual-range-contains` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_range_contains)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual `Range::contains` implementation
-  --> tests/ui/range_contains.rs:15:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x < 42 && x >= 21;
-   |     ^^^^^^^^^^^^^^^^^ help: use: `(21..42).contains(&x)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual `Range::contains` implementation
-  --> tests/ui/range_contains.rs:17:5
+error: item must be `pub`
+  --> tests/ui/range_contains.rs:9:1
    |
-LL |     100 > x && 1 <= x;
-   |     ^^^^^^^^^^^^^^^^^ help: use: `(1..100).contains(&x)`
-
-error: manual `RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:21:5
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     x >= 9 && x <= 99;
-   |     ^^^^^^^^^^^^^^^^^ help: use: `(9..=99).contains(&x)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual `RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:23:5
+error: function must be `unsafe`
+  --> tests/ui/range_contains.rs:9:1
    |
-LL |     x <= 33 && x >= 1;
-   |     ^^^^^^^^^^^^^^^^^ help: use: `(1..=33).contains(&x)`
-
-error: manual `RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:25:5
+LL | fn main() {
+   | ^
    |
-LL |     999 >= x && 1 <= x;
-   |     ^^^^^^^^^^^^^^^^^^ help: use: `(1..=999).contains(&x)`
-
-error: manual `!Range::contains` implementation
-  --> tests/ui/range_contains.rs:29:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/range_contains.rs:9:1
    |
-LL |     x < 8 || x >= 12;
-   |     ^^^^^^^^^^^^^^^^ help: use: `!(8..12).contains(&x)`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual `!Range::contains` implementation
-  --> tests/ui/range_contains.rs:31:5
+error: variable must be `mut`
+  --> tests/ui/range_contains.rs:10:9
    |
-LL |     x >= 42 || x < 21;
-   |     ^^^^^^^^^^^^^^^^^ help: use: `!(21..42).contains(&x)`
-
-error: manual `!Range::contains` implementation
-  --> tests/ui/range_contains.rs:33:5
+LL |     let x = 9_i32;
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     100 <= x || 1 > x;
-   |     ^^^^^^^^^^^^^^^^^ help: use: `!(1..100).contains(&x)`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: manual `!RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:37:5
+error: variable must be `mut`
+  --> tests/ui/range_contains.rs:56:9
    |
-LL |     x < 9 || x > 99;
-   |     ^^^^^^^^^^^^^^^ help: use: `!(9..=99).contains(&x)`
+LL |     let y = 3.;
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual `!RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:39:5
+error: variable must be `mut`
+  --> tests/ui/range_contains.rs:71:9
    |
-LL |     x > 33 || x < 1;
-   |     ^^^^^^^^^^^^^^^ help: use: `!(1..=33).contains(&x)`
+LL |     let z = 42;
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual `!RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:41:5
+error: function must be `unsafe`
+  --> tests/ui/range_contains.rs:83:11
    |
-LL |     999 < x || 1 > x;
-   |     ^^^^^^^^^^^^^^^^ help: use: `!(1..=999).contains(&x)`
-
-error: manual `Range::contains` implementation
-  --> tests/ui/range_contains.rs:57:5
+LL | pub const fn in_range(a: i32) -> bool {
+   |           ^
    |
-LL |     y >= 0. && y < 1.;
-   |     ^^^^^^^^^^^^^^^^^ help: use: `(0. ..1.).contains(&y)`
-
-error: manual `!RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:59:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/range_contains.rs:83:11
    |
-LL |     y < 0. || y > 1.;
-   |     ^^^^^^^^^^^^^^^^ help: use: `!(0. ..=1.).contains(&y)`
+LL | pub const fn in_range(a: i32) -> bool {
+   |           ^
 
-error: manual `RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:63:5
+error: parameter must be `mut`
+  --> tests/ui/range_contains.rs:83:23
    |
-LL |     x >= -10 && x <= 10;
-   |     ^^^^^^^^^^^^^^^^^^^ help: use: `(-10..=10).contains(&x)`
+LL | pub const fn in_range(a: i32) -> bool {
+   |                       ^ help: make this parameter mutable: `mut`
 
-error: manual `RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:66:5
+error: item must be `pub`
+  --> tests/ui/range_contains.rs:88:1
    |
-LL |     y >= -3. && y <= 3.;
-   |     ^^^^^^^^^^^^^^^^^^^ help: use: `(-3. ..=3.).contains(&y)`
+LL | fn msrv_1_34() {
+   | ^ help: make this item public: `pub`
 
-error: manual `RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:72:30
+error: function must be `unsafe`
+  --> tests/ui/range_contains.rs:88:1
    |
-LL |     (x >= 0) && (x <= 10) && (z >= 0) && (z <= 10);
-   |                              ^^^^^^^^^^^^^^^^^^^^^ help: use: `(0..=10).contains(&z)`
-
-error: manual `RangeInclusive::contains` implementation
-  --> tests/ui/range_contains.rs:72:5
+LL | fn msrv_1_34() {
+   | ^
    |
-LL |     (x >= 0) && (x <= 10) && (z >= 0) && (z <= 10);
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: use: `(0..=10).contains(&x)`
-
-error: manual `!Range::contains` implementation
-  --> tests/ui/range_contains.rs:75:29
+help: make this function unsafe: `unsafe`
+  --> tests/ui/range_contains.rs:88:1
    |
-LL |     (x < 0) || (x >= 10) || (z < 0) || (z >= 10);
-   |                             ^^^^^^^^^^^^^^^^^^^^ help: use: `!(0..10).contains(&z)`
+LL | fn msrv_1_34() {
+   | ^
 
-error: manual `!Range::contains` implementation
-  --> tests/ui/range_contains.rs:75:5
+error: variable must be `mut`
+  --> tests/ui/range_contains.rs:89:9
    |
-LL |     (x < 0) || (x >= 10) || (z < 0) || (z >= 10);
-   |     ^^^^^^^^^^^^^^^^^^^^ help: use: `!(0..10).contains(&x)`
+LL |     let x = 5;
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual `Range::contains` implementation
-  --> tests/ui/range_contains.rs:96:5
+error: item must be `pub`
+  --> tests/ui/range_contains.rs:94:1
    |
-LL |     x >= 8 && x < 35;
-   |     ^^^^^^^^^^^^^^^^ help: use: `(8..35).contains(&x)`
+LL | fn msrv_1_35() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 21 previous errors
+error: function must be `unsafe`
+  --> tests/ui/range_contains.rs:94:1
+   |
+LL | fn msrv_1_35() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/range_contains.rs:94:1
+   |
+LL | fn msrv_1_35() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/range_contains.rs:95:9
+   |
+LL |     let x = 5;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

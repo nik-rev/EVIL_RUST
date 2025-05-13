@@ -1,17 +1,209 @@
-error: calling `&mut Mutex::lock` unnecessarily locks an exclusive (mutable) reference
-  --> tests/ui/mut_mutex_lock.rs:10:33
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let mut value = value_mutex.lock().unwrap();
-   |                                 ^^^^ help: change this to: `get_mut`
-   |
-   = note: `-D clippy::mut-mutex-lock` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mut_mutex_lock)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: calling `&mut Mutex::lock` unnecessarily locks an exclusive (mutable) reference
-  --> tests/ui/mut_mutex_lock.rs:16:43
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let mut value = mut_ref_mut_ref_mutex.lock().unwrap();
-   |                                           ^^^^ help: change this to: `get_mut`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/mut_mutex_lock.rs:6:1
+   |
+LL | fn mut_mutex_lock() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:6:1
+   |
+LL | fn mut_mutex_lock() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:6:1
+   |
+LL | fn mut_mutex_lock() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/mut_mutex_lock.rs:8:9
+   |
+LL |     let value_mutex = Arc::get_mut(&mut value_rc).unwrap();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/mut_mutex_lock.rs:8:36
+   |
+LL |     let value_mutex = Arc::get_mut(&mut value_rc).unwrap();
+   |                                    ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/mut_mutex_lock.rs:15:9
+   |
+LL |     let mut_ref_mut_ref_mutex = &mut &mut value_mutex;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_mutex_lock.rs:15:33
+   |
+LL |     let mut_ref_mut_ref_mutex = &mut &mut value_mutex;
+   |                                 ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mut_mutex_lock.rs:15:38
+   |
+LL |     let mut_ref_mut_ref_mutex = &mut &mut value_mutex;
+   |                                      ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/mut_mutex_lock.rs:21:1
+   |
+LL | fn no_owned_mutex_lock() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:21:1
+   |
+LL | fn no_owned_mutex_lock() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:21:1
+   |
+LL | fn no_owned_mutex_lock() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/mut_mutex_lock.rs:27:1
+   |
+LL | fn issue9415() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:27:1
+   |
+LL | fn issue9415() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:27:1
+   |
+LL | fn issue9415() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/mut_mutex_lock.rs:29:9
+   |
+LL |     let arc_mutex: &mut Arc<Mutex<u8>> = &mut arc_mutex;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_mutex_lock.rs:29:20
+   |
+LL |     let arc_mutex: &mut Arc<Mutex<u8>> = &mut arc_mutex;
+   |                    ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/mut_mutex_lock.rs:29:42
+   |
+LL |     let arc_mutex: &mut Arc<Mutex<u8>> = &mut arc_mutex;
+   |                                          ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/mut_mutex_lock.rs:34:1
+   |
+LL | fn mut_ref_ref_mutex_lock() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:34:1
+   |
+LL | fn mut_ref_ref_mutex_lock() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:34:1
+   |
+LL | fn mut_ref_ref_mutex_lock() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/mut_mutex_lock.rs:35:9
+   |
+LL |     let mutex = Mutex::new(42_u8);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mut_mutex_lock.rs:36:9
+   |
+LL |     let mut_ref_ref_mutex = &mut &mutex;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_mutex_lock.rs:36:29
+   |
+LL |     let mut_ref_ref_mutex = &mut &mutex;
+   |                             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mut_mutex_lock.rs:36:34
+   |
+LL |     let mut_ref_ref_mutex = &mut &mutex;
+   |                                  ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/mut_mutex_lock.rs:41:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:41:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_mutex_lock.rs:41:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 26 previous errors
 

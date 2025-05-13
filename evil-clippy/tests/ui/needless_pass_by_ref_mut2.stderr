@@ -1,17 +1,143 @@
-error: this argument is a mutable reference, but not used mutably
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:8:1
+   |
+LL | async fn inner_async3(x: &mut i32, y: &mut u32) {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:8:7
+   |
+LL | async fn inner_async3(x: &mut i32, y: &mut u32) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:8:7
+   |
+LL | async fn inner_async3(x: &mut i32, y: &mut u32) {
+   |       ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:8:23
+   |
+LL | async fn inner_async3(x: &mut i32, y: &mut u32) {
+   |                       ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:8:36
+   |
+LL | async fn inner_async3(x: &mut i32, y: &mut u32) {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/needless_pass_by_ref_mut2.rs:8:26
    |
 LL | async fn inner_async3(x: &mut i32, y: &mut u32) {
-   |                          ^^^^^^^^ help: consider changing to: `&i32`
+   |                          ^^^^^^^^
    |
-   = note: `-D clippy::needless-pass-by-ref-mut` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_pass_by_ref_mut)]`
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this argument is a mutable reference, but not used mutably
+error: references are not allowed
+  --> tests/ui/needless_pass_by_ref_mut2.rs:8:39
+   |
+LL | async fn inner_async3(x: &mut i32, y: &mut u32) {
+   |                                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:17:1
+   |
+LL | async fn inner_async4(u: &mut i32, v: &mut u32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:17:7
+   |
+LL | async fn inner_async4(u: &mut i32, v: &mut u32) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:17:7
+   |
+LL | async fn inner_async4(u: &mut i32, v: &mut u32) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:17:23
+   |
+LL | async fn inner_async4(u: &mut i32, v: &mut u32) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:17:36
+   |
+LL | async fn inner_async4(u: &mut i32, v: &mut u32) {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_ref_mut2.rs:17:26
+   |
+LL | async fn inner_async4(u: &mut i32, v: &mut u32) {
+   |                          ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
   --> tests/ui/needless_pass_by_ref_mut2.rs:17:39
    |
 LL | async fn inner_async4(u: &mut i32, v: &mut u32) {
-   |                                       ^^^^^^^^ help: consider changing to: `&u32`
+   |                                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:26:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:26:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_ref_mut2.rs:26:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 18 previous errors
 

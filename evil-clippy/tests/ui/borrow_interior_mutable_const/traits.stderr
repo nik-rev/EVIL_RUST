@@ -1,3 +1,716 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:10:1
+   |
+LL | / trait ConcreteTypes {
+LL | |     const ATOMIC: AtomicUsize;
+LL | |     const STRING: String;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:10:1
+   |
+LL | trait ConcreteTypes {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:14:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:14:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:15:17
+   |
+LL |         let _ = &Self::ATOMIC;
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:17:17
+   |
+LL |         let _ = &Self::STRING;
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:21:1
+   |
+LL | impl ConcreteTypes for u64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:25:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:25:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:27:17
+   |
+LL |         let _ = &Self::ATOMIC;
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:29:17
+   |
+LL |         let _ = &Self::STRING;
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:34:1
+   |
+LL | / trait ConstDefault {
+LL | |     const DEFAULT: Self;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:34:1
+   |
+LL | trait ConstDefault {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:38:1
+   |
+LL | / trait GenericTypes<T, U> {
+LL | |     const TO_REMAIN_GENERIC: T;
+LL | |     const TO_BE_CONCRETE: U;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:38:1
+   |
+LL | trait GenericTypes<T, U> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:42:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:42:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:43:17
+   |
+LL |         let _ = &Self::TO_REMAIN_GENERIC;
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:47:1
+   |
+LL | impl<T: ConstDefault> GenericTypes<T, AtomicUsize> for Vec<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:51:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:51:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:52:17
+   |
+LL |         let _ = &Self::TO_REMAIN_GENERIC;
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:53:17
+   |
+LL |         let _ = &Self::TO_BE_CONCRETE;
+   |                 ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:61:1
+   |
+LL | / trait AssocTypes {
+LL | |     type ToBeFrozen;
+LL | |     type ToBeUnfrozen;
+LL | |     type ToBeGenericParam;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:61:1
+   |
+LL | trait AssocTypes {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:71:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:71:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:72:17
+   |
+LL |         let _ = &Self::TO_BE_FROZEN;
+   |                 ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:73:17
+   |
+LL |         let _ = &Self::WRAPPED_TO_BE_UNFROZEN;
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:77:1
+   |
+LL | impl<T: ConstDefault> AssocTypes for Vec<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:87:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:87:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:88:17
+   |
+LL |         let _ = &Self::TO_BE_FROZEN;
+   |                 ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:89:17
+   |
+LL |         let _ = &Self::TO_BE_UNFROZEN;
+   |                 ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:91:17
+   |
+LL |         let _ = &Self::WRAPPED_TO_BE_UNFROZEN;
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:93:17
+   |
+LL |         let _ = &Self::WRAPPED_TO_BE_GENERIC_PARAM;
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:98:1
+   |
+LL | / trait AssocTypesHelper {
+LL | |     type NotToBeBounded;
+LL | |     type ToBeBounded;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:98:1
+   |
+LL | trait AssocTypesHelper {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:105:1
+   |
+LL | / trait AssocTypesFromGenericParam<T>
+LL | | where
+LL | |     T: AssocTypesHelper<ToBeBounded = AtomicUsize>,
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:105:1
+   |
+LL | trait AssocTypesFromGenericParam<T>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:112:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:112:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:113:17
+   |
+LL |         let _ = &Self::NOT_BOUNDED;
+   |                 ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:114:17
+   |
+LL |         let _ = &Self::BOUNDED;
+   |                 ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:119:1
+   |
+LL | impl<T> AssocTypesFromGenericParam<T> for Vec<T>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:126:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:126:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:127:17
+   |
+LL |         let _ = &Self::NOT_BOUNDED;
+   |                 ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:128:17
+   |
+LL |         let _ = &Self::BOUNDED;
+   |                 ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:133:1
+   |
+LL | / trait SelfType: Sized {
+LL | |     const SELF: Self;
+LL | |     const WRAPPED_SELF: Option<Self>;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:133:1
+   |
+LL | trait SelfType: Sized {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:137:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:137:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:138:17
+   |
+LL |         let _ = &Self::SELF;
+   |                 ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:139:17
+   |
+LL |         let _ = &Self::WRAPPED_SELF;
+   |                 ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:143:1
+   |
+LL | impl SelfType for u64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:147:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:147:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:148:17
+   |
+LL |         let _ = &Self::SELF;
+   |                 ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:149:17
+   |
+LL |         let _ = &Self::WRAPPED_SELF;
+   |                 ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:153:1
+   |
+LL | impl SelfType for AtomicUsize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:157:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:157:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:158:17
+   |
+LL |         let _ = &Self::SELF;
+   |                 ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:160:17
+   |
+LL |         let _ = &Self::WRAPPED_SELF;
+   |                 ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:165:1
+   |
+LL | / trait BothOfCellAndGeneric<T> {
+LL | |     const DIRECT: Cell<T>;
+LL | |     const INDIRECT: Cell<*const T>;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:165:1
+   |
+LL | trait BothOfCellAndGeneric<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:169:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:169:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:170:17
+   |
+LL |         let _ = &Self::DIRECT;
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:172:17
+   |
+LL |         let _ = &Self::INDIRECT;
+   |                 ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:177:1
+   |
+LL | impl<T: ConstDefault> BothOfCellAndGeneric<T> for Vec<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:181:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:181:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:182:17
+   |
+LL |         let _ = &Self::DIRECT;
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:184:17
+   |
+LL |         let _ = &Self::INDIRECT;
+   |                 ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:189:1
+   |
+LL | struct Local<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:191:1
+   |
+LL | impl<T> Local<T>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:203:5
+   |
+LL |     fn function() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:203:5
+   |
+LL |     fn function() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:204:17
+   |
+LL |         let _ = &Self::ATOMIC;
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:206:17
+   |
+LL |         let _ = &Self::COW;
+   |                 ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:207:17
+   |
+LL |         let _ = &Self::GENERIC_TYPE;
+   |                 ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:208:17
+   |
+LL |         let _ = &Self::ASSOC_TYPE;
+   |                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:209:17
+   |
+LL |         let _ = &Self::BOUNDED_ASSOC_TYPE;
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:214:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:214:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:214:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:217:5
+   |
+LL |     assert_eq!(u64::ATOMIC.load(Ordering::SeqCst), 9);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:217:5
+   |
+LL |     assert_eq!(u64::ATOMIC.load(Ordering::SeqCst), 9);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:217:5
+   |
+LL |     assert_eq!(u64::ATOMIC.load(Ordering::SeqCst), 9);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:217:5
+   |
+LL |     assert_eq!(u64::ATOMIC.load(Ordering::SeqCst), 9);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/traits.rs:217:5
+   |
+LL |     assert_eq!(u64::ATOMIC.load(Ordering::SeqCst), 9);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: a `const` item with interior mutability should not be borrowed
   --> tests/ui/borrow_interior_mutable_const/traits.rs:15:18
    |
@@ -139,5 +852,5 @@ LL |     assert_eq!(u64::ATOMIC.load(Ordering::SeqCst), 9);
    |
    = help: assign this const to a local or static variable, and use the variable here
 
-error: aborting due to 17 previous errors
+error: aborting due to 99 previous errors
 

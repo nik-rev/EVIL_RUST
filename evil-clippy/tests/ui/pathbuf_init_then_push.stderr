@@ -1,37 +1,56 @@
-error: calls to `push` immediately after creation
-  --> tests/ui/pathbuf_init_then_push.rs:6:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     let mut path_buf = PathBuf::new();
-LL | |
-LL | |     path_buf.push("foo");
-   | |_________________________^ help: consider using the `.join()`: `let mut path_buf = PathBuf::from("foo");`
-   |
-   = note: `-D clippy::pathbuf-init-then-push` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::pathbuf_init_then_push)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: calls to `push` immediately after creation
-  --> tests/ui/pathbuf_init_then_push.rs:10:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     path_buf = PathBuf::from("foo");
-LL | |
-LL | |     path_buf.push("bar");
-   | |_________________________^ help: consider using the `.join()`: `path_buf = PathBuf::from("foo").join("bar");`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: calls to `push` immediately after creation
-  --> tests/ui/pathbuf_init_then_push.rs:15:5
+error: item must be `pub`
+  --> tests/ui/pathbuf_init_then_push.rs:5:1
    |
-LL | /     path_buf = PathBuf::from("foo");
-LL | |
-LL | |     path_buf.push(bar);
-   | |_______________________^ help: consider using the `.join()`: `path_buf = PathBuf::from("foo").join(bar);`
-
-error: calls to `push` immediately after creation
-  --> tests/ui/pathbuf_init_then_push.rs:19:5
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL | /     let mut path_buf = PathBuf::from("foo").join("bar");
-LL | |
-LL | |     path_buf.push("buz");
-   | |_________________________^ help: consider using the `.join()`: `let mut path_buf = PathBuf::from("foo").join("bar").join("buz");`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/pathbuf_init_then_push.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pathbuf_init_then_push.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/pathbuf_init_then_push.rs:14:9
+   |
+LL |     let bar = "bar";
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 7 previous errors
 

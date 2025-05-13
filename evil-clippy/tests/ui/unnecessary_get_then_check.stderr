@@ -1,75 +1,80 @@
-error: unnecessary use of `get("a").is_some()`
-  --> tests/ui/unnecessary_get_then_check.rs:7:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = s.get("a").is_some();
-   |               ^^^^^^^^^^^^^^^^^^ help: replace it with: `contains("a")`
-   |
-   = note: `-D clippy::unnecessary-get-then-check` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_get_then_check)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnecessary use of `get("a").is_none()`
-  --> tests/ui/unnecessary_get_then_check.rs:9:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = s.get("a").is_none();
-   |             --^^^^^^^^^^^^^^^^^^
-   |             |
-   |             help: replace it with: `!s.contains("a")`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnecessary use of `get("a").is_some()`
-  --> tests/ui/unnecessary_get_then_check.rs:13:15
+error: item must be `pub`
+  --> tests/ui/unnecessary_get_then_check.rs:5:1
    |
-LL |     let _ = s.get("a").is_some();
-   |               ^^^^^^^^^^^^^^^^^^ help: replace it with: `contains_key("a")`
-
-error: unnecessary use of `get("a").is_none()`
-  --> tests/ui/unnecessary_get_then_check.rs:15:15
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = s.get("a").is_none();
-   |             --^^^^^^^^^^^^^^^^^^
-   |             |
-   |             help: replace it with: `!s.contains_key("a")`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unnecessary use of `get("a").is_some()`
-  --> tests/ui/unnecessary_get_then_check.rs:19:15
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_get_then_check.rs:5:1
    |
-LL |     let _ = s.get("a").is_some();
-   |               ^^^^^^^^^^^^^^^^^^ help: replace it with: `contains("a")`
-
-error: unnecessary use of `get("a").is_none()`
-  --> tests/ui/unnecessary_get_then_check.rs:21:15
+LL | fn main() {
+   | ^
    |
-LL |     let _ = s.get("a").is_none();
-   |             --^^^^^^^^^^^^^^^^^^
-   |             |
-   |             help: replace it with: `!s.contains("a")`
-
-error: unnecessary use of `get("a").is_some()`
-  --> tests/ui/unnecessary_get_then_check.rs:25:15
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_get_then_check.rs:5:1
    |
-LL |     let _ = s.get("a").is_some();
-   |               ^^^^^^^^^^^^^^^^^^ help: replace it with: `contains_key("a")`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: unnecessary use of `get("a").is_none()`
-  --> tests/ui/unnecessary_get_then_check.rs:27:15
+error: variable must be `mut`
+  --> tests/ui/unnecessary_get_then_check.rs:6:9
    |
-LL |     let _ = s.get("a").is_none();
-   |             --^^^^^^^^^^^^^^^^^^
-   |             |
-   |             help: replace it with: `!s.contains_key("a")`
-
-error: unnecessary use of `get::<str>("a").is_some()`
-  --> tests/ui/unnecessary_get_then_check.rs:32:15
+LL |     let s: HashSet<String> = HashSet::new();
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _ = s.get::<str>("a").is_some();
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `contains::<str>("a")`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: unnecessary use of `get::<str>("a").is_none()`
-  --> tests/ui/unnecessary_get_then_check.rs:34:15
+error: variable must be `mut`
+  --> tests/ui/unnecessary_get_then_check.rs:12:9
    |
-LL |     let _ = s.get::<str>("a").is_none();
-   |             --^^^^^^^^^^^^^^^^^^^^^^^^^
-   |             |
-   |             help: replace it with: `!s.contains::<str>("a")`
+LL |     let s: HashMap<String, ()> = HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 10 previous errors
+error: variable must be `mut`
+  --> tests/ui/unnecessary_get_then_check.rs:18:9
+   |
+LL |     let s: BTreeSet<String> = BTreeSet::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_get_then_check.rs:24:9
+   |
+LL |     let s: BTreeMap<String, ()> = BTreeMap::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_get_then_check.rs:31:9
+   |
+LL |     let s: HashSet<String> = HashSet::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

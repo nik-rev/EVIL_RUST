@@ -1,35 +1,197 @@
-error: unused "map closure" when calling `Result::map_or_else` value
-  --> tests/ui/unnecessary_result_map_or_else.rs:6:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x.map_or_else(|err| err, |n| n);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `unwrap_or_else`: `x.unwrap_or_else(|err| err)`
-   |
-   = note: `-D clippy::unnecessary-result-map-or-else` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_result_map_or_else)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unused "map closure" when calling `Result::map_or_else` value
-  --> tests/ui/unnecessary_result_map_or_else.rs:11:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x.map_or_else(|err: ()| err, |n: ()| n);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `unwrap_or_else`: `x.unwrap_or_else(|err: ()| err)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unused "map closure" when calling `Result::map_or_else` value
-  --> tests/ui/unnecessary_result_map_or_else.rs:17:19
+error: item must be `pub`
+  --> tests/ui/unnecessary_result_map_or_else.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_result_map_or_else.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_result_map_or_else.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:5:9
+   |
+LL |     let x: Result<(), ()> = Ok(());
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:10:9
+   |
+LL |     let x: Result<(), ()> = Ok(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:15:9
+   |
+LL |     let y = String::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:16:9
+   |
+LL |     let x: Result<&String, &String> = Ok(&y);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_result_map_or_else.rs:16:19
+   |
+LL |     let x: Result<&String, &String> = Ok(&y);
+   |                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_result_map_or_else.rs:16:28
+   |
+LL |     let x: Result<&String, &String> = Ok(&y);
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_result_map_or_else.rs:16:42
+   |
+LL |     let x: Result<&String, &String> = Ok(&y);
+   |                                          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:17:9
    |
 LL |     let y: &str = x.map_or_else(|err| err, |n| n);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `unwrap_or_else`: `x.unwrap_or_else(|err| err)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: unused "map closure" when calling `Result::map_or_else` value
-  --> tests/ui/unnecessary_result_map_or_else.rs:22:5
+error: references are not allowed
+  --> tests/ui/unnecessary_result_map_or_else.rs:17:12
    |
-LL | /     x.map_or_else(
-LL | |
-LL | |         |err| err,
-LL | |         |n| {
-...  |
-LL | |         },
-LL | |     );
-   | |_____^ help: consider using `unwrap_or_else`: `x.unwrap_or_else(|err| err)`
+LL |     let y: &str = x.map_or_else(|err| err, |n| n);
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:21:9
+   |
+LL |     let x: Result<(), ()> = Ok(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:26:17
+   |
+LL |             let tmp = n;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:27:17
+   |
+LL |             let tmp2 = tmp;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:33:9
+   |
+LL |     let x: Result<usize, usize> = Ok(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:37:9
+   |
+LL |     let y = ();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:38:9
+   |
+LL |     let x: Result<(), ()> = Ok(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:42:9
+   |
+LL |     let y = ();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:43:9
+   |
+LL |     let x: Result<(), ()> = Ok(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:47:17
+   |
+LL |             let tmp = y;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:53:9
+   |
+LL |     let x: Result<usize, usize> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:57:17
+   |
+LL |             let tmp = n + 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:63:9
+   |
+LL |     let y = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:64:9
+   |
+LL |     let x: Result<usize, usize> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_result_map_or_else.rs:68:17
+   |
+LL |             let tmp = n;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 29 previous errors
 

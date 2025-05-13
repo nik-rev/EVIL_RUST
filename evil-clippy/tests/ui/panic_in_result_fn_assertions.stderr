@@ -1,58 +1,365 @@
-error: used `panic!()` or assertion in a function that returns `Result`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn_assertions.rs:4:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn_assertions.rs:6:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/panic_in_result_fn_assertions.rs:7:5
    |
-LL | /     fn result_with_assert_with_message(x: i32) -> Result<bool, String> // should emit lint
-LL | |
-LL | |     {
-LL | |         assert!(x == 5, "wrong argument");
-LL | |         Ok(true)
-LL | |     }
-   | |_____^
+LL |     fn result_with_assert_with_message(x: i32) -> Result<bool, String> // should emit lint
+   |     ^
    |
-   = help: `panic!()` or assertions should not be used in a function that returns `Result` as `Result` is expected to return an error instead of crashing
-note: return Err() instead of panicking
-  --> tests/ui/panic_in_result_fn_assertions.rs:10:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:7:5
    |
-LL |         assert!(x == 5, "wrong argument");
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   = note: `-D clippy::panic-in-result-fn` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::panic_in_result_fn)]`
+LL |     fn result_with_assert_with_message(x: i32) -> Result<bool, String> // should emit lint
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: used `panic!()` or assertion in a function that returns `Result`
+error: parameter must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:7:40
+   |
+LL |     fn result_with_assert_with_message(x: i32) -> Result<bool, String> // should emit lint
+   |                                        ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: function must be `unsafe`
   --> tests/ui/panic_in_result_fn_assertions.rs:14:5
    |
-LL | /     fn result_with_assert_eq(x: i32) -> Result<bool, String> // should emit lint
-LL | |
-LL | |     {
-LL | |         assert_eq!(x, 5);
-LL | |         Ok(true)
-LL | |     }
-   | |_____^
+LL |     fn result_with_assert_eq(x: i32) -> Result<bool, String> // should emit lint
+   |     ^
    |
-   = help: `panic!()` or assertions should not be used in a function that returns `Result` as `Result` is expected to return an error instead of crashing
-note: return Err() instead of panicking
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:14:5
+   |
+LL |     fn result_with_assert_eq(x: i32) -> Result<bool, String> // should emit lint
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:14:30
+   |
+LL |     fn result_with_assert_eq(x: i32) -> Result<bool, String> // should emit lint
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/panic_in_result_fn_assertions.rs:17:9
    |
 LL |         assert_eq!(x, 5);
    |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: used `panic!()` or assertion in a function that returns `Result`
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:17:9
+   |
+LL |         assert_eq!(x, 5);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:17:9
+   |
+LL |         assert_eq!(x, 5);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:17:9
+   |
+LL |         assert_eq!(x, 5);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:17:9
+   |
+LL |         assert_eq!(x, 5);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
   --> tests/ui/panic_in_result_fn_assertions.rs:21:5
    |
-LL | /     fn result_with_assert_ne(x: i32) -> Result<bool, String> // should emit lint
-LL | |
-LL | |     {
-LL | |         assert_ne!(x, 1);
-LL | |         Ok(true)
-LL | |     }
-   | |_____^
+LL |     fn result_with_assert_ne(x: i32) -> Result<bool, String> // should emit lint
+   |     ^
    |
-   = help: `panic!()` or assertions should not be used in a function that returns `Result` as `Result` is expected to return an error instead of crashing
-note: return Err() instead of panicking
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:21:5
+   |
+LL |     fn result_with_assert_ne(x: i32) -> Result<bool, String> // should emit lint
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:21:30
+   |
+LL |     fn result_with_assert_ne(x: i32) -> Result<bool, String> // should emit lint
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/panic_in_result_fn_assertions.rs:24:9
    |
 LL |         assert_ne!(x, 1);
    |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 3 previous errors
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:24:9
+   |
+LL |         assert_ne!(x, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:24:9
+   |
+LL |         assert_ne!(x, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:24:9
+   |
+LL |         assert_ne!(x, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:24:9
+   |
+LL |         assert_ne!(x, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:28:5
+   |
+LL |     fn other_with_assert_with_message(x: i32) // should not emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:28:5
+   |
+LL |     fn other_with_assert_with_message(x: i32) // should not emit lint
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:28:39
+   |
+LL |     fn other_with_assert_with_message(x: i32) // should not emit lint
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:33:5
+   |
+LL |     fn other_with_assert_eq(x: i32) // should not emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:33:5
+   |
+LL |     fn other_with_assert_eq(x: i32) // should not emit lint
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:33:29
+   |
+LL |     fn other_with_assert_eq(x: i32) // should not emit lint
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:35:9
+   |
+LL |         assert_eq!(x, 5);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:35:9
+   |
+LL |         assert_eq!(x, 5);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:35:9
+   |
+LL |         assert_eq!(x, 5);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:35:9
+   |
+LL |         assert_eq!(x, 5);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:35:9
+   |
+LL |         assert_eq!(x, 5);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:38:5
+   |
+LL |     fn other_with_assert_ne(x: i32) // should not emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:38:5
+   |
+LL |     fn other_with_assert_ne(x: i32) // should not emit lint
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:38:29
+   |
+LL |     fn other_with_assert_ne(x: i32) // should not emit lint
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:40:9
+   |
+LL |         assert_ne!(x, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:40:9
+   |
+LL |         assert_ne!(x, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:40:9
+   |
+LL |         assert_ne!(x, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:40:9
+   |
+LL |         assert_ne!(x, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panic_in_result_fn_assertions.rs:40:9
+   |
+LL |         assert_ne!(x, 1);
+   |         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:43:5
+   |
+LL |     fn result_without_banned_functions() -> Result<bool, String> // should not emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:43:5
+   |
+LL |     fn result_without_banned_functions() -> Result<bool, String> // should not emit lint
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/panic_in_result_fn_assertions.rs:45:13
+   |
+LL |         let assert = "assert!";
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn_assertions.rs:51:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:51:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn_assertions.rs:51:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 42 previous errors
 

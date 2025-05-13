@@ -1,41 +1,363 @@
-error: you seem to be trying to use `match` to destructure a single infallible pattern. Consider using `let`
-  --> tests/ui/infallible_destructuring_match.rs:28:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     let data = match wrapper {
-LL | |
-LL | |         SingleVariantEnum::Variant(i) => i,
-LL | |     };
-   | |______^ help: try: `let SingleVariantEnum::Variant(data) = wrapper;`
-   |
-   = note: `-D clippy::infallible-destructuring-match` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::infallible_destructuring_match)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: you seem to be trying to use `match` to destructure a single infallible pattern. Consider using `let`
-  --> tests/ui/infallible_destructuring_match.rs:61:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     let data = match wrapper {
-LL | |
-LL | |         TupleStruct(i) => i,
-LL | |     };
-   | |______^ help: try: `let TupleStruct(data) = wrapper;`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: you seem to be trying to use `match` to destructure a single infallible pattern. Consider using `let`
-  --> tests/ui/infallible_destructuring_match.rs:86:5
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:5:1
    |
-LL | /     let data = match wrapper {
-LL | |
-LL | |         TupleStructWithNonCopy(ref n) => n,
-LL | |     };
-   | |______^ help: try: `let TupleStructWithNonCopy(ref data) = wrapper;`
-
-error: you seem to be trying to use `match` to destructure a single infallible pattern. Consider using `let`
-  --> tests/ui/infallible_destructuring_match.rs:106:5
+LL | enum SingleVariantEnum {
+   | ^ help: make this item public: `pub`
    |
-LL | /     let data = match wrapper {
-LL | |
-LL | |         Ok(i) => i,
-LL | |     };
-   | |______^ help: try: `let Ok(data) = wrapper;`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:9:1
+   |
+LL | struct TupleStruct(i32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:11:1
+   |
+LL | struct NonCopy;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:12:1
+   |
+LL | struct TupleStructWithNonCopy(NonCopy);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:14:1
+   |
+LL | enum EmptyEnum {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:16:1
+   |
+LL | macro_rules! match_enum {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:24:1
+   |
+LL | fn infallible_destructuring_match_enum() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:24:1
+   |
+LL | fn infallible_destructuring_match_enum() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:24:1
+   |
+LL | fn infallible_destructuring_match_enum() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:25:9
+   |
+LL |     let wrapper = SingleVariantEnum::Variant(0);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:28:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:18:13
+   |
+LL |         let data = match $param {
+   |             ^ help: make this variable mutable: `mut`
+...
+LL |     match_enum!(wrapper);
+   |     -------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `match_enum` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:37:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:42:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:46:36
+   |
+LL |     let SingleVariantEnum::Variant(data) = wrapper;
+   |                                    ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:49:1
+   |
+LL | macro_rules! match_struct {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:57:1
+   |
+LL | fn infallible_destructuring_match_struct() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:57:1
+   |
+LL | fn infallible_destructuring_match_struct() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:57:1
+   |
+LL | fn infallible_destructuring_match_struct() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:58:9
+   |
+LL |     let wrapper = TupleStruct(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:61:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:51:13
+   |
+LL |         let data = match $param {
+   |             ^ help: make this variable mutable: `mut`
+...
+LL |     match_struct!(wrapper);
+   |     ---------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `match_struct` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:70:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:75:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:79:21
+   |
+LL |     let TupleStruct(data) = wrapper;
+   |                     ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:82:1
+   |
+LL | fn infallible_destructuring_match_struct_with_noncopy() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:82:1
+   |
+LL | fn infallible_destructuring_match_struct_with_noncopy() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:82:1
+   |
+LL | fn infallible_destructuring_match_struct_with_noncopy() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:83:9
+   |
+LL |     let wrapper = TupleStructWithNonCopy(NonCopy);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:86:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/infallible_destructuring_match.rs:88:32
+   |
+LL |         TupleStructWithNonCopy(ref n) => n,
+   |                                ^^^^^
+   |
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:91:36
+   |
+LL |     let TupleStructWithNonCopy(ref data) = wrapper;
+   |                                    ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/infallible_destructuring_match.rs:91:32
+   |
+LL |     let TupleStructWithNonCopy(ref data) = wrapper;
+   |                                ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:94:1
+   |
+LL | macro_rules! match_never_enum {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:102:1
+   |
+LL | fn never_enum() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:102:1
+   |
+LL | fn never_enum() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:102:1
+   |
+LL | fn never_enum() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:103:9
+   |
+LL |     let wrapper: Result<i32, !> = Ok(23);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:106:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:96:13
+   |
+LL |         let data = match $param {
+   |             ^ help: make this variable mutable: `mut`
+...
+LL |     match_never_enum!(wrapper);
+   |     -------------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `match_never_enum` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:115:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:120:9
+   |
+LL |     let data = match wrapper {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:124:12
+   |
+LL |     let Ok(data) = wrapper;
+   |            ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:127:1
+   |
+LL | impl EmptyEnum {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:128:5
+   |
+LL |     fn match_on(&self) -> ! {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:128:5
+   |
+LL |     fn match_on(&self) -> ! {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:128:18
+   |
+LL |     fn match_on(&self) -> ! {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/infallible_destructuring_match.rs:128:17
+   |
+LL |     fn match_on(&self) -> ! {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/infallible_destructuring_match.rs:130:13
+   |
+LL |         let data = match *self {};
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/infallible_destructuring_match.rs:135:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:135:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infallible_destructuring_match.rs:135:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 50 previous errors
 

@@ -1,3 +1,174 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/infinite_iter.rs:4:1
+   |
+LL | fn square_is_lower_64(x: &u32) -> bool {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_iter.rs:4:1
+   |
+LL | fn square_is_lower_64(x: &u32) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_iter.rs:4:1
+   |
+LL | fn square_is_lower_64(x: &u32) -> bool {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/infinite_iter.rs:4:23
+   |
+LL | fn square_is_lower_64(x: &u32) -> bool {
+   |                       ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/infinite_iter.rs:4:26
+   |
+LL | fn square_is_lower_64(x: &u32) -> bool {
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/infinite_iter.rs:10:1
+   |
+LL | fn infinite_iters() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_iter.rs:10:1
+   |
+LL | fn infinite_iters() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_iter.rs:10:1
+   |
+LL | fn infinite_iters() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/infinite_iter.rs:51:1
+   |
+LL | fn potential_infinite_iters() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_iter.rs:51:1
+   |
+LL | fn potential_infinite_iters() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_iter.rs:51:1
+   |
+LL | fn potential_infinite_iters() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/infinite_iter.rs:90:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_iter.rs:90:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_iter.rs:90:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/infinite_iter.rs:95:1
+   |
+LL | mod finite_collect {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infinite_iter.rs:98:5
+   |
+LL |     struct C;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/infinite_iter.rs:99:5
+   |
+LL |     impl FromIterator<i32> for C {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_iter.rs:100:9
+   |
+LL |         fn from_iter<I: IntoIterator<Item = i32>>(iter: I) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_iter.rs:100:9
+   |
+LL |         fn from_iter<I: IntoIterator<Item = i32>>(iter: I) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/infinite_iter.rs:100:51
+   |
+LL |         fn from_iter<I: IntoIterator<Item = i32>>(iter: I) -> Self {
+   |                                                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/infinite_iter.rs:105:5
+   |
+LL |     fn check_collect() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/infinite_iter.rs:105:5
+   |
+LL |     fn check_collect() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/infinite_iter.rs:105:5
+   |
+LL |     fn check_collect() {
+   |     ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: infinite iteration detected
   --> tests/ui/infinite_iter.rs:11:5
    |
@@ -99,13 +270,5 @@ error: possible infinite iteration detected
 LL |     (0..).all(|x| x == 24);
    |     ^^^^^^^^^^^^^^^^^^^^^^
 
-error: infinite iteration detected
-  --> tests/ui/infinite_iter.rs:107:31
-   |
-LL |         let _: HashSet<i32> = (0..).collect();
-   |                               ^^^^^^^^^^^^^^^
-   |
-   = note: `#[deny(clippy::infinite_iter)]` on by default
-
-error: aborting due to 14 previous errors
+error: aborting due to 34 previous errors
 

@@ -1,52 +1,250 @@
-error: wildcard pattern covers any other pattern as it will match anyway
-  --> tests/ui/wild_in_or_pats.rs:8:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         "bar" | _ => {
-   |         ^^^^^^^^^
-   |
-   = help: consider handling `_` separately
-   = note: `-D clippy::wildcard-in-or-patterns` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::wildcard_in_or_patterns)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: wildcard pattern covers any other pattern as it will match anyway
-  --> tests/ui/wild_in_or_pats.rs:18:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         "bar" | "bar2" | _ => {
-   |         ^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider handling `_` separately
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: wildcard pattern covers any other pattern as it will match anyway
-  --> tests/ui/wild_in_or_pats.rs:28:9
+error: item must be `pub`
+  --> tests/ui/wild_in_or_pats.rs:3:1
    |
-LL |         _ | "bar" | _ => {
-   |         ^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider handling `_` separately
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: wildcard pattern covers any other pattern as it will match anyway
-  --> tests/ui/wild_in_or_pats.rs:38:9
+error: function must be `unsafe`
+  --> tests/ui/wild_in_or_pats.rs:3:1
    |
-LL |         _ | "bar" => {
-   |         ^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-   = help: consider handling `_` separately
+help: make this function unsafe: `unsafe`
+  --> tests/ui/wild_in_or_pats.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: wildcard pattern covers any other pattern as it will match anyway
-  --> tests/ui/wild_in_or_pats.rs:73:9
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:6:13
    |
-LL |         ExhaustiveEnum::Quit | _ => {
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^
+LL |             dbg!("matched a");
+   |             ^^^^^^^^^^^^^^^^^
    |
-   = help: consider handling `_` separately
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: wildcard pattern covers any other pattern as it will match anyway
-  --> tests/ui/wild_in_or_pats.rs:109:9
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:11:13
    |
-LL |         ExhaustiveStruct { x: 1, y: 1 } | _ => {
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |             dbg!("matched (bar or) wild");
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = help: consider handling `_` separately
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 6 previous errors
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:16:13
+   |
+LL |             dbg!("matched a");
+   |             ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:21:13
+   |
+LL |             dbg!("matched (bar or bar2 or) wild");
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:26:13
+   |
+LL |             dbg!("matched a");
+   |             ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:31:13
+   |
+LL |             dbg!("matched (bar or) wild");
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:36:13
+   |
+LL |             dbg!("matched a");
+   |             ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:41:13
+   |
+LL |             dbg!("matched (bar or) wild");
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:48:17
+   |
+LL |         Message(&'a str),
+   |                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:49:14
+   |
+LL |         Quit(&'a str),
+   |              ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:54:42
+   |
+LL |         NonExhaustiveEnum::Message(_) => dbg!("message"),
+   |                                          ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:55:39
+   |
+LL |         NonExhaustiveEnum::Quit(_) => dbg!("quit"),
+   |                                       ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:56:41
+   |
+LL |         NonExhaustiveEnum::Other | _ => dbg!("wildcard"),
+   |                                         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/wild_in_or_pats.rs:60:5
+   |
+LL |     enum ExhaustiveEnum {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:68:13
+   |
+LL |             dbg!("Write");
+   |             ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:71:13
+   |
+LL |             dbg!("Change the color");
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:75:13
+   |
+LL |             dbg!("Quit or other");
+   |             ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/wild_in_or_pats.rs:81:5
+   |
+LL |     struct NonExhaustiveStruct {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/wild_in_or_pats.rs:87:9
+   |
+LL |     let b = NonExhaustiveStruct { a: 5, b: 42, c: 342 };
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/wild_in_or_pats.rs:96:5
+   |
+LL |     struct ExhaustiveStruct {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/wild_in_or_pats.rs:101:9
+   |
+LL |     let p = ExhaustiveStruct { x: 0, y: 7 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:104:13
+   |
+LL |             dbg!("On the x axis at {x}");
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:107:13
+   |
+LL |             dbg!("On the y axis at {y}");
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/wild_in_or_pats.rs:111:13
+   |
+LL |             dbg!("On neither axis: ({x}, {y})");
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 30 previous errors
 

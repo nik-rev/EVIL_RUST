@@ -1,83 +1,121 @@
-error: unnecessary use of `splitn`
-  --> tests/ui/needless_splitn.rs:13:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = str.splitn(2, '=').next();
-   |             ^^^^^^^^^^^^^^^^^^ help: try: `str.split('=')`
-   |
-   = note: `-D clippy::needless-splitn` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_splitn)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnecessary use of `splitn`
-  --> tests/ui/needless_splitn.rs:15:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = str.splitn(2, '=').nth(0);
-   |             ^^^^^^^^^^^^^^^^^^ help: try: `str.split('=')`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnecessary use of `splitn`
-  --> tests/ui/needless_splitn.rs:19:18
+error: item must be `pub`
+  --> tests/ui/needless_splitn.rs:6:1
    |
-LL |     let (_, _) = str.splitn(3, '=').next_tuple().unwrap();
-   |                  ^^^^^^^^^^^^^^^^^^ help: try: `str.split('=')`
-
-error: unnecessary use of `rsplitn`
-  --> tests/ui/needless_splitn.rs:23:13
+LL | extern crate itertools;
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = str.rsplitn(2, '=').next();
-   |             ^^^^^^^^^^^^^^^^^^^ help: try: `str.rsplit('=')`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unnecessary use of `rsplitn`
-  --> tests/ui/needless_splitn.rs:25:13
+error: item must be `pub`
+  --> tests/ui/needless_splitn.rs:11:1
    |
-LL |     let _ = str.rsplitn(2, '=').nth(0);
-   |             ^^^^^^^^^^^^^^^^^^^ help: try: `str.rsplit('=')`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: unnecessary use of `rsplitn`
-  --> tests/ui/needless_splitn.rs:29:18
+error: function must be `unsafe`
+  --> tests/ui/needless_splitn.rs:11:1
    |
-LL |     let (_, _) = str.rsplitn(3, '=').next_tuple().unwrap();
-   |                  ^^^^^^^^^^^^^^^^^^^ help: try: `str.rsplit('=')`
-
-error: unnecessary use of `splitn`
-  --> tests/ui/needless_splitn.rs:32:13
+LL | fn main() {
+   | ^
    |
-LL |     let _ = str.splitn(5, '=').next();
-   |             ^^^^^^^^^^^^^^^^^^ help: try: `str.split('=')`
-
-error: unnecessary use of `splitn`
-  --> tests/ui/needless_splitn.rs:34:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_splitn.rs:11:1
    |
-LL |     let _ = str.splitn(5, '=').nth(3);
-   |             ^^^^^^^^^^^^^^^^^^ help: try: `str.split('=')`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: unnecessary use of `splitn`
-  --> tests/ui/needless_splitn.rs:41:13
+error: variable must be `mut`
+  --> tests/ui/needless_splitn.rs:12:9
    |
-LL |     let _ = s.splitn(2, '=').next()?;
-   |             ^^^^^^^^^^^^^^^^ help: try: `s.split('=')`
-
-error: unnecessary use of `splitn`
-  --> tests/ui/needless_splitn.rs:43:13
+LL |     let str = "key=value=end";
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _ = s.splitn(2, '=').nth(0)?;
-   |             ^^^^^^^^^^^^^^^^ help: try: `s.split('=')`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: unnecessary use of `rsplitn`
-  --> tests/ui/needless_splitn.rs:45:13
+error: references are not allowed
+  --> tests/ui/needless_splitn.rs:21:16
    |
-LL |     let _ = s.rsplitn(2, '=').next()?;
-   |             ^^^^^^^^^^^^^^^^^ help: try: `s.rsplit('=')`
-
-error: unnecessary use of `rsplitn`
-  --> tests/ui/needless_splitn.rs:47:13
+LL |     let _: Vec<&str> = str.splitn(3, '=').collect();
+   |                ^^^^
    |
-LL |     let _ = s.rsplitn(2, '=').nth(0)?;
-   |             ^^^^^^^^^^^^^^^^^ help: try: `s.rsplit('=')`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: unnecessary use of `splitn`
-  --> tests/ui/needless_splitn.rs:56:13
+error: item must be `pub`
+  --> tests/ui/needless_splitn.rs:40:1
    |
-LL |     let _ = "key=value".splitn(2, '=').nth(0).unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"key=value".split('=')`
+LL | fn _question_mark(s: &str) -> Option<()> {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 13 previous errors
+error: function must be `unsafe`
+  --> tests/ui/needless_splitn.rs:40:1
+   |
+LL | fn _question_mark(s: &str) -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_splitn.rs:40:1
+   |
+LL | fn _question_mark(s: &str) -> Option<()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_splitn.rs:40:19
+   |
+LL | fn _question_mark(s: &str) -> Option<()> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_splitn.rs:40:22
+   |
+LL | fn _question_mark(s: &str) -> Option<()> {
+   |                      ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_splitn.rs:54:1
+   |
+LL | fn _test_msrv() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_splitn.rs:54:1
+   |
+LL | fn _test_msrv() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_splitn.rs:54:1
+   |
+LL | fn _test_msrv() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

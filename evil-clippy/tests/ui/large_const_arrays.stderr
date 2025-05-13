@@ -1,85 +1,193 @@
-error: large array defined as const
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/large_const_arrays.rs:4:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_const_arrays.rs:4:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_const_arrays.rs:4:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/large_const_arrays.rs:4:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/large_const_arrays.rs:4:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/large_const_arrays.rs:4:17
+   |
+LL | #[derive(Clone, Copy)]
+   |                 ^
+
+error: item must be `pub`
   --> tests/ui/large_const_arrays.rs:10:1
    |
 LL | pub(crate) const FOO_PUB_CRATE: [u32; 1_000_000] = [0u32; 1_000_000];
-   | ^^^^^^^^^^^-----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |            |
-   |            help: make this a static item: `static`
-   |
-   = note: `-D clippy::large-const-arrays` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::large_const_arrays)]`
+   | ^^^^^^^^^^ help: make this item public: `pub`
 
-error: large array defined as const
-  --> tests/ui/large_const_arrays.rs:12:1
-   |
-LL | pub const FOO_PUB: [u32; 1_000_000] = [0u32; 1_000_000];
-   | ^^^^-----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |     |
-   |     help: make this a static item: `static`
-
-error: large array defined as const
+error: item must be `pub`
   --> tests/ui/large_const_arrays.rs:14:1
    |
 LL | const FOO_COMPUTED: [u32; 1_000 * 100] = [0u32; 1_000 * 100];
-   | -----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   | |
-   | help: make this a static item: `static`
+   | ^ help: make this item public: `pub`
 
-error: large array defined as const
+error: item must be `pub`
   --> tests/ui/large_const_arrays.rs:16:1
    |
 LL | const FOO: [u32; 1_000_000] = [0u32; 1_000_000];
-   | -----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   | |
-   | help: make this a static item: `static`
+   | ^ help: make this item public: `pub`
 
-error: large array defined as const
-  --> tests/ui/large_const_arrays.rs:27:5
+error: item must be `pub`
+  --> tests/ui/large_const_arrays.rs:20:1
    |
-LL |     pub const BAR_PUB: [u32; 1_000_000] = [0u32; 1_000_000];
-   |     ^^^^-----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |         |
-   |         help: make this a static item: `static`
+LL | pub(crate) const G_FOO_PUB_CRATE: [u32; 250] = [0u32; 250];
+   | ^^^^^^^^^^ help: make this item public: `pub`
 
-error: large array defined as const
+error: item must be `pub`
+  --> tests/ui/large_const_arrays.rs:22:1
+   |
+LL | const G_FOO_COMPUTED: [u32; 25 * 10] = [0u32; 25 * 10];
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/large_const_arrays.rs:23:1
+   |
+LL | const G_FOO: [u32; 250] = [0u32; 250];
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/large_const_arrays.rs:25:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_const_arrays.rs:25:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_const_arrays.rs:25:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
   --> tests/ui/large_const_arrays.rs:29:5
    |
 LL |     const BAR: [u32; 1_000_000] = [0u32; 1_000_000];
-   |     -----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |     |
-   |     help: make this a static item: `static`
+   |     ^ help: make this item public: `pub`
 
-error: large array defined as const
-  --> tests/ui/large_const_arrays.rs:31:5
-   |
-LL |     pub const BAR_STRUCT_PUB: [S; 5_000] = [S { data: [0; 32] }; 5_000];
-   |     ^^^^-----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |         |
-   |         help: make this a static item: `static`
-
-error: large array defined as const
+error: item must be `pub`
   --> tests/ui/large_const_arrays.rs:33:5
    |
 LL |     const BAR_STRUCT: [S; 5_000] = [S { data: [0; 32] }; 5_000];
-   |     -----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |     |
-   |     help: make this a static item: `static`
+   |     ^ help: make this item public: `pub`
 
-error: large array defined as const
-  --> tests/ui/large_const_arrays.rs:35:5
+error: references are not allowed
+  --> tests/ui/large_const_arrays.rs:35:34
    |
 LL |     pub const BAR_S_PUB: [Option<&str>; 200_000] = [Some("str"); 200_000];
-   |     ^^^^-----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |         |
-   |         help: make this a static item: `static`
+   |                                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: large array defined as const
+error: item must be `pub`
   --> tests/ui/large_const_arrays.rs:37:5
    |
 LL |     const BAR_S: [Option<&str>; 200_000] = [Some("str"); 200_000];
-   |     -----^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |     |
-   |     help: make this a static item: `static`
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 10 previous errors
+error: references are not allowed
+  --> tests/ui/large_const_arrays.rs:37:26
+   |
+LL |     const BAR_S: [Option<&str>; 200_000] = [Some("str"); 200_000];
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/large_const_arrays.rs:42:5
+   |
+LL |     const G_BAR: [u32; 250] = [0u32; 250];
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/large_const_arrays.rs:44:5
+   |
+LL |     const G_BAR_STRUCT: [S; 4] = [S { data: [0; 32] }; 4];
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/large_const_arrays.rs:45:36
+   |
+LL |     pub const G_BAR_S_PUB: [Option<&str>; 50] = [Some("str"); 50];
+   |                                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/large_const_arrays.rs:46:5
+   |
+LL |     const G_BAR_S: [Option<&str>; 50] = [Some("str"); 50];
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/large_const_arrays.rs:46:28
+   |
+LL |     const G_BAR_S: [Option<&str>; 50] = [Some("str"); 50];
+   |                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 27 previous errors
 

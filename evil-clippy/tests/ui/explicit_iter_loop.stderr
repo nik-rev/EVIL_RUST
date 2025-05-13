@@ -1,3 +1,734 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:15:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:15:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:15:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:23:9
+   |
+LL |     let rvec = &vec;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:23:16
+   |
+LL |     let rvec = &vec;
+   |                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:27:9
+   |
+LL |     let rmvec = &mut vec;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:27:17
+   |
+LL |     let rmvec = &mut vec;
+   |                 ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:31:14
+   |
+LL |     for _ in &vec {} // these are fine
+   |              ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:32:14
+   |
+LL |     for _ in &mut vec {} // these are fine
+   |              ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:37:15
+   |
+LL |     for _ in (&mut [1, 2, 3]).iter() {}
+   |               ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:44:9
+   |
+LL |     let ll: LinkedList<()> = LinkedList::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:47:9
+   |
+LL |     let rll = &ll;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:47:15
+   |
+LL |     let rll = &ll;
+   |               ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:51:9
+   |
+LL |     let vd: VecDeque<()> = VecDeque::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:54:9
+   |
+LL |     let rvd = &vd;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:54:15
+   |
+LL |     let rvd = &vd;
+   |               ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:58:9
+   |
+LL |     let bh: BinaryHeap<()> = BinaryHeap::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:62:9
+   |
+LL |     let hm: HashMap<(), ()> = HashMap::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:66:9
+   |
+LL |     let bt: BTreeMap<(), ()> = BTreeMap::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:70:9
+   |
+LL |     let hs: HashSet<()> = HashSet::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:74:9
+   |
+LL |     let bs: BTreeSet<()> = BTreeSet::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:78:5
+   |
+LL |     struct NoIntoIter();
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:79:5
+   |
+LL |     impl NoIntoIter {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:80:9
+   |
+LL |         fn iter(&self) -> slice::Iter<u8> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:80:9
+   |
+LL |         fn iter(&self) -> slice::Iter<u8> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:80:18
+   |
+LL |         fn iter(&self) -> slice::Iter<u8> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:80:17
+   |
+LL |         fn iter(&self) -> slice::Iter<u8> {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:84:9
+   |
+LL |         fn iter_mut(&mut self) -> slice::IterMut<u8> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:84:9
+   |
+LL |         fn iter_mut(&mut self) -> slice::IterMut<u8> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:84:26
+   |
+LL |         fn iter_mut(&mut self) -> slice::IterMut<u8> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:84:21
+   |
+LL |         fn iter_mut(&mut self) -> slice::IterMut<u8> {
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:92:5
+   |
+LL |     struct IntoIterDiffTy;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:93:5
+   |
+LL |     impl IntoIterator for &'_ IntoIterDiffTy {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:93:27
+   |
+LL |     impl IntoIterator for &'_ IntoIterDiffTy {
+   |                           ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:94:21
+   |
+LL |         type Item = &'static ();
+   |                     ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:96:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:96:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:96:22
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:100:5
+   |
+LL |     impl IntoIterDiffTy {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:101:9
+   |
+LL |         fn iter(&self) -> core::slice::Iter<'static, i32> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:101:9
+   |
+LL |         fn iter(&self) -> core::slice::Iter<'static, i32> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:101:18
+   |
+LL |         fn iter(&self) -> core::slice::Iter<'static, i32> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:101:17
+   |
+LL |         fn iter(&self) -> core::slice::Iter<'static, i32> {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:105:9
+   |
+LL |     let x = IntoIterDiffTy;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:108:5
+   |
+LL |     struct IntoIterDiffSig;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:109:5
+   |
+LL |     impl IntoIterator for &'_ IntoIterDiffSig {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:109:27
+   |
+LL |     impl IntoIterator for &'_ IntoIterDiffSig {
+   |                           ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:110:21
+   |
+LL |         type Item = &'static ();
+   |                     ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:112:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:112:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:112:22
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:116:5
+   |
+LL |     impl IntoIterDiffSig {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:117:9
+   |
+LL |         fn iter(&self, _: u32) -> core::slice::Iter<'static, ()> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:117:9
+   |
+LL |         fn iter(&self, _: u32) -> core::slice::Iter<'static, ()> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:117:18
+   |
+LL |         fn iter(&self, _: u32) -> core::slice::Iter<'static, ()> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:117:17
+   |
+LL |         fn iter(&self, _: u32) -> core::slice::Iter<'static, ()> {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:121:9
+   |
+LL |     let x = IntoIterDiffSig;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:124:5
+   |
+LL |     struct IntoIterDiffLt<'a>(&'a ());
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:124:31
+   |
+LL |     struct IntoIterDiffLt<'a>(&'a ());
+   |                               ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:125:5
+   |
+LL |     impl<'a> IntoIterator for &'a IntoIterDiffLt<'_> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:125:31
+   |
+LL |     impl<'a> IntoIterator for &'a IntoIterDiffLt<'_> {
+   |                               ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:126:21
+   |
+LL |         type Item = &'a ();
+   |                     ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:128:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:128:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:128:22
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:132:5
+   |
+LL |     impl<'a> IntoIterDiffLt<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:133:9
+   |
+LL |         fn iter(&self) -> core::slice::Iter<'a, ()> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:133:9
+   |
+LL |         fn iter(&self) -> core::slice::Iter<'a, ()> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:133:18
+   |
+LL |         fn iter(&self) -> core::slice::Iter<'a, ()> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:133:17
+   |
+LL |         fn iter(&self) -> core::slice::Iter<'a, ()> {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:137:9
+   |
+LL |     let x = IntoIterDiffLt(&());
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:137:28
+   |
+LL |     let x = IntoIterDiffLt(&());
+   |                            ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:140:5
+   |
+LL |     struct CustomType;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:141:5
+   |
+LL |     impl<'a> IntoIterator for &'a CustomType {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:141:31
+   |
+LL |     impl<'a> IntoIterator for &'a CustomType {
+   |                               ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:142:21
+   |
+LL |         type Item = &'a u32;
+   |                     ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:144:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:144:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:144:22
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:148:5
+   |
+LL |     impl<'a> IntoIterator for &'a mut CustomType {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:148:31
+   |
+LL |     impl<'a> IntoIterator for &'a mut CustomType {
+   |                               ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:149:21
+   |
+LL |         type Item = &'a mut u32;
+   |                     ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:151:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:151:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:151:22
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:155:5
+   |
+LL |     impl CustomType {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:156:9
+   |
+LL |         fn iter(&self) -> <&'_ Self as IntoIterator>::IntoIter {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:156:9
+   |
+LL |         fn iter(&self) -> <&'_ Self as IntoIterator>::IntoIter {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:156:18
+   |
+LL |         fn iter(&self) -> <&'_ Self as IntoIterator>::IntoIter {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:156:17
+   |
+LL |         fn iter(&self) -> <&'_ Self as IntoIterator>::IntoIter {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:156:28
+   |
+LL |         fn iter(&self) -> <&'_ Self as IntoIterator>::IntoIter {
+   |                            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:157:13
+   |
+LL |             panic!()
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:157:13
+   |
+LL |             panic!()
+   |             ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:157:13
+   |
+LL |             panic!()
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:160:9
+   |
+LL |         fn iter_mut(&mut self) -> core::slice::IterMut<'_, u32> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:160:9
+   |
+LL |         fn iter_mut(&mut self) -> core::slice::IterMut<'_, u32> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:160:26
+   |
+LL |         fn iter_mut(&mut self) -> core::slice::IterMut<'_, u32> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:160:21
+   |
+LL |         fn iter_mut(&mut self) -> core::slice::IterMut<'_, u32> {
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/explicit_iter_loop.rs:161:13
+   |
+LL |             panic!()
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:161:13
+   |
+LL |             panic!()
+   |             ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:161:13
+   |
+LL |             panic!()
+   |             ^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:170:9
+   |
+LL |     let r = &x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:170:13
+   |
+LL |     let r = &x;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:176:5
+   |
+LL | pub fn issue_13184() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_iter_loop.rs:176:5
+   |
+LL | pub fn issue_13184() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_iter_loop.rs:183:9
+   |
+LL |     let rvalues = &values;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_iter_loop.rs:183:19
+   |
+LL |     let rvalues = &values;
+   |                   ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: it is more concise to loop over references to containers instead of using explicit iteration methods
   --> tests/ui/explicit_iter_loop.rs:18:14
    |
@@ -112,5 +843,5 @@ error: it is more concise to loop over references to containers instead of using
 LL |     for _ in r.iter() {}
    |              ^^^^^^^^ help: to write this more concisely, try: `r`
 
-error: aborting due to 18 previous errors
+error: aborting due to 113 previous errors
 

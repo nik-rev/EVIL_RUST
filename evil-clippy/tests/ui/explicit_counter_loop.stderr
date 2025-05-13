@@ -1,67 +1,423 @@
-error: the variable `_index` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:7:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/explicit_counter_loop.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:7:15
    |
 LL |     for _v in &vec {
-   |     ^^^^^^^^^^^^^^ help: consider using: `for (_index, _v) in vec.iter().enumerate()`
+   |               ^^^^
    |
-   = note: `-D clippy::explicit-counter-loop` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::explicit_counter_loop)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: the variable `_index` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:15:5
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:15:15
    |
 LL |     for _v in &vec {
-   |     ^^^^^^^^^^^^^^ help: consider using: `for (_index, _v) in vec.iter().enumerate()`
+   |               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the variable `_index` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:22:5
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:22:15
    |
 LL |     for _v in &mut vec {
-   |     ^^^^^^^^^^^^^^^^^^ help: consider using: `for (_index, _v) in vec.iter_mut().enumerate()`
-
-error: the variable `_index` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:29:5
+   |               ^^^^^^^^
    |
-LL |     for _v in vec {
-   |     ^^^^^^^^^^^^^ help: consider using: `for (_index, _v) in vec.into_iter().enumerate()`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: the variable `count` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:118:9
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:35:9
    |
-LL |         for ch in text.chars() {
-   |         ^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `for (count, ch) in text.chars().enumerate()`
+LL |     let vec = [1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: the variable `count` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:131:9
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:39:15
    |
-LL |         for ch in text.chars() {
-   |         ^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `for (count, ch) in text.chars().enumerate()`
+LL |     for _v in &vec {
+   |               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the variable `count` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:191:9
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:45:15
    |
-LL |         for _i in 3..10 {
-   |         ^^^^^^^^^^^^^^^ help: consider using: `for (count, _i) in (3..10).enumerate()`
+LL |     for _v in &vec {
+   |               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the variable `idx_usize` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:233:9
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:50:15
    |
-LL |         for _item in slice {
-   |         ^^^^^^^^^^^^^^^^^^ help: consider using: `for (idx_usize, _item) in slice.iter().enumerate()`
+LL |     for _v in &vec {
+   |               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the variable `idx_u32` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:247:9
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:56:15
    |
-LL |         for _item in slice {
-   |         ^^^^^^^^^^^^^^^^^^ help: consider using: `for (idx_u32, _item) in (0_u32..).zip(slice.iter())`
+LL |     for _v in &vec {
+   |               ^^^^
    |
-   = note: `idx_u32` is of type `u32`, making it ineligible for `Iterator::enumerate`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: the variable `_index` is used as a loop counter
-  --> tests/ui/explicit_counter_loop.rs:293:9
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:62:15
    |
-LL |         'label: for v in vec {
-   |         ^^^^^^^^^^^^^^^^^^^^ help: consider using: `'label: for (_index, v) in vec.into_iter().enumerate()`
+LL |     for _v in &vec {
+   |               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 10 previous errors
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:71:15
+   |
+LL |     for _v in &vec {
+   |               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:79:15
+   |
+LL |     for _v in &vec {
+   |               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_counter_loop.rs:84:1
+   |
+LL | mod issue_1219 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:85:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:85:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:87:13
+   |
+LL |         let vec = vec![1, 2, 3];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:89:19
+   |
+LL |         for _v in &vec {
+   |                   ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:95:13
+   |
+LL |         let text = "banana";
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:106:13
+   |
+LL |         let text = "banana";
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:116:13
+   |
+LL |         let text = "banana";
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:129:13
+   |
+LL |         let text = "banana";
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:142:13
+   |
+LL |         let text = "banana";
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_counter_loop.rs:154:1
+   |
+LL | mod issue_3308 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:155:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:155:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:158:13
+   |
+LL |         let erasures = vec![];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:161:37
+   |
+LL |             while erasures.contains(&(i + skips)) {
+   |                                     ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_counter_loop.rs:188:1
+   |
+LL | mod issue_1670 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:189:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:189:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/explicit_counter_loop.rs:199:1
+   |
+LL | mod issue_4732 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:200:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:200:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:201:13
+   |
+LL |         let slice = &[1, 2, 3];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:201:21
+   |
+LL |         let slice = &[1, 2, 3];
+   |                     ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:208:13
+   |
+LL |         let _closure = || println!("index: {}", index);
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_counter_loop.rs:212:1
+   |
+LL | mod issue_4677 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:213:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:213:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:214:13
+   |
+LL |         let slice = &[1, 2, 3];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:214:21
+   |
+LL |         let slice = &[1, 2, 3];
+   |                     ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/explicit_counter_loop.rs:225:1
+   |
+LL | mod issue_7920 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:226:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:226:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:227:13
+   |
+LL |         let slice = &[1, 2, 3];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/explicit_counter_loop.rs:227:21
+   |
+LL |         let slice = &[1, 2, 3];
+   |                     ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:229:13
+   |
+LL |         let index_usize: usize = 0;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:243:13
+   |
+LL |         let index_u32: u32 = 0;
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_counter_loop.rs:259:1
+   |
+LL | mod issue_10058 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:260:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:260:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:262:13
+   |
+LL |         let values = [0, 1, 0, 1, 1, 1, 0, 1, 0, 1];
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:275:9
+   |
+LL |     pub fn test2() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:275:9
+   |
+LL |     pub fn test2() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/explicit_counter_loop.rs:277:13
+   |
+LL |         let values = [0, 1, 0, 1, 1, 1, 0, 1, 0, 1];
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/explicit_counter_loop.rs:289:1
+   |
+LL | mod issue_13123 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:290:9
+   |
+LL |     pub fn test() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_counter_loop.rs:290:9
+   |
+LL |     pub fn test() {
+   |         ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 54 previous errors
 

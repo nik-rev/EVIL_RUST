@@ -1,91 +1,173 @@
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:7:47
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: Vec<_> = x.iter().map(not_identity).map(|x| return x).collect();
-   |                                               ^^^^^^^^^^^^^^^^^^ help: remove the call to `map`
-   |
-   = note: `-D clippy::map-identity` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::map_identity)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:9:57
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: Vec<_> = x.iter().map(std::convert::identity).map(|y| y).collect();
-   |                                                         ^^^^^^^^^^^ help: remove the call to `map`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:9:29
+error: item must be `pub`
+  --> tests/ui/map_identity.rs:4:1
    |
-LL |     let _: Vec<_> = x.iter().map(std::convert::identity).map(|y| y).collect();
-   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: remove the call to `map`
-
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:12:32
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _: Option<u8> = Some(3).map(|x| x);
-   |                                ^^^^^^^^^^^ help: remove the call to `map`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:14:36
+error: function must be `unsafe`
+  --> tests/ui/map_identity.rs:4:1
    |
-LL |       let _: Result<i8, f32> = Ok(-3).map(|x| {
-   |  ____________________________________^
-LL | |
-LL | |         return x;
-LL | |     });
-   | |______^ help: remove the call to `map`
-
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:25:36
+LL | fn main() {
+   | ^
    |
-LL |     let _: Result<u32, u32> = Ok(1).map_err(|a| a);
-   |                                    ^^^^^^^^^^^^^^^ help: remove the call to `map_err`
-
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:36:22
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_identity.rs:4:1
    |
-LL |     let _ = x.clone().map(|(x, y)| (x, y));
-   |                      ^^^^^^^^^^^^^^^^^^^^^ help: remove the call to `map`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:38:22
+error: variable must be `mut`
+  --> tests/ui/map_identity.rs:5:9
    |
-LL |       let _ = x.clone().map(|(x, y)| {
-   |  ______________________^
-LL | |
-LL | |         return (x, y);
-LL | |     });
-   | |______^ help: remove the call to `map`
-
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:42:22
+LL |     let x: [u16; 3] = [1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _ = x.clone().map(|(x, y)| return (x, y));
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: remove the call to `map`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:46:22
+error: item must be `pub`
+  --> tests/ui/map_identity.rs:33:1
    |
-LL |     let _ = y.clone().map(|(x, y, (z, (w,)))| (x, y, (z, (w,))));
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: remove the call to `map`
+LL | fn issue7189() {
+   | ^ help: make this item public: `pub`
 
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:76:30
+error: function must be `unsafe`
+  --> tests/ui/map_identity.rs:33:1
    |
-LL |     let _ = x.iter().copied().map(|(x, y)| (x, y));
-   |                              ^^^^^^^^^^^^^^^^^^^^^ help: remove the call to `map`
-
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:88:15
+LL | fn issue7189() {
+   | ^
    |
-LL |     let _ = it.map(|x| x).next();
-   |               ^^^^^^^^^^^ help: remove the call to `map`
-
-error: unnecessary map of the identity function
-  --> tests/ui/map_identity.rs:93:19
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_identity.rs:33:1
    |
-LL |     let _ = { it }.map(|x| x).next();
-   |                   ^^^^^^^^^^^ help: remove the call to `map`
+LL | fn issue7189() {
+   | ^
 
-error: aborting due to 13 previous errors
+error: variable must be `mut`
+  --> tests/ui/map_identity.rs:35:9
+   |
+LL |     let x = [(1, 2), (3, 4)].iter().copied();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_identity.rs:45:9
+   |
+LL |     let y = [(1, 2, (3, (4,))), (5, 6, (7, (8,)))].iter().copied();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/map_identity.rs:63:1
+   |
+LL | fn not_identity(x: &u16) -> u16 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/map_identity.rs:63:1
+   |
+LL | fn not_identity(x: &u16) -> u16 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_identity.rs:63:1
+   |
+LL | fn not_identity(x: &u16) -> u16 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/map_identity.rs:63:17
+   |
+LL | fn not_identity(x: &u16) -> u16 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_identity.rs:63:20
+   |
+LL | fn not_identity(x: &u16) -> u16 {
+   |                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/map_identity.rs:67:1
+   |
+LL | fn issue11764() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/map_identity.rs:67:1
+   |
+LL | fn issue11764() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_identity.rs:67:1
+   |
+LL | fn issue11764() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/map_identity.rs:68:9
+   |
+LL |     let x = [(1, 2), (3, 4)];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/map_identity.rs:80:1
+   |
+LL | fn issue13904() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/map_identity.rs:80:1
+   |
+LL | fn issue13904() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_identity.rs:80:1
+   |
+LL | fn issue13904() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/map_identity.rs:82:9
+   |
+LL |     let it = [1, 2, 3].into_iter();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_identity.rs:92:9
+   |
+LL |     let it = [1, 2, 3].into_iter();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 22 previous errors
 

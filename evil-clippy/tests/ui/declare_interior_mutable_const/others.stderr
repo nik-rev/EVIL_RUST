@@ -1,50 +1,387 @@
-error: a `const` item should not be interior mutable
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
   --> tests/ui/declare_interior_mutable_const/others.rs:10:1
    |
 LL | const ATOMIC: AtomicUsize = AtomicUsize::new(5);
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   | ^ help: make this item public: `pub`
    |
-   = help: consider making this a static item
-   = note: `-D clippy::declare-interior-mutable-const` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::declare_interior_mutable_const)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: a `const` item should not be interior mutable
+error: item must be `pub`
   --> tests/ui/declare_interior_mutable_const/others.rs:12:1
    |
 LL | const CELL: Cell<usize> = Cell::new(6);
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider making this `Sync` so that it can go in a static item or using a `thread_local`
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
+error: item must be `pub`
   --> tests/ui/declare_interior_mutable_const/others.rs:14:1
    |
 LL | const ATOMIC_TUPLE: ([AtomicUsize; 1], Vec<AtomicUsize>, u8) = ([ATOMIC], Vec::new(), 7);
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider making this a static item
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:17:1
+   |
+LL | macro_rules! declare_const {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/declare_interior_mutable_const/others.rs:19:9
    |
 LL |         const $name: $ty = $e;
-   |         ^^^^^^^^^^^^^^^^^^^^^^
+   |         ^ help: make this item public: `pub`
 ...
 LL | declare_const!(_ONCE: Once = Once::new());
    | ----------------------------------------- in this macro invocation
    |
    = note: this error originates in the macro `declare_const` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: a `const` item should not be interior mutable
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:27:1
+   |
+LL | const INTEGER: u8 = 8;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:28:1
+   |
+LL | const STRING: String = String::new();
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:29:1
+   |
+LL | const STR: &str = "012345";
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/declare_interior_mutable_const/others.rs:29:12
+   |
+LL | const STR: &str = "012345";
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:30:1
+   |
+LL | const COW: Cow<str> = Cow::Borrowed("abcdef");
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:33:1
+   |
+LL | const NO_ANN: &dyn Display = &70;
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/declare_interior_mutable_const/others.rs:33:15
+   |
+LL | const NO_ANN: &dyn Display = &70;
+   |               ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/declare_interior_mutable_const/others.rs:33:30
+   |
+LL | const NO_ANN: &dyn Display = &70;
+   |                              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: static must be `mut`
+  --> tests/ui/declare_interior_mutable_const/others.rs:35:8
+   |
+LL | static STATIC_TUPLE: (AtomicUsize, String) = (ATOMIC, STRING);
+   |        ^ help: make this static mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:35:1
+   |
+LL | static STATIC_TUPLE: (AtomicUsize, String) = (ATOMIC, STRING);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:38:1
+   |
+LL | mod issue_8493 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:41:5
+   |
+LL | /     thread_local! {
+LL | |         static _BAR: Cell<i32> = const { Cell::new(0) };
+LL | |     }
+   | |_____^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `thread_local` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:41:5
+   |
+LL | /     thread_local! {
+LL | |         static _BAR: Cell<i32> = const { Cell::new(0) };
+LL | |     }
+   | |_____^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `thread_local` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: static must be `mut`
+  --> tests/ui/declare_interior_mutable_const/others.rs:41:5
+   |
+LL | /     thread_local! {
+LL | |         static _BAR: Cell<i32> = const { Cell::new(0) };
+LL | |     }
+   | |_____^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `thread_local` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:41:5
+   |
+LL | /     thread_local! {
+LL | |         static _BAR: Cell<i32> = const { Cell::new(0) };
+LL | |     }
+   | |_____^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `thread_local` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: static must be `mut`
+  --> tests/ui/declare_interior_mutable_const/others.rs:41:5
+   |
+LL | /     thread_local! {
+LL | |         static _BAR: Cell<i32> = const { Cell::new(0) };
+LL | |     }
+   | |_____^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `thread_local` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:41:5
+   |
+LL | /     thread_local! {
+LL | |         static _BAR: Cell<i32> = const { Cell::new(0) };
+LL | |     }
+   | |_____^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `thread_local` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/declare_interior_mutable_const/others.rs:41:5
+   |
+LL | /     thread_local! {
+LL | |         static _BAR: Cell<i32> = const { Cell::new(0) };
+LL | |     }
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `thread_local` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:45:5
+   |
+LL |     macro_rules! issue_8493 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/declare_interior_mutable_const/others.rs:47:13
    |
 LL |             const _BAZ: Cell<usize> = Cell::new(0);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |             ^ help: make this item public: `pub`
 ...
 LL |     issue_8493!();
    |     ------------- in this macro invocation
    |
    = note: this error originates in the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 5 previous errors
+error: static must be `mut`
+  --> tests/ui/declare_interior_mutable_const/others.rs:49:20
+   |
+LL |             static _FOOBAR: () = {
+   |                    ^ help: make this static mutable: `mut`
+...
+LL |     issue_8493!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:49:13
+   |
+LL |             static _FOOBAR: () = {
+   |             ^ help: make this item public: `pub`
+...
+LL |     issue_8493!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:57:5
+   |
+LL |     issue_8493!();
+   |     ^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:57:5
+   |
+LL |     issue_8493!();
+   |     ^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: static must be `mut`
+  --> tests/ui/declare_interior_mutable_const/others.rs:57:5
+   |
+LL |     issue_8493!();
+   |     ^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:57:5
+   |
+LL |     issue_8493!();
+   |     ^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: static must be `mut`
+  --> tests/ui/declare_interior_mutable_const/others.rs:57:5
+   |
+LL |     issue_8493!();
+   |     ^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:57:5
+   |
+LL |     issue_8493!();
+   |     ^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/declare_interior_mutable_const/others.rs:57:5
+   |
+LL |     issue_8493!();
+   |     ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::thread::local_impl::thread_local_inner` which comes from the expansion of the macro `issue_8493` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:61:1
+   |
+LL | struct NoAtomic(usize);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:63:1
+   |
+LL | struct WithAtomic(AtomicUsize);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:65:1
+   |
+LL | const fn with_non_null() -> *const WithAtomic {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/others.rs:65:7
+   |
+LL | const fn with_non_null() -> *const WithAtomic {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/declare_interior_mutable_const/others.rs:65:7
+   |
+LL | const fn with_non_null() -> *const WithAtomic {
+   |       ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:66:5
+   |
+LL |     const NO_ATOMIC: NoAtomic = NoAtomic(0);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/declare_interior_mutable_const/others.rs:67:6
+   |
+LL |     (&NO_ATOMIC as *const NoAtomic).cast()
+   |      ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:69:1
+   |
+LL | const WITH_ATOMIC: *const WithAtomic = with_non_null();
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:71:1
+   |
+LL | struct Generic<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:72:1
+   |
+LL | impl<T> Generic<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/others.rs:76:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/others.rs:76:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/declare_interior_mutable_const/others.rs:76:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 49 previous errors
 

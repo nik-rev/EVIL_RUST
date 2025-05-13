@@ -1,67 +1,206 @@
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/manual_let_else_question_mark.rs:29:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_question_mark.rs:11:1
+   |
+LL | enum Variant {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_question_mark.rs:17:1
+   |
+LL | fn g() -> Option<(u8, u8)> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:17:1
+   |
+LL | fn g() -> Option<(u8, u8)> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:17:1
+   |
+LL | fn g() -> Option<(u8, u8)> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_question_mark.rs:21:1
+   |
+LL | fn e() -> Variant {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:21:1
+   |
+LL | fn e() -> Variant {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:21:1
+   |
+LL | fn e() -> Variant {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_question_mark.rs:25:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:25:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:25:1
+   |
+LL | fn main() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_let_else_question_mark.rs:27:1
+   |
+LL | fn foo() -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:27:1
+   |
+LL | fn foo() -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:27:1
+   |
+LL | fn foo() -> Option<()> {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:29:14
    |
 LL |     let Some(v) = g() else { return None };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `let v = g()?;`
+   |              ^ help: make this variable mutable: `mut`
    |
-   = note: `-D clippy::question-mark` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::question_mark)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/manual_let_else_question_mark.rs:36:5
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:33:20
+   |
+LL |     let Variant::A(v, w) = e() else { return None };
+   |                    ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:33:23
+   |
+LL |     let Variant::A(v, w) = e() else { return None };
+   |                       ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:36:15
    |
 LL |     let Some((v, w)) = g() else { return None };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `let (v, w) = g()?;`
+   |               ^ help: make this variable mutable: `mut`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/manual_let_else_question_mark.rs:40:13
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:36:18
+   |
+LL |     let Some((v, w)) = g() else { return None };
+   |                  ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:40:9
    |
 LL |     let v = if let Some(v_some) = g() { v_some } else { return None };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `g()?`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_question_mark.rs:45:5
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:45:9
    |
-LL | /     let v = if let Some(v_some) = g() {
-LL | |
-LL | |         v_some
-LL | |     } else {
-LL | |         return Some(());
-LL | |     };
-   | |______^
-   |
-   = note: `-D clippy::manual-let-else` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_let_else)]`
-help: consider writing
-   |
-LL ~     let Some(v) = g() else {
-LL +         return Some(());
-LL +     };
-   |
+LL |     let v = if let Some(v_some) = g() {
+   |         ^ help: make this variable mutable: `mut`
 
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_question_mark.rs:57:9
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:57:13
    |
-LL | /         let v = match g() {
-LL | |
-LL | |             Some(v_some) => v_some,
-LL | |             _ => return None,
-LL | |         };
-   | |__________^ help: consider writing: `let Some(v) = g() else { return None };`
+LL |         let v = match g() {
+   |             ^ help: make this variable mutable: `mut`
 
-error: this could be rewritten as `let...else`
-  --> tests/ui/manual_let_else_question_mark.rs:68:9
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:68:13
    |
 LL |         let v = if let Some(v_some) = g() { v_some } else { return None };
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider writing: `let Some(v) = g() else { return None };`
+   |             ^ help: make this variable mutable: `mut`
 
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/manual_let_else_question_mark.rs:77:5
+error: item must be `pub`
+  --> tests/ui/manual_let_else_question_mark.rs:76:1
    |
-LL | /     let Some(x) = y else {
-LL | |         return None;
-LL | |     };
-   | |______^ help: replace it with: `let x = y?;`
+LL | fn issue11993(y: Option<i32>) -> Option<i32> {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 7 previous errors
+error: function must be `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:76:1
+   |
+LL | fn issue11993(y: Option<i32>) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_let_else_question_mark.rs:76:1
+   |
+LL | fn issue11993(y: Option<i32>) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:76:15
+   |
+LL | fn issue11993(y: Option<i32>) -> Option<i32> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:77:14
+   |
+LL |     let Some(x) = y else {
+   |              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:83:14
+   |
+LL |     let Some(x) = y else {
+   |              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_let_else_question_mark.rs:88:14
+   |
+LL |     let Some(x) = y else {
+   |              ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 28 previous errors
 

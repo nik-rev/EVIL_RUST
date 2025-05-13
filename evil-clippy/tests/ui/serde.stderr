@@ -1,17 +1,229 @@
-error: you should not implement `visit_string` without also implementing `visit_str`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/serde.rs:4:1
+   |
+LL | extern crate serde;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/serde.rs:6:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/serde.rs:8:1
+   |
+LL | impl<'de> serde::de::Visitor<'de> for A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/serde.rs:11:5
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/serde.rs:11:5
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/serde.rs:11:19
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/serde.rs:11:18
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/serde.rs:11:28
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/serde.rs:15:5
+   |
+LL |     fn visit_str<E>(self, _v: &str) -> Result<Self::Value, E>
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/serde.rs:15:5
+   |
+LL |     fn visit_str<E>(self, _v: &str) -> Result<Self::Value, E>
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/serde.rs:15:21
+   |
+LL |     fn visit_str<E>(self, _v: &str) -> Result<Self::Value, E>
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/serde.rs:15:27
+   |
+LL |     fn visit_str<E>(self, _v: &str) -> Result<Self::Value, E>
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/serde.rs:15:31
+   |
+LL |     fn visit_str<E>(self, _v: &str) -> Result<Self::Value, E>
+   |                               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/serde.rs:22:5
+   |
+LL |     fn visit_string<E>(self, _v: String) -> Result<Self::Value, E>
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/serde.rs:22:5
+   |
+LL |     fn visit_string<E>(self, _v: String) -> Result<Self::Value, E>
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/serde.rs:22:24
+   |
+LL |     fn visit_string<E>(self, _v: String) -> Result<Self::Value, E>
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/serde.rs:22:30
+   |
+LL |     fn visit_string<E>(self, _v: String) -> Result<Self::Value, E>
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/serde.rs:30:1
+   |
+LL | struct B;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/serde.rs:32:1
+   |
+LL | impl<'de> serde::de::Visitor<'de> for B {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/serde.rs:35:5
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/serde.rs:35:5
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/serde.rs:35:19
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/serde.rs:35:18
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/serde.rs:35:28
+   |
+LL |     fn expecting(&self, _: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
   --> tests/ui/serde.rs:39:5
    |
-LL | /     fn visit_string<E>(self, _v: String) -> Result<Self::Value, E>
-LL | |
-LL | |     where
-LL | |         E: serde::de::Error,
-LL | |     {
-LL | |         unimplemented!()
-LL | |     }
-   | |_____^
+LL |     fn visit_string<E>(self, _v: String) -> Result<Self::Value, E>
+   |     ^
    |
-   = note: `-D clippy::serde-api-misuse` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::serde_api_misuse)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/serde.rs:39:5
+   |
+LL |     fn visit_string<E>(self, _v: String) -> Result<Self::Value, E>
+   |     ^
 
-error: aborting due to 1 previous error
+error: parameter must be `mut`
+  --> tests/ui/serde.rs:39:24
+   |
+LL |     fn visit_string<E>(self, _v: String) -> Result<Self::Value, E>
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/serde.rs:39:30
+   |
+LL |     fn visit_string<E>(self, _v: String) -> Result<Self::Value, E>
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/serde.rs:48:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/serde.rs:48:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/serde.rs:48:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 29 previous errors
 

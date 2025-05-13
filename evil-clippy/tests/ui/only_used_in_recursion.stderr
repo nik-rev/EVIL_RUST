@@ -1,196 +1,793 @@
-error: parameter is only used in recursion
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:3:1
+   |
+LL | fn _simple(x: u32) -> u32 {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:3:1
+   |
+LL | fn _simple(x: u32) -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:3:1
+   |
+LL | fn _simple(x: u32) -> u32 {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:3:12
+   |
+LL | fn _simple(x: u32) -> u32 {
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:7:1
+   |
+LL | fn _simple2(x: u32) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:7:1
+   |
+LL | fn _simple2(x: u32) -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:7:1
+   |
+LL | fn _simple2(x: u32) -> u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:7:13
+   |
+LL | fn _simple2(x: u32) -> u32 {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:11:1
+   |
+LL | fn _one_unused(flag: u32, a: usize) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:11:1
+   |
+LL | fn _one_unused(flag: u32, a: usize) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:11:1
+   |
+LL | fn _one_unused(flag: u32, a: usize) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:11:16
+   |
+LL | fn _one_unused(flag: u32, a: usize) -> usize {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:11:27
    |
 LL | fn _one_unused(flag: u32, a: usize) -> usize {
-   |                           ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:14:53
-   |
-LL |     if flag == 0 { 0 } else { _one_unused(flag - 1, a) }
-   |                                                     ^
-   = note: `-D clippy::only-used-in-recursion` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::only_used_in_recursion)]`
+   |                           ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:17:1
+   |
+LL | fn _two_unused(flag: u32, a: u32, b: i32) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:17:1
+   |
+LL | fn _two_unused(flag: u32, a: u32, b: i32) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:17:1
+   |
+LL | fn _two_unused(flag: u32, a: u32, b: i32) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:17:16
+   |
+LL | fn _two_unused(flag: u32, a: u32, b: i32) -> usize {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:17:27
    |
 LL | fn _two_unused(flag: u32, a: u32, b: i32) -> usize {
-   |                           ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:21:53
-   |
-LL |     if flag == 0 { 0 } else { _two_unused(flag - 1, a, b) }
-   |                                                     ^
+   |                           ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:17:35
    |
 LL | fn _two_unused(flag: u32, a: u32, b: i32) -> usize {
-   |                                   ^ help: if this is intentional, prefix it with an underscore: `_b`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:21:56
-   |
-LL |     if flag == 0 { 0 } else { _two_unused(flag - 1, a, b) }
-   |                                                        ^
+   |                                   ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:24:1
+   |
+LL | fn _with_calc(flag: u32, a: i64) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:24:1
+   |
+LL | fn _with_calc(flag: u32, a: i64) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:24:1
+   |
+LL | fn _with_calc(flag: u32, a: i64) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:24:15
+   |
+LL | fn _with_calc(flag: u32, a: i64) -> usize {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:24:26
    |
 LL | fn _with_calc(flag: u32, a: i64) -> usize {
-   |                          ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:30:32
-   |
-LL |         _with_calc(flag - 1, (-a + 10) * 5)
-   |                                ^
+   |                          ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:35:1
+   |
+LL | fn _used_with_flag(flag: u32, a: u32) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:35:1
+   |
+LL | fn _used_with_flag(flag: u32, a: u32) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:35:1
+   |
+LL | fn _used_with_flag(flag: u32, a: u32) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:35:20
+   |
+LL | fn _used_with_flag(flag: u32, a: u32) -> usize {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:35:31
+   |
+LL | fn _used_with_flag(flag: u32, a: u32) -> usize {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:39:1
+   |
+LL | fn _used_with_unused(flag: u32, a: i32, b: i32) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:39:1
+   |
+LL | fn _used_with_unused(flag: u32, a: i32, b: i32) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:39:1
+   |
+LL | fn _used_with_unused(flag: u32, a: i32, b: i32) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:39:22
+   |
+LL | fn _used_with_unused(flag: u32, a: i32, b: i32) -> usize {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:39:33
    |
 LL | fn _used_with_unused(flag: u32, a: i32, b: i32) -> usize {
-   |                                 ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:46:38
-   |
-LL |         _used_with_unused(flag - 1, -a, a + b)
-   |                                      ^  ^
+   |                                 ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:39:41
    |
 LL | fn _used_with_unused(flag: u32, a: i32, b: i32) -> usize {
-   |                                         ^ help: if this is intentional, prefix it with an underscore: `_b`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:46:45
-   |
-LL |         _used_with_unused(flag - 1, -a, a + b)
-   |                                             ^
+   |                                         ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:50:1
+   |
+LL | fn _codependent_unused(flag: u32, a: i32, b: i32) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:50:1
+   |
+LL | fn _codependent_unused(flag: u32, a: i32, b: i32) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:50:1
+   |
+LL | fn _codependent_unused(flag: u32, a: i32, b: i32) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:50:24
+   |
+LL | fn _codependent_unused(flag: u32, a: i32, b: i32) -> usize {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:50:35
    |
 LL | fn _codependent_unused(flag: u32, a: i32, b: i32) -> usize {
-   |                                   ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:57:39
-   |
-LL |         _codependent_unused(flag - 1, a * b, a + b)
-   |                                       ^      ^
+   |                                   ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:50:43
    |
 LL | fn _codependent_unused(flag: u32, a: i32, b: i32) -> usize {
-   |                                           ^ help: if this is intentional, prefix it with an underscore: `_b`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:57:43
-   |
-LL |         _codependent_unused(flag - 1, a * b, a + b)
-   |                                           ^      ^
+   |                                           ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:61:1
+   |
+LL | fn _not_primitive(flag: u32, b: String) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:61:1
+   |
+LL | fn _not_primitive(flag: u32, b: String) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:61:1
+   |
+LL | fn _not_primitive(flag: u32, b: String) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:61:19
+   |
+LL | fn _not_primitive(flag: u32, b: String) -> usize {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:61:30
    |
 LL | fn _not_primitive(flag: u32, b: String) -> usize {
-   |                              ^ help: if this is intentional, prefix it with an underscore: `_b`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:64:56
-   |
-LL |     if flag == 0 { 0 } else { _not_primitive(flag - 1, b) }
-   |                                                        ^
+   |                              ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:67:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:69:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:70:5
+   |
+LL |     fn _method(flag: usize, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:70:5
+   |
+LL |     fn _method(flag: usize, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:70:16
+   |
+LL |     fn _method(flag: usize, a: usize) -> usize {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:70:29
    |
 LL |     fn _method(flag: usize, a: usize) -> usize {
-   |                             ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:73:59
-   |
-LL |         if flag == 0 { 0 } else { Self::_method(flag - 1, a) }
-   |                                                           ^
+   |                             ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:76:5
+   |
+LL |     fn _method_self(&self, flag: usize, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:76:5
+   |
+LL |     fn _method_self(&self, flag: usize, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:76:22
    |
 LL |     fn _method_self(&self, flag: usize, a: usize) -> usize {
-   |                      ^^^^
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:80:35
-   |
-LL |         if flag == 0 { 0 } else { self._method_self(flag - 1, a) }
-   |                                   ^^^^
+   |                      ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:76:28
+   |
+LL |     fn _method_self(&self, flag: usize, a: usize) -> usize {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:76:41
    |
 LL |     fn _method_self(&self, flag: usize, a: usize) -> usize {
-   |                                         ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:80:63
-   |
-LL |         if flag == 0 { 0 } else { self._method_self(flag - 1, a) }
-   |                                                               ^
+   |                                         ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion.rs:76:21
+   |
+LL |     fn _method_self(&self, flag: usize, a: usize) -> usize {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: trait must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:84:1
+   |
+LL | / trait B {
+LL | |     fn method(flag: u32, a: usize) -> usize;
+LL | |     fn method_self(&self, flag: u32, a: usize) -> usize;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:84:1
+   |
+LL | trait B {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:85:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:85:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:85:15
+   |
+LL |     fn method(flag: u32, a: usize) -> usize;
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:85:26
+   |
+LL |     fn method(flag: u32, a: usize) -> usize;
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:86:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:86:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:86:21
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize;
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:86:27
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize;
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:86:38
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize;
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion.rs:86:20
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize;
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:89:1
+   |
+LL | impl B for A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:90:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:90:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:90:15
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:90:26
    |
 LL |     fn method(flag: u32, a: usize) -> usize {
-   |                          ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:93:58
-   |
-LL |         if flag == 0 { 0 } else { Self::method(flag - 1, a) }
-   |                                                          ^
+   |                          ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:96:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:96:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:96:21
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:96:27
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:96:38
    |
 LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
-   |                                      ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:99:62
-   |
-LL |         if flag == 0 { 0 } else { self.method_self(flag - 1, a) }
-   |                                                              ^
+   |                                      ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion.rs:96:20
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:103:1
+   |
+LL | impl B for () {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:104:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:104:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:104:15
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:104:26
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:108:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:108:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:108:21
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:108:27
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:108:38
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion.rs:108:20
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:113:1
+   |
+LL | impl B for u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:114:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:114:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:114:15
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:114:26
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:118:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:118:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:118:21
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:118:27
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:118:38
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion.rs:118:20
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:123:1
+   |
+LL | / trait C {
+LL | |     fn method(flag: u32, a: usize) -> usize {
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:123:1
+   |
+LL | trait C {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:124:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:124:5
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:124:15
+   |
+LL |     fn method(flag: u32, a: usize) -> usize {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:124:26
    |
 LL |     fn method(flag: u32, a: usize) -> usize {
-   |                          ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:127:58
-   |
-LL |         if flag == 0 { 0 } else { Self::method(flag - 1, a) }
-   |                                                          ^
+   |                          ^ help: make this parameter mutable: `mut`
 
-error: parameter is only used in recursion
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:130:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:130:5
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:130:21
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:130:27
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
   --> tests/ui/only_used_in_recursion.rs:130:38
    |
 LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
-   |                                      ^ help: if this is intentional, prefix it with an underscore: `_a`
-   |
-note: parameter used here
-  --> tests/ui/only_used_in_recursion.rs:133:62
-   |
-LL |         if flag == 0 { 0 } else { self.method_self(flag - 1, a) }
-   |                                                              ^
+   |                                      ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 16 previous errors
+error: references are not allowed
+  --> tests/ui/only_used_in_recursion.rs:130:20
+   |
+LL |     fn method_self(&self, flag: u32, a: usize) -> usize {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:137:1
+   |
+LL | fn _ignore(flag: usize, _a: usize) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:137:1
+   |
+LL | fn _ignore(flag: usize, _a: usize) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:137:1
+   |
+LL | fn _ignore(flag: usize, _a: usize) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:137:12
+   |
+LL | fn _ignore(flag: usize, _a: usize) -> usize {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/only_used_in_recursion.rs:137:25
+   |
+LL | fn _ignore(flag: usize, _a: usize) -> usize {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/only_used_in_recursion.rs:141:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:141:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/only_used_in_recursion.rs:141:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 104 previous errors
 

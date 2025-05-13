@@ -1,17 +1,189 @@
-error: sub-expression diverges
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/issue-7447.rs:6:1
+   |
+LL | fn byte_view<'a>(s: &'a ByteView<'_>) -> BTreeMap<&'a str, ByteView<'a>> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/issue-7447.rs:6:1
+   |
+LL | fn byte_view<'a>(s: &'a ByteView<'_>) -> BTreeMap<&'a str, ByteView<'a>> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/issue-7447.rs:6:1
+   |
+LL | fn byte_view<'a>(s: &'a ByteView<'_>) -> BTreeMap<&'a str, ByteView<'a>> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/issue-7447.rs:6:18
+   |
+LL | fn byte_view<'a>(s: &'a ByteView<'_>) -> BTreeMap<&'a str, ByteView<'a>> {
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/issue-7447.rs:6:21
+   |
+LL | fn byte_view<'a>(s: &'a ByteView<'_>) -> BTreeMap<&'a str, ByteView<'a>> {
+   |                     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/issue-7447.rs:6:51
+   |
+LL | fn byte_view<'a>(s: &'a ByteView<'_>) -> BTreeMap<&'a str, ByteView<'a>> {
+   |                                                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/issue-7447.rs:7:5
+   |
+LL |     panic!()
+   |     ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/issue-7447.rs:7:5
+   |
+LL |     panic!()
+   |     ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/issue-7447.rs:7:5
+   |
+LL |     panic!()
+   |     ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/issue-7447.rs:10:1
+   |
+LL | fn group_entries(s: &()) -> BTreeMap<Cow<'_, str>, Vec<Cow<'_, str>>> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/issue-7447.rs:10:1
+   |
+LL | fn group_entries(s: &()) -> BTreeMap<Cow<'_, str>, Vec<Cow<'_, str>>> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/issue-7447.rs:10:1
+   |
+LL | fn group_entries(s: &()) -> BTreeMap<Cow<'_, str>, Vec<Cow<'_, str>>> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/issue-7447.rs:10:18
+   |
+LL | fn group_entries(s: &()) -> BTreeMap<Cow<'_, str>, Vec<Cow<'_, str>>> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/issue-7447.rs:10:21
+   |
+LL | fn group_entries(s: &()) -> BTreeMap<Cow<'_, str>, Vec<Cow<'_, str>>> {
+   |                     ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/issue-7447.rs:14:1
+   |
+LL | struct Mmap;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/issue-7447.rs:16:1
+   |
+LL | enum ByteViewBacking<'a> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/issue-7447.rs:25:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/issue-7447.rs:25:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/issue-7447.rs:25:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/issue-7447.rs:26:15
+   |
+LL |     byte_view(panic!());
+   |               ^^^^^^^^
+
+error: function must be `unsafe`
   --> tests/ui/issue-7447.rs:26:15
    |
 LL |     byte_view(panic!());
    |               ^^^^^^^^
    |
-   = note: `-D clippy::diverging-sub-expression` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::diverging_sub_expression)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/issue-7447.rs:26:15
+   |
+LL |     byte_view(panic!());
+   |               ^^^^^^^^
 
-error: sub-expression diverges
+error: item must be `pub`
   --> tests/ui/issue-7447.rs:29:19
    |
 LL |     group_entries(panic!());
    |                   ^^^^^^^^
 
-error: aborting due to 2 previous errors
+error: function must be `unsafe`
+  --> tests/ui/issue-7447.rs:29:19
+   |
+LL |     group_entries(panic!());
+   |                   ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/issue-7447.rs:29:19
+   |
+LL |     group_entries(panic!());
+   |                   ^^^^^^^^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

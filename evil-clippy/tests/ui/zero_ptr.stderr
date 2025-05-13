@@ -1,35 +1,80 @@
-error: `0 as *const _` detected
-  --> tests/ui/zero_ptr.rs:4:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = 0 as *const usize;
-   |             ^^^^^^^^^^^^^^^^^ help: try: `std::ptr::null::<usize>()`
-   |
-   = note: `-D clippy::zero-ptr` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::zero_ptr)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `0 as *mut _` detected
-  --> tests/ui/zero_ptr.rs:6:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = 0 as *mut f64;
-   |             ^^^^^^^^^^^^^ help: try: `std::ptr::null_mut::<f64>()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `0 as *const _` detected
-  --> tests/ui/zero_ptr.rs:8:24
+error: function must be `unsafe`
+  --> tests/ui/zero_ptr.rs:1:5
    |
-LL |     let _: *const u8 = 0 as *const _;
-   |                        ^^^^^^^^^^^^^ help: try: `std::ptr::null()`
-
-error: `0 as *const _` detected
-  --> tests/ui/zero_ptr.rs:12:9
+LL | pub fn foo(_const: *const f32, _mut: *mut i64) {}
+   |     ^
    |
-LL |     foo(0 as *const _, 0 as *mut _);
-   |         ^^^^^^^^^^^^^ help: try: `std::ptr::null()`
-
-error: `0 as *mut _` detected
-  --> tests/ui/zero_ptr.rs:12:24
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_ptr.rs:1:5
    |
-LL |     foo(0 as *const _, 0 as *mut _);
-   |                        ^^^^^^^^^^^ help: try: `std::ptr::null_mut()`
+LL | pub fn foo(_const: *const f32, _mut: *mut i64) {}
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 5 previous errors
+error: parameter must be `mut`
+  --> tests/ui/zero_ptr.rs:1:12
+   |
+LL | pub fn foo(_const: *const f32, _mut: *mut i64) {}
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/zero_ptr.rs:1:32
+   |
+LL | pub fn foo(_const: *const f32, _mut: *mut i64) {}
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/zero_ptr.rs:3:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zero_ptr.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_ptr.rs:3:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/zero_ptr.rs:16:9
+   |
+LL |     let z = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 10 previous errors
 

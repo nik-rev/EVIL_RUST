@@ -1,0 +1,268 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/branches_sharing_code/false_positives.rs:11:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:11:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:11:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:11:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:11:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/branches_sharing_code/false_positives.rs:11:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/branches_sharing_code/false_positives.rs:11:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/branches_sharing_code/false_positives.rs:13:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | pub struct FooBar {
+LL |     foo: Vec<u32>,
+   |     ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/branches_sharing_code/false_positives.rs:13:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | pub struct FooBar {
+LL |     foo: Vec<u32>,
+   |     ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/branches_sharing_code/false_positives.rs:16:1
+   |
+LL | impl FooBar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:17:9
+   |
+LL |     pub fn bar(&mut self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:17:9
+   |
+LL |     pub fn bar(&mut self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:17:21
+   |
+LL |     pub fn bar(&mut self) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/branches_sharing_code/false_positives.rs:17:16
+   |
+LL |     pub fn bar(&mut self) {
+   |                ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:29:5
+   |
+LL |     fn baz(&mut self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:29:5
+   |
+LL |     fn baz(&mut self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:29:17
+   |
+LL |     fn baz(&mut self) {}
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/branches_sharing_code/false_positives.rs:29:12
+   |
+LL |     fn baz(&mut self) {}
+   |            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/branches_sharing_code/false_positives.rs:32:1
+   |
+LL | fn foo(x: u32, y: u32) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:32:1
+   |
+LL | fn foo(x: u32, y: u32) -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:32:1
+   |
+LL | fn foo(x: u32, y: u32) -> u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:32:8
+   |
+LL | fn foo(x: u32, y: u32) -> u32 {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:32:16
+   |
+LL | fn foo(x: u32, y: u32) -> u32 {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/branches_sharing_code/false_positives.rs:36:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:36:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/branches_sharing_code/false_positives.rs:36:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:37:9
+   |
+LL |     let x = (1, 2);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:39:14
+   |
+LL |         let (x, y) = x;
+   |              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:39:17
+   |
+LL |         let (x, y) = x;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:42:14
+   |
+LL |         let (y, x) = x;
+   |              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:42:17
+   |
+LL |         let (y, x) = x;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:46:9
+   |
+LL |     let m = Mutex::new(0u32);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:47:9
+   |
+LL |     let l = m.lock().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:68:13
+   |
+LL |         let _guard = m.lock();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:75:13
+   |
+LL |         let _guard = m.lock();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/branches_sharing_code/false_positives.rs:79:13
+   |
+LL |         let _guard = m.lock();
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 35 previous errors
+

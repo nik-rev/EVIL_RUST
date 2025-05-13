@@ -1,11 +1,66 @@
-error: you seem to be trying to move all elements into a new `Vec`
-  --> tests/ui/drain_collect_nostd.rs:7:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     v.drain(..).collect()
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: consider using `mem::take`: `core::mem::take(v)`
-   |
-   = note: `-D clippy::drain-collect` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::drain_collect)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/drain_collect_nostd.rs:3:1
+   |
+LL | extern crate alloc;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/drain_collect_nostd.rs:6:1
+   |
+LL | fn remove_all(v: &mut Vec<i32>) -> Vec<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/drain_collect_nostd.rs:6:1
+   |
+LL | fn remove_all(v: &mut Vec<i32>) -> Vec<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/drain_collect_nostd.rs:6:1
+   |
+LL | fn remove_all(v: &mut Vec<i32>) -> Vec<i32> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/drain_collect_nostd.rs:6:15
+   |
+LL | fn remove_all(v: &mut Vec<i32>) -> Vec<i32> {
+   |               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/drain_collect_nostd.rs:6:18
+   |
+LL | fn remove_all(v: &mut Vec<i32>) -> Vec<i32> {
+   |                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: aborting due to 8 previous errors
 

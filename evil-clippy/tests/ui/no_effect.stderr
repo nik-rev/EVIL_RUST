@@ -1,170 +1,565 @@
-error: statement with no effect
-  --> tests/ui/no_effect.rs:115:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     0;
-   |     ^^
-   |
-   = note: `-D clippy::no-effect` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::no_effect)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: statement with no effect
-  --> tests/ui/no_effect.rs:118:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     Tuple(0);
-   |     ^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: statement with no effect
-  --> tests/ui/no_effect.rs:121:5
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:14:1
    |
-LL |     Struct { field: 0 };
-   |     ^^^^^^^^^^^^^^^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:124:5
+LL | struct Cout;
+   | ^ help: make this item public: `pub`
    |
-LL |     Struct { ..s };
-   |     ^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: statement with no effect
-  --> tests/ui/no_effect.rs:127:5
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:16:1
    |
-LL |     Union { a: 0 };
-   |     ^^^^^^^^^^^^^^^
+LL | impl<T> Shl<T> for Cout
+   | ^ help: make this item public: `pub`
 
-error: statement with no effect
-  --> tests/ui/no_effect.rs:130:5
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:21:5
    |
-LL |     Enum::Tuple(0);
-   |     ^^^^^^^^^^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:133:5
+LL |     fn shl(self, rhs: T) -> Self::Output {
+   |     ^
    |
-LL |     Enum::Struct { field: 0 };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:136:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:21:5
    |
-LL |     5 + 6;
-   |     ^^^^^^
+LL |     fn shl(self, rhs: T) -> Self::Output {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: statement with no effect
-  --> tests/ui/no_effect.rs:139:5
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:21:12
+   |
+LL |     fn shl(self, rhs: T) -> Self::Output {
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:21:18
+   |
+LL |     fn shl(self, rhs: T) -> Self::Output {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:27:1
+   |
+LL | impl Neg for Cout {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:29:5
+   |
+LL |     fn neg(self) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:29:5
+   |
+LL |     fn neg(self) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:29:12
+   |
+LL |     fn neg(self) -> Self::Output {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:35:1
+   |
+LL | struct Tuple(i32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:36:1
+   |
+LL | struct Struct {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:39:1
+   |
+LL | enum Enum {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:43:1
+   |
+LL | struct DropStruct {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:46:1
+   |
+LL | impl Drop for DropStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:47:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:47:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:47:18
+   |
+LL |     fn drop(&mut self) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:47:13
+   |
+LL |     fn drop(&mut self) {}
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:49:1
+   |
+LL | struct DropTuple(i32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:50:1
+   |
+LL | impl Drop for DropTuple {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:51:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:51:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:51:18
+   |
+LL |     fn drop(&mut self) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:51:13
+   |
+LL |     fn drop(&mut self) {}
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:53:1
+   |
+LL | enum DropEnum {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:57:1
+   |
+LL | impl Drop for DropEnum {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:58:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:58:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:58:18
+   |
+LL |     fn drop(&mut self) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:58:13
+   |
+LL |     fn drop(&mut self) {}
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:60:1
+   |
+LL | struct FooString {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:63:1
+   |
+LL | union Union {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:68:1
+   |
+LL | fn get_number() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:68:1
+   |
+LL | fn get_number() -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:68:1
+   |
+LL | fn get_number() -> i32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:71:1
+   |
+LL | fn get_struct() -> Struct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:71:1
+   |
+LL | fn get_struct() -> Struct {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:71:1
+   |
+LL | fn get_struct() -> Struct {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:74:1
+   |
+LL | fn get_drop_struct() -> DropStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:74:1
+   |
+LL | fn get_drop_struct() -> DropStruct {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:74:1
+   |
+LL | fn get_drop_struct() -> DropStruct {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:78:1
+   |
+LL | unsafe fn unsafe_fn() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:82:1
+   |
+LL | struct GreetStruct1;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:84:1
+   |
+LL | impl FnOnce<(&str,)> for GreetStruct1 {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:84:14
+   |
+LL | impl FnOnce<(&str,)> for GreetStruct1 {
+   |              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:87:5
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:87:5
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:87:37
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:87:44
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:87:52
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |                                                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:92:1
+   |
+LL | struct GreetStruct2();
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:94:1
+   |
+LL | impl FnOnce<(&str,)> for GreetStruct2 {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:94:14
+   |
+LL | impl FnOnce<(&str,)> for GreetStruct2 {
+   |              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:97:5
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:97:5
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:97:37
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:97:44
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:97:52
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |                                                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:102:1
+   |
+LL | struct GreetStruct3;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:104:1
+   |
+LL | impl FnOnce<(&str,)> for GreetStruct3 {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:104:14
+   |
+LL | impl FnOnce<(&str,)> for GreetStruct3 {
+   |              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:107:5
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:107:5
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:107:37
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/no_effect.rs:107:44
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:107:52
+   |
+LL |     extern "rust-call" fn call_once(self, (who,): (&str,)) -> Self::Output {
+   |                                                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:112:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:112:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:112:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/no_effect.rs:113:9
+   |
+LL |     let s = get_struct();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/no_effect.rs:139:6
    |
 LL |     *&42;
-   |     ^^^^^
+   |      ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: statement with no effect
+error: references are not allowed
   --> tests/ui/no_effect.rs:142:5
    |
 LL |     &6;
-   |     ^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:145:5
+   |     ^^
    |
-LL |     (5, 6, 7);
-   |     ^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw const`
 
-error: statement with no effect
-  --> tests/ui/no_effect.rs:148:5
+error: variable must be `mut`
+  --> tests/ui/no_effect.rs:182:9
    |
-LL |     ..;
-   |     ^^^
+LL |     let s: String = "foo".into();
+   |         ^ help: make this variable mutable: `mut`
 
-error: statement with no effect
-  --> tests/ui/no_effect.rs:151:5
-   |
-LL |     5..;
-   |     ^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:154:5
-   |
-LL |     ..5;
-   |     ^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:157:5
-   |
-LL |     5..6;
-   |     ^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:160:5
-   |
-LL |     5..=6;
-   |     ^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:163:5
-   |
-LL |     [42, 55];
-   |     ^^^^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:166:5
-   |
-LL |     [42, 55][1];
-   |     ^^^^^^^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:169:5
-   |
-LL |     (42, 55).1;
-   |     ^^^^^^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:172:5
-   |
-LL |     [42; 55];
-   |     ^^^^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:175:5
-   |
-LL |     [42; 55][13];
-   |     ^^^^^^^^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:179:5
-   |
-LL |     || x += 5;
-   |     ^^^^^^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect.rs:183:5
-   |
-LL |     FooString { s: s };
-   |     ^^^^^^^^^^^^^^^^^^^
-
-error: binding to `_` prefixed variable with no side-effect
+error: variable must be `mut`
   --> tests/ui/no_effect.rs:186:9
    |
 LL |     let _unused = 1;
-   |         ^^^^^^^
-   |
-   = note: `-D clippy::no-effect-underscore-binding` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::no_effect_underscore_binding)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: binding to `_` prefixed variable with no side-effect
+error: variable must be `mut`
   --> tests/ui/no_effect.rs:189:9
    |
 LL |     let _penguin = || println!("Some helpful closure");
-   |         ^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: binding to `_` prefixed variable with no side-effect
+error: variable must be `mut`
   --> tests/ui/no_effect.rs:192:9
    |
 LL |     let _duck = Struct { field: 0 };
-   |         ^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: binding to `_` prefixed variable with no side-effect
+error: variable must be `mut`
   --> tests/ui/no_effect.rs:195:9
    |
 LL |     let _cat = [2, 4, 6, 8][2];
-   |         ^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 27 previous errors
+error: variable must be `mut`
+  --> tests/ui/no_effect.rs:198:9
+   |
+LL |     let _issue_12166 = 42;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/no_effect.rs:199:9
+   |
+LL |     let underscore_variable_above_can_be_used_dont_lint = _issue_12166;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/no_effect.rs:207:9
+   |
+LL |     let _used = get_struct();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/no_effect.rs:208:9
+   |
+LL |     let _x = vec![1];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/no_effect.rs:217:5
+   |
+LL |     fn n() -> i32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect.rs:217:5
+   |
+LL |     fn n() -> i32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect.rs:217:5
+   |
+LL |     fn n() -> i32 {
+   |     ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 76 previous errors
 

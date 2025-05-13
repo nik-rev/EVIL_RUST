@@ -1,41 +1,161 @@
-error: range is out of bounds
-  --> tests/ui/out_of_bounds_indexing/simple.rs:7:11
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/out_of_bounds_indexing/simple.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/out_of_bounds_indexing/simple.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/out_of_bounds_indexing/simple.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/out_of_bounds_indexing/simple.rs:5:9
+   |
+LL |     let x = [1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:7:5
    |
 LL |     &x[..=4];
-   |           ^
+   |     ^^^^^^^^
    |
-   = note: `-D clippy::out-of-bounds-indexing` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::out_of_bounds_indexing)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: range is out of bounds
-  --> tests/ui/out_of_bounds_indexing/simple.rs:10:11
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:10:5
    |
 LL |     &x[1..5];
-   |           ^
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: range is out of bounds
-  --> tests/ui/out_of_bounds_indexing/simple.rs:13:8
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:13:5
    |
 LL |     &x[5..];
-   |        ^
+   |     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: range is out of bounds
-  --> tests/ui/out_of_bounds_indexing/simple.rs:16:10
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:16:5
    |
 LL |     &x[..5];
-   |          ^
+   |     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: range is out of bounds
-  --> tests/ui/out_of_bounds_indexing/simple.rs:19:8
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:19:5
    |
 LL |     &x[5..].iter().map(|x| 2 * x).collect::<Vec<i32>>();
-   |        ^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: range is out of bounds
-  --> tests/ui/out_of_bounds_indexing/simple.rs:22:12
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:22:5
    |
 LL |     &x[0..=4];
-   |            ^
+   |     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 6 previous errors
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:25:5
+   |
+LL |     &x[4..]; // Ok, should not produce stderr.
+   |     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:26:5
+   |
+LL |     &x[..4]; // Ok, should not produce stderr.
+   |     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:27:5
+   |
+LL |     &x[..]; // Ok, should not produce stderr.
+   |     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:28:5
+   |
+LL |     &x[1..]; // Ok, should not produce stderr.
+   |     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:29:5
+   |
+LL |     &x[2..].iter().map(|x| 2 * x).collect::<Vec<i32>>(); // Ok, should not produce stderr.
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:31:5
+   |
+LL |     &x[0..].get(..3); // Ok, should not produce stderr.
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/out_of_bounds_indexing/simple.rs:32:5
+   |
+LL |     &x[0..3]; // Ok, should not produce stderr.
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 20 previous errors
 

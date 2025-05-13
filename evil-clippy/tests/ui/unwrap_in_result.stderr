@@ -1,55 +1,158 @@
-error: used unwrap or expect in a function that returns result or option
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_in_result.rs:3:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_in_result.rs:5:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_in_result.rs:7:5
+   |
+LL |     fn good_divisible_by_3(i_str: String) -> Result<bool, String> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_in_result.rs:7:5
+   |
+LL |     fn good_divisible_by_3(i_str: String) -> Result<bool, String> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_in_result.rs:7:28
+   |
+LL |     fn good_divisible_by_3(i_str: String) -> Result<bool, String> {
+   |                            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_in_result.rs:9:13
+   |
+LL |         let i_result = i_str.parse::<i32>();
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
   --> tests/ui/unwrap_in_result.rs:22:5
    |
-LL | /     fn bad_divisible_by_3(i_str: String) -> Result<bool, String> {
-...  |
-LL | |     }
-   | |_____^
+LL |     fn bad_divisible_by_3(i_str: String) -> Result<bool, String> {
+   |     ^
    |
-   = help: unwrap and expect should not be used in a function that returns result or option
-note: potential non-recoverable error(s)
-  --> tests/ui/unwrap_in_result.rs:26:17
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_in_result.rs:22:5
+   |
+LL |     fn bad_divisible_by_3(i_str: String) -> Result<bool, String> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_in_result.rs:22:27
+   |
+LL |     fn bad_divisible_by_3(i_str: String) -> Result<bool, String> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_in_result.rs:26:13
    |
 LL |         let i = i_str.parse::<i32>().unwrap();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   = note: `-D clippy::unwrap-in-result` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unwrap_in_result)]`
+   |             ^ help: make this variable mutable: `mut`
 
-error: used unwrap or expect in a function that returns result or option
+error: function must be `unsafe`
   --> tests/ui/unwrap_in_result.rs:34:5
    |
-LL | /     fn example_option_expect(i_str: String) -> Option<bool> {
-LL | |
-LL | |
-LL | |         let i = i_str.parse::<i32>().expect("not a number");
-...  |
-LL | |         None
-LL | |     }
-   | |_____^
+LL |     fn example_option_expect(i_str: String) -> Option<bool> {
+   |     ^
    |
-   = help: unwrap and expect should not be used in a function that returns result or option
-note: potential non-recoverable error(s)
-  --> tests/ui/unwrap_in_result.rs:37:17
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_in_result.rs:34:5
+   |
+LL |     fn example_option_expect(i_str: String) -> Option<bool> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_in_result.rs:34:30
+   |
+LL |     fn example_option_expect(i_str: String) -> Option<bool> {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_in_result.rs:37:13
    |
 LL |         let i = i_str.parse::<i32>().expect("not a number");
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: used unwrap or expect in a function that returns result or option
+error: function must be `unsafe`
   --> tests/ui/unwrap_in_result.rs:44:5
    |
-LL | /     fn in_closure(a: Option<bool>) -> Option<bool> {
-LL | |
-LL | |         let c = || a.unwrap();
-LL | |         Some(c())
-LL | |     }
-   | |_____^
+LL |     fn in_closure(a: Option<bool>) -> Option<bool> {
+   |     ^
    |
-   = help: unwrap and expect should not be used in a function that returns result or option
-note: potential non-recoverable error(s)
-  --> tests/ui/unwrap_in_result.rs:46:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_in_result.rs:44:5
+   |
+LL |     fn in_closure(a: Option<bool>) -> Option<bool> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_in_result.rs:44:19
+   |
+LL |     fn in_closure(a: Option<bool>) -> Option<bool> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_in_result.rs:46:13
    |
 LL |         let c = || a.unwrap();
-   |                    ^^^^^^^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/unwrap_in_result.rs:51:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_in_result.rs:51:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_in_result.rs:51:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 20 previous errors
 

@@ -1,23 +1,62 @@
-error: use of `char::is_digit` with literal radix of 10
-  --> tests/ui/is_digit_ascii_radix.rs:9:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = c.is_digit(10);
-   |             ^^^^^^^^^^^^^^ help: try: `c.is_ascii_digit()`
-   |
-   = note: `-D clippy::is-digit-ascii-radix` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::is_digit_ascii_radix)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `char::is_digit` with literal radix of 16
-  --> tests/ui/is_digit_ascii_radix.rs:11:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = c.is_digit(16);
-   |             ^^^^^^^^^^^^^^ help: try: `c.is_ascii_hexdigit()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `char::is_digit` with literal radix of 16
-  --> tests/ui/is_digit_ascii_radix.rs:13:13
+error: item must be `pub`
+  --> tests/ui/is_digit_ascii_radix.rs:3:1
    |
-LL |     let _ = c.is_digit(0x10);
-   |             ^^^^^^^^^^^^^^^^ help: try: `c.is_ascii_hexdigit()`
+LL | const TEN: u32 = 10;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/is_digit_ascii_radix.rs:5:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/is_digit_ascii_radix.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/is_digit_ascii_radix.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/is_digit_ascii_radix.rs:6:9
+   |
+LL |     let c: char = '6';
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 8 previous errors
 

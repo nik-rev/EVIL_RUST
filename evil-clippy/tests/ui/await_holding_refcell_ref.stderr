@@ -1,85 +1,463 @@
-error: this `RefCell` reference is held across an await point
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/await_holding_refcell_ref.rs:5:1
+   |
+LL | async fn bad(x: &RefCell<u32>) -> u32 {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:5:7
+   |
+LL | async fn bad(x: &RefCell<u32>) -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:5:7
+   |
+LL | async fn bad(x: &RefCell<u32>) -> u32 {
+   |       ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:5:14
+   |
+LL | async fn bad(x: &RefCell<u32>) -> u32 {
+   |              ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:5:17
+   |
+LL | async fn bad(x: &RefCell<u32>) -> u32 {
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_refcell_ref.rs:6:9
    |
 LL |     let b = x.borrow();
-   |         ^
-   |
-   = help: ensure the reference is dropped before calling `await`
-note: these are all the await points this reference is held through
-  --> tests/ui/await_holding_refcell_ref.rs:9:11
-   |
-LL |     baz().await
-   |           ^^^^^
-   = note: `-D clippy::await-holding-refcell-ref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::await_holding_refcell_ref)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this `RefCell` reference is held across an await point
+error: item must be `pub`
+  --> tests/ui/await_holding_refcell_ref.rs:12:1
+   |
+LL | async fn bad_mut(x: &RefCell<u32>) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:12:7
+   |
+LL | async fn bad_mut(x: &RefCell<u32>) -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:12:7
+   |
+LL | async fn bad_mut(x: &RefCell<u32>) -> u32 {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:12:18
+   |
+LL | async fn bad_mut(x: &RefCell<u32>) -> u32 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:12:21
+   |
+LL | async fn bad_mut(x: &RefCell<u32>) -> u32 {
+   |                     ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_refcell_ref.rs:13:9
    |
 LL |     let b = x.borrow_mut();
-   |         ^
-   |
-   = help: ensure the reference is dropped before calling `await`
-note: these are all the await points this reference is held through
-  --> tests/ui/await_holding_refcell_ref.rs:16:11
-   |
-LL |     baz().await
-   |           ^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: this `RefCell` reference is held across an await point
+error: item must be `pub`
+  --> tests/ui/await_holding_refcell_ref.rs:19:1
+   |
+LL | async fn good(x: &RefCell<u32>) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:19:7
+   |
+LL | async fn good(x: &RefCell<u32>) -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:19:7
+   |
+LL | async fn good(x: &RefCell<u32>) -> u32 {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:19:15
+   |
+LL | async fn good(x: &RefCell<u32>) -> u32 {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:19:18
+   |
+LL | async fn good(x: &RefCell<u32>) -> u32 {
+   |                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:21:13
+   |
+LL |         let b = x.borrow_mut();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:22:13
+   |
+LL |         let y = *b + 1;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:25:9
+   |
+LL |     let b = x.borrow_mut();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/await_holding_refcell_ref.rs:29:1
+   |
+LL | async fn baz() -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:29:7
+   |
+LL | async fn baz() -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:29:7
+   |
+LL | async fn baz() -> u32 {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/await_holding_refcell_ref.rs:33:1
+   |
+LL | async fn also_bad(x: &RefCell<u32>) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:33:7
+   |
+LL | async fn also_bad(x: &RefCell<u32>) -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:33:7
+   |
+LL | async fn also_bad(x: &RefCell<u32>) -> u32 {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:33:19
+   |
+LL | async fn also_bad(x: &RefCell<u32>) -> u32 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:33:22
+   |
+LL | async fn also_bad(x: &RefCell<u32>) -> u32 {
+   |                      ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:34:9
+   |
+LL |     let first = baz().await;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_refcell_ref.rs:36:9
    |
 LL |     let b = x.borrow_mut();
-   |         ^
-   |
-   = help: ensure the reference is dropped before calling `await`
-note: these are all the await points this reference is held through
-  --> tests/ui/await_holding_refcell_ref.rs:39:24
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:39:9
    |
 LL |     let second = baz().await;
-   |                        ^^^^^
-LL |
-LL |     let third = baz().await;
-   |                       ^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: this `RefCell` reference is held across an await point
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:41:9
+   |
+LL |     let third = baz().await;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/await_holding_refcell_ref.rs:46:1
+   |
+LL | async fn less_bad(x: &RefCell<u32>) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:46:7
+   |
+LL | async fn less_bad(x: &RefCell<u32>) -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:46:7
+   |
+LL | async fn less_bad(x: &RefCell<u32>) -> u32 {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:46:19
+   |
+LL | async fn less_bad(x: &RefCell<u32>) -> u32 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:46:22
+   |
+LL | async fn less_bad(x: &RefCell<u32>) -> u32 {
+   |                      ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:47:9
+   |
+LL |     let first = baz().await;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_refcell_ref.rs:49:9
    |
 LL |     let b = x.borrow_mut();
-   |         ^
-   |
-   = help: ensure the reference is dropped before calling `await`
-note: these are all the await points this reference is held through
-  --> tests/ui/await_holding_refcell_ref.rs:52:24
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:52:9
    |
 LL |     let second = baz().await;
-   |                        ^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: this `RefCell` reference is held across an await point
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:56:9
+   |
+LL |     let third = baz().await;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/await_holding_refcell_ref.rs:61:1
+   |
+LL | async fn not_good(x: &RefCell<u32>) -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:61:7
+   |
+LL | async fn not_good(x: &RefCell<u32>) -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:61:7
+   |
+LL | async fn not_good(x: &RefCell<u32>) -> u32 {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:61:19
+   |
+LL | async fn not_good(x: &RefCell<u32>) -> u32 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:61:22
+   |
+LL | async fn not_good(x: &RefCell<u32>) -> u32 {
+   |                      ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:62:9
+   |
+LL |     let first = baz().await;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:64:9
+   |
+LL |     let second = {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_refcell_ref.rs:65:13
    |
 LL |         let b = x.borrow_mut();
-   |             ^
-   |
-   = help: ensure the reference is dropped before calling `await`
-note: these are all the await points this reference is held through
-  --> tests/ui/await_holding_refcell_ref.rs:68:15
-   |
-LL |         baz().await
-   |               ^^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: this `RefCell` reference is held across an await point
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:71:9
+   |
+LL |     let third = baz().await;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/await_holding_refcell_ref.rs:77:1
+   |
+LL | fn block_bad(x: &RefCell<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:77:1
+   |
+LL | fn block_bad(x: &RefCell<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:77:1
+   |
+LL | fn block_bad(x: &RefCell<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:77:14
+   |
+LL | fn block_bad(x: &RefCell<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:77:17
+   |
+LL | fn block_bad(x: &RefCell<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_refcell_ref.rs:79:13
    |
 LL |         let b = x.borrow_mut();
-   |             ^
-   |
-   = help: ensure the reference is dropped before calling `await`
-note: these are all the await points this reference is held through
-  --> tests/ui/await_holding_refcell_ref.rs:82:15
-   |
-LL |         baz().await
-   |               ^^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: aborting due to 6 previous errors
+error: item must be `pub`
+  --> tests/ui/await_holding_refcell_ref.rs:86:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:86:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_refcell_ref.rs:86:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_refcell_ref.rs:87:9
+   |
+LL |     let rc = RefCell::new(100);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:88:10
+   |
+LL |     good(&rc);
+   |          ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:89:9
+   |
+LL |     bad(&rc);
+   |         ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:90:13
+   |
+LL |     bad_mut(&rc);
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:91:14
+   |
+LL |     also_bad(&rc);
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:92:14
+   |
+LL |     less_bad(&rc);
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:93:14
+   |
+LL |     not_good(&rc);
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_refcell_ref.rs:94:15
+   |
+LL |     block_bad(&rc);
+   |               ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 62 previous errors
 

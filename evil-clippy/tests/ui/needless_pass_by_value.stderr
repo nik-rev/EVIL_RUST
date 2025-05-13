@@ -1,319 +1,1437 @@
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:19:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:19:1
    |
 LL | fn foo<T: Default>(v: Vec<T>, w: Vec<T>, mut x: Vec<T>, y: Vec<T>) -> Vec<T> {
-   |                       ^^^^^^ help: consider changing the type to: `&[T]`
+   | ^ help: make this item public: `pub`
    |
-   = note: `-D clippy::needless-pass-by-value` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_pass_by_value)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:35:11
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:19:1
+   |
+LL | fn foo<T: Default>(v: Vec<T>, w: Vec<T>, mut x: Vec<T>, y: Vec<T>) -> Vec<T> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:19:1
+   |
+LL | fn foo<T: Default>(v: Vec<T>, w: Vec<T>, mut x: Vec<T>, y: Vec<T>) -> Vec<T> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:19:20
+   |
+LL | fn foo<T: Default>(v: Vec<T>, w: Vec<T>, mut x: Vec<T>, y: Vec<T>) -> Vec<T> {
+   |                    ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:19:31
+   |
+LL | fn foo<T: Default>(v: Vec<T>, w: Vec<T>, mut x: Vec<T>, y: Vec<T>) -> Vec<T> {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:19:57
+   |
+LL | fn foo<T: Default>(v: Vec<T>, w: Vec<T>, mut x: Vec<T>, y: Vec<T>) -> Vec<T> {
+   |                                                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:22:5
+   |
+LL |     assert_eq!(v.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:22:5
+   |
+LL |     assert_eq!(v.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:22:5
+   |
+LL |     assert_eq!(v.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:22:5
+   |
+LL |     assert_eq!(v.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:22:5
+   |
+LL |     assert_eq!(v.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:31:1
+   |
+LL | fn consume<T>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:31:1
+   |
+LL | fn consume<T>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:31:1
+   |
+LL | fn consume<T>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:33:1
+   |
+LL | struct Wrapper(String);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:35:1
    |
 LL | fn bar(x: String, y: Wrapper) {
-   |           ^^^^^^ help: consider changing the type to: `&str`
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:35:22
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:35:1
    |
 LL | fn bar(x: String, y: Wrapper) {
-   |                      ^^^^^^^
+   | ^
    |
-help: consider taking a reference instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:35:1
    |
-LL | fn bar(x: String, y: &Wrapper) {
-   |                      +
+LL | fn bar(x: String, y: Wrapper) {
+   | ^
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:44:71
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:35:8
+   |
+LL | fn bar(x: String, y: Wrapper) {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:35:19
+   |
+LL | fn bar(x: String, y: Wrapper) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:39:5
+   |
+LL |     assert_eq!(x.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:39:5
+   |
+LL |     assert_eq!(x.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:39:5
+   |
+LL |     assert_eq!(x.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:39:5
+   |
+LL |     assert_eq!(x.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:39:5
+   |
+LL |     assert_eq!(x.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:40:5
+   |
+LL |     assert_eq!(y.0.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:40:5
+   |
+LL |     assert_eq!(y.0.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:40:5
+   |
+LL |     assert_eq!(y.0.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:40:5
+   |
+LL |     assert_eq!(y.0.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:40:5
+   |
+LL |     assert_eq!(y.0.len(), 42);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:44:1
    |
 LL | fn test_borrow_trait<T: Borrow<str>, U: AsRef<str>, V>(t: T, u: U, v: V) {
-   |                                                                       ^
-   |
-help: consider taking a reference instead
-   |
-LL | fn test_borrow_trait<T: Borrow<str>, U: AsRef<str>, V>(t: T, u: U, v: &V) {
-   |                                                                       +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:58:18
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:44:1
+   |
+LL | fn test_borrow_trait<T: Borrow<str>, U: AsRef<str>, V>(t: T, u: U, v: V) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:44:1
+   |
+LL | fn test_borrow_trait<T: Borrow<str>, U: AsRef<str>, V>(t: T, u: U, v: V) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:44:56
+   |
+LL | fn test_borrow_trait<T: Borrow<str>, U: AsRef<str>, V>(t: T, u: U, v: V) {
+   |                                                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:44:62
+   |
+LL | fn test_borrow_trait<T: Borrow<str>, U: AsRef<str>, V>(t: T, u: U, v: V) {
+   |                                                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:44:68
+   |
+LL | fn test_borrow_trait<T: Borrow<str>, U: AsRef<str>, V>(t: T, u: U, v: V) {
+   |                                                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:49:13
+   |
+LL |     consume(&v);
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:53:1
+   |
+LL | fn test_fn<F: Fn(i32) -> i32>(f: F) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:53:1
+   |
+LL | fn test_fn<F: Fn(i32) -> i32>(f: F) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:53:1
+   |
+LL | fn test_fn<F: Fn(i32) -> i32>(f: F) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:53:31
+   |
+LL | fn test_fn<F: Fn(i32) -> i32>(f: F) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:58:1
    |
 LL | fn test_match(x: Option<Option<String>>, y: Option<Option<String>>) {
-   |                  ^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn test_match(x: Option<Option<&String>>, y: Option<Option<String>>) {
-   |                                +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:73:24
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:58:1
+   |
+LL | fn test_match(x: Option<Option<String>>, y: Option<Option<String>>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:58:1
+   |
+LL | fn test_match(x: Option<Option<String>>, y: Option<Option<String>>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:58:15
+   |
+LL | fn test_match(x: Option<Option<String>>, y: Option<Option<String>>) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:58:42
+   |
+LL | fn test_match(x: Option<Option<String>>, y: Option<Option<String>>) {
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:73:1
    |
 LL | fn test_destructure(x: Wrapper, y: Wrapper, z: Wrapper) {
-   |                        ^^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn test_destructure(x: &Wrapper, y: Wrapper, z: Wrapper) {
-   |                        +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:73:36
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:73:1
    |
 LL | fn test_destructure(x: Wrapper, y: Wrapper, z: Wrapper) {
-   |                                    ^^^^^^^
+   | ^
    |
-help: consider taking a reference instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:73:1
    |
-LL | fn test_destructure(x: Wrapper, y: &Wrapper, z: Wrapper) {
-   |                                    +
+LL | fn test_destructure(x: Wrapper, y: Wrapper, z: Wrapper) {
+   | ^
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:92:49
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:73:21
+   |
+LL | fn test_destructure(x: Wrapper, y: Wrapper, z: Wrapper) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:73:33
+   |
+LL | fn test_destructure(x: Wrapper, y: Wrapper, z: Wrapper) {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:73:45
+   |
+LL | fn test_destructure(x: Wrapper, y: Wrapper, z: Wrapper) {
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:77:17
+   |
+LL |     let Wrapper(s) = z; // moved
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:78:21
+   |
+LL |     let Wrapper(ref t) = y; // not moved
+   |                     ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_pass_by_value.rs:78:17
+   |
+LL |     let Wrapper(ref t) = y; // not moved
+   |                 ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:81:5
+   |
+LL |     assert_eq!(x.0.len(), s.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:81:5
+   |
+LL |     assert_eq!(x.0.len(), s.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:81:5
+   |
+LL |     assert_eq!(x.0.len(), s.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:81:5
+   |
+LL |     assert_eq!(x.0.len(), s.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:81:5
+   |
+LL |     assert_eq!(x.0.len(), s.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:85:1
+   |
+LL | trait Foo {}
+   | ^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:85:1
+   |
+LL | trait Foo {}
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:88:1
+   |
+LL | trait Serialize {}
+   | ^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:88:1
+   |
+LL | trait Serialize {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:89:1
+   |
+LL | impl<'a, T> Serialize for &'a T where T: Serialize {}
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:89:27
+   |
+LL | impl<'a, T> Serialize for &'a T where T: Serialize {}
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:90:1
+   |
+LL | impl Serialize for i32 {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:92:1
    |
 LL | fn test_blanket_ref<T: Foo, S: Serialize>(vals: T, serializable: S) {}
-   |                                                 ^
-   |
-help: consider taking a reference instead
-   |
-LL | fn test_blanket_ref<T: Foo, S: Serialize>(vals: &T, serializable: S) {}
-   |                                                 +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:95:18
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:92:1
+   |
+LL | fn test_blanket_ref<T: Foo, S: Serialize>(vals: T, serializable: S) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:92:1
+   |
+LL | fn test_blanket_ref<T: Foo, S: Serialize>(vals: T, serializable: S) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:92:43
+   |
+LL | fn test_blanket_ref<T: Foo, S: Serialize>(vals: T, serializable: S) {}
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:92:52
+   |
+LL | fn test_blanket_ref<T: Foo, S: Serialize>(vals: T, serializable: S) {}
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:95:1
    |
 LL | fn issue_2114(s: String, t: String, u: Vec<i32>, v: Vec<i32>) {
-   |                  ^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn issue_2114(s: &String, t: String, u: Vec<i32>, v: Vec<i32>) {
-   |                  +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:95:29
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:95:1
    |
 LL | fn issue_2114(s: String, t: String, u: Vec<i32>, v: Vec<i32>) {
-   |                             ^^^^^^
+   | ^
    |
-help: consider changing the type to
-   |
-LL - fn issue_2114(s: String, t: String, u: Vec<i32>, v: Vec<i32>) {
-LL + fn issue_2114(s: String, t: &str, u: Vec<i32>, v: Vec<i32>) {
-   |
-help: change `t.clone()` to
-   |
-LL -     let _ = t.clone();
-LL +     let _ = t.to_string();
-   |
-
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:95:40
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:95:1
    |
 LL | fn issue_2114(s: String, t: String, u: Vec<i32>, v: Vec<i32>) {
-   |                                        ^^^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn issue_2114(s: String, t: String, u: &Vec<i32>, v: Vec<i32>) {
-   |                                        +
+   | ^
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:95:53
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:95:15
    |
 LL | fn issue_2114(s: String, t: String, u: Vec<i32>, v: Vec<i32>) {
-   |                                                     ^^^^^^^^
-   |
-help: consider changing the type to
-   |
-LL - fn issue_2114(s: String, t: String, u: Vec<i32>, v: Vec<i32>) {
-LL + fn issue_2114(s: String, t: String, u: Vec<i32>, v: &[i32]) {
-   |
-help: change `v.clone()` to
-   |
-LL -     let _ = v.clone();
-LL +     let _ = v.to_owned();
-   |
+   |               ^ help: make this parameter mutable: `mut`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:113:12
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:95:26
+   |
+LL | fn issue_2114(s: String, t: String, u: Vec<i32>, v: Vec<i32>) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:95:37
+   |
+LL | fn issue_2114(s: String, t: String, u: Vec<i32>, v: Vec<i32>) {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:95:50
+   |
+LL | fn issue_2114(s: String, t: String, u: Vec<i32>, v: Vec<i32>) {
+   |                                                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:107:1
+   |
+LL | struct S<T, U>(T, U);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:109:1
+   |
+LL | impl<T: Serialize, U> S<T, U> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:110:5
+   |
+LL |     fn foo(
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:110:5
+   |
+LL |     fn foo(
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:111:9
+   |
+LL |         self,
+   |         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:113:9
    |
 LL |         s: String,
-   |            ^^^^^^ help: consider changing the type to: `&str`
+   |         ^ help: make this parameter mutable: `mut`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:115:12
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:115:9
    |
 LL |         t: String,
-   |            ^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL |         t: &String,
-   |            +
+   |         ^ help: make this parameter mutable: `mut`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:125:23
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:121:5
+   |
+LL |     fn bar(_t: T, // Ok, since `&T: Serialize` too
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:121:5
+   |
+LL |     fn bar(_t: T, // Ok, since `&T: Serialize` too
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:121:12
+   |
+LL |     fn bar(_t: T, // Ok, since `&T: Serialize` too
+   |            ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:125:5
    |
 LL |     fn baz(&self, uu: U, ss: Self) {}
-   |                       ^
+   |     ^
    |
-help: consider taking a reference instead
-   |
-LL |     fn baz(&self, uu: &U, ss: Self) {}
-   |                       +
-
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:125:30
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:125:5
    |
 LL |     fn baz(&self, uu: U, ss: Self) {}
-   |                              ^^^^
-   |
-help: consider taking a reference instead
-   |
-LL |     fn baz(&self, uu: U, ss: &Self) {}
-   |                              +
+   |     ^
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:149:24
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:125:13
+   |
+LL |     fn baz(&self, uu: U, ss: Self) {}
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:125:19
+   |
+LL |     fn baz(&self, uu: U, ss: Self) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:125:26
+   |
+LL |     fn baz(&self, uu: U, ss: Self) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:125:12
+   |
+LL |     fn baz(&self, uu: U, ss: Self) {}
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:130:1
+   |
+LL | / trait FalsePositive {
+LL | |     fn visit_str(s: &str);
+LL | |     fn visit_string(s: String) {
+LL | |         Self::visit_str(&s);
+LL | |     }
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:130:1
+   |
+LL | trait FalsePositive {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:131:5
+   |
+LL |     fn visit_str(s: &str);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:131:5
+   |
+LL |     fn visit_str(s: &str);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:131:18
+   |
+LL |     fn visit_str(s: &str);
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:131:21
+   |
+LL |     fn visit_str(s: &str);
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:132:5
+   |
+LL |     fn visit_string(s: String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:132:5
+   |
+LL |     fn visit_string(s: String) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:132:21
+   |
+LL |     fn visit_string(s: String) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:133:25
+   |
+LL |         Self::visit_str(&s);
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:138:1
+   |
+LL | extern "C" fn ext(x: MaybeUninit<usize>) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:138:1
+   |
+LL | extern "C" fn ext(x: MaybeUninit<usize>) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:138:1
+   |
+LL | extern "C" fn ext(x: MaybeUninit<usize>) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:138:19
+   |
+LL | extern "C" fn ext(x: MaybeUninit<usize>) -> usize {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:143:1
+   |
+LL | fn range<T: ::std::ops::RangeBounds<usize>>(range: T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:143:1
+   |
+LL | fn range<T: ::std::ops::RangeBounds<usize>>(range: T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:143:1
+   |
+LL | fn range<T: ::std::ops::RangeBounds<usize>>(range: T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:143:45
+   |
+LL | fn range<T: ::std::ops::RangeBounds<usize>>(range: T) {
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:147:1
+   |
+LL | struct CopyWrapper(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:149:1
    |
 LL | fn bar_copy(x: u32, y: CopyWrapper) {
-   |                        ^^^^^^^^^^^
-   |
-help: or consider marking this type as `Copy`
-  --> tests/ui/needless_pass_by_value.rs:147:1
-   |
-LL | struct CopyWrapper(u32);
-   | ^^^^^^^^^^^^^^^^^^
-help: consider taking a reference instead
-   |
-LL | fn bar_copy(x: u32, y: &CopyWrapper) {
-   |                        +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:157:29
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:149:1
+   |
+LL | fn bar_copy(x: u32, y: CopyWrapper) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:149:1
+   |
+LL | fn bar_copy(x: u32, y: CopyWrapper) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:149:13
+   |
+LL | fn bar_copy(x: u32, y: CopyWrapper) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:149:21
+   |
+LL | fn bar_copy(x: u32, y: CopyWrapper) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:152:5
+   |
+LL |     assert_eq!(x, 42);
+   |     ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:152:5
+   |
+LL |     assert_eq!(x, 42);
+   |     ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:152:5
+   |
+LL |     assert_eq!(x, 42);
+   |     ^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:152:5
+   |
+LL |     assert_eq!(x, 42);
+   |     ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:152:5
+   |
+LL |     assert_eq!(x, 42);
+   |     ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:153:5
+   |
+LL |     assert_eq!(y.0, 42);
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:153:5
+   |
+LL |     assert_eq!(y.0, 42);
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:153:5
+   |
+LL |     assert_eq!(y.0, 42);
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:153:5
+   |
+LL |     assert_eq!(y.0, 42);
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:153:5
+   |
+LL |     assert_eq!(y.0, 42);
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:157:1
    |
 LL | fn test_destructure_copy(x: CopyWrapper, y: CopyWrapper, z: CopyWrapper) {
-   |                             ^^^^^^^^^^^
-   |
-help: or consider marking this type as `Copy`
-  --> tests/ui/needless_pass_by_value.rs:147:1
-   |
-LL | struct CopyWrapper(u32);
-   | ^^^^^^^^^^^^^^^^^^
-help: consider taking a reference instead
-   |
-LL | fn test_destructure_copy(x: &CopyWrapper, y: CopyWrapper, z: CopyWrapper) {
-   |                             +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:157:45
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:157:1
    |
 LL | fn test_destructure_copy(x: CopyWrapper, y: CopyWrapper, z: CopyWrapper) {
-   |                                             ^^^^^^^^^^^
+   | ^
    |
-help: or consider marking this type as `Copy`
-  --> tests/ui/needless_pass_by_value.rs:147:1
-   |
-LL | struct CopyWrapper(u32);
-   | ^^^^^^^^^^^^^^^^^^
-help: consider taking a reference instead
-   |
-LL | fn test_destructure_copy(x: CopyWrapper, y: &CopyWrapper, z: CopyWrapper) {
-   |                                             +
-
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:157:61
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:157:1
    |
 LL | fn test_destructure_copy(x: CopyWrapper, y: CopyWrapper, z: CopyWrapper) {
-   |                                                             ^^^^^^^^^^^
-   |
-help: or consider marking this type as `Copy`
-  --> tests/ui/needless_pass_by_value.rs:147:1
-   |
-LL | struct CopyWrapper(u32);
-   | ^^^^^^^^^^^^^^^^^^
-help: consider taking a reference instead
-   |
-LL | fn test_destructure_copy(x: CopyWrapper, y: CopyWrapper, z: &CopyWrapper) {
-   |                                                             +
+   | ^
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:173:40
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:157:26
+   |
+LL | fn test_destructure_copy(x: CopyWrapper, y: CopyWrapper, z: CopyWrapper) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:157:42
+   |
+LL | fn test_destructure_copy(x: CopyWrapper, y: CopyWrapper, z: CopyWrapper) {
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:157:58
+   |
+LL | fn test_destructure_copy(x: CopyWrapper, y: CopyWrapper, z: CopyWrapper) {
+   |                                                          ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:162:21
+   |
+LL |     let CopyWrapper(s) = z; // moved
+   |                     ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:163:25
+   |
+LL |     let CopyWrapper(ref t) = y; // not moved
+   |                         ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_pass_by_value.rs:163:21
+   |
+LL |     let CopyWrapper(ref t) = y; // not moved
+   |                     ^^^^^
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:166:5
+   |
+LL |     assert_eq!(x.0, s);
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:166:5
+   |
+LL |     assert_eq!(x.0, s);
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:166:5
+   |
+LL |     assert_eq!(x.0, s);
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:166:5
+   |
+LL |     assert_eq!(x.0, s);
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:166:5
+   |
+LL |     assert_eq!(x.0, s);
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:171:1
+   |
+LL | trait Bar<'a, A> {}
+   | ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:171:1
+   |
+LL | trait Bar<'a, A> {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:172:1
+   |
+LL | impl<'b, T> Bar<'b, T> for T {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:173:1
    |
 LL | fn some_fun<'b, S: Bar<'b, ()>>(items: S) {}
-   |                                        ^
-   |
-help: consider taking a reference instead
-   |
-LL | fn some_fun<'b, S: Bar<'b, ()>>(items: &S) {}
-   |                                        +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:179:20
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:173:1
+   |
+LL | fn some_fun<'b, S: Bar<'b, ()>>(items: S) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:173:1
+   |
+LL | fn some_fun<'b, S: Bar<'b, ()>>(items: S) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:173:33
+   |
+LL | fn some_fun<'b, S: Bar<'b, ()>>(items: S) {}
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:177:1
+   |
+LL | trait Club<'a, A> {}
+   | ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:177:1
+   |
+LL | trait Club<'a, A> {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:178:1
+   |
+LL | impl<T> Club<'static, T> for T {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:179:1
    |
 LL | fn more_fun(items: impl Club<'static, i32>) {}
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn more_fun(items: &impl Club<'static, i32>) {}
-   |                    +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:194:24
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:179:1
+   |
+LL | fn more_fun(items: impl Club<'static, i32>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:179:1
+   |
+LL | fn more_fun(items: impl Club<'static, i32>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:179:13
+   |
+LL | fn more_fun(items: impl Club<'static, i32>) {}
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:182:1
+   |
+LL | fn is_sync<T>(_: T)
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:182:1
+   |
+LL | fn is_sync<T>(_: T)
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:182:1
+   |
+LL | fn is_sync<T>(_: T)
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:188:1
+   |
+LL | struct Obj(String);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:190:1
+   |
+LL | fn prefix_test(_unused_with_prefix: Obj) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:190:1
+   |
+LL | fn prefix_test(_unused_with_prefix: Obj) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:190:1
+   |
+LL | fn prefix_test(_unused_with_prefix: Obj) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:190:16
+   |
+LL | fn prefix_test(_unused_with_prefix: Obj) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:194:1
    |
 LL | fn option_inner_ref(x: Option<String>) {
-   |                        ^^^^^^^^^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn option_inner_ref(x: Option<&String>) {
-   |                               +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:204:27
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:194:1
+   |
+LL | fn option_inner_ref(x: Option<String>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:194:1
+   |
+LL | fn option_inner_ref(x: Option<String>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:194:21
+   |
+LL | fn option_inner_ref(x: Option<String>) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:199:1
+   |
+LL | mod non_standard {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:200:14
+   |
+LL |     #[derive(Debug)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:200:11
+   |
+LL |     #[derive(Debug)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:200:11
+   |
+LL |     #[derive(Debug)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:200:14
+   |
+LL |     #[derive(Debug)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:200:14
+   |
+LL |     #[derive(Debug)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:200:14
+   |
+LL |     #[derive(Debug)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:200:14
+   |
+LL |     #[derive(Debug)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:201:26
+   |
+LL |     #[derive(Debug)]
+   |              ----- in this derive macro expansion
+LL |     pub struct Option<T>(T);
+   |                          ^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:201:26
+   |
+LL |     #[derive(Debug)]
+   |              ----- in this derive macro expansion
+LL |     pub struct Option<T>(T);
+   |                          ^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:204:1
    |
 LL | fn non_standard_option(x: non_standard::Option<String>) {
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn non_standard_option(x: &non_standard::Option<String>) {
-   |                           +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:209:22
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:204:1
+   |
+LL | fn non_standard_option(x: non_standard::Option<String>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:204:1
+   |
+LL | fn non_standard_option(x: non_standard::Option<String>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:204:24
+   |
+LL | fn non_standard_option(x: non_standard::Option<String>) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:206:10
+   |
+LL |     dbg!(&x);
+   |          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:206:5
+   |
+LL |     dbg!(&x);
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:209:1
    |
 LL | fn option_by_name(x: Option<std::option::Option<core::option::Option<non_standard::Option<String>>>>) {
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn option_by_name(x: Option<std::option::Option<core::option::Option<&non_standard::Option<String>>>>) {
-   |                                                                      +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:216:18
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:209:1
+   |
+LL | fn option_by_name(x: Option<std::option::Option<core::option::Option<non_standard::Option<String>>>>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:209:1
+   |
+LL | fn option_by_name(x: Option<std::option::Option<core::option::Option<non_standard::Option<String>>>>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:209:19
+   |
+LL | fn option_by_name(x: Option<std::option::Option<core::option::Option<non_standard::Option<String>>>>) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:211:10
+   |
+LL |     dbg!(&x);
+   |          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:211:5
+   |
+LL |     dbg!(&x);
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:214:1
+   |
+LL | type OptStr = Option<String>;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:216:1
    |
 LL | fn non_option(x: OptStr) {
-   |                  ^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn non_option(x: &OptStr) {
-   |                  +
+   | ^ help: make this item public: `pub`
 
-error: this argument is passed by value, but not consumed in the function body
-  --> tests/ui/needless_pass_by_value.rs:223:25
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:216:1
+   |
+LL | fn non_option(x: OptStr) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:216:1
+   |
+LL | fn non_option(x: OptStr) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:216:15
+   |
+LL | fn non_option(x: OptStr) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:218:10
+   |
+LL |     dbg!(&x);
+   |          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:218:5
+   |
+LL |     dbg!(&x);
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:221:1
+   |
+LL | type Opt<T> = Option<T>;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:223:1
    |
 LL | fn non_option_either(x: Opt<String>) {
-   |                         ^^^^^^^^^^^
-   |
-help: consider taking a reference instead
-   |
-LL | fn non_option_either(x: &Opt<String>) {
-   |                         +
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 27 previous errors
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:223:1
+   |
+LL | fn non_option_either(x: Opt<String>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:223:1
+   |
+LL | fn non_option_either(x: Opt<String>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_pass_by_value.rs:223:22
+   |
+LL | fn non_option_either(x: Opt<String>) {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:225:10
+   |
+LL |     dbg!(&x);
+   |          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_pass_by_value.rs:225:5
+   |
+LL |     dbg!(&x);
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_pass_by_value.rs:228:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:228:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_pass_by_value.rs:228:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 183 previous errors
 

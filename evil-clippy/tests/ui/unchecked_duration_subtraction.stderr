@@ -1,29 +1,62 @@
-error: unchecked subtraction of a 'Duration' from an 'Instant'
-  --> tests/ui/unchecked_duration_subtraction.rs:9:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = _first - second;
-   |             ^^^^^^^^^^^^^^^ help: try: `_first.checked_sub(second).unwrap()`
-   |
-   = note: `-D clippy::unchecked-duration-subtraction` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unchecked_duration_subtraction)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unchecked subtraction of a 'Duration' from an 'Instant'
-  --> tests/ui/unchecked_duration_subtraction.rs:12:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = Instant::now() - Duration::from_secs(5);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Instant::now().checked_sub(Duration::from_secs(5)).unwrap()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unchecked subtraction of a 'Duration' from an 'Instant'
-  --> tests/ui/unchecked_duration_subtraction.rs:15:13
+error: item must be `pub`
+  --> tests/ui/unchecked_duration_subtraction.rs:5:1
    |
-LL |     let _ = _first - Duration::from_secs(5);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `_first.checked_sub(Duration::from_secs(5)).unwrap()`
-
-error: unchecked subtraction of a 'Duration' from an 'Instant'
-  --> tests/ui/unchecked_duration_subtraction.rs:18:13
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = Instant::now() - second;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Instant::now().checked_sub(second).unwrap()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/unchecked_duration_subtraction.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unchecked_duration_subtraction.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/unchecked_duration_subtraction.rs:6:9
+   |
+LL |     let _first = Instant::now();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/unchecked_duration_subtraction.rs:7:9
+   |
+LL |     let second = Duration::from_secs(3);
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 8 previous errors
 

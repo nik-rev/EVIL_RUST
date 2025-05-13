@@ -1,3 +1,160 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ref_to_ref.rs:6:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ref_to_ref.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ref_to_ref.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ref_to_ref.rs:8:13
+   |
+LL |         let single_u64: &[u64] = &[0xDEAD_BEEF_DEAD_BEEF];
+   |             ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ref_to_ref.rs:8:25
+   |
+LL |         let single_u64: &[u64] = &[0xDEAD_BEEF_DEAD_BEEF];
+   |                         ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/transmute_ref_to_ref.rs:8:34
+   |
+LL |         let single_u64: &[u64] = &[0xDEAD_BEEF_DEAD_BEEF];
+   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ref_to_ref.rs:9:13
+   |
+LL |         let bools: &[bool] = unsafe { std::mem::transmute(single_u64) };
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ref_to_ref.rs:9:20
+   |
+LL |         let bools: &[bool] = unsafe { std::mem::transmute(single_u64) };
+   |                    ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ref_to_ref.rs:12:13
+   |
+LL |         let a: &[u32] = &[0x12345678, 0x90ABCDEF, 0xFEDCBA09, 0x87654321];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ref_to_ref.rs:12:16
+   |
+LL |         let a: &[u32] = &[0x12345678, 0x90ABCDEF, 0xFEDCBA09, 0x87654321];
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ref_to_ref.rs:12:25
+   |
+LL |         let a: &[u32] = &[0x12345678, 0x90ABCDEF, 0xFEDCBA09, 0x87654321];
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ref_to_ref.rs:13:13
+   |
+LL |         let b: &[u8] = unsafe { std::mem::transmute(a) };
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ref_to_ref.rs:13:16
+   |
+LL |         let b: &[u8] = unsafe { std::mem::transmute(a) };
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ref_to_ref.rs:16:13
+   |
+LL |         let bytes = &[1u8, 2u8, 3u8, 4u8] as &[u8];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ref_to_ref.rs:16:21
+   |
+LL |         let bytes = &[1u8, 2u8, 3u8, 4u8] as &[u8];
+   |                     ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ref_to_ref.rs:16:46
+   |
+LL |         let bytes = &[1u8, 2u8, 3u8, 4u8] as &[u8];
+   |                                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ref_to_ref.rs:17:13
+   |
+LL |         let alt_slice: &[u32] = unsafe { std::mem::transmute(bytes) };
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ref_to_ref.rs:17:24
+   |
+LL |         let alt_slice: &[u32] = unsafe { std::mem::transmute(bytes) };
+   |                        ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: transmute from a reference to a reference
   --> tests/ui/transmute_ref_to_ref.rs:9:39
    |
@@ -22,5 +179,5 @@ error: transmute from a reference to a reference
 LL |         let alt_slice: &[u32] = unsafe { std::mem::transmute(bytes) };
    |                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*(bytes as *const [u8] as *const [u32])`
 
-error: aborting due to 3 previous errors
+error: aborting due to 24 previous errors
 

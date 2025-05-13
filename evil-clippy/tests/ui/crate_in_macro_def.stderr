@@ -1,11 +1,129 @@
-error: `crate` references the macro call's crate
-  --> tests/ui/crate_in_macro_def.rs:18:28
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |             println!("{}", crate::unhygienic::MESSAGE);
-   |                            ^^^^^ help: to reference the macro definition's crate, use: `$crate`
-   |
-   = note: `-D clippy::crate-in-macro-def` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::crate_in_macro_def)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/crate_in_macro_def.rs:3:1
+   |
+LL | mod hygienic {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/crate_in_macro_def.rs:5:5
+   |
+LL |     macro_rules! print_message_hygienic {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/crate_in_macro_def.rs:11:24
+   |
+LL |     pub const MESSAGE: &str = "Hello!";
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/crate_in_macro_def.rs:14:1
+   |
+LL | mod unhygienic {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crate_in_macro_def.rs:16:5
+   |
+LL |     macro_rules! print_message_unhygienic {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/crate_in_macro_def.rs:23:24
+   |
+LL |     pub const MESSAGE: &str = "Hello!";
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/crate_in_macro_def.rs:26:1
+   |
+LL | mod unhygienic_intentionally {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crate_in_macro_def.rs:31:5
+   |
+LL |     macro_rules! print_message_unhygienic_intentionally {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crate_in_macro_def.rs:39:1
+   |
+LL | mod not_exported {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crate_in_macro_def.rs:40:5
+   |
+LL |     macro_rules! print_message_not_exported {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/crate_in_macro_def.rs:46:24
+   |
+LL |     pub const MESSAGE: &str = "Hello!";
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/crate_in_macro_def.rs:49:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crate_in_macro_def.rs:49:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crate_in_macro_def.rs:49:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/crate_in_macro_def.rs:56:36
+   |
+LL | pub const CALLER_PROVIDED_MESSAGE: &str = "Hello!";
+   |                                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 18 previous errors
 

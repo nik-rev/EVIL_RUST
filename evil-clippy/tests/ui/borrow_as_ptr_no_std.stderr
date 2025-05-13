@@ -1,17 +1,84 @@
-error: borrow as raw pointer
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_as_ptr_no_std.rs:6:5
+   |
+LL | pub fn main(_argc: isize, _argv: *const *const u8) -> isize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_as_ptr_no_std.rs:6:5
+   |
+LL | pub fn main(_argc: isize, _argv: *const *const u8) -> isize {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_as_ptr_no_std.rs:6:13
+   |
+LL | pub fn main(_argc: isize, _argv: *const *const u8) -> isize {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_as_ptr_no_std.rs:6:27
+   |
+LL | pub fn main(_argc: isize, _argv: *const *const u8) -> isize {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr_no_std.rs:7:9
+   |
+LL |     let val = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr_no_std.rs:8:9
+   |
+LL |     let _p = &val as *const i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/borrow_as_ptr_no_std.rs:8:14
    |
 LL |     let _p = &val as *const i32;
-   |              ^^^^^^^^^^^^^^^^^^ help: try: `core::ptr::addr_of!(val)`
+   |              ^^^^
    |
-   = note: `-D clippy::borrow-as-ptr` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::borrow_as_ptr)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: borrow as raw pointer
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr_no_std.rs:12:9
+   |
+LL |     let _p_mut = &mut val_mut as *mut i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/borrow_as_ptr_no_std.rs:12:18
    |
 LL |     let _p_mut = &mut val_mut as *mut i32;
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `core::ptr::addr_of_mut!(val_mut)`
+   |                  ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 2 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: aborting due to 11 previous errors
 

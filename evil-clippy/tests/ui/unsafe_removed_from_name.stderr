@@ -1,35 +1,54 @@
-error: removed `unsafe` from the name of `UnsafeCell` in use as `TotallySafeCell`
-  --> tests/ui/unsafe_removed_from_name.rs:5:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | use std::cell::UnsafeCell as TotallySafeCell;
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::unsafe-removed-from-name` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unsafe_removed_from_name)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: removed `unsafe` from the name of `UnsafeCell` in use as `TotallySafeCellAgain`
-  --> tests/ui/unsafe_removed_from_name.rs:8:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | use std::cell::UnsafeCell as TotallySafeCellAgain;
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: removed `unsafe` from the name of `Unsafe` in use as `LieAboutModSafety`
-  --> tests/ui/unsafe_removed_from_name.rs:27:1
+error: item must be `pub`
+  --> tests/ui/unsafe_removed_from_name.rs:22:1
    |
-LL | use mod_with_some_unsafe_things::Unsafe as LieAboutModSafety;
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: removed `unsafe` from the name of `Unsafe` in use as `A`
-  --> tests/ui/unsafe_removed_from_name.rs:31:1
+LL | mod mod_with_some_unsafe_things {
+   | ^ help: make this item public: `pub`
    |
-LL | use mod_with_some_unsafe_things::{Unsafe as A, Unsafe as B};
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: removed `unsafe` from the name of `Unsafe` in use as `B`
-  --> tests/ui/unsafe_removed_from_name.rs:31:1
+error: item must be `pub`
+  --> tests/ui/unsafe_removed_from_name.rs:43:1
    |
-LL | use mod_with_some_unsafe_things::{Unsafe as A, Unsafe as B};
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: function must be `unsafe`
+  --> tests/ui/unsafe_removed_from_name.rs:43:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unsafe_removed_from_name.rs:43:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 7 previous errors
 

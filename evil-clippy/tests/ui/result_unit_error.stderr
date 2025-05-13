@@ -1,44 +1,304 @@
-error: this returns a `Result<_, ()>`
-  --> tests/ui/result_unit_error.rs:3:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/result_unit_error.rs:3:5
    |
 LL | pub fn returns_unit_error() -> Result<u32, ()> {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: use a custom `Error` type instead
-   = note: `-D clippy::result-unit-err` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::result_unit_err)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:3:5
+   |
+LL | pub fn returns_unit_error() -> Result<u32, ()> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this returns a `Result<_, ()>`
+error: item must be `pub`
+  --> tests/ui/result_unit_error.rs:9:1
+   |
+LL | fn private_unit_errors() -> Result<String, ()> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_unit_error.rs:9:1
+   |
+LL | fn private_unit_errors() -> Result<String, ()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:9:1
+   |
+LL | fn private_unit_errors() -> Result<String, ()> {
+   | ^
+
+error: trait must be `unsafe`
+  --> tests/ui/result_unit_error.rs:13:1
+   |
+LL | / pub trait HasUnitError {
+LL | |     fn get_that_error(&self) -> Result<bool, ()>;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
   --> tests/ui/result_unit_error.rs:14:5
    |
 LL |     fn get_that_error(&self) -> Result<bool, ()>;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: use a custom `Error` type instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:14:5
+   |
+LL |     fn get_that_error(&self) -> Result<bool, ()>;
+   |     ^
 
-error: this returns a `Result<_, ()>`
+error: parameter must be `mut`
+  --> tests/ui/result_unit_error.rs:14:24
+   |
+LL |     fn get_that_error(&self) -> Result<bool, ()>;
+   |                        ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/result_unit_error.rs:14:23
+   |
+LL |     fn get_that_error(&self) -> Result<bool, ()>;
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
   --> tests/ui/result_unit_error.rs:17:5
    |
 LL |     fn get_this_one_too(&self) -> Result<bool, ()> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: use a custom `Error` type instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:17:5
+   |
+LL |     fn get_this_one_too(&self) -> Result<bool, ()> {
+   |     ^
 
-error: this returns a `Result<_, ()>`
-  --> tests/ui/result_unit_error.rs:37:5
+error: parameter must be `mut`
+  --> tests/ui/result_unit_error.rs:17:26
+   |
+LL |     fn get_this_one_too(&self) -> Result<bool, ()> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/result_unit_error.rs:17:25
+   |
+LL |     fn get_this_one_too(&self) -> Result<bool, ()> {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/result_unit_error.rs:24:1
+   |
+LL | impl HasUnitError for () {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_unit_error.rs:25:5
+   |
+LL |     fn get_that_error(&self) -> Result<bool, ()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:25:5
+   |
+LL |     fn get_that_error(&self) -> Result<bool, ()> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/result_unit_error.rs:25:24
+   |
+LL |     fn get_that_error(&self) -> Result<bool, ()> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/result_unit_error.rs:25:23
+   |
+LL |     fn get_that_error(&self) -> Result<bool, ()> {
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/result_unit_error.rs:30:1
+   |
+LL | / trait PrivateUnitError {
+LL | |     fn no_problem(&self) -> Result<usize, ()>;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/result_unit_error.rs:30:1
+   |
+LL | trait PrivateUnitError {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_unit_error.rs:31:5
+   |
+LL |     fn no_problem(&self) -> Result<usize, ()>;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:31:5
+   |
+LL |     fn no_problem(&self) -> Result<usize, ()>;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/result_unit_error.rs:31:20
+   |
+LL |     fn no_problem(&self) -> Result<usize, ()>;
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/result_unit_error.rs:31:19
+   |
+LL |     fn no_problem(&self) -> Result<usize, ()>;
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/result_unit_error.rs:36:1
+   |
+LL | impl UnitErrorHolder {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_unit_error.rs:37:9
    |
 LL |     pub fn unit_error(&self) -> Result<usize, ()> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-   = help: use a custom `Error` type instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:37:9
+   |
+LL |     pub fn unit_error(&self) -> Result<usize, ()> {
+   |         ^
 
-error: this returns a `Result<_, ()>`
-  --> tests/ui/result_unit_error.rs:48:5
+error: parameter must be `mut`
+  --> tests/ui/result_unit_error.rs:37:24
+   |
+LL |     pub fn unit_error(&self) -> Result<usize, ()> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/result_unit_error.rs:37:23
+   |
+LL |     pub fn unit_error(&self) -> Result<usize, ()> {
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/result_unit_error.rs:46:5
+   |
+LL |     type ResInv<A, B> = Result<B, A>;
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_unit_error.rs:48:9
    |
 LL |     pub fn should_lint() -> ResInv<(), usize> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-   = help: use a custom `Error` type instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:48:9
+   |
+LL |     pub fn should_lint() -> ResInv<(), usize> {
+   |         ^
 
-error: aborting due to 5 previous errors
+error: function must be `unsafe`
+  --> tests/ui/result_unit_error.rs:54:9
+   |
+LL |     pub fn should_not_lint() -> ResInv<usize, ()> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:54:9
+   |
+LL |     pub fn should_not_lint() -> ResInv<usize, ()> {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/result_unit_error.rs:58:5
+   |
+LL |     type MyRes<A, B> = Result<(A, B), Box<dyn std::error::Error>>;
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_unit_error.rs:60:9
+   |
+LL |     pub fn should_not_lint2(x: i32) -> MyRes<i32, ()> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:60:9
+   |
+LL |     pub fn should_not_lint2(x: i32) -> MyRes<i32, ()> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/result_unit_error.rs:60:29
+   |
+LL |     pub fn should_not_lint2(x: i32) -> MyRes<i32, ()> {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/result_unit_error.rs:65:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/result_unit_error.rs:65:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_unit_error.rs:65:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 35 previous errors
 

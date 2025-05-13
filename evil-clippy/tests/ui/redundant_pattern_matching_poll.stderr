@@ -1,146 +1,128 @@
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:13:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let Pending = Pending::<()> {}
-   |     -------^^^^^^^---------------- help: try: `if Pending::<()>.is_pending()`
-   |
-   = note: `-D clippy::redundant-pattern-matching` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_pattern_matching)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:16:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let Ready(_) = Ready(42) {}
-   |     -------^^^^^^^^------------ help: try: `if Ready(42).is_ready()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:19:12
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_poll.rs:12:1
    |
-LL |     if let Ready(_) = Ready(42) {
-   |     -------^^^^^^^^------------ help: try: `if Ready(42).is_ready()`
-
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:27:8
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     if matches!(Ready(42), Ready(_)) {}
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Ready(42).is_ready()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:31:8
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:12:1
    |
-LL |     if matches!(Pending::<()>, Pending) {}
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Pending::<()>.is_pending()`
-
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:34:15
+LL | fn main() {
+   | ^
    |
-LL |     while let Ready(_) = Ready(42) {}
-   |     ----------^^^^^^^^------------ help: try: `while Ready(42).is_ready()`
-
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:37:15
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:12:1
    |
-LL |     while let Pending = Ready(42) {}
-   |     ----------^^^^^^^------------ help: try: `while Ready(42).is_pending()`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:40:15
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_poll.rs:65:9
    |
-LL |     while let Pending = Pending::<()> {}
-   |     ----------^^^^^^^---------------- help: try: `while Pending::<()>.is_pending()`
-
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:47:5
+LL |     let poll = Ready(false);
+   |         ^ help: make this variable mutable: `mut`
    |
-LL | /     match Ready(42) {
-LL | |
-LL | |         Ready(_) => true,
-LL | |         Pending => false,
-LL | |     };
-   | |_____^ help: try: `Ready(42).is_ready()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:53:5
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_poll.rs:82:1
    |
-LL | /     match Pending::<()> {
-LL | |
-LL | |         Ready(_) => false,
-LL | |         Pending => true,
-LL | |     };
-   | |_____^ help: try: `Pending::<()>.is_pending()`
+LL | fn gen_poll() -> Poll<()> {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:59:13
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:82:1
    |
-LL |       let _ = match Pending::<()> {
-   |  _____________^
-LL | |
-LL | |         Ready(_) => false,
-LL | |         Pending => true,
-LL | |     };
-   | |_____^ help: try: `Pending::<()>.is_pending()`
-
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:66:20
+LL | fn gen_poll() -> Poll<()> {
+   | ^
    |
-LL |     let _ = if let Ready(_) = poll { true } else { false };
-   |             -------^^^^^^^^------- help: try: `if poll.is_ready()`
-
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:71:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:82:1
    |
-LL |     let _ = if let Ready(_) = gen_poll() {
-   |             -------^^^^^^^^------------- help: try: `if gen_poll().is_ready()`
+LL | fn gen_poll() -> Poll<()> {
+   | ^
 
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:74:19
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_poll.rs:86:1
    |
-LL |     } else if let Pending = gen_poll() {
-   |            -------^^^^^^^------------- help: try: `if gen_poll().is_pending()`
+LL | fn foo() {}
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:91:12
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:86:1
    |
-LL |     if let Ready(_) = Ready(42) {}
-   |     -------^^^^^^^^------------ help: try: `if Ready(42).is_ready()`
-
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:94:12
+LL | fn foo() {}
+   | ^
    |
-LL |     if let Pending = Pending::<()> {}
-   |     -------^^^^^^^---------------- help: try: `if Pending::<()>.is_pending()`
-
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:97:15
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:86:1
    |
-LL |     while let Ready(_) = Ready(42) {}
-   |     ----------^^^^^^^^------------ help: try: `while Ready(42).is_ready()`
+LL | fn foo() {}
+   | ^
 
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:100:15
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_poll.rs:88:1
    |
-LL |     while let Pending = Pending::<()> {}
-   |     ----------^^^^^^^---------------- help: try: `while Pending::<()>.is_pending()`
+LL | fn bar() {}
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_ready()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:103:5
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:88:1
    |
-LL | /     match Ready(42) {
-LL | |
-LL | |         Ready(_) => true,
-LL | |         Pending => false,
-LL | |     };
-   | |_____^ help: try: `Ready(42).is_ready()`
-
-error: redundant pattern matching, consider using `is_pending()`
-  --> tests/ui/redundant_pattern_matching_poll.rs:109:5
+LL | fn bar() {}
+   | ^
    |
-LL | /     match Pending::<()> {
-LL | |
-LL | |         Ready(_) => false,
-LL | |         Pending => true,
-LL | |     };
-   | |_____^ help: try: `Pending::<()>.is_pending()`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:88:1
+   |
+LL | fn bar() {}
+   | ^
 
-error: aborting due to 20 previous errors
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_poll.rs:90:1
+   |
+LL | const fn poll_const() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:90:7
+   |
+LL | const fn poll_const() {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_poll.rs:90:7
+   |
+LL | const fn poll_const() {
+   |       ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

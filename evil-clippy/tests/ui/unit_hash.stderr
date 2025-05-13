@@ -1,28 +1,119 @@
-error: this call to `hash` on the unit type will do nothing
-  --> tests/ui/unit_hash.rs:19:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unit_hash.rs:7:1
+   |
+LL | enum Foo {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/unit_hash.rs:12:1
+   |
+LL | fn do_nothing() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_hash.rs:12:1
+   |
+LL | fn do_nothing() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_hash.rs:12:1
+   |
+LL | fn do_nothing() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/unit_hash.rs:14:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unit_hash.rs:14:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unit_hash.rs:14:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unit_hash.rs:16:9
+   |
+LL |     let my_enum = Foo::Empty;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unit_hash.rs:19:31
    |
 LL |         Foo::Empty => ().hash(&mut state),
-   |                       ^^^^^^^^^^^^^^^^^^^ help: remove the call to `hash` or consider using: `0_u8.hash(&mut state)`
+   |                               ^^^^^^^^^^
    |
-   = note: the implementation of `Hash` for `()` is a no-op
-   = note: `-D clippy::unit-hash` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unit_hash)]`
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this call to `hash` on the unit type will do nothing
-  --> tests/ui/unit_hash.rs:25:5
+error: references are not allowed
+  --> tests/ui/unit_hash.rs:21:37
+   |
+LL |         Foo::WithValue(x) => x.hash(&mut state),
+   |                                     ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/unit_hash.rs:24:9
+   |
+LL |     let res = ();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unit_hash.rs:25:14
    |
 LL |     res.hash(&mut state);
-   |     ^^^^^^^^^^^^^^^^^^^^ help: remove the call to `hash` or consider using: `0_u8.hash(&mut state)`
+   |              ^^^^^^^^^^
    |
-   = note: the implementation of `Hash` for `()` is a no-op
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this call to `hash` on the unit type will do nothing
-  --> tests/ui/unit_hash.rs:29:5
+error: references are not allowed
+  --> tests/ui/unit_hash.rs:29:23
    |
 LL |     do_nothing().hash(&mut state);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: remove the call to `hash` or consider using: `0_u8.hash(&mut state)`
+   |                       ^^^^^^^^^^
    |
-   = note: the implementation of `Hash` for `()` is a no-op
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 3 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

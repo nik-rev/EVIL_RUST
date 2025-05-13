@@ -35,7 +35,7 @@ impl EarlyLintPass for MissingPub {
                 cx,
                 MISSING_PUB,
                 item.vis.span,
-                "item is not public",
+                "item must be `pub`",
                 "make this item public",
                 "pub ".to_string(),
                 rustc_errors::Applicability::MachineApplicable,

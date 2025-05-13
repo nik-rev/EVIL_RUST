@@ -1,113 +1,217 @@
-error: casting the result of `i32::abs()` to u32
-  --> tests/ui/cast_abs_to_unsigned.rs:6:18
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/cast_abs_to_unsigned.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_abs_to_unsigned.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_abs_to_unsigned.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/cast_abs_to_unsigned.rs:5:9
+   |
+LL |     let x: i32 = -42;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/cast_abs_to_unsigned.rs:6:9
    |
 LL |     let y: u32 = x.abs() as u32;
-   |                  ^^^^^^^^^^^^^^ help: replace with: `x.unsigned_abs()`
-   |
-   = note: `-D clippy::cast-abs-to-unsigned` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cast_abs_to_unsigned)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting the result of `i32::abs()` to usize
-  --> tests/ui/cast_abs_to_unsigned.rs:11:20
+error: variable must be `mut`
+  --> tests/ui/cast_abs_to_unsigned.rs:10:9
    |
-LL |     let _: usize = a.abs() as usize;
-   |                    ^^^^^^^ help: replace with: `a.unsigned_abs()`
+LL |     let a: i32 = -3;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting the result of `i32::abs()` to usize
-  --> tests/ui/cast_abs_to_unsigned.rs:13:20
+error: variable must be `mut`
+  --> tests/ui/cast_abs_to_unsigned.rs:18:9
    |
-LL |     let _: usize = a.abs() as _;
-   |                    ^^^^^^^ help: replace with: `a.unsigned_abs()`
+LL |     let a: i64 = -3;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting the result of `i32::abs()` to usize
-  --> tests/ui/cast_abs_to_unsigned.rs:15:13
+error: variable must be `mut`
+  --> tests/ui/cast_abs_to_unsigned.rs:32:9
    |
-LL |     let _ = a.abs() as usize;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
+LL |     let a: isize = -3;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting the result of `i64::abs()` to usize
-  --> tests/ui/cast_abs_to_unsigned.rs:19:13
+error: item must be `pub`
+  --> tests/ui/cast_abs_to_unsigned.rs:51:1
    |
-LL |     let _ = a.abs() as usize;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
+LL | fn msrv_1_50() {
+   | ^ help: make this item public: `pub`
 
-error: casting the result of `i64::abs()` to u8
-  --> tests/ui/cast_abs_to_unsigned.rs:21:13
+error: function must be `unsafe`
+  --> tests/ui/cast_abs_to_unsigned.rs:51:1
    |
-LL |     let _ = a.abs() as u8;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
-
-error: casting the result of `i64::abs()` to u16
-  --> tests/ui/cast_abs_to_unsigned.rs:23:13
+LL | fn msrv_1_50() {
+   | ^
    |
-LL |     let _ = a.abs() as u16;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
-
-error: casting the result of `i64::abs()` to u32
-  --> tests/ui/cast_abs_to_unsigned.rs:25:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_abs_to_unsigned.rs:51:1
    |
-LL |     let _ = a.abs() as u32;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
+LL | fn msrv_1_50() {
+   | ^
 
-error: casting the result of `i64::abs()` to u64
-  --> tests/ui/cast_abs_to_unsigned.rs:27:13
+error: variable must be `mut`
+  --> tests/ui/cast_abs_to_unsigned.rs:52:9
    |
-LL |     let _ = a.abs() as u64;
-   |             ^^^^^^^^^^^^^^ help: replace with: `a.unsigned_abs()`
+LL |     let x: i32 = 10;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting the result of `i64::abs()` to u128
-  --> tests/ui/cast_abs_to_unsigned.rs:29:13
-   |
-LL |     let _ = a.abs() as u128;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
-
-error: casting the result of `isize::abs()` to usize
-  --> tests/ui/cast_abs_to_unsigned.rs:33:13
-   |
-LL |     let _ = a.abs() as usize;
-   |             ^^^^^^^^^^^^^^^^ help: replace with: `a.unsigned_abs()`
-
-error: casting the result of `isize::abs()` to u8
-  --> tests/ui/cast_abs_to_unsigned.rs:35:13
-   |
-LL |     let _ = a.abs() as u8;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
-
-error: casting the result of `isize::abs()` to u16
-  --> tests/ui/cast_abs_to_unsigned.rs:37:13
-   |
-LL |     let _ = a.abs() as u16;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
-
-error: casting the result of `isize::abs()` to u32
-  --> tests/ui/cast_abs_to_unsigned.rs:39:13
-   |
-LL |     let _ = a.abs() as u32;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
-
-error: casting the result of `isize::abs()` to u64
-  --> tests/ui/cast_abs_to_unsigned.rs:41:13
-   |
-LL |     let _ = a.abs() as u64;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
-
-error: casting the result of `isize::abs()` to u128
-  --> tests/ui/cast_abs_to_unsigned.rs:43:13
-   |
-LL |     let _ = a.abs() as u128;
-   |             ^^^^^^^ help: replace with: `a.unsigned_abs()`
-
-error: casting the result of `i64::abs()` to u32
-  --> tests/ui/cast_abs_to_unsigned.rs:46:13
-   |
-LL |     let _ = (x as i64 - y as i64).abs() as u32;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `(x as i64 - y as i64).unsigned_abs()`
-
-error: casting the result of `i32::abs()` to u32
-  --> tests/ui/cast_abs_to_unsigned.rs:59:23
+error: references are not allowed
+  --> tests/ui/cast_abs_to_unsigned.rs:53:5
    |
 LL |     assert_eq!(10u32, x.abs() as u32);
-   |                       ^^^^^^^^^^^^^^ help: replace with: `x.unsigned_abs()`
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 18 previous errors
+error: references are not allowed
+  --> tests/ui/cast_abs_to_unsigned.rs:53:5
+   |
+LL |     assert_eq!(10u32, x.abs() as u32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/cast_abs_to_unsigned.rs:53:5
+   |
+LL |     assert_eq!(10u32, x.abs() as u32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cast_abs_to_unsigned.rs:53:5
+   |
+LL |     assert_eq!(10u32, x.abs() as u32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cast_abs_to_unsigned.rs:53:5
+   |
+LL |     assert_eq!(10u32, x.abs() as u32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cast_abs_to_unsigned.rs:57:1
+   |
+LL | fn msrv_1_51() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast_abs_to_unsigned.rs:57:1
+   |
+LL | fn msrv_1_51() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast_abs_to_unsigned.rs:57:1
+   |
+LL | fn msrv_1_51() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/cast_abs_to_unsigned.rs:58:9
+   |
+LL |     let x: i32 = 10;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cast_abs_to_unsigned.rs:59:5
+   |
+LL |     assert_eq!(10u32, x.abs() as u32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cast_abs_to_unsigned.rs:59:5
+   |
+LL |     assert_eq!(10u32, x.abs() as u32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/cast_abs_to_unsigned.rs:59:5
+   |
+LL |     assert_eq!(10u32, x.abs() as u32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cast_abs_to_unsigned.rs:59:5
+   |
+LL |     assert_eq!(10u32, x.abs() as u32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cast_abs_to_unsigned.rs:59:5
+   |
+LL |     assert_eq!(10u32, x.abs() as u32);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 27 previous errors
 

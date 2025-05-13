@@ -1,149 +1,101 @@
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:14:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:12:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:13:9
+   |
+LL |     let ipaddr: IpAddr = V4(Ipv4Addr::LOCALHOST);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:14:20
    |
 LL |     if let V4(_) = &ipaddr {}
-   |     -------^^^^^---------- help: try: `if ipaddr.is_ipv4()`
+   |                    ^^^^^^^
    |
-   = note: `-D clippy::redundant-pattern-matching` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_pattern_matching)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:17:12
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:89:1
    |
-LL |     if let V4(_) = V4(Ipv4Addr::LOCALHOST) {}
-   |     -------^^^^^-------------------------- help: try: `if V4(Ipv4Addr::LOCALHOST).is_ipv4()`
+LL | fn gen_ipaddr() -> IpAddr {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_ipv6()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:20:12
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:89:1
    |
-LL |     if let V6(_) = V6(Ipv6Addr::LOCALHOST) {}
-   |     -------^^^^^-------------------------- help: try: `if V6(Ipv6Addr::LOCALHOST).is_ipv6()`
-
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:24:8
+LL | fn gen_ipaddr() -> IpAddr {
+   | ^
    |
-LL |     if matches!(V4(Ipv4Addr::LOCALHOST), V4(_)) {}
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `V4(Ipv4Addr::LOCALHOST).is_ipv4()`
-
-error: redundant pattern matching, consider using `is_ipv6()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:28:8
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:89:1
    |
-LL |     if matches!(V6(Ipv6Addr::LOCALHOST), V6(_)) {}
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `V6(Ipv6Addr::LOCALHOST).is_ipv6()`
+LL | fn gen_ipaddr() -> IpAddr {
+   | ^
 
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:31:15
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:93:1
    |
-LL |     while let V4(_) = V4(Ipv4Addr::LOCALHOST) {}
-   |     ----------^^^^^-------------------------- help: try: `while V4(Ipv4Addr::LOCALHOST).is_ipv4()`
+LL | const fn ipaddr_const() {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_ipv6()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:34:15
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:93:7
    |
-LL |     while let V6(_) = V6(Ipv6Addr::LOCALHOST) {}
-   |     ----------^^^^^-------------------------- help: try: `while V6(Ipv6Addr::LOCALHOST).is_ipv6()`
-
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:45:5
+LL | const fn ipaddr_const() {
+   |       ^
    |
-LL | /     match V4(Ipv4Addr::LOCALHOST) {
-LL | |
-LL | |         V4(_) => true,
-LL | |         V6(_) => false,
-LL | |     };
-   | |_____^ help: try: `V4(Ipv4Addr::LOCALHOST).is_ipv4()`
-
-error: redundant pattern matching, consider using `is_ipv6()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:51:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_ipaddr.rs:93:7
    |
-LL | /     match V4(Ipv4Addr::LOCALHOST) {
-LL | |
-LL | |         V4(_) => false,
-LL | |         V6(_) => true,
-LL | |     };
-   | |_____^ help: try: `V4(Ipv4Addr::LOCALHOST).is_ipv6()`
+LL | const fn ipaddr_const() {
+   |       ^
 
-error: redundant pattern matching, consider using `is_ipv6()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:57:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match V6(Ipv6Addr::LOCALHOST) {
-LL | |
-LL | |         V4(_) => false,
-LL | |         V6(_) => true,
-LL | |     };
-   | |_____^ help: try: `V6(Ipv6Addr::LOCALHOST).is_ipv6()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:63:5
+error: missing `#![no_std]`
    |
-LL | /     match V6(Ipv6Addr::LOCALHOST) {
-LL | |
-LL | |         V4(_) => true,
-LL | |         V6(_) => false,
-LL | |     };
-   | |_____^ help: try: `V6(Ipv6Addr::LOCALHOST).is_ipv4()`
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:69:20
-   |
-LL |     let _ = if let V4(_) = V4(Ipv4Addr::LOCALHOST) {
-   |             -------^^^^^-------------------------- help: try: `if V4(Ipv4Addr::LOCALHOST).is_ipv4()`
-
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:78:20
-   |
-LL |     let _ = if let V4(_) = gen_ipaddr() {
-   |             -------^^^^^--------------- help: try: `if gen_ipaddr().is_ipv4()`
-
-error: redundant pattern matching, consider using `is_ipv6()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:81:19
-   |
-LL |     } else if let V6(_) = gen_ipaddr() {
-   |            -------^^^^^--------------- help: try: `if gen_ipaddr().is_ipv6()`
-
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:94:12
-   |
-LL |     if let V4(_) = V4(Ipv4Addr::LOCALHOST) {}
-   |     -------^^^^^-------------------------- help: try: `if V4(Ipv4Addr::LOCALHOST).is_ipv4()`
-
-error: redundant pattern matching, consider using `is_ipv6()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:97:12
-   |
-LL |     if let V6(_) = V6(Ipv6Addr::LOCALHOST) {}
-   |     -------^^^^^-------------------------- help: try: `if V6(Ipv6Addr::LOCALHOST).is_ipv6()`
-
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:100:15
-   |
-LL |     while let V4(_) = V4(Ipv4Addr::LOCALHOST) {}
-   |     ----------^^^^^-------------------------- help: try: `while V4(Ipv4Addr::LOCALHOST).is_ipv4()`
-
-error: redundant pattern matching, consider using `is_ipv6()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:103:15
-   |
-LL |     while let V6(_) = V6(Ipv6Addr::LOCALHOST) {}
-   |     ----------^^^^^-------------------------- help: try: `while V6(Ipv6Addr::LOCALHOST).is_ipv6()`
-
-error: redundant pattern matching, consider using `is_ipv4()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:106:5
-   |
-LL | /     match V4(Ipv4Addr::LOCALHOST) {
-LL | |
-LL | |         V4(_) => true,
-LL | |         V6(_) => false,
-LL | |     };
-   | |_____^ help: try: `V4(Ipv4Addr::LOCALHOST).is_ipv4()`
-
-error: redundant pattern matching, consider using `is_ipv6()`
-  --> tests/ui/redundant_pattern_matching_ipaddr.rs:112:5
-   |
-LL | /     match V6(Ipv6Addr::LOCALHOST) {
-LL | |
-LL | |         V4(_) => false,
-LL | |         V6(_) => true,
-LL | |     };
-   | |_____^ help: try: `V6(Ipv6Addr::LOCALHOST).is_ipv6()`
-
-error: aborting due to 20 previous errors
+error: aborting due to 12 previous errors
 

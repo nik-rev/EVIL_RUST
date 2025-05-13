@@ -1,65 +1,143 @@
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:22:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |             _ => (),
-   |             ^ help: try: `Self::Rgb(..)`
-   |
-   = note: `-D clippy::match-wildcard-for-single-variants` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::match_wildcard_for_single_variants)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:33:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         _ => {},
-   |         ^ help: try: `Foo::C`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:44:9
+error: item must be `pub`
+  --> tests/ui/match_wildcard_for_single_variants.rs:4:1
    |
-LL |         _ => {},
-   |         ^ help: try: `Color::Blue`
-
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:53:9
+LL | enum Foo {
+   | ^ help: make this item public: `pub`
    |
-LL |         _ => {},
-   |         ^ help: try: `Color::Blue`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:60:9
+error: item must be `pub`
+  --> tests/ui/match_wildcard_for_single_variants.rs:10:1
    |
-LL |         _ => {},
-   |         ^ help: try: `Color::Blue`
+LL | enum Color {
+   | ^ help: make this item public: `pub`
 
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:78:9
+error: item must be `pub`
+  --> tests/ui/match_wildcard_for_single_variants.rs:16:1
    |
-LL |         &_ => (),
-   |         ^^ help: try: `Color::Blue`
+LL | impl Color {
+   | ^ help: make this item public: `pub`
 
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:88:9
+error: function must be `unsafe`
+  --> tests/ui/match_wildcard_for_single_variants.rs:17:5
    |
-LL |         _ => (),
-   |         ^ help: try: `C::Blue`
-
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:96:9
+LL |     fn f(self) {
+   |     ^
    |
-LL |         _ => (),
-   |         ^ help: try: `Color::Blue`
-
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:132:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wildcard_for_single_variants.rs:17:5
    |
-LL |             _ => (),
-   |             ^ help: try: `Enum::__Private`
+LL |     fn f(self) {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: wildcard matches only a single variant and will also match any future added variants
-  --> tests/ui/match_wildcard_for_single_variants.rs:160:13
+error: parameter must be `mut`
+  --> tests/ui/match_wildcard_for_single_variants.rs:17:10
    |
-LL |             _ => 2,
-   |             ^ help: try: `Foo::B`
+LL |     fn f(self) {
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 10 previous errors
+error: item must be `pub`
+  --> tests/ui/match_wildcard_for_single_variants.rs:28:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_wildcard_for_single_variants.rs:28:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wildcard_for_single_variants.rs:28:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_wildcard_for_single_variants.rs:29:9
+   |
+LL |     let f = Foo::A;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_wildcard_for_single_variants.rs:37:9
+   |
+LL |     let color = Color::Red;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_wildcard_for_single_variants.rs:74:11
+   |
+LL |     match &color {
+   |           ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/match_wildcard_for_single_variants.rs:107:5
+   |
+LL |     enum Bar {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_wildcard_for_single_variants.rs:143:1
+   |
+LL | mod issue9993 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_wildcard_for_single_variants.rs:144:5
+   |
+LL |     enum Foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_wildcard_for_single_variants.rs:149:5
+   |
+LL |     fn test() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_wildcard_for_single_variants.rs:149:5
+   |
+LL |     fn test() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wildcard_for_single_variants.rs:149:5
+   |
+LL |     fn test() {
+   |     ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 19 previous errors
 

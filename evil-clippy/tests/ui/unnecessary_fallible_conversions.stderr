@@ -1,134 +1,48 @@
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:6:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: i64 = 0i32.try_into().unwrap();
-   |                       ^^^^^^^^^^^^^^^^^^^
-   |
-   = note: converting `i32` to `i64` cannot fail
-   = note: `-D clippy::unnecessary-fallible-conversions` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_fallible_conversions)]`
-help: use
-   |
-LL -     let _: i64 = 0i32.try_into().unwrap();
-LL +     let _: i64 = 0i32.into();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:9:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: i64 = 0i32.try_into().expect("can't happen");
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: converting `i32` to `i64` cannot fail
-help: use
-   |
-LL -     let _: i64 = 0i32.try_into().expect("can't happen");
-LL +     let _: i64 = 0i32.into();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:14:13
+error: item must be `pub`
+  --> tests/ui/unnecessary_fallible_conversions.rs:3:1
    |
-LL |     let _ = i64::try_from(0i32).unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = note: converting `i32` to `i64` cannot fail
-help: use
-   |
-LL -     let _ = i64::try_from(0i32).unwrap();
-LL +     let _ = i64::from(0i32);
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:17:13
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_fallible_conversions.rs:3:1
    |
-LL |     let _ = i64::try_from(0i32).expect("can't happen");
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-   = note: converting `i32` to `i64` cannot fail
-help: use
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_fallible_conversions.rs:3:1
    |
-LL -     let _ = i64::try_from(0i32).expect("can't happen");
-LL +     let _ = i64::from(0i32);
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:22:18
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: i64 = i32::try_into(0).unwrap();
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: converting `i32` to `i64` cannot fail
-help: use
-   |
-LL -     let _: i64 = i32::try_into(0).unwrap();
-LL +     let _: i64 = i32::into(0);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:25:18
+error: missing `#![no_std]`
    |
-LL |     let _: i64 = i32::try_into(0i32).expect("can't happen");
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: converting `i32` to `i64` cannot fail
-help: use
-   |
-LL -     let _: i64 = i32::try_into(0i32).expect("can't happen");
-LL +     let _: i64 = i32::into(0i32);
-   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:30:13
-   |
-LL |     let _ = <i64 as TryFrom<i32>>::try_from(0).unwrap();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: converting `i32` to `i64` cannot fail
-help: use
-   |
-LL -     let _ = <i64 as TryFrom<i32>>::try_from(0).unwrap();
-LL +     let _ = <i64 as From<i32>>::from(0);
-   |
-
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:33:13
-   |
-LL |     let _ = <i64 as TryFrom<i32>>::try_from(0).expect("can't happen");
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: converting `i32` to `i64` cannot fail
-help: use
-   |
-LL -     let _ = <i64 as TryFrom<i32>>::try_from(0).expect("can't happen");
-LL +     let _ = <i64 as From<i32>>::from(0);
-   |
-
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:38:18
-   |
-LL |     let _: i64 = <i32 as TryInto<_>>::try_into(0).unwrap();
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: converting `i32` to `i64` cannot fail
-help: use
-   |
-LL -     let _: i64 = <i32 as TryInto<_>>::try_into(0).unwrap();
-LL +     let _: i64 = <i32 as Into<_>>::into(0);
-   |
-
-error: use of a fallible conversion when an infallible one could be used
-  --> tests/ui/unnecessary_fallible_conversions.rs:41:18
-   |
-LL |     let _: i64 = <i32 as TryInto<_>>::try_into(0).expect("can't happen");
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: converting `i32` to `i64` cannot fail
-help: use
-   |
-LL -     let _: i64 = <i32 as TryInto<_>>::try_into(0).expect("can't happen");
-LL +     let _: i64 = <i32 as Into<_>>::into(0);
-   |
-
-error: aborting due to 10 previous errors
+error: aborting due to 6 previous errors
 

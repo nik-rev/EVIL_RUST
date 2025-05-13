@@ -1,75 +1,151 @@
-error: the `dbg!` macro is intended as a debugging tool
-  --> tests/ui/dbg_macro/auxiliary/submodule.rs:2:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     dbg!();
-   |     ^^^^^^
-   |
-   = note: `-D clippy::dbg-macro` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::dbg_macro)]`
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: the `dbg!` macro is intended as a debugging tool
-  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:9:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     dbg!(dbg!(dbg!(42)));
-   |     ^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!(dbg!(dbg!(42)));
-LL +     dbg!(dbg!(42));
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: the `dbg!` macro is intended as a debugging tool
-  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:9:10
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     dbg!(dbg!(dbg!(42)));
-   |          ^^^^^^^^^^^^^^
-   |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!(dbg!(dbg!(42)));
-LL +     dbg!(dbg!(42));
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: the `dbg!` macro is intended as a debugging tool
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:6:1
+   |
+LL | mod submodule;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/auxiliary/submodule.rs:1:1
+   |
+LL | fn f() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/auxiliary/submodule.rs:1:1
+   |
+LL | fn f() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/auxiliary/submodule.rs:1:1
+   |
+LL | fn f() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:8:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:8:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:8:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:9:15
    |
 LL |     dbg!(dbg!(dbg!(42)));
    |               ^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!(dbg!(dbg!(42)));
-LL +     dbg!(dbg!(42));
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:9:10
+   |
+LL |     dbg!(dbg!(dbg!(42)));
+   |          ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:9:5
+   |
+LL |     dbg!(dbg!(dbg!(42)));
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:14:5
    |
 LL |     dbg!(1, 2, dbg!(3, 4));
    |     ^^^^^^^^^^^^^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!(1, 2, dbg!(3, 4));
-LL +     (1, 2, dbg!(3, 4));
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: the `dbg!` macro is intended as a debugging tool
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:14:5
+   |
+LL |     dbg!(1, 2, dbg!(3, 4));
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
   --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:14:16
    |
 LL |     dbg!(1, 2, dbg!(3, 4));
    |                ^^^^^^^^^^
    |
-help: remove the invocation before committing it to a version control system
-   |
-LL -     dbg!(1, 2, dbg!(3, 4));
-LL +     dbg!(1, 2, (3, 4));
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 6 previous errors
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:14:16
+   |
+LL |     dbg!(1, 2, dbg!(3, 4));
+   |                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/dbg_macro/dbg_macro_unfixable.rs:14:5
+   |
+LL |     dbg!(1, 2, dbg!(3, 4));
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::dbg` which comes from the expansion of the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 18 previous errors
 

@@ -1,3 +1,119 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:19:1
+   |
+LL | struct Unitter;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:20:1
+   |
+LL | impl Unitter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:22:9
+   |
+LL |     pub fn get_unit<F: Fn() -> (), G>(&self, f: F, _g: G) -> ()
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:22:9
+   |
+LL |     pub fn get_unit<F: Fn() -> (), G>(&self, f: F, _g: G) -> ()
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:22:40
+   |
+LL |     pub fn get_unit<F: Fn() -> (), G>(&self, f: F, _g: G) -> ()
+   |                                        ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:22:46
+   |
+LL |     pub fn get_unit<F: Fn() -> (), G>(&self, f: F, _g: G) -> ()
+   |                                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:22:52
+   |
+LL |     pub fn get_unit<F: Fn() -> (), G>(&self, f: F, _g: G) -> ()
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:22:39
+   |
+LL |     pub fn get_unit<F: Fn() -> (), G>(&self, f: F, _g: G) -> ()
+   |                                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/unused_unit.rs:27:13
+   |
+LL |         let _y: &dyn Fn() -> () = &f;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:27:17
+   |
+LL |         let _y: &dyn Fn() -> () = &f;
+   |                 ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:27:35
+   |
+LL |         let _y: &dyn Fn() -> () = &f;
+   |                                   ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:33:1
+   |
+LL | impl Into<()> for Unitter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:35:5
+   |
+LL |     fn into(self) -> () {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:35:5
+   |
+LL |     fn into(self) -> () {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:35:13
+   |
+LL |     fn into(self) -> () {
+   |             ^ help: make this parameter mutable: `mut`
+
 error: unneeded unit expression
   --> tests/ui/unused_unit.rs:37:9
    |
@@ -10,11 +126,499 @@ note: the lint level is defined here
 LL | #![deny(clippy::unused_unit)]
    |         ^^^^^^^^^^^^^^^^^^^
 
+error: trait must be `unsafe`
+  --> tests/ui/unused_unit.rs:42:1
+   |
+LL | / trait Trait {
+LL | |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+LL | |
+LL | |     where
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:42:1
+   |
+LL | trait Trait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:43:5
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:43:5
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:43:44
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:43:50
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:43:57
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:43:64
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:43:43
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:52:1
+   |
+LL | impl Trait for Unitter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:53:5
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:53:5
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:53:44
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:53:50
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:53:57
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:53:64
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:53:43
+   |
+LL |     fn redundant<F: FnOnce() -> (), G, H>(&self, _f: F, _g: G, _h: H)
+   |                                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:62:1
+   |
+LL | fn return_unit() -> () { () }
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:62:1
+   |
+LL | fn return_unit() -> () { () }
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:62:1
+   |
+LL | fn return_unit() -> () { () }
+   | ^
+
 error: unneeded unit expression
   --> tests/ui/unused_unit.rs:62:26
    |
 LL | fn return_unit() -> () { () }
    |                          ^^ help: remove the final `()`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:69:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:69:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:69:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unused_unit.rs:70:9
+   |
+LL |     let u = Unitter;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:71:5
+   |
+LL |     assert_eq!(u.get_unit(|| {}, return_unit), u.into());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:71:5
+   |
+LL |     assert_eq!(u.get_unit(|| {}, return_unit), u.into());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unused_unit.rs:71:5
+   |
+LL |     assert_eq!(u.get_unit(|| {}, return_unit), u.into());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:71:5
+   |
+LL |     assert_eq!(u.get_unit(|| {}, return_unit), u.into());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:71:5
+   |
+LL |     assert_eq!(u.get_unit(|| {}, return_unit), u.into());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:82:1
+   |
+LL | fn foo() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:82:1
+   |
+LL | fn foo() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:82:1
+   |
+LL | fn foo() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:83:5
+   |
+LL |     macro_rules! foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:95:1
+   |
+LL | fn test()->(){}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:95:1
+   |
+LL | fn test()->(){}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:95:1
+   |
+LL | fn test()->(){}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:99:1
+   |
+LL | fn test2() ->(){}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:99:1
+   |
+LL | fn test2() ->(){}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:99:1
+   |
+LL | fn test2() ->(){}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:103:1
+   |
+LL | fn test3()-> (){}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:103:1
+   |
+LL | fn test3()-> (){}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:103:1
+   |
+LL | fn test3()-> (){}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:106:1
+   |
+LL | fn macro_expr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:106:1
+   |
+LL | fn macro_expr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:106:1
+   |
+LL | fn macro_expr() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:107:5
+   |
+LL |     macro_rules! e {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:113:1
+   |
+LL | mod issue9748 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:114:5
+   |
+LL |     fn main() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:114:5
+   |
+LL |     fn main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:114:5
+   |
+LL |     fn main() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:115:29
+   |
+LL |         let _ = for<'a> |_: &'a u32| -> () {};
+   |                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:119:1
+   |
+LL | mod issue9949 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:120:5
+   |
+LL |     fn main() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:120:5
+   |
+LL |     fn main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:120:5
+   |
+LL |     fn main() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:126:1
+   |
+LL | mod issue14577 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/unused_unit.rs:127:5
+   |
+LL |     trait Unit {}
+   |     ^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:127:5
+   |
+LL |     trait Unit {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:128:5
+   |
+LL |     impl Unit for () {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:130:5
+   |
+LL |     fn run<R: Unit>(f: impl FnOnce() -> R) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:130:5
+   |
+LL |     fn run<R: Unit>(f: impl FnOnce() -> R) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:130:5
+   |
+LL |     fn run<R: Unit>(f: impl FnOnce() -> R) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:130:21
+   |
+LL |     fn run<R: Unit>(f: impl FnOnce() -> R) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:135:5
+   |
+LL |     fn bar() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:135:5
+   |
+LL |     fn bar() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:135:5
+   |
+LL |     fn bar() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:140:5
+   |
+LL |     struct UnitStruct;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_unit.rs:141:5
+   |
+LL |     impl UnitStruct {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_unit.rs:142:9
+   |
+LL |         fn apply<F: for<'c> Fn(&'c mut Self)>(&mut self, f: F) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_unit.rs:142:9
+   |
+LL |         fn apply<F: for<'c> Fn(&'c mut Self)>(&mut self, f: F) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:142:52
+   |
+LL |         fn apply<F: for<'c> Fn(&'c mut Self)>(&mut self, f: F) {
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unused_unit.rs:142:58
+   |
+LL |         fn apply<F: for<'c> Fn(&'c mut Self)>(&mut self, f: F) {
+   |                                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:142:32
+   |
+LL |         fn apply<F: for<'c> Fn(&'c mut Self)>(&mut self, f: F) {
+   |                                ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unused_unit.rs:142:47
+   |
+LL |         fn apply<F: for<'c> Fn(&'c mut Self)>(&mut self, f: F) {
+   |                                               ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
 error: unneeded unit return type
   --> tests/ui/unused_unit.rs:22:28
@@ -118,5 +722,5 @@ error: unneeded unit return type
 LL | fn test3()-> (){}
    |           ^^^^^ help: remove the `-> ()`
 
-error: aborting due to 19 previous errors
+error: aborting due to 96 previous errors
 

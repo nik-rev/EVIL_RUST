@@ -1,41 +1,353 @@
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry_unfixable.rs:28:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /             if !self.values.contains_key(&name) {
-LL | |
-LL | |                 self.values.insert(name, value);
-LL | |                 true
-...  |
-LL | |                 false
-LL | |             }
-   | |_____________^
-   |
-   = note: `-D clippy::map-entry` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::map_entry)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry_unfixable.rs:43:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if hm.contains_key(&key) {
-LL | |
-LL | |         let bval = hm.get_mut(&key).unwrap();
-LL | |         *bval = false;
-LL | |     } else {
-LL | |         hm.insert(key, true);
-LL | |     }
-   | |_____^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry_unfixable.rs:81:13
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:8:1
    |
-LL | /             if self.globals.contains_key(&name) {
-LL | |
-LL | |                 self.globals.insert(name, value);
-LL | |             } else {
-LL | |                 let interner = INTERNER.lock().unwrap();
-LL | |                 return Err(interner.resolve(name).unwrap().to_owned());
-LL | |             }
-   | |_____________^
+LL | macro_rules! m {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:12:1
+   |
+LL | macro_rules! insert {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:18:1
+   |
+LL | mod issue13306 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:21:5
+   |
+LL |     struct Env {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:26:5
+   |
+LL |     impl Env {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry_unfixable.rs:27:9
+   |
+LL |         fn assign(&mut self, name: String, value: usize) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry_unfixable.rs:27:9
+   |
+LL |         fn assign(&mut self, name: String, value: usize) -> bool {
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/entry_unfixable.rs:27:24
+   |
+LL |         fn assign(&mut self, name: String, value: usize) -> bool {
+   |                        ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry_unfixable.rs:27:30
+   |
+LL |         fn assign(&mut self, name: String, value: usize) -> bool {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry_unfixable.rs:27:44
+   |
+LL |         fn assign(&mut self, name: String, value: usize) -> bool {
+   |                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:27:19
+   |
+LL |         fn assign(&mut self, name: String, value: usize) -> bool {
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:28:42
+   |
+LL |             if !self.values.contains_key(&name) {
+   |                                          ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:32:45
+   |
+LL |             } else if let Some(enclosing) = &mut self.enclosing {
+   |                                             ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:41:1
+   |
+LL | fn issue9925(mut hm: HashMap<String, bool>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry_unfixable.rs:41:1
+   |
+LL | fn issue9925(mut hm: HashMap<String, bool>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry_unfixable.rs:41:1
+   |
+LL | fn issue9925(mut hm: HashMap<String, bool>) {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/entry_unfixable.rs:42:9
+   |
+LL |     let key = "hello".to_string();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:43:24
+   |
+LL |     if hm.contains_key(&key) {
+   |                        ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/entry_unfixable.rs:45:13
+   |
+LL |         let bval = hm.get_mut(&key).unwrap();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:45:31
+   |
+LL |         let bval = hm.get_mut(&key).unwrap();
+   |                               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:52:1
+   |
+LL | mod issue9470 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:56:5
+   |
+LL |     struct Interner(i32);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:58:5
+   |
+LL |     impl Interner {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry_unfixable.rs:59:15
+   |
+LL |         const fn new() -> Self {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry_unfixable.rs:59:15
+   |
+LL |         const fn new() -> Self {
+   |               ^
+
+error: function must be `unsafe`
+  --> tests/ui/entry_unfixable.rs:63:9
+   |
+LL |         fn resolve(&self, name: String) -> Option<String> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry_unfixable.rs:63:9
+   |
+LL |         fn resolve(&self, name: String) -> Option<String> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/entry_unfixable.rs:63:21
+   |
+LL |         fn resolve(&self, name: String) -> Option<String> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry_unfixable.rs:63:27
+   |
+LL |         fn resolve(&self, name: String) -> Option<String> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:63:20
+   |
+LL |         fn resolve(&self, name: String) -> Option<String> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: static must be `mut`
+  --> tests/ui/entry_unfixable.rs:68:12
+   |
+LL |     static INTERNER: Mutex<Interner> = Mutex::new(Interner::new());
+   |            ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:68:5
+   |
+LL |     static INTERNER: Mutex<Interner> = Mutex::new(Interner::new());
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:70:5
+   |
+LL |     struct VM {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:75:5
+   |
+LL |     impl VM {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry_unfixable.rs:76:9
+   |
+LL |         fn stack_top(&self) -> &i32 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry_unfixable.rs:76:9
+   |
+LL |         fn stack_top(&self) -> &i32 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/entry_unfixable.rs:76:23
+   |
+LL |         fn stack_top(&self) -> &i32 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:76:22
+   |
+LL |         fn stack_top(&self) -> &i32 {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:76:32
+   |
+LL |         fn stack_top(&self) -> &i32 {
+   |                                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/entry_unfixable.rs:80:9
+   |
+LL |         fn resolve(&mut self, name: String, value: i32) -> Result<(), String> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry_unfixable.rs:80:9
+   |
+LL |         fn resolve(&mut self, name: String, value: i32) -> Result<(), String> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/entry_unfixable.rs:80:25
+   |
+LL |         fn resolve(&mut self, name: String, value: i32) -> Result<(), String> {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry_unfixable.rs:80:31
+   |
+LL |         fn resolve(&mut self, name: String, value: i32) -> Result<(), String> {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry_unfixable.rs:80:45
+   |
+LL |         fn resolve(&mut self, name: String, value: i32) -> Result<(), String> {
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:80:20
+   |
+LL |         fn resolve(&mut self, name: String, value: i32) -> Result<(), String> {
+   |                    ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/entry_unfixable.rs:81:42
+   |
+LL |             if self.globals.contains_key(&name) {
+   |                                          ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/entry_unfixable.rs:85:21
+   |
+LL |                 let interner = INTERNER.lock().unwrap();
+   |                     ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/entry_unfixable.rs:94:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry_unfixable.rs:94:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry_unfixable.rs:94:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 47 previous errors
 

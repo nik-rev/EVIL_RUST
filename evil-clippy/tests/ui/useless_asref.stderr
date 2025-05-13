@@ -1,3 +1,1367 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:15:1
+   |
+LL | struct FakeAsRef;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:18:1
+   |
+LL | impl FakeAsRef {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:19:5
+   |
+LL |     fn as_ref(&self) -> &Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:19:5
+   |
+LL |     fn as_ref(&self) -> &Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:19:16
+   |
+LL |     fn as_ref(&self) -> &Self {
+   |                ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:19:15
+   |
+LL |     fn as_ref(&self) -> &Self {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:19:25
+   |
+LL |     fn as_ref(&self) -> &Self {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:24:1
+   |
+LL | struct MoreRef;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:26:1
+   |
+LL | impl<'a, 'b, 'c> AsRef<&'a &'b &'c MoreRef> for MoreRef {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:26:24
+   |
+LL | impl<'a, 'b, 'c> AsRef<&'a &'b &'c MoreRef> for MoreRef {
+   |                        ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:26:28
+   |
+LL | impl<'a, 'b, 'c> AsRef<&'a &'b &'c MoreRef> for MoreRef {
+   |                            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:26:32
+   |
+LL | impl<'a, 'b, 'c> AsRef<&'a &'b &'c MoreRef> for MoreRef {
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:27:5
+   |
+LL |     fn as_ref(&self) -> &&'a &'b &'c MoreRef {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:27:5
+   |
+LL |     fn as_ref(&self) -> &&'a &'b &'c MoreRef {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:27:16
+   |
+LL |     fn as_ref(&self) -> &&'a &'b &'c MoreRef {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:27:15
+   |
+LL |     fn as_ref(&self) -> &&'a &'b &'c MoreRef {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:27:25
+   |
+LL |     fn as_ref(&self) -> &&'a &'b &'c MoreRef {
+   |                         ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:27:26
+   |
+LL |     fn as_ref(&self) -> &&'a &'b &'c MoreRef {
+   |                          ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:27:30
+   |
+LL |     fn as_ref(&self) -> &&'a &'b &'c MoreRef {
+   |                              ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:27:34
+   |
+LL |     fn as_ref(&self) -> &&'a &'b &'c MoreRef {
+   |                                  ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:28:9
+   |
+LL |         &&&&MoreRef
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:28:10
+   |
+LL |         &&&&MoreRef
+   |          ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:28:11
+   |
+LL |         &&&&MoreRef
+   |           ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:28:12
+   |
+LL |         &&&&MoreRef
+   |            ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:32:1
+   |
+LL | fn foo_rstr(x: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:32:1
+   |
+LL | fn foo_rstr(x: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:32:1
+   |
+LL | fn foo_rstr(x: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:32:13
+   |
+LL | fn foo_rstr(x: &str) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:32:16
+   |
+LL | fn foo_rstr(x: &str) {
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:35:1
+   |
+LL | fn foo_rslice(x: &[i32]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:35:1
+   |
+LL | fn foo_rslice(x: &[i32]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:35:1
+   |
+LL | fn foo_rslice(x: &[i32]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:35:15
+   |
+LL | fn foo_rslice(x: &[i32]) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:35:18
+   |
+LL | fn foo_rslice(x: &[i32]) {
+   |                  ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:38:1
+   |
+LL | fn foo_mrslice(x: &mut [i32]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:38:1
+   |
+LL | fn foo_mrslice(x: &mut [i32]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:38:1
+   |
+LL | fn foo_mrslice(x: &mut [i32]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:38:16
+   |
+LL | fn foo_mrslice(x: &mut [i32]) {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:38:19
+   |
+LL | fn foo_mrslice(x: &mut [i32]) {
+   |                   ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:41:1
+   |
+LL | fn foo_rrrrmr(_: &&&&MoreRef) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:41:1
+   |
+LL | fn foo_rrrrmr(_: &&&&MoreRef) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:41:1
+   |
+LL | fn foo_rrrrmr(_: &&&&MoreRef) {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:41:18
+   |
+LL | fn foo_rrrrmr(_: &&&&MoreRef) {
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:41:19
+   |
+LL | fn foo_rrrrmr(_: &&&&MoreRef) {
+   |                   ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:41:20
+   |
+LL | fn foo_rrrrmr(_: &&&&MoreRef) {
+   |                    ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:41:21
+   |
+LL | fn foo_rrrrmr(_: &&&&MoreRef) {
+   |                     ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:45:1
+   |
+LL | fn not_ok() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:45:1
+   |
+LL | fn not_ok() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:45:1
+   |
+LL | fn not_ok() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:46:9
+   |
+LL |     let rstr: &str = "hello";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:46:15
+   |
+LL |     let rstr: &str = "hello";
+   |               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:47:22
+   |
+LL |     let mut mrslice: &mut [i32] = &mut [1, 2, 3];
+   |                      ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:47:35
+   |
+LL |     let mut mrslice: &mut [i32] = &mut [1, 2, 3];
+   |                                   ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:50:13
+   |
+LL |         let rslice: &[i32] = &*mrslice;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:50:21
+   |
+LL |         let rslice: &[i32] = &*mrslice;
+   |                     ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:50:30
+   |
+LL |         let rslice: &[i32] = &*mrslice;
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:68:13
+   |
+LL |         let rrrrrstr = &&&&rstr;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:68:24
+   |
+LL |         let rrrrrstr = &&&&rstr;
+   |                        ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:68:25
+   |
+LL |         let rrrrrstr = &&&&rstr;
+   |                         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:68:26
+   |
+LL |         let rrrrrstr = &&&&rstr;
+   |                          ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:68:27
+   |
+LL |         let rrrrrstr = &&&&rstr;
+   |                           ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:69:13
+   |
+LL |         let rrrrrslice = &&&&&*mrslice;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:69:26
+   |
+LL |         let rrrrrslice = &&&&&*mrslice;
+   |                          ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:69:27
+   |
+LL |         let rrrrrslice = &&&&&*mrslice;
+   |                           ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:69:28
+   |
+LL |         let rrrrrslice = &&&&&*mrslice;
+   |                            ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:69:29
+   |
+LL |         let rrrrrslice = &&&&&*mrslice;
+   |                             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:69:30
+   |
+LL |         let rrrrrslice = &&&&&*mrslice;
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:78:13
+   |
+LL |         let mrrrrrslice = &mut &mut &mut &mut mrslice;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:78:27
+   |
+LL |         let mrrrrrslice = &mut &mut &mut &mut mrslice;
+   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:78:32
+   |
+LL |         let mrrrrrslice = &mut &mut &mut &mut mrslice;
+   |                                ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:78:37
+   |
+LL |         let mrrrrrslice = &mut &mut &mut &mut mrslice;
+   |                                     ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:78:42
+   |
+LL |         let mrrrrrslice = &mut &mut &mut &mut mrslice;
+   |                                          ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:87:17
+   |
+LL |     foo_rrrrmr((&&&&MoreRef).as_ref());
+   |                 ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:87:18
+   |
+LL |     foo_rrrrmr((&&&&MoreRef).as_ref());
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:87:19
+   |
+LL |     foo_rrrrmr((&&&&MoreRef).as_ref());
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:87:20
+   |
+LL |     foo_rrrrmr((&&&&MoreRef).as_ref());
+   |                    ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:94:1
+   |
+LL | fn ok() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:94:1
+   |
+LL | fn ok() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:94:1
+   |
+LL | fn ok() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:95:9
+   |
+LL |     let string = "hello".to_owned();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:110:13
+   |
+LL |         let rrrrstring = &&&&string;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:110:26
+   |
+LL |         let rrrrstring = &&&&string;
+   |                          ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:110:27
+   |
+LL |         let rrrrstring = &&&&string;
+   |                           ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:110:28
+   |
+LL |         let rrrrstring = &&&&string;
+   |                            ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:110:29
+   |
+LL |         let rrrrstring = &&&&string;
+   |                             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:111:13
+   |
+LL |         let rrrrarr = &&&&arr;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:111:23
+   |
+LL |         let rrrrarr = &&&&arr;
+   |                       ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:111:24
+   |
+LL |         let rrrrarr = &&&&arr;
+   |                        ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:111:25
+   |
+LL |         let rrrrarr = &&&&arr;
+   |                         ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:111:26
+   |
+LL |         let rrrrarr = &&&&arr;
+   |                          ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:112:13
+   |
+LL |         let rrrrvec = &&&&vec;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:112:23
+   |
+LL |         let rrrrvec = &&&&vec;
+   |                       ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:112:24
+   |
+LL |         let rrrrvec = &&&&vec;
+   |                        ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:112:25
+   |
+LL |         let rrrrvec = &&&&vec;
+   |                         ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:112:26
+   |
+LL |         let rrrrvec = &&&&vec;
+   |                          ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:118:13
+   |
+LL |         let mrrrrarr = &mut &mut &mut &mut arr;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:118:24
+   |
+LL |         let mrrrrarr = &mut &mut &mut &mut arr;
+   |                        ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:118:29
+   |
+LL |         let mrrrrarr = &mut &mut &mut &mut arr;
+   |                             ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:118:34
+   |
+LL |         let mrrrrarr = &mut &mut &mut &mut arr;
+   |                                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:118:39
+   |
+LL |         let mrrrrarr = &mut &mut &mut &mut arr;
+   |                                       ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:119:13
+   |
+LL |         let mrrrrvec = &mut &mut &mut &mut vec;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:119:24
+   |
+LL |         let mrrrrvec = &mut &mut &mut &mut vec;
+   |                        ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:119:29
+   |
+LL |         let mrrrrvec = &mut &mut &mut &mut vec;
+   |                             ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:119:34
+   |
+LL |         let mrrrrvec = &mut &mut &mut &mut vec;
+   |                                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:119:39
+   |
+LL |         let mrrrrvec = &mut &mut &mut &mut vec;
+   |                                       ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:127:16
+   |
+LL |     generic_ok(&mut arr);
+   |                ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:130:1
+   |
+LL | fn foo_mrt<T: Debug + ?Sized>(t: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:130:1
+   |
+LL | fn foo_mrt<T: Debug + ?Sized>(t: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:130:1
+   |
+LL | fn foo_mrt<T: Debug + ?Sized>(t: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:130:31
+   |
+LL | fn foo_mrt<T: Debug + ?Sized>(t: &mut T) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:130:34
+   |
+LL | fn foo_mrt<T: Debug + ?Sized>(t: &mut T) {
+   |                                  ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:133:1
+   |
+LL | fn foo_rt<T: Debug + ?Sized>(t: &T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:133:1
+   |
+LL | fn foo_rt<T: Debug + ?Sized>(t: &T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:133:1
+   |
+LL | fn foo_rt<T: Debug + ?Sized>(t: &T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:133:30
+   |
+LL | fn foo_rt<T: Debug + ?Sized>(t: &T) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:133:33
+   |
+LL | fn foo_rt<T: Debug + ?Sized>(t: &T) {
+   |                                 ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:137:1
+   |
+LL | fn generic_not_ok<T: AsMut<T> + AsRef<T> + Debug + ?Sized>(mrt: &mut T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:137:1
+   |
+LL | fn generic_not_ok<T: AsMut<T> + AsRef<T> + Debug + ?Sized>(mrt: &mut T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:137:1
+   |
+LL | fn generic_not_ok<T: AsMut<T> + AsRef<T> + Debug + ?Sized>(mrt: &mut T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:137:60
+   |
+LL | fn generic_not_ok<T: AsMut<T> + AsRef<T> + Debug + ?Sized>(mrt: &mut T) {
+   |                                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:137:65
+   |
+LL | fn generic_not_ok<T: AsMut<T> + AsRef<T> + Debug + ?Sized>(mrt: &mut T) {
+   |                                                                 ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:146:1
+   |
+LL | fn generic_ok<U: AsMut<T> + AsRef<T> + ?Sized, T: Debug + ?Sized>(mru: &mut U) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:146:1
+   |
+LL | fn generic_ok<U: AsMut<T> + AsRef<T> + ?Sized, T: Debug + ?Sized>(mru: &mut U) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:146:1
+   |
+LL | fn generic_ok<U: AsMut<T> + AsRef<T> + ?Sized, T: Debug + ?Sized>(mru: &mut U) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:146:67
+   |
+LL | fn generic_ok<U: AsMut<T> + AsRef<T> + ?Sized, T: Debug + ?Sized>(mru: &mut U) {
+   |                                                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:146:72
+   |
+LL | fn generic_ok<U: AsMut<T> + AsRef<T> + ?Sized, T: Debug + ?Sized>(mru: &mut U) {
+   |                                                                        ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:151:1
+   |
+LL | fn foo() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:151:1
+   |
+LL | fn foo() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:151:1
+   |
+LL | fn foo() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:152:9
+   |
+LL |     let x = Some(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:153:9
+   |
+LL |     let z = x.as_ref().map(String::clone);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:156:9
+   |
+LL |     let z = x.as_ref().map(|z| z.clone());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:159:9
+   |
+LL |     let z = x.as_ref().map(|z| String::clone(z));
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:163:1
+   |
+LL | mod issue12135 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:168:14
+   |
+LL |     #[derive(Clone)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:168:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:168:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:168:14
+   |
+LL |     #[derive(Clone)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:168:14
+   |
+LL |     #[derive(Clone)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:172:5
+   |
+LL |     struct InnerStruct {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:171:14
+   |
+LL |     #[derive(Clone)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:171:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:171:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:171:14
+   |
+LL |     #[derive(Clone)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:171:14
+   |
+LL |     #[derive(Clone)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:173:9
+   |
+LL |     #[derive(Clone)]
+   |              ----- in this derive macro expansion
+LL |     struct InnerStruct {
+LL |         x: Foo,
+   |         ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:176:5
+   |
+LL |     impl InnerStruct {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:177:9
+   |
+LL |         fn method(&self) -> &Foo {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:177:9
+   |
+LL |         fn method(&self) -> &Foo {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:177:20
+   |
+LL |         fn method(&self) -> &Foo {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:177:19
+   |
+LL |         fn method(&self) -> &Foo {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:177:29
+   |
+LL |         fn method(&self) -> &Foo {
+   |                             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:178:13
+   |
+LL |             &self.x
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:182:9
+   |
+LL |     pub fn f(x: &Struct) -> Option<Foo> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:182:9
+   |
+LL |     pub fn f(x: &Struct) -> Option<Foo> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:182:14
+   |
+LL |     pub fn f(x: &Struct) -> Option<Foo> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:182:17
+   |
+LL |     pub fn f(x: &Struct) -> Option<Foo> {
+   |                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:201:1
+   |
+LL | fn issue_12528() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:201:1
+   |
+LL | fn issue_12528() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:201:1
+   |
+LL | fn issue_12528() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:202:5
+   |
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:204:9
+   |
+LL |     let opt = Some(Arc::new(Foo));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:207:9
+   |
+LL |     let opt = Some(Rc::new(Foo));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:210:9
+   |
+LL |     let opt = Some(Arc::downgrade(&Arc::new(Foo)));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:210:35
+   |
+LL |     let opt = Some(Arc::downgrade(&Arc::new(Foo)));
+   |                                   ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:213:9
+   |
+LL |     let opt = Some(Rc::downgrade(&Rc::new(Foo)));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:213:34
+   |
+LL |     let opt = Some(Rc::downgrade(&Rc::new(Foo)));
+   |                                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:217:1
+   |
+LL | fn issue_14088() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:217:1
+   |
+LL | fn issue_14088() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:217:1
+   |
+LL | fn issue_14088() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:218:9
+   |
+LL |     let s = Some("foo");
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:219:19
+   |
+LL |     let _: Option<&str> = s.as_ref().map(|x| x.as_ref());
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:226:1
+   |
+LL | impl<T> Deref for Wrap<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:229:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:229:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:229:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:229:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:229:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:230:9
+   |
+LL |         &self.inner
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:234:1
+   |
+LL | struct NonCloneableError;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:240:1
+   |
+LL | impl Issue12357 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:241:5
+   |
+LL |     fn f(&self) -> Option<Arc<u32>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:241:5
+   |
+LL |     fn f(&self) -> Option<Arc<u32>> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:241:11
+   |
+LL |     fn f(&self) -> Option<Arc<u32>> {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:241:10
+   |
+LL |     fn f(&self) -> Option<Arc<u32>> {
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:245:5
+   |
+LL |     fn g(&self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:245:5
+   |
+LL |     fn g(&self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_asref.rs:245:11
+   |
+LL |     fn g(&self) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/useless_asref.rs:245:10
+   |
+LL |     fn g(&self) {
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:246:13
+   |
+LL |         let result: Result<String, NonCloneableError> = Ok("Hello".to_string());
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/useless_asref.rs:247:13
+   |
+LL |         let cloned = result.as_ref().map(|s| s.clone());
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_asref.rs:251:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_asref.rs:251:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_asref.rs:251:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: this call to `as_ref` does nothing
   --> tests/ui/useless_asref.rs:51:18
    |
@@ -112,5 +1476,5 @@ error: this call to `as_ref.map(...)` does nothing
 LL |         Some(1).as_ref().map(|&x| x.clone());
    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Some(1).clone()`
 
-error: aborting due to 18 previous errors
+error: aborting due to 193 previous errors
 

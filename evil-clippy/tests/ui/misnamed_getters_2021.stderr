@@ -1,16 +1,93 @@
-error: getter function appears to return the wrong field
-  --> tests/ui/misnamed_getters_2021.rs:15:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     unsafe fn a(&self) -> &u8 {
-LL | |
-LL | |
-LL | |         &self.b
-   | |         ------- help: consider using: `&self.a`
-LL | |     }
-   | |_____^
-   |
-   = note: `-D clippy::misnamed-getters` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::misnamed_getters)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters_2021.rs:9:1
+   |
+LL | union B {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters_2021.rs:14:1
+   |
+LL | impl B {
+   | ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters_2021.rs:15:18
+   |
+LL |     unsafe fn a(&self) -> &u8 {
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters_2021.rs:15:17
+   |
+LL |     unsafe fn a(&self) -> &u8 {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters_2021.rs:15:27
+   |
+LL |     unsafe fn a(&self) -> &u8 {
+   |                           ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters_2021.rs:18:9
+   |
+LL |         &self.b
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters_2021.rs:22:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/misnamed_getters_2021.rs:22:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters_2021.rs:22:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 12 previous errors
 

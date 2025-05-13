@@ -1,58 +1,80 @@
-error: called `map_or(None, ..)` on an `Option` value
-  --> tests/ui/option_map_or_none.rs:10:26
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: Option<i32> = opt.map_or(None, |x| Some(x + 1));
-   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `map`: `opt.map(|x| x + 1)`
-   |
-   = note: `-D clippy::option-map-or-none` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::option_map_or_none)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `map_or(None, ..)` on an `Option` value
-  --> tests/ui/option_map_or_none.rs:14:26
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _: Option<i32> = opt.map_or(None, |x| {
-   |  __________________________^
-LL | |
-LL | |                         Some(x + 1)
-LL | |                        });
-   | |_________________________^ help: consider using `map`: `opt.map(|x| x + 1)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: called `map_or(None, ..)` on an `Option` value
-  --> tests/ui/option_map_or_none.rs:19:26
+error: item must be `pub`
+  --> tests/ui/option_map_or_none.rs:3:1
    |
-LL |     let _: Option<i32> = opt.map_or(None, bar);
-   |                          ^^^^^^^^^^^^^^^^^^^^^ help: consider using `and_then`: `opt.and_then(bar)`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: called `map_or(None, ..)` on an `Option` value
-  --> tests/ui/option_map_or_none.rs:21:26
+error: function must be `unsafe`
+  --> tests/ui/option_map_or_none.rs:3:1
    |
-LL |       let _: Option<i32> = opt.map_or(None, |x| {
-   |  __________________________^
-LL | |
-LL | |         let offset = 0;
-LL | |         let height = x;
-LL | |         Some(offset + height)
-LL | |     });
-   | |______^
+LL | fn main() {
+   | ^
    |
-help: consider using `and_then`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/option_map_or_none.rs:3:1
    |
-LL ~     let _: Option<i32> = opt.and_then(|x| {
-LL +
-LL +         let offset = 0;
-LL +         let height = x;
-LL +         Some(offset + height)
-LL ~     });
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: called `map_or(None, Some)` on a `Result` value
-  --> tests/ui/option_map_or_none.rs:29:26
+error: variable must be `mut`
+  --> tests/ui/option_map_or_none.rs:4:9
    |
-LL |     let _: Option<i32> = r.map_or(None, Some);
-   |                          ^^^^^^^^^^^^^^^^^^^^ help: consider using `ok`: `r.ok()`
+LL |     let opt = Some(1);
+   |         ^ help: make this variable mutable: `mut`
    |
-   = note: `-D clippy::result-map-or-into-option` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::result_map_or_into_option)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 5 previous errors
+error: variable must be `mut`
+  --> tests/ui/option_map_or_none.rs:5:9
+   |
+LL |     let r: Result<i32, i32> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/option_map_or_none.rs:6:9
+   |
+LL |     let bar = |_| Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/option_map_or_none.rs:23:13
+   |
+LL |         let offset = 0;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/option_map_or_none.rs:24:13
+   |
+LL |         let height = x;
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

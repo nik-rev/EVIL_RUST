@@ -1,224 +1,314 @@
-error: this `else` block is redundant
-  --> tests/ui/needless_continue.rs:30:16
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |           } else {
-   |  ________________^
-LL | |
-LL | |
-LL | |             continue;
-LL | |         }
-   | |_________^
-   |
-   = help: consider dropping the `else` clause and merging the code that follows (in the loop) with the `if` block
-                   if i % 2 == 0 && i % 3 == 0 {
-                       println!("{}", i);
-                       println!("{}", i + 1);
-                       if i % 5 == 0 {
-                           println!("{}", i + 2);
-                       }
-                       let i = 0;
-                       println!("bar {} ", i);
-                       // merged code follows:
-                       println!("bleh");
-                       {
-                           println!("blah");
-                       }
-                       if !(!(i == 2) || !(i == 5)) {
-                           println!("lama");
-                       }
-                       if (zero!(i % 2) || nonzero!(i % 5)) && i % 3 != 0 {
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-                       
-                           continue;
-                       } else {
-                           println!("Blabber");
-                           println!("Jabber");
-                       }
-                       println!("bleh");
-                   }
-   = note: `-D clippy::needless-continue` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_continue)]`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: there is no need for an explicit `else` block for this `if` expression
-  --> tests/ui/needless_continue.rs:47:9
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:4:1
    |
-LL | /         if (zero!(i % 2) || nonzero!(i % 5)) && i % 3 != 0 {
-LL | |
-LL | |
-LL | |             continue;
-...  |
-LL | |             println!("Jabber");
-LL | |         }
-   | |_________^
+LL | macro_rules! zero {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider dropping the `else` clause
-                   if (zero!(i % 2) || nonzero!(i % 5)) && i % 3 != 0 {
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-           
-                       continue;
-                   }
-                   {
-                       println!("Blabber");
-                       println!("Jabber");
-                   }
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:10:1
+   |
+LL | macro_rules! nonzero {
+   | ^ help: make this item public: `pub`
 
-error: this `continue` expression is redundant
-  --> tests/ui/needless_continue.rs:62:9
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:17:1
    |
-LL |         continue;
-   |         ^^^^^^^^
-   |
-   = help: consider dropping the `continue` expression
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: this `continue` expression is redundant
-  --> tests/ui/needless_continue.rs:70:9
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:17:1
    |
-LL |         continue;
-   |         ^^^^^^^^
+LL | fn main() {
+   | ^
    |
-   = help: consider dropping the `continue` expression
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:17:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this `continue` expression is redundant
-  --> tests/ui/needless_continue.rs:78:9
+error: variable must be `mut`
+  --> tests/ui/needless_continue.rs:28:17
    |
-LL |         continue
-   |         ^^^^^^^^
+LL |             let i = 0;
+   |                 ^ help: make this variable mutable: `mut`
    |
-   = help: consider dropping the `continue` expression
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this `continue` expression is redundant
-  --> tests/ui/needless_continue.rs:88:9
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:60:1
    |
-LL |         continue
-   |         ^^^^^^^^
-   |
-   = help: consider dropping the `continue` expression
+LL | fn simple_loop() {
+   | ^ help: make this item public: `pub`
 
-error: this `continue` expression is redundant
-  --> tests/ui/needless_continue.rs:97:11
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:60:1
    |
-LL |         { continue }
-   |           ^^^^^^^^
+LL | fn simple_loop() {
+   | ^
    |
-   = help: consider dropping the `continue` expression
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:60:1
+   |
+LL | fn simple_loop() {
+   | ^
 
-error: this `else` block is redundant
-  --> tests/ui/needless_continue.rs:148:24
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:67:1
    |
-LL |                   } else {
-   |  ________________________^
-LL | |
-LL | |
-LL | |                     continue 'inner;
-LL | |                 }
-   | |_________________^
-   |
-   = help: consider dropping the `else` clause and merging the code that follows (in the loop) with the `if` block
-                           if condition() {
-                               println!("bar-3");
-                               // merged code follows:
-                               println!("bar-4");
-                               update_condition();
-                               if condition() {
+LL | fn simple_loop2() {
+   | ^ help: make this item public: `pub`
 
-                               
-                                   continue;
-                               } else {
-                                   println!("bar-5");
-                               }
-                               println!("bar-6");
-                           }
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:67:1
+   |
+LL | fn simple_loop2() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:67:1
+   |
+LL | fn simple_loop2() {
+   | ^
 
-error: there is no need for an explicit `else` block for this `if` expression
-  --> tests/ui/needless_continue.rs:156:17
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:76:1
    |
-LL | /                 if condition() {
-LL | |
-LL | |
-LL | |                     continue;
-LL | |                 } else {
-LL | |                     println!("bar-5");
-LL | |                 }
-   | |_________________^
-   |
-   = help: consider dropping the `else` clause
-                           if condition() {
+LL | fn simple_loop3() {
+   | ^ help: make this item public: `pub`
 
-           
-                               continue;
-                           }
-                           {
-                               println!("bar-5");
-                           }
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:76:1
+   |
+LL | fn simple_loop3() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:76:1
+   |
+LL | fn simple_loop3() {
+   | ^
 
-error: this `continue` expression is redundant
-  --> tests/ui/needless_continue.rs:180:13
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:85:1
    |
-LL |             continue 'b;
-   |             ^^^^^^^^^^^
-   |
-   = help: consider dropping the `continue` expression
+LL | fn simple_loop4() {
+   | ^ help: make this item public: `pub`
 
-error: this `continue` expression is redundant
-  --> tests/ui/needless_continue.rs:196:21
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:85:1
    |
-LL |                     continue 'inner;
-   |                     ^^^^^^^^^^^^^^^
+LL | fn simple_loop4() {
+   | ^
    |
-   = help: consider dropping the `continue` expression
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:85:1
+   |
+LL | fn simple_loop4() {
+   | ^
 
-error: this `continue` expression is redundant
-  --> tests/ui/needless_continue.rs:200:21
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:94:1
    |
-LL |                     continue 'inner;
-   |                     ^^^^^^^^^^^^^^^
-   |
-   = help: consider dropping the `continue` expression
+LL | fn simple_loop5() {
+   | ^ help: make this item public: `pub`
 
-error: this `continue` expression is redundant
-  --> tests/ui/needless_continue.rs:211:21
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:94:1
    |
-LL |                     continue;
-   |                     ^^^^^^^^
+LL | fn simple_loop5() {
+   | ^
    |
-   = help: consider dropping the `continue` expression
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:94:1
+   |
+LL | fn simple_loop5() {
+   | ^
 
-error: this `else` block is redundant
-  --> tests/ui/needless_continue.rs:219:20
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:102:1
    |
-LL |               } else {
-   |  ____________________^
-LL | |
-LL | |                 // redundant `else`
-LL | |                 continue; // redundant `continue`
-LL | |             }
-   | |_____________^
-   |
-   = help: consider dropping the `else` clause and merging the code that follows (in the loop) with the `if` block
-                       if true {
-           // merged code follows:
-           
-                       }
+LL | mod issue_2329 {
+   | ^ help: make this item public: `pub`
 
-error: there is no need for an explicit `else` block for this `if` expression
-  --> tests/ui/needless_continue.rs:227:13
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:103:5
    |
-LL | /             if some_expr() {
-LL | |
-LL | |                 continue;
-LL | |             } else {
-LL | |                 do_something();
-LL | |             }
-   | |_____________^
+LL |     fn condition() -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:103:5
    |
-   = help: consider dropping the `else` clause
-                       if some_expr() {
+LL |     fn condition() -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:103:5
+   |
+LL |     fn condition() -> bool {
+   |     ^
 
-                           continue;
-                       }
-                       {
-                           do_something();
-                       }
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:106:5
+   |
+LL |     fn update_condition() {}
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 15 previous errors
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:106:5
+   |
+LL |     fn update_condition() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:106:5
+   |
+LL |     fn update_condition() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:109:5
+   |
+LL |     fn foo() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:109:5
+   |
+LL |     fn foo() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:109:5
+   |
+LL |     fn foo() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:133:5
+   |
+LL |     fn bar() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:133:5
+   |
+LL |     fn bar() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:133:5
+   |
+LL |     fn bar() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:169:1
+   |
+LL | fn issue_13641() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:169:1
+   |
+LL | fn issue_13641() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:169:1
+   |
+LL | fn issue_13641() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:186:1
+   |
+LL | mod issue_4077 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:187:5
+   |
+LL |     fn main() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:187:5
+   |
+LL |     fn main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:187:5
+   |
+LL |     fn main() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:239:5
+   |
+LL |     fn do_something() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:239:5
+   |
+LL |     fn do_something() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:239:5
+   |
+LL |     fn do_something() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_continue.rs:243:5
+   |
+LL |     fn some_expr() -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_continue.rs:243:5
+   |
+LL |     fn some_expr() -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_continue.rs:243:5
+   |
+LL |     fn some_expr() -> bool {
+   |     ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 37 previous errors
 

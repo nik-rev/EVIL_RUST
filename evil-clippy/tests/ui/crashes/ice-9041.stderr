@@ -1,11 +1,91 @@
-error: called `is_some()` after searching an `Iterator` with `find`
-  --> tests/ui/crashes/ice-9041.rs:5:19
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     things.iter().find(|p| is_thing_ready(p)).is_some()
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `any(|p| is_thing_ready(&p))`
-   |
-   = note: `-D clippy::search-is-some` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::search_is_some)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-9041.rs:3:5
+   |
+LL | pub fn has_thing(things: &[Thing]) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-9041.rs:3:5
+   |
+LL | pub fn has_thing(things: &[Thing]) -> bool {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/crashes/ice-9041.rs:3:18
+   |
+LL | pub fn has_thing(things: &[Thing]) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-9041.rs:3:26
+   |
+LL | pub fn has_thing(things: &[Thing]) -> bool {
+   |                          ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/crashes/ice-9041.rs:4:9
+   |
+LL |     let is_thing_ready = |_peer: &Thing| -> bool { todo!() };
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-9041.rs:4:34
+   |
+LL |     let is_thing_ready = |_peer: &Thing| -> bool { todo!() };
+   |                                  ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-9041.rs:9:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-9041.rs:9:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-9041.rs:9:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

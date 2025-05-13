@@ -1,227 +1,188 @@
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:25:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     (0..10).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::map-with-unused-argument-over-ranges` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::map_with_unused_argument_over_ranges)]`
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (0..10).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(10);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:27:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     (0..10).map(|_foo| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (0..10).map(|_foo| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(10);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:29:5
+error: item must be `pub`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:9:1
    |
-LL |     (0..=10).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn do_something() -> usize {
+   | ^ help: make this item public: `pub`
    |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (0..=10).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(11);
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:31:5
+error: function must be `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:9:1
    |
-LL |     (3..10).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn do_something() -> usize {
+   | ^
    |
-help: remove the explicit range and use `repeat_with` and `take`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:9:1
    |
-LL -     (3..10).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(7);
-   |
+LL | fn do_something() -> usize {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:33:5
+error: item must be `pub`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:13:1
    |
-LL |     (3..=10).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (3..=10).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(8);
-   |
+LL | fn do_something_interesting(x: usize, y: usize) -> usize {
+   | ^ help: make this item public: `pub`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:35:5
+error: function must be `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:13:1
    |
-LL |     (0..10).map(|_| 3);
-   |     ^^^^^^^^^^^^^^^^^^
+LL | fn do_something_interesting(x: usize, y: usize) -> usize {
+   | ^
    |
-help: remove the explicit range and use `repeat_n`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:13:1
    |
-LL -     (0..10).map(|_| 3);
-LL +     std::iter::repeat_n(3, 10);
-   |
+LL | fn do_something_interesting(x: usize, y: usize) -> usize {
+   | ^
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:37:5
+error: parameter must be `mut`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:13:29
    |
-LL | /     (0..10).map(|_| {
-LL | |
-LL | |         let x = 3;
-LL | |         x + 2
-LL | |     });
-   | |______^
+LL | fn do_something_interesting(x: usize, y: usize) -> usize {
+   |                             ^ help: make this parameter mutable: `mut`
    |
-help: remove the explicit range and use `repeat_with` and `take`
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:13:39
    |
-LL ~     std::iter::repeat_with(|| {
-LL |
+LL | fn do_something_interesting(x: usize, y: usize) -> usize {
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:17:1
+   |
+LL | macro_rules! r#gen {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:23:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:23:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:23:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:39:13
+   |
 LL |         let x = 3;
-LL |         x + 2
-LL ~     }).take(10);
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:42:5
+error: variable must be `mut`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:44:9
    |
-LL |     (0..10).map(|_| do_something()).collect::<Vec<_>>();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (0..10).map(|_| do_something()).collect::<Vec<_>>();
-LL +     std::iter::repeat_with(|| do_something()).take(10).collect::<Vec<_>>();
-   |
+LL |     let upper = 4;
+   |         ^ help: make this variable mutable: `mut`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:45:5
+error: variable must be `mut`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:47:9
    |
-LL |     (0..upper).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (0..upper).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(upper);
-   |
+LL |     let upper_fn = || 4;
+   |         ^ help: make this variable mutable: `mut`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:48:5
+error: variable must be `mut`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:65:9
    |
-LL |     (0..upper_fn()).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (0..upper_fn()).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(upper_fn());
-   |
+LL |     let lower = 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:50:5
+error: variable must be `mut`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:66:9
    |
-LL |     (0..=upper_fn()).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (0..=upper_fn()).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(upper_fn() + 1);
-   |
+LL |     let lower_fn = || 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:52:5
+error: item must be `pub`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:77:1
    |
-LL |     (2..upper_fn()).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (2..upper_fn()).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(upper_fn() - 2);
-   |
+LL | fn msrv_1_27() {
+   | ^ help: make this item public: `pub`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:54:5
+error: function must be `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:77:1
    |
-LL |     (2..=upper_fn()).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn msrv_1_27() {
+   | ^
    |
-help: remove the explicit range and use `repeat_with` and `take`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:77:1
    |
-LL -     (2..=upper_fn()).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(upper_fn() - 1);
-   |
+LL | fn msrv_1_27() {
+   | ^
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:57:5
+error: item must be `pub`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:82:1
    |
-LL |     (9..3).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (9..3).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(0);
-   |
+LL | fn msrv_1_28() {
+   | ^ help: make this item public: `pub`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:59:5
+error: function must be `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:82:1
    |
-LL |     (9..=9).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn msrv_1_28() {
+   | ^
    |
-help: remove the explicit range and use `repeat_with` and `take`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:82:1
    |
-LL -     (9..=9).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(1);
-   |
+LL | fn msrv_1_28() {
+   | ^
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:61:5
+error: item must be `pub`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:88:1
    |
-LL |     (1..=1 << 4).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat_with` and `take`
-   |
-LL -     (1..=1 << 4).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take((1 << 4) - 0);
-   |
+LL | fn msrv_1_82() {
+   | ^ help: make this item public: `pub`
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:83:5
+error: function must be `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:88:1
    |
-LL |     (0..10).map(|_| do_something());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn msrv_1_82() {
+   | ^
    |
-help: remove the explicit range and use `repeat_with` and `take`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_with_unused_argument_over_ranges.rs:88:1
    |
-LL -     (0..10).map(|_| do_something());
-LL +     std::iter::repeat_with(|| do_something()).take(10);
-   |
+LL | fn msrv_1_82() {
+   | ^
 
-error: map of a closure that does not depend on its parameter over a range
-  --> tests/ui/map_with_unused_argument_over_ranges.rs:89:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     (0..10).map(|_| 3);
-   |     ^^^^^^^^^^^^^^^^^^
-   |
-help: remove the explicit range and use `repeat` and `take`
-   |
-LL -     (0..10).map(|_| 3);
-LL +     std::iter::repeat(3).take(10);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 18 previous errors
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 24 previous errors
 

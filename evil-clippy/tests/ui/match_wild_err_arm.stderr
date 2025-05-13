@@ -1,36 +1,225 @@
-error: `Err(_)` matches all errors
-  --> tests/ui/match_wild_err_arm.rs:23:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         Err(_) => panic!("err"),
-   |         ^^^^^^
-   |
-   = note: match each error separately or use the error output, or use `.expect(msg)` if the error case is unreachable
-   = note: `-D clippy::match-wild-err-arm` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::match_wild_err_arm)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `Err(_)` matches all errors
-  --> tests/ui/match_wild_err_arm.rs:30:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:4:1
+   |
+LL | fn issue_10635() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:4:1
+   |
+LL | fn issue_10635() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:4:1
+   |
+LL | fn issue_10635() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:5:5
+   |
+LL |     enum Error {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:11:5
+   |
+LL |     const X: () = match Ok::<_, Error>(()) {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:13:19
    |
 LL |         Err(_) => panic!(),
-   |         ^^^^^^
-   |
-   = note: match each error separately or use the error output, or use `.expect(msg)` if the error case is unreachable
+   |                   ^^^^^^^^
 
-error: `Err(_)` matches all errors
-  --> tests/ui/match_wild_err_arm.rs:37:9
+error: function must be `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:13:19
    |
-LL |         Err(_) => {
-   |         ^^^^^^
+LL |         Err(_) => panic!(),
+   |                   ^^^^^^^^
    |
-   = note: match each error separately or use the error output, or use `.expect(msg)` if the error case is unreachable
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:13:19
+   |
+LL |         Err(_) => panic!(),
+   |                   ^^^^^^^^
 
-error: `Err(_e)` matches all errors
-  --> tests/ui/match_wild_err_arm.rs:47:9
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:17:1
+   |
+LL | fn match_wild_err_arm() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:17:1
+   |
+LL | fn match_wild_err_arm() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:17:1
+   |
+LL | fn match_wild_err_arm() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_wild_err_arm.rs:18:9
+   |
+LL |     let x: Result<i32, &str> = Ok(3);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/match_wild_err_arm.rs:18:24
+   |
+LL |     let x: Result<i32, &str> = Ok(3);
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:30:19
+   |
+LL |         Err(_) => panic!(),
+   |                   ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:30:19
+   |
+LL |         Err(_) => panic!(),
+   |                   ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:30:19
+   |
+LL |         Err(_) => panic!(),
+   |                   ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:40:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:40:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:40:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:47:20
    |
 LL |         Err(_e) => panic!(),
-   |         ^^^^^^^
-   |
-   = note: match each error separately or use the error output, or use `.expect(msg)` if the error case is unreachable
+   |                    ^^^^^^^^
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:47:20
+   |
+LL |         Err(_e) => panic!(),
+   |                    ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:47:20
+   |
+LL |         Err(_e) => panic!(),
+   |                    ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:55:20
+   |
+LL |         Err(_e) => panic!("{}", _e),
+   |                    ^^^^^^^^^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:55:20
+   |
+LL |         Err(_e) => panic!("{}", _e),
+   |                    ^^^^^^^^^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:55:20
+   |
+LL |         Err(_e) => panic!("{}", _e),
+   |                    ^^^^^^^^^^^^^^^^
+
+error: parameter must be `mut`
+  --> tests/ui/match_wild_err_arm.rs:55:20
+   |
+LL |         Err(_e) => panic!("{}", _e),
+   |                    ^^^^^^^^^^^^^^^^
+
+error: references are not allowed
+  --> tests/ui/match_wild_err_arm.rs:55:20
+   |
+LL |         Err(_e) => panic!("{}", _e),
+   |                    ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/match_wild_err_arm.rs:55:20
+   |
+LL |         Err(_e) => panic!("{}", _e),
+   |                    ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/match_wild_err_arm.rs:82:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:82:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_wild_err_arm.rs:82:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 27 previous errors
 

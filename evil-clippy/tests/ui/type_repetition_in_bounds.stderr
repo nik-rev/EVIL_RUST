@@ -1,3 +1,1328 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:11:5
+   |
+LL | pub fn foo<T>(_t: T)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:11:5
+   |
+LL | pub fn foo<T>(_t: T)
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:11:15
+   |
+LL | pub fn foo<T>(_t: T)
+   |               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:20:5
+   |
+LL | pub fn bar<T, U>(_t: T, _u: U)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:20:5
+   |
+LL | pub fn bar<T, U>(_t: T, _u: U)
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:20:18
+   |
+LL | pub fn bar<T, U>(_t: T, _u: U)
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:20:25
+   |
+LL | pub fn bar<T, U>(_t: T, _u: U)
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:29:1
+   |
+LL | / trait LintBounds
+LL | | where
+LL | |     Self: Clone,
+LL | |     Self: Copy + Default + Ord,
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:29:1
+   |
+LL | trait LintBounds
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:39:1
+   |
+LL | / trait LotsOfBounds
+LL | | where
+LL | |     Self: Clone + Copy + Default + Ord,
+LL | |     Self: Add<Output = Self> + AddAssign + Sub<Output = Self> + SubAssign,
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:39:1
+   |
+LL | trait LotsOfBounds
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:48:1
+   |
+LL | mod issue4323 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:55:5
+   |
+LL |     impl<A, B> Unpin for Bar<A, B>
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:64:1
+   |
+LL | extern crate serde;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:65:1
+   |
+LL | mod issue4326 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:68:5
+   |
+LL |     trait Foo {}
+   |     ^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:68:5
+   |
+LL |     trait Foo {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:69:5
+   |
+LL |     impl Foo for String {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:72:5
+   |
+LL |     struct Bar<S>
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:11
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:11
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:76:9
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ----- in this derive macro expansion
+...
+LL |         foo: S,
+   |         ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:76:9
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ----- in this derive macro expansion
+...
+LL |         foo: S,
+   |         ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:18
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                  ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:18
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                  ^  --------- in this derive macro expansion
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:71:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:71:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:81:1
+   |
+LL | mod issue10504 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:91:5
+   |
+LL |     struct OpaqueParams<T: ?Sized + Debug>(std::marker::PhantomData<T>);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:86:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:11
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:11
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:86:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:86:14
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:91:44
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ----- in this derive macro expansion
+...
+LL |     struct OpaqueParams<T: ?Sized + Debug>(std::marker::PhantomData<T>);
+   |                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:91:44
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |              ----- in this derive macro expansion
+...
+LL |     struct OpaqueParams<T: ?Sized + Debug>(std::marker::PhantomData<T>);
+   |                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:86:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:86:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:86:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:18
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                  ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:18
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                  ^  --------- in this derive macro expansion
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:86:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:86:21
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:86:29
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                             ^  ----------- in this derive macro expansion
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/type_repetition_in_bounds.rs:86:32
+   |
+LL |     #[derive(Debug, Serialize, Deserialize)]
+   |                                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:95:1
+   |
+LL | struct Foo<T, U>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:105:5
+   |
+LL | pub fn f<T: ?Sized>()
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:105:5
+   |
+LL | pub fn f<T: ?Sized>()
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:111:5
+   |
+LL | pub fn g<T: Clone>()
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:111:5
+   |
+LL | pub fn g<T: Clone>()
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:119:1
+   |
+LL | fn impl_trait(_: impl AsRef<str>, _: impl AsRef<str>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:119:1
+   |
+LL | fn impl_trait(_: impl AsRef<str>, _: impl AsRef<str>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:119:1
+   |
+LL | fn impl_trait(_: impl AsRef<str>, _: impl AsRef<str>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:122:1
+   |
+LL | mod issue8772_fail {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:123:5
+   |
+LL |     pub trait Trait<X, Y, Z> {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:125:9
+   |
+LL |     pub fn f<T: ?Sized, U>(arg: usize)
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:125:9
+   |
+LL |     pub fn f<T: ?Sized, U>(arg: usize)
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:125:28
+   |
+LL |     pub fn f<T: ?Sized, U>(arg: usize)
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:134:1
+   |
+LL | mod issue8772_pass {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:135:5
+   |
+LL |     pub trait Trait<X, Y, Z> {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:137:9
+   |
+LL |     pub fn f<T: ?Sized, U>(arg: usize)
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:137:9
+   |
+LL |     pub fn f<T: ?Sized, U>(arg: usize)
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/type_repetition_in_bounds.rs:137:28
+   |
+LL |     pub fn f<T: ?Sized, U>(arg: usize)
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/type_repetition_in_bounds.rs:146:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:146:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_repetition_in_bounds.rs:146:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: this type has already been used as a bound predicate
   --> tests/ui/type_repetition_in_bounds.rs:14:5
    |
@@ -43,5 +1368,5 @@ LL |         T: Trait<Option<usize>, Box<[String]>, bool> + 'static,
    |
    = help: consider combining the bounds: `T: ?Sized + Trait<Option<usize>, Box<[String]>, bool>`
 
-error: aborting due to 5 previous errors
+error: aborting due to 149 previous errors
 

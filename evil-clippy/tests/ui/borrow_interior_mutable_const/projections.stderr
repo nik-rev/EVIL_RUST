@@ -1,3 +1,186 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:8:1
+   |
+LL | / trait Trait {
+LL | |     type Assoc;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:8:1
+   |
+LL | trait Trait {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:12:1
+   |
+LL | type Assoc<T> = <T as Trait>::Assoc;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:14:1
+   |
+LL | impl Trait for u8 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:18:1
+   |
+LL | impl Trait for () {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:22:1
+   |
+LL | enum MaybeMutable {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:27:1
+   |
+LL | const CELL: Assoc<u8> = UnsafeCell::new(0);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:28:1
+   |
+LL | const UNIT: Assoc<()> = ();
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:29:1
+   |
+LL | const MUTABLE: MaybeMutable = MaybeMutable::Mutable(CELL);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:30:1
+   |
+LL | const IMMUTABLE: MaybeMutable = MaybeMutable::Immutable(UNIT);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:32:1
+   |
+LL | fn print_ref<T>(t: &T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:32:1
+   |
+LL | fn print_ref<T>(t: &T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:32:1
+   |
+LL | fn print_ref<T>(t: &T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:32:17
+   |
+LL | fn print_ref<T>(t: &T) {
+   |                 ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:32:20
+   |
+LL | fn print_ref<T>(t: &T) {
+   |                    ^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:33:9
+   |
+LL |     let p: *const T = t;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:37:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:37:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:37:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:38:15
+   |
+LL |     print_ref(&CELL);
+   |               ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:39:15
+   |
+LL |     print_ref(&UNIT);
+   |               ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:40:15
+   |
+LL |     print_ref(&MUTABLE);
+   |               ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_interior_mutable_const/projections.rs:41:15
+   |
+LL |     print_ref(&IMMUTABLE);
+   |               ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: a `const` item should not be interior mutable
   --> tests/ui/borrow_interior_mutable_const/projections.rs:27:1
    |
@@ -40,5 +223,5 @@ LL |     print_ref(&MUTABLE);
    |
    = help: assign this const to a local or static variable, and use the variable here
 
-error: aborting due to 4 previous errors
+error: aborting due to 29 previous errors
 

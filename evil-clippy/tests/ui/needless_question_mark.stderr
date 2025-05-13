@@ -1,188 +1,569 @@
-error: enclosing `Some` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:20:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     return Some(to.magic?);
-   |            ^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::needless-question-mark` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_question_mark)]`
-help: remove the enclosing `Some` and `?` operator
-   |
-LL -     return Some(to.magic?);
-LL +     return to.magic;
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: enclosing `Some` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:29:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     return Some(to.magic?)
-   |            ^^^^^^^^^^^^^^^
-   |
-help: remove the enclosing `Some` and `?` operator
-   |
-LL -     return Some(to.magic?)
-LL +     return to.magic
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: enclosing `Some` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:35:5
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:10:1
    |
-LL |     Some(to.magic?)
-   |     ^^^^^^^^^^^^^^^
+LL | struct TO {
+   | ^ help: make this item public: `pub`
    |
-help: remove the enclosing `Some` and `?` operator
-   |
-LL -     Some(to.magic?)
-LL +     to.magic
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: enclosing `Some` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:41:21
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:14:1
    |
-LL |     to.and_then(|t| Some(t.magic?))
-   |                     ^^^^^^^^^^^^^^
-   |
-help: remove the enclosing `Some` and `?` operator
-   |
-LL -     to.and_then(|t| Some(t.magic?))
-LL +     to.and_then(|t| t.magic)
-   |
+LL | struct TR {
+   | ^ help: make this item public: `pub`
 
-error: enclosing `Some` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:51:9
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:18:1
    |
-LL |         Some(t.magic?)
-   |         ^^^^^^^^^^^^^^
-   |
-help: remove the enclosing `Some` and `?` operator
-   |
-LL -         Some(t.magic?)
-LL +         t.magic
-   |
+LL | fn simple_option_bad1(to: TO) -> Option<usize> {
+   | ^ help: make this item public: `pub`
 
-error: enclosing `Ok` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:57:12
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:18:1
    |
-LL |     return Ok(tr.magic?);
-   |            ^^^^^^^^^^^^^
+LL | fn simple_option_bad1(to: TO) -> Option<usize> {
+   | ^
    |
-help: remove the enclosing `Ok` and `?` operator
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:18:1
    |
-LL -     return Ok(tr.magic?);
-LL +     return tr.magic;
-   |
+LL | fn simple_option_bad1(to: TO) -> Option<usize> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: enclosing `Ok` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:65:12
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:18:23
    |
-LL |     return Ok(tr.magic?)
-   |            ^^^^^^^^^^^^^
+LL | fn simple_option_bad1(to: TO) -> Option<usize> {
+   |                       ^ help: make this parameter mutable: `mut`
    |
-help: remove the enclosing `Ok` and `?` operator
-   |
-LL -     return Ok(tr.magic?)
-LL +     return tr.magic
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: enclosing `Ok` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:70:5
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:27:1
    |
-LL |     Ok(tr.magic?)
-   |     ^^^^^^^^^^^^^
-   |
-help: remove the enclosing `Ok` and `?` operator
-   |
-LL -     Ok(tr.magic?)
-LL +     tr.magic
-   |
+LL | fn simple_option_bad2(to: TO) -> Option<usize> {
+   | ^ help: make this item public: `pub`
 
-error: enclosing `Ok` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:75:21
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:27:1
    |
-LL |     tr.and_then(|t| Ok(t.magic?))
-   |                     ^^^^^^^^^^^^
+LL | fn simple_option_bad2(to: TO) -> Option<usize> {
+   | ^
    |
-help: remove the enclosing `Ok` and `?` operator
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:27:1
    |
-LL -     tr.and_then(|t| Ok(t.magic?))
-LL +     tr.and_then(|t| t.magic)
-   |
+LL | fn simple_option_bad2(to: TO) -> Option<usize> {
+   | ^
 
-error: enclosing `Ok` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:84:9
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:27:23
    |
-LL |         Ok(t.magic?)
-   |         ^^^^^^^^^^^^
-   |
-help: remove the enclosing `Ok` and `?` operator
-   |
-LL -         Ok(t.magic?)
-LL +         t.magic
-   |
+LL | fn simple_option_bad2(to: TO) -> Option<usize> {
+   |                       ^ help: make this parameter mutable: `mut`
 
-error: enclosing `Ok` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:92:16
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:33:1
    |
-LL |         return Ok(t.magic?);
-   |                ^^^^^^^^^^^^
-   |
-help: remove the enclosing `Ok` and `?` operator
-   |
-LL -         return Ok(t.magic?);
-LL +         return t.magic;
-   |
+LL | fn simple_option_bad3(to: TO) -> Option<usize> {
+   | ^ help: make this item public: `pub`
 
-error: enclosing `Some` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:128:27
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:33:1
    |
-LL |         || -> Option<_> { Some(Some($expr)?) }()
-   |                           ^^^^^^^^^^^^^^^^^^
-...
+LL | fn simple_option_bad3(to: TO) -> Option<usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:33:1
+   |
+LL | fn simple_option_bad3(to: TO) -> Option<usize> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:33:23
+   |
+LL | fn simple_option_bad3(to: TO) -> Option<usize> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:39:1
+   |
+LL | fn simple_option_bad4(to: Option<TO>) -> Option<usize> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:39:1
+   |
+LL | fn simple_option_bad4(to: Option<TO>) -> Option<usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:39:1
+   |
+LL | fn simple_option_bad4(to: Option<TO>) -> Option<usize> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:39:23
+   |
+LL | fn simple_option_bad4(to: Option<TO>) -> Option<usize> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:48:1
+   |
+LL | fn simple_option_bad5(to: Option<TO>) -> Option<usize> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:48:1
+   |
+LL | fn simple_option_bad5(to: Option<TO>) -> Option<usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:48:1
+   |
+LL | fn simple_option_bad5(to: Option<TO>) -> Option<usize> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:48:23
+   |
+LL | fn simple_option_bad5(to: Option<TO>) -> Option<usize> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:56:1
+   |
+LL | fn simple_result_bad1(tr: TR) -> Result<usize, bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:56:1
+   |
+LL | fn simple_result_bad1(tr: TR) -> Result<usize, bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:56:1
+   |
+LL | fn simple_result_bad1(tr: TR) -> Result<usize, bool> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:56:23
+   |
+LL | fn simple_result_bad1(tr: TR) -> Result<usize, bool> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:64:1
+   |
+LL | fn simple_result_bad2(tr: TR) -> Result<usize, bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:64:1
+   |
+LL | fn simple_result_bad2(tr: TR) -> Result<usize, bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:64:1
+   |
+LL | fn simple_result_bad2(tr: TR) -> Result<usize, bool> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:64:23
+   |
+LL | fn simple_result_bad2(tr: TR) -> Result<usize, bool> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:69:1
+   |
+LL | fn simple_result_bad3(tr: TR) -> Result<usize, bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:69:1
+   |
+LL | fn simple_result_bad3(tr: TR) -> Result<usize, bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:69:1
+   |
+LL | fn simple_result_bad3(tr: TR) -> Result<usize, bool> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:69:23
+   |
+LL | fn simple_result_bad3(tr: TR) -> Result<usize, bool> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:74:1
+   |
+LL | fn simple_result_bad4(tr: Result<TR, bool>) -> Result<usize, bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:74:1
+   |
+LL | fn simple_result_bad4(tr: Result<TR, bool>) -> Result<usize, bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:74:1
+   |
+LL | fn simple_result_bad4(tr: Result<TR, bool>) -> Result<usize, bool> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:74:23
+   |
+LL | fn simple_result_bad4(tr: Result<TR, bool>) -> Result<usize, bool> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:82:1
+   |
+LL | fn simple_result_bad5(tr: Result<TR, bool>) -> Result<usize, bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:82:1
+   |
+LL | fn simple_result_bad5(tr: Result<TR, bool>) -> Result<usize, bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:82:1
+   |
+LL | fn simple_result_bad5(tr: Result<TR, bool>) -> Result<usize, bool> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:82:23
+   |
+LL | fn simple_result_bad5(tr: Result<TR, bool>) -> Result<usize, bool> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:89:1
+   |
+LL | fn also_bad(tr: Result<TR, bool>) -> Result<usize, bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:89:1
+   |
+LL | fn also_bad(tr: Result<TR, bool>) -> Result<usize, bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:89:1
+   |
+LL | fn also_bad(tr: Result<TR, bool>) -> Result<usize, bool> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:89:13
+   |
+LL | fn also_bad(tr: Result<TR, bool>) -> Result<usize, bool> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_question_mark.rs:91:13
+   |
+LL |         let t = tr.unwrap();
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:98:1
+   |
+LL | fn false_positive_test<U, T>(x: Result<(), U>) -> Result<(), T>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:98:1
+   |
+LL | fn false_positive_test<U, T>(x: Result<(), U>) -> Result<(), T>
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:98:1
+   |
+LL | fn false_positive_test<U, T>(x: Result<(), U>) -> Result<(), T>
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:98:30
+   |
+LL | fn false_positive_test<U, T>(x: Result<(), U>) -> Result<(), T>
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:106:1
+   |
+LL | fn deref_ref(s: Option<&String>) -> Option<&str> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:106:1
+   |
+LL | fn deref_ref(s: Option<&String>) -> Option<&str> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:106:1
+   |
+LL | fn deref_ref(s: Option<&String>) -> Option<&str> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:106:14
+   |
+LL | fn deref_ref(s: Option<&String>) -> Option<&str> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_question_mark.rs:106:24
+   |
+LL | fn deref_ref(s: Option<&String>) -> Option<&str> {
+   |                        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/needless_question_mark.rs:106:44
+   |
+LL | fn deref_ref(s: Option<&String>) -> Option<&str> {
+   |                                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:110:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:110:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:110:1
+   |
+LL | fn main() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:114:1
+   |
+LL | macro_rules! some_in_macro {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:120:5
+   |
+LL | pub fn test1() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:120:5
+   |
+LL | pub fn test1() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_question_mark.rs:121:9
+   |
+LL |     let x = Some(3);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_question_mark.rs:122:9
+   |
+LL |     let _x = some_in_macro!(x?);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:126:1
+   |
+LL | macro_rules! some_and_qmark_in_macro {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:133:5
+   |
+LL | pub fn test2() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:133:5
+   |
+LL | pub fn test2() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_question_mark.rs:134:9
+   |
+LL |     let x = Some(3);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_question_mark.rs:135:9
+   |
 LL |     let _x = some_and_qmark_in_macro!(x?);
-   |              ---------------------------- in this macro invocation
-   |
-   = note: this error originates in the macro `some_and_qmark_in_macro` (in Nightly builds, run with -Z macro-backtrace for more info)
-help: remove the enclosing `Some` and `?` operator
-   |
-LL -         || -> Option<_> { Some(Some($expr)?) }()
-LL +         || -> Option<_> { Some($expr) }()
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: enclosing `Some` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:140:5
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:138:1
    |
-LL |     Some(to.magic?)
-   |     ^^^^^^^^^^^^^^^
-   |
-help: remove the enclosing `Some` and `?` operator
-   |
-LL -     Some(to.magic?)
-LL +     to.magic
-   |
+LL | async fn async_option_bad(to: TO) -> Option<usize> {
+   | ^ help: make this item public: `pub`
 
-error: enclosing `Ok` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:149:5
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:138:7
    |
-LL |     Ok(s.magic?)
-   |     ^^^^^^^^^^^^
+LL | async fn async_option_bad(to: TO) -> Option<usize> {
+   |       ^
    |
-help: remove the enclosing `Ok` and `?` operator
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:138:7
    |
-LL -     Ok(s.magic?)
-LL +     s.magic
-   |
+LL | async fn async_option_bad(to: TO) -> Option<usize> {
+   |       ^
 
-error: enclosing `Some` and `?` operator are unneeded
-  --> tests/ui/needless_question_mark.rs:154:7
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:138:27
    |
-LL |     { Some(a?) }
-   |       ^^^^^^^^
-   |
-help: remove the enclosing `Some` and `?` operator
-   |
-LL -     { Some(a?) }
-LL +     { a }
-   |
+LL | async fn async_option_bad(to: TO) -> Option<usize> {
+   |                           ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 15 previous errors
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:144:1
+   |
+LL | async fn async_deref_ref(s: Option<&String>) -> Option<&str> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:144:7
+   |
+LL | async fn async_deref_ref(s: Option<&String>) -> Option<&str> {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:144:7
+   |
+LL | async fn async_deref_ref(s: Option<&String>) -> Option<&str> {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:144:26
+   |
+LL | async fn async_deref_ref(s: Option<&String>) -> Option<&str> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_question_mark.rs:144:36
+   |
+LL | async fn async_deref_ref(s: Option<&String>) -> Option<&str> {
+   |                                    ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_question_mark.rs:144:56
+   |
+LL | async fn async_deref_ref(s: Option<&String>) -> Option<&str> {
+   |                                                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:148:1
+   |
+LL | async fn async_result_bad(s: TR) -> Result<usize, bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:148:7
+   |
+LL | async fn async_result_bad(s: TR) -> Result<usize, bool> {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:148:7
+   |
+LL | async fn async_result_bad(s: TR) -> Result<usize, bool> {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:148:27
+   |
+LL | async fn async_result_bad(s: TR) -> Result<usize, bool> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_question_mark.rs:153:1
+   |
+LL | async fn async_wrapped<T>(a: Option<T>) -> Option<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_question_mark.rs:153:7
+   |
+LL | async fn async_wrapped<T>(a: Option<T>) -> Option<T> {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_question_mark.rs:153:7
+   |
+LL | async fn async_wrapped<T>(a: Option<T>) -> Option<T> {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_question_mark.rs:153:27
+   |
+LL | async fn async_wrapped<T>(a: Option<T>) -> Option<T> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 72 previous errors
 

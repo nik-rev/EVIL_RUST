@@ -1,122 +1,211 @@
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:14:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let mut vec1 = Vec::with_capacity(len);
-   |  ____________________^
-...  |
-LL | |     vec1.extend(repeat(0).take(len));
-   | |____________________________________^ help: consider replacing this with: `vec![0; len]`
-   |
-   = note: `-D clippy::slow-vector-initialization` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::slow_vector_initialization)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:20:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let mut vec2 = Vec::with_capacity(len - 10);
-   |  ____________________^
-...  |
-LL | |     vec2.extend(repeat(0).take(len - 10));
-   | |_________________________________________^ help: consider replacing this with: `vec![0; len - 10]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:29:20
+error: item must be `pub`
+  --> tests/ui/slow_vector_initialization.rs:4:1
    |
-LL |       let mut vec4 = Vec::with_capacity(len);
-   |  ____________________^
-...  |
-LL | |     vec4.extend(repeat(0).take(vec4.capacity()));
-   | |________________________________________________^ help: consider replacing this with: `vec![0; len]`
-
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:41:27
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |       let mut resized_vec = Vec::with_capacity(30);
-   |  ___________________________^
-...  |
-LL | |     resized_vec.resize(30, 0);
-   | |_____________________________^ help: consider replacing this with: `vec![0; 30]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:46:26
+error: function must be `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:4:1
    |
-LL |       let mut extend_vec = Vec::with_capacity(30);
-   |  __________________________^
-...  |
-LL | |     extend_vec.extend(repeat(0).take(30));
-   | |_________________________________________^ help: consider replacing this with: `vec![0; 30]`
-
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:55:20
+LL | fn main() {
+   | ^
    |
-LL |       let mut vec1 = Vec::with_capacity(len);
-   |  ____________________^
-...  |
-LL | |     vec1.resize(len, 0);
-   | |_______________________^ help: consider replacing this with: `vec![0; len]`
-
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:65:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:4:1
    |
-LL |       let mut vec3 = Vec::with_capacity(len - 10);
-   |  ____________________^
-...  |
-LL | |     vec3.resize(len - 10, 0);
-   | |____________________________^ help: consider replacing this with: `vec![0; len - 10]`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:70:20
+error: item must be `pub`
+  --> tests/ui/slow_vector_initialization.rs:11:1
    |
-LL |       let mut vec4 = Vec::with_capacity(len);
-   |  ____________________^
-...  |
-LL | |     vec4.resize(vec4.capacity(), 0);
-   | |___________________________________^ help: consider replacing this with: `vec![0; len]`
+LL | fn extend_vector() {
+   | ^ help: make this item public: `pub`
 
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:76:12
+error: function must be `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:11:1
    |
-LL |       vec1 = Vec::with_capacity(10);
-   |  ____________^
-...  |
-LL | |     vec1.resize(10, 0);
-   | |______________________^ help: consider replacing this with: `vec![0; 10]`
-
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:85:20
+LL | fn extend_vector() {
+   | ^
    |
-LL |       let mut vec1 = Vec::new();
-   |  ____________________^
-...  |
-LL | |     vec1.resize(len, 0);
-   | |_______________________^ help: consider replacing this with: `vec![0; len]`
-
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:91:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:11:1
    |
-LL |       let mut vec3 = Vec::new();
-   |  ____________________^
-...  |
-LL | |     vec3.resize(len - 10, 0);
-   | |____________________________^ help: consider replacing this with: `vec![0; len - 10]`
+LL | fn extend_vector() {
+   | ^
 
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:97:12
+error: variable must be `mut`
+  --> tests/ui/slow_vector_initialization.rs:13:9
    |
-LL |       vec1 = Vec::new();
-   |  ____________^
-...  |
-LL | |     vec1.resize(10, 0);
-   | |______________________^ help: consider replacing this with: `vec![0; 10]`
-
-error: slow zero-filling initialization
-  --> tests/ui/slow_vector_initialization.rs:102:12
+LL |     let len = 300;
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |       vec1 = vec![];
-   |  ____________^
-...  |
-LL | |     vec1.resize(10, 0);
-   | |______________________^ help: consider replacing this with: `vec![0; 10]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 13 previous errors
+error: item must be `pub`
+  --> tests/ui/slow_vector_initialization.rs:35:1
+   |
+LL | fn mixed_extend_resize_vector() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:35:1
+   |
+LL | fn mixed_extend_resize_vector() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:35:1
+   |
+LL | fn mixed_extend_resize_vector() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/slow_vector_initialization.rs:52:1
+   |
+LL | fn resize_vector() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:52:1
+   |
+LL | fn resize_vector() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:52:1
+   |
+LL | fn resize_vector() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/slow_vector_initialization.rs:54:9
+   |
+LL |     let len = 300;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/slow_vector_initialization.rs:82:1
+   |
+LL | fn from_empty_vec() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:82:1
+   |
+LL | fn from_empty_vec() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:82:1
+   |
+LL | fn from_empty_vec() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/slow_vector_initialization.rs:84:9
+   |
+LL |     let len = 300;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/slow_vector_initialization.rs:107:5
+   |
+LL |     macro_rules! x {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/slow_vector_initialization.rs:118:1
+   |
+LL | fn do_stuff(vec: &mut [u8]) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:118:1
+   |
+LL | fn do_stuff(vec: &mut [u8]) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:118:1
+   |
+LL | fn do_stuff(vec: &mut [u8]) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/slow_vector_initialization.rs:118:13
+   |
+LL | fn do_stuff(vec: &mut [u8]) {}
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/slow_vector_initialization.rs:118:18
+   |
+LL | fn do_stuff(vec: &mut [u8]) {}
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/slow_vector_initialization.rs:120:1
+   |
+LL | fn extend_vector_with_manipulations_between() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:120:1
+   |
+LL | fn extend_vector_with_manipulations_between() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/slow_vector_initialization.rs:120:1
+   |
+LL | fn extend_vector_with_manipulations_between() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/slow_vector_initialization.rs:121:9
+   |
+LL |     let len = 300;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/slow_vector_initialization.rs:123:14
+   |
+LL |     do_stuff(&mut vec1);
+   |              ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 26 previous errors
 

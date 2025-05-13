@@ -1,28 +1,84 @@
-error: this unit-returning function has a `#[must_use]` attribute
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
   --> tests/ui/must_use_unit_unfixable.rs:4:1
    |
 LL | fn issue_12320() {}
-   | ^^^^^^^^^^^^^^^^
+   | ^ help: make this item public: `pub`
    |
-help: remove `must_use`
-  --> tests/ui/must_use_unit_unfixable.rs:3:19
-   |
-LL | #[cfg_attr(all(), must_use, deprecated)]
-   |                   ^^^^^^^^
-   = note: `-D clippy::must-use-unit` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::must_use_unit)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this unit-returning function has a `#[must_use]` attribute
+error: function must be `unsafe`
+  --> tests/ui/must_use_unit_unfixable.rs:4:1
+   |
+LL | fn issue_12320() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_unit_unfixable.rs:4:1
+   |
+LL | fn issue_12320() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
   --> tests/ui/must_use_unit_unfixable.rs:8:1
    |
 LL | fn issue_12320_2() {}
-   | ^^^^^^^^^^^^^^^^^^
-   |
-help: remove `must_use`
-  --> tests/ui/must_use_unit_unfixable.rs:7:44
-   |
-LL | #[cfg_attr(all(), deprecated, doc = "foo", must_use)]
-   |                                            ^^^^^^^^
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 2 previous errors
+error: function must be `unsafe`
+  --> tests/ui/must_use_unit_unfixable.rs:8:1
+   |
+LL | fn issue_12320_2() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_unit_unfixable.rs:8:1
+   |
+LL | fn issue_12320_2() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/must_use_unit_unfixable.rs:11:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_unit_unfixable.rs:11:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_unit_unfixable.rs:11:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 10 previous errors
 

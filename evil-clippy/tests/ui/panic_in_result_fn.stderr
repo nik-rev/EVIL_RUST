@@ -1,55 +1,302 @@
-error: used `panic!()` or assertion in a function that returns `Result`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn.rs:3:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn.rs:5:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/panic_in_result_fn.rs:6:5
    |
-LL | /     fn result_with_panic() -> Result<bool, String> // should emit lint
-LL | |
-LL | |     {
-LL | |         panic!("error");
-LL | |     }
-   | |_____^
+LL |     fn result_with_panic() -> Result<bool, String> // should emit lint
+   |     ^
    |
-   = help: `panic!()` or assertions should not be used in a function that returns `Result` as `Result` is expected to return an error instead of crashing
-note: return Err() instead of panicking
-  --> tests/ui/panic_in_result_fn.rs:9:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:6:5
    |
-LL |         panic!("error");
-   |         ^^^^^^^^^^^^^^^
-   = note: `-D clippy::panic-in-result-fn` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::panic_in_result_fn)]`
+LL |     fn result_with_panic() -> Result<bool, String> // should emit lint
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: used `panic!()` or assertion in a function that returns `Result`
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:12:5
+   |
+LL |     fn result_with_unimplemented() -> Result<bool, String> // should emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:12:5
+   |
+LL |     fn result_with_unimplemented() -> Result<bool, String> // should emit lint
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:17:5
+   |
+LL |     fn result_with_unreachable() -> Result<bool, String> // should emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:17:5
+   |
+LL |     fn result_with_unreachable() -> Result<bool, String> // should emit lint
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:22:5
+   |
+LL |     fn result_with_todo() -> Result<bool, String> // should emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:22:5
+   |
+LL |     fn result_with_todo() -> Result<bool, String> // should emit lint
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:27:5
+   |
+LL |     fn other_with_panic() // should not emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:27:5
+   |
+LL |     fn other_with_panic() // should not emit lint
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:32:5
+   |
+LL |     fn other_with_unreachable() // should not emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:32:5
+   |
+LL |     fn other_with_unreachable() // should not emit lint
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:37:5
+   |
+LL |     fn other_with_unimplemented() // should not emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:37:5
+   |
+LL |     fn other_with_unimplemented() // should not emit lint
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:42:5
+   |
+LL |     fn other_with_todo() // should not emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:42:5
+   |
+LL |     fn other_with_todo() // should not emit lint
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:47:5
+   |
+LL |     fn result_without_banned_functions() -> Result<bool, String> // should not emit lint
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:47:5
+   |
+LL |     fn result_without_banned_functions() -> Result<bool, String> // should not emit lint
+   |     ^
+
+error: item must be `pub`
   --> tests/ui/panic_in_result_fn.rs:53:1
    |
-LL | / fn function_result_with_panic() -> Result<bool, String> // should emit lint
-LL | |
-LL | | {
-LL | |     panic!("error");
-LL | | }
-   | |_^
-   |
-   = help: `panic!()` or assertions should not be used in a function that returns `Result` as `Result` is expected to return an error instead of crashing
-note: return Err() instead of panicking
-  --> tests/ui/panic_in_result_fn.rs:56:5
-   |
-LL |     panic!("error");
-   |     ^^^^^^^^^^^^^^^
+LL | fn function_result_with_panic() -> Result<bool, String> // should emit lint
+   | ^ help: make this item public: `pub`
 
-error: used `panic!()` or assertion in a function that returns `Result`
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:53:1
+   |
+LL | fn function_result_with_panic() -> Result<bool, String> // should emit lint
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:53:1
+   |
+LL | fn function_result_with_panic() -> Result<bool, String> // should emit lint
+   | ^
+
+error: item must be `pub`
   --> tests/ui/panic_in_result_fn.rs:59:1
    |
-LL | / fn in_closure() -> Result<bool, String> {
-LL | |
-LL | |     let c = || panic!();
-LL | |     c()
-LL | | }
-   | |_^
+LL | fn in_closure() -> Result<bool, String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:59:1
    |
-   = help: `panic!()` or assertions should not be used in a function that returns `Result` as `Result` is expected to return an error instead of crashing
-note: return Err() instead of panicking
+LL | fn in_closure() -> Result<bool, String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:59:1
+   |
+LL | fn in_closure() -> Result<bool, String> {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/panic_in_result_fn.rs:61:9
+   |
+LL |     let c = || panic!();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
   --> tests/ui/panic_in_result_fn.rs:61:16
    |
 LL |     let c = || panic!();
    |                ^^^^^^^^
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:61:16
+   |
+LL |     let c = || panic!();
+   |                ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:61:16
+   |
+LL |     let c = || panic!();
+   |                ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn.rs:65:1
+   |
+LL | fn todo() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:65:1
+   |
+LL | fn todo() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:65:1
+   |
+LL | fn todo() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn.rs:69:1
+   |
+LL | fn function_result_with_custom_todo() -> Result<bool, String> // should not emit lint
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:69:1
+   |
+LL | fn function_result_with_custom_todo() -> Result<bool, String> // should not emit lint
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:69:1
+   |
+LL | fn function_result_with_custom_todo() -> Result<bool, String> // should not emit lint
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn.rs:75:1
+   |
+LL | fn issue_13381<const N: usize>() -> Result<(), String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:75:1
+   |
+LL | fn issue_13381<const N: usize>() -> Result<(), String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:75:1
+   |
+LL | fn issue_13381<const N: usize>() -> Result<(), String> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn.rs:78:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:78:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:78:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/panic_in_result_fn.rs:84:1
+   |
+LL | fn main() -> Result<(), String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:84:1
+   |
+LL | fn main() -> Result<(), String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panic_in_result_fn.rs:84:1
+   |
+LL | fn main() -> Result<(), String> {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 32 previous errors
 

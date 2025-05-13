@@ -1,191 +1,314 @@
-error: casting function pointer `foo` to `i8`
-  --> tests/ui/fn_to_numeric_cast_any.rs:23:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = foo as i8;
-   |             ^^^^^^^^^
-   |
-   = note: `-D clippy::fn-to-numeric-cast-any` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::fn_to_numeric_cast_any)]`
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as i8;
-   |                ++
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: casting function pointer `foo` to `i16`
-  --> tests/ui/fn_to_numeric_cast_any.rs:26:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = foo as i16;
-   |             ^^^^^^^^^^
-   |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as i16;
-   |                ++
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: casting function pointer `foo` to `i32`
-  --> tests/ui/fn_to_numeric_cast_any.rs:29:13
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:4:1
    |
-LL |     let _ = foo as i32;
-   |             ^^^^^^^^^^
+LL | fn foo() -> u8 {
+   | ^ help: make this item public: `pub`
    |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as i32;
-   |                ++
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: casting function pointer `foo` to `i64`
-  --> tests/ui/fn_to_numeric_cast_any.rs:32:13
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:4:1
    |
-LL |     let _ = foo as i64;
-   |             ^^^^^^^^^^
+LL | fn foo() -> u8 {
+   | ^
    |
-help: did you mean to invoke the function?
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:4:1
    |
-LL |     let _ = foo() as i64;
-   |                ++
+LL | fn foo() -> u8 {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: casting function pointer `foo` to `i128`
-  --> tests/ui/fn_to_numeric_cast_any.rs:35:13
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:8:1
    |
-LL |     let _ = foo as i128;
-   |             ^^^^^^^^^^^
-   |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as i128;
-   |                ++
+LL | fn generic_foo<T>(x: T) -> T {
+   | ^ help: make this item public: `pub`
 
-error: casting function pointer `foo` to `isize`
-  --> tests/ui/fn_to_numeric_cast_any.rs:38:13
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:8:1
    |
-LL |     let _ = foo as isize;
-   |             ^^^^^^^^^^^^
+LL | fn generic_foo<T>(x: T) -> T {
+   | ^
    |
-help: did you mean to invoke the function?
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:8:1
    |
-LL |     let _ = foo() as isize;
-   |                ++
+LL | fn generic_foo<T>(x: T) -> T {
+   | ^
 
-error: casting function pointer `foo` to `u8`
-  --> tests/ui/fn_to_numeric_cast_any.rs:41:13
+error: parameter must be `mut`
+  --> tests/ui/fn_to_numeric_cast_any.rs:8:19
    |
-LL |     let _ = foo as u8;
-   |             ^^^^^^^^^
+LL | fn generic_foo<T>(x: T) -> T {
+   |                   ^ help: make this parameter mutable: `mut`
    |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as u8;
-   |                ++
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: casting function pointer `foo` to `u16`
-  --> tests/ui/fn_to_numeric_cast_any.rs:44:13
+error: trait must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:12:1
    |
-LL |     let _ = foo as u16;
-   |             ^^^^^^^^^^
+LL | / trait Trait {
+LL | |     fn static_method() -> u32 {
+LL | |         2
+LL | |     }
+LL | | }
+   | |_^
    |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as u16;
-   |                ++
+   = help: make this trait unsafe: `unsafe trait`
 
-error: casting function pointer `foo` to `u32`
-  --> tests/ui/fn_to_numeric_cast_any.rs:47:13
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:12:1
    |
-LL |     let _ = foo as u32;
-   |             ^^^^^^^^^^
-   |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as u32;
-   |                ++
+LL | trait Trait {
+   | ^ help: make this item public: `pub`
 
-error: casting function pointer `foo` to `u64`
-  --> tests/ui/fn_to_numeric_cast_any.rs:50:13
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:13:5
    |
-LL |     let _ = foo as u64;
-   |             ^^^^^^^^^^
+LL |     fn static_method() -> u32 {
+   |     ^
    |
-help: did you mean to invoke the function?
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:13:5
    |
-LL |     let _ = foo() as u64;
-   |                ++
+LL |     fn static_method() -> u32 {
+   |     ^
 
-error: casting function pointer `foo` to `u128`
-  --> tests/ui/fn_to_numeric_cast_any.rs:53:13
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:18:1
    |
-LL |     let _ = foo as u128;
-   |             ^^^^^^^^^^^
-   |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as u128;
-   |                ++
+LL | struct Struct;
+   | ^ help: make this item public: `pub`
 
-error: casting function pointer `foo` to `usize`
-  --> tests/ui/fn_to_numeric_cast_any.rs:56:13
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:20:1
    |
-LL |     let _ = foo as usize;
-   |             ^^^^^^^^^^^^
-   |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as usize;
-   |                ++
+LL | impl Trait for Struct {}
+   | ^ help: make this item public: `pub`
 
-error: casting function pointer `Struct::static_method` to `usize`
-  --> tests/ui/fn_to_numeric_cast_any.rs:61:13
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:22:1
    |
-LL |     let _ = Struct::static_method as usize;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = Struct::static_method() as usize;
-   |                                  ++
+LL | fn fn_pointer_to_integer() {
+   | ^ help: make this item public: `pub`
 
-error: casting function pointer `f` to `usize`
-  --> tests/ui/fn_to_numeric_cast_any.rs:66:5
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:22:1
    |
-LL |     f as usize
-   |     ^^^^^^^^^^
+LL | fn fn_pointer_to_integer() {
+   | ^
    |
-help: did you mean to invoke the function?
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:22:1
    |
-LL |     f() as usize
-   |      ++
+LL | fn fn_pointer_to_integer() {
+   | ^
 
-error: casting function pointer `T::static_method` to `usize`
-  --> tests/ui/fn_to_numeric_cast_any.rs:71:5
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:60:1
    |
-LL |     T::static_method as usize
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: did you mean to invoke the function?
-   |
-LL |     T::static_method() as usize
-   |                     ++
+LL | fn static_method_to_integer() {
+   | ^ help: make this item public: `pub`
 
-error: casting function pointer `(clos as fn(u32) -> u32)` to `usize`
-  --> tests/ui/fn_to_numeric_cast_any.rs:78:13
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:60:1
    |
-LL |     let _ = (clos as fn(u32) -> u32) as usize;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn static_method_to_integer() {
+   | ^
    |
-help: did you mean to invoke the function?
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:60:1
    |
-LL |     let _ = (clos as fn(u32) -> u32)() as usize;
-   |                                     ++
+LL | fn static_method_to_integer() {
+   | ^
 
-error: casting function pointer `foo` to `*const ()`
-  --> tests/ui/fn_to_numeric_cast_any.rs:83:13
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:65:1
    |
-LL |     let _ = foo as *const ();
-   |             ^^^^^^^^^^^^^^^^
-   |
-help: did you mean to invoke the function?
-   |
-LL |     let _ = foo() as *const ();
-   |                ++
+LL | fn fn_with_fn_arg(f: fn(i32) -> u32) -> usize {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 17 previous errors
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:65:1
+   |
+LL | fn fn_with_fn_arg(f: fn(i32) -> u32) -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:65:1
+   |
+LL | fn fn_with_fn_arg(f: fn(i32) -> u32) -> usize {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/fn_to_numeric_cast_any.rs:65:19
+   |
+LL | fn fn_with_fn_arg(f: fn(i32) -> u32) -> usize {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:70:1
+   |
+LL | fn fn_with_generic_static_trait_method<T: Trait>() -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:70:1
+   |
+LL | fn fn_with_generic_static_trait_method<T: Trait>() -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:70:1
+   |
+LL | fn fn_with_generic_static_trait_method<T: Trait>() -> usize {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:75:1
+   |
+LL | fn closure_to_fn_to_integer() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:75:1
+   |
+LL | fn closure_to_fn_to_integer() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:75:1
+   |
+LL | fn closure_to_fn_to_integer() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/fn_to_numeric_cast_any.rs:76:9
+   |
+LL |     let clos = |x| x * 2_u32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:82:1
+   |
+LL | fn fn_to_raw_ptr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:82:1
+   |
+LL | fn fn_to_raw_ptr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:82:1
+   |
+LL | fn fn_to_raw_ptr() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:87:1
+   |
+LL | fn cast_fn_to_self() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:87:1
+   |
+LL | fn cast_fn_to_self() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:87:1
+   |
+LL | fn cast_fn_to_self() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:92:1
+   |
+LL | fn cast_generic_to_concrete() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:92:1
+   |
+LL | fn cast_generic_to_concrete() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:92:1
+   |
+LL | fn cast_generic_to_concrete() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:97:1
+   |
+LL | fn cast_closure_to_fn() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:97:1
+   |
+LL | fn cast_closure_to_fn() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:97:1
+   |
+LL | fn cast_closure_to_fn() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/fn_to_numeric_cast_any.rs:99:9
+   |
+LL |     let id = |x| x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/fn_to_numeric_cast_any.rs:103:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:103:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/fn_to_numeric_cast_any.rs:103:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 37 previous errors
 

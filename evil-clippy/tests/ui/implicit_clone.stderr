@@ -1,71 +1,539 @@
-error: implicitly cloning a `Vec` by calling `to_owned` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:65:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = vec.to_owned();
-   |             ^^^^^^^^^^^^^^ help: consider using: `vec.clone()`
-   |
-   = note: `-D clippy::implicit-clone` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::implicit_clone)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: implicitly cloning a `Vec` by calling `to_vec` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:67:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = vec.to_vec();
-   |             ^^^^^^^^^^^^ help: consider using: `vec.clone()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: implicitly cloning a `Vec` by calling `to_vec` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:73:13
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:7:1
    |
-LL |     let _ = vec_ref.to_vec();
-   |             ^^^^^^^^^^^^^^^^ help: consider using: `vec_ref.clone()`
-
-error: implicitly cloning a `String` by calling `to_owned` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:86:13
+LL | fn return_owned_from_slice(slice: &[u32]) -> Vec<u32> {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = str.to_owned();
-   |             ^^^^^^^^^^^^^^ help: consider using: `str.clone()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: implicitly cloning a `Kitten` by calling `to_owned` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:91:13
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:7:1
    |
-LL |     let _ = kitten.to_owned();
-   |             ^^^^^^^^^^^^^^^^^ help: consider using: `kitten.clone()`
-
-error: implicitly cloning a `PathBuf` by calling `to_owned` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:102:13
+LL | fn return_owned_from_slice(slice: &[u32]) -> Vec<u32> {
+   | ^
    |
-LL |     let _ = pathbuf.to_owned();
-   |             ^^^^^^^^^^^^^^^^^^ help: consider using: `pathbuf.clone()`
-
-error: implicitly cloning a `PathBuf` by calling `to_path_buf` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:104:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:7:1
    |
-LL |     let _ = pathbuf.to_path_buf();
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: consider using: `pathbuf.clone()`
+LL | fn return_owned_from_slice(slice: &[u32]) -> Vec<u32> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: implicitly cloning a `OsString` by calling `to_owned` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:108:13
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:7:28
    |
-LL |     let _ = os_string.to_owned();
-   |             ^^^^^^^^^^^^^^^^^^^^ help: consider using: `os_string.clone()`
-
-error: implicitly cloning a `OsString` by calling `to_os_string` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:110:13
+LL | fn return_owned_from_slice(slice: &[u32]) -> Vec<u32> {
+   |                            ^ help: make this parameter mutable: `mut`
    |
-LL |     let _ = os_string.to_os_string();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `os_string.clone()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: implicitly cloning a `PathBuf` by calling `to_path_buf` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:122:13
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:7:35
    |
-LL |     let _ = pathbuf_ref.to_path_buf();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `(*pathbuf_ref).clone()`
-
-error: implicitly cloning a `PathBuf` by calling `to_path_buf` on its dereferenced type
-  --> tests/ui/implicit_clone.rs:126:13
+LL | fn return_owned_from_slice(slice: &[u32]) -> Vec<u32> {
+   |                                   ^^^^^^
    |
-LL |     let _ = pathbuf_ref.to_path_buf();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `(**pathbuf_ref).clone()`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: aborting due to 11 previous errors
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:11:5
+   |
+LL | pub fn own_same<T>(v: T) -> T
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:11:5
+   |
+LL | pub fn own_same<T>(v: T) -> T
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:11:20
+   |
+LL | pub fn own_same<T>(v: T) -> T
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:18:5
+   |
+LL | pub fn own_same_from_ref<T>(v: &T) -> T
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:18:5
+   |
+LL | pub fn own_same_from_ref<T>(v: &T) -> T
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:18:29
+   |
+LL | pub fn own_same_from_ref<T>(v: &T) -> T
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:18:32
+   |
+LL | pub fn own_same_from_ref<T>(v: &T) -> T
+   |                                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:25:5
+   |
+LL | pub fn own_different<T, U>(v: T) -> U
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:25:5
+   |
+LL | pub fn own_different<T, U>(v: T) -> U
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:25:28
+   |
+LL | pub fn own_different<T, U>(v: T) -> U
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:33:1
+   |
+LL | struct Kitten;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:32:10
+   |
+LL | #[derive(Copy, Clone)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:32:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^
+
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:32:13
+   |
+LL | #[derive(Copy, Clone)]
+   |             ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:32:13
+   |
+LL | #[derive(Copy, Clone)]
+   |             ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:32:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:32:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:34:1
+   |
+LL | impl Kitten {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:36:5
+   |
+LL |     fn to_vec(self) -> Kitten {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:36:5
+   |
+LL |     fn to_vec(self) -> Kitten {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:36:15
+   |
+LL |     fn to_vec(self) -> Kitten {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:40:1
+   |
+LL | impl Borrow<BorrowedKitten> for Kitten {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:41:5
+   |
+LL |     fn borrow(&self) -> &BorrowedKitten {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:41:5
+   |
+LL |     fn borrow(&self) -> &BorrowedKitten {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:41:16
+   |
+LL |     fn borrow(&self) -> &BorrowedKitten {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:41:15
+   |
+LL |     fn borrow(&self) -> &BorrowedKitten {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:41:25
+   |
+LL |     fn borrow(&self) -> &BorrowedKitten {
+   |                         ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: static must be `mut`
+  --> tests/ui/implicit_clone.rs:42:16
+   |
+LL |         static VALUE: BorrowedKitten = BorrowedKitten {};
+   |                ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:42:9
+   |
+LL |         static VALUE: BorrowedKitten = BorrowedKitten {};
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:43:9
+   |
+LL |         &VALUE
+   |         ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:47:1
+   |
+LL | struct BorrowedKitten;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:48:1
+   |
+LL | impl ToOwned for BorrowedKitten {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:50:5
+   |
+LL |     fn to_owned(&self) -> Kitten {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:50:5
+   |
+LL |     fn to_owned(&self) -> Kitten {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:50:18
+   |
+LL |     fn to_owned(&self) -> Kitten {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:50:17
+   |
+LL |     fn to_owned(&self) -> Kitten {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:55:1
+   |
+LL | mod weird {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:57:9
+   |
+LL |     pub fn to_vec(v: &Vec<u32>) -> Vec<u32> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:57:9
+   |
+LL |     pub fn to_vec(v: &Vec<u32>) -> Vec<u32> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:57:19
+   |
+LL |     pub fn to_vec(v: &Vec<u32>) -> Vec<u32> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:57:22
+   |
+LL |     pub fn to_vec(v: &Vec<u32>) -> Vec<u32> {
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:62:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:62:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:62:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:63:9
+   |
+LL |     let vec = vec![5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:64:37
+   |
+LL |     let _ = return_owned_from_slice(&vec);
+   |                                     ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:70:9
+   |
+LL |     let vec_ref = &vec;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:70:19
+   |
+LL |     let vec_ref = &vec;
+   |                   ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:77:27
+   |
+LL |     let _ = weird::to_vec(&vec);
+   |                           ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:80:9
+   |
+LL |     let slice: &[u32] = &[1, 2, 3, 4, 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:80:16
+   |
+LL |     let slice: &[u32] = &[1, 2, 3, 4, 5];
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:80:25
+   |
+LL |     let slice: &[u32] = &[1, 2, 3, 4, 5];
+   |                         ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:85:9
+   |
+LL |     let str = "hello world".to_string();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:90:9
+   |
+LL |     let kitten = Kitten {};
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:93:31
+   |
+LL |     let _ = own_same_from_ref(&kitten);
+   |                               ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:98:9
+   |
+LL |     let borrowed = BorrowedKitten {};
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:101:9
+   |
+LL |     let pathbuf = PathBuf::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:107:9
+   |
+LL |     let os_string = OsString::from("foo");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:114:9
+   |
+LL |     let os_str = OsStr::new("foo");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:119:9
+   |
+LL |     let pathbuf_ref = &pathbuf;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:119:23
+   |
+LL |     let pathbuf_ref = &pathbuf;
+   |                       ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:120:9
+   |
+LL |     let pathbuf_ref = &pathbuf_ref;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:120:23
+   |
+LL |     let pathbuf_ref = &pathbuf_ref;
+   |                       ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:124:9
+   |
+LL |     let pathbuf_ref = &pathbuf_ref;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:124:23
+   |
+LL |     let pathbuf_ref = &pathbuf_ref;
+   |                       ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:129:5
+   |
+LL |     struct NoClone;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/implicit_clone.rs:130:5
+   |
+LL |     impl ToOwned for NoClone {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/implicit_clone.rs:132:9
+   |
+LL |         fn to_owned(&self) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/implicit_clone.rs:132:9
+   |
+LL |         fn to_owned(&self) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/implicit_clone.rs:132:22
+   |
+LL |         fn to_owned(&self) -> Self {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:132:21
+   |
+LL |         fn to_owned(&self) -> Self {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/implicit_clone.rs:136:9
+   |
+LL |     let no_clone = &NoClone;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/implicit_clone.rs:136:20
+   |
+LL |     let no_clone = &NoClone;
+   |                    ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 71 previous errors
 

@@ -1,131 +1,662 @@
-error: `drain` used to clear a `Vec`
-  --> tests/ui/clear_with_drain.rs:22:7
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     v.drain(0..v.len());
-   |       ^^^^^^^^^^^^^^^^^ help: try: `clear()`
-   |
-   = note: `-D clippy::clear-with-drain` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::clear_with_drain)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `drain` used to clear a `Vec`
-  --> tests/ui/clear_with_drain.rs:27:7
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     v.drain(usize::MIN..v.len());
-   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `clear()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `drain` used to clear a `Vec`
-  --> tests/ui/clear_with_drain.rs:47:7
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:6:1
    |
-LL |     v.drain(0..);
-   |       ^^^^^^^^^^ help: try: `clear()`
-
-error: `drain` used to clear a `Vec`
-  --> tests/ui/clear_with_drain.rs:52:7
+LL | fn vec_range() {
+   | ^ help: make this item public: `pub`
    |
-LL |     v.drain(usize::MIN..);
-   |       ^^^^^^^^^^^^^^^^^^^ help: try: `clear()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `drain` used to clear a `Vec`
-  --> tests/ui/clear_with_drain.rs:69:7
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:6:1
    |
-LL |     v.drain(..);
-   |       ^^^^^^^^^ help: try: `clear()`
-
-error: `drain` used to clear a `Vec`
-  --> tests/ui/clear_with_drain.rs:87:7
+LL | fn vec_range() {
+   | ^
    |
-LL |     v.drain(..v.len());
-   |       ^^^^^^^^^^^^^^^^ help: try: `clear()`
-
-error: `drain` used to clear a `VecDeque`
-  --> tests/ui/clear_with_drain.rs:126:11
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:6:1
    |
-LL |     deque.drain(0..deque.len());
-   |           ^^^^^^^^^^^^^^^^^^^^^ help: try: `clear()`
+LL | fn vec_range() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: `drain` used to clear a `VecDeque`
-  --> tests/ui/clear_with_drain.rs:131:11
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:9:9
    |
-LL |     deque.drain(usize::MIN..deque.len());
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `clear()`
-
-error: `drain` used to clear a `VecDeque`
-  --> tests/ui/clear_with_drain.rs:151:11
+LL |     let iter = v.drain(0..v.len());
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     deque.drain(0..);
-   |           ^^^^^^^^^^ help: try: `clear()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: `drain` used to clear a `VecDeque`
-  --> tests/ui/clear_with_drain.rs:156:11
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:13:9
    |
-LL |     deque.drain(usize::MIN..);
-   |           ^^^^^^^^^^^^^^^^^^^ help: try: `clear()`
+LL |     let n = v.drain(0..v.len()).count();
+   |         ^ help: make this variable mutable: `mut`
 
-error: `drain` used to clear a `VecDeque`
-  --> tests/ui/clear_with_drain.rs:173:11
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:17:9
    |
-LL |     deque.drain(..);
-   |           ^^^^^^^^^ help: try: `clear()`
+LL |     let iter = v.drain(usize::MIN..v.len());
+   |         ^ help: make this variable mutable: `mut`
 
-error: `drain` used to clear a `VecDeque`
-  --> tests/ui/clear_with_drain.rs:191:11
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:18:9
    |
-LL |     deque.drain(..deque.len());
-   |           ^^^^^^^^^^^^^^^^^^^^ help: try: `clear()`
+LL |     let n = iter.count();
+   |         ^ help: make this variable mutable: `mut`
 
-error: `drain` used to clear a `String`
-  --> tests/ui/clear_with_drain.rs:230:7
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:31:1
    |
-LL |     s.drain(0..s.len());
-   |       ^^^^^^^^^^^^^^^^^ help: try: `clear()`
+LL | fn vec_range_from() {
+   | ^ help: make this item public: `pub`
 
-error: `drain` used to clear a `String`
-  --> tests/ui/clear_with_drain.rs:235:7
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:31:1
    |
-LL |     s.drain(usize::MIN..s.len());
-   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `clear()`
-
-error: `drain` used to clear a `String`
-  --> tests/ui/clear_with_drain.rs:255:7
+LL | fn vec_range_from() {
+   | ^
    |
-LL |     s.drain(0..);
-   |       ^^^^^^^^^^ help: try: `clear()`
-
-error: `drain` used to clear a `String`
-  --> tests/ui/clear_with_drain.rs:260:7
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:31:1
    |
-LL |     s.drain(usize::MIN..);
-   |       ^^^^^^^^^^^^^^^^^^^ help: try: `clear()`
+LL | fn vec_range_from() {
+   | ^
 
-error: `drain` used to clear a `String`
-  --> tests/ui/clear_with_drain.rs:277:7
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:34:9
    |
-LL |     s.drain(..);
-   |       ^^^^^^^^^ help: try: `clear()`
+LL |     let iter = v.drain(0..);
+   |         ^ help: make this variable mutable: `mut`
 
-error: `drain` used to clear a `String`
-  --> tests/ui/clear_with_drain.rs:295:7
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:39:9
    |
-LL |     s.drain(..s.len());
-   |       ^^^^^^^^^^^^^^^^ help: try: `clear()`
+LL |     let next = iter.next();
+   |         ^ help: make this variable mutable: `mut`
 
-error: `drain` used to clear a `HashSet`
-  --> tests/ui/clear_with_drain.rs:334:9
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:43:9
    |
-LL |     set.drain();
-   |         ^^^^^^^ help: try: `clear()`
+LL |     let next = v.drain(usize::MIN..).next();
+   |         ^ help: make this variable mutable: `mut`
 
-error: `drain` used to clear a `HashMap`
-  --> tests/ui/clear_with_drain.rs:354:9
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:56:1
    |
-LL |     map.drain();
-   |         ^^^^^^^ help: try: `clear()`
+LL | fn vec_range_full() {
+   | ^ help: make this item public: `pub`
 
-error: `drain` used to clear a `BinaryHeap`
-  --> tests/ui/clear_with_drain.rs:374:10
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:56:1
    |
-LL |     heap.drain();
-   |          ^^^^^^^ help: try: `clear()`
+LL | fn vec_range_full() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:56:1
+   |
+LL | fn vec_range_full() {
+   | ^
 
-error: aborting due to 21 previous errors
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:59:9
+   |
+LL |     let iter = v.drain(..);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:64:13
+   |
+LL |         let y = format!("x = {x}");
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:73:1
+   |
+LL | fn vec_range_to() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:73:1
+   |
+LL | fn vec_range_to() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:73:1
+   |
+LL | fn vec_range_to() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:76:9
+   |
+LL |     let iter = v.drain(..v.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:80:9
+   |
+LL |     let iter = v.drain(..v.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:82:13
+   |
+LL |         let y = format!("x = {x}");
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:91:1
+   |
+LL | fn vec_partial_drains() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:91:1
+   |
+LL | fn vec_partial_drains() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:91:1
+   |
+LL | fn vec_partial_drains() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:107:9
+   |
+LL |     let w: Vec<i8> = v.drain(1..v.len() - 1).collect();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:110:1
+   |
+LL | fn vec_deque_range() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:110:1
+   |
+LL | fn vec_deque_range() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:110:1
+   |
+LL | fn vec_deque_range() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:113:9
+   |
+LL |     let iter = deque.drain(0..deque.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:117:9
+   |
+LL |     let n = deque.drain(0..deque.len()).count();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:121:9
+   |
+LL |     let iter = deque.drain(usize::MIN..deque.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:122:9
+   |
+LL |     let n = iter.count();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:135:1
+   |
+LL | fn vec_deque_range_from() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:135:1
+   |
+LL | fn vec_deque_range_from() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:135:1
+   |
+LL | fn vec_deque_range_from() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:138:9
+   |
+LL |     let iter = deque.drain(0..);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:143:9
+   |
+LL |     let next = iter.next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:147:9
+   |
+LL |     let next = deque.drain(usize::MIN..).next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:160:1
+   |
+LL | fn vec_deque_range_full() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:160:1
+   |
+LL | fn vec_deque_range_full() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:160:1
+   |
+LL | fn vec_deque_range_full() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:163:9
+   |
+LL |     let iter = deque.drain(..);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:168:13
+   |
+LL |         let y = format!("x = {x}");
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:177:1
+   |
+LL | fn vec_deque_range_to() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:177:1
+   |
+LL | fn vec_deque_range_to() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:177:1
+   |
+LL | fn vec_deque_range_to() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:180:9
+   |
+LL |     let iter = deque.drain(..deque.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:184:9
+   |
+LL |     let iter = deque.drain(..deque.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:186:13
+   |
+LL |         let y = format!("x = {x}");
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:195:1
+   |
+LL | fn vec_deque_partial_drains() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:195:1
+   |
+LL | fn vec_deque_partial_drains() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:195:1
+   |
+LL | fn vec_deque_partial_drains() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:211:9
+   |
+LL |     let w: Vec<i8> = deque.drain(1..deque.len() - 1).collect();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:214:1
+   |
+LL | fn string_range() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:214:1
+   |
+LL | fn string_range() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:214:1
+   |
+LL | fn string_range() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:217:9
+   |
+LL |     let iter = s.drain(0..s.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:221:9
+   |
+LL |     let n = s.drain(0..s.len()).count();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:225:9
+   |
+LL |     let iter = s.drain(usize::MIN..s.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:226:9
+   |
+LL |     let n = iter.count();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:239:1
+   |
+LL | fn string_range_from() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:239:1
+   |
+LL | fn string_range_from() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:239:1
+   |
+LL | fn string_range_from() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:242:9
+   |
+LL |     let iter = s.drain(0..);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:247:9
+   |
+LL |     let next = iter.next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:251:9
+   |
+LL |     let next = s.drain(usize::MIN..).next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:264:1
+   |
+LL | fn string_range_full() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:264:1
+   |
+LL | fn string_range_full() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:264:1
+   |
+LL | fn string_range_full() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:267:9
+   |
+LL |     let iter = s.drain(..);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:272:13
+   |
+LL |         let y = format!("x = {x}");
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:281:1
+   |
+LL | fn string_range_to() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:281:1
+   |
+LL | fn string_range_to() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:281:1
+   |
+LL | fn string_range_to() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:284:9
+   |
+LL |     let iter = s.drain(..s.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:288:9
+   |
+LL |     let iter = s.drain(..s.len());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:290:13
+   |
+LL |         let y = format!("x = {x}");
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:299:1
+   |
+LL | fn string_partial_drains() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:299:1
+   |
+LL | fn string_partial_drains() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:299:1
+   |
+LL | fn string_partial_drains() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:315:9
+   |
+LL |     let w: String = s.drain(1..s.len() - 1).collect();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:318:1
+   |
+LL | fn hash_set() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:318:1
+   |
+LL | fn hash_set() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:318:1
+   |
+LL | fn hash_set() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:321:9
+   |
+LL |     let iter = set.drain();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:326:9
+   |
+LL |     let next = iter.next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:330:9
+   |
+LL |     let next = set.drain().next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:338:1
+   |
+LL | fn hash_map() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:338:1
+   |
+LL | fn hash_map() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:338:1
+   |
+LL | fn hash_map() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:341:9
+   |
+LL |     let iter = map.drain();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:346:9
+   |
+LL |     let next = iter.next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:350:9
+   |
+LL |     let next = map.drain().next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:358:1
+   |
+LL | fn binary_heap() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:358:1
+   |
+LL | fn binary_heap() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:358:1
+   |
+LL | fn binary_heap() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:361:9
+   |
+LL |     let iter = heap.drain();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:366:9
+   |
+LL |     let next = iter.next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clear_with_drain.rs:370:9
+   |
+LL |     let next = heap.drain().next();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/clear_with_drain.rs:378:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clear_with_drain.rs:378:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clear_with_drain.rs:378:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 90 previous errors
 

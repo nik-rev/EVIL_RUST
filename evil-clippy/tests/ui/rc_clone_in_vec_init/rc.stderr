@@ -1,104 +1,329 @@
-error: initializing a reference-counted pointer in `vec![elem; len]`
-  --> tests/ui/rc_clone_in_vec_init/rc.rs:10:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:7:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:7:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:7:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:9:1
+   |
+LL | fn should_warn_simple_case() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:9:1
+   |
+LL | fn should_warn_simple_case() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:9:1
+   |
+LL | fn should_warn_simple_case() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:10:9
    |
 LL |     let v = vec![Rc::new("x".to_string()); 2];
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
    |
-   = note: each element will point to the same `Rc` instance
-   = note: `-D clippy::rc-clone-in-vec-init` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::rc_clone_in_vec_init)]`
-help: consider initializing each `Rc` element individually
-   |
-LL ~     let v = {
-LL +         let mut v = Vec::with_capacity(2);
-LL +         (0..2).for_each(|_| v.push(Rc::new(..)));
-LL +         v
-LL ~     };
-   |
-help: or if this is intentional, consider extracting the `Rc` initialization to a variable
-   |
-LL ~     let v = {
-LL +         let data = Rc::new(..);
-LL +         vec![data; 2]
-LL ~     };
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: initializing a reference-counted pointer in `vec![elem; len]`
-  --> tests/ui/rc_clone_in_vec_init/rc.rs:19:21
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:14:1
+   |
+LL | fn should_warn_simple_case_with_big_indentation() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:14:1
+   |
+LL | fn should_warn_simple_case_with_big_indentation() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:14:1
+   |
+LL | fn should_warn_simple_case_with_big_indentation() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:16:13
+   |
+LL |         let k = 1;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:17:9
+   |
+LL |         dbg!(k);
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:19:17
    |
 LL |             let v = vec![Rc::new("x".to_string()); 2];
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: each element will point to the same `Rc` instance
-help: consider initializing each `Rc` element individually
-   |
-LL ~             let v = {
-LL +                 let mut v = Vec::with_capacity(2);
-LL +                 (0..2).for_each(|_| v.push(Rc::new(..)));
-LL +                 v
-LL ~             };
-   |
-help: or if this is intentional, consider extracting the `Rc` initialization to a variable
-   |
-LL ~             let v = {
-LL +                 let data = Rc::new(..);
-LL +                 vec![data; 2]
-LL ~             };
-   |
+   |                 ^ help: make this variable mutable: `mut`
 
-error: initializing a reference-counted pointer in `vec![elem; len]`
-  --> tests/ui/rc_clone_in_vec_init/rc.rs:26:13
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:25:1
    |
-LL |       let v = vec![
-   |  _____________^
-...  |
-LL | |         2
-LL | |     ];
-   | |_____^
-   |
-   = note: each element will point to the same `Rc` instance
-help: consider initializing each `Rc` element individually
-   |
-LL ~     let v = {
-LL +         let mut v = Vec::with_capacity(2);
-LL +         (0..2).for_each(|_| v.push(std::rc::Rc::new(..)));
-LL +         v
-LL ~     };
-   |
-help: or if this is intentional, consider extracting the `Rc` initialization to a variable
-   |
-LL ~     let v = {
-LL +         let data = std::rc::Rc::new(..);
-LL +         vec![data; 2]
-LL ~     };
-   |
+LL | fn should_warn_complex_case() {
+   | ^ help: make this item public: `pub`
 
-error: initializing a reference-counted pointer in `vec![elem; len]`
-  --> tests/ui/rc_clone_in_vec_init/rc.rs:38:14
+error: function must be `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:25:1
    |
-LL |       let v1 = vec![
-   |  ______________^
-...  |
-LL | |         2
-LL | |     ];
-   | |_____^
+LL | fn should_warn_complex_case() {
+   | ^
    |
-   = note: each element will point to the same `Rc` instance
-help: consider initializing each `Rc` element individually
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:25:1
    |
-LL ~     let v1 = {
-LL +         let mut v = Vec::with_capacity(2);
-LL +         (0..2).for_each(|_| v.push(Rc::new(..)));
-LL +         v
-LL ~     };
-   |
-help: or if this is intentional, consider extracting the `Rc` initialization to a variable
-   |
-LL ~     let v1 = {
-LL +         let data = Rc::new(..);
-LL +         vec![data; 2]
-LL ~     };
-   |
+LL | fn should_warn_complex_case() {
+   | ^
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:26:9
+   |
+LL |     let v = vec![
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:31:17
+   |
+LL |             let x = 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:32:13
+   |
+LL |             dbg!(x);
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:38:9
+   |
+LL |     let v1 = vec![
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:43:17
+   |
+LL |             let x = 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:44:13
+   |
+LL |             dbg!(x);
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:51:1
+   |
+LL | fn should_not_warn_custom_arc() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:51:1
+   |
+LL | fn should_not_warn_custom_arc() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:51:1
+   |
+LL | fn should_not_warn_custom_arc() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:53:5
+   |
+LL |     struct Rc;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:52:14
+   |
+LL |     #[derive(Clone)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:52:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:52:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:52:14
+   |
+LL |     #[derive(Clone)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:52:14
+   |
+LL |     #[derive(Clone)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:55:5
+   |
+LL |     impl Rc {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:56:9
+   |
+LL |         fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:56:9
+   |
+LL |         fn new() -> Self {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:61:9
+   |
+LL |     let v = vec![Rc::new(); 2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:64:1
+   |
+LL | fn should_not_warn_vec_from_elem_but_not_rc() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:64:1
+   |
+LL | fn should_not_warn_vec_from_elem_but_not_rc() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:64:1
+   |
+LL | fn should_not_warn_vec_from_elem_but_not_rc() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:65:9
+   |
+LL |     let v = vec![String::new(); 2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:66:9
+   |
+LL |     let v1 = vec![1; 2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:67:9
+   |
+LL |     let v2 = vec![
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:69:17
+   |
+LL |             let y = 3;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:70:13
+   |
+LL |             dbg!(y);
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:77:1
+   |
+LL | fn should_not_warn_vec_macro_but_not_from_elem() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:77:1
+   |
+LL | fn should_not_warn_vec_macro_but_not_from_elem() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:77:1
+   |
+LL | fn should_not_warn_vec_macro_but_not_from_elem() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/rc_clone_in_vec_init/rc.rs:78:9
+   |
+LL |     let v = vec![Rc::new("x".to_string())];
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 42 previous errors
 

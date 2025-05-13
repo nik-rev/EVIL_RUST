@@ -1,116 +1,245 @@
-error: constant item has unnecessary safety comment
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:4:1
+   |
+LL | mod unsafe_items_invalid_comment {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
   --> tests/ui/unnecessary_safety_comment.rs:6:5
    |
 LL |     const CONST: u32 = 0;
-   |     ^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider removing the safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:5:5
-   |
-LL |     // SAFETY:
-   |     ^^^^^^^^^^
-   = note: `-D clippy::unnecessary-safety-comment` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_safety_comment)]`
+   |     ^ help: make this item public: `pub`
 
-error: static item has unnecessary safety comment
+error: static must be `mut`
+  --> tests/ui/unnecessary_safety_comment.rs:10:12
+   |
+LL |     static STATIC: u32 = 0;
+   |            ^ help: make this static mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
   --> tests/ui/unnecessary_safety_comment.rs:10:5
    |
 LL |     static STATIC: u32 = 0;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider removing the safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:9:5
-   |
-LL |     // SAFETY:
-   |     ^^^^^^^^^^
+   |     ^ help: make this item public: `pub`
 
-error: struct has unnecessary safety comment
+error: item must be `pub`
   --> tests/ui/unnecessary_safety_comment.rs:14:5
    |
 LL |     struct Struct;
-   |     ^^^^^^^^^^^^^^
-   |
-help: consider removing the safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:13:5
-   |
-LL |     // SAFETY:
-   |     ^^^^^^^^^^
+   |     ^ help: make this item public: `pub`
 
-error: enum has unnecessary safety comment
+error: item must be `pub`
   --> tests/ui/unnecessary_safety_comment.rs:18:5
    |
 LL |     enum Enum {}
-   |     ^^^^^^^^^^^^
-   |
-help: consider removing the safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:17:5
-   |
-LL |     // SAFETY:
-   |     ^^^^^^^^^^
+   |     ^ help: make this item public: `pub`
 
-error: module has unnecessary safety comment
+error: item must be `pub`
   --> tests/ui/unnecessary_safety_comment.rs:22:5
    |
 LL |     mod module {}
-   |     ^^^^^^^^^^^^^
-   |
-help: consider removing the safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:21:5
-   |
-LL |     // SAFETY:
-   |     ^^^^^^^^^^
+   |     ^ help: make this item public: `pub`
 
-error: impl has unnecessary safety comment
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:26:1
+   |
+LL | mod unnecessary_from_macro {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/unnecessary_safety_comment.rs:27:5
+   |
+LL |     trait T {}
+   |     ^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:27:5
+   |
+LL |     trait T {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:29:5
+   |
+LL |     macro_rules! no_safety_comment {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:31:13
+   |
+LL |             impl T for $t {}
+   |             ^ help: make this item public: `pub`
+...
+LL |     no_safety_comment!(());
+   |     ---------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `no_safety_comment` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:39:5
+   |
+LL |     macro_rules! with_safety_comment {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/unnecessary_safety_comment.rs:42:13
    |
 LL |             impl T for $t {}
-   |             ^^^^^^^^^^^^^^^^
+   |             ^ help: make this item public: `pub`
 ...
 LL |     with_safety_comment!(i32);
    |     ------------------------- in this macro invocation
    |
-help: consider removing the safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:41:13
-   |
-LL |             // Safety: unnecessary
-   |             ^^^^^^^^^^^^^^^^^^^^^^
    = note: this error originates in the macro `with_safety_comment` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: expression has unnecessary safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:60:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:50:1
    |
-LL |     24
-   |     ^^
-   |
-help: consider removing the safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:59:5
-   |
-LL |     // SAFETY: unnecessary
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+LL | fn unnecessary_on_stmt_and_expr() -> u32 {
+   | ^ help: make this item public: `pub`
 
-error: statement has unnecessary safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:52:5
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_safety_comment.rs:50:1
+   |
+LL | fn unnecessary_on_stmt_and_expr() -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_safety_comment.rs:50:1
+   |
+LL | fn unnecessary_on_stmt_and_expr() -> u32 {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_safety_comment.rs:52:9
    |
 LL |     let num = 42;
-   |     ^^^^^^^^^^^^^
-   |
-help: consider removing the safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:51:5
-   |
-LL |     // SAFETY: unnecessary
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: statement has unnecessary safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:56:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:64:1
    |
-LL |     if num > 24 {}
-   |     ^^^^^^^^^^^^^^
-   |
-help: consider removing the safety comment
-  --> tests/ui/unnecessary_safety_comment.rs:55:5
-   |
-LL |     // SAFETY: unnecessary
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+LL | mod issue_10084 {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 9 previous errors
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:65:5
+   |
+LL |     unsafe fn bar() -> i32 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:69:5
+   |
+LL |     macro_rules! foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:76:5
+   |
+LL |     fn main() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_safety_comment.rs:76:5
+   |
+LL |     fn main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_safety_comment.rs:76:5
+   |
+LL |     fn main() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:81:1
+   |
+LL | mod issue_12048 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_safety_comment.rs:96:9
+   |
+LL |     pub fn point_to_five() -> *const u8 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_safety_comment.rs:96:9
+   |
+LL |     pub fn point_to_five() -> *const u8 {
+   |         ^
+
+error: static must be `mut`
+  --> tests/ui/unnecessary_safety_comment.rs:97:16
+   |
+LL |         static FIVE: u8 = 5;
+   |                ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:97:9
+   |
+LL |         static FIVE: u8 = 5;
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_safety_comment.rs:98:9
+   |
+LL |         &FIVE
+   |         ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_safety_comment.rs:102:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_safety_comment.rs:102:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_safety_comment.rs:102:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 33 previous errors
 

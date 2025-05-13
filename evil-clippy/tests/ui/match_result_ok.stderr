@@ -1,40 +1,273 @@
-error: matching on `Some` with `ok()` is redundant
-  --> tests/ui/match_result_ok.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let Some(y) = x.parse().ok() { y } else { 0 }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::match-result-ok` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::match_result_ok)]`
-help: consider matching on `Ok(y)` and removing the call to `ok` instead
-   |
-LL -     if let Some(y) = x.parse().ok() { y } else { 0 }
-LL +     if let Ok(y) = x.parse() { y } else { 0 }
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: matching on `Some` with `ok()` is redundant
-  --> tests/ui/match_result_ok.rs:24:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         if let Some(y) = x   .   parse()   .   ok   ()    {
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: consider matching on `Ok(y)` and removing the call to `ok` instead
-   |
-LL -         if let Some(y) = x   .   parse()   .   ok   ()    {
-LL +         if let Ok(y) = x   .   parse()    {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: matching on `Some` with `ok()` is redundant
-  --> tests/ui/match_result_ok.rs:51:5
+error: item must be `pub`
+  --> tests/ui/match_result_ok.rs:12:1
    |
-LL |     while let Some(a) = wat.next().ok() {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn str_to_int(x: &str) -> i32 {
+   | ^ help: make this item public: `pub`
    |
-help: consider matching on `Ok(a)` and removing the call to `ok` instead
-   |
-LL -     while let Some(a) = wat.next().ok() {
-LL +     while let Ok(a) = wat.next() {
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/match_result_ok.rs:12:1
+   |
+LL | fn str_to_int(x: &str) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_result_ok.rs:12:1
+   |
+LL | fn str_to_int(x: &str) -> i32 {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/match_result_ok.rs:12:15
+   |
+LL | fn str_to_int(x: &str) -> i32 {
+   |               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/match_result_ok.rs:12:18
+   |
+LL | fn str_to_int(x: &str) -> i32 {
+   |                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/match_result_ok.rs:17:1
+   |
+LL | fn str_to_int_ok(x: &str) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_result_ok.rs:17:1
+   |
+LL | fn str_to_int_ok(x: &str) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_result_ok.rs:17:1
+   |
+LL | fn str_to_int_ok(x: &str) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_result_ok.rs:17:18
+   |
+LL | fn str_to_int_ok(x: &str) -> i32 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_result_ok.rs:17:21
+   |
+LL | fn str_to_int_ok(x: &str) -> i32 {
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/match_result_ok.rs:22:1
+   |
+LL | fn strange_some_no_else(x: &str) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_result_ok.rs:22:1
+   |
+LL | fn strange_some_no_else(x: &str) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_result_ok.rs:22:1
+   |
+LL | fn strange_some_no_else(x: &str) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_result_ok.rs:22:25
+   |
+LL | fn strange_some_no_else(x: &str) -> i32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_result_ok.rs:22:28
+   |
+LL | fn strange_some_no_else(x: &str) -> i32 {
+   |                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/match_result_ok.rs:34:1
+   |
+LL | struct Wat {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_result_ok.rs:38:1
+   |
+LL | impl Wat {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_result_ok.rs:39:5
+   |
+LL |     fn next(&mut self) -> Result<i32, &str> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_result_ok.rs:39:5
+   |
+LL |     fn next(&mut self) -> Result<i32, &str> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_result_ok.rs:39:18
+   |
+LL |     fn next(&mut self) -> Result<i32, &str> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_result_ok.rs:39:13
+   |
+LL |     fn next(&mut self) -> Result<i32, &str> {
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/match_result_ok.rs:39:39
+   |
+LL |     fn next(&mut self) -> Result<i32, &str> {
+   |                                       ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/match_result_ok.rs:49:1
+   |
+LL | fn base_1(x: i32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_result_ok.rs:49:1
+   |
+LL | fn base_1(x: i32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_result_ok.rs:49:1
+   |
+LL | fn base_1(x: i32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_result_ok.rs:49:11
+   |
+LL | fn base_1(x: i32) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_result_ok.rs:57:1
+   |
+LL | fn base_2(x: i32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_result_ok.rs:57:1
+   |
+LL | fn base_2(x: i32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_result_ok.rs:57:1
+   |
+LL | fn base_2(x: i32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_result_ok.rs:57:11
+   |
+LL | fn base_2(x: i32) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_result_ok.rs:64:1
+   |
+LL | fn base_3(test_func: Box<Result<i32, &str>>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_result_ok.rs:64:1
+   |
+LL | fn base_3(test_func: Box<Result<i32, &str>>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_result_ok.rs:64:1
+   |
+LL | fn base_3(test_func: Box<Result<i32, &str>>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_result_ok.rs:64:11
+   |
+LL | fn base_3(test_func: Box<Result<i32, &str>>) {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_result_ok.rs:64:38
+   |
+LL | fn base_3(test_func: Box<Result<i32, &str>>) {
+   |                                      ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/match_result_ok.rs:69:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_result_ok.rs:69:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_result_ok.rs:69:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 34 previous errors
 

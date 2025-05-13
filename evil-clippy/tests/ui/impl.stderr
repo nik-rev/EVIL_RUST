@@ -1,70 +1,331 @@
-error: multiple implementations of this structure
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:4:1
+   |
+LL | struct MyStruct;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:6:1
+   |
+LL | impl MyStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:7:5
+   |
+LL |     fn first() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:7:5
+   |
+LL |     fn first() {}
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
   --> tests/ui/impl.rs:10:1
    |
-LL | / impl MyStruct {
-LL | |
-LL | |
-LL | |     fn second() {}
-LL | | }
-   | |_^
-   |
-note: first implementation here
-  --> tests/ui/impl.rs:6:1
-   |
-LL | / impl MyStruct {
-LL | |     fn first() {}
-LL | | }
-   | |_^
-   = note: `-D clippy::multiple-inherent-impl` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::multiple_inherent_impl)]`
+LL | impl MyStruct {
+   | ^ help: make this item public: `pub`
 
-error: multiple implementations of this structure
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:13:5
+   |
+LL |     fn second() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:13:5
+   |
+LL |     fn second() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:16:1
+   |
+LL | impl<'a> MyStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:17:5
+   |
+LL |     fn lifetimed() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:17:5
+   |
+LL |     fn lifetimed() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:20:1
+   |
+LL | mod submod {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:21:5
+   |
+LL |     struct MyStruct;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:22:5
+   |
+LL |     impl MyStruct {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:23:9
+   |
+LL |         fn other() {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:23:9
+   |
+LL |         fn other() {}
+   |         ^
+
+error: item must be `pub`
   --> tests/ui/impl.rs:26:5
    |
-LL | /     impl super::MyStruct {
-LL | |
-LL | |
-LL | |         fn third() {}
-LL | |     }
-   | |_____^
-   |
-note: first implementation here
-  --> tests/ui/impl.rs:6:1
-   |
-LL | / impl MyStruct {
-LL | |     fn first() {}
-LL | | }
-   | |_^
+LL |     impl super::MyStruct {
+   |     ^ help: make this item public: `pub`
 
-error: multiple implementations of this structure
-  --> tests/ui/impl.rs:48:1
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:29:9
    |
-LL | / impl WithArgs<u64> {
-LL | |
-LL | |
-LL | |     fn f3() {}
-LL | | }
-   | |_^
+LL |         fn third() {}
+   |         ^
    |
-note: first implementation here
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:29:9
+   |
+LL |         fn third() {}
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:34:1
+   |
+LL | impl fmt::Debug for MyStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:35:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:35:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl.rs:35:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/impl.rs:35:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl.rs:35:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/impl.rs:35:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:41:1
+   |
+LL | struct WithArgs<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:42:1
+   |
+LL | impl WithArgs<u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:43:5
+   |
+LL |     fn f1() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:43:5
+   |
+LL |     fn f1() {}
+   |     ^
+
+error: item must be `pub`
   --> tests/ui/impl.rs:45:1
    |
-LL | / impl WithArgs<u64> {
-LL | |     fn f2() {}
-LL | | }
-   | |_^
+LL | impl WithArgs<u64> {
+   | ^ help: make this item public: `pub`
 
-error: multiple implementations of this structure
-  --> tests/ui/impl.rs:71:1
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:46:5
    |
-LL | impl OneAllowedImpl {} // Lint, only one of the three blocks is allowed.
-   | ^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn f2() {}
+   |     ^
    |
-note: first implementation here
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:46:5
+   |
+LL |     fn f2() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:48:1
+   |
+LL | impl WithArgs<u64> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:51:5
+   |
+LL |     fn f3() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:51:5
+   |
+LL |     fn f3() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:56:1
+   |
+LL | struct Allowed;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:57:1
+   |
+LL | impl Allowed {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:58:1
+   |
+LL | impl Allowed {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:59:1
+   |
+LL | impl Allowed {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:61:1
+   |
+LL | struct AllowedImpl;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:63:1
+   |
+LL | impl AllowedImpl {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:65:1
+   |
+LL | impl AllowedImpl {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:67:1
+   |
+LL | struct OneAllowedImpl;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/impl.rs:68:1
    |
 LL | impl OneAllowedImpl {}
-   | ^^^^^^^^^^^^^^^^^^^^^^
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/impl.rs:70:1
+   |
+LL | impl OneAllowedImpl {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:71:1
+   |
+LL | impl OneAllowedImpl {} // Lint, only one of the three blocks is allowed.
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl.rs:74:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl.rs:74:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl.rs:74:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 43 previous errors
 

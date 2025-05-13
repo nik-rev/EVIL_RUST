@@ -1,137 +1,621 @@
-error: transmute from a pointer type (`*const T`) to a reference type (`&T`)
-  --> tests/ui/transmute_ptr_to_ref.rs:10:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ref.rs:8:1
+   |
+LL | unsafe fn _ptr_to_ref<T, U>(p: *const T, m: *mut T, o: *const U, om: *mut U) {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:8:29
+   |
+LL | unsafe fn _ptr_to_ref<T, U>(p: *const T, m: *mut T, o: *const U, om: *mut U) {
+   |                             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:8:42
+   |
+LL | unsafe fn _ptr_to_ref<T, U>(p: *const T, m: *mut T, o: *const U, om: *mut U) {
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:8:53
+   |
+LL | unsafe fn _ptr_to_ref<T, U>(p: *const T, m: *mut T, o: *const U, om: *mut U) {
+   |                                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:8:66
+   |
+LL | unsafe fn _ptr_to_ref<T, U>(p: *const T, m: *mut T, o: *const U, om: *mut U) {
+   |                                                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:10:16
    |
 LL |         let _: &T = std::mem::transmute(p);
-   |                     ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*p`
+   |                ^^
    |
-   = note: `-D clippy::transmute-ptr-to-ref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::transmute_ptr_to_ref)]`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: transmute from a pointer type (`*mut T`) to a reference type (`&mut T`)
-  --> tests/ui/transmute_ptr_to_ref.rs:14:25
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:12:16
+   |
+LL |         let _: &T = &*p;
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:12:21
+   |
+LL |         let _: &T = &*p;
+   |                     ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:14:16
    |
 LL |         let _: &mut T = std::mem::transmute(m);
-   |                         ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&mut *m`
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: transmute from a pointer type (`*mut T`) to a reference type (`&T`)
-  --> tests/ui/transmute_ptr_to_ref.rs:18:21
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:16:16
+   |
+LL |         let _: &mut T = &mut *m;
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:16:25
+   |
+LL |         let _: &mut T = &mut *m;
+   |                         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:18:16
    |
 LL |         let _: &T = std::mem::transmute(m);
-   |                     ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*m`
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*mut T`) to a reference type (`&mut T`)
-  --> tests/ui/transmute_ptr_to_ref.rs:22:25
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:20:16
+   |
+LL |         let _: &T = &*m;
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:20:21
+   |
+LL |         let _: &T = &*m;
+   |                     ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:22:16
    |
 LL |         let _: &mut T = std::mem::transmute(p as *mut T);
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&mut *(p as *mut T)`
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: transmute from a pointer type (`*const U`) to a reference type (`&T`)
-  --> tests/ui/transmute_ptr_to_ref.rs:26:21
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:24:17
+   |
+LL |         let _ = &mut *(p as *mut T);
+   |                 ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:26:16
    |
 LL |         let _: &T = std::mem::transmute(o);
-   |                     ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*(o as *const T)`
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*mut U`) to a reference type (`&mut T`)
-  --> tests/ui/transmute_ptr_to_ref.rs:30:25
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:28:16
+   |
+LL |         let _: &T = &*(o as *const T);
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:28:21
+   |
+LL |         let _: &T = &*(o as *const T);
+   |                     ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:30:16
    |
 LL |         let _: &mut T = std::mem::transmute(om);
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&mut *(om as *mut T)`
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: transmute from a pointer type (`*mut U`) to a reference type (`&T`)
-  --> tests/ui/transmute_ptr_to_ref.rs:34:21
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:32:16
+   |
+LL |         let _: &mut T = &mut *(om as *mut T);
+   |                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:32:25
+   |
+LL |         let _: &mut T = &mut *(om as *mut T);
+   |                         ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:34:16
    |
 LL |         let _: &T = std::mem::transmute(om);
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*(om as *const T)`
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const i32`) to a reference type (`&_issue1231::Foo<'_, u8>`)
-  --> tests/ui/transmute_ptr_to_ref.rs:46:32
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:36:16
+   |
+LL |         let _: &T = &*(om as *const T);
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:36:21
+   |
+LL |         let _: &T = &*(om as *const T);
+   |                     ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ref.rs:40:1
+   |
+LL | fn _issue1231() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ptr_to_ref.rs:40:1
+   |
+LL | fn _issue1231() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ptr_to_ref.rs:40:1
+   |
+LL | fn _issue1231() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ref.rs:41:5
+   |
+LL |     struct Foo<'a, T> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:42:14
+   |
+LL |         bar: &'a T,
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:45:9
+   |
+LL |     let raw = 42 as *const i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:46:12
    |
 LL |     let _: &Foo<u8> = unsafe { std::mem::transmute::<_, &Foo<_>>(raw) };
-   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*raw.cast::<Foo<_>>()`
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const i32`) to a reference type (`&_issue1231::Foo<'_, &u8>`)
-  --> tests/ui/transmute_ptr_to_ref.rs:49:33
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:46:57
+   |
+LL |     let _: &Foo<u8> = unsafe { std::mem::transmute::<_, &Foo<_>>(raw) };
+   |                                                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:49:12
    |
 LL |     let _: &Foo<&u8> = unsafe { std::mem::transmute::<_, &Foo<&_>>(raw) };
-   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*raw.cast::<Foo<&_>>()`
-
-error: transmute from a pointer type (`*const i32`) to a reference type (`&u8`)
-  --> tests/ui/transmute_ptr_to_ref.rs:54:14
+   |            ^^^^^^^^^
    |
-LL |     unsafe { std::mem::transmute::<_, Bar>(raw) };
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*(raw as *const u8)`
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const &u32`) to a reference type (`&&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:61:18
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:49:17
    |
-LL |             0 => std::mem::transmute(x),
-   |                  ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*x.cast::<&u32>()`
-
-error: transmute from a pointer type (`*const &u32`) to a reference type (`&&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:63:18
+LL |     let _: &Foo<&u8> = unsafe { std::mem::transmute::<_, &Foo<&_>>(raw) };
+   |                 ^^^
    |
-LL |             1 => std::mem::transmute(y),
-   |                  ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*y.cast::<&u32>()`
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const &u32`) to a reference type (`&&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:65:18
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:49:58
+   |
+LL |     let _: &Foo<&u8> = unsafe { std::mem::transmute::<_, &Foo<&_>>(raw) };
+   |                                                          ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:49:63
+   |
+LL |     let _: &Foo<&u8> = unsafe { std::mem::transmute::<_, &Foo<&_>>(raw) };
+   |                                                               ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ref.rs:52:5
+   |
+LL |     type Bar<'a> = &'a u8;
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:52:20
+   |
+LL |     type Bar<'a> = &'a u8;
+   |                    ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:53:9
+   |
+LL |     let raw = 42 as *const i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ref.rs:58:1
+   |
+LL | unsafe fn _issue8924<'a, 'b, 'c>(x: *const &'a u32, y: *const &'b u32) -> &'c &'b u32 {
+   | ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:58:34
+   |
+LL | unsafe fn _issue8924<'a, 'b, 'c>(x: *const &'a u32, y: *const &'b u32) -> &'c &'b u32 {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:58:53
+   |
+LL | unsafe fn _issue8924<'a, 'b, 'c>(x: *const &'a u32, y: *const &'b u32) -> &'c &'b u32 {
+   |                                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:58:44
+   |
+LL | unsafe fn _issue8924<'a, 'b, 'c>(x: *const &'a u32, y: *const &'b u32) -> &'c &'b u32 {
+   |                                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:58:63
+   |
+LL | unsafe fn _issue8924<'a, 'b, 'c>(x: *const &'a u32, y: *const &'b u32) -> &'c &'b u32 {
+   |                                                               ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:58:75
+   |
+LL | unsafe fn _issue8924<'a, 'b, 'c>(x: *const &'a u32, y: *const &'b u32) -> &'c &'b u32 {
+   |                                                                           ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:58:79
+   |
+LL | unsafe fn _issue8924<'a, 'b, 'c>(x: *const &'a u32, y: *const &'b u32) -> &'c &'b u32 {
+   |                                                                               ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:65:43
    |
 LL |             2 => std::mem::transmute::<_, &&'b u32>(x),
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*x.cast::<&'b u32>()`
+   |                                           ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const &u32`) to a reference type (`&&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:67:18
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:65:44
+   |
+LL |             2 => std::mem::transmute::<_, &&'b u32>(x),
+   |                                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:67:43
    |
 LL |             _ => std::mem::transmute::<_, &&'b u32>(y),
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*y.cast::<&'b u32>()`
+   |                                           ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const u32`) to a reference type (`&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:78:23
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:67:44
+   |
+LL |             _ => std::mem::transmute::<_, &&'b u32>(y),
+   |                                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ref.rs:74:1
+   |
+LL | unsafe fn _meets_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   | ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:74:35
+   |
+LL | unsafe fn _meets_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:74:45
+   |
+LL | unsafe fn _meets_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   |                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:74:57
+   |
+LL | unsafe fn _meets_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   |                                                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:74:61
+   |
+LL | unsafe fn _meets_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   |                                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:76:13
+   |
+LL |         let a = 0u32;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:77:13
+   |
+LL |         let a = &a as *const u32;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:77:17
+   |
+LL |         let a = &a as *const u32;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:78:16
    |
 LL |         let _: &u32 = std::mem::transmute(a);
-   |                       ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*a`
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const u32`) to a reference type (`&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:80:23
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:80:16
    |
 LL |         let _: &u32 = std::mem::transmute::<_, &u32>(a);
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*a.cast::<u32>()`
-
-error: transmute from a pointer type (`*const &u32`) to a reference type (`&&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:83:18
+   |                ^^^^
    |
-LL |             0 => std::mem::transmute(x),
-   |                  ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*x.cast::<&u32>()`
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const &u32`) to a reference type (`&&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:85:18
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:80:48
+   |
+LL |         let _: &u32 = std::mem::transmute::<_, &u32>(a);
+   |                                                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:85:43
    |
 LL |             _ => std::mem::transmute::<_, &&'b u32>(x),
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*x.cast::<&'b u32>()`
+   |                                           ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const u32`) to a reference type (`&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:96:23
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:85:44
+   |
+LL |             _ => std::mem::transmute::<_, &&'b u32>(x),
+   |                                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ref.rs:92:1
+   |
+LL | unsafe fn _under_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   | ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:92:35
+   |
+LL | unsafe fn _under_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:92:45
+   |
+LL | unsafe fn _under_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   |                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:92:57
+   |
+LL | unsafe fn _under_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   |                                                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:92:61
+   |
+LL | unsafe fn _under_msrv<'a, 'b, 'c>(x: *const &'a u32) -> &'c &'b u32 {
+   |                                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:94:13
+   |
+LL |         let a = 0u32;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/transmute_ptr_to_ref.rs:95:13
+   |
+LL |         let a = &a as *const u32;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:95:17
+   |
+LL |         let a = &a as *const u32;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:96:16
    |
 LL |         let _: &u32 = std::mem::transmute(a);
-   |                       ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*a`
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const u32`) to a reference type (`&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:98:23
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:98:16
    |
 LL |         let _: &u32 = std::mem::transmute::<_, &u32>(a);
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*(a as *const u32)`
-
-error: transmute from a pointer type (`*const &u32`) to a reference type (`&&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:101:18
+   |                ^^^^
    |
-LL |             0 => std::mem::transmute(x),
-   |                  ^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*(x as *const () as *const &u32)`
+   = help: use a raw pointer instead: `*const`
 
-error: transmute from a pointer type (`*const &u32`) to a reference type (`&&u32`)
-  --> tests/ui/transmute_ptr_to_ref.rs:103:18
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:98:48
+   |
+LL |         let _: &u32 = std::mem::transmute::<_, &u32>(a);
+   |                                                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:103:43
    |
 LL |             _ => std::mem::transmute::<_, &&'b u32>(x),
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*(x as *const () as *const &'b u32)`
+   |                                           ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 22 previous errors
+error: references are not allowed
+  --> tests/ui/transmute_ptr_to_ref.rs:103:44
+   |
+LL |             _ => std::mem::transmute::<_, &&'b u32>(x),
+   |                                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/transmute_ptr_to_ref.rs:109:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/transmute_ptr_to_ref.rs:109:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/transmute_ptr_to_ref.rs:109:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 82 previous errors
 

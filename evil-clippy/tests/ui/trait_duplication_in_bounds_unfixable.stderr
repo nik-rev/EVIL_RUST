@@ -1,3 +1,718 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:7:1
+   |
+LL | fn bad_foo<T: Clone + Default, Z: Copy>(arg0: T, arg1: Z)
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:7:1
+   |
+LL | fn bad_foo<T: Clone + Default, Z: Copy>(arg0: T, arg1: Z)
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:7:1
+   |
+LL | fn bad_foo<T: Clone + Default, Z: Copy>(arg0: T, arg1: Z)
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:7:41
+   |
+LL | fn bad_foo<T: Clone + Default, Z: Copy>(arg0: T, arg1: Z)
+   |                                         ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:7:50
+   |
+LL | fn bad_foo<T: Clone + Default, Z: Copy>(arg0: T, arg1: Z)
+   |                                                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:17:1
+   |
+LL | fn good_bar<T: Clone + Default>(arg: T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:17:1
+   |
+LL | fn good_bar<T: Clone + Default>(arg: T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:17:1
+   |
+LL | fn good_bar<T: Clone + Default>(arg: T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:17:33
+   |
+LL | fn good_bar<T: Clone + Default>(arg: T) {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:21:1
+   |
+LL | fn good_foo<T>(arg: T)
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:21:1
+   |
+LL | fn good_foo<T>(arg: T)
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:21:1
+   |
+LL | fn good_foo<T>(arg: T)
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:21:16
+   |
+LL | fn good_foo<T>(arg: T)
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:28:1
+   |
+LL | fn good_foobar<T: Default>(arg: T)
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:28:1
+   |
+LL | fn good_foobar<T: Default>(arg: T)
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:28:1
+   |
+LL | fn good_foobar<T: Default>(arg: T)
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:28:28
+   |
+LL | fn good_foobar<T: Default>(arg: T)
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:35:1
+   |
+LL | / trait T: Default {
+LL | |     fn f()
+LL | |     where
+LL | |         Self: Default;
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:35:1
+   |
+LL | trait T: Default {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:36:5
+   |
+LL |     fn f()
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:36:5
+   |
+LL |     fn f()
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:42:1
+   |
+LL | / trait U: Default {
+LL | |     fn f()
+LL | |     where
+LL | |         Self: Clone;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:42:1
+   |
+LL | trait U: Default {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:43:5
+   |
+LL |     fn f()
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:43:5
+   |
+LL |     fn f()
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:48:1
+   |
+LL | / trait ZZ: Default {
+LL | |     fn g();
+LL | |     fn h();
+LL | |     fn f()
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:48:1
+   |
+LL | trait ZZ: Default {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:49:5
+   |
+LL |     fn g();
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:49:5
+   |
+LL |     fn g();
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:50:5
+   |
+LL |     fn h();
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:50:5
+   |
+LL |     fn h();
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:51:5
+   |
+LL |     fn f()
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:51:5
+   |
+LL |     fn f()
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:57:1
+   |
+LL | / trait BadTrait: Default + Clone {
+LL | |     fn f()
+LL | |     where
+LL | |         Self: Default + Clone;
+...  |
+LL | |         Self: Copy;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:57:1
+   |
+LL | trait BadTrait: Default + Clone {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:58:5
+   |
+LL |     fn f()
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:58:5
+   |
+LL |     fn f()
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:64:5
+   |
+LL |     fn g()
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:64:5
+   |
+LL |     fn g()
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:69:5
+   |
+LL |     fn h()
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:69:5
+   |
+LL |     fn h()
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:75:1
+   |
+LL | struct Life;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:74:10
+   |
+LL | #[derive(Default, Clone)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:74:7
+   |
+LL | #[derive(Default, Clone)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:74:7
+   |
+LL | #[derive(Default, Clone)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:74:19
+   |
+LL | #[derive(Default, Clone)]
+   |                   ^
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:74:16
+   |
+LL | #[derive(Default, Clone)]
+   |                ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:74:16
+   |
+LL | #[derive(Default, Clone)]
+   |                ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:74:19
+   |
+LL | #[derive(Default, Clone)]
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:74:19
+   |
+LL | #[derive(Default, Clone)]
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:77:1
+   |
+LL | impl T for Life {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:79:5
+   |
+LL |     fn f() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:79:5
+   |
+LL |     fn f() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:82:1
+   |
+LL | impl U for Life {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:84:5
+   |
+LL |     fn f() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:84:5
+   |
+LL |     fn f() {}
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:88:1
+   |
+LL | / trait Iter: Iterator {
+LL | |     fn into_group_btreemap<K, V>(self) -> BTreeMap<K, Vec<V>>
+LL | |     where
+LL | |         Self: Iterator<Item = (K, V)> + Sized,
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:88:1
+   |
+LL | trait Iter: Iterator {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:89:5
+   |
+LL |     fn into_group_btreemap<K, V>(self) -> BTreeMap<K, Vec<V>>
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:89:5
+   |
+LL |     fn into_group_btreemap<K, V>(self) -> BTreeMap<K, Vec<V>>
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:89:34
+   |
+LL |     fn into_group_btreemap<K, V>(self) -> BTreeMap<K, Vec<V>>
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:98:1
+   |
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:100:1
+   |
+LL | / trait FooIter: Iterator<Item = Foo> {
+LL | |     fn bar()
+LL | |     where
+LL | |         Self: Iterator<Item = Foo>,
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:100:1
+   |
+LL | trait FooIter: Iterator<Item = Foo> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:101:5
+   |
+LL |     fn bar()
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:101:5
+   |
+LL |     fn bar()
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:110:1
+   |
+LL | fn impl_trait(_: impl AsRef<str>, _: impl AsRef<str>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:110:1
+   |
+LL | fn impl_trait(_: impl AsRef<str>, _: impl AsRef<str>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:110:1
+   |
+LL | fn impl_trait(_: impl AsRef<str>, _: impl AsRef<str>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:114:5
+   |
+LL |     struct MultiProductIter<I>
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:14
+   |
+LL |     #[derive(Clone, Debug)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:11
+   |
+LL |     #[derive(Clone, Debug)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:11
+   |
+LL |     #[derive(Clone, Debug)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:14
+   |
+LL |     #[derive(Clone, Debug)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:14
+   |
+LL |     #[derive(Clone, Debug)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:119:9
+   |
+LL |     #[derive(Clone, Debug)]
+   |              ----- in this derive macro expansion
+...
+LL |         _marker: I,
+   |         ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:21
+   |
+LL |     #[derive(Clone, Debug)]
+   |                     ^
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:18
+   |
+LL |     #[derive(Clone, Debug)]
+   |                  ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:18
+   |
+LL |     #[derive(Clone, Debug)]
+   |                  ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:21
+   |
+LL |     #[derive(Clone, Debug)]
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:21
+   |
+LL |     #[derive(Clone, Debug)]
+   |                     ^
+
+error: references are not allowed
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:21
+   |
+LL |     #[derive(Clone, Debug)]
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:113:21
+   |
+LL |     #[derive(Clone, Debug)]
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:119:9
+   |
+LL |     #[derive(Clone, Debug)]
+   |                     ----- in this derive macro expansion
+...
+LL |         _marker: I,
+   |         ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:119:9
+   |
+LL |     #[derive(Clone, Debug)]
+   |                     ----- in this derive macro expansion
+...
+LL |         _marker: I,
+   |         ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:127:9
+   |
+LL |     pub fn multi_cartesian_product<H>(_: H) -> MultiProduct<<H::Item as IntoIterator>::IntoIter>
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:127:9
+   |
+LL |     pub fn multi_cartesian_product<H>(_: H) -> MultiProduct<<H::Item as IntoIterator>::IntoIter>
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:151:5
+   |
+LL |     impl<I, J, F> Clone for MergeBy<I, J, F>
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:159:9
+   |
+LL |         fn clone(&self) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:159:9
+   |
+LL |         fn clone(&self) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:159:19
+   |
+LL |         fn clone(&self) -> Self {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:159:18
+   |
+LL |         fn clone(&self) -> Self {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:169:1
+   |
+LL | pub trait Trait {}
+   | ^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:171:5
+   |
+LL | pub fn f(_a: impl Trait, _b: impl Trait) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:171:5
+   |
+LL | pub fn f(_a: impl Trait, _b: impl Trait) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:171:10
+   |
+LL | pub fn f(_a: impl Trait, _b: impl Trait) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:171:26
+   |
+LL | pub fn f(_a: impl Trait, _b: impl Trait) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:173:1
+   |
+LL | pub trait ImplTrait<T> {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:175:1
+   |
+LL | impl<A, B> ImplTrait<(A, B)> for Foo where Foo: ImplTrait<A> + ImplTrait<B> {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:177:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:177:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trait_duplication_in_bounds_unfixable.rs:177:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: this trait bound is already specified in the where clause
   --> tests/ui/trait_duplication_in_bounds_unfixable.rs:7:15
    |
@@ -67,5 +782,5 @@ LL |         Self: Iterator<Item = Foo>,
    |
    = help: consider removing this trait bound
 
-error: aborting due to 8 previous errors
+error: aborting due to 89 previous errors
 

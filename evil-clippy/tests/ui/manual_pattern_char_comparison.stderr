@@ -1,65 +1,173 @@
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:11:31
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     sentence.trim_end_matches(|c: char| c == '.' || c == ',' || c == '!' || c == '?');
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using an array of `char`: `['.', ',', '!', '?']`
-   |
-   = note: `-D clippy::manual-pattern-char-comparison` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_pattern_char_comparison)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:13:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     sentence.split(|c: char| c == '\n' || c == 'X');
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using an array of `char`: `['\n', 'X']`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:15:20
+error: item must be `pub`
+  --> tests/ui/manual_pattern_char_comparison.rs:3:1
    |
-LL |     sentence.split(|c| c == '\n' || c == 'X');
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using an array of `char`: `['\n', 'X']`
-
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:17:24
+LL | struct NotStr;
+   | ^ help: make this item public: `pub`
    |
-LL |     sentence.splitn(3, |c: char| c == 'X');
-   |                        ^^^^^^^^^^^^^^^^^^ help: consider using a `char`: `'X'`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:21:24
+error: item must be `pub`
+  --> tests/ui/manual_pattern_char_comparison.rs:5:1
    |
-LL |     sentence.splitn(3, |c: char| c == char_compare);
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using a `char`: `char_compare`
+LL | impl NotStr {
+   | ^ help: make this item public: `pub`
 
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:23:20
+error: function must be `unsafe`
+  --> tests/ui/manual_pattern_char_comparison.rs:6:5
    |
-LL |     sentence.split(|c: char| matches!(c, '\n' | 'X' | 'Y'));
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using an array of `char`: `['\n', 'X', 'Y']`
-
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:25:24
+LL |     fn find(&self, _: impl FnMut(char) -> bool) {}
+   |     ^
    |
-LL |     sentence.splitn(3, |c: char| matches!(c, 'X'));
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using a `char`: `'X'`
-
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:27:24
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_pattern_char_comparison.rs:6:5
    |
-LL |     sentence.splitn(3, |c: char| matches!(c, 'X' | 'W'));
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using an array of `char`: `['X', 'W']`
+LL |     fn find(&self, _: impl FnMut(char) -> bool) {}
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:29:19
+error: parameter must be `mut`
+  --> tests/ui/manual_pattern_char_comparison.rs:6:14
    |
-LL |     sentence.find(|c| c == '🎈');
-   |                   ^^^^^^^^^^^^^ help: consider using a `char`: `'🎈'`
-
-error: this manual char comparison can be written more succinctly
-  --> tests/ui/manual_pattern_char_comparison.rs:69:31
+LL |     fn find(&self, _: impl FnMut(char) -> bool) {}
+   |              ^ help: make this parameter mutable: `mut`
    |
-LL |     sentence.trim_end_matches(|c: char| c == '.' || c == ',' || c == '!' || c == '?');
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using an array of `char`: `['.', ',', '!', '?']`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 10 previous errors
+error: references are not allowed
+  --> tests/ui/manual_pattern_char_comparison.rs:6:13
+   |
+LL |     fn find(&self, _: impl FnMut(char) -> bool) {}
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/manual_pattern_char_comparison.rs:9:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_pattern_char_comparison.rs:9:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_pattern_char_comparison.rs:9:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_pattern_char_comparison.rs:10:9
+   |
+LL |     let sentence = "Hello, world!";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_pattern_char_comparison.rs:20:9
+   |
+LL |     let char_compare = 'X';
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_pattern_char_comparison.rs:32:9
+   |
+LL |     let not_str = NotStr;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_pattern_char_comparison.rs:37:9
+   |
+LL |     let x = true;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_pattern_char_comparison.rs:40:9
+   |
+LL |     let d = 'd';
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_pattern_char_comparison.rs:52:5
+   |
+LL |     macro_rules! m {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_pattern_char_comparison.rs:61:1
+   |
+LL | fn msrv_1_57() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_pattern_char_comparison.rs:61:1
+   |
+LL | fn msrv_1_57() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_pattern_char_comparison.rs:61:1
+   |
+LL | fn msrv_1_57() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_pattern_char_comparison.rs:62:9
+   |
+LL |     let sentence = "Hello, world!";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_pattern_char_comparison.rs:67:1
+   |
+LL | fn msrv_1_58() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_pattern_char_comparison.rs:67:1
+   |
+LL | fn msrv_1_58() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_pattern_char_comparison.rs:67:1
+   |
+LL | fn msrv_1_58() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_pattern_char_comparison.rs:68:9
+   |
+LL |     let sentence = "Hello, world!";
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

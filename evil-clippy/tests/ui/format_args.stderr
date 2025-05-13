@@ -1,161 +1,667 @@
-error: `to_string` applied to a type that implements `Display` in `format!` args
-  --> tests/ui/format_args.rs:77:72
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = format!("error: something failed at {}", Location::caller().to_string());
-   |                                                                        ^^^^^^^^^^^^ help: remove this
-   |
-   = note: `-D clippy::to-string-in-format-args` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::to_string_in_format_args)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `to_string` applied to a type that implements `Display` in `write!` args
-  --> tests/ui/format_args.rs:82:27
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         Location::caller().to_string(),
-   |                           ^^^^^^^^^^^^ help: remove this
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `to_string` applied to a type that implements `Display` in `writeln!` args
-  --> tests/ui/format_args.rs:88:27
+error: item must be `pub`
+  --> tests/ui/format_args.rs:15:1
    |
-LL |         Location::caller().to_string(),
-   |                           ^^^^^^^^^^^^ help: remove this
-
-error: `to_string` applied to a type that implements `Display` in `print!` args
-  --> tests/ui/format_args.rs:91:63
+LL | struct Somewhere;
+   | ^ help: make this item public: `pub`
    |
-LL |     print!("error: something failed at {}", Location::caller().to_string());
-   |                                                               ^^^^^^^^^^^^ help: remove this
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:93:65
+error: item must be `pub`
+  --> tests/ui/format_args.rs:18:1
    |
-LL |     println!("error: something failed at {}", Location::caller().to_string());
-   |                                                                 ^^^^^^^^^^^^ help: remove this
+LL | impl ToString for Somewhere {
+   | ^ help: make this item public: `pub`
 
-error: `to_string` applied to a type that implements `Display` in `eprint!` args
-  --> tests/ui/format_args.rs:95:64
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:19:5
    |
-LL |     eprint!("error: something failed at {}", Location::caller().to_string());
-   |                                                                ^^^^^^^^^^^^ help: remove this
-
-error: `to_string` applied to a type that implements `Display` in `eprintln!` args
-  --> tests/ui/format_args.rs:97:66
+LL |     fn to_string(&self) -> String {
+   |     ^
    |
-LL |     eprintln!("error: something failed at {}", Location::caller().to_string());
-   |                                                                  ^^^^^^^^^^^^ help: remove this
-
-error: `to_string` applied to a type that implements `Display` in `format_args!` args
-  --> tests/ui/format_args.rs:99:77
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:19:5
    |
-LL |     let _ = format_args!("error: something failed at {}", Location::caller().to_string());
-   |                                                                             ^^^^^^^^^^^^ help: remove this
+LL |     fn to_string(&self) -> String {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: `to_string` applied to a type that implements `Display` in `assert!` args
-  --> tests/ui/format_args.rs:101:70
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:19:19
    |
-LL |     assert!(true, "error: something failed at {}", Location::caller().to_string());
-   |                                                                      ^^^^^^^^^^^^ help: remove this
+LL |     fn to_string(&self) -> String {
+   |                   ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: `to_string` applied to a type that implements `Display` in `assert_eq!` args
-  --> tests/ui/format_args.rs:103:73
+error: references are not allowed
+  --> tests/ui/format_args.rs:19:18
+   |
+LL |     fn to_string(&self) -> String {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:24:1
+   |
+LL | struct X(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:26:1
+   |
+LL | impl Deref for X {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:29:5
+   |
+LL |     fn deref(&self) -> &u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:29:5
+   |
+LL |     fn deref(&self) -> &u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:29:15
+   |
+LL |     fn deref(&self) -> &u32 {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:29:14
+   |
+LL |     fn deref(&self) -> &u32 {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:29:24
+   |
+LL |     fn deref(&self) -> &u32 {
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:30:9
+   |
+LL |         &self.0
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:34:1
+   |
+LL | struct Y<'a>(&'a X);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:34:14
+   |
+LL | struct Y<'a>(&'a X);
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:36:1
+   |
+LL | impl<'a> Deref for Y<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:37:19
+   |
+LL |     type Target = &'a X;
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:39:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:39:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:39:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:39:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:39:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:40:9
+   |
+LL |         &self.0
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:44:1
+   |
+LL | struct Z(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:46:1
+   |
+LL | impl Deref for Z {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:49:5
+   |
+LL |     fn deref(&self) -> &u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:49:5
+   |
+LL |     fn deref(&self) -> &u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:49:15
+   |
+LL |     fn deref(&self) -> &u32 {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:49:14
+   |
+LL |     fn deref(&self) -> &u32 {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:49:24
+   |
+LL |     fn deref(&self) -> &u32 {
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:50:9
+   |
+LL |         &self.0
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:54:1
+   |
+LL | impl std::fmt::Display for Z {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:55:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:55:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:55:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:55:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:55:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:55:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:60:1
+   |
+LL | macro_rules! my_macro {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:67:1
+   |
+LL | macro_rules! my_other_macro {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:73:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:73:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:73:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/format_args.rs:74:9
+   |
+LL |     let x = &X(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:74:13
+   |
+LL |     let x = &X(1);
+   |             ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/format_args.rs:75:9
+   |
+LL |     let x_ref = &x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:75:17
+   |
+LL |     let x_ref = &x;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:103:5
    |
 LL |     assert_eq!(0, 0, "error: something failed at {}", Location::caller().to_string());
-   |                                                                         ^^^^^^^^^^^^ help: remove this
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: `to_string` applied to a type that implements `Display` in `assert_ne!` args
-  --> tests/ui/format_args.rs:105:73
+error: references are not allowed
+  --> tests/ui/format_args.rs:103:5
+   |
+LL |     assert_eq!(0, 0, "error: something failed at {}", Location::caller().to_string());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/format_args.rs:103:5
+   |
+LL |     assert_eq!(0, 0, "error: something failed at {}", Location::caller().to_string());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:103:5
+   |
+LL |     assert_eq!(0, 0, "error: something failed at {}", Location::caller().to_string());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:103:5
+   |
+LL |     assert_eq!(0, 0, "error: something failed at {}", Location::caller().to_string());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:105:5
    |
 LL |     assert_ne!(0, 0, "error: something failed at {}", Location::caller().to_string());
-   |                                                                         ^^^^^^^^^^^^ help: remove this
-
-error: `to_string` applied to a type that implements `Display` in `panic!` args
-  --> tests/ui/format_args.rs:107:63
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     panic!("error: something failed at {}", Location::caller().to_string());
-   |                                                               ^^^^^^^^^^^^ help: remove this
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:109:20
+error: references are not allowed
+  --> tests/ui/format_args.rs:105:5
    |
-LL |     println!("{}", X(1).to_string());
-   |                    ^^^^^^^^^^^^^^^^ help: use this: `*X(1)`
+LL |     assert_ne!(0, 0, "error: something failed at {}", Location::caller().to_string());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:111:20
+error: variable must be `mut`
+  --> tests/ui/format_args.rs:105:5
+   |
+LL |     assert_ne!(0, 0, "error: something failed at {}", Location::caller().to_string());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:105:5
+   |
+LL |     assert_ne!(0, 0, "error: something failed at {}", Location::caller().to_string());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:105:5
+   |
+LL |     assert_ne!(0, 0, "error: something failed at {}", Location::caller().to_string());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:111:22
    |
 LL |     println!("{}", Y(&X(1)).to_string());
-   |                    ^^^^^^^^^^^^^^^^^^^^ help: use this: `***Y(&X(1))`
-
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:113:24
+   |                      ^^^^^
    |
-LL |     println!("{}", Z(1).to_string());
-   |                        ^^^^^^^^^^^^ help: remove this
+   = help: use a raw borrowing instead: `&raw const`
 
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:115:20
+error: item must be `pub`
+  --> tests/ui/format_args.rs:147:1
    |
-LL |     println!("{}", x.to_string());
-   |                    ^^^^^^^^^^^^^ help: use this: `**x`
+LL | fn issue8643(vendor_id: usize, product_id: usize, name: &str) {
+   | ^ help: make this item public: `pub`
 
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:117:20
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:147:1
    |
-LL |     println!("{}", x_ref.to_string());
-   |                    ^^^^^^^^^^^^^^^^^ help: use this: `***x_ref`
-
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:120:39
+LL | fn issue8643(vendor_id: usize, product_id: usize, name: &str) {
+   | ^
    |
-LL |     println!("{foo}{bar}", foo = "foo".to_string(), bar = "bar");
-   |                                       ^^^^^^^^^^^^ help: remove this
-
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:122:52
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:147:1
    |
-LL |     println!("{foo}{bar}", foo = "foo", bar = "bar".to_string());
-   |                                                    ^^^^^^^^^^^^ help: remove this
+LL | fn issue8643(vendor_id: usize, product_id: usize, name: &str) {
+   | ^
 
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:124:39
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:147:14
    |
-LL |     println!("{foo}{bar}", bar = "bar".to_string(), foo = "foo");
-   |                                       ^^^^^^^^^^^^ help: remove this
+LL | fn issue8643(vendor_id: usize, product_id: usize, name: &str) {
+   |              ^ help: make this parameter mutable: `mut`
 
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:126:52
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:147:32
    |
-LL |     println!("{foo}{bar}", bar = "bar", foo = "foo".to_string());
-   |                                                    ^^^^^^^^^^^^ help: remove this
+LL | fn issue8643(vendor_id: usize, product_id: usize, name: &str) {
+   |                                ^ help: make this parameter mutable: `mut`
 
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:128:37
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:147:51
    |
-LL |     println!("{}", my_other_macro!().to_string());
-   |                                     ^^^^^^^^^^^^ help: remove this
+LL | fn issue8643(vendor_id: usize, product_id: usize, name: &str) {
+   |                                                   ^ help: make this parameter mutable: `mut`
 
-error: `to_string` applied to a type that implements `Display` in `print!` args
-  --> tests/ui/format_args.rs:141:37
+error: references are not allowed
+  --> tests/ui/format_args.rs:147:57
    |
-LL |     print!("{}", (Location::caller().to_string()));
-   |                                     ^^^^^^^^^^^^ help: remove this
-
-error: `to_string` applied to a type that implements `Display` in `print!` args
-  --> tests/ui/format_args.rs:143:39
+LL | fn issue8643(vendor_id: usize, product_id: usize, name: &str) {
+   |                                                         ^^^^
    |
-LL |     print!("{}", ((Location::caller()).to_string()));
-   |                                       ^^^^^^^^^^^^ help: remove this
+   = help: use a raw pointer instead: `*const`
 
-error: `to_string` applied to a type that implements `Display` in `format!` args
-  --> tests/ui/format_args.rs:172:38
+error: item must be `pub`
+  --> tests/ui/format_args.rs:157:1
+   |
+LL | mod issue_8855 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:160:5
+   |
+LL |     struct A {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:162:5
+   |
+LL |     impl std::fmt::Display for A {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:163:9
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:163:9
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:163:17
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:163:23
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:163:16
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:163:26
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:168:5
+   |
+LL |     fn main() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:168:5
+   |
+LL |     fn main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:168:5
+   |
+LL |     fn main() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/format_args.rs:169:13
+   |
+LL |         let a = A {};
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/format_args.rs:170:13
+   |
+LL |         let b = A {};
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/format_args.rs:172:13
    |
 LL |         let x = format!("{} {}", a, b.to_string());
-   |                                      ^^^^^^^^^^^^ help: remove this
+   |             ^ help: make this variable mutable: `mut`
 
-error: `to_string` applied to a type that implements `Display` in `println!` args
-  --> tests/ui/format_args.rs:187:24
+error: references are not allowed
+  --> tests/ui/format_args.rs:174:9
    |
-LL |         println!("{}", original[..10].to_string());
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use this: `&original[..10]`
+LL |         dbg!(x);
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 26 previous errors
+error: variable must be `mut`
+  --> tests/ui/format_args.rs:176:13
+   |
+LL |         let x = format!("{:>6} {:>6}", a, b.to_string());
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:177:9
+   |
+LL |         dbg!(x);
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:182:1
+   |
+LL | mod issue_9256 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:185:5
+   |
+LL |     fn print_substring(original: &str) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:185:5
+   |
+LL |     fn print_substring(original: &str) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:185:5
+   |
+LL |     fn print_substring(original: &str) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/format_args.rs:185:24
+   |
+LL |     fn print_substring(original: &str) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_args.rs:185:34
+   |
+LL |     fn print_substring(original: &str) {
+   |                                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/format_args.rs:191:5
+   |
+LL |     fn main() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_args.rs:191:5
+   |
+LL |     fn main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_args.rs:191:5
+   |
+LL |     fn main() {
+   |     ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 86 previous errors
 

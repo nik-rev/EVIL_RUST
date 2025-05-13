@@ -1,251 +1,577 @@
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:8:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = !a.is_some();
-   |             ^^^^^^^^^^^^ help: try: `a.is_none()`
-   |
-   = note: `-D clippy::nonminimal-bool` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::nonminimal_bool)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:11:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = !a.is_none();
-   |             ^^^^^^^^^^^^ help: try: `a.is_some()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:14:13
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:4:1
    |
-LL |     let _ = !b.is_err();
-   |             ^^^^^^^^^^^ help: try: `b.is_ok()`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:17:13
+LL | fn methods_with_negation() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = !b.is_ok();
-   |             ^^^^^^^^^^ help: try: `b.is_err()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:20:13
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:4:1
    |
-LL |     let _ = !(a.is_some() && !c);
-   |             ^^^^^^^^^^^^^^^^^^^^ help: try: `a.is_none() || c`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:22:13
+LL | fn methods_with_negation() {
+   | ^
    |
-LL |     let _ = !(a.is_some() || !c);
-   |             ^^^^^^^^^^^^^^^^^^^^ help: try: `a.is_none() && c`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:24:26
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:4:1
    |
-LL |     let _ = !(!c ^ c) || !a.is_some();
-   |                          ^^^^^^^^^^^^ help: try: `a.is_none()`
+LL | fn methods_with_negation() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:26:25
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:5:9
    |
-LL |     let _ = (!c ^ c) || !a.is_some();
-   |                         ^^^^^^^^^^^^ help: try: `a.is_none()`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:28:23
+LL |     let a: Option<i32> = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _ = !c ^ c || !a.is_some();
-   |                       ^^^^^^^^^^^^ help: try: `a.is_none()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:101:8
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:6:9
    |
-LL |     if !res.is_ok() {}
-   |        ^^^^^^^^^^^^ help: try: `res.is_err()`
+LL |     let b: Result<i32, i32> = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:103:8
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:19:9
    |
-LL |     if !res.is_err() {}
-   |        ^^^^^^^^^^^^^ help: try: `res.is_ok()`
+LL |     let c = false;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:107:8
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:35:1
    |
-LL |     if !res.is_some() {}
-   |        ^^^^^^^^^^^^^^ help: try: `res.is_none()`
+LL | enum CustomResultOk<E> {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:109:8
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:39:1
    |
-LL |     if !res.is_none() {}
-   |        ^^^^^^^^^^^^^^ help: try: `res.is_some()`
+LL | enum CustomResultErr<E> {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:126:8
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:43:1
    |
-LL |     if !(a as u64 >= b) {}
-   |        ^^^^^^^^^^^^^^^^ help: try: `((a as u64) < b)`
+LL | enum CustomSomeSome<T> {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:128:8
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:47:1
    |
-LL |     if !((a as u64) >= b) {}
-   |        ^^^^^^^^^^^^^^^^^^ help: try: `((a as u64) < b)`
+LL | enum CustomSomeNone<T> {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:130:8
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:52:1
    |
-LL |     if !(a as u64 <= b) {}
-   |        ^^^^^^^^^^^^^^^^ help: try: `(a as u64 > b)`
+LL | impl<E> CustomResultOk<E> {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:138:8
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:53:9
    |
-LL |     if !(a >= b) as i32 == c {}
-   |        ^^^^^^^^^ help: try: `(a < b)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:140:8
+LL |     pub fn is_ok(&self) -> bool {
+   |         ^
    |
-LL |     if !(a >= b) | !(a <= c) {}
-   |        ^^^^^^^^^ help: try: `(a < b)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:140:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:53:9
    |
-LL |     if !(a >= b) | !(a <= c) {}
-   |                    ^^^^^^^^^ help: try: `(a > c)`
+LL |     pub fn is_ok(&self) -> bool {
+   |         ^
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:145:8
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:53:19
    |
-LL |     if !res.is_ok() as i32 == c {}
-   |        ^^^^^^^^^^^^ help: try: `res.is_err()`
+LL |     pub fn is_ok(&self) -> bool {
+   |                   ^ help: make this parameter mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:147:8
+error: references are not allowed
+  --> tests/ui/nonminimal_bool_methods.rs:53:18
    |
-LL |     if !res.is_ok() | !opt.is_none() {}
-   |        ^^^^^^^^^^^^ help: try: `res.is_err()`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:147:23
+LL |     pub fn is_ok(&self) -> bool {
+   |                  ^^^^^
    |
-LL |     if !res.is_ok() | !opt.is_none() {}
-   |                       ^^^^^^^^^^^^^^ help: try: `opt.is_some()`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:152:9
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:58:1
    |
-LL |         (!(4 > 3)).b()
-   |         ^^^^^^^^^^ help: try: `(4 <= 3)`
+LL | impl<E> CustomResultErr<E> {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:178:9
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:59:9
    |
-LL |     _ = !opt.is_some_and(|x| x < 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_none_or(|x| x >= 1000)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:180:9
+LL |     pub fn is_err(&self) -> bool {
+   |         ^
    |
-LL |     _ = !opt.is_some_and(|x| x <= 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_none_or(|x| x > 1000)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:182:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:59:9
    |
-LL |     _ = !opt.is_some_and(|x| x > 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_none_or(|x| x <= 1000)`
+LL |     pub fn is_err(&self) -> bool {
+   |         ^
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:184:9
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:59:20
    |
-LL |     _ = !opt.is_some_and(|x| x >= 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_none_or(|x| x < 1000)`
+LL |     pub fn is_err(&self) -> bool {
+   |                    ^ help: make this parameter mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:186:9
+error: references are not allowed
+  --> tests/ui/nonminimal_bool_methods.rs:59:19
    |
-LL |     _ = !opt.is_some_and(|x| x == 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_none_or(|x| x != 1000)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:188:9
+LL |     pub fn is_err(&self) -> bool {
+   |                   ^^^^^
    |
-LL |     _ = !opt.is_some_and(|x| x != 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_none_or(|x| x == 1000)`
+   = help: use a raw pointer instead: `*const`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:198:9
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:64:1
    |
-LL |     _ = !opt.is_none_or(|x| x < 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_some_and(|x| x >= 1000)`
+LL | impl<T> CustomSomeSome<T> {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:200:9
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:65:9
    |
-LL |     _ = !opt.is_none_or(|x| x <= 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_some_and(|x| x > 1000)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:202:9
+LL |     pub fn is_some(&self) -> bool {
+   |         ^
    |
-LL |     _ = !opt.is_none_or(|x| x > 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_some_and(|x| x <= 1000)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:204:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:65:9
    |
-LL |     _ = !opt.is_none_or(|x| x >= 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_some_and(|x| x < 1000)`
+LL |     pub fn is_some(&self) -> bool {
+   |         ^
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:206:9
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:65:21
    |
-LL |     _ = !opt.is_none_or(|x| x == 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_some_and(|x| x != 1000)`
+LL |     pub fn is_some(&self) -> bool {
+   |                     ^ help: make this parameter mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:208:9
+error: references are not allowed
+  --> tests/ui/nonminimal_bool_methods.rs:65:20
    |
-LL |     _ = !opt.is_none_or(|x| x != 1000);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_some_and(|x| x == 1000)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:216:9
+LL |     pub fn is_some(&self) -> bool {
+   |                    ^^^^^
    |
-LL |     _ = !opt.is_some_and(|x| !x);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_none_or(|x| x)`
+   = help: use a raw pointer instead: `*const`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:221:9
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:70:1
    |
-LL |     _ = !opt.is_none_or(|x| !x);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_some_and(|x| x)`
+LL | impl<T> CustomSomeNone<T> {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:229:9
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:71:9
    |
-LL |     _ = !opt.is_some_and(|x| x.is_ok());
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_none_or(|x| x.is_err())`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:231:9
+LL |     pub fn is_none(&self) -> bool {
+   |         ^
    |
-LL |     _ = !opt.is_some_and(|x| x.is_err());
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_none_or(|x| x.is_ok())`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:233:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:71:9
    |
-LL |     _ = !opt.is_none_or(|x| x.is_ok());
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_some_and(|x| x.is_err())`
+LL |     pub fn is_none(&self) -> bool {
+   |         ^
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool_methods.rs:235:9
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:71:21
    |
-LL |     _ = !opt.is_none_or(|x| x.is_err());
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `opt.is_some_and(|x| x.is_ok())`
+LL |     pub fn is_none(&self) -> bool {
+   |                     ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 41 previous errors
+error: references are not allowed
+  --> tests/ui/nonminimal_bool_methods.rs:71:20
+   |
+LL |     pub fn is_none(&self) -> bool {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:76:1
+   |
+LL | fn dont_warn_for_custom_methods_with_negation() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:76:1
+   |
+LL | fn dont_warn_for_custom_methods_with_negation() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:76:1
+   |
+LL | fn dont_warn_for_custom_methods_with_negation() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:77:9
+   |
+LL |     let res = CustomResultOk::Err("Error");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:82:9
+   |
+LL |     let res = CustomResultErr::Err("Error");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:87:9
+   |
+LL |     let res = CustomSomeSome::Some("thing");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:92:9
+   |
+LL |     let res = CustomSomeNone::Some("thing");
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:99:1
+   |
+LL | fn warn_for_built_in_methods_with_negation() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:99:1
+   |
+LL | fn warn_for_built_in_methods_with_negation() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:99:1
+   |
+LL | fn warn_for_built_in_methods_with_negation() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:100:9
+   |
+LL |     let res: Result<usize, usize> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:106:9
+   |
+LL |     let res = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:114:1
+   |
+LL | fn dont_warn_for_negated_partial_ord_comparison() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:114:1
+   |
+LL | fn dont_warn_for_negated_partial_ord_comparison() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:114:1
+   |
+LL | fn dont_warn_for_negated_partial_ord_comparison() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:115:9
+   |
+LL |     let a: f64 = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:116:9
+   |
+LL |     let b: f64 = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:123:1
+   |
+LL | fn issue_12625() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:123:1
+   |
+LL | fn issue_12625() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:123:1
+   |
+LL | fn issue_12625() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:124:9
+   |
+LL |     let a = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:125:9
+   |
+LL |     let b = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:134:1
+   |
+LL | fn issue_12761() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:134:1
+   |
+LL | fn issue_12761() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:134:1
+   |
+LL | fn issue_12761() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:135:9
+   |
+LL |     let a = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:136:9
+   |
+LL |     let b = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:137:9
+   |
+LL |     let c = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:143:9
+   |
+LL |     let opt: Option<usize> = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:144:9
+   |
+LL |     let res: Result<usize, usize> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:151:5
+   |
+LL |     fn a(a: bool) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:151:5
+   |
+LL |     fn a(a: bool) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:151:5
+   |
+LL |     fn a(a: bool) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:151:10
+   |
+LL |     fn a(a: bool) -> bool {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:156:5
+   |
+LL | /     trait B {
+LL | |         fn b(&self) -> bool {
+LL | |             true
+LL | |         }
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:156:5
+   |
+LL |     trait B {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:157:9
+   |
+LL |         fn b(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:157:9
+   |
+LL |         fn b(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:157:15
+   |
+LL |         fn b(&self) -> bool {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/nonminimal_bool_methods.rs:157:14
+   |
+LL |         fn b(&self) -> bool {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:162:5
+   |
+LL |     impl B for bool {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:165:1
+   |
+LL | fn issue_13436() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:165:1
+   |
+LL | fn issue_13436() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:165:1
+   |
+LL | fn issue_13436() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:166:5
+   |
+LL |     fn not_zero(x: i32) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:166:5
+   |
+LL |     fn not_zero(x: i32) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:166:5
+   |
+LL |     fn not_zero(x: i32) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:166:17
+   |
+LL |     fn not_zero(x: i32) -> bool {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:170:9
+   |
+LL |     let opt = Some(500);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:212:9
+   |
+LL |     let opt = Some(true);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:224:9
+   |
+LL |     let opt: Option<Result<i32, i32>> = Some(Ok(123));
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:239:5
+   |
+LL |     fn before_stabilization() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:239:5
+   |
+LL |     fn before_stabilization() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:239:5
+   |
+LL |     fn before_stabilization() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool_methods.rs:240:13
+   |
+LL |         let opt = Some(500);
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool_methods.rs:245:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:245:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool_methods.rs:245:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 76 previous errors
 

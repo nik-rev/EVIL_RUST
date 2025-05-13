@@ -1,23 +1,429 @@
-error: returning a `str` unnecessarily tied to the lifetime of arguments
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_literal_bound.rs:3:1
+   |
+LL | struct Struct<'a> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:4:18
+   |
+LL |     not_literal: &'a str,
+   |                  ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_literal_bound.rs:7:1
+   |
+LL | impl Struct<'_> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:9:5
+   |
+LL |     fn returns_lit(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:9:5
+   |
+LL |     fn returns_lit(&self) -> &str {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:9:21
+   |
+LL |     fn returns_lit(&self) -> &str {
+   |                     ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:9:20
+   |
+LL |     fn returns_lit(&self) -> &str {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/unnecessary_literal_bound.rs:9:30
    |
 LL |     fn returns_lit(&self) -> &str {
-   |                              ^^^^ help: try: `&'static str`
+   |                              ^^^^
    |
-   = note: `-D clippy::unnecessary-literal-bound` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_literal_bound)]`
+   = help: use a raw pointer instead: `*const`
 
-error: returning a `str` unnecessarily tied to the lifetime of arguments
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:15:5
+   |
+LL |     fn returns_non_lit(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:15:5
+   |
+LL |     fn returns_non_lit(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:15:25
+   |
+LL |     fn returns_non_lit(&self) -> &str {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:15:24
+   |
+LL |     fn returns_non_lit(&self) -> &str {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:15:34
+   |
+LL |     fn returns_non_lit(&self) -> &str {
+   |                                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:20:5
+   |
+LL |     fn conditionally_returns_lit(&self, cond: bool) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:20:5
+   |
+LL |     fn conditionally_returns_lit(&self, cond: bool) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:20:35
+   |
+LL |     fn conditionally_returns_lit(&self, cond: bool) -> &str {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:20:41
+   |
+LL |     fn conditionally_returns_lit(&self, cond: bool) -> &str {
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:20:34
+   |
+LL |     fn conditionally_returns_lit(&self, cond: bool) -> &str {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:20:56
+   |
+LL |     fn conditionally_returns_lit(&self, cond: bool) -> &str {
+   |                                                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:25:5
+   |
+LL |     fn conditionally_returns_non_lit(&self, cond: bool) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:25:5
+   |
+LL |     fn conditionally_returns_non_lit(&self, cond: bool) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:25:39
+   |
+LL |     fn conditionally_returns_non_lit(&self, cond: bool) -> &str {
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:25:45
+   |
+LL |     fn conditionally_returns_non_lit(&self, cond: bool) -> &str {
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:25:38
+   |
+LL |     fn conditionally_returns_non_lit(&self, cond: bool) -> &str {
+   |                                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:25:60
+   |
+LL |     fn conditionally_returns_non_lit(&self, cond: bool) -> &str {
+   |                                                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:30:5
+   |
+LL |     fn contionally_returns_literals_explicit(&self, cond: bool) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:30:5
+   |
+LL |     fn contionally_returns_literals_explicit(&self, cond: bool) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:30:47
+   |
+LL |     fn contionally_returns_literals_explicit(&self, cond: bool) -> &str {
+   |                                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:30:53
+   |
+LL |     fn contionally_returns_literals_explicit(&self, cond: bool) -> &str {
+   |                                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:30:46
+   |
+LL |     fn contionally_returns_literals_explicit(&self, cond: bool) -> &str {
+   |                                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/unnecessary_literal_bound.rs:30:68
    |
 LL |     fn contionally_returns_literals_explicit(&self, cond: bool) -> &str {
-   |                                                                    ^^^^ help: try: `&'static str`
+   |                                                                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: returning a `str` unnecessarily tied to the lifetime of arguments
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:40:5
+   |
+LL |     fn conditionally_returns_non_lit_explicit(&self, cond: bool) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:40:5
+   |
+LL |     fn conditionally_returns_non_lit_explicit(&self, cond: bool) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:40:48
+   |
+LL |     fn conditionally_returns_non_lit_explicit(&self, cond: bool) -> &str {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:40:54
+   |
+LL |     fn conditionally_returns_non_lit_explicit(&self, cond: bool) -> &str {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:40:47
+   |
+LL |     fn conditionally_returns_non_lit_explicit(&self, cond: bool) -> &str {
+   |                                               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:40:69
+   |
+LL |     fn conditionally_returns_non_lit_explicit(&self, cond: bool) -> &str {
+   |                                                                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:49:1
+   |
+LL | / trait ReturnsStr {
+LL | |     fn trait_method(&self) -> &str;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_literal_bound.rs:49:1
+   |
+LL | trait ReturnsStr {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:50:5
+   |
+LL |     fn trait_method(&self) -> &str;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:50:5
+   |
+LL |     fn trait_method(&self) -> &str;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:50:22
+   |
+LL |     fn trait_method(&self) -> &str;
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:50:21
+   |
+LL |     fn trait_method(&self) -> &str;
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:50:31
+   |
+LL |     fn trait_method(&self) -> &str;
+   |                               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_literal_bound.rs:53:1
+   |
+LL | impl ReturnsStr for u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:55:5
+   |
+LL |     fn trait_method(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:55:5
+   |
+LL |     fn trait_method(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:55:22
+   |
+LL |     fn trait_method(&self) -> &str {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:55:21
+   |
+LL |     fn trait_method(&self) -> &str {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/unnecessary_literal_bound.rs:55:31
    |
 LL |     fn trait_method(&self) -> &str {
-   |                               ^^^^ help: try: `&'static str`
+   |                               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/unnecessary_literal_bound.rs:61:1
+   |
+LL | impl ReturnsStr for Struct<'_> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:63:5
+   |
+LL |     fn trait_method(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:63:5
+   |
+LL |     fn trait_method(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_literal_bound.rs:63:22
+   |
+LL |     fn trait_method(&self) -> &str {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:63:21
+   |
+LL |     fn trait_method(&self) -> &str {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_literal_bound.rs:63:31
+   |
+LL |     fn trait_method(&self) -> &str {
+   |                               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_literal_bound.rs:68:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:68:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_literal_bound.rs:68:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 53 previous errors
 

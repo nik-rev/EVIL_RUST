@@ -1,35 +1,370 @@
-error: this operation will always return zero. This is likely not the intended outcome
-  --> tests/ui/erasing_op.rs:35:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x * 0;
-   |     ^^^^^
-   |
-   = note: `-D clippy::erasing-op` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::erasing_op)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this operation will always return zero. This is likely not the intended outcome
-  --> tests/ui/erasing_op.rs:38:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     0 & x;
-   |     ^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this operation will always return zero. This is likely not the intended outcome
-  --> tests/ui/erasing_op.rs:41:5
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:1:1
    |
-LL |     0 / x;
-   |     ^^^^^
-
-error: this operation will always return zero. This is likely not the intended outcome
-  --> tests/ui/erasing_op.rs:45:5
+LL | struct Length(u8);
+   | ^ help: make this item public: `pub`
    |
-LL |     0 * Vec1 { x: 5 };
-   |     ^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this operation will always return zero. This is likely not the intended outcome
-  --> tests/ui/erasing_op.rs:48:5
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:2:1
    |
-LL |     Vec1 { x: 5 } * 0;
-   |     ^^^^^^^^^^^^^^^^^
+LL | struct Meter;
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:4:1
+   |
+LL | impl core::ops::Mul<Meter> for u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:6:5
+   |
+LL |     fn mul(self, _: Meter) -> Length {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:6:5
+   |
+LL |     fn mul(self, _: Meter) -> Length {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:6:12
+   |
+LL |     fn mul(self, _: Meter) -> Length {
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:12:1
+   |
+LL | struct Vec1 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:11:10
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:11:7
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:11:7
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:11:10
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/erasing_op.rs:11:10
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/erasing_op.rs:13:5
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |          ----- in this derive macro expansion
+LL | struct Vec1 {
+LL |     x: i32,
+   |     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:11:17
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                 ^
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:11:14
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |              ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:11:14
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |              ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:11:26
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                          ^
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:11:26
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                          ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:11:23
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                       ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:11:23
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                       ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:11:26
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:11:26
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                          ^
+
+error: references are not allowed
+  --> tests/ui/erasing_op.rs:11:26
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/erasing_op.rs:11:26
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:11:37
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                     ^
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:11:34
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                  ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:11:34
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                  ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:11:37
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/erasing_op.rs:11:37
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                     ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:11:41
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                         ^
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:11:38
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                      ^  ---- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:11:38
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                      ^  ---- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:11:41
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:11:41
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                         ^
+
+error: references are not allowed
+  --> tests/ui/erasing_op.rs:11:41
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/erasing_op.rs:11:41
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                         ^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/erasing_op.rs:13:5
+   |
+LL | #[derive(Clone, Default, PartialEq, Eq, Hash)]
+   |                                         ---- in this derive macro expansion
+LL | struct Vec1 {
+LL |     x: i32,
+   |     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:16:1
+   |
+LL | impl core::ops::Mul<Vec1> for i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:18:5
+   |
+LL |     fn mul(self, mut right: Vec1) -> Vec1 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:18:5
+   |
+LL |     fn mul(self, mut right: Vec1) -> Vec1 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:18:12
+   |
+LL |     fn mul(self, mut right: Vec1) -> Vec1 {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:24:1
+   |
+LL | impl core::ops::Mul<i32> for Vec1 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:26:5
+   |
+LL |     fn mul(mut self, right: i32) -> Vec1 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:26:5
+   |
+LL |     fn mul(mut self, right: i32) -> Vec1 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:26:22
+   |
+LL |     fn mul(mut self, right: i32) -> Vec1 {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:34:1
+   |
+LL | fn test(x: u8) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:34:1
+   |
+LL | fn test(x: u8) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:34:1
+   |
+LL | fn test(x: u8) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/erasing_op.rs:34:9
+   |
+LL | fn test(x: u8) {
+   |         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/erasing_op.rs:52:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/erasing_op.rs:52:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/erasing_op.rs:52:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 46 previous errors
 

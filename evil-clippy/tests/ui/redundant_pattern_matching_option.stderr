@@ -1,228 +1,307 @@
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:12:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     matches!(maybe_some, None if !boolean)
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `maybe_some.is_none() && (!boolean)`
-   |
-   = note: `-D clippy::redundant-pattern-matching` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_pattern_matching)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:17:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = matches!(maybe_some, None if boolean || boolean2); // guard needs parentheses
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `maybe_some.is_none() && (boolean || boolean2)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:33:12
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:11:1
    |
-LL |     if let None = None::<()> {}
-   |     -------^^^^------------- help: try: `if None::<()>.is_none()`
-
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:36:12
+LL | fn issue_11174<T>(boolean: bool, maybe_some: Option<T>) -> bool {
+   | ^ help: make this item public: `pub`
    |
-LL |     if let Some(_) = Some(42) {}
-   |     -------^^^^^^^----------- help: try: `if Some(42).is_some()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:39:12
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:11:1
    |
-LL |     if let Some(_) = Some(42) {
-   |     -------^^^^^^^----------- help: try: `if Some(42).is_some()`
-
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:46:15
+LL | fn issue_11174<T>(boolean: bool, maybe_some: Option<T>) -> bool {
+   | ^
    |
-LL |     while let Some(_) = Some(42) {}
-   |     ----------^^^^^^^----------- help: try: `while Some(42).is_some()`
-
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:49:15
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:11:1
    |
-LL |     while let None = Some(42) {}
-   |     ----------^^^^----------- help: try: `while Some(42).is_none()`
+LL | fn issue_11174<T>(boolean: bool, maybe_some: Option<T>) -> bool {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:52:15
+error: parameter must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:11:19
    |
-LL |     while let None = None::<()> {}
-   |     ----------^^^^------------- help: try: `while None::<()>.is_none()`
-
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:56:15
+LL | fn issue_11174<T>(boolean: bool, maybe_some: Option<T>) -> bool {
+   |                   ^ help: make this parameter mutable: `mut`
    |
-LL |     while let Some(_) = v.pop() {
-   |     ----------^^^^^^^---------- help: try: `while v.pop().is_some()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:65:5
+error: parameter must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:11:34
    |
-LL | /     match Some(42) {
-LL | |
-LL | |         Some(_) => true,
-LL | |         None => false,
-LL | |     };
-   | |_____^ help: try: `Some(42).is_some()`
+LL | fn issue_11174<T>(boolean: bool, maybe_some: Option<T>) -> bool {
+   |                                  ^ help: make this parameter mutable: `mut`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:71:5
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:16:1
    |
-LL | /     match None::<()> {
-LL | |
-LL | |         Some(_) => false,
-LL | |         None => true,
-LL | |     };
-   | |_____^ help: try: `None::<()>.is_none()`
+LL | fn issue_11174_edge_cases<T>(boolean: bool, boolean2: bool, maybe_some: Option<T>) {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:77:13
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:16:1
    |
-LL |       let _ = match None::<()> {
-   |  _____________^
-LL | |
-LL | |         Some(_) => false,
-LL | |         None => true,
-LL | |     };
-   | |_____^ help: try: `None::<()>.is_none()`
-
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:84:20
+LL | fn issue_11174_edge_cases<T>(boolean: bool, boolean2: bool, maybe_some: Option<T>) {
+   | ^
    |
-LL |     let _ = if let Some(_) = opt { true } else { false };
-   |             -------^^^^^^^------ help: try: `if opt.is_some()`
-
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:91:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:16:1
    |
-LL |     let _ = if let Some(_) = gen_opt() {
-   |             -------^^^^^^^------------ help: try: `if gen_opt().is_some()`
+LL | fn issue_11174_edge_cases<T>(boolean: bool, boolean2: bool, maybe_some: Option<T>) {
+   | ^
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:94:19
+error: parameter must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:16:30
    |
-LL |     } else if let None = gen_opt() {
-   |            -------^^^^------------ help: try: `if gen_opt().is_none()`
+LL | fn issue_11174_edge_cases<T>(boolean: bool, boolean2: bool, maybe_some: Option<T>) {
+   |                              ^ help: make this parameter mutable: `mut`
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:101:12
+error: parameter must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:16:45
    |
-LL |     if let Some(..) = gen_opt() {}
-   |     -------^^^^^^^^------------ help: try: `if gen_opt().is_some()`
+LL | fn issue_11174_edge_cases<T>(boolean: bool, boolean2: bool, maybe_some: Option<T>) {
+   |                                             ^ help: make this parameter mutable: `mut`
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:117:12
+error: parameter must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:16:61
    |
-LL |     if let Some(_) = Some(42) {}
-   |     -------^^^^^^^----------- help: try: `if Some(42).is_some()`
+LL | fn issue_11174_edge_cases<T>(boolean: bool, boolean2: bool, maybe_some: Option<T>) {
+   |                                                             ^ help: make this parameter mutable: `mut`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:120:12
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:32:1
    |
-LL |     if let None = None::<()> {}
-   |     -------^^^^------------- help: try: `if None::<()>.is_none()`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:123:15
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:32:1
    |
-LL |     while let Some(_) = Some(42) {}
-   |     ----------^^^^^^^----------- help: try: `while Some(42).is_some()`
-
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:126:15
+LL | fn main() {
+   | ^
    |
-LL |     while let None = None::<()> {}
-   |     ----------^^^^------------- help: try: `while None::<()>.is_none()`
-
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:129:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:32:1
    |
-LL | /     match Some(42) {
-LL | |
-LL | |         Some(_) => true,
-LL | |         None => false,
-LL | |     };
-   | |_____^ help: try: `Some(42).is_some()`
+LL | fn main() {
+   | ^
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:135:5
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:83:9
    |
-LL | /     match None::<()> {
-LL | |
-LL | |         Some(_) => false,
-LL | |         None => true,
-LL | |     };
-   | |_____^ help: try: `None::<()>.is_none()`
+LL |     let opt = Some(false);
+   |         ^ help: make this variable mutable: `mut`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:144:12
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:105:1
+   |
+LL | fn gen_opt() -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:105:1
+   |
+LL | fn gen_opt() -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:105:1
+   |
+LL | fn gen_opt() -> Option<()> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:109:1
+   |
+LL | fn foo() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:109:1
+   |
+LL | fn foo() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:109:1
+   |
+LL | fn foo() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:111:1
+   |
+LL | fn bar() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:111:1
+   |
+LL | fn bar() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:111:1
+   |
+LL | fn bar() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:116:1
+   |
+LL | const fn issue6067() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:116:7
+   |
+LL | const fn issue6067() {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:116:7
+   |
+LL | const fn issue6067() {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:143:1
+   |
+LL | fn issue7921() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:143:1
+   |
+LL | fn issue7921() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:143:1
+   |
+LL | fn issue7921() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/redundant_pattern_matching_option.rs:144:21
    |
 LL |     if let None = *(&None::<()>) {}
-   |     -------^^^^----------------- help: try: `if (&None::<()>).is_none()`
+   |                     ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:146:12
+error: references are not allowed
+  --> tests/ui/redundant_pattern_matching_option.rs:146:20
    |
 LL |     if let None = *&None::<()> {}
-   |     -------^^^^--------------- help: try: `if (&None::<()>).is_none()`
-
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:153:5
+   |                    ^^^^^^^^^^^
    |
-LL | /     match x {
-LL | |
-LL | |         Some(_) => true,
-LL | |         _ => false,
-LL | |     };
-   | |_____^ help: try: `x.is_some()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:159:5
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:150:1
    |
-LL | /     match x {
-LL | |
-LL | |         None => true,
-LL | |         _ => false,
-LL | |     };
-   | |_____^ help: try: `x.is_none()`
+LL | fn issue10726() {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:165:5
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:150:1
    |
-LL | /     match x {
-LL | |
-LL | |         Some(_) => false,
-LL | |         _ => true,
-LL | |     };
-   | |_____^ help: try: `x.is_none()`
-
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:171:5
+LL | fn issue10726() {
+   | ^
    |
-LL | /     match x {
-LL | |
-LL | |         None => false,
-LL | |         _ => true,
-LL | |     };
-   | |_____^ help: try: `x.is_some()`
-
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_option.rs:187:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:150:1
    |
-LL |     let _ = matches!(x, Some(_));
-   |             ^^^^^^^^^^^^^^^^^^^^ help: try: `x.is_some()`
+LL | fn issue10726() {
+   | ^
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:190:13
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:151:9
    |
-LL |     let _ = matches!(x, None);
-   |             ^^^^^^^^^^^^^^^^^ help: try: `x.is_none()`
+LL |     let x = Some(42);
+   |         ^ help: make this variable mutable: `mut`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/redundant_pattern_matching_option.rs:201:17
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:184:1
    |
-LL |         let _ = matches!(*p, None);
-   |                 ^^^^^^^^^^^^^^^^^^ help: try: `(*p).is_none()`
+LL | fn issue10803() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 31 previous errors
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:184:1
+   |
+LL | fn issue10803() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:184:1
+   |
+LL | fn issue10803() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:185:9
+   |
+LL |     let x = Some(42);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_option.rs:197:1
+   |
+LL | fn issue13902() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:197:1
+   |
+LL | fn issue13902() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_option.rs:197:1
+   |
+LL | fn issue13902() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:198:9
+   |
+LL |     let x = Some(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_option.rs:199:9
+   |
+LL |     let p = &raw const x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 38 previous errors
 

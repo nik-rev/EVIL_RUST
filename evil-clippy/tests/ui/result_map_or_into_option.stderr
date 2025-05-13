@@ -1,23 +1,99 @@
-error: called `map_or(None, Some)` on a `Result` value
-  --> tests/ui/result_map_or_into_option.rs:5:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = opt.map_or(None, Some);
-   |             ^^^^^^^^^^^^^^^^^^^^^^ help: consider using `ok`: `opt.ok()`
-   |
-   = note: `-D clippy::result-map-or-into-option` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::result_map_or_into_option)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `map_or_else(|_| None, Some)` on a `Result` value
-  --> tests/ui/result_map_or_into_option.rs:8:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = opt.map_or_else(|_| None, Some);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `ok`: `opt.ok()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: called `map_or_else(|_| None, Some)` on a `Result` value
-  --> tests/ui/result_map_or_into_option.rs:12:13
+error: item must be `pub`
+  --> tests/ui/result_map_or_into_option.rs:3:1
    |
-LL |     let _ = opt.map_or_else(|_| { None }, Some);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `ok`: `opt.ok()`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/result_map_or_into_option.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/result_map_or_into_option.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/result_map_or_into_option.rs:4:9
+   |
+LL |     let opt: Result<u32, &str> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/result_map_or_into_option.rs:4:26
+   |
+LL |     let opt: Result<u32, &str> = Ok(1);
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/result_map_or_into_option.rs:15:9
+   |
+LL |     let rewrap = |s: u32| -> Option<u32> { Some(s) };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/result_map_or_into_option.rs:18:9
+   |
+LL |     let opt: Result<u32, &str> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/result_map_or_into_option.rs:18:26
+   |
+LL |     let opt: Result<u32, &str> = Ok(1);
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/result_map_or_into_option.rs:23:9
+   |
+LL |     let opt: Result<u32, &str> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/result_map_or_into_option.rs:23:26
+   |
+LL |     let opt: Result<u32, &str> = Ok(1);
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

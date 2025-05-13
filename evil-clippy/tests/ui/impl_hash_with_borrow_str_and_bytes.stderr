@@ -1,40 +1,926 @@
-error: the semantics of `Borrow<T>` around `Hash` can't be satisfied when both `Borrow<str>` and `Borrow<[u8]>` are implemented
-  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:10:6
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:6:1
+   |
+LL | struct ExampleType {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:10:1
    |
 LL | impl Hash for ExampleType {
-   |      ^^^^
-   |
-   = note: the `Borrow` semantics require that `Hash` must behave the same for all implementations of Borrow<T>
-   = note: however, the hash implementations of a string (`str`) and the bytes of a string `[u8]` do not behave the same ...
-   = note: ... as (`hash("abc") != hash("abc".as_bytes())`
-   = help: consider either removing one of the  `Borrow` implementations (`Borrow<str>` or `Borrow<[u8]>`) ...
-   = help: ... or not implementing `Hash` for this type
-   = note: `-D clippy::impl-hash-borrow-with-str-and-bytes` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::impl_hash_borrow_with_str_and_bytes)]`
+   | ^ help: make this item public: `pub`
 
-error: the semantics of `Borrow<T>` around `Hash` can't be satisfied when both `Borrow<str>` and `Borrow<[u8]>` are implemented
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:12:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:12:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:12:25
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                         ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:12:31
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:12:24
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:12:38
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:17:1
+   |
+LL | impl Borrow<str> for ExampleType {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:18:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:18:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:18:16
+   |
+LL |     fn borrow(&self) -> &str {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:18:15
+   |
+LL |     fn borrow(&self) -> &str {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:18:25
+   |
+LL |     fn borrow(&self) -> &str {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:19:9
+   |
+LL |         &self.data
+   |         ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:23:1
+   |
+LL | impl Borrow<[u8]> for ExampleType {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:24:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:24:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:24:16
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:24:15
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:24:25
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:29:1
+   |
+LL | struct ShouldNotRaiseForHash {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:30:1
+   |
+LL | impl Hash for ShouldNotRaiseForHash {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:31:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:31:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:31:25
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:31:31
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:31:24
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:31:38
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:36:1
+   |
+LL | struct ShouldNotRaiseForBorrow {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:37:1
+   |
+LL | impl Borrow<str> for ShouldNotRaiseForBorrow {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:38:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:38:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:38:16
+   |
+LL |     fn borrow(&self) -> &str {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:38:15
+   |
+LL |     fn borrow(&self) -> &str {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:38:25
+   |
+LL |     fn borrow(&self) -> &str {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:42:1
+   |
+LL | impl Borrow<[u8]> for ShouldNotRaiseForBorrow {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:43:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:43:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:43:16
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:43:15
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:43:25
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:48:1
+   |
+LL | struct ShouldNotRaiseForHashBorrowStr {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:49:1
+   |
+LL | impl Hash for ShouldNotRaiseForHashBorrowStr {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:50:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:50:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:50:25
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:50:31
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:50:24
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:50:38
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:54:1
+   |
+LL | impl Borrow<str> for ShouldNotRaiseForHashBorrowStr {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:55:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:55:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:55:16
+   |
+LL |     fn borrow(&self) -> &str {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:55:15
+   |
+LL |     fn borrow(&self) -> &str {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:55:25
+   |
+LL |     fn borrow(&self) -> &str {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:60:1
+   |
+LL | struct ShouldNotRaiseForHashBorrowSlice {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:61:1
+   |
+LL | impl Hash for ShouldNotRaiseForHashBorrowSlice {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:62:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:62:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:62:25
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:62:31
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:62:24
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:62:38
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:67:1
+   |
+LL | impl Borrow<[u8]> for ShouldNotRaiseForHashBorrowSlice {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:68:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:68:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:68:16
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:68:15
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:68:25
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:75:1
+   |
+LL | struct Derived {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:73:10
+   |
+LL | #[derive(Hash)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:73:7
+   |
+LL | #[derive(Hash)]
+   |       ^  ---- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:73:7
+   |
+LL | #[derive(Hash)]
+   |       ^  ---- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:73:10
+   |
+LL | #[derive(Hash)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:73:10
+   |
+LL | #[derive(Hash)]
+   |          ^
+
+error: references are not allowed
   --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:73:10
    |
 LL | #[derive(Hash)]
    |          ^^^^
    |
-   = note: the `Borrow` semantics require that `Hash` must behave the same for all implementations of Borrow<T>
-   = note: however, the hash implementations of a string (`str`) and the bytes of a string `[u8]` do not behave the same ...
-   = note: ... as (`hash("abc") != hash("abc".as_bytes())`
-   = help: consider either removing one of the  `Borrow` implementations (`Borrow<str>` or `Borrow<[u8]>`) ...
-   = help: ... or not implementing `Hash` for this type
+   = help: use a raw pointer instead: `*const`
 
-error: the semantics of `Borrow<T>` around `Hash` can't be satisfied when both `Borrow<str>` and `Borrow<[u8]>` are implemented
-  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:117:6
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:73:10
+   |
+LL | #[derive(Hash)]
+   |          ^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:76:5
+   |
+LL | #[derive(Hash)]
+   |          ---- in this derive macro expansion
+...
+LL |     data: String,
+   |     ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:79:1
+   |
+LL | impl Borrow<str> for Derived {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:80:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:80:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:80:16
+   |
+LL |     fn borrow(&self) -> &str {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:80:15
+   |
+LL |     fn borrow(&self) -> &str {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:80:25
+   |
+LL |     fn borrow(&self) -> &str {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:85:1
+   |
+LL | impl Borrow<[u8]> for Derived {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:86:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:86:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:86:16
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:86:15
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:86:25
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:91:1
+   |
+LL | struct GenericExampleType<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:95:1
+   |
+LL | impl<T: Hash> Hash for GenericExampleType<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:96:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:96:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:96:25
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:96:31
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:96:24
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:96:38
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:101:1
+   |
+LL | impl Borrow<str> for GenericExampleType<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:102:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:102:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:102:16
+   |
+LL |     fn borrow(&self) -> &str {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:102:15
+   |
+LL |     fn borrow(&self) -> &str {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:102:25
+   |
+LL |     fn borrow(&self) -> &str {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:103:9
+   |
+LL |         &self.data
+   |         ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:107:1
+   |
+LL | impl Borrow<[u8]> for GenericExampleType<&'static [u8]> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:107:42
+   |
+LL | impl Borrow<[u8]> for GenericExampleType<&'static [u8]> {
+   |                                          ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:108:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:108:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:108:16
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:108:15
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:108:25
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:113:1
+   |
+LL | struct GenericExampleType2<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:117:1
    |
 LL | impl Hash for GenericExampleType2<String> {
-   |      ^^^^
-   |
-   = note: the `Borrow` semantics require that `Hash` must behave the same for all implementations of Borrow<T>
-   = note: however, the hash implementations of a string (`str`) and the bytes of a string `[u8]` do not behave the same ...
-   = note: ... as (`hash("abc") != hash("abc".as_bytes())`
-   = help: consider either removing one of the  `Borrow` implementations (`Borrow<str>` or `Borrow<[u8]>`) ...
-   = help: ... or not implementing `Hash` for this type
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:121:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:121:5
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:121:25
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:121:31
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:121:24
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:121:38
+   |
+LL |     fn hash<H: Hasher>(&self, state: &mut H) {
+   |                                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:126:1
+   |
+LL | impl Borrow<str> for GenericExampleType2<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:127:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:127:5
+   |
+LL |     fn borrow(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:127:16
+   |
+LL |     fn borrow(&self) -> &str {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:127:15
+   |
+LL |     fn borrow(&self) -> &str {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:127:25
+   |
+LL |     fn borrow(&self) -> &str {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:128:9
+   |
+LL |         &self.data
+   |         ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:132:1
+   |
+LL | impl Borrow<[u8]> for GenericExampleType2<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:133:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:133:5
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:133:16
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:133:15
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/impl_hash_with_borrow_str_and_bytes.rs:133:25
+   |
+LL |     fn borrow(&self) -> &[u8] {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 119 previous errors
 

@@ -1,53 +1,217 @@
-error: this call to `from_str_radix` can be replaced with a call to `str::parse`
-  --> tests/ui/from_str_radix_10.rs:28:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     u32::from_str_radix("30", 10)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"30".parse::<u32>()`
-   |
-   = note: `-D clippy::from-str-radix-10` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::from_str_radix_10)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this call to `from_str_radix` can be replaced with a call to `str::parse`
-  --> tests/ui/from_str_radix_10.rs:31:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     i64::from_str_radix("24", 10)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"24".parse::<i64>()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this call to `from_str_radix` can be replaced with a call to `str::parse`
-  --> tests/ui/from_str_radix_10.rs:34:5
+error: item must be `pub`
+  --> tests/ui/from_str_radix_10.rs:3:1
    |
-LL |     isize::from_str_radix("100", 10)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"100".parse::<isize>()`
-
-error: this call to `from_str_radix` can be replaced with a call to `str::parse`
-  --> tests/ui/from_str_radix_10.rs:37:5
+LL | mod some_mod {
+   | ^ help: make this item public: `pub`
    |
-LL |     u8::from_str_radix("7", 10)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"7".parse::<u8>()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this call to `from_str_radix` can be replaced with a call to `str::parse`
-  --> tests/ui/from_str_radix_10.rs:40:5
+error: function must be `unsafe`
+  --> tests/ui/from_str_radix_10.rs:5:9
+   |
+LL |     pub fn from_str_radix(_: &str, _: u32) -> Result<(), std::num::ParseIntError> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_str_radix_10.rs:5:9
+   |
+LL |     pub fn from_str_radix(_: &str, _: u32) -> Result<(), std::num::ParseIntError> {
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/from_str_radix_10.rs:5:30
+   |
+LL |     pub fn from_str_radix(_: &str, _: u32) -> Result<(), std::num::ParseIntError> {
+   |                              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/from_str_radix_10.rs:11:1
+   |
+LL | fn from_str_radix(_: &str, _: u32) -> Result<(), std::num::ParseIntError> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_str_radix_10.rs:11:1
+   |
+LL | fn from_str_radix(_: &str, _: u32) -> Result<(), std::num::ParseIntError> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_str_radix_10.rs:11:1
+   |
+LL | fn from_str_radix(_: &str, _: u32) -> Result<(), std::num::ParseIntError> {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/from_str_radix_10.rs:11:22
+   |
+LL | fn from_str_radix(_: &str, _: u32) -> Result<(), std::num::ParseIntError> {
+   |                      ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/from_str_radix_10.rs:16:1
+   |
+LL | struct Test;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/from_str_radix_10.rs:18:1
+   |
+LL | impl std::ops::Add<Test> for Test {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/from_str_radix_10.rs:19:19
+   |
+LL |     type Output = &'static str;
+   |                   ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/from_str_radix_10.rs:21:5
+   |
+LL |     fn add(self, _: Self) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_str_radix_10.rs:21:5
+   |
+LL |     fn add(self, _: Self) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_str_radix_10.rs:21:12
+   |
+LL |     fn add(self, _: Self) -> Self::Output {
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/from_str_radix_10.rs:26:1
+   |
+LL | fn main() -> Result<(), Box<dyn std::error::Error>> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_str_radix_10.rs:26:1
+   |
+LL | fn main() -> Result<(), Box<dyn std::error::Error>> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_str_radix_10.rs:26:1
+   |
+LL | fn main() -> Result<(), Box<dyn std::error::Error>> {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/from_str_radix_10.rs:40:25
    |
 LL |     u16::from_str_radix(&("10".to_owned() + "5"), 10)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `("10".to_owned() + "5").parse::<u16>()`
-
-error: this call to `from_str_radix` can be replaced with a call to `str::parse`
-  --> tests/ui/from_str_radix_10.rs:43:5
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     i128::from_str_radix(Test + Test, 10)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `(Test + Test).parse::<i128>()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this call to `from_str_radix` can be replaced with a call to `str::parse`
-  --> tests/ui/from_str_radix_10.rs:47:5
+error: variable must be `mut`
+  --> tests/ui/from_str_radix_10.rs:46:9
    |
-LL |     i32::from_str_radix(string, 10)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `string.parse::<i32>()`
+LL |     let string = "300";
+   |         ^ help: make this variable mutable: `mut`
 
-error: this call to `from_str_radix` can be replaced with a call to `str::parse`
-  --> tests/ui/from_str_radix_10.rs:51:5
+error: variable must be `mut`
+  --> tests/ui/from_str_radix_10.rs:50:9
+   |
+LL |     let stringier = "400".to_string();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/from_str_radix_10.rs:51:25
    |
 LL |     i32::from_str_radix(&stringier, 10)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `stringier.parse::<i32>()`
+   |                         ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 8 previous errors
+error: item must be `pub`
+  --> tests/ui/from_str_radix_10.rs:68:1
+   |
+LL | fn issue_12731() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_str_radix_10.rs:68:1
+   |
+LL | fn issue_12731() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_str_radix_10.rs:68:1
+   |
+LL | fn issue_12731() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/from_str_radix_10.rs:69:5
+   |
+LL |     const A: Result<u32, std::num::ParseIntError> = u32::from_str_radix("123", 10);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/from_str_radix_10.rs:70:5
+   |
+LL |     const B: () = {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/from_str_radix_10.rs:73:5
+   |
+LL |     const fn foo() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_str_radix_10.rs:73:11
+   |
+LL |     const fn foo() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_str_radix_10.rs:73:11
+   |
+LL |     const fn foo() {
+   |           ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 27 previous errors
 

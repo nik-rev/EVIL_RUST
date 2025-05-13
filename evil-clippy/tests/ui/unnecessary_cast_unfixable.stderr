@@ -1,17 +1,89 @@
-error: casting raw pointers to the same type and constness is unnecessary (`*const u8` -> `*const u8`)
-  --> tests/ui/unnecessary_cast_unfixable.rs:4:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = std::ptr::null() as *const u8;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::ptr::null()`
-   |
-   = note: `-D clippy::unnecessary-cast` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_cast)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: casting raw pointers to the same type and constness is unnecessary (`*mut issue11113::Vtbl` -> `*mut issue11113::Vtbl`)
-  --> tests/ui/unnecessary_cast_unfixable.rs:21:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |                 ((*(*(self.object as *mut *mut _) as *mut Vtbl)).query)()
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `*(self.object as *mut *mut _)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/unnecessary_cast_unfixable.rs:3:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_cast_unfixable.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_cast_unfixable.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_cast_unfixable.rs:8:1
+   |
+LL | mod issue11113 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_cast_unfixable.rs:10:5
+   |
+LL |     struct Vtbl {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_cast_unfixable.rs:14:5
+   |
+LL |     struct TearOff {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_cast_unfixable.rs:18:5
+   |
+LL |     impl TearOff {
+   |     ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_cast_unfixable.rs:19:26
+   |
+LL |         unsafe fn query(&self) {
+   |                          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_cast_unfixable.rs:19:25
+   |
+LL |         unsafe fn query(&self) {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 12 previous errors
 

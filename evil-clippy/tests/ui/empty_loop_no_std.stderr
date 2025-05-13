@@ -1,12 +1,49 @@
-error: empty `loop {}` wastes CPU cycles
-  --> tests/ui/empty_loop_no_std.rs:10:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     loop {}
-   |     ^^^^^^^
-   |
-   = help: you should either use `panic!()` or add a call pausing or sleeping the thread to the loop body
-   = note: `-D clippy::empty-loop` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::empty_loop)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/empty_loop_no_std.rs:8:5
+   |
+LL | pub fn main(argc: isize, argv: *const *const u8) -> isize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/empty_loop_no_std.rs:8:5
+   |
+LL | pub fn main(argc: isize, argv: *const *const u8) -> isize {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/empty_loop_no_std.rs:8:13
+   |
+LL | pub fn main(argc: isize, argv: *const *const u8) -> isize {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/empty_loop_no_std.rs:8:26
+   |
+LL | pub fn main(argc: isize, argv: *const *const u8) -> isize {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: aborting due to 6 previous errors
 

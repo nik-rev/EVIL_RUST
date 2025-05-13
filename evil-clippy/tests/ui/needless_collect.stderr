@@ -1,119 +1,756 @@
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:15:29
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:13:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:13:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:13:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:14:9
+   |
+LL |     let sample = [1; 5];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:15:9
    |
 LL |     let len = sample.iter().collect::<Vec<_>>().len();
-   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `count()`
-   |
-   = note: `-D clippy::needless-collect` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_collect)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:17:22
-   |
-LL |     if sample.iter().collect::<Vec<_>>().is_empty() {
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `next().is_none()`
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:21:28
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:21:57
    |
 LL |     sample.iter().cloned().collect::<Vec<_>>().contains(&1);
-   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `any(|x| x == 1)`
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:27:35
+   |                                                         ^^
    |
-LL |     sample.iter().map(|x| (x, x)).collect::<HashMap<_, _>>().is_empty();
-   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `next().is_none()`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:29:35
-   |
-LL |     sample.iter().map(|x| (x, x)).collect::<BTreeMap<_, _>>().is_empty();
-   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `next().is_none()`
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:37:19
-   |
-LL |     sample.iter().collect::<LinkedList<_>>().len();
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `count()`
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:39:19
-   |
-LL |     sample.iter().collect::<LinkedList<_>>().is_empty();
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `next().is_none()`
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:41:28
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:41:64
    |
 LL |     sample.iter().cloned().collect::<LinkedList<_>>().contains(&1);
-   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `any(|x| x == 1)`
+   |                                                                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:43:19
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:43:55
    |
 LL |     sample.iter().collect::<LinkedList<_>>().contains(&&1);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `any(|x| x == &1)`
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:47:19
+   |                                                       ^^^
    |
-LL |     sample.iter().collect::<BinaryHeap<_>>().len();
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `count()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:49:19
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:43:56
    |
-LL |     sample.iter().collect::<BinaryHeap<_>>().is_empty();
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `next().is_none()`
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:55:27
+LL |     sample.iter().collect::<LinkedList<_>>().contains(&&1);
+   |                                                        ^^
    |
-LL |     let _ = sample.iter().collect::<HashSet<_>>().is_empty();
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `next().is_none()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:57:27
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:57:60
    |
 LL |     let _ = sample.iter().collect::<HashSet<_>>().contains(&&0);
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `any(|x| x == &0)`
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:80:27
+   |                                                            ^^^
    |
-LL |     let _ = sample.iter().collect::<VecWrapper<_>>().is_empty();
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `next().is_none()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:82:27
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:57:61
+   |
+LL |     let _ = sample.iter().collect::<HashSet<_>>().contains(&&0);
+   |                                                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:60:5
+   |
+LL |     struct VecWrapper<T>(Vec<T>);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:61:5
+   |
+LL |     impl<T> core::ops::Deref for VecWrapper<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:63:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:63:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:63:19
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:63:18
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:63:28
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:64:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:67:5
+   |
+LL |     impl<T> IntoIterator for VecWrapper<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:70:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:70:9
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:70:22
+   |
+LL |         fn into_iter(self) -> Self::IntoIter {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:74:5
+   |
+LL |     impl<T> FromIterator<T> for VecWrapper<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:75:9
+   |
+LL |         fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:75:9
+   |
+LL |         fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:75:49
+   |
+LL |         fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self {
+   |                                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:82:63
    |
 LL |     let _ = sample.iter().collect::<VecWrapper<_>>().contains(&&0);
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `any(|x| x == &0)`
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:87:40
+   |                                                               ^^^
    |
-LL |         Vec::<u8>::new().extend((0..10).collect::<Vec<_>>());
-   |                                        ^^^^^^^^^^^^^^^^^^^^ help: remove this call
+   = help: use a raw borrowing instead: `&raw const`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:89:20
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:82:64
    |
-LL |         foo((0..10).collect::<Vec<_>>());
-   |                    ^^^^^^^^^^^^^^^^^^^^ help: remove this call
-
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:91:49
+LL |     let _ = sample.iter().collect::<VecWrapper<_>>().contains(&&0);
+   |                                                                ^^
    |
-LL |         bar((0..10).collect::<Vec<_>>(), (0..10).collect::<Vec<_>>());
-   |                                                 ^^^^^^^^^^^^^^^^^^^^ help: remove this call
+   = help: use a raw borrowing instead: `&raw const`
 
-error: avoid using `collect()` when not needed
-  --> tests/ui/needless_collect.rs:93:37
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:97:9
    |
-LL |         baz((0..10), (), ('a'..='z').collect::<Vec<_>>())
-   |                                     ^^^^^^^^^^^^^^^^^^^^ help: remove this call
+LL |     let values = [1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 19 previous errors
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:100:9
+   |
+LL |     let _y = values.iter().cloned().map(|x| out.push(x)).collect::<Vec<_>>(); // this is fine
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:104:9
+   |
+LL |     let my_collection: Vec<()> = vec![()].into_iter().map(|()| {}).collect();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:105:9
+   |
+LL |     let _cloned = my_collection.into_iter().clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:106:9
+   |
+LL |     let my_collection: Vec<()> = vec![()].into_iter().map(|()| {}).collect();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:107:9
+   |
+LL |     let my_iter = my_collection.into_iter();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:108:9
+   |
+LL |     let _cloned = my_iter.clone();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:110:9
+   |
+LL |     let my_collection: Vec<()> = vec![()].into_iter().map(|()| {}).collect();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:111:9
+   |
+LL |     let _sliced = my_collection.into_iter().as_slice();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:112:9
+   |
+LL |     let my_collection: Vec<()> = vec![()].into_iter().map(|()| {}).collect();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:113:9
+   |
+LL |     let my_iter = my_collection.into_iter();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:114:9
+   |
+LL |     let _sliced = my_iter.as_slice();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:117:13
+   |
+LL |         let x;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:119:17
+   |
+LL |             let xxx: Vec<()> = vec![()].into_iter().map(|()| {}).collect();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:126:1
+   |
+LL | fn foo(_: impl IntoIterator<Item = usize>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:126:1
+   |
+LL | fn foo(_: impl IntoIterator<Item = usize>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:126:1
+   |
+LL | fn foo(_: impl IntoIterator<Item = usize>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:127:1
+   |
+LL | fn bar<I: IntoIterator<Item = usize>>(_: Vec<usize>, _: I) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:127:1
+   |
+LL | fn bar<I: IntoIterator<Item = usize>>(_: Vec<usize>, _: I) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:127:1
+   |
+LL | fn bar<I: IntoIterator<Item = usize>>(_: Vec<usize>, _: I) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:128:1
+   |
+LL | fn baz<I: IntoIterator<Item = usize>>(_: I, _: (), _: impl IntoIterator<Item = char>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:128:1
+   |
+LL | fn baz<I: IntoIterator<Item = usize>>(_: I, _: (), _: impl IntoIterator<Item = char>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:128:1
+   |
+LL | fn baz<I: IntoIterator<Item = usize>>(_: I, _: (), _: impl IntoIterator<Item = char>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:130:1
+   |
+LL | mod issue9191 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:137:5
+   |
+LL |     fn captures_ref_mut(xs: Vec<i32>, mut ys: HashSet<i32>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:137:5
+   |
+LL |     fn captures_ref_mut(xs: Vec<i32>, mut ys: HashSet<i32>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:137:5
+   |
+LL |     fn captures_ref_mut(xs: Vec<i32>, mut ys: HashSet<i32>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:137:25
+   |
+LL |     fn captures_ref_mut(xs: Vec<i32>, mut ys: HashSet<i32>) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:138:73
+   |
+LL |         if xs.iter().map(|x| ys.remove(x)).collect::<Vec<_>>().contains(&true) {
+   |                                                                         ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:144:5
+   |
+LL |     struct MyRef<'a>(PhantomData<&'a mut Cell<HashSet<i32>>>, *mut Cell<HashSet<i32>>);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:144:34
+   |
+LL |     struct MyRef<'a>(PhantomData<&'a mut Cell<HashSet<i32>>>, *mut Cell<HashSet<i32>>);
+   |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:143:14
+   |
+LL |     #[derive(Debug, Clone)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:143:11
+   |
+LL |     #[derive(Debug, Clone)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:143:11
+   |
+LL |     #[derive(Debug, Clone)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:143:14
+   |
+LL |     #[derive(Debug, Clone)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:143:14
+   |
+LL |     #[derive(Debug, Clone)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:143:14
+   |
+LL |     #[derive(Debug, Clone)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:143:14
+   |
+LL |     #[derive(Debug, Clone)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:144:22
+   |
+LL |     #[derive(Debug, Clone)]
+   |              ----- in this derive macro expansion
+LL |     struct MyRef<'a>(PhantomData<&'a mut Cell<HashSet<i32>>>, *mut Cell<HashSet<i32>>);
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:144:63
+   |
+LL |     #[derive(Debug, Clone)]
+   |              ----- in this derive macro expansion
+LL |     struct MyRef<'a>(PhantomData<&'a mut Cell<HashSet<i32>>>, *mut Cell<HashSet<i32>>);
+   |                                                               ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:144:63
+   |
+LL |     #[derive(Debug, Clone)]
+   |              ----- in this derive macro expansion
+LL |     struct MyRef<'a>(PhantomData<&'a mut Cell<HashSet<i32>>>, *mut Cell<HashSet<i32>>);
+   |                                                               ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:143:21
+   |
+LL |     #[derive(Debug, Clone)]
+   |                     ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:143:18
+   |
+LL |     #[derive(Debug, Clone)]
+   |                  ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:143:18
+   |
+LL |     #[derive(Debug, Clone)]
+   |                  ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:143:21
+   |
+LL |     #[derive(Debug, Clone)]
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:143:21
+   |
+LL |     #[derive(Debug, Clone)]
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:144:22
+   |
+LL |     #[derive(Debug, Clone)]
+   |                     ----- in this derive macro expansion
+LL |     struct MyRef<'a>(PhantomData<&'a mut Cell<HashSet<i32>>>, *mut Cell<HashSet<i32>>);
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:144:63
+   |
+LL |     #[derive(Debug, Clone)]
+   |                     ----- in this derive macro expansion
+LL |     struct MyRef<'a>(PhantomData<&'a mut Cell<HashSet<i32>>>, *mut Cell<HashSet<i32>>);
+   |                                                               ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:146:5
+   |
+LL |     impl MyRef<'_> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:147:9
+   |
+LL |         fn new(target: &mut Cell<HashSet<i32>>) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:147:9
+   |
+LL |         fn new(target: &mut Cell<HashSet<i32>>) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:147:16
+   |
+LL |         fn new(target: &mut Cell<HashSet<i32>>) -> Self {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:147:24
+   |
+LL |         fn new(target: &mut Cell<HashSet<i32>>) -> Self {
+   |                        ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:151:9
+   |
+LL |         fn get(&mut self) -> &mut Cell<HashSet<i32>> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:151:9
+   |
+LL |         fn get(&mut self) -> &mut Cell<HashSet<i32>> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:151:21
+   |
+LL |         fn get(&mut self) -> &mut Cell<HashSet<i32>> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:151:16
+   |
+LL |         fn get(&mut self) -> &mut Cell<HashSet<i32>> {
+   |                ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:151:30
+   |
+LL |         fn get(&mut self) -> &mut Cell<HashSet<i32>> {
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:152:22
+   |
+LL |             unsafe { &mut *self.1 }
+   |                      ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:156:5
+   |
+LL |     fn captures_phantom(xs: Vec<i32>, mut ys: Cell<HashSet<i32>>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:156:5
+   |
+LL |     fn captures_phantom(xs: Vec<i32>, mut ys: Cell<HashSet<i32>>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:156:5
+   |
+LL |     fn captures_phantom(xs: Vec<i32>, mut ys: Cell<HashSet<i32>>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:156:25
+   |
+LL |     fn captures_phantom(xs: Vec<i32>, mut ys: Cell<HashSet<i32>>) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:157:37
+   |
+LL |         let mut ys_ref = MyRef::new(&mut ys);
+   |                                     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:165:23
+   |
+LL |             .contains(&true)
+   |                       ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:172:5
+   |
+LL | pub fn issue8055(v: impl IntoIterator<Item = i32>) -> Result<impl Iterator<Item = i32>, usize> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:172:5
+   |
+LL | pub fn issue8055(v: impl IntoIterator<Item = i32>) -> Result<impl Iterator<Item = i32>, usize> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:172:18
+   |
+LL | pub fn issue8055(v: impl IntoIterator<Item = i32>) -> Result<impl Iterator<Item = i32>, usize> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_collect.rs:175:9
+   |
+LL |     let res: Vec<_> = v
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:191:1
+   |
+LL | mod issue8055_regression {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:192:5
+   |
+LL |     struct Foo<T> {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:197:5
+   |
+LL |     impl<T: Iterator> Iterator for Foo<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:199:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:199:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_collect.rs:199:22
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:199:17
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_collect.rs:204:5
+   |
+LL |     fn foo() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_collect.rs:204:5
+   |
+LL |     fn foo() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_collect.rs:204:5
+   |
+LL |     fn foo() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/needless_collect.rs:209:24
+   |
+LL |         .collect::<Vec<&i32>>()
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 97 previous errors
 

@@ -1,89 +1,215 @@
-error: large future with a size of 16385 bytes
-  --> tests/ui/large_futures.rs:13:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         big_fut([0u8; 1024 * 16]).await;
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider `Box::pin` on it: `Box::pin(big_fut([0u8; 1024 * 16]))`
-   |
-   = note: `-D clippy::large-futures` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::large_futures)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: large future with a size of 16386 bytes
-  --> tests/ui/large_futures.rs:16:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     f.await
-   |     ^ help: consider `Box::pin` on it: `Box::pin(f)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: large future with a size of 16387 bytes
-  --> tests/ui/large_futures.rs:21:9
+error: item must be `pub`
+  --> tests/ui/large_futures.rs:9:1
    |
-LL |         wait().await;
-   |         ^^^^^^ help: consider `Box::pin` on it: `Box::pin(wait())`
+LL | async fn big_fut(_arg: [u8; 1024 * 16]) {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: large future with a size of 16387 bytes
-  --> tests/ui/large_futures.rs:27:13
+error: function must be `unsafe`
+  --> tests/ui/large_futures.rs:9:7
    |
-LL |             wait().await;
-   |             ^^^^^^ help: consider `Box::pin` on it: `Box::pin(wait())`
+LL | async fn big_fut(_arg: [u8; 1024 * 16]) {}
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_futures.rs:9:7
+   |
+LL | async fn big_fut(_arg: [u8; 1024 * 16]) {}
+   |       ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: large future with a size of 65540 bytes
-  --> tests/ui/large_futures.rs:35:5
+error: parameter must be `mut`
+  --> tests/ui/large_futures.rs:9:18
    |
-LL |     foo().await;
-   |     ^^^^^ help: consider `Box::pin` on it: `Box::pin(foo())`
+LL | async fn big_fut(_arg: [u8; 1024 * 16]) {}
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: large future with a size of 49159 bytes
-  --> tests/ui/large_futures.rs:38:5
+error: item must be `pub`
+  --> tests/ui/large_futures.rs:11:1
    |
-LL |     calls_fut(fut).await;
-   |     ^^^^^^^^^^^^^^ help: consider `Box::pin` on it: `Box::pin(calls_fut(fut))`
+LL | async fn wait() {
+   | ^ help: make this item public: `pub`
 
-error: large future with a size of 65540 bytes
-  --> tests/ui/large_futures.rs:51:5
+error: function must be `unsafe`
+  --> tests/ui/large_futures.rs:11:7
    |
-LL | /     async {
-LL | |
-LL | |
-LL | |         let x = [0i32; 1024 * 16];
-LL | |         async {}.await;
-LL | |         println!("{:?}", x);
-LL | |     }
-   | |_____^
+LL | async fn wait() {
+   |       ^
    |
-help: consider `Box::pin` on it
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_futures.rs:11:7
    |
-LL ~     Box::pin(async {
-LL +
-LL + 
-LL +         let x = [0i32; 1024 * 16];
-LL +         async {}.await;
-LL +         println!("{:?}", x);
-LL +     })
-   |
+LL | async fn wait() {
+   |       ^
 
-error: large future with a size of 65540 bytes
-  --> tests/ui/large_futures.rs:64:13
+error: variable must be `mut`
+  --> tests/ui/large_futures.rs:12:9
    |
-LL | /             async {
-LL | |
-LL | |                 let x = [0i32; 1024 * 16];
-LL | |                 async {}.await;
-LL | |                 println!("macro: {:?}", x);
-LL | |             }
-   | |_____________^
+LL |     let f = async {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/large_futures.rs:19:1
+   |
+LL | async fn calls_fut(fut: impl std::future::Future<Output = ()>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_futures.rs:19:7
+   |
+LL | async fn calls_fut(fut: impl std::future::Future<Output = ()>) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_futures.rs:19:7
+   |
+LL | async fn calls_fut(fut: impl std::future::Future<Output = ()>) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/large_futures.rs:19:20
+   |
+LL | async fn calls_fut(fut: impl std::future::Future<Output = ()>) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/large_futures.rs:33:11
+   |
+LL | pub async fn test() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_futures.rs:33:11
+   |
+LL | pub async fn test() {
+   |           ^
+
+error: variable must be `mut`
+  --> tests/ui/large_futures.rs:34:9
+   |
+LL |     let fut = big_fut([0u8; 1024 * 16]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/large_futures.rs:42:5
+   |
+LL | pub fn foo() -> impl std::future::Future<Output = ()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_futures.rs:42:5
+   |
+LL | pub fn foo() -> impl std::future::Future<Output = ()> {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/large_futures.rs:44:13
+   |
+LL |         let x = [0i32; 1024 * 16];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/large_futures.rs:46:9
+   |
+LL |         dbg!(x);
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/large_futures.rs:50:11
+   |
+LL | pub async fn lines() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_futures.rs:50:11
+   |
+LL | pub async fn lines() {
+   |           ^
+
+error: variable must be `mut`
+  --> tests/ui/large_futures.rs:54:13
+   |
+LL |         let x = [0i32; 1024 * 16];
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/large_futures.rs:61:11
+   |
+LL | pub async fn macro_expn() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_futures.rs:61:11
+   |
+LL | pub async fn macro_expn() {
+   |           ^
+
+error: item must be `pub`
+  --> tests/ui/large_futures.rs:62:5
+   |
+LL |     macro_rules! macro_ {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/large_futures.rs:66:21
+   |
+LL |                 let x = [0i32; 1024 * 16];
+   |                     ^ help: make this variable mutable: `mut`
 ...
-LL |       macro_!().await
-   |       --------- in this macro invocation
+LL |     macro_!().await
+   |     --------- in this macro invocation
    |
    = note: this error originates in the macro `macro_` (in Nightly builds, run with -Z macro-backtrace for more info)
-help: consider `Box::pin` on it
-   |
-LL ~             Box::pin(async {
-LL +
-LL +                 let x = [0i32; 1024 * 16];
-LL +                 async {}.await;
-LL +                 println!("macro: {:?}", x);
-LL +             })
-   |
 
-error: aborting due to 8 previous errors
+error: item must be `pub`
+  --> tests/ui/large_futures.rs:75:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/large_futures.rs:75:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/large_futures.rs:75:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 25 previous errors
 

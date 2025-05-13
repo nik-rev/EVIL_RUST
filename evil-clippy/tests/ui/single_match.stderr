@@ -1,343 +1,859 @@
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:16:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match x {
-LL | |         Some(y) => {
-LL | |             println!("{:?}", y);
-LL | |         },
-LL | |         _ => (),
-LL | |     };
-   | |_____^
-   |
-   = note: `-D clippy::single-match` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::single_match)]`
-help: try
-   |
-LL ~     if let Some(y) = x {
-LL +         println!("{:?}", y);
-LL ~     };
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:25:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match x {
-...  |
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: try: `if let Some(y) = x { println!("{:?}", y) }`
-   |
-   = note: you might want to preserve the comments from inside the `match`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:36:5
+error: item must be `pub`
+  --> tests/ui/single_match.rs:11:1
    |
-LL | /     match z {
-LL | |         (2..=3, 7..=9) => dummy(),
-LL | |         _ => {},
-LL | |     };
-   | |_____^ help: try: `if let (2..=3, 7..=9) = z { dummy() }`
+LL | fn dummy() {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:66:5
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:11:1
    |
-LL | /     match x {
-LL | |         Some(y) => dummy(),
-LL | |         None => (),
-LL | |     };
-   | |_____^ help: try: `if let Some(y) = x { dummy() }`
+LL | fn dummy() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:11:1
+   |
+LL | fn dummy() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:72:5
+error: item must be `pub`
+  --> tests/ui/single_match.rs:13:1
    |
-LL | /     match y {
-LL | |         Ok(y) => dummy(),
-LL | |         Err(..) => (),
-LL | |     };
-   | |_____^ help: try: `if let Ok(y) = y { dummy() }`
+LL | fn single_match() {
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:80:5
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:13:1
    |
-LL | /     match c {
-LL | |         Cow::Borrowed(..) => dummy(),
-LL | |         Cow::Owned(..) => (),
-LL | |     };
-   | |_____^ help: try: `if let Cow::Borrowed(..) = c { dummy() }`
+LL | fn single_match() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:13:1
+   |
+LL | fn single_match() {
+   | ^
 
-error: you seem to be trying to use `match` for an equality check. Consider using `if`
-  --> tests/ui/single_match.rs:102:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:14:9
    |
-LL | /     match x {
-LL | |         "test" => println!(),
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: try: `if x == "test" { println!() }`
+LL |     let x = Some(1u8);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: you seem to be trying to use `match` for an equality check. Consider using `if`
-  --> tests/ui/single_match.rs:116:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:24:9
    |
-LL | /     match x {
-LL | |         Foo::A => println!(),
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: try: `if x == Foo::A { println!() }`
+LL |     let x = Some(1u8);
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to use `match` for an equality check. Consider using `if`
-  --> tests/ui/single_match.rs:123:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:35:9
    |
-LL | /     match x {
-LL | |         FOO_C => println!(),
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: try: `if x == FOO_C { println!() }`
+LL |     let z = (1u8, 1u8);
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to use `match` for an equality check. Consider using `if`
-  --> tests/ui/single_match.rs:129:5
+error: item must be `pub`
+  --> tests/ui/single_match.rs:55:1
    |
-LL | /     match &&x {
-LL | |         Foo::A => println!(),
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: try: `if x == Foo::A { println!() }`
+LL | enum Foo {
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `match` for an equality check. Consider using `if`
-  --> tests/ui/single_match.rs:136:5
+error: item must be `pub`
+  --> tests/ui/single_match.rs:62:1
    |
-LL | /     match &x {
-LL | |         Foo::A => println!(),
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: try: `if x == &Foo::A { println!() }`
+LL | fn single_match_know_enum() {
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:154:5
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:62:1
    |
-LL | /     match x {
-LL | |         Bar::A => println!(),
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: try: `if let Bar::A = x { println!() }`
+LL | fn single_match_know_enum() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:62:1
+   |
+LL | fn single_match_know_enum() {
+   | ^
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:163:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:63:9
    |
-LL | /     match x {
-LL | |         None => println!(),
-LL | |         _ => (),
-LL | |     };
-   | |_____^ help: try: `if let None = x { println!() }`
+LL |     let x = Some(1u8);
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:186:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:64:9
    |
-LL | /     match x {
-LL | |         (Some(_), _) => {},
-LL | |         (None, _) => {},
-LL | |     }
-   | |_____^ help: try: `if let (Some(_), _) = x {}`
+LL |     let y: Result<_, i8> = Ok(1i8);
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:193:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:78:9
    |
-LL | /     match x {
-LL | |         (Some(E::V), _) => todo!(),
-LL | |         (_, _) => {},
-LL | |     }
-   | |_____^ help: try: `if let (Some(E::V), _) = x { todo!() }`
+LL |     let c = Cow::Borrowed("");
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:200:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:86:9
    |
-LL | /     match (Some(42), Some(E::V), Some(42)) {
-LL | |         (.., Some(E::V), _) => {},
-LL | |         (..) => {},
-LL | |     }
-   | |_____^ help: try: `if let (.., Some(E::V), _) = (Some(42), Some(E::V), Some(42)) {}`
+LL |     let z = Foo::Bar;
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:273:5
+error: item must be `pub`
+  --> tests/ui/single_match.rs:100:1
    |
-LL | /     match bar {
-LL | |         Some(v) => unsafe {
-LL | |             let r = &v as *const i32;
-LL | |             println!("{}", *r);
-LL | |         },
-LL | |         _ => {},
-LL | |     }
-   | |_____^
-   |
-help: try
-   |
-LL ~     if let Some(v) = bar { unsafe {
-LL +         let r = &v as *const i32;
-LL +         println!("{}", *r);
-LL +     } }
-   |
+LL | fn if_suggestion() {
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:282:5
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:100:1
    |
-LL | /     match bar {
-LL | |         #[rustfmt::skip]
-LL | |         Some(v) => {
-LL | |             unsafe {
-...  |
-LL | |         _ => {},
-LL | |     }
-   | |_____^
+LL | fn if_suggestion() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:100:1
    |
-LL ~     if let Some(v) = bar {
-LL +         unsafe {
-LL +             let r = &v as *const i32;
-LL +             println!("{}", *r);
-LL +         }
-LL +     }
-   |
+LL | fn if_suggestion() {
+   | ^
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:363:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:101:9
    |
-LL | /     match Ok::<_, u32>(Some(A)) {
-LL | |         Ok(Some(A)) => println!(),
-LL | |         Err(_) | Ok(None | Some(_)) => {},
-LL | |     }
-   | |_____^ help: try: `if let Ok(Some(A)) = Ok::<_, u32>(Some(A)) { println!() }`
+LL |     let x = "test";
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:379:5
+error: item must be `pub`
+  --> tests/ui/single_match.rs:109:5
    |
-LL | /     match &Some(A) {
-LL | |         Some(A | B) => println!(),
-LL | |         None | Some(_) => {},
-LL | |     }
-   | |_____^ help: try: `if let Some(A | B) = &Some(A) { println!() }`
+LL |     enum Foo {
+   |     ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `match` for an equality check. Consider using `if`
-  --> tests/ui/single_match.rs:387:5
+error: item must be `pub`
+  --> tests/ui/single_match.rs:108:14
    |
-LL | /     match &s[0..3] {
-LL | |         b"foo" => println!(),
-LL | |         _ => {},
-LL | |     }
-   | |_____^ help: try: `if &s[0..3] == b"foo" { println!() }`
+LL |     #[derive(PartialEq, Eq)]
+   |              ^
 
-error: this pattern is irrefutable, `match` is useless
-  --> tests/ui/single_match.rs:401:5
+error: item must be `pub`
+  --> tests/ui/single_match.rs:108:14
    |
-LL | /     match DATA {
-LL | |         DATA => println!(),
-LL | |         _ => {},
-LL | |     }
-   | |_____^ help: try: `println!();`
+LL |     #[derive(PartialEq, Eq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this pattern is irrefutable, `match` is useless
-  --> tests/ui/single_match.rs:407:5
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:108:11
    |
-LL | /     match CONST_I32 {
-LL | |         CONST_I32 => println!(),
-LL | |         _ => {},
-LL | |     }
-   | |_____^ help: try: `println!();`
+LL |     #[derive(PartialEq, Eq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:108:11
+   |
+LL |     #[derive(PartialEq, Eq)]
+   |           ^  --------- in this derive macro expansion
 
-error: this pattern is irrefutable, `match` is useless
-  --> tests/ui/single_match.rs:414:5
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:108:14
    |
-LL | /     match i {
-LL | |         i => {
-LL | |             let a = 1;
-LL | |             let b = 2;
-LL | |         },
-LL | |         _ => {},
-LL | |     }
-   | |_____^
-   |
-help: try
-   |
-LL ~     {
-LL +         let a = 1;
-LL +         let b = 2;
-LL +     }
-   |
+LL |     #[derive(PartialEq, Eq)]
+   |              ^ help: make this parameter mutable: `mut`
 
-error: this pattern is irrefutable, `match` is useless
-  --> tests/ui/single_match.rs:423:5
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:108:14
    |
-LL | /     match i {
-LL | |         i => {},
-LL | |         _ => {},
-LL | |     }
-   | |_____^ help: `match` expression can be removed
+LL |     #[derive(PartialEq, Eq)]
+   |              ^
 
-error: this pattern is irrefutable, `match` is useless
-  --> tests/ui/single_match.rs:429:5
+error: references are not allowed
+  --> tests/ui/single_match.rs:108:14
    |
-LL | /     match i {
-LL | |         i => (),
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: `match` expression can be removed
+LL |     #[derive(PartialEq, Eq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this pattern is irrefutable, `match` is useless
-  --> tests/ui/single_match.rs:435:5
+error: references are not allowed
+  --> tests/ui/single_match.rs:108:14
    |
-LL | /     match CONST_I32 {
-LL | |         CONST_I32 => println!(),
-LL | |         _ => {},
-LL | |     }
-   | |_____^ help: try: `println!();`
+LL |     #[derive(PartialEq, Eq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:443:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:108:14
    |
-LL | /     match x.pop() {
-LL | |         // bla
-LL | |         Some(u) => println!("{u}"),
-...  |
-LL | |     }
-   | |_____^ help: try: `if let Some(u) = x.pop() { println!("{u}") }`
-   |
-   = note: you might want to preserve the comments from inside the `match`
+LL |     #[derive(PartialEq, Eq)]
+   |              ^
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:452:5
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:108:14
    |
-LL | /     match x.pop() {
-LL | |         // bla
-LL | |         Some(u) => {
-...  |
-LL | |         None => {},
-LL | |     }
-   | |_____^
+LL |     #[derive(PartialEq, Eq)]
+   |              ^
    |
-   = note: you might want to preserve the comments from inside the `match`
-help: try
-   |
-LL ~     if let Some(u) = x.pop() {
-LL +         // bla
-LL +         println!("{u}");
-LL +     }
-   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: you seem to be trying to use `match` for destructuring a single pattern. Consider using `if let`
-  --> tests/ui/single_match.rs:478:5
+error: item must be `pub`
+  --> tests/ui/single_match.rs:108:25
    |
-LL | /     match mac!(some) {
-LL | |         Some(u) => println!("{u}"),
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: try: `if let Some(u) = mac!(some) { println!("{u}") }`
+LL |     #[derive(PartialEq, Eq)]
+   |                         ^
 
-error: you seem to be trying to use `match` for an equality check. Consider using `if`
-  --> tests/ui/single_match.rs:486:5
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:108:22
    |
-LL | /     match mac!(str) {
-LL | |         "foo" => println!("eq"),
-LL | |         _ => (),
-LL | |     }
-   | |_____^ help: try: `if mac!(str) == "foo" { println!("eq") }`
+LL |     #[derive(PartialEq, Eq)]
+   |                      ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:108:22
+   |
+LL |     #[derive(PartialEq, Eq)]
+   |                      ^  -- in this derive macro expansion
 
-error: aborting due to 31 previous errors
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:108:25
+   |
+LL |     #[derive(PartialEq, Eq)]
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:108:25
+   |
+LL |     #[derive(PartialEq, Eq)]
+   |                         ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:115:9
+   |
+LL |     let x = Foo::A;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:122:5
+   |
+LL |     const FOO_C: Foo = Foo::C(0);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:129:11
+   |
+LL |     match &&x {
+   |           ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:129:12
+   |
+LL |     match &&x {
+   |            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:135:9
+   |
+LL |     let x = &x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:135:13
+   |
+LL |     let x = &x;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:136:11
+   |
+LL |     match &x {
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:142:5
+   |
+LL |     enum Bar {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:146:5
+   |
+LL |     impl PartialEq for Bar {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:147:9
+   |
+LL |         fn eq(&self, rhs: &Self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:147:9
+   |
+LL |         fn eq(&self, rhs: &Self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:147:16
+   |
+LL |         fn eq(&self, rhs: &Self) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:147:22
+   |
+LL |         fn eq(&self, rhs: &Self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:147:15
+   |
+LL |         fn eq(&self, rhs: &Self) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:147:27
+   |
+LL |         fn eq(&self, rhs: &Self) -> bool {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:151:5
+   |
+LL |     impl Eq for Bar {}
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:153:9
+   |
+LL |     let x = Bar::A;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:161:5
+   |
+LL |     struct X;
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:162:9
+   |
+LL |     let x = Some(X);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:171:1
+   |
+LL | fn ranges() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:171:1
+   |
+LL | fn ranges() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:171:1
+   |
+LL | fn ranges() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:172:5
+   |
+LL |     enum E {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:175:9
+   |
+LL |     let x = (Some(E::V), Some(42));
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:225:1
+   |
+LL | fn skip_type_aliases() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:225:1
+   |
+LL | fn skip_type_aliases() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:225:1
+   |
+LL | fn skip_type_aliases() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:226:5
+   |
+LL |     enum OptionEx {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:230:5
+   |
+LL |     enum ResultEx {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:251:1
+   |
+LL | macro_rules! single_match {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:260:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:260:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:260:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:272:1
+   |
+LL | fn issue_10808(bar: Option<i32>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:272:1
+   |
+LL | fn issue_10808(bar: Option<i32>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:272:1
+   |
+LL | fn issue_10808(bar: Option<i32>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:272:16
+   |
+LL | fn issue_10808(bar: Option<i32>) {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:275:17
+   |
+LL |             let r = &v as *const i32;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:275:21
+   |
+LL |             let r = &v as *const i32;
+   |                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:286:21
+   |
+LL |                 let r = &v as *const i32;
+   |                     ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:286:25
+   |
+LL |                 let r = &v as *const i32;
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:295:1
+   |
+LL | mod issue8634 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:296:5
+   |
+LL |     struct SomeError(i32, i32);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:298:5
+   |
+LL |     fn foo(x: Result<i32, ()>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:298:5
+   |
+LL |     fn foo(x: Result<i32, ()>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:298:5
+   |
+LL |     fn foo(x: Result<i32, ()>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:298:12
+   |
+LL |     fn foo(x: Result<i32, ()>) {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:309:5
+   |
+LL |     fn bar(x: Result<i32, SomeError>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:309:5
+   |
+LL |     fn bar(x: Result<i32, SomeError>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:309:5
+   |
+LL |     fn bar(x: Result<i32, SomeError>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:309:12
+   |
+LL |     fn bar(x: Result<i32, SomeError>) {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:320:5
+   |
+LL |     fn block_comment(x: Result<i32, SomeError>) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:320:5
+   |
+LL |     fn block_comment(x: Result<i32, SomeError>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:320:5
+   |
+LL |     fn block_comment(x: Result<i32, SomeError>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:320:22
+   |
+LL |     fn block_comment(x: Result<i32, SomeError>) {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:335:1
+   |
+LL | fn issue11365() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:335:1
+   |
+LL | fn issue11365() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:335:1
+   |
+LL | fn issue11365() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:336:5
+   |
+LL |     enum Foo {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:369:11
+   |
+LL |     match &Some(A) {
+   |           ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:374:11
+   |
+LL |     match &Some(A) {
+   |           ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:379:11
+   |
+LL |     match &Some(A) {
+   |           ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:386:1
+   |
+LL | fn issue12758(s: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:386:1
+   |
+LL | fn issue12758(s: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:386:1
+   |
+LL | fn issue12758(s: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:386:15
+   |
+LL | fn issue12758(s: &[u8]) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:386:18
+   |
+LL | fn issue12758(s: &[u8]) {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:387:11
+   |
+LL |     match &s[0..3] {
+   |           ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:394:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:394:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:394:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:394:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:394:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:394:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:394:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:394:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:394:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:394:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_match.rs:394:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:394:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/single_match.rs:394:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:397:1
+   |
+LL | const DATA: Data = Data([1, 2, 3, 4]);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:398:1
+   |
+LL | const CONST_I32: i32 = 1;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:400:1
+   |
+LL | fn irrefutable_match() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:400:1
+   |
+LL | fn irrefutable_match() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:400:1
+   |
+LL | fn irrefutable_match() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:413:9
+   |
+LL |     let i = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:416:17
+   |
+LL |             let a = 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/single_match.rs:417:17
+   |
+LL |             let b = 2;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:465:1
+   |
+LL | fn issue_14493() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_match.rs:465:1
+   |
+LL | fn issue_14493() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_match.rs:465:1
+   |
+LL | fn issue_14493() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/single_match.rs:466:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 114 previous errors
 

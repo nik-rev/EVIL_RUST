@@ -1,384 +1,2364 @@
-error: function cannot return without recursing
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:11:1
+   |
+LL | enum Foo {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:16:1
+   |
+LL | impl PartialEq for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:17:5
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:17:5
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:17:12
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:17:18
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:17:11
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:17:25
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:22:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:22:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:22:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:22:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:22:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:22:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:29:1
+   |
+LL | enum Foo2 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:34:1
+   |
+LL | impl PartialEq for Foo2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:35:5
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:35:5
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:35:12
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:35:18
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:35:11
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:35:25
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:37:17
+   |
+LL |         self != &Foo2::B // no error here
+   |                 ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:39:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:39:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:39:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:39:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:39:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:39:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:41:17
+   |
+LL |         self == &Foo2::B // no error here
+   |                 ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:45:1
+   |
+LL | enum Foo3 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:50:1
+   |
+LL | impl PartialEq for Foo3 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:51:5
    |
 LL |     fn ne(&self, other: &Self) -> bool {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot return without recursing
-...
-LL |         self.ne(other)
-   |         -------------- recursive call site
+   |     ^
    |
-   = help: a `loop` may express intention better if this is on purpose
-   = note: `-D unconditional-recursion` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(unconditional_recursion)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:51:5
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:51:12
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:51:18
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:51:11
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:51:25
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:56:5
    |
 LL |     fn eq(&self, other: &Self) -> bool {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot return without recursing
-...
-LL |         self.eq(other)
-   |         -------------- recursive call site
+   |     ^
    |
-   = help: a `loop` may express intention better if this is on purpose
-
-error: function cannot return without recursing
-  --> tests/ui/unconditional_recursion.rs:235:5
-   |
-LL |     fn to_string(&self) -> String {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot return without recursing
-LL |
-LL |         self.to_string()
-   |         ---------------- recursive call site
-   |
-   = help: a `loop` may express intention better if this is on purpose
-
-error: function cannot return without recursing
-  --> tests/ui/unconditional_recursion.rs:245:5
-   |
-LL |     fn to_string(&self) -> String {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot return without recursing
-...
-LL |         x.to_string()
-   |         ------------- recursive call site
-   |
-   = help: a `loop` may express intention better if this is on purpose
-
-error: function cannot return without recursing
-  --> tests/ui/unconditional_recursion.rs:256:5
-   |
-LL |     fn to_string(&self) -> String {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot return without recursing
-LL |
-LL |         (self as &Self).to_string()
-   |         --------------------------- recursive call site
-   |
-   = help: a `loop` may express intention better if this is on purpose
-
-error: function cannot return without recursing
-  --> tests/ui/unconditional_recursion.rs:17:5
-   |
-LL | /     fn ne(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         self != other
-LL | |     }
-   | |_____^
-   |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:20:9
-   |
-LL |         self != other
-   |         ^^^^^^^^^^^^^
-   = note: `-D clippy::unconditional-recursion` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unconditional_recursion)]`
-
-error: function cannot return without recursing
-  --> tests/ui/unconditional_recursion.rs:22:5
-   |
-LL | /     fn eq(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         self == other
-LL | |     }
-   | |_____^
-   |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:25:9
-   |
-LL |         self == other
-   |         ^^^^^^^^^^^^^
-
-error: function cannot return without recursing
-  --> tests/ui/unconditional_recursion.rs:35:5
-   |
-LL | /     fn ne(&self, other: &Self) -> bool {
-LL | |
-LL | |         self != &Foo2::B // no error here
-LL | |     }
-   | |_____^
-   |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:37:9
-   |
-LL |         self != &Foo2::B // no error here
-   |         ^^^^^^^^^^^^^^^^
-
-error: function cannot return without recursing
-  --> tests/ui/unconditional_recursion.rs:39:5
-   |
-LL | /     fn eq(&self, other: &Self) -> bool {
-LL | |
-LL | |         self == &Foo2::B // no error here
-LL | |     }
-   | |_____^
-   |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:41:9
-   |
-LL |         self == &Foo2::B // no error here
-   |         ^^^^^^^^^^^^^^^^
-
-error: function cannot return without recursing
-  --> tests/ui/unconditional_recursion.rs:51:5
-   |
-LL | /     fn ne(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         self.ne(other)
-LL | |     }
-   | |_____^
-   |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:54:9
-   |
-LL |         self.ne(other)
-   |         ^^^^^^^^^^^^^^
-
-error: function cannot return without recursing
+help: make this function unsafe: `unsafe`
   --> tests/ui/unconditional_recursion.rs:56:5
    |
-LL | /     fn eq(&self, other: &Self) -> bool {
-...  |
-LL | |     }
-   | |_____^
-   |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:60:9
-   |
-LL |         self.eq(other)
-   |         ^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:56:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:56:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:56:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:56:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:64:1
+   |
+LL | enum Foo4 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:69:1
+   |
+LL | impl PartialEq for Foo4 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:70:5
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:70:5
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:70:12
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:70:18
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:70:11
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:70:25
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:73:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:73:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:73:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:73:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:73:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:73:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:78:1
+   |
+LL | enum Foo5 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:83:1
+   |
+LL | impl Foo5 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:84:5
+   |
+LL |     fn a(&self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:84:5
+   |
+LL |     fn a(&self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:84:11
+   |
+LL |     fn a(&self) -> bool {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:84:10
+   |
+LL |     fn a(&self) -> bool {
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:89:1
+   |
+LL | impl PartialEq for Foo5 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:90:5
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:90:5
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:90:12
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:90:18
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:90:11
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:90:25
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:93:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:93:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:93:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:93:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:93:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:93:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:98:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:101:1
+   |
+LL | impl PartialEq for S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:102:5
    |
-LL | /     fn ne(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         other != self
-LL | |     }
-   | |_____^
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:105:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:102:5
    |
-LL |         other != self
-   |         ^^^^^^^^^^^^^
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:102:12
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:102:18
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:102:11
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:102:25
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:107:5
    |
-LL | /     fn eq(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         other == self
-LL | |     }
-   | |_____^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:110:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:107:5
    |
-LL |         other == self
-   |         ^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:107:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:107:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:107:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:107:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:114:1
+   |
+LL | struct S2;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:117:1
+   |
+LL | impl PartialEq for S2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:118:5
    |
-LL | /     fn ne(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         other != other
-LL | |
-LL | |     }
-   | |_____^
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:121:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:118:5
    |
-LL |         other != other
-   |         ^^^^^^^^^^^^^^
+LL |     fn ne(&self, other: &Self) -> bool {
+   |     ^
 
-error: equal expressions as operands to `!=`
-  --> tests/ui/unconditional_recursion.rs:121:9
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:118:12
    |
-LL |         other != other
-   |         ^^^^^^^^^^^^^^
-   |
-   = note: `#[deny(clippy::eq_op)]` on by default
+LL |     fn ne(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:118:18
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:118:11
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:118:25
+   |
+LL |     fn ne(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:124:5
    |
-LL | /     fn eq(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         other == other
-LL | |
-LL | |     }
-   | |_____^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:127:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:124:5
    |
-LL |         other == other
-   |         ^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
 
-error: equal expressions as operands to `==`
-  --> tests/ui/unconditional_recursion.rs:127:9
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:124:12
    |
-LL |         other == other
-   |         ^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:124:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:124:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:124:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:132:1
+   |
+LL | struct S3;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:134:1
+   |
+LL | impl PartialEq for S3 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:135:5
    |
-LL | /     fn ne(&self, _other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         self != self
-LL | |
-LL | |     }
-   | |_____^
+LL |     fn ne(&self, _other: &Self) -> bool {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:138:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:135:5
    |
-LL |         self != self
-   |         ^^^^^^^^^^^^
+LL |     fn ne(&self, _other: &Self) -> bool {
+   |     ^
 
-error: equal expressions as operands to `!=`
-  --> tests/ui/unconditional_recursion.rs:138:9
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:135:12
    |
-LL |         self != self
-   |         ^^^^^^^^^^^^
+LL |     fn ne(&self, _other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:135:18
+   |
+LL |     fn ne(&self, _other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:135:11
+   |
+LL |     fn ne(&self, _other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:135:26
+   |
+LL |     fn ne(&self, _other: &Self) -> bool {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:141:5
    |
-LL | /     fn eq(&self, _other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         self == self
-LL | |
-LL | |     }
-   | |_____^
+LL |     fn eq(&self, _other: &Self) -> bool {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:144:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:141:5
    |
-LL |         self == self
-   |         ^^^^^^^^^^^^
+LL |     fn eq(&self, _other: &Self) -> bool {
+   |     ^
 
-error: equal expressions as operands to `==`
-  --> tests/ui/unconditional_recursion.rs:144:9
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:141:12
    |
-LL |         self == self
-   |         ^^^^^^^^^^^^
+LL |     fn eq(&self, _other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:141:18
+   |
+LL |     fn eq(&self, _other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:141:11
+   |
+LL |     fn eq(&self, _other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:141:26
+   |
+LL |     fn eq(&self, _other: &Self) -> bool {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:151:1
+   |
+LL | enum E {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:150:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:150:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:150:7
+   |
+LL | #[derive(PartialEq)]
+   |       ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:150:7
+   |
+LL | #[derive(PartialEq)]
+   |       ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:150:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:150:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:150:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:150:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:150:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:150:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:157:1
+   |
+LL | struct Bar<T: PartialEq>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:156:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:156:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:156:7
+   |
+LL | #[derive(PartialEq)]
+   |       ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:156:7
+   |
+LL | #[derive(PartialEq)]
+   |       ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:156:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:156:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:156:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:156:10
+   |
+LL | #[derive(PartialEq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:159:1
+   |
+LL | struct S4;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:161:1
+   |
+LL | impl PartialEq for S4 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:162:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:162:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:162:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:162:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:162:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:162:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:168:1
+   |
+LL | macro_rules! impl_partial_eq {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:180:1
+   |
+LL | struct S5;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:170:9
+   |
+LL |         impl PartialEq for $ty {
+   |         ^ help: make this item public: `pub`
+...
+LL | impl_partial_eq!(S5);
+   | -------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_partial_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:171:13
    |
-LL | /             fn eq(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |                 self == other
-LL | |             }
-   | |_____________^
+LL |             fn eq(&self, other: &Self) -> bool {
+   |             ^
 ...
-LL |   impl_partial_eq!(S5);
-   |   -------------------- in this macro invocation
+LL | impl_partial_eq!(S5);
+   | -------------------- in this macro invocation
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:174:17
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:171:13
    |
-LL |                 self == other
-   |                 ^^^^^^^^^^^^^
+LL |             fn eq(&self, other: &Self) -> bool {
+   |             ^
 ...
 LL | impl_partial_eq!(S5);
    | -------------------- in this macro invocation
    = note: this error originates in the macro `impl_partial_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:171:20
+   |
+LL |             fn eq(&self, other: &Self) -> bool {
+   |                    ^ help: make this parameter mutable: `mut`
+...
+LL | impl_partial_eq!(S5);
+   | -------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_partial_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:171:26
+   |
+LL |             fn eq(&self, other: &Self) -> bool {
+   |                          ^ help: make this parameter mutable: `mut`
+...
+LL | impl_partial_eq!(S5);
+   | -------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_partial_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:171:19
+   |
+LL |             fn eq(&self, other: &Self) -> bool {
+   |                   ^^^^^
+...
+LL | impl_partial_eq!(S5);
+   | -------------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_partial_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:171:33
+   |
+LL |             fn eq(&self, other: &Self) -> bool {
+   |                                 ^^^^^
+...
+LL | impl_partial_eq!(S5);
+   | -------------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_partial_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:184:1
+   |
+LL | struct S6 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:188:1
+   |
+LL | impl PartialEq for S6 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:189:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:189:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:189:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:189:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:189:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:189:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:190:13
+   |
+LL |         let mine = &self.field;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:190:20
+   |
+LL |         let mine = &self.field;
+   |                    ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:191:13
+   |
+LL |         let theirs = &other.field;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:191:22
+   |
+LL |         let theirs = &other.field;
+   |                      ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:196:1
+   |
+LL | struct S7<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:197:12
+   |
+LL |     field: &'a S7<'a>,
+   |            ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:200:1
+   |
+LL | impl<'a> PartialEq for S7<'a> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:201:5
    |
-LL | /     fn eq(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         let mine = &self.field;
-LL | |         let theirs = &other.field;
-LL | |         mine == theirs
-LL | |     }
-   | |_____^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:206:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:201:5
    |
-LL |         mine == theirs
-   |         ^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:201:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:201:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:201:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:201:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:204:13
+   |
+LL |         let mine = &self.field;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:204:20
+   |
+LL |         let mine = &self.field;
+   |                    ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:205:13
+   |
+LL |         let theirs = &other.field;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:205:22
+   |
+LL |         let theirs = &other.field;
+   |                      ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:210:1
+   |
+LL | struct S8 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:215:1
+   |
+LL | impl PartialEq for S8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:216:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:216:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:216:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:216:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:216:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:216:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:221:14
+   |
+LL |         let (this, other) = match (self.field.as_deref(), other.field.as_deref()) {
+   |              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:221:20
+   |
+LL |         let (this, other) = match (self.field.as_deref(), other.field.as_deref()) {
+   |                    ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:231:1
+   |
+LL | struct S9;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:234:1
+   |
+LL | impl std::string::ToString for S9 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:235:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:235:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:235:19
+   |
+LL |     fn to_string(&self) -> String {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:235:18
+   |
+LL |     fn to_string(&self) -> String {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:241:1
+   |
+LL | struct S10;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:244:1
+   |
+LL | impl std::string::ToString for S10 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:245:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:245:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:245:19
+   |
+LL |     fn to_string(&self) -> String {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:245:18
+   |
+LL |     fn to_string(&self) -> String {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:247:13
+   |
+LL |         let x = self;
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:252:1
+   |
+LL | struct S11;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:255:1
+   |
+LL | impl std::string::ToString for S11 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:256:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:256:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:256:19
+   |
+LL |     fn to_string(&self) -> String {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:256:18
+   |
+LL |     fn to_string(&self) -> String {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:258:18
+   |
+LL |         (self as &Self).to_string()
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:262:1
+   |
+LL | struct S12;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:264:1
+   |
+LL | impl std::default::Default for S12 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:265:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:265:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:270:1
+   |
+LL | impl S12 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:271:5
    |
-LL | /     fn new() -> Self {
-LL | |
-LL | |
-LL | |         Self::default()
-LL | |     }
-   | |_____^
+LL |     fn new() -> Self {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:274:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:271:5
    |
-LL |         Self::default()
-   |         ^^^^^^^^^^^^^^^
+LL |     fn new() -> Self {
+   |     ^
 
-error: function cannot return without recursing
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:277:5
+   |
+LL |     fn bar() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:277:5
+   |
+LL |     fn bar() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:284:1
+   |
+LL | struct S13 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:283:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:283:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:283:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:288:1
+   |
+LL | impl S13 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:289:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:289:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:295:1
+   |
+LL | struct S14 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:299:1
+   |
+LL | impl PartialEq for S14 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:300:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:300:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:300:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:300:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:300:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:300:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:302:23
+   |
+LL |         self.field.eq(&other.field)
+   |                       ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:306:1
+   |
+LL | struct S15<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:307:12
+   |
+LL |     field: &'a S15<'a>,
+   |            ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:310:1
+   |
+LL | impl PartialEq for S15<'_> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:311:5
    |
-LL | /     fn eq(&self, other: &Self) -> bool {
-LL | |
-LL | |
-LL | |         let mine = &self.field;
-LL | |         let theirs = &other.field;
-LL | |         mine.eq(theirs)
-LL | |     }
-   | |_____^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:316:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:311:5
    |
-LL |         mine.eq(theirs)
-   |         ^^^^^^^^^^^^^^^
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:311:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:311:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:311:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:311:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:314:13
+   |
+LL |         let mine = &self.field;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:314:20
+   |
+LL |         let mine = &self.field;
+   |                    ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unconditional_recursion.rs:315:13
+   |
+LL |         let theirs = &other.field;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:315:22
+   |
+LL |         let theirs = &other.field;
+   |                      ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:320:1
+   |
+LL | mod issue12154 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:321:5
+   |
+LL |     struct MyBox<T>(T);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:323:5
+   |
+LL |     impl<T> std::ops::Deref for MyBox<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:325:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:325:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:325:19
+   |
+LL |         fn deref(&self) -> &T {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:325:18
+   |
+LL |         fn deref(&self) -> &T {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:325:28
+   |
+LL |         fn deref(&self) -> &T {
+   |                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:326:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:330:5
+   |
+LL |     impl<T: PartialEq> PartialEq for MyBox<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:331:9
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:331:9
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:331:16
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:331:22
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:331:15
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:331:29
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:332:25
+   |
+LL |             (**self).eq(&**other)
+   |                         ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:341:5
+   |
+LL |     struct HeaderName;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:340:14
+   |
+LL |     #[derive(PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:340:14
+   |
+LL |     #[derive(PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:340:11
+   |
+LL |     #[derive(PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:340:11
+   |
+LL |     #[derive(PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:340:14
+   |
+LL |     #[derive(PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:340:14
+   |
+LL |     #[derive(PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:340:14
+   |
+LL |     #[derive(PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:340:14
+   |
+LL |     #[derive(PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:342:5
+   |
+LL |     impl<'a> PartialEq<&'a HeaderName> for HeaderName {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:342:24
+   |
+LL |     impl<'a> PartialEq<&'a HeaderName> for HeaderName {
+   |                        ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:343:9
+   |
+LL |         fn eq(&self, other: &&'a HeaderName) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:343:9
+   |
+LL |         fn eq(&self, other: &&'a HeaderName) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:343:16
+   |
+LL |         fn eq(&self, other: &&'a HeaderName) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:343:22
+   |
+LL |         fn eq(&self, other: &&'a HeaderName) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:343:15
+   |
+LL |         fn eq(&self, other: &&'a HeaderName) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:343:29
+   |
+LL |         fn eq(&self, other: &&'a HeaderName) -> bool {
+   |                             ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:343:30
+   |
+LL |         fn eq(&self, other: &&'a HeaderName) -> bool {
+   |                              ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:348:5
+   |
+LL |     impl<'a> PartialEq<HeaderName> for &'a HeaderName {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:348:40
+   |
+LL |     impl<'a> PartialEq<HeaderName> for &'a HeaderName {
+   |                                        ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:349:9
+   |
+LL |         fn eq(&self, other: &HeaderName) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:349:9
+   |
+LL |         fn eq(&self, other: &HeaderName) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:349:16
+   |
+LL |         fn eq(&self, other: &HeaderName) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:349:22
+   |
+LL |         fn eq(&self, other: &HeaderName) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:349:15
+   |
+LL |         fn eq(&self, other: &HeaderName) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:349:29
+   |
+LL |         fn eq(&self, other: &HeaderName) -> bool {
+   |                             ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:355:5
+   |
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:357:5
+   |
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:358:9
+   |
+LL |         fn as_str(&self) -> &str {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:358:9
+   |
+LL |         fn as_str(&self) -> &str {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:358:20
+   |
+LL |         fn as_str(&self) -> &str {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:358:19
+   |
+LL |         fn as_str(&self) -> &str {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:358:29
+   |
+LL |         fn as_str(&self) -> &str {
+   |                             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:363:5
+   |
+LL |     impl PartialEq for Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:364:9
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:364:9
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:364:16
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:364:22
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:364:15
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:364:29
+   |
+LL |         fn eq(&self, other: &Self) -> bool {
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:369:5
+   |
+LL |     impl<T> PartialEq<T> for Foo
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:371:17
+   |
+LL |         for<'a> &'a str: PartialEq<T>,
+   |                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:373:9
+   |
+LL |         fn eq(&self, other: &T) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:373:9
+   |
+LL |         fn eq(&self, other: &T) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:373:16
+   |
+LL |         fn eq(&self, other: &T) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:373:22
+   |
+LL |         fn eq(&self, other: &T) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:373:15
+   |
+LL |         fn eq(&self, other: &T) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:373:29
+   |
+LL |         fn eq(&self, other: &T) -> bool {
+   |                             ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:374:14
+   |
+LL |             (&self.as_str()).eq(other)
+   |              ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:380:1
+   |
+LL | struct BadFromTy1<'a>(&'a ());
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:380:23
+   |
+LL | struct BadFromTy1<'a>(&'a ());
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:381:1
+   |
+LL | struct BadIntoTy1<'b>(&'b ());
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:381:23
+   |
+LL | struct BadIntoTy1<'b>(&'b ());
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:382:1
+   |
+LL | impl<'a> From<BadFromTy1<'a>> for BadIntoTy1<'static> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:383:5
    |
-LL | /     fn from(f: BadFromTy1<'a>) -> Self {
-LL | |
-LL | |         f.into()
-LL | |     }
-   | |_____^
+LL |     fn from(f: BadFromTy1<'a>) -> Self {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:385:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:383:5
    |
-LL |         f.into()
-   |         ^^^^^^^^
+LL |     fn from(f: BadFromTy1<'a>) -> Self {
+   |     ^
 
-error: function cannot return without recursing
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:383:13
+   |
+LL |     fn from(f: BadFromTy1<'a>) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:390:1
+   |
+LL | struct BadFromTy2<'a>(&'a ());
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:390:23
+   |
+LL | struct BadFromTy2<'a>(&'a ());
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:391:1
+   |
+LL | struct BadIntoTy2<'b>(&'b ());
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:391:23
+   |
+LL | struct BadIntoTy2<'b>(&'b ());
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:392:1
+   |
+LL | impl<'a> From<BadFromTy2<'a>> for BadIntoTy2<'static> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/unconditional_recursion.rs:393:5
    |
-LL | /     fn from(f: BadFromTy2<'a>) -> Self {
-LL | |
-LL | |         Into::into(f)
-LL | |     }
-   | |_____^
+LL |     fn from(f: BadFromTy2<'a>) -> Self {
+   |     ^
    |
-note: recursive call site
-  --> tests/ui/unconditional_recursion.rs:395:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:393:5
    |
-LL |         Into::into(f)
-   |         ^^^^^^^^^^^^^
+LL |     fn from(f: BadFromTy2<'a>) -> Self {
+   |     ^
 
-error: aborting due to 27 previous errors
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:393:13
+   |
+LL |     fn from(f: BadFromTy2<'a>) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:400:1
+   |
+LL | struct BadFromTy3;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:401:1
+   |
+LL | impl From<BadFromTy3> for i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:402:5
+   |
+LL |     fn from(f: BadFromTy3) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:402:5
+   |
+LL |     fn from(f: BadFromTy3) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:402:13
+   |
+LL |     fn from(f: BadFromTy3) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:408:1
+   |
+LL | struct BadFromTy4;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:409:1
+   |
+LL | impl From<BadFromTy4> for i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:410:5
+   |
+LL |     fn from(f: BadFromTy4) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:410:5
+   |
+LL |     fn from(f: BadFromTy4) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:410:13
+   |
+LL |     fn from(f: BadFromTy4) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:419:1
+   |
+LL | impl From<&BadFromTy4> for i32 {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:419:11
+   |
+LL | impl From<&BadFromTy4> for i32 {
+   |           ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:420:5
+   |
+LL |     fn from(f: &BadFromTy4) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:420:5
+   |
+LL |     fn from(f: &BadFromTy4) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unconditional_recursion.rs:420:13
+   |
+LL |     fn from(f: &BadFromTy4) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unconditional_recursion.rs:420:16
+   |
+LL |     fn from(f: &BadFromTy4) -> Self {
+   |                ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unconditional_recursion.rs:425:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unconditional_recursion.rs:425:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unconditional_recursion.rs:425:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 306 previous errors
 

@@ -1,62 +1,281 @@
-error: borrow as raw pointer
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/borrow_as_ptr.rs:4:1
+   |
+LL | fn a() -> i32 {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_as_ptr.rs:4:1
+   |
+LL | fn a() -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_as_ptr.rs:4:1
+   |
+LL | fn a() -> i32 {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/borrow_as_ptr.rs:9:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_as_ptr.rs:9:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_as_ptr.rs:9:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:10:9
+   |
+LL |     let val = 1;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:11:9
+   |
+LL |     let _p = &val as *const i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/borrow_as_ptr.rs:11:14
    |
 LL |     let _p = &val as *const i32;
-   |              ^^^^^^^^^^^^^^^^^^ help: try: `std::ptr::addr_of!(val)`
+   |              ^^^^
    |
-   = note: `-D clippy::borrow-as-ptr` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::borrow_as_ptr)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: borrow as raw pointer
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:13:9
+   |
+LL |     let _p = &0 as *const i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_as_ptr.rs:13:14
+   |
+LL |     let _p = &0 as *const i32;
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:14:9
+   |
+LL |     let _p = &a() as *const i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_as_ptr.rs:14:14
+   |
+LL |     let _p = &a() as *const i32;
+   |              ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:15:9
+   |
+LL |     let vec = vec![1];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:16:9
+   |
+LL |     let _p = &vec.len() as *const usize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/borrow_as_ptr.rs:16:14
+   |
+LL |     let _p = &vec.len() as *const usize;
+   |              ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:19:9
+   |
+LL |     let _p_mut = &mut val_mut as *mut i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/borrow_as_ptr.rs:19:18
    |
 LL |     let _p_mut = &mut val_mut as *mut i32;
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::ptr::addr_of_mut!(val_mut)`
+   |                  ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: borrow as raw pointer
-  --> tests/ui/borrow_as_ptr.rs:23:16
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:23:9
    |
 LL |     let _raw = (&mut x[1] as *mut i32).wrapping_offset(-1);
-   |                ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `std::ptr::addr_of_mut!(x[1])`
+   |         ^ help: make this variable mutable: `mut`
 
-error: borrow as raw pointer
+error: references are not allowed
+  --> tests/ui/borrow_as_ptr.rs:23:17
+   |
+LL |     let _raw = (&mut x[1] as *mut i32).wrapping_offset(-1);
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/borrow_as_ptr.rs:27:1
+   |
+LL | fn issue_13882() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_as_ptr.rs:27:1
+   |
+LL | fn issue_13882() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_as_ptr.rs:27:1
+   |
+LL | fn issue_13882() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:29:9
+   |
+LL |     let _raw = (&mut x[1] as *mut i32).wrapping_offset(-1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/borrow_as_ptr.rs:29:17
    |
 LL |     let _raw = (&mut x[1] as *mut i32).wrapping_offset(-1);
-   |                 ^^^^^^^^^^^^^^^^^^^^^ help: try: `&raw mut x[1]`
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: implicit borrow as raw pointer
+error: item must be `pub`
+  --> tests/ui/borrow_as_ptr.rs:33:1
+   |
+LL | fn implicit_cast() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/borrow_as_ptr.rs:33:1
+   |
+LL | fn implicit_cast() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/borrow_as_ptr.rs:33:1
+   |
+LL | fn implicit_cast() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:34:9
+   |
+LL |     let val = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:35:9
+   |
+LL |     let p: *const i32 = &val;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/borrow_as_ptr.rs:35:25
    |
 LL |     let p: *const i32 = &val;
    |                         ^^^^
    |
-help: use a raw pointer instead
-   |
-LL |     let p: *const i32 = &raw const val;
-   |                          +++++++++
+   = help: use a raw borrowing instead: `&raw const`
 
-error: implicit borrow as raw pointer
+error: variable must be `mut`
+  --> tests/ui/borrow_as_ptr.rs:39:9
+   |
+LL |     let p: *mut i32 = &mut val;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/borrow_as_ptr.rs:39:23
    |
 LL |     let p: *mut i32 = &mut val;
    |                       ^^^^^^^^
    |
-help: use a raw pointer instead
-   |
-LL |     let p: *mut i32 = &raw mut val;
-   |                        +++
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: implicit borrow as raw pointer
+error: references are not allowed
   --> tests/ui/borrow_as_ptr.rs:44:19
    |
 LL |     core::ptr::eq(&val, &1);
    |                   ^^^^
    |
-help: use a raw pointer instead
-   |
-LL |     core::ptr::eq(&raw const val, &1);
-   |                    +++++++++
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 7 previous errors
+error: references are not allowed
+  --> tests/ui/borrow_as_ptr.rs:44:25
+   |
+LL |     core::ptr::eq(&val, &1);
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_as_ptr.rs:48:19
+   |
+LL |     core::ptr::eq(&0i32, &1i32);
+   |                   ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/borrow_as_ptr.rs:48:26
+   |
+LL |     core::ptr::eq(&0i32, &1i32);
+   |                          ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 37 previous errors
 

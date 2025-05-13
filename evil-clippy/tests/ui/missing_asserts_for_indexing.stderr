@@ -1,357 +1,1091 @@
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:30:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     assert!(v.len() < 5);
-   |     -------------------- help: provide the highest index that is indexed with: `assert!(v.len() > 4)`
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:30:5
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |     ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:30:12
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |            ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:30:19
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                   ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:30:26
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                          ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:30:33
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                                 ^^^^
-   = note: asserting the length before indexing will elide bounds checks
-   = note: `-D clippy::missing-asserts-for-indexing` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::missing_asserts_for_indexing)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:36:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     assert!(v.len() <= 5);
-   |     --------------------- help: provide the highest index that is indexed with: `assert!(v.len() > 4)`
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:36:5
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |     ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:36:12
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |            ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:36:19
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                   ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:36:26
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                          ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:36:33
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                                 ^^^^
-   = note: asserting the length before indexing will elide bounds checks
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:42:5
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:5:1
    |
-LL |     assert!(v.len() > 3);
-   |     -------------------- help: provide the highest index that is indexed with: `assert!(v.len() > 4)`
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn sum_with_assert(v: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
    |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:42:5
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |     ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:42:12
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |            ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:42:19
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                   ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:42:26
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                          ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:42:33
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                                 ^^^^
-   = note: asserting the length before indexing will elide bounds checks
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:48:5
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:5:1
    |
-LL |     assert!(v.len() >= 4);
-   |     --------------------- help: provide the highest index that is indexed with: `assert!(v.len() > 4)`
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn sum_with_assert(v: &[u8]) -> u8 {
+   | ^
    |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:48:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:5:1
    |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |     ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:48:12
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |            ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:48:19
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                   ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:48:26
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                          ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:48:33
-   |
-LL |     v[0] + v[1] + v[2] + v[3] + v[4]
-   |                                 ^^^^
-   = note: asserting the length before indexing will elide bounds checks
+LL | fn sum_with_assert(v: &[u8]) -> u8 {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:66:13
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:5:20
    |
-LL |       assert!(v.len() >= 3);
-   |       --------------------- help: provide the highest index that is indexed with: `assert!(v.len() > 3)`
-LL |       let _ = v[0];
-   |  _____________^
-...  |
-LL | |     let _ = v[1..4];
-   | |___________________^
+LL | fn sum_with_assert(v: &[u8]) -> u8 {
+   |                    ^ help: make this parameter mutable: `mut`
    |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:66:13
-   |
-LL |     let _ = v[0];
-   |             ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:69:13
-   |
-LL |     let _ = v[1..4];
-   |             ^^^^^^^
-   = note: asserting the length before indexing will elide bounds checks
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:81:13
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:5:23
    |
-LL |       assert!(v.len() >= 4);
-   |       --------------------- help: provide the highest index that is indexed with: `assert!(v.len() > 4)`
-LL |       let _ = v[0];
-   |  _____________^
-...  |
-LL | |     let _ = v[1..=4];
-   | |____________________^
+LL | fn sum_with_assert(v: &[u8]) -> u8 {
+   |                       ^^^^^
    |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:81:13
-   |
-LL |     let _ = v[0];
-   |             ^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:84:13
-   |
-LL |     let _ = v[1..=4];
-   |             ^^^^^^^^
-   = note: asserting the length before indexing will elide bounds checks
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:97:13
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:11:1
    |
-LL |     assert!(v1.len() >= 12);
-   |     ----------------------- help: provide the highest index that is indexed with: `assert!(v1.len() > 12)`
-LL |     assert!(v2.len() >= 15);
-LL |     let _ = v1[0] + v1[12];
-   |             ^^^^^^^^^^^^^^
-   |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:97:13
-   |
-LL |     let _ = v1[0] + v1[12];
-   |             ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:97:21
-   |
-LL |     let _ = v1[0] + v1[12];
-   |                     ^^^^^^
-   = note: asserting the length before indexing will elide bounds checks
+LL | fn sum_with_assert_other_way(v: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:100:13
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:11:1
    |
-LL |     assert!(v2.len() >= 15);
-   |     ----------------------- help: provide the highest index that is indexed with: `assert!(v2.len() > 15)`
-...
-LL |     let _ = v2[5] + v2[15];
-   |             ^^^^^^^^^^^^^^
+LL | fn sum_with_assert_other_way(v: &[u8]) -> u8 {
+   | ^
    |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:100:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:11:1
    |
-LL |     let _ = v2[5] + v2[15];
-   |             ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:100:21
-   |
-LL |     let _ = v2[5] + v2[15];
-   |                     ^^^^^^
-   = note: asserting the length before indexing will elide bounds checks
+LL | fn sum_with_assert_other_way(v: &[u8]) -> u8 {
+   | ^
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:106:13
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:11:30
    |
-LL |     assert!(v1.len() >= 12);
-   |     ----------------------- help: provide the highest index that is indexed with: `assert!(v1.len() > 12)`
-LL |     assert!(v2.len() > 15);
-LL |     let _ = v1[0] + v1[12];
-   |             ^^^^^^^^^^^^^^
-   |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:106:13
-   |
-LL |     let _ = v1[0] + v1[12];
-   |             ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:106:21
-   |
-LL |     let _ = v1[0] + v1[12];
-   |                     ^^^^^^
-   = note: asserting the length before indexing will elide bounds checks
+LL | fn sum_with_assert_other_way(v: &[u8]) -> u8 {
+   |                              ^ help: make this parameter mutable: `mut`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:131:13
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:11:33
    |
-LL |     assert!(v1.len() == 2);
-   |     ---------------------- help: provide the highest index that is indexed with: `assert!(v1.len() == 3)`
-...
-LL |     let _ = v1[0] + v1[1] + v1[2];
-   |             ^^^^^^^^^^^^^^^^^^^^^
+LL | fn sum_with_assert_other_way(v: &[u8]) -> u8 {
+   |                                 ^^^^^
    |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:131:13
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:17:1
    |
-LL |     let _ = v1[0] + v1[1] + v1[2];
-   |             ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:131:21
+LL | fn sum_with_assert_ge(v: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:17:1
    |
-LL |     let _ = v1[0] + v1[1] + v1[2];
+LL | fn sum_with_assert_ge(v: &[u8]) -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:17:1
+   |
+LL | fn sum_with_assert_ge(v: &[u8]) -> u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:17:23
+   |
+LL | fn sum_with_assert_ge(v: &[u8]) -> u8 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:17:26
+   |
+LL | fn sum_with_assert_ge(v: &[u8]) -> u8 {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:23:1
+   |
+LL | fn sum_with_assert_ge_other_way(v: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:23:1
+   |
+LL | fn sum_with_assert_ge_other_way(v: &[u8]) -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:23:1
+   |
+LL | fn sum_with_assert_ge_other_way(v: &[u8]) -> u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:23:33
+   |
+LL | fn sum_with_assert_ge_other_way(v: &[u8]) -> u8 {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:23:36
+   |
+LL | fn sum_with_assert_ge_other_way(v: &[u8]) -> u8 {
+   |                                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:28:1
+   |
+LL | fn sum_with_assert_lt(v: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:28:1
+   |
+LL | fn sum_with_assert_lt(v: &[u8]) -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:28:1
+   |
+LL | fn sum_with_assert_lt(v: &[u8]) -> u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:28:23
+   |
+LL | fn sum_with_assert_lt(v: &[u8]) -> u8 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:28:26
+   |
+LL | fn sum_with_assert_lt(v: &[u8]) -> u8 {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:34:1
+   |
+LL | fn sum_with_assert_le(v: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:34:1
+   |
+LL | fn sum_with_assert_le(v: &[u8]) -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:34:1
+   |
+LL | fn sum_with_assert_le(v: &[u8]) -> u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:34:23
+   |
+LL | fn sum_with_assert_le(v: &[u8]) -> u8 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:34:26
+   |
+LL | fn sum_with_assert_le(v: &[u8]) -> u8 {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:40:1
+   |
+LL | fn sum_with_incorrect_assert_len(v: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:40:1
+   |
+LL | fn sum_with_incorrect_assert_len(v: &[u8]) -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:40:1
+   |
+LL | fn sum_with_incorrect_assert_len(v: &[u8]) -> u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:40:34
+   |
+LL | fn sum_with_incorrect_assert_len(v: &[u8]) -> u8 {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:40:37
+   |
+LL | fn sum_with_incorrect_assert_len(v: &[u8]) -> u8 {
+   |                                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:46:1
+   |
+LL | fn sum_with_incorrect_assert_len2(v: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:46:1
+   |
+LL | fn sum_with_incorrect_assert_len2(v: &[u8]) -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:46:1
+   |
+LL | fn sum_with_incorrect_assert_len2(v: &[u8]) -> u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:46:35
+   |
+LL | fn sum_with_incorrect_assert_len2(v: &[u8]) -> u8 {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:46:38
+   |
+LL | fn sum_with_incorrect_assert_len2(v: &[u8]) -> u8 {
+   |                                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:53:1
+   |
+LL | fn single_access(v: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:53:1
+   |
+LL | fn single_access(v: &[u8]) -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:53:1
+   |
+LL | fn single_access(v: &[u8]) -> u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:53:18
+   |
+LL | fn single_access(v: &[u8]) -> u8 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:53:21
+   |
+LL | fn single_access(v: &[u8]) -> u8 {
    |                     ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:131:29
    |
-LL |     let _ = v1[0] + v1[1] + v1[2];
-   |                             ^^^^^
-   = note: asserting the length before indexing will elide bounds checks
+   = help: use a raw pointer instead: `*const`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:136:13
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:58:1
    |
-LL |     assert!(2 == v3.len());
-   |     ---------------------- help: provide the highest index that is indexed with: `assert!(v3.len() == 3)`
-...
-LL |     let _ = v3[0] + v3[1] + v3[2];
-   |             ^^^^^^^^^^^^^^^^^^^^^
-   |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:136:13
-   |
-LL |     let _ = v3[0] + v3[1] + v3[2];
-   |             ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:136:21
-   |
-LL |     let _ = v3[0] + v3[1] + v3[2];
-   |                     ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:136:29
-   |
-LL |     let _ = v3[0] + v3[1] + v3[2];
-   |                             ^^^^^
-   = note: asserting the length before indexing will elide bounds checks
+LL | fn subslice_ok(v: &[u8]) {
+   | ^ help: make this item public: `pub`
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:158:13
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:58:1
+   |
+LL | fn subslice_ok(v: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:58:1
+   |
+LL | fn subslice_ok(v: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:58:16
+   |
+LL | fn subslice_ok(v: &[u8]) {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:58:19
+   |
+LL | fn subslice_ok(v: &[u8]) {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:64:1
+   |
+LL | fn subslice_bad(v: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:64:1
+   |
+LL | fn subslice_bad(v: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:64:1
+   |
+LL | fn subslice_bad(v: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:64:17
+   |
+LL | fn subslice_bad(v: &[u8]) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:64:20
+   |
+LL | fn subslice_bad(v: &[u8]) {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:73:1
+   |
+LL | fn subslice_inclusive_ok(v: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:73:1
+   |
+LL | fn subslice_inclusive_ok(v: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:73:1
+   |
+LL | fn subslice_inclusive_ok(v: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:73:26
+   |
+LL | fn subslice_inclusive_ok(v: &[u8]) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:73:29
+   |
+LL | fn subslice_inclusive_ok(v: &[u8]) {
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:79:1
+   |
+LL | fn subslice_inclusive_bad(v: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:79:1
+   |
+LL | fn subslice_inclusive_bad(v: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:79:1
+   |
+LL | fn subslice_inclusive_bad(v: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:79:27
+   |
+LL | fn subslice_inclusive_bad(v: &[u8]) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:79:30
+   |
+LL | fn subslice_inclusive_bad(v: &[u8]) {
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:87:1
+   |
+LL | fn index_different_slices_ok(v1: &[u8], v2: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:87:1
+   |
+LL | fn index_different_slices_ok(v1: &[u8], v2: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:87:1
+   |
+LL | fn index_different_slices_ok(v1: &[u8], v2: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:87:30
+   |
+LL | fn index_different_slices_ok(v1: &[u8], v2: &[u8]) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:87:41
+   |
+LL | fn index_different_slices_ok(v1: &[u8], v2: &[u8]) {
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:87:34
+   |
+LL | fn index_different_slices_ok(v1: &[u8], v2: &[u8]) {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:87:45
+   |
+LL | fn index_different_slices_ok(v1: &[u8], v2: &[u8]) {
+   |                                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:94:1
+   |
+LL | fn index_different_slices_wrong_len(v1: &[u8], v2: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:94:1
+   |
+LL | fn index_different_slices_wrong_len(v1: &[u8], v2: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:94:1
+   |
+LL | fn index_different_slices_wrong_len(v1: &[u8], v2: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:94:37
+   |
+LL | fn index_different_slices_wrong_len(v1: &[u8], v2: &[u8]) {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:94:48
+   |
+LL | fn index_different_slices_wrong_len(v1: &[u8], v2: &[u8]) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:94:41
+   |
+LL | fn index_different_slices_wrong_len(v1: &[u8], v2: &[u8]) {
+   |                                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:94:52
+   |
+LL | fn index_different_slices_wrong_len(v1: &[u8], v2: &[u8]) {
+   |                                                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:103:1
+   |
+LL | fn index_different_slices_one_wrong_len(v1: &[u8], v2: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:103:1
+   |
+LL | fn index_different_slices_one_wrong_len(v1: &[u8], v2: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:103:1
+   |
+LL | fn index_different_slices_one_wrong_len(v1: &[u8], v2: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:103:41
+   |
+LL | fn index_different_slices_one_wrong_len(v1: &[u8], v2: &[u8]) {
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:103:52
+   |
+LL | fn index_different_slices_one_wrong_len(v1: &[u8], v2: &[u8]) {
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:103:45
+   |
+LL | fn index_different_slices_one_wrong_len(v1: &[u8], v2: &[u8]) {
+   |                                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:103:56
+   |
+LL | fn index_different_slices_one_wrong_len(v1: &[u8], v2: &[u8]) {
+   |                                                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:112:1
+   |
+LL | fn side_effect() -> &'static [u8] {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:112:1
+   |
+LL | fn side_effect() -> &'static [u8] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:112:1
+   |
+LL | fn side_effect() -> &'static [u8] {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:112:21
+   |
+LL | fn side_effect() -> &'static [u8] {
+   |                     ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:113:5
+   |
+LL |     &[]
+   |     ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:116:1
+   |
+LL | fn index_side_effect_expr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:116:1
+   |
+LL | fn index_side_effect_expr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:116:1
+   |
+LL | fn index_side_effect_expr() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:121:1
+   |
+LL | fn index_different_slice_in_same_expr(v1: &[u8], v2: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:121:1
+   |
+LL | fn index_different_slice_in_same_expr(v1: &[u8], v2: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:121:1
+   |
+LL | fn index_different_slice_in_same_expr(v1: &[u8], v2: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:121:39
+   |
+LL | fn index_different_slice_in_same_expr(v1: &[u8], v2: &[u8]) {
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:121:50
+   |
+LL | fn index_different_slice_in_same_expr(v1: &[u8], v2: &[u8]) {
+   |                                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:121:43
+   |
+LL | fn index_different_slice_in_same_expr(v1: &[u8], v2: &[u8]) {
+   |                                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:121:54
+   |
+LL | fn index_different_slice_in_same_expr(v1: &[u8], v2: &[u8]) {
+   |                                                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:125:1
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:125:1
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:125:1
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:125:15
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:125:26
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:125:37
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:125:48
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:125:19
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:125:30
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:125:41
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:125:52
+   |
+LL | fn issue11835(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                                                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:143:1
+   |
+LL | fn same_index_multiple_times(v1: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:143:1
+   |
+LL | fn same_index_multiple_times(v1: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:143:1
+   |
+LL | fn same_index_multiple_times(v1: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:143:30
+   |
+LL | fn same_index_multiple_times(v1: &[u8]) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:143:34
+   |
+LL | fn same_index_multiple_times(v1: &[u8]) {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:148:1
+   |
+LL | fn highest_index_first(v1: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:148:1
+   |
+LL | fn highest_index_first(v1: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:148:1
+   |
+LL | fn highest_index_first(v1: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:148:24
+   |
+LL | fn highest_index_first(v1: &[u8]) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:148:28
+   |
+LL | fn highest_index_first(v1: &[u8]) {
+   |                            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:152:1
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:152:1
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:152:1
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:152:15
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:152:26
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:152:37
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:152:48
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:152:19
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:152:30
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:152:41
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:152:52
+   |
+LL | fn issue14255(v1: &[u8], v2: &[u8], v3: &[u8], v4: &[u8]) {
+   |                                                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:153:5
    |
 LL |     assert_eq!(v1.len(), 2);
-   |     ----------------------- help: provide the highest index that is indexed with: `assert!(v1.len() == 3)`
-...
-LL |     let _ = v1[0] + v1[1] + v1[2];
-   |             ^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
    |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:158:13
-   |
-LL |     let _ = v1[0] + v1[1] + v1[2];
-   |             ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:158:21
-   |
-LL |     let _ = v1[0] + v1[1] + v1[2];
-   |                     ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:158:29
-   |
-LL |     let _ = v1[0] + v1[1] + v1[2];
-   |                             ^^^^^
-   = note: asserting the length before indexing will elide bounds checks
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: indexing into a slice multiple times with an `assert` that does not cover the highest index
-  --> tests/ui/missing_asserts_for_indexing.rs:163:13
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:153:5
+   |
+LL |     assert_eq!(v1.len(), 2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:153:5
+   |
+LL |     assert_eq!(v1.len(), 2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:153:5
+   |
+LL |     assert_eq!(v1.len(), 2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:153:5
+   |
+LL |     assert_eq!(v1.len(), 2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:154:5
+   |
+LL |     assert_eq!(v2.len(), 4);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:154:5
+   |
+LL |     assert_eq!(v2.len(), 4);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:154:5
+   |
+LL |     assert_eq!(v2.len(), 4);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:154:5
+   |
+LL |     assert_eq!(v2.len(), 4);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:154:5
+   |
+LL |     assert_eq!(v2.len(), 4);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:155:5
    |
 LL |     assert_eq!(2, v3.len());
-   |     ----------------------- help: provide the highest index that is indexed with: `assert!(v3.len() == 3)`
-...
-LL |     let _ = v3[0] + v3[1] + v3[2];
-   |             ^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
    |
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:163:13
-   |
-LL |     let _ = v3[0] + v3[1] + v3[2];
-   |             ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:163:21
-   |
-LL |     let _ = v3[0] + v3[1] + v3[2];
-   |                     ^^^^^
-note: slice indexed here
-  --> tests/ui/missing_asserts_for_indexing.rs:163:29
-   |
-LL |     let _ = v3[0] + v3[1] + v3[2];
-   |                             ^^^^^
-   = note: asserting the length before indexing will elide bounds checks
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 13 previous errors
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:155:5
+   |
+LL |     assert_eq!(2, v3.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:155:5
+   |
+LL |     assert_eq!(2, v3.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:155:5
+   |
+LL |     assert_eq!(2, v3.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:155:5
+   |
+LL |     assert_eq!(2, v3.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:156:5
+   |
+LL |     assert_eq!(4, v4.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:156:5
+   |
+LL |     assert_eq!(4, v4.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/missing_asserts_for_indexing.rs:156:5
+   |
+LL |     assert_eq!(4, v4.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:156:5
+   |
+LL |     assert_eq!(4, v4.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/missing_asserts_for_indexing.rs:156:5
+   |
+LL |     assert_eq!(4, v4.len());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/missing_asserts_for_indexing.rs:169:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:169:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_asserts_for_indexing.rs:169:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 136 previous errors
 

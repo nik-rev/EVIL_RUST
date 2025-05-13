@@ -1,59 +1,315 @@
-error: using `clone` on type `i32` which implements the `Copy` trait
-  --> tests/ui/clone_on_copy.rs:23:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     42.clone();
-   |     ^^^^^^^^^^ help: try removing the `clone` call: `42`
-   |
-   = note: `-D clippy::clone-on-copy` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::clone_on_copy)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: using `clone` on type `i32` which implements the `Copy` trait
-  --> tests/ui/clone_on_copy.rs:28:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:16:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clone_on_copy.rs:16:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clone_on_copy.rs:16:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:18:1
+   |
+LL | fn is_ascii(ch: char) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clone_on_copy.rs:18:1
+   |
+LL | fn is_ascii(ch: char) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clone_on_copy.rs:18:1
+   |
+LL | fn is_ascii(ch: char) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/clone_on_copy.rs:18:13
+   |
+LL | fn is_ascii(ch: char) -> bool {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:22:1
+   |
+LL | fn clone_on_copy() -> Option<(i32)> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clone_on_copy.rs:22:1
+   |
+LL | fn clone_on_copy() -> Option<(i32)> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clone_on_copy.rs:22:1
+   |
+LL | fn clone_on_copy() -> Option<(i32)> {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/clone_on_copy.rs:28:6
    |
 LL |     (&42).clone();
-   |     ^^^^^^^^^^^^^ help: try dereferencing it: `*(&42)`
-
-error: using `clone` on type `i32` which implements the `Copy` trait
-  --> tests/ui/clone_on_copy.rs:32:5
+   |      ^^^
    |
-LL |     rc.borrow().clone();
-   |     ^^^^^^^^^^^^^^^^^^^ help: try dereferencing it: `*rc.borrow()`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: using `clone` on type `u32` which implements the `Copy` trait
-  --> tests/ui/clone_on_copy.rs:36:5
+error: variable must be `mut`
+  --> tests/ui/clone_on_copy.rs:31:9
    |
-LL |     x.clone().rotate_left(1);
-   |     ^^^^^^^^^ help: try removing the `clone` call: `x`
+LL |     let rc = RefCell::new(0);
+   |         ^ help: make this variable mutable: `mut`
 
-error: using `clone` on type `i32` which implements the `Copy` trait
-  --> tests/ui/clone_on_copy.rs:51:5
+error: variable must be `mut`
+  --> tests/ui/clone_on_copy.rs:35:9
    |
-LL |     m!(42).clone();
-   |     ^^^^^^^^^^^^^^ help: try removing the `clone` call: `m!(42)`
+LL |     let x = 0u32;
+   |         ^ help: make this variable mutable: `mut`
 
-error: using `clone` on type `[u32; 2]` which implements the `Copy` trait
-  --> tests/ui/clone_on_copy.rs:62:5
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:40:5
    |
-LL |     x.clone()[0];
-   |     ^^^^^^^^^ help: try dereferencing it: `(*x)`
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
 
-error: using `clone` on type `char` which implements the `Copy` trait
-  --> tests/ui/clone_on_copy.rs:73:14
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:39:14
    |
-LL |     is_ascii('z'.clone());
-   |              ^^^^^^^^^^^ help: try removing the `clone` call: `'z'`
+LL |     #[derive(Clone, Copy)]
+   |              ^
 
-error: using `clone` on type `i32` which implements the `Copy` trait
-  --> tests/ui/clone_on_copy.rs:78:14
+error: function must be `unsafe`
+  --> tests/ui/clone_on_copy.rs:39:11
    |
-LL |     vec.push(42.clone());
-   |              ^^^^^^^^^^ help: try removing the `clone` call: `42`
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clone_on_copy.rs:39:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
 
-error: using `clone` on type `Option<i32>` which implements the `Copy` trait
-  --> tests/ui/clone_on_copy.rs:83:17
+error: parameter must be `mut`
+  --> tests/ui/clone_on_copy.rs:39:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/clone_on_copy.rs:39:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:39:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:41:5
+   |
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clone_on_copy.rs:42:9
+   |
+LL |         fn clone(&self) -> u32 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clone_on_copy.rs:42:9
+   |
+LL |         fn clone(&self) -> u32 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/clone_on_copy.rs:42:19
+   |
+LL |         fn clone(&self) -> u32 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/clone_on_copy.rs:42:18
+   |
+LL |         fn clone(&self) -> u32 {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:48:5
+   |
+LL |     macro_rules! m {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:54:5
+   |
+LL |     struct Wrap([u32; 2]);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/clone_on_copy.rs:55:5
+   |
+LL |     impl core::ops::Deref for Wrap {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/clone_on_copy.rs:57:9
+   |
+LL |         fn deref(&self) -> &[u32; 2] {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/clone_on_copy.rs:57:9
+   |
+LL |         fn deref(&self) -> &[u32; 2] {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/clone_on_copy.rs:57:19
+   |
+LL |         fn deref(&self) -> &[u32; 2] {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/clone_on_copy.rs:57:18
+   |
+LL |         fn deref(&self) -> &[u32; 2] {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/clone_on_copy.rs:57:28
+   |
+LL |         fn deref(&self) -> &[u32; 2] {
+   |                            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/clone_on_copy.rs:58:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/clone_on_copy.rs:61:9
+   |
+LL |     let x = Wrap([0, 0]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clone_on_copy.rs:65:9
+   |
+LL |     let x = 42;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/clone_on_copy.rs:66:13
+   |
+LL |     let ref y = x.clone(); // ok, binds by reference
+   |             ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/clone_on_copy.rs:66:9
+   |
+LL |     let ref y = x.clone(); // ok, binds by reference
+   |         ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/clone_on_copy.rs:67:9
+   |
+LL |     let ref mut y = x.clone(); // ok, binds by reference
+   |         ^^^^^^^^^
+
+error: references are not allowed
+  --> tests/ui/clone_on_copy.rs:71:13
+   |
+LL |     let _ = &x.clone(); // ok, getting a ref
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/clone_on_copy.rs:82:9
+   |
+LL |     let opt: &Option<i32> = &None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/clone_on_copy.rs:82:14
+   |
+LL |     let opt: &Option<i32> = &None;
+   |              ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/clone_on_copy.rs:82:29
+   |
+LL |     let opt: &Option<i32> = &None;
+   |                             ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/clone_on_copy.rs:83:9
    |
 LL |     let value = opt.clone()?; // operator precedence needed (*opt)?
-   |                 ^^^^^^^^^^^ help: try dereferencing it: `(*opt)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 9 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 42 previous errors
 

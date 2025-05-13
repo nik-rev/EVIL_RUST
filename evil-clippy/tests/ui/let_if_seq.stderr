@@ -1,56 +1,217 @@
-error: `if _ { .. } else { .. }` is an expression
-  --> tests/ui/let_if_seq.rs:77:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     let mut foo = 0;
-LL | |
-LL | |
-LL | |     if f() {
-LL | |         foo = 42;
-LL | |     }
-   | |_____^ help: it is more idiomatic to write: `let <mut> foo = if f() { 42 } else { 0 };`
-   |
-   = note: you might not need `mut` at all
-   = note: `-D clippy::useless-let-if-seq` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::useless_let_if_seq)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `if _ { .. } else { .. }` is an expression
-  --> tests/ui/let_if_seq.rs:84:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     let mut bar = 0;
-LL | |
-LL | |
-LL | |     if f() {
-...  |
-LL | |         f();
-LL | |     }
-   | |_____^ help: it is more idiomatic to write: `let <mut> bar = if f() { ..; 42 } else { ..; 0 };`
-   |
-   = note: you might not need `mut` at all
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `if _ { .. } else { .. }` is an expression
-  --> tests/ui/let_if_seq.rs:94:5
+error: item must be `pub`
+  --> tests/ui/let_if_seq.rs:11:1
    |
-LL | /     let quz;
-LL | |
-LL | |
-LL | |     if f() {
-...  |
-LL | |         quz = 0;
-LL | |     }
-   | |_____^ help: it is more idiomatic to write: `let quz = if f() { 42 } else { 0 };`
+LL | fn f() -> bool {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: `if _ { .. } else { .. }` is an expression
-  --> tests/ui/let_if_seq.rs:125:5
+error: function must be `unsafe`
+  --> tests/ui/let_if_seq.rs:11:1
    |
-LL | /     let mut baz = 0;
-LL | |
-LL | |
-LL | |     if f() {
-LL | |         baz = 42;
-LL | |     }
-   | |_____^ help: it is more idiomatic to write: `let <mut> baz = if f() { 42 } else { 0 };`
+LL | fn f() -> bool {
+   | ^
    |
-   = note: you might not need `mut` at all
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_if_seq.rs:11:1
+   |
+LL | fn f() -> bool {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/let_if_seq.rs:14:1
+   |
+LL | fn g(x: i32) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_if_seq.rs:14:1
+   |
+LL | fn g(x: i32) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_if_seq.rs:14:1
+   |
+LL | fn g(x: i32) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/let_if_seq.rs:14:6
+   |
+LL | fn g(x: i32) -> i32 {
+   |      ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/let_if_seq.rs:18:1
+   |
+LL | fn issue985() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_if_seq.rs:18:1
+   |
+LL | fn issue985() -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_if_seq.rs:18:1
+   |
+LL | fn issue985() -> i32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/let_if_seq.rs:27:1
+   |
+LL | fn issue985_alt() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_if_seq.rs:27:1
+   |
+LL | fn issue985_alt() -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_if_seq.rs:27:1
+   |
+LL | fn issue985_alt() -> i32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/let_if_seq.rs:39:1
+   |
+LL | fn issue975() -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_if_seq.rs:39:1
+   |
+LL | fn issue975() -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_if_seq.rs:39:1
+   |
+LL | fn issue975() -> String {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/let_if_seq.rs:42:28
+   |
+LL |         udn = String::from(&udn[5..]);
+   |                            ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/let_if_seq.rs:47:1
+   |
+LL | fn early_return() -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_if_seq.rs:47:1
+   |
+LL | fn early_return() -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_if_seq.rs:47:1
+   |
+LL | fn early_return() -> u8 {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/let_if_seq.rs:49:9
+   |
+LL |     let foo;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_if_seq.rs:60:1
+   |
+LL | fn allow_works() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_if_seq.rs:60:1
+   |
+LL | fn allow_works() -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_if_seq.rs:60:1
+   |
+LL | fn allow_works() -> i32 {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/let_if_seq.rs:62:9
+   |
+LL |     let x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_if_seq.rs:71:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_if_seq.rs:71:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_if_seq.rs:71:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/let_if_seq.rs:94:9
+   |
+LL |     let quz;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/let_if_seq.rs:108:18
+   |
+LL |         for i in &[1, 2] {
+   |                  ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 26 previous errors
 

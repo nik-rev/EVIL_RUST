@@ -1,28 +1,173 @@
-error: call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes
-  --> tests/ui/drop_non_drop.rs:22:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     drop(Foo);
-   |     ^^^^^^^^^
-   |
-note: argument has type `main::Foo`
-  --> tests/ui/drop_non_drop.rs:22:10
-   |
-LL |     drop(Foo);
-   |          ^^^
-   = note: `-D clippy::drop-non-drop` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::drop_non_drop)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes
-  --> tests/ui/drop_non_drop.rs:39:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     drop(Baz(Foo));
-   |     ^^^^^^^^^^^^^^
-   |
-note: argument has type `main::Baz<main::Foo>`
-  --> tests/ui/drop_non_drop.rs:39:10
-   |
-LL |     drop(Baz(Foo));
-   |          ^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/drop_non_drop.rs:5:1
+   |
+LL | fn make_result<T>(t: T) -> Result<T, ()> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/drop_non_drop.rs:5:1
+   |
+LL | fn make_result<T>(t: T) -> Result<T, ()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/drop_non_drop.rs:5:1
+   |
+LL | fn make_result<T>(t: T) -> Result<T, ()> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/drop_non_drop.rs:5:19
+   |
+LL | fn make_result<T>(t: T) -> Result<T, ()> {
+   |                   ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/drop_non_drop.rs:10:1
+   |
+LL | fn must_use<T>(t: T) -> T {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/drop_non_drop.rs:10:1
+   |
+LL | fn must_use<T>(t: T) -> T {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/drop_non_drop.rs:10:1
+   |
+LL | fn must_use<T>(t: T) -> T {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/drop_non_drop.rs:10:16
+   |
+LL | fn must_use<T>(t: T) -> T {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/drop_non_drop.rs:14:1
+   |
+LL | fn drop_generic<T>(t: T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/drop_non_drop.rs:14:1
+   |
+LL | fn drop_generic<T>(t: T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/drop_non_drop.rs:14:1
+   |
+LL | fn drop_generic<T>(t: T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/drop_non_drop.rs:14:20
+   |
+LL | fn drop_generic<T>(t: T) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/drop_non_drop.rs:19:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/drop_non_drop.rs:19:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/drop_non_drop.rs:19:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/drop_non_drop.rs:20:5
+   |
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/drop_non_drop.rs:30:5
+   |
+LL |     struct Bar;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/drop_non_drop.rs:31:5
+   |
+LL |     impl Drop for Bar {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/drop_non_drop.rs:32:9
+   |
+LL |         fn drop(&mut self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/drop_non_drop.rs:32:9
+   |
+LL |         fn drop(&mut self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/drop_non_drop.rs:32:22
+   |
+LL |         fn drop(&mut self) {}
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/drop_non_drop.rs:32:17
+   |
+LL |         fn drop(&mut self) {}
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/drop_non_drop.rs:37:5
+   |
+LL |     struct Baz<T>(T);
+   |     ^ help: make this item public: `pub`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 22 previous errors
 

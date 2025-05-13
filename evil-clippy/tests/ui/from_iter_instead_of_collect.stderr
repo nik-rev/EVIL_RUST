@@ -1,149 +1,379 @@
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:17:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         <Self as FromIterator<bool>>::from_iter(iter.into_iter().copied())
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter.into_iter().copied().collect::<Self>()`
-   |
-   = note: `-D clippy::from-iter-instead-of-collect` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::from_iter_instead_of_collect)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:24:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = Vec::from_iter(iter_expr);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter_expr.collect::<Vec<_>>()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:27:13
+error: item must be `pub`
+  --> tests/ui/from_iter_instead_of_collect.rs:7:1
+   |
+LL | struct Foo(Vec<bool>);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/from_iter_instead_of_collect.rs:9:1
+   |
+LL | impl FromIterator<bool> for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:10:5
+   |
+LL |     fn from_iter<T: IntoIterator<Item = bool>>(_: T) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:10:5
+   |
+LL |     fn from_iter<T: IntoIterator<Item = bool>>(_: T) -> Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/from_iter_instead_of_collect.rs:15:1
+   |
+LL | impl<'a> FromIterator<&'a bool> for Foo {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:15:23
+   |
+LL | impl<'a> FromIterator<&'a bool> for Foo {
+   |                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:16:5
+   |
+LL |     fn from_iter<T: IntoIterator<Item = &'a bool>>(iter: T) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:16:5
+   |
+LL |     fn from_iter<T: IntoIterator<Item = &'a bool>>(iter: T) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/from_iter_instead_of_collect.rs:16:52
+   |
+LL |     fn from_iter<T: IntoIterator<Item = &'a bool>>(iter: T) -> Self {
+   |                                                    ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:16:41
+   |
+LL |     fn from_iter<T: IntoIterator<Item = &'a bool>>(iter: T) -> Self {
+   |                                         ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/from_iter_instead_of_collect.rs:22:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:22:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:22:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/from_iter_instead_of_collect.rs:23:9
+   |
+LL |     let iter_expr = std::iter::repeat(5).take(5);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:27:30
    |
 LL |     let _ = HashMap::<usize, &i8>::from_iter(vec![5, 5, 5, 5].iter().enumerate());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `vec![5, 5, 5, 5].iter().enumerate().collect::<HashMap<usize, &i8>>()`
+   |                              ^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:33:19
+error: variable must be `mut`
+  --> tests/ui/from_iter_instead_of_collect.rs:32:9
+   |
+LL |     let a = vec![0, 1, 2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:33:5
    |
 LL |     assert_eq!(a, Vec::from_iter(0..3));
-   |                   ^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `(0..3).collect::<Vec<_>>()`
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:35:19
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:33:5
+   |
+LL |     assert_eq!(a, Vec::from_iter(0..3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/from_iter_instead_of_collect.rs:33:5
+   |
+LL |     assert_eq!(a, Vec::from_iter(0..3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:33:5
+   |
+LL |     assert_eq!(a, Vec::from_iter(0..3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:33:5
+   |
+LL |     assert_eq!(a, Vec::from_iter(0..3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:35:5
    |
 LL |     assert_eq!(a, Vec::<i32>::from_iter(0..3));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `(0..3).collect::<Vec<i32>>()`
-
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:38:17
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     let mut b = VecDeque::from_iter(0..3);
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `(0..3).collect::<VecDeque<_>>()`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:42:17
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:35:5
    |
-LL |     let mut b = VecDeque::<i32>::from_iter(0..3);
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `(0..3).collect::<VecDeque<i32>>()`
-
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:48:21
+LL |     assert_eq!(a, Vec::<i32>::from_iter(0..3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |         let mut b = collections::VecDeque::<i32>::from_iter(0..3);
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `(0..3).collect::<collections::VecDeque<i32>>()`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:54:14
+error: variable must be `mut`
+  --> tests/ui/from_iter_instead_of_collect.rs:35:5
+   |
+LL |     assert_eq!(a, Vec::<i32>::from_iter(0..3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:35:5
+   |
+LL |     assert_eq!(a, Vec::<i32>::from_iter(0..3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:35:5
+   |
+LL |     assert_eq!(a, Vec::<i32>::from_iter(0..3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/from_iter_instead_of_collect.rs:53:9
+   |
+LL |     let values = [(0, 'a'), (1, 'b'), (2, 'c'), (3, 'd')];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/from_iter_instead_of_collect.rs:54:9
    |
 LL |     let bm = BTreeMap::from_iter(values.iter().cloned());
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `values.iter().cloned().collect::<BTreeMap<_, _>>()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:56:19
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:58:16
    |
-LL |     let mut bar = BTreeMap::from_iter(bm.range(0..2));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `bm.range(0..2).collect::<BTreeMap<_, _>>()`
-
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:60:19
+LL |     bar.insert(&4, &'e');
+   |                ^^
    |
-LL |     let mut bts = BTreeSet::from_iter(0..3);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `(0..3).collect::<BTreeSet<_>>()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:65:17
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:58:20
    |
-LL |         let _ = collections::BTreeSet::from_iter(0..3);
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `(0..3).collect::<collections::BTreeSet<_>>()`
-
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:67:17
+LL |     bar.insert(&4, &'e');
+   |                    ^^^^
    |
-LL |         let _ = collections::BTreeSet::<u32>::from_iter(0..3);
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `(0..3).collect::<collections::BTreeSet<u32>>()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:71:15
-   |
-LL |     for _i in Vec::from_iter([1, 2, 3].iter()) {}
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `[1, 2, 3].iter().collect::<Vec<_>>()`
-
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:73:15
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:73:21
    |
 LL |     for _i in Vec::<&i32>::from_iter([1, 2, 3].iter()) {}
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `[1, 2, 3].iter().collect::<Vec<&i32>>()`
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:79:14
+error: item must be `pub`
+  --> tests/ui/from_iter_instead_of_collect.rs:77:1
+   |
+LL | fn issue14581() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:77:1
+   |
+LL | fn issue14581() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:77:1
+   |
+LL | fn issue14581() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/from_iter_instead_of_collect.rs:78:9
+   |
+LL |     let nums = [0, 1, 2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:79:13
    |
 LL |     let _ = &String::from_iter(nums.iter().map(|&num| char::from_u32(num).unwrap()));
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `nums.iter().map(|&num| char::from_u32(num).unwrap()).collect::<String>()`
-
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:95:13
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     let _ = <S<'static, i32, 7>>::from_iter(iter);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter.collect::<S<'static, i32, 7>>()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:98:13
+error: item must be `pub`
+  --> tests/ui/from_iter_instead_of_collect.rs:83:1
    |
-LL |     let _ = <S<'static, i32>>::from_iter(iter);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter.collect::<S<'static, i32>>()`
+LL | fn test_implicit_generic_args(iter: impl Iterator<Item = &'static i32> + Copy) {
+   | ^ help: make this item public: `pub`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:101:13
+error: function must be `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:83:1
    |
-LL |     let _ = <S<'static, _, 7>>::from_iter(iter);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter.collect::<S<'static, _, 7>>()`
-
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:104:13
+LL | fn test_implicit_generic_args(iter: impl Iterator<Item = &'static i32> + Copy) {
+   | ^
    |
-LL |     let _ = <S<'static, _, 7, 8>>::from_iter(iter);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter.collect::<S<'static, _, 7, 8>>()`
-
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:107:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:83:1
    |
-LL |     let _ = <S<'_, _, 7, 8>>::from_iter(iter);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter.collect::<S<_, 7, 8>>()`
+LL | fn test_implicit_generic_args(iter: impl Iterator<Item = &'static i32> + Copy) {
+   | ^
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:110:13
+error: parameter must be `mut`
+  --> tests/ui/from_iter_instead_of_collect.rs:83:31
    |
-LL |     let _ = <S<i32>>::from_iter(iter);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter.collect::<S<i32>>()`
+LL | fn test_implicit_generic_args(iter: impl Iterator<Item = &'static i32> + Copy) {
+   |                               ^ help: make this parameter mutable: `mut`
 
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:113:13
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:83:58
    |
-LL |     let _ = <S<'_, i32>>::from_iter(iter);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter.collect::<S<i32>>()`
-
-error: usage of `FromIterator::from_iter`
-  --> tests/ui/from_iter_instead_of_collect.rs:116:13
+LL | fn test_implicit_generic_args(iter: impl Iterator<Item = &'static i32> + Copy) {
+   |                                                          ^^^^^^^^^^^^
    |
-LL |     let _ = <S>::from_iter(iter);
-   |             ^^^^^^^^^^^^^^^^^^^^ help: use `.collect()` instead of `::from_iter()`: `iter.collect::<S>()`
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 24 previous errors
+error: item must be `pub`
+  --> tests/ui/from_iter_instead_of_collect.rs:84:5
+   |
+LL |     struct S<'l, T = i32, const A: usize = 3, const B: usize = 3> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:85:13
+   |
+LL |         a: [&'l T; A],
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:86:13
+   |
+LL |         b: [&'l T; B],
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/from_iter_instead_of_collect.rs:89:5
+   |
+LL |     impl<'l, T, const A: usize, const B: usize> FromIterator<&'l T> for S<'l, T, A, B> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:89:62
+   |
+LL |     impl<'l, T, const A: usize, const B: usize> FromIterator<&'l T> for S<'l, T, A, B> {
+   |                                                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:90:9
+   |
+LL |         fn from_iter<I: IntoIterator<Item = &'l T>>(_: I) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/from_iter_instead_of_collect.rs:90:9
+   |
+LL |         fn from_iter<I: IntoIterator<Item = &'l T>>(_: I) -> Self {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/from_iter_instead_of_collect.rs:90:45
+   |
+LL |         fn from_iter<I: IntoIterator<Item = &'l T>>(_: I) -> Self {
+   |                                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 47 previous errors
 

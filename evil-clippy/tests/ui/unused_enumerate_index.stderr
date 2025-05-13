@@ -1,104 +1,415 @@
-error: you seem to use `.enumerate()` and immediately discard the index
-  --> tests/ui/unused_enumerate_index.rs:12:19
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     for (_, x) in v.iter().enumerate() {
-   |                   ^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::unused-enumerate-index` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unused_enumerate_index)]`
-help: remove the `.enumerate()` call
-   |
-LL -     for (_, x) in v.iter().enumerate() {
-LL +     for x in v.iter() {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: you seem to use `.enumerate()` and immediately discard the index
-  --> tests/ui/unused_enumerate_index.rs:60:19
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     for (_, x) in dummy.enumerate() {
-   |                   ^^^^^^^^^^^^^^^^^
-   |
-help: remove the `.enumerate()` call
-   |
-LL -     for (_, x) in dummy.enumerate() {
-LL +     for x in dummy {
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: you seem to use `.enumerate()` and immediately discard the index
-  --> tests/ui/unused_enumerate_index.rs:65:39
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:6:1
    |
-LL |     let _ = vec![1, 2, 3].into_iter().enumerate().map(|(_, x)| println!("{x}"));
-   |                                       ^^^^^^^^^^^
+LL | fn get_enumerate() -> Enumerate<std::vec::IntoIter<i32>> {
+   | ^ help: make this item public: `pub`
    |
-help: remove the `.enumerate()` call
-   |
-LL -     let _ = vec![1, 2, 3].into_iter().enumerate().map(|(_, x)| println!("{x}"));
-LL +     let _ = vec![1, 2, 3].into_iter().map(|x| println!("{x}"));
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: you seem to use `.enumerate()` and immediately discard the index
-  --> tests/ui/unused_enumerate_index.rs:68:39
+error: function must be `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:6:1
+   |
+LL | fn get_enumerate() -> Enumerate<std::vec::IntoIter<i32>> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:6:1
+   |
+LL | fn get_enumerate() -> Enumerate<std::vec::IntoIter<i32>> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:10:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:10:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:10:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:11:9
+   |
+LL |     let v = [1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:17:5
+   |
+LL |     struct Dummy1;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:18:5
+   |
+LL |     impl Dummy1 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:19:9
+   |
+LL |         fn enumerate(self) -> Vec<usize> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:19:9
+   |
+LL |         fn enumerate(self) -> Vec<usize> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:19:22
+   |
+LL |         fn enumerate(self) -> Vec<usize> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:23:9
+   |
+LL |     let dummy = Dummy1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:28:5
+   |
+LL |     struct Dummy2;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:29:5
+   |
+LL |     impl Dummy2 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:30:9
+   |
+LL |         fn enumerate(self) -> Enumerate<std::vec::IntoIter<usize>> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:30:9
+   |
+LL |         fn enumerate(self) -> Enumerate<std::vec::IntoIter<usize>> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:30:22
+   |
+LL |         fn enumerate(self) -> Enumerate<std::vec::IntoIter<usize>> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:34:9
+   |
+LL |     let dummy = Dummy2;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:45:5
+   |
+LL |     struct Dummy3(std::vec::IntoIter<usize>);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:47:5
+   |
+LL |     impl Iterator for Dummy3 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:50:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:50:9
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:50:22
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:50:17
+   |
+LL |         fn next(&mut self) -> Option<Self::Item> {
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:54:9
+   |
+LL |         fn size_hint(&self) -> (usize, Option<usize>) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_enumerate_index.rs:54:9
+   |
+LL |         fn size_hint(&self) -> (usize, Option<usize>) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:54:23
+   |
+LL |         fn size_hint(&self) -> (usize, Option<usize>) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:54:22
+   |
+LL |         fn size_hint(&self) -> (usize, Option<usize>) {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:59:9
+   |
+LL |     let dummy = Dummy3(vec![1, 2, 3].into_iter());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:68:9
    |
 LL |     let p = vec![1, 2, 3].into_iter().enumerate();
-   |                                       ^^^^^^^^^^^
-   |
-help: remove the `.enumerate()` call
-   |
-LL ~     let p = vec![1, 2, 3].into_iter();
-LL |
-LL ~     p.map(|x| println!("{x}"));
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to use `.enumerate()` and immediately discard the index
-  --> tests/ui/unused_enumerate_index.rs:90:17
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:74:9
    |
-LL |     _ = mac2!().enumerate().map(|(_, _v)| {});
-   |                 ^^^^^^^^^^^
-   |
-help: remove the `.enumerate()` call
-   |
-LL -     _ = mac2!().enumerate().map(|(_, _v)| {});
-LL +     _ = mac2!().map(|_v| {});
-   |
+LL |     let p = get_enumerate();
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to use `.enumerate()` and immediately discard the index
-  --> tests/ui/unused_enumerate_index.rs:99:39
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:78:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_enumerate_index.rs:85:5
+   |
+LL |     macro_rules! mac2 {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:95:9
+   |
+LL |     let v = [1].iter().enumerate();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:99:9
    |
 LL |     let v = [1, 2, 3].iter().copied().enumerate();
-   |                                       ^^^^^^^^^^^
-   |
-help: remove the `.enumerate()` call
-   |
-LL ~     let v = [1, 2, 3].iter().copied();
-LL |
-LL ~     let x = v.map(|x: i32| x).sum::<i32>();
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to use `.enumerate()` and immediately discard the index
-  --> tests/ui/unused_enumerate_index.rs:105:39
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:101:9
+   |
+LL |     let x = v.map(|(_, x): (usize, i32)| x).sum::<i32>();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:102:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:102:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:102:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:102:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:102:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:105:9
    |
 LL |     let v = [1, 2, 3].iter().copied().enumerate();
-   |                                       ^^^^^^^^^^^
-   |
-help: remove the `.enumerate()` call
-   |
-LL ~     let v = [1, 2, 3].iter().copied();
-LL |
-LL ~     let x = v.map(|x: i32| x).sum::<i32>();
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: you seem to use `.enumerate()` and immediately discard the index
-  --> tests/ui/unused_enumerate_index.rs:110:39
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:107:9
+   |
+LL |     let x = v.map(|(_, x): (_, i32)| x).sum::<i32>();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:108:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:108:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:108:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:108:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:108:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:110:9
    |
 LL |     let v = [1, 2, 3].iter().copied().enumerate();
-   |                                       ^^^^^^^^^^^
-   |
-help: remove the `.enumerate()` call
-   |
-LL ~     let v = [1, 2, 3].iter().copied();
-LL |
-LL ~     let x = v.map(|x| x).sum::<i32>();
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 8 previous errors
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:112:9
+   |
+LL |     let x = v.map(|(_, x)| x).sum::<i32>();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:113:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:113:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/unused_enumerate_index.rs:113:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:113:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unused_enumerate_index.rs:113:5
+   |
+LL |     assert_eq!(x, 6);
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 54 previous errors
 

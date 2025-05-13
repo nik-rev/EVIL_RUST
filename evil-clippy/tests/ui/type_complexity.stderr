@@ -1,95 +1,330 @@
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:6:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:4:1
+   |
+LL | type Alias = Vec<Vec<Box<(u32, u32, u32, u32)>>>; // no warning here
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:6:1
    |
 LL | const CST: (u32, (u32, (u32, (u32, u32)))) = (0, (0, (0, (0, 0))));
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::type-complexity` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::type_complexity)]`
+   | ^ help: make this item public: `pub`
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:9:12
+error: static must be `mut`
+  --> tests/ui/type_complexity.rs:9:8
    |
 LL | static ST: (u32, (u32, (u32, (u32, u32)))) = (0, (0, (0, (0, 0))));
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:13:8
+   |        ^ help: make this static mutable: `mut`
    |
-LL |     f: Vec<Vec<Box<(u32, u32, u32, u32)>>>,
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:17:11
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:9:1
+   |
+LL | static ST: (u32, (u32, (u32, (u32, u32)))) = (0, (0, (0, (0, 0))));
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:12:1
+   |
+LL | struct S {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:17:1
    |
 LL | struct Ts(Vec<Vec<Box<(u32, u32, u32, u32)>>>);
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   | ^ help: make this item public: `pub`
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:21:11
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:20:1
    |
-LL |     Tuple(Vec<Vec<Box<(u32, u32, u32, u32)>>>),
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | enum E {
+   | ^ help: make this item public: `pub`
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:23:17
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:27:1
    |
-LL |     Struct { f: Vec<Vec<Box<(u32, u32, u32, u32)>>> },
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | impl S {
+   | ^ help: make this item public: `pub`
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:28:14
-   |
-LL |     const A: (u32, (u32, (u32, (u32, u32)))) = (0, (0, (0, (0, 0))));
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:31:30
+error: function must be `unsafe`
+  --> tests/ui/type_complexity.rs:31:5
    |
 LL |     fn impl_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:36:14
+   |     ^
    |
-LL |     const A: Vec<Vec<Box<(u32, u32, u32, u32)>>>;
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:39:14
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_complexity.rs:31:5
    |
-LL |     type B = Vec<Vec<Box<(u32, u32, u32, u32)>>>;
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn impl_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:42:25
+error: parameter must be `mut`
+  --> tests/ui/type_complexity.rs:31:21
+   |
+LL |     fn impl_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/type_complexity.rs:31:27
+   |
+LL |     fn impl_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/type_complexity.rs:31:20
+   |
+LL |     fn impl_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: trait must be `unsafe`
+  --> tests/ui/type_complexity.rs:35:1
+   |
+LL | / trait T {
+LL | |     const A: Vec<Vec<Box<(u32, u32, u32, u32)>>>;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:35:1
+   |
+LL | trait T {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/type_complexity.rs:42:5
    |
 LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>);
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_complexity.rs:42:5
+   |
+LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>);
+   |     ^
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:45:29
+error: parameter must be `mut`
+  --> tests/ui/type_complexity.rs:42:16
+   |
+LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>);
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/type_complexity.rs:42:22
+   |
+LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>);
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/type_complexity.rs:42:15
+   |
+LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>);
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/type_complexity.rs:45:5
    |
 LL |     fn def_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
-   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_complexity.rs:45:5
+   |
+LL |     fn def_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |     ^
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:58:15
+error: parameter must be `mut`
+  --> tests/ui/type_complexity.rs:45:20
+   |
+LL |     fn def_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/type_complexity.rs:45:26
+   |
+LL |     fn def_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/type_complexity.rs:45:19
+   |
+LL |     fn def_method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:50:1
+   |
+LL | impl T for () {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/type_complexity.rs:55:5
+   |
+LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_complexity.rs:55:5
+   |
+LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/type_complexity.rs:55:16
+   |
+LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/type_complexity.rs:55:22
+   |
+LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/type_complexity.rs:55:15
+   |
+LL |     fn method(&self, p: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:58:1
    |
 LL | fn test1() -> Vec<Vec<Box<(u32, u32, u32, u32)>>> {
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   | ^ help: make this item public: `pub`
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:64:14
+error: function must be `unsafe`
+  --> tests/ui/type_complexity.rs:58:1
+   |
+LL | fn test1() -> Vec<Vec<Box<(u32, u32, u32, u32)>>> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_complexity.rs:58:1
+   |
+LL | fn test1() -> Vec<Vec<Box<(u32, u32, u32, u32)>>> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:64:1
    |
 LL | fn test2(_x: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   | ^ help: make this item public: `pub`
 
-error: very complex type used. Consider factoring parts into `type` definitions
-  --> tests/ui/type_complexity.rs:68:13
+error: function must be `unsafe`
+  --> tests/ui/type_complexity.rs:64:1
+   |
+LL | fn test2(_x: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_complexity.rs:64:1
+   |
+LL | fn test2(_x: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/type_complexity.rs:64:10
+   |
+LL | fn test2(_x: Vec<Vec<Box<(u32, u32, u32, u32)>>>) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:67:1
+   |
+LL | fn test3() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/type_complexity.rs:67:1
+   |
+LL | fn test3() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_complexity.rs:67:1
+   |
+LL | fn test3() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/type_complexity.rs:68:9
    |
 LL |     let _y: Vec<Vec<Box<(u32, u32, u32, u32)>>> = vec![];
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 15 previous errors
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:73:1
+   |
+LL | struct D {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/type_complexity.rs:76:17
+   |
+LL |         itself: &D,
+   |                 ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/type_complexity.rs:89:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/type_complexity.rs:89:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/type_complexity.rs:89:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 43 previous errors
 

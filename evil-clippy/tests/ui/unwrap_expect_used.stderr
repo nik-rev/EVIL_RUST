@@ -1,86 +1,293 @@
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/unwrap_expect_used.rs:27:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     Some(3).unwrap();
-   |     ^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = note: `-D clippy::unwrap-used` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unwrap_used)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: used `expect()` on an `Option` value
-  --> tests/ui/unwrap_expect_used.rs:30:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     Some(3).expect("Hello world!");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = note: `-D clippy::expect-used` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::expect_used)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: used `unwrap()` on a `Result` value
-  --> tests/ui/unwrap_expect_used.rs:46:5
+error: trait must be `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:7:1
    |
-LL |     a.unwrap();
-   |     ^^^^^^^^^^
+LL | / trait OptionExt {
+LL | |     type Item;
+LL | |
+LL | |     fn unwrap_err(self) -> Self::Item;
+LL | |
+LL | |     fn expect_err(self, msg: &str) -> Self::Item;
+LL | | }
+   | |_^
    |
-   = note: if this value is an `Err`, it will panic
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: used `expect()` on a `Result` value
-  --> tests/ui/unwrap_expect_used.rs:49:5
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:7:1
    |
-LL |     a.expect("Hello world!");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+LL | trait OptionExt {
+   | ^ help: make this item public: `pub`
    |
-   = note: if this value is an `Err`, it will panic
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: used `unwrap_err()` on a `Result` value
-  --> tests/ui/unwrap_expect_used.rs:52:5
+error: function must be `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:10:5
    |
-LL |     a.unwrap_err();
-   |     ^^^^^^^^^^^^^^
+LL |     fn unwrap_err(self) -> Self::Item;
+   |     ^
    |
-   = note: if this value is an `Ok`, it will panic
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:10:5
+   |
+LL |     fn unwrap_err(self) -> Self::Item;
+   |     ^
 
-error: used `expect_err()` on a `Result` value
-  --> tests/ui/unwrap_expect_used.rs:55:5
+error: parameter must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:10:19
    |
-LL |     a.expect_err("Hello error!");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn unwrap_err(self) -> Self::Item;
+   |                   ^ help: make this parameter mutable: `mut`
    |
-   = note: if this value is an `Ok`, it will panic
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: used `unwrap()` on a `Result` value
-  --> tests/ui/unwrap_expect_used.rs:80:17
+error: function must be `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:12:5
    |
-LL |         let _ = open!(file).unwrap();
-   |                 ^^^^^^^^^^^^^^^^^^^^
+LL |     fn expect_err(self, msg: &str) -> Self::Item;
+   |     ^
    |
-   = note: if this value is an `Err`, it will panic
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:12:5
+   |
+LL |     fn expect_err(self, msg: &str) -> Self::Item;
+   |     ^
 
-error: used `expect()` on a `Result` value
-  --> tests/ui/unwrap_expect_used.rs:81:17
+error: parameter must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:12:19
    |
-LL |         let _ = open!(file).expect("can open");
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is an `Err`, it will panic
+LL |     fn expect_err(self, msg: &str) -> Self::Item;
+   |                   ^ help: make this parameter mutable: `mut`
 
-error: used `unwrap_err()` on a `Result` value
-  --> tests/ui/unwrap_expect_used.rs:82:17
+error: parameter must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:12:25
    |
-LL |         let _ = open!(file).unwrap_err();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is an `Ok`, it will panic
+LL |     fn expect_err(self, msg: &str) -> Self::Item;
+   |                         ^ help: make this parameter mutable: `mut`
 
-error: used `expect_err()` on a `Result` value
-  --> tests/ui/unwrap_expect_used.rs:83:17
+error: references are not allowed
+  --> tests/ui/unwrap_expect_used.rs:12:30
    |
-LL |         let _ = open!(file).expect_err("can open");
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn expect_err(self, msg: &str) -> Self::Item;
+   |                              ^^^^
    |
-   = note: if this value is an `Ok`, it will panic
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: aborting due to 10 previous errors
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:15:1
+   |
+LL | impl<T> OptionExt for Option<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:17:5
+   |
+LL |     fn unwrap_err(self) -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:17:5
+   |
+LL |     fn unwrap_err(self) -> T {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:17:19
+   |
+LL |     fn unwrap_err(self) -> T {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:18:9
+   |
+LL |         panic!();
+   |         ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:18:9
+   |
+LL |         panic!();
+   |         ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:18:9
+   |
+LL |         panic!();
+   |         ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:21:5
+   |
+LL |     fn expect_err(self, msg: &str) -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:21:5
+   |
+LL |     fn expect_err(self, msg: &str) -> T {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:21:19
+   |
+LL |     fn expect_err(self, msg: &str) -> T {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:21:25
+   |
+LL |     fn expect_err(self, msg: &str) -> T {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unwrap_expect_used.rs:21:30
+   |
+LL |     fn expect_err(self, msg: &str) -> T {
+   |                              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:22:9
+   |
+LL |         panic!();
+   |         ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:22:9
+   |
+LL |         panic!();
+   |         ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:22:9
+   |
+LL |         panic!();
+   |         ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:26:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:26:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:26:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:38:9
+   |
+LL |     let x: Result<(), !> = Ok(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:41:9
+   |
+LL |     let x: Result<(), Infallible> = Ok(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:45:9
+   |
+LL |     let a: Result<i32, i32> = Ok(3);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:59:5
+   |
+LL |     const SOME: Option<i32> = Some(3);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:60:5
+   |
+LL |     const UNWRAPPED: i32 = SOME.unwrap();
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:61:5
+   |
+LL |     const EXPECTED: i32 = SOME.expect("Not three?");
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:70:1
+   |
+LL | mod with_expansion {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:71:5
+   |
+LL |     macro_rules! open {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unwrap_expect_used.rs:77:5
+   |
+LL |     fn test(file: &str) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:77:5
+   |
+LL |     fn test(file: &str) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unwrap_expect_used.rs:77:5
+   |
+LL |     fn test(file: &str) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unwrap_expect_used.rs:77:13
+   |
+LL |     fn test(file: &str) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unwrap_expect_used.rs:77:19
+   |
+LL |     fn test(file: &str) {
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 37 previous errors
 

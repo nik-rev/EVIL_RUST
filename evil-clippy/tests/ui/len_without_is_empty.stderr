@@ -1,13 +1,216 @@
-error: struct `PubOne` has a public `len` method, but no `is_empty` method
-  --> tests/ui/len_without_is_empty.rs:7:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:6:1
+   |
+LL | impl PubOne {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:7:9
    |
 LL |     pub fn len(&self) -> isize {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-   = note: `-D clippy::len-without-is-empty` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::len_without_is_empty)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:7:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: trait `PubTraitsToo` has a `len` method but no (possibly inherited) `is_empty` method
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:7:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:7:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:14:1
+   |
+LL | impl PubOne {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:16:9
+   |
+LL |     pub fn irrelevant(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:16:9
+   |
+LL |     pub fn irrelevant(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:16:24
+   |
+LL |     pub fn irrelevant(&self) -> bool {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:16:23
+   |
+LL |     pub fn irrelevant(&self) -> bool {
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:25:1
+   |
+LL | impl PubAllowed {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:26:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:26:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:26:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:26:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:33:1
+   |
+LL | impl PubAllowed {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:34:9
+   |
+LL |     pub fn irrelevant(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:34:9
+   |
+LL |     pub fn irrelevant(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:34:24
+   |
+LL |     pub fn irrelevant(&self) -> bool {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:34:23
+   |
+LL |     pub fn irrelevant(&self) -> bool {
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:41:1
+   |
+LL | impl PubAllowedFn {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:43:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:43:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:43:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:43:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:51:1
+   |
+LL | impl PubAllowedStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:52:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:52:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:52:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:52:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
   --> tests/ui/len_without_is_empty.rs:57:1
    |
 LL | / pub trait PubTraitsToo {
@@ -16,46 +219,663 @@ LL | |
 LL | |     fn len(&self) -> isize;
 LL | | }
    | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
 
-error: struct `HasIsEmpty` has a public `len` method, but a private `is_empty` method
-  --> tests/ui/len_without_is_empty.rs:72:5
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:60:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:60:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:60:13
+   |
+LL |     fn len(&self) -> isize;
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:60:12
+   |
+LL |     fn len(&self) -> isize;
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:63:1
+   |
+LL | impl PubTraitsToo for One {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:64:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:64:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:64:13
+   |
+LL |     fn len(&self) -> isize {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:64:12
+   |
+LL |     fn len(&self) -> isize {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:71:1
+   |
+LL | impl HasIsEmpty {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:72:9
    |
 LL |     pub fn len(&self) -> isize {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-note: `is_empty` defined here
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:72:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:72:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:72:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
   --> tests/ui/len_without_is_empty.rs:78:5
    |
 LL |     fn is_empty(&self) -> bool {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:78:5
+   |
+LL |     fn is_empty(&self) -> bool {
+   |     ^
 
-error: struct `HasWrongIsEmpty` has a public `len` method, but the `is_empty` method has an unexpected signature
-  --> tests/ui/len_without_is_empty.rs:86:5
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:78:18
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:78:17
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:85:1
+   |
+LL | impl HasWrongIsEmpty {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:86:9
    |
 LL |     pub fn len(&self) -> isize {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-note: `is_empty` defined here
-  --> tests/ui/len_without_is_empty.rs:92:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:86:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:86:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:86:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:92:9
    |
 LL |     pub fn is_empty(&self, x: u32) -> bool {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   = note: expected signature: `(&self) -> bool`
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:92:9
+   |
+LL |     pub fn is_empty(&self, x: u32) -> bool {
+   |         ^
 
-error: struct `MismatchedSelf` has a public `len` method, but the `is_empty` method has an unexpected signature
-  --> tests/ui/len_without_is_empty.rs:100:5
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:92:22
+   |
+LL |     pub fn is_empty(&self, x: u32) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:92:28
+   |
+LL |     pub fn is_empty(&self, x: u32) -> bool {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:92:21
+   |
+LL |     pub fn is_empty(&self, x: u32) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:99:1
+   |
+LL | impl MismatchedSelf {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:100:9
    |
 LL |     pub fn len(self) -> isize {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-note: `is_empty` defined here
-  --> tests/ui/len_without_is_empty.rs:106:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:100:9
+   |
+LL |     pub fn len(self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:100:16
+   |
+LL |     pub fn len(self) -> isize {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:106:9
    |
 LL |     pub fn is_empty(&self) -> bool {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   = note: expected signature: `(self) -> bool`
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:106:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
 
-error: trait `DependsOnFoo` has a `len` method but no (possibly inherited) `is_empty` method
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:106:22
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:106:21
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:111:1
+   |
+LL | struct NotPubOne;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:113:1
+   |
+LL | impl NotPubOne {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:114:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:114:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:114:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:114:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:120:1
+   |
+LL | struct One;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:122:1
+   |
+LL | impl One {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:123:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:123:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:123:13
+   |
+LL |     fn len(&self) -> isize {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:123:12
+   |
+LL |     fn len(&self) -> isize {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:129:1
+   |
+LL | / trait TraitsToo {
+LL | |     fn len(&self) -> isize;
+LL | |     // No error; `len` is private; see issue #1085.
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:129:1
+   |
+LL | trait TraitsToo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:130:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:130:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:130:13
+   |
+LL |     fn len(&self) -> isize;
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:130:12
+   |
+LL |     fn len(&self) -> isize;
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:134:1
+   |
+LL | impl TraitsToo for One {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:135:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:135:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:135:13
+   |
+LL |     fn len(&self) -> isize {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:135:12
+   |
+LL |     fn len(&self) -> isize {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:140:1
+   |
+LL | struct HasPrivateIsEmpty;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:142:1
+   |
+LL | impl HasPrivateIsEmpty {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:143:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:143:9
+   |
+LL |     pub fn len(&self) -> isize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:143:17
+   |
+LL |     pub fn len(&self) -> isize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:143:16
+   |
+LL |     pub fn len(&self) -> isize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:147:5
+   |
+LL |     fn is_empty(&self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:147:5
+   |
+LL |     fn is_empty(&self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:147:18
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:147:17
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:152:1
+   |
+LL | struct Wither;
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:154:1
+   |
+LL | / pub trait WithIsEmpty {
+LL | |     fn len(&self) -> isize;
+LL | |     fn is_empty(&self) -> bool;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:155:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:155:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:155:13
+   |
+LL |     fn len(&self) -> isize;
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:155:12
+   |
+LL |     fn len(&self) -> isize;
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:156:5
+   |
+LL |     fn is_empty(&self) -> bool;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:156:5
+   |
+LL |     fn is_empty(&self) -> bool;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:156:18
+   |
+LL |     fn is_empty(&self) -> bool;
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:156:17
+   |
+LL |     fn is_empty(&self) -> bool;
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:159:1
+   |
+LL | impl WithIsEmpty for Wither {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:160:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:160:5
+   |
+LL |     fn len(&self) -> isize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:160:13
+   |
+LL |     fn len(&self) -> isize {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:160:12
+   |
+LL |     fn len(&self) -> isize {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:164:5
+   |
+LL |     fn is_empty(&self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:164:5
+   |
+LL |     fn is_empty(&self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:164:18
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:164:17
+   |
+LL |     fn is_empty(&self) -> bool {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:169:1
+   |
+LL | / pub trait Empty {
+LL | |     fn is_empty(&self) -> bool;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:170:5
+   |
+LL |     fn is_empty(&self) -> bool;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:170:5
+   |
+LL |     fn is_empty(&self) -> bool;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:170:18
+   |
+LL |     fn is_empty(&self) -> bool;
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:170:17
+   |
+LL |     fn is_empty(&self) -> bool;
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:173:1
+   |
+LL | / pub trait InheritingEmpty: Empty {
+LL | |     // Must not trigger `LEN_WITHOUT_IS_EMPTY`.
+LL | |     fn len(&self) -> isize;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:175:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:175:5
+   |
+LL |     fn len(&self) -> isize;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:175:13
+   |
+LL |     fn len(&self) -> isize;
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:175:12
+   |
+LL |     fn len(&self) -> isize;
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:179:1
+   |
+LL | pub trait Foo: Sized {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: trait must be `unsafe`
   --> tests/ui/len_without_is_empty.rs:181:1
    |
 LL | / pub trait DependsOnFoo: Foo {
@@ -64,90 +884,1316 @@ LL | |
 LL | |     fn len(&mut self) -> usize;
 LL | | }
    | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
 
-error: struct `OptionalLen3` has a public `len` method, but the `is_empty` method has an unexpected signature
-  --> tests/ui/len_without_is_empty.rs:228:5
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:184:5
+   |
+LL |     fn len(&mut self) -> usize;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:184:5
+   |
+LL |     fn len(&mut self) -> usize;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:184:17
+   |
+LL |     fn len(&mut self) -> usize;
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:184:12
+   |
+LL |     fn len(&mut self) -> usize;
+   |            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:190:1
+   |
+LL | impl MultipleImpls {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:191:9
    |
 LL |     pub fn len(&self) -> usize {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-note: `is_empty` defined here
-  --> tests/ui/len_without_is_empty.rs:235:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:191:9
+   |
+LL |     pub fn len(&self) -> usize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:191:17
+   |
+LL |     pub fn len(&self) -> usize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:191:16
+   |
+LL |     pub fn len(&self) -> usize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:196:1
+   |
+LL | impl MultipleImpls {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:197:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:197:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:197:22
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:197:21
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:205:1
+   |
+LL | impl OptionalLen {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:206:9
+   |
+LL |     pub fn len(&self) -> Option<usize> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:206:9
+   |
+LL |     pub fn len(&self) -> Option<usize> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:206:17
+   |
+LL |     pub fn len(&self) -> Option<usize> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:206:16
+   |
+LL |     pub fn len(&self) -> Option<usize> {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:210:9
    |
 LL |     pub fn is_empty(&self) -> Option<bool> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   = note: expected signature: `(&self) -> bool`
-
-error: struct `ResultLen` has a public `len` method, but the `is_empty` method has an unexpected signature
-  --> tests/ui/len_without_is_empty.rs:242:5
+   |         ^
    |
-LL |     pub fn len(&self) -> Result<usize, ()> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: `is_empty` defined here
-  --> tests/ui/len_without_is_empty.rs:250:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:210:9
    |
 LL |     pub fn is_empty(&self) -> Option<bool> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   = note: expected signature: `(&self) -> bool` or `(&self) -> Result<bool>
+   |         ^
 
-error: this returns a `Result<_, ()>`
-  --> tests/ui/len_without_is_empty.rs:242:5
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:210:22
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:210:21
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:216:1
+   |
+LL | impl OptionalLen2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:217:9
+   |
+LL |     pub fn len(&self) -> Option<usize> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:217:9
+   |
+LL |     pub fn len(&self) -> Option<usize> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:217:17
+   |
+LL |     pub fn len(&self) -> Option<usize> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:217:16
+   |
+LL |     pub fn len(&self) -> Option<usize> {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:221:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:221:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:221:22
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:221:21
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:227:1
+   |
+LL | impl OptionalLen3 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:228:9
+   |
+LL |     pub fn len(&self) -> usize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:228:9
+   |
+LL |     pub fn len(&self) -> usize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:228:17
+   |
+LL |     pub fn len(&self) -> usize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:228:16
+   |
+LL |     pub fn len(&self) -> usize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:235:9
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:235:9
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:235:22
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:235:21
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:241:1
+   |
+LL | impl ResultLen {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:242:9
    |
 LL |     pub fn len(&self) -> Result<usize, ()> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-   = help: use a custom `Error` type instead
-   = note: `-D clippy::result-unit-err` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::result_unit_err)]`
-
-error: this returns a `Result<_, ()>`
-  --> tests/ui/len_without_is_empty.rs:257:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:242:9
    |
 LL |     pub fn len(&self) -> Result<usize, ()> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use a custom `Error` type instead
+   |         ^
 
-error: this returns a `Result<_, ()>`
-  --> tests/ui/len_without_is_empty.rs:263:5
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:242:17
+   |
+LL |     pub fn len(&self) -> Result<usize, ()> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:242:16
+   |
+LL |     pub fn len(&self) -> Result<usize, ()> {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:250:9
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:250:9
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:250:22
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:250:21
+   |
+LL |     pub fn is_empty(&self) -> Option<bool> {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:256:1
+   |
+LL | impl ResultLen2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:257:9
+   |
+LL |     pub fn len(&self) -> Result<usize, ()> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:257:9
+   |
+LL |     pub fn len(&self) -> Result<usize, ()> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:257:17
+   |
+LL |     pub fn len(&self) -> Result<usize, ()> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:257:16
+   |
+LL |     pub fn len(&self) -> Result<usize, ()> {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:263:9
    |
 LL |     pub fn is_empty(&self) -> Result<bool, ()> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-   = help: use a custom `Error` type instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:263:9
+   |
+LL |     pub fn is_empty(&self) -> Result<bool, ()> {
+   |         ^
 
-error: this returns a `Result<_, ()>`
-  --> tests/ui/len_without_is_empty.rs:272:5
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:263:22
+   |
+LL |     pub fn is_empty(&self) -> Result<bool, ()> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:263:21
+   |
+LL |     pub fn is_empty(&self) -> Result<bool, ()> {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:271:1
+   |
+LL | impl ResultLen3 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:272:9
    |
 LL |     pub fn len(&self) -> Result<usize, ()> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-   = help: use a custom `Error` type instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:272:9
+   |
+LL |     pub fn len(&self) -> Result<usize, ()> {
+   |         ^
 
-error: struct `AsyncLenWithoutIsEmpty` has a public `len` method, but no `is_empty` method
-  --> tests/ui/len_without_is_empty.rs:315:5
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:272:17
+   |
+LL |     pub fn len(&self) -> Result<usize, ()> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:272:16
+   |
+LL |     pub fn len(&self) -> Result<usize, ()> {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:279:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:279:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:279:22
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:279:21
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:285:1
+   |
+LL | impl OddLenSig {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:287:9
+   |
+LL |     pub fn len(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:287:9
+   |
+LL |     pub fn len(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:287:17
+   |
+LL |     pub fn len(&self) -> bool {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:287:16
+   |
+LL |     pub fn len(&self) -> bool {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:294:1
+   |
+LL | impl AsyncLen {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:295:11
+   |
+LL |     async fn async_task(&self) -> bool {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:295:11
+   |
+LL |     async fn async_task(&self) -> bool {
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:295:26
+   |
+LL |     async fn async_task(&self) -> bool {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:295:25
+   |
+LL |     async fn async_task(&self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:299:15
    |
 LL |     pub async fn len(&self) -> usize {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:299:15
+   |
+LL |     pub async fn len(&self) -> usize {
+   |               ^
 
-error: struct `AsyncOptionLenWithoutIsEmpty` has a public `len` method, but no `is_empty` method
-  --> tests/ui/len_without_is_empty.rs:329:5
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:299:23
+   |
+LL |     pub async fn len(&self) -> usize {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:299:22
+   |
+LL |     pub async fn len(&self) -> usize {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:303:15
+   |
+LL |     pub async fn is_empty(&self) -> bool {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:303:15
+   |
+LL |     pub async fn is_empty(&self) -> bool {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:303:28
+   |
+LL |     pub async fn is_empty(&self) -> bool {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:303:27
+   |
+LL |     pub async fn is_empty(&self) -> bool {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:310:1
+   |
+LL | impl AsyncLenWithoutIsEmpty {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:311:15
+   |
+LL |     pub async fn async_task(&self) -> bool {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:311:15
+   |
+LL |     pub async fn async_task(&self) -> bool {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:311:30
+   |
+LL |     pub async fn async_task(&self) -> bool {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:311:29
+   |
+LL |     pub async fn async_task(&self) -> bool {
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:315:15
+   |
+LL |     pub async fn len(&self) -> usize {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:315:15
+   |
+LL |     pub async fn len(&self) -> usize {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:315:23
+   |
+LL |     pub async fn len(&self) -> usize {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:315:22
+   |
+LL |     pub async fn len(&self) -> usize {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:324:1
+   |
+LL | impl AsyncOptionLenWithoutIsEmpty {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:325:11
+   |
+LL |     async fn async_task(&self) -> bool {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:325:11
+   |
+LL |     async fn async_task(&self) -> bool {
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:325:26
+   |
+LL |     async fn async_task(&self) -> bool {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:325:25
+   |
+LL |     async fn async_task(&self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:329:15
    |
 LL |     pub async fn len(&self) -> Option<usize> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:329:15
+   |
+LL |     pub async fn len(&self) -> Option<usize> {
+   |               ^
 
-error: struct `AsyncResultLenWithoutIsEmpty` has a public `len` method, but no `is_empty` method
-  --> tests/ui/len_without_is_empty.rs:352:5
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:329:23
+   |
+LL |     pub async fn len(&self) -> Option<usize> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:329:22
+   |
+LL |     pub async fn len(&self) -> Option<usize> {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:338:1
+   |
+LL | impl AsyncOptionLenNonIntegral {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:340:15
+   |
+LL |     pub async fn len(&self) -> Option<String> {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:340:15
+   |
+LL |     pub async fn len(&self) -> Option<String> {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:340:23
+   |
+LL |     pub async fn len(&self) -> Option<String> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:340:22
+   |
+LL |     pub async fn len(&self) -> Option<String> {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:347:1
+   |
+LL | impl AsyncResultLenWithoutIsEmpty {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:348:11
+   |
+LL |     async fn async_task(&self) -> bool {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:348:11
+   |
+LL |     async fn async_task(&self) -> bool {
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:348:26
+   |
+LL |     async fn async_task(&self) -> bool {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:348:25
+   |
+LL |     async fn async_task(&self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:352:15
    |
 LL |     pub async fn len(&self) -> Result<usize, ()> {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:352:15
+   |
+LL |     pub async fn len(&self) -> Result<usize, ()> {
+   |               ^
 
-error: type `Alias2` has a public `len` method, but no `is_empty` method
-  --> tests/ui/len_without_is_empty.rs:469:5
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:352:23
+   |
+LL |     pub async fn len(&self) -> Result<usize, ()> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:352:22
+   |
+LL |     pub async fn len(&self) -> Result<usize, ()> {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:361:1
+   |
+LL | impl AsyncOptionLen {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:362:11
+   |
+LL |     async fn async_task(&self) -> bool {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:362:11
+   |
+LL |     async fn async_task(&self) -> bool {
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:362:26
+   |
+LL |     async fn async_task(&self) -> bool {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:362:25
+   |
+LL |     async fn async_task(&self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:366:15
+   |
+LL |     pub async fn len(&self) -> Result<usize, ()> {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:366:15
+   |
+LL |     pub async fn len(&self) -> Result<usize, ()> {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:366:23
+   |
+LL |     pub async fn len(&self) -> Result<usize, ()> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:366:22
+   |
+LL |     pub async fn len(&self) -> Result<usize, ()> {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:370:15
+   |
+LL |     pub async fn is_empty(&self) -> bool {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:370:15
+   |
+LL |     pub async fn is_empty(&self) -> bool {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:370:28
+   |
+LL |     pub async fn is_empty(&self) -> bool {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:370:27
+   |
+LL |     pub async fn is_empty(&self) -> bool {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:376:1
+   |
+LL | impl AsyncLenSyncIsEmpty {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:377:15
+   |
+LL |     pub async fn len(&self) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:377:15
+   |
+LL |     pub async fn len(&self) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:377:23
+   |
+LL |     pub async fn len(&self) -> u32 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:377:22
+   |
+LL |     pub async fn len(&self) -> u32 {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:381:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:381:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:381:22
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:381:21
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:388:1
+   |
+LL | impl NonStandardLen {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:390:9
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:390:9
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:390:17
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:390:23
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:390:16
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:397:1
+   |
+LL | impl NonStandardLenAndIsEmptySignature {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:399:9
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:399:9
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:399:17
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:399:23
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:399:16
+   |
+LL |     pub fn len(&self, something: usize) -> usize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:403:9
+   |
+LL |     pub fn is_empty(&self, something: usize) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:403:9
+   |
+LL |     pub fn is_empty(&self, something: usize) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:403:22
+   |
+LL |     pub fn is_empty(&self, something: usize) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:403:28
+   |
+LL |     pub fn is_empty(&self, something: usize) -> bool {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:403:21
+   |
+LL |     pub fn is_empty(&self, something: usize) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:409:1
+   |
+LL | / pub trait TestResource {
+LL | |     type NonStandardSignatureWithGenerics: Copy;
+LL | |     fn lookup_content(&self, item: Self::NonStandardSignatureWithGenerics) -> Result<Option<&[u8]>, String>;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:411:5
+   |
+LL |     fn lookup_content(&self, item: Self::NonStandardSignatureWithGenerics) -> Result<Option<&[u8]>, String>;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:411:5
+   |
+LL |     fn lookup_content(&self, item: Self::NonStandardSignatureWithGenerics) -> Result<Option<&[u8]>, String>;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:411:24
+   |
+LL |     fn lookup_content(&self, item: Self::NonStandardSignatureWithGenerics) -> Result<Option<&[u8]>, String>;
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:411:30
+   |
+LL |     fn lookup_content(&self, item: Self::NonStandardSignatureWithGenerics) -> Result<Option<&[u8]>, String>;
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:411:23
+   |
+LL |     fn lookup_content(&self, item: Self::NonStandardSignatureWithGenerics) -> Result<Option<&[u8]>, String>;
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:411:93
+   |
+LL |     fn lookup_content(&self, item: Self::NonStandardSignatureWithGenerics) -> Result<Option<&[u8]>, String>;
+   |                                                                                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:414:1
+   |
+LL | impl NonStandardSignatureWithGenerics {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:415:9
+   |
+LL |     pub fn is_empty<T, U>(self, resource: &T) -> bool
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:415:9
+   |
+LL |     pub fn is_empty<T, U>(self, resource: &T) -> bool
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:415:27
+   |
+LL |     pub fn is_empty<T, U>(self, resource: &T) -> bool
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:415:33
+   |
+LL |     pub fn is_empty<T, U>(self, resource: &T) -> bool
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:415:43
+   |
+LL |     pub fn is_empty<T, U>(self, resource: &T) -> bool
+   |                                           ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:428:9
+   |
+LL |     pub fn len<T, U>(self, resource: &T) -> usize
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:428:9
+   |
+LL |     pub fn len<T, U>(self, resource: &T) -> usize
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:428:22
+   |
+LL |     pub fn len<T, U>(self, resource: &T) -> usize
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:428:28
+   |
+LL |     pub fn len<T, U>(self, resource: &T) -> usize
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:428:38
+   |
+LL |     pub fn len<T, U>(self, resource: &T) -> usize
+   |                                      ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:442:1
+   |
+LL | impl DifferingErrors {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:443:9
+   |
+LL |     pub fn len(&self) -> Result<usize, u8> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:443:9
+   |
+LL |     pub fn len(&self) -> Result<usize, u8> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:443:17
+   |
+LL |     pub fn len(&self) -> Result<usize, u8> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:443:16
+   |
+LL |     pub fn len(&self) -> Result<usize, u8> {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:447:9
+   |
+LL |     pub fn is_empty(&self) -> Result<bool, u16> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:447:9
+   |
+LL |     pub fn is_empty(&self) -> Result<bool, u16> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:447:22
+   |
+LL |     pub fn is_empty(&self) -> Result<bool, u16> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:447:21
+   |
+LL |     pub fn is_empty(&self) -> Result<bool, u16> {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:456:1
+   |
+LL | impl Alias1 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:457:9
    |
 LL |     pub fn len(&self) -> usize {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:457:9
+   |
+LL |     pub fn len(&self) -> usize {
+   |         ^
 
-error: aborting due to 16 previous errors
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:457:17
+   |
+LL |     pub fn len(&self) -> usize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:457:16
+   |
+LL |     pub fn len(&self) -> usize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:461:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:461:9
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:461:22
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:461:21
+   |
+LL |     pub fn is_empty(&self) -> bool {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:468:1
+   |
+LL | impl Alias2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:469:9
+   |
+LL |     pub fn len(&self) -> usize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:469:9
+   |
+LL |     pub fn len(&self) -> usize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/len_without_is_empty.rs:469:17
+   |
+LL |     pub fn len(&self) -> usize {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/len_without_is_empty.rs:469:16
+   |
+LL |     pub fn len(&self) -> usize {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/len_without_is_empty.rs:476:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/len_without_is_empty.rs:476:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/len_without_is_empty.rs:476:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 267 previous errors
 

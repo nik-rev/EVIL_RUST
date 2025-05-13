@@ -1,41 +1,92 @@
-error: any number modulo 1 will be 0
-  --> tests/ui/modulo_one.rs:9:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     10 % 1;
-   |     ^^^^^^
-   |
-   = note: `-D clippy::modulo-one` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::modulo_one)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: any number modulo -1 will panic/overflow or result in 0
-  --> tests/ui/modulo_one.rs:12:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     10 % -1;
-   |     ^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: any number modulo -1 will panic/overflow or result in 0
-  --> tests/ui/modulo_one.rs:17:5
+error: static must be `mut`
+  --> tests/ui/modulo_one.rs:5:8
    |
-LL |     i32::MIN % (-1);
-   |     ^^^^^^^^^^^^^^^
-
-error: any number modulo 1 will be 0
-  --> tests/ui/modulo_one.rs:24:5
+LL | static STATIC_ONE: usize = 2 - 1;
+   |        ^ help: make this static mutable: `mut`
    |
-LL |     2 % ONE;
-   |     ^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: any number modulo -1 will panic/overflow or result in 0
-  --> tests/ui/modulo_one.rs:29:5
+error: item must be `pub`
+  --> tests/ui/modulo_one.rs:5:1
    |
-LL |     2 % NEG_ONE;
-   |     ^^^^^^^^^^^
-
-error: any number modulo -1 will panic/overflow or result in 0
-  --> tests/ui/modulo_one.rs:35:5
+LL | static STATIC_ONE: usize = 2 - 1;
+   | ^ help: make this item public: `pub`
    |
-LL |     INT_MIN % NEG_ONE;
-   |     ^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 6 previous errors
+error: static must be `mut`
+  --> tests/ui/modulo_one.rs:6:8
+   |
+LL | static STATIC_NEG_ONE: i64 = 1 - 2;
+   |        ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/modulo_one.rs:6:1
+   |
+LL | static STATIC_NEG_ONE: i64 = 1 - 2;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/modulo_one.rs:8:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/modulo_one.rs:8:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/modulo_one.rs:8:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/modulo_one.rs:20:5
+   |
+LL |     const ONE: u32 = 1 * 1;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/modulo_one.rs:21:5
+   |
+LL |     const NEG_ONE: i64 = 1 - 2;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/modulo_one.rs:22:5
+   |
+LL |     const INT_MIN: i64 = i64::MIN;
+   |     ^ help: make this item public: `pub`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

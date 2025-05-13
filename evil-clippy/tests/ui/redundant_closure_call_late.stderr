@@ -1,23 +1,104 @@
-error: closure called just once immediately after it was declared
-  --> tests/ui/redundant_closure_call_late.rs:16:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     i = redun_closure();
-   |     ^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::redundant-closure-call` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_closure_call)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: closure called just once immediately after it was declared
-  --> tests/ui/redundant_closure_call_late.rs:21:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     i = shadowed_closure();
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: closure called just once immediately after it was declared
-  --> tests/ui/redundant_closure_call_late.rs:25:5
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_late.rs:6:1
    |
-LL |     i = shadowed_closure();
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_late.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_late.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_late.rs:10:9
+   |
+LL |     let closure = |i| i + 1;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_late.rs:15:9
+   |
+LL |     let redun_closure = || 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_late.rs:20:9
+   |
+LL |     let shadowed_closure = || 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_late.rs:24:9
+   |
+LL |     let shadowed_closure = || 2;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_late.rs:29:9
+   |
+LL |     let shadowed_closure = || 2;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_closure_call_late.rs:35:9
+   |
+LL |     let create = || 2 * 2;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/redundant_closure_call_late.rs:42:1
+   |
+LL | fn fun<T: 'static + FnMut()>(mut f: T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_closure_call_late.rs:42:1
+   |
+LL | fn fun<T: 'static + FnMut()>(mut f: T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_closure_call_late.rs:42:1
+   |
+LL | fn fun<T: 'static + FnMut()>(mut f: T) {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 14 previous errors
 

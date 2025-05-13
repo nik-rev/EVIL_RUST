@@ -1,203 +1,415 @@
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:5:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     assert!(matches!('x', 'a'..='z'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'x'.is_ascii_lowercase()`
-   |
-   = note: `-D clippy::manual-is-ascii-check` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_is_ascii_check)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:7:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     assert!(matches!('X', 'A'..='Z'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'X'.is_ascii_uppercase()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:9:13
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:4:1
    |
-LL |     assert!(matches!(b'x', b'a'..=b'z'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `b'x'.is_ascii_lowercase()`
-
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:11:13
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     assert!(matches!(b'X', b'A'..=b'Z'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `b'X'.is_ascii_uppercase()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:15:13
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:4:1
    |
-LL |     assert!(matches!(num, '0'..='9'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `num.is_ascii_digit()`
-
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:17:13
+LL | fn main() {
+   | ^
    |
-LL |     assert!(matches!(b'1', b'0'..=b'9'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `b'1'.is_ascii_digit()`
-
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:19:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:4:1
    |
-LL |     assert!(matches!('x', 'A'..='Z' | 'a'..='z'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'x'.is_ascii_alphabetic()`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:24:5
+error: variable must be `mut`
+  --> tests/ui/manual_is_ascii_check.rs:14:9
+   |
+LL |     let num = '2';
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:24:28
    |
 LL |     (b'0'..=b'9').contains(&b'0');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `b'0'.is_ascii_digit()`
+   |                            ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:26:5
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:26:28
    |
 LL |     (b'a'..=b'z').contains(&b'a');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `b'a'.is_ascii_lowercase()`
+   |                            ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:28:5
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:28:28
    |
 LL |     (b'A'..=b'Z').contains(&b'A');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `b'A'.is_ascii_uppercase()`
+   |                            ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:31:5
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:31:26
    |
 LL |     ('0'..='9').contains(&'0');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'0'.is_ascii_digit()`
+   |                          ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:33:5
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:33:26
    |
 LL |     ('a'..='z').contains(&'a');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'a'.is_ascii_lowercase()`
+   |                          ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:35:5
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:35:26
    |
 LL |     ('A'..='Z').contains(&'A');
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'A'.is_ascii_uppercase()`
-
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:39:5
+   |                          ^^^^
    |
-LL |     ('0'..='9').contains(cool_letter);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `cool_letter.is_ascii_digit()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:41:5
+error: variable must be `mut`
+  --> tests/ui/manual_is_ascii_check.rs:38:9
    |
-LL |     ('a'..='z').contains(cool_letter);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `cool_letter.is_ascii_lowercase()`
+LL |     let cool_letter = &'g';
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:43:5
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:38:23
    |
-LL |     ('A'..='Z').contains(cool_letter);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `cool_letter.is_ascii_uppercase()`
-
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:57:13
+LL |     let cool_letter = &'g';
+   |                       ^^^^
    |
-LL |     assert!(matches!(b'1', b'0'..=b'9'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `b'1'.is_ascii_digit()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:59:13
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:48:1
    |
-LL |     assert!(matches!('X', 'A'..='Z'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'X'.is_ascii_uppercase()`
+LL | fn msrv_1_23() {
+   | ^ help: make this item public: `pub`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:61:13
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:48:1
    |
-LL |     assert!(matches!('x', 'A'..='Z' | 'a'..='z'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'x'.is_ascii_alphabetic()`
-
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:63:13
+LL | fn msrv_1_23() {
+   | ^
    |
-LL |     assert!(matches!('x', '0'..='9' | 'a'..='f' | 'A'..='F'));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'x'.is_ascii_hexdigit()`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:48:1
+   |
+LL | fn msrv_1_23() {
+   | ^
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:75:23
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:56:1
+   |
+LL | fn msrv_1_24() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:56:1
+   |
+LL | fn msrv_1_24() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:56:1
+   |
+LL | fn msrv_1_24() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:68:1
+   |
+LL | fn msrv_1_46() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:68:1
+   |
+LL | fn msrv_1_46() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:68:1
+   |
+LL | fn msrv_1_46() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:69:5
    |
 LL |     const FOO: bool = matches!('x', '0'..='9');
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'x'.is_ascii_digit()`
+   |     ^ help: make this item public: `pub`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:77:23
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:70:5
    |
 LL |     const BAR: bool = matches!('x', '0'..='9' | 'a'..='f' | 'A'..='F');
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `'x'.is_ascii_hexdigit()`
+   |     ^ help: make this item public: `pub`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:84:5
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:74:1
+   |
+LL | fn msrv_1_47() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:74:1
+   |
+LL | fn msrv_1_47() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:74:1
+   |
+LL | fn msrv_1_47() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:75:5
+   |
+LL |     const FOO: bool = matches!('x', '0'..='9');
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:77:5
+   |
+LL |     const BAR: bool = matches!('x', '0'..='9' | 'a'..='f' | 'A'..='F');
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:82:1
+   |
+LL | fn with_refs() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:82:1
+   |
+LL | fn with_refs() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:82:1
+   |
+LL | fn with_refs() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_is_ascii_check.rs:83:9
+   |
+LL |     let cool_letter = &&'g';
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:83:23
+   |
+LL |     let cool_letter = &&'g';
+   |                       ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:83:24
+   |
+LL |     let cool_letter = &&'g';
+   |                        ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:84:26
    |
 LL |     ('0'..='9').contains(&&cool_letter);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `cool_letter.is_ascii_digit()`
-
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:86:5
+   |                          ^^^^^^^^^^^^^
    |
-LL |     ('a'..='z').contains(*cool_letter);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `cool_letter.is_ascii_lowercase()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:105:20
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:84:27
+   |
+LL |     ('0'..='9').contains(&&cool_letter);
+   |                           ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:90:1
+   |
+LL | fn generics() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:90:1
+   |
+LL | fn generics() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:90:1
+   |
+LL | fn generics() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:91:5
+   |
+LL |     fn a<U>(u: &U) -> bool
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:91:5
+   |
+LL |     fn a<U>(u: &U) -> bool
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:91:5
+   |
+LL |     fn a<U>(u: &U) -> bool
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_is_ascii_check.rs:91:13
+   |
+LL |     fn a<U>(u: &U) -> bool
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:91:16
+   |
+LL |     fn a<U>(u: &U) -> bool
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:99:5
+   |
+LL |     fn take_while<Item, F>(cond: F)
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:99:5
+   |
+LL |     fn take_while<Item, F>(cond: F)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:99:5
+   |
+LL |     fn take_while<Item, F>(cond: F)
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_is_ascii_check.rs:99:28
+   |
+LL |     fn take_while<Item, F>(cond: F)
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:105:41
    |
 LL |     take_while(|c| ('A'..='Z').contains(&c));
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                         ^^
    |
-help: try
-   |
-LL -     take_while(|c| ('A'..='Z').contains(&c));
-LL +     take_while(|c: char| c.is_ascii_uppercase());
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:107:20
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:107:43
    |
 LL |     take_while(|c| (b'A'..=b'Z').contains(&c));
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                           ^^
    |
-help: try
-   |
-LL -     take_while(|c| (b'A'..=b'Z').contains(&c));
-LL +     take_while(|c: u8| c.is_ascii_uppercase());
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:109:26
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:109:47
    |
 LL |     take_while(|c: char| ('A'..='Z').contains(&c));
-   |                          ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `c.is_ascii_uppercase()`
+   |                                               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:114:63
+error: item must be `pub`
+  --> tests/ui/manual_is_ascii_check.rs:113:1
+   |
+LL | fn adds_type_reference() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:113:1
+   |
+LL | fn adds_type_reference() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_is_ascii_check.rs:113:1
+   |
+LL | fn adds_type_reference() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_is_ascii_check.rs:114:9
    |
 LL |     let digits: Vec<&char> = ['1', 'A'].iter().take_while(|c| ('0'..='9').contains(c)).collect();
-   |                                                               ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     let digits: Vec<&char> = ['1', 'A'].iter().take_while(|c| ('0'..='9').contains(c)).collect();
-LL +     let digits: Vec<&char> = ['1', 'A'].iter().take_while(|c: &&char| c.is_ascii_digit()).collect();
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual check for common ascii range
-  --> tests/ui/manual_is_ascii_check.rs:116:71
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:114:21
+   |
+LL |     let digits: Vec<&char> = ['1', 'A'].iter().take_while(|c| ('0'..='9').contains(c)).collect();
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_is_ascii_check.rs:116:9
    |
 LL |     let digits: Vec<&mut char> = ['1', 'A'].iter_mut().take_while(|c| ('0'..='9').contains(c)).collect();
-   |                                                                       ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     let digits: Vec<&mut char> = ['1', 'A'].iter_mut().take_while(|c| ('0'..='9').contains(c)).collect();
-LL +     let digits: Vec<&mut char> = ['1', 'A'].iter_mut().take_while(|c: &&mut char| c.is_ascii_digit()).collect();
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 29 previous errors
+error: references are not allowed
+  --> tests/ui/manual_is_ascii_check.rs:116:21
+   |
+LL |     let digits: Vec<&mut char> = ['1', 'A'].iter_mut().take_while(|c| ('0'..='9').contains(c)).collect();
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 52 previous errors
 

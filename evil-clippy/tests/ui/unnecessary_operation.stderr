@@ -1,131 +1,361 @@
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:71:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     Tuple(get_number());
-   |     ^^^^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `get_number();`
-   |
-   = note: `-D clippy::unnecessary-operation` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_operation)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:73:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     Struct { field: get_number() };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `get_number();`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:75:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:14:1
    |
-LL |     Struct { ..get_struct() };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `get_struct();`
-
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:77:5
+LL | struct Tuple(i32);
+   | ^ help: make this item public: `pub`
    |
-LL |     Enum::Tuple(get_number());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `get_number();`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:79:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:15:1
    |
-LL |     Enum::Struct { field: get_number() };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `get_number();`
+LL | struct Struct {
+   | ^ help: make this item public: `pub`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:81:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:18:1
    |
-LL |     5 + get_number();
-   |     ^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `5;get_number();`
+LL | enum Enum {
+   | ^ help: make this item public: `pub`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:83:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:22:1
+   |
+LL | struct DropStruct {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:25:1
+   |
+LL | impl Drop for DropStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:26:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:26:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_operation.rs:26:18
+   |
+LL |     fn drop(&mut self) {}
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_operation.rs:26:13
+   |
+LL |     fn drop(&mut self) {}
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:28:1
+   |
+LL | struct DropTuple(i32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:29:1
+   |
+LL | impl Drop for DropTuple {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:30:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:30:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_operation.rs:30:18
+   |
+LL |     fn drop(&mut self) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_operation.rs:30:13
+   |
+LL |     fn drop(&mut self) {}
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:32:1
+   |
+LL | enum DropEnum {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:36:1
+   |
+LL | impl Drop for DropEnum {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:37:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:37:5
+   |
+LL |     fn drop(&mut self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_operation.rs:37:18
+   |
+LL |     fn drop(&mut self) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_operation.rs:37:13
+   |
+LL |     fn drop(&mut self) {}
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:39:1
+   |
+LL | struct FooString {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:43:1
+   |
+LL | fn get_number() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:43:1
+   |
+LL | fn get_number() -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:43:1
+   |
+LL | fn get_number() -> i32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:47:1
+   |
+LL | const fn get_usize() -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:47:7
+   |
+LL | const fn get_usize() -> usize {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:47:7
+   |
+LL | const fn get_usize() -> usize {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:50:1
+   |
+LL | fn get_struct() -> Struct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:50:1
+   |
+LL | fn get_struct() -> Struct {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:50:1
+   |
+LL | fn get_struct() -> Struct {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:53:1
+   |
+LL | fn get_drop_struct() -> DropStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:53:1
+   |
+LL | fn get_drop_struct() -> DropStruct {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:53:1
+   |
+LL | fn get_drop_struct() -> DropStruct {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:57:1
+   |
+LL | struct Cout;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:59:1
+   |
+LL | impl<T> Shl<T> for Cout
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:64:5
+   |
+LL |     fn shl(self, rhs: T) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:64:5
+   |
+LL |     fn shl(self, rhs: T) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_operation.rs:64:12
+   |
+LL |     fn shl(self, rhs: T) -> Self::Output {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_operation.rs:64:18
+   |
+LL |     fn shl(self, rhs: T) -> Self::Output {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:70:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:70:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:70:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_operation.rs:83:6
    |
 LL |     *&get_number();
-   |     ^^^^^^^^^^^^^^^ help: statement can be reduced to: `get_number();`
+   |      ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary operation
+error: references are not allowed
   --> tests/ui/unnecessary_operation.rs:85:5
    |
 LL |     &get_number();
-   |     ^^^^^^^^^^^^^^ help: statement can be reduced to: `get_number();`
-
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:87:5
+   |     ^^^^^^^^^^^^^
    |
-LL |     (5, 6, get_number());
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `5;6;get_number();`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:89:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:123:5
    |
-LL |     get_number()..;
-   |     ^^^^^^^^^^^^^^^ help: statement can be reduced to: `get_number();`
+LL |     fn one() -> i8 {
+   |     ^ help: make this item public: `pub`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:91:5
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:123:5
    |
-LL |     ..get_number();
-   |     ^^^^^^^^^^^^^^^ help: statement can be reduced to: `get_number();`
-
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:93:5
+LL |     fn one() -> i8 {
+   |     ^
    |
-LL |     5..get_number();
-   |     ^^^^^^^^^^^^^^^^ help: statement can be reduced to: `5;get_number();`
-
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:95:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:123:5
    |
-LL |     [42, get_number()];
-   |     ^^^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `42;get_number();`
+LL |     fn one() -> i8 {
+   |     ^
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:97:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:126:5
    |
-LL |     [42, 55][get_usize()];
-   |     ^^^^^^^^^^^^^^^^^^^^^^ help: statement can be written as: `assert!([42, 55].len() > get_usize());`
+LL |     macro_rules! use_expr {
+   |     ^ help: make this item public: `pub`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:99:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:145:1
    |
-LL |     (42, get_number()).1;
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `42;get_number();`
+LL | const _: () = {
+   | ^ help: make this item public: `pub`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:101:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_operation.rs:149:1
    |
-LL |     [get_number(); 55];
-   |     ^^^^^^^^^^^^^^^^^^^ help: statement can be reduced to: `get_number();`
+LL | const fn foo() {
+   | ^ help: make this item public: `pub`
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:103:5
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_operation.rs:149:7
    |
-LL |     [42; 55][get_usize()];
-   |     ^^^^^^^^^^^^^^^^^^^^^^ help: statement can be written as: `assert!([42; 55].len() > get_usize());`
-
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:105:5
+LL | const fn foo() {
+   |       ^
    |
-LL | /     {
-LL | |
-LL | |         get_number()
-LL | |     };
-   | |______^ help: statement can be reduced to: `get_number();`
-
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:109:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_operation.rs:149:7
    |
-LL | /     FooString {
-LL | |
-LL | |         s: String::from("blah"),
-LL | |     };
-   | |______^ help: statement can be reduced to: `String::from("blah");`
+LL | const fn foo() {
+   |       ^
 
-error: unnecessary operation
-  --> tests/ui/unnecessary_operation.rs:150:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     [42, 55][get_usize()];
-   |     ^^^^^^^^^^^^^^^^^^^^^^ help: statement can be written as: `assert!([42, 55].len() > get_usize());`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 20 previous errors
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 46 previous errors
 

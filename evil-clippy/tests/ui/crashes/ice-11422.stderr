@@ -1,16 +1,166 @@
-error: this bound is already specified as the supertrait of `PartialOrd`
-  --> tests/ui/crashes/ice-11422.rs:6:33
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:6:1
    |
 LL | fn r#gen() -> impl PartialOrd + PartialEq + Debug {}
-   |                                 ^^^^^^^^^
+   | ^ help: make this item public: `pub`
    |
-   = note: `-D clippy::implied-bounds-in-impls` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::implied_bounds_in_impls)]`
-help: try removing this bound
-   |
-LL - fn r#gen() -> impl PartialOrd + PartialEq + Debug {}
-LL + fn r#gen() -> impl PartialOrd + Debug {}
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 1 previous error
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:6:1
+   |
+LL | fn r#gen() -> impl PartialOrd + PartialEq + Debug {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:6:1
+   |
+LL | fn r#gen() -> impl PartialOrd + PartialEq + Debug {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:9:1
+   |
+LL | struct Bar {}
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:10:1
+   |
+LL | trait Foo<T = Self> {}
+   | ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:10:1
+   |
+LL | trait Foo<T = Self> {}
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:11:1
+   |
+LL | trait FooNested<T = Option<Self>> {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:11:1
+   |
+LL | trait FooNested<T = Option<Self>> {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:12:1
+   |
+LL | impl Foo for Bar {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:13:1
+   |
+LL | impl FooNested for Bar {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:15:1
+   |
+LL | fn foo() -> impl Foo + FooNested {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:15:1
+   |
+LL | fn foo() -> impl Foo + FooNested {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:15:1
+   |
+LL | fn foo() -> impl Foo + FooNested {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:19:1
+   |
+LL | fn test_impl_ops() -> impl Add + Sub + Mul + Div {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:19:1
+   |
+LL | fn test_impl_ops() -> impl Add + Sub + Mul + Div {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:19:1
+   |
+LL | fn test_impl_ops() -> impl Add + Sub + Mul + Div {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:22:1
+   |
+LL | fn test_impl_assign_ops() -> impl AddAssign + SubAssign + MulAssign + DivAssign {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:22:1
+   |
+LL | fn test_impl_assign_ops() -> impl AddAssign + SubAssign + MulAssign + DivAssign {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:22:1
+   |
+LL | fn test_impl_assign_ops() -> impl AddAssign + SubAssign + MulAssign + DivAssign {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11422.rs:26:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:26:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11422.rs:26:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 21 previous errors
 

@@ -1,166 +1,335 @@
-error: variable appears on both sides of an assignment operation
-  --> tests/ui/assign_ops2.rs:8:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     a += a + 1;
-   |     ^^^^^^^^^^
-   |
-   = note: `-D clippy::misrefactored-assign-op` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::misrefactored_assign_op)]`
-help: did you mean `a = a + 1` or `a = a + a + 1`? Consider replacing it with
-   |
-LL -     a += a + 1;
-LL +     a += 1;
-   |
-help: or
-   |
-LL -     a += a + 1;
-LL +     a = a + a + 1;
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: variable appears on both sides of an assignment operation
-  --> tests/ui/assign_ops2.rs:11:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     a += 1 + a;
-   |     ^^^^^^^^^^
-   |
-help: did you mean `a = a + 1` or `a = a + 1 + a`? Consider replacing it with
-   |
-LL -     a += 1 + a;
-LL +     a += 1;
-   |
-help: or
-   |
-LL -     a += 1 + a;
-LL +     a = a + 1 + a;
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: variable appears on both sides of an assignment operation
-  --> tests/ui/assign_ops2.rs:14:5
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:6:1
    |
-LL |     a -= a - 1;
-   |     ^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: did you mean `a = a - 1` or `a = a - (a - 1)`? Consider replacing it with
-   |
-LL -     a -= a - 1;
-LL +     a -= 1;
-   |
-help: or
-   |
-LL -     a -= a - 1;
-LL +     a = a - (a - 1);
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: variable appears on both sides of an assignment operation
-  --> tests/ui/assign_ops2.rs:17:5
+error: function must be `unsafe`
+  --> tests/ui/assign_ops2.rs:6:1
    |
-LL |     a *= a * 99;
-   |     ^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: did you mean `a = a * 99` or `a = a * a * 99`? Consider replacing it with
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assign_ops2.rs:6:1
    |
-LL -     a *= a * 99;
-LL +     a *= 99;
-   |
-help: or
-   |
-LL -     a *= a * 99;
-LL +     a = a * a * 99;
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: variable appears on both sides of an assignment operation
-  --> tests/ui/assign_ops2.rs:20:5
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:48:10
    |
-LL |     a *= 42 * a;
-   |     ^^^^^^^^^^^
-   |
-help: did you mean `a = a * 42` or `a = a * 42 * a`? Consider replacing it with
-   |
-LL -     a *= 42 * a;
-LL +     a *= 42;
-   |
-help: or
-   |
-LL -     a *= 42 * a;
-LL +     a = a * 42 * a;
-   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |          ^
 
-error: variable appears on both sides of an assignment operation
-  --> tests/ui/assign_ops2.rs:23:5
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:48:16
    |
-LL |     a /= a / 2;
-   |     ^^^^^^^^^^
-   |
-help: did you mean `a = a / 2` or `a = a / (a / 2)`? Consider replacing it with
-   |
-LL -     a /= a / 2;
-LL +     a /= 2;
-   |
-help: or
-   |
-LL -     a /= a / 2;
-LL +     a = a / (a / 2);
-   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                ^
 
-error: variable appears on both sides of an assignment operation
-  --> tests/ui/assign_ops2.rs:26:5
+error: function must be `unsafe`
+  --> tests/ui/assign_ops2.rs:48:13
    |
-LL |     a %= a % 5;
-   |     ^^^^^^^^^^
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |             ^  ----- in this derive macro expansion
    |
-help: did you mean `a = a % 5` or `a = a % (a % 5)`? Consider replacing it with
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assign_ops2.rs:48:13
    |
-LL -     a %= a % 5;
-LL +     a %= 5;
-   |
-help: or
-   |
-LL -     a %= a % 5;
-LL +     a = a % (a % 5);
-   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |             ^  ----- in this derive macro expansion
 
-error: variable appears on both sides of an assignment operation
-  --> tests/ui/assign_ops2.rs:29:5
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:48:16
    |
-LL |     a &= a & 1;
-   |     ^^^^^^^^^^
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                ^ help: make this parameter mutable: `mut`
    |
-help: did you mean `a = a & 1` or `a = a & a & 1`? Consider replacing it with
-   |
-LL -     a &= a & 1;
-LL +     a &= 1;
-   |
-help: or
-   |
-LL -     a &= a & 1;
-LL +     a = a & a & 1;
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: variable appears on both sides of an assignment operation
-  --> tests/ui/assign_ops2.rs:32:5
+error: references are not allowed
+  --> tests/ui/assign_ops2.rs:48:16
    |
-LL |     a *= a * a;
-   |     ^^^^^^^^^^
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                ^^^^^
    |
-help: did you mean `a = a * a` or `a = a * a * a`? Consider replacing it with
-   |
-LL -     a *= a * a;
-LL +     a *= a;
-   |
-help: or
-   |
-LL -     a *= a * a;
-LL +     a = a * a * a;
-   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: manual implementation of an assign operation
-  --> tests/ui/assign_ops2.rs:71:5
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:48:23
    |
-LL |     buf = buf + cows.clone();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `buf += cows.clone()`
-   |
-   = note: `-D clippy::assign-op-pattern` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::assign_op_pattern)]`
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                       ^
 
-error: aborting due to 10 previous errors
+error: function must be `unsafe`
+  --> tests/ui/assign_ops2.rs:48:20
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                    ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assign_ops2.rs:48:20
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                    ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:48:23
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:48:23
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                       ^
+
+error: references are not allowed
+  --> tests/ui/assign_ops2.rs:48:23
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assign_ops2.rs:48:23
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assign_ops2.rs:49:17
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                       ----- in this derive macro expansion
+LL | pub struct Wrap(i64);
+   |                 ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/assign_ops2.rs:49:17
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                       ----- in this derive macro expansion
+LL | pub struct Wrap(i64);
+   |                 ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:48:30
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                              ^
+
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:48:30
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/assign_ops2.rs:48:27
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assign_ops2.rs:48:27
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:48:30
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:48:30
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                              ^
+
+error: references are not allowed
+  --> tests/ui/assign_ops2.rs:48:30
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assign_ops2.rs:48:30
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:48:41
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                                         ^
+
+error: function must be `unsafe`
+  --> tests/ui/assign_ops2.rs:48:38
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                                      ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assign_ops2.rs:48:38
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                                      ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:48:41
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assign_ops2.rs:48:41
+   |
+LL | #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+   |                                         ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:51:1
+   |
+LL | impl Mul<i64> for Wrap {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assign_ops2.rs:54:5
+   |
+LL |     fn mul(self, rhs: i64) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assign_ops2.rs:54:5
+   |
+LL |     fn mul(self, rhs: i64) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:54:12
+   |
+LL |     fn mul(self, rhs: i64) -> Self {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:54:18
+   |
+LL |     fn mul(self, rhs: i64) -> Self {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:59:1
+   |
+LL | impl MulAssign<i64> for Wrap {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assign_ops2.rs:60:5
+   |
+LL |     fn mul_assign(&mut self, rhs: i64) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assign_ops2.rs:60:5
+   |
+LL |     fn mul_assign(&mut self, rhs: i64) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:60:24
+   |
+LL |     fn mul_assign(&mut self, rhs: i64) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assign_ops2.rs:60:30
+   |
+LL |     fn mul_assign(&mut self, rhs: i64) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assign_ops2.rs:60:19
+   |
+LL |     fn mul_assign(&mut self, rhs: i64) {
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/assign_ops2.rs:65:1
+   |
+LL | fn cow_add_assign() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assign_ops2.rs:65:1
+   |
+LL | fn cow_add_assign() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assign_ops2.rs:65:1
+   |
+LL | fn cow_add_assign() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/assign_ops2.rs:68:9
+   |
+LL |     let cows = Cow::Borrowed("foo");
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 42 previous errors
 

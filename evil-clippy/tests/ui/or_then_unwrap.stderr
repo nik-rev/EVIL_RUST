@@ -1,23 +1,291 @@
-error: found `.or(Some(…)).unwrap()`
-  --> tests/ui/or_then_unwrap.rs:22:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = option.or(Some("fallback")).unwrap(); // should trigger lint
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or("fallback")`
-   |
-   = note: `-D clippy::or-then-unwrap` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::or_then_unwrap)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: found `.or(Ok(…)).unwrap()`
-  --> tests/ui/or_then_unwrap.rs:27:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/or_then_unwrap.rs:4:1
+   |
+LL | struct SomeStruct;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/or_then_unwrap.rs:5:1
+   |
+LL | impl SomeStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_then_unwrap.rs:6:5
+   |
+LL |     fn or(self, _: Option<Self>) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_then_unwrap.rs:6:5
+   |
+LL |     fn or(self, _: Option<Self>) -> Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/or_then_unwrap.rs:6:11
+   |
+LL |     fn or(self, _: Option<Self>) -> Self {
+   |           ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: function must be `unsafe`
+  --> tests/ui/or_then_unwrap.rs:9:5
+   |
+LL |     fn unwrap(&self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_then_unwrap.rs:9:5
+   |
+LL |     fn unwrap(&self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/or_then_unwrap.rs:9:16
+   |
+LL |     fn unwrap(&self) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:9:15
+   |
+LL |     fn unwrap(&self) {}
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/or_then_unwrap.rs:12:1
+   |
+LL | struct SomeOtherStruct;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_then_unwrap.rs:13:1
+   |
+LL | impl SomeOtherStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_then_unwrap.rs:14:5
+   |
+LL |     fn or(self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_then_unwrap.rs:14:5
+   |
+LL |     fn or(self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/or_then_unwrap.rs:14:11
+   |
+LL |     fn or(self) -> Self {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/or_then_unwrap.rs:17:5
+   |
+LL |     fn unwrap(&self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_then_unwrap.rs:17:5
+   |
+LL |     fn unwrap(&self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/or_then_unwrap.rs:17:16
+   |
+LL |     fn unwrap(&self) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:17:15
+   |
+LL |     fn unwrap(&self) {}
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/or_then_unwrap.rs:20:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_then_unwrap.rs:20:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_then_unwrap.rs:20:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/or_then_unwrap.rs:21:9
+   |
+LL |     let option: Option<&str> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:21:24
+   |
+LL |     let option: Option<&str> = None;
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/or_then_unwrap.rs:26:9
+   |
+LL |     let result: Result<&str, &str> = Err("Error");
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:26:24
+   |
+LL |     let result: Result<&str, &str> = Err("Error");
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:26:30
+   |
+LL |     let result: Result<&str, &str> = Err("Error");
+   |                              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:27:25
    |
 LL |     let _ = result.or::<&str>(Ok("fallback")).unwrap(); // should trigger lint
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or("fallback")`
-
-error: found `.or(Some(…)).unwrap()`
-  --> tests/ui/or_then_unwrap.rs:33:31
+   |                         ^^^^
    |
-LL |     let _ = option.map(|v| v).or(Some("fallback")).unwrap().to_string().chars(); // should trigger lint
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or("fallback")`
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 3 previous errors
+error: variable must be `mut`
+  --> tests/ui/or_then_unwrap.rs:32:9
+   |
+LL |     let option: Option<&str> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:32:24
+   |
+LL |     let option: Option<&str> = None;
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/or_then_unwrap.rs:38:9
+   |
+LL |     let instance = SomeStruct {};
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_then_unwrap.rs:42:9
+   |
+LL |     let instance = SomeOtherStruct {};
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_then_unwrap.rs:46:9
+   |
+LL |     let option: Option<&str> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:46:24
+   |
+LL |     let option: Option<&str> = None;
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/or_then_unwrap.rs:50:9
+   |
+LL |     let result: Result<&str, &str> = Err("Error");
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:50:24
+   |
+LL |     let result: Result<&str, &str> = Err("Error");
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:50:30
+   |
+LL |     let result: Result<&str, &str> = Err("Error");
+   |                              ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:51:25
+   |
+LL |     let _ = result.or::<&str>(Err("Other Error")).unwrap(); // should not trigger lint
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/or_then_unwrap.rs:54:9
+   |
+LL |     let option: Option<&str> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_then_unwrap.rs:54:24
+   |
+LL |     let option: Option<&str> = None;
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 38 previous errors
 

@@ -1,62 +1,632 @@
-error: using `.clone()` on a ref-counted pointer
-  --> tests/ui/unnecessary_clone.rs:23:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     rc.clone();
-   |     ^^^^^^^^^^ help: try: `Rc::<bool>::clone(&rc)`
-   |
-   = note: `-D clippy::clone-on-ref-ptr` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::clone_on_ref_ptr)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: using `.clone()` on a ref-counted pointer
-  --> tests/ui/unnecessary_clone.rs:28:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     arc.clone();
-   |     ^^^^^^^^^^^ help: try: `Arc::<bool>::clone(&arc)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: using `.clone()` on a ref-counted pointer
-  --> tests/ui/unnecessary_clone.rs:33:5
+error: trait must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:10:1
    |
-LL |     rcweak.clone();
-   |     ^^^^^^^^^^^^^^ help: try: `Weak::<bool>::clone(&rcweak)`
+LL | trait SomeTrait {}
+   | ^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: using `.clone()` on a ref-counted pointer
-  --> tests/ui/unnecessary_clone.rs:38:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:10:1
    |
-LL |     arc_weak.clone();
-   |     ^^^^^^^^^^^^^^^^ help: try: `Weak::<bool>::clone(&arc_weak)`
+LL | trait SomeTrait {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: using `.clone()` on a ref-counted pointer
-  --> tests/ui/unnecessary_clone.rs:44:33
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:11:1
    |
-LL |     let _: Arc<dyn SomeTrait> = x.clone();
-   |                                 ^^^^^^^^^ help: try: `Arc::<SomeImpl>::clone(&x)`
+LL | struct SomeImpl;
+   | ^ help: make this item public: `pub`
 
-error: using `clone` on type `T` which implements the `Copy` trait
-  --> tests/ui/unnecessary_clone.rs:49:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:12:1
    |
-LL |     t.clone();
-   |     ^^^^^^^^^ help: try removing the `clone` call: `t`
-   |
-   = note: `-D clippy::clone-on-copy` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::clone_on_copy)]`
+LL | impl SomeTrait for SomeImpl {}
+   | ^ help: make this item public: `pub`
 
-error: using `clone` on type `Option<T>` which implements the `Copy` trait
-  --> tests/ui/unnecessary_clone.rs:52:5
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:14:1
    |
-LL |     Some(t).clone();
-   |     ^^^^^^^^^^^^^^^ help: try removing the `clone` call: `Some(t)`
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
 
-error: using `clone` on type `E` which implements the `Copy` trait
-  --> tests/ui/unnecessary_clone.rs:87:20
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:14:1
    |
-LL |         let _: E = a.clone();
-   |                    ^^^^^^^^^ help: try dereferencing it: `*****a`
-
-error: using `.clone()` on a ref-counted pointer
-  --> tests/ui/unnecessary_clone.rs:108:14
+LL | fn main() {}
+   | ^
    |
-LL |         Some(try_opt!(Some(rc)).clone())
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Rc::<u8>::clone(&try_opt!(Some(rc)))`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:14:1
+   |
+LL | fn main() {}
+   | ^
 
-error: aborting due to 9 previous errors
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:16:1
+   |
+LL | fn clone_on_ref_ptr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:16:1
+   |
+LL | fn clone_on_ref_ptr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:16:1
+   |
+LL | fn clone_on_ref_ptr() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_clone.rs:17:9
+   |
+LL |     let rc = Rc::new(true);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_clone.rs:18:9
+   |
+LL |     let arc = Arc::new(true);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_clone.rs:20:9
+   |
+LL |     let rcweak = Rc::downgrade(&rc);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:20:32
+   |
+LL |     let rcweak = Rc::downgrade(&rc);
+   |                                ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_clone.rs:21:9
+   |
+LL |     let arc_weak = Arc::downgrade(&arc);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:21:35
+   |
+LL |     let arc_weak = Arc::downgrade(&arc);
+   |                                   ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:26:15
+   |
+LL |     Rc::clone(&rc);
+   |               ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:31:16
+   |
+LL |     Arc::clone(&arc);
+   |                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:36:21
+   |
+LL |     rc::Weak::clone(&rcweak);
+   |                     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:41:23
+   |
+LL |     sync::Weak::clone(&arc_weak);
+   |                       ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_clone.rs:43:9
+   |
+LL |     let x = Arc::new(SomeImpl);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:48:1
+   |
+LL | fn clone_on_copy_generic<T: Copy>(t: T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:48:1
+   |
+LL | fn clone_on_copy_generic<T: Copy>(t: T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:48:1
+   |
+LL | fn clone_on_copy_generic<T: Copy>(t: T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_clone.rs:48:35
+   |
+LL | fn clone_on_copy_generic<T: Copy>(t: T) {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:56:1
+   |
+LL | mod many_derefs {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:57:5
+   |
+LL |     struct A;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:58:5
+   |
+LL |     struct B;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:59:5
+   |
+LL |     struct C;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:60:5
+   |
+LL |     struct D;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:62:5
+   |
+LL |     struct E;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:61:14
+   |
+LL |     #[derive(Copy, Clone)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:61:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:61:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:61:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_clone.rs:61:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:61:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:64:5
+   |
+LL |     macro_rules! impl_deref {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:66:13
+   |
+LL |             impl std::ops::Deref for $src {
+   |             ^ help: make this item public: `pub`
+...
+LL |     impl_deref!(A, B);
+   |     ----------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:68:17
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                 ^
+...
+LL |     impl_deref!(A, B);
+   |     ----------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:68:17
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                 ^
+...
+LL |     impl_deref!(A, B);
+   |     ----------------- in this macro invocation
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_clone.rs:68:27
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                           ^ help: make this parameter mutable: `mut`
+...
+LL |     impl_deref!(A, B);
+   |     ----------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:68:26
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                          ^^^^^
+...
+LL |     impl_deref!(A, B);
+   |     ----------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:68:36
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                                    ^^^^^^^^^^^^^
+...
+LL |     impl_deref!(A, B);
+   |     ----------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:69:21
+   |
+LL |                     &$dst
+   |                     ^^^^^
+...
+LL |     impl_deref!(A, B);
+   |     ----------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:66:13
+   |
+LL |             impl std::ops::Deref for $src {
+   |             ^ help: make this item public: `pub`
+...
+LL |     impl_deref!(B, C);
+   |     ----------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:68:17
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                 ^
+...
+LL |     impl_deref!(B, C);
+   |     ----------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:68:17
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                 ^
+...
+LL |     impl_deref!(B, C);
+   |     ----------------- in this macro invocation
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_clone.rs:68:27
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                           ^ help: make this parameter mutable: `mut`
+...
+LL |     impl_deref!(B, C);
+   |     ----------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:68:26
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                          ^^^^^
+...
+LL |     impl_deref!(B, C);
+   |     ----------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:68:36
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                                    ^^^^^^^^^^^^^
+...
+LL |     impl_deref!(B, C);
+   |     ----------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:69:21
+   |
+LL |                     &$dst
+   |                     ^^^^^
+...
+LL |     impl_deref!(B, C);
+   |     ----------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:66:13
+   |
+LL |             impl std::ops::Deref for $src {
+   |             ^ help: make this item public: `pub`
+...
+LL |     impl_deref!(C, D);
+   |     ----------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:68:17
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                 ^
+...
+LL |     impl_deref!(C, D);
+   |     ----------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:68:17
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                 ^
+...
+LL |     impl_deref!(C, D);
+   |     ----------------- in this macro invocation
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_clone.rs:68:27
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                           ^ help: make this parameter mutable: `mut`
+...
+LL |     impl_deref!(C, D);
+   |     ----------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:68:26
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                          ^^^^^
+...
+LL |     impl_deref!(C, D);
+   |     ----------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:68:36
+   |
+LL |                 fn deref(&self) -> &Self::Target {
+   |                                    ^^^^^^^^^^^^^
+...
+LL |     impl_deref!(C, D);
+   |     ----------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:69:21
+   |
+LL |                     &$dst
+   |                     ^^^^^
+...
+LL |     impl_deref!(C, D);
+   |     ----------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `impl_deref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:78:5
+   |
+LL |     impl std::ops::Deref for D {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:79:23
+   |
+LL |         type Target = &'static E;
+   |                       ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:80:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:80:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_clone.rs:80:19
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:80:18
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:80:28
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:81:13
+   |
+LL |             &&E
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_clone.rs:81:14
+   |
+LL |             &&E
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:85:5
+   |
+LL |     fn go1() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:85:5
+   |
+LL |     fn go1() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:85:5
+   |
+LL |     fn go1() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_clone.rs:86:13
+   |
+LL |         let a = A;
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:94:1
+   |
+LL | mod issue2076 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:97:5
+   |
+LL |     macro_rules! try_opt {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_clone.rs:106:5
+   |
+LL |     fn func() -> Option<Rc<u8>> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_clone.rs:106:5
+   |
+LL |     fn func() -> Option<Rc<u8>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_clone.rs:106:5
+   |
+LL |     fn func() -> Option<Rc<u8>> {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_clone.rs:107:13
+   |
+LL |         let rc = Rc::new(42);
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 72 previous errors
 

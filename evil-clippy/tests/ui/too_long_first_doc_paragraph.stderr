@@ -1,52 +1,84 @@
-error: first doc comment paragraph is too long
-  --> tests/ui/too_long_first_doc_paragraph.rs:8:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     //! A very short summary.
-LL | |
-LL | |     //! A much longer explanation that goes into a lot more detail about
-LL | |     //! how the thing works, possibly with doclinks and so one,
-LL | |     //! and probably spanning a many rows. Blablabla, it needs to be over
-LL | |     //! 200 characters so I needed to write something longeeeeeeer.
-   | |____^
-   |
-   = note: `-D clippy::too-long-first-doc-paragraph` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::too_long_first_doc_paragraph)]`
-help: add an empty line
-   |
-LL |     //! A very short summary.
-LL |
-LL ~     //!
-LL +
-LL ~     //! A much longer explanation that goes into a lot more detail about
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: first doc comment paragraph is too long
-  --> tests/ui/too_long_first_doc_paragraph.rs:16:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | / /// Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc turpis nunc, lacinia
-LL | |
-LL | | /// a dolor in, pellentesque aliquet enim. Cras nec maximus sem. Mauris arcu libero,
-LL | | /// gravida non lacinia at, rhoncus eu lacus.
-   | |_^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: first doc comment paragraph is too long
-  --> tests/ui/too_long_first_doc_paragraph.rs:38:1
+error: item must be `pub`
+  --> tests/ui/too_long_first_doc_paragraph.rs:26:1
    |
-LL | / /// Lorem
-LL | |
-LL | | /// ipsum dolor sit amet, consectetur adipiscing elit. Nunc turpis nunc, lacinia
-LL | | /// a dolor in, pellentesque aliquet enim. Cras nec maximus sem. Mauris arcu libero,
-LL | | /// gravida non lacinia at, rhoncus eu lacus.
-   | |_^
-
-error: first doc comment paragraph is too long
-  --> tests/ui/too_long_first_doc_paragraph.rs:65:1
+LL | impl Bar {}
+   | ^ help: make this item public: `pub`
    |
-LL | / /// Some function. This doc-string paragraph is too long. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lore...
-LL | |
-LL | | ///
-LL | | /// Here's a second paragraph. It would be preferable to put the details here.
-   | |_^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/too_long_first_doc_paragraph.rs:62:1
+   |
+LL | fn f() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/too_long_first_doc_paragraph.rs:62:1
+   |
+LL | fn f() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/too_long_first_doc_paragraph.rs:62:1
+   |
+LL | fn f() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: function must be `unsafe`
+  --> tests/ui/too_long_first_doc_paragraph.rs:69:5
+   |
+LL | pub fn issue_14274() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/too_long_first_doc_paragraph.rs:69:5
+   |
+LL | pub fn issue_14274() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/too_long_first_doc_paragraph.rs:71:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/too_long_first_doc_paragraph.rs:71:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/too_long_first_doc_paragraph.rs:71:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 10 previous errors
 

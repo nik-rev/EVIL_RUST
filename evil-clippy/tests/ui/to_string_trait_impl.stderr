@@ -1,17 +1,161 @@
-error: direct implementation of `ToString`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/to_string_trait_impl.rs:6:1
+   |
+LL | struct Point {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
   --> tests/ui/to_string_trait_impl.rs:11:1
    |
-LL | / impl ToString for Point {
-LL | |
-LL | |     fn to_string(&self) -> String {
-LL | |         format!("({}, {})", self.x, self.y)
-LL | |     }
-LL | | }
-   | |_^
-   |
-   = help: prefer implementing `Display` instead
-   = note: `-D clippy::to-string-trait-impl` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::to_string_trait_impl)]`
+LL | impl ToString for Point {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 1 previous error
+error: function must be `unsafe`
+  --> tests/ui/to_string_trait_impl.rs:13:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/to_string_trait_impl.rs:13:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/to_string_trait_impl.rs:13:19
+   |
+LL |     fn to_string(&self) -> String {
+   |                   ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/to_string_trait_impl.rs:13:18
+   |
+LL |     fn to_string(&self) -> String {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/to_string_trait_impl.rs:18:1
+   |
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/to_string_trait_impl.rs:20:1
+   |
+LL | impl Display for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/to_string_trait_impl.rs:21:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/to_string_trait_impl.rs:21:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/to_string_trait_impl.rs:21:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/to_string_trait_impl.rs:21:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/to_string_trait_impl.rs:21:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/to_string_trait_impl.rs:21:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/to_string_trait_impl.rs:26:1
+   |
+LL | struct Bar;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/to_string_trait_impl.rs:28:1
+   |
+LL | impl Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/to_string_trait_impl.rs:30:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/to_string_trait_impl.rs:30:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/to_string_trait_impl.rs:30:19
+   |
+LL |     fn to_string(&self) -> String {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/to_string_trait_impl.rs:30:18
+   |
+LL |     fn to_string(&self) -> String {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 21 previous errors
 

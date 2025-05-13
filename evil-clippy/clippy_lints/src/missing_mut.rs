@@ -68,7 +68,7 @@ fn absorb_kind(cx: &EarlyContext<'_>, kind: &PatKind, message: &'static str, hel
                     cx,
                     MISSING_MUT,
                     field.span.shrink_to_lo(),
-                    "function parameter is not mutable",
+                    "parameter must be `mut`",
                     "make this parameter mutable",
                     "mut ".to_string(),
                     Applicability::MachineApplicable,
@@ -90,7 +90,7 @@ impl EarlyLintPass for MissingMut {
                 absorb_kind(
                     cx,
                     &param.pat.kind,
-                    "parameter is not mutable",
+                    "parameter must be `mut`",
                     "make this parameter mutable",
                 );
             }
@@ -102,7 +102,7 @@ impl EarlyLintPass for MissingMut {
         absorb_kind(
             cx,
             &local.pat.kind,
-            "variable is not mutable",
+            "variable must be `mut`",
             "make this variable mutable",
         );
     }
@@ -116,7 +116,7 @@ impl EarlyLintPass for MissingMut {
                 cx,
                 MISSING_MUT,
                 stati.ident.span.shrink_to_lo(),
-                "static is not mutable",
+                "static must be `mut`",
                 "make this static mutable",
                 "mut ".to_string(),
                 Applicability::MachineApplicable,

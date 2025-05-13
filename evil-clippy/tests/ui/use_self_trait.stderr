@@ -1,101 +1,1269 @@
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:19:18
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/use_self_trait.rs:7:1
+   |
+LL | / trait SelfTrait {
+LL | |     fn refs(p1: &Self) -> &Self;
+LL | |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self;
+LL | |     fn mut_refs(p1: &mut Self) -> &mut Self;
+LL | |     fn nested(p1: Box<Self>, p2: (&u8, &Self));
+LL | |     fn vals(r: Self) -> Self;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:7:1
+   |
+LL | trait SelfTrait {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:8:5
+   |
+LL |     fn refs(p1: &Self) -> &Self;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:8:5
+   |
+LL |     fn refs(p1: &Self) -> &Self;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:8:13
+   |
+LL |     fn refs(p1: &Self) -> &Self;
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:8:17
+   |
+LL |     fn refs(p1: &Self) -> &Self;
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:8:27
+   |
+LL |     fn refs(p1: &Self) -> &Self;
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:9:5
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:9:5
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:9:21
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self;
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:9:25
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self;
+   |                         ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:9:29
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self;
+   |                             ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:9:42
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self;
+   |                                          ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:9:46
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self;
+   |                                              ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:10:5
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:10:5
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:10:17
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self;
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:10:21
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self;
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:10:35
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self;
+   |                                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:11:5
+   |
+LL |     fn nested(p1: Box<Self>, p2: (&u8, &Self));
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:11:5
+   |
+LL |     fn nested(p1: Box<Self>, p2: (&u8, &Self));
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:11:15
+   |
+LL |     fn nested(p1: Box<Self>, p2: (&u8, &Self));
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:11:30
+   |
+LL |     fn nested(p1: Box<Self>, p2: (&u8, &Self));
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:11:35
+   |
+LL |     fn nested(p1: Box<Self>, p2: (&u8, &Self));
+   |                                   ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:11:40
+   |
+LL |     fn nested(p1: Box<Self>, p2: (&u8, &Self));
+   |                                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:12:5
+   |
+LL |     fn vals(r: Self) -> Self;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:12:5
+   |
+LL |     fn vals(r: Self) -> Self;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:12:13
+   |
+LL |     fn vals(r: Self) -> Self;
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:16:1
+   |
+LL | struct Bad;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:15:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:15:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:15:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:18:1
+   |
+LL | impl SelfTrait for Bad {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:19:5
    |
 LL |     fn refs(p1: &Bad) -> &Bad {
-   |                  ^^^ help: use the applicable keyword: `Self`
+   |     ^
    |
-   = note: `-D clippy::use-self` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::use_self)]`
-
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:19:27
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:19:5
    |
 LL |     fn refs(p1: &Bad) -> &Bad {
-   |                           ^^^ help: use the applicable keyword: `Self`
+   |     ^
 
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:25:33
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:19:13
+   |
+LL |     fn refs(p1: &Bad) -> &Bad {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:19:17
+   |
+LL |     fn refs(p1: &Bad) -> &Bad {
+   |                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:19:26
+   |
+LL |     fn refs(p1: &Bad) -> &Bad {
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:25:5
    |
 LL |     fn ref_refs<'a>(p1: &'a &'a Bad) -> &'a &'a Bad {
-   |                                 ^^^ help: use the applicable keyword: `Self`
-
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:25:49
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:25:5
    |
 LL |     fn ref_refs<'a>(p1: &'a &'a Bad) -> &'a &'a Bad {
-   |                                                 ^^^ help: use the applicable keyword: `Self`
+   |     ^
 
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:31:26
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:25:21
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Bad) -> &'a &'a Bad {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:25:25
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Bad) -> &'a &'a Bad {
+   |                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:25:29
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Bad) -> &'a &'a Bad {
+   |                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:25:41
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Bad) -> &'a &'a Bad {
+   |                                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:25:45
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Bad) -> &'a &'a Bad {
+   |                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:31:5
    |
 LL |     fn mut_refs(p1: &mut Bad) -> &mut Bad {
-   |                          ^^^ help: use the applicable keyword: `Self`
-
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:31:39
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:31:5
    |
 LL |     fn mut_refs(p1: &mut Bad) -> &mut Bad {
-   |                                       ^^^ help: use the applicable keyword: `Self`
+   |     ^
 
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:37:24
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:31:17
+   |
+LL |     fn mut_refs(p1: &mut Bad) -> &mut Bad {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:31:21
+   |
+LL |     fn mut_refs(p1: &mut Bad) -> &mut Bad {
+   |                     ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:31:34
+   |
+LL |     fn mut_refs(p1: &mut Bad) -> &mut Bad {
+   |                                  ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:37:5
    |
 LL |     fn nested(_p1: Box<Bad>, _p2: (&u8, &Bad)) {}
-   |                        ^^^ help: use the applicable keyword: `Self`
-
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:37:42
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:37:5
    |
 LL |     fn nested(_p1: Box<Bad>, _p2: (&u8, &Bad)) {}
-   |                                          ^^^ help: use the applicable keyword: `Self`
+   |     ^
 
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:41:16
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:37:15
+   |
+LL |     fn nested(_p1: Box<Bad>, _p2: (&u8, &Bad)) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:37:30
+   |
+LL |     fn nested(_p1: Box<Bad>, _p2: (&u8, &Bad)) {}
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:37:36
+   |
+LL |     fn nested(_p1: Box<Bad>, _p2: (&u8, &Bad)) {}
+   |                                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:37:41
+   |
+LL |     fn nested(_p1: Box<Bad>, _p2: (&u8, &Bad)) {}
+   |                                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:41:5
    |
 LL |     fn vals(_: Bad) -> Bad {
-   |                ^^^ help: use the applicable keyword: `Self`
-
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:41:24
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:41:5
    |
 LL |     fn vals(_: Bad) -> Bad {
-   |                        ^^^ help: use the applicable keyword: `Self`
+   |     ^
 
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:44:9
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:49:1
    |
-LL |         Bad
-   |         ^^^ help: use the applicable keyword: `Self`
+LL | impl Mul for Bad {
+   | ^ help: make this item public: `pub`
 
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:50:19
-   |
-LL |     type Output = Bad;
-   |                   ^^^ help: use the applicable keyword: `Self`
-
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:53:23
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:53:5
    |
 LL |     fn mul(self, rhs: Bad) -> Bad {
-   |                       ^^^ help: use the applicable keyword: `Self`
-
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:53:31
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:53:5
    |
 LL |     fn mul(self, rhs: Bad) -> Bad {
-   |                               ^^^ help: use the applicable keyword: `Self`
+   |     ^
 
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:62:9
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:53:12
    |
-LL |         Bad
-   |         ^^^ help: use the applicable keyword: `Self`
+LL |     fn mul(self, rhs: Bad) -> Bad {
+   |            ^ help: make this parameter mutable: `mut`
 
-error: unnecessary structure name repetition
-  --> tests/ui/use_self_trait.rs:160:13
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:53:18
    |
-LL |             std::fmt::Error // Should lint
-   |             ^^^^^^^^^^^^^^^ help: use the applicable keyword: `Self`
+LL |     fn mul(self, rhs: Bad) -> Bad {
+   |                  ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 16 previous errors
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:60:1
+   |
+LL | impl Clone for Bad {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:61:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:61:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:61:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:61:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:68:1
+   |
+LL | struct Good;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:67:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:67:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:67:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:70:1
+   |
+LL | impl SelfTrait for Good {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:71:5
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:71:5
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:71:13
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:71:17
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:71:27
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:75:5
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:75:5
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:75:21
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:75:25
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                         ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:75:29
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                             ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:75:42
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                                          ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:75:46
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                                              ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:79:5
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:79:5
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:79:17
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:79:21
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:79:35
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |                                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:83:5
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&u8, &Self)) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:83:5
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&u8, &Self)) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:83:15
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&u8, &Self)) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:83:31
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&u8, &Self)) {}
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:83:37
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&u8, &Self)) {}
+   |                                     ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:83:42
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&u8, &Self)) {}
+   |                                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:85:5
+   |
+LL |     fn vals(_: Self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:85:5
+   |
+LL |     fn vals(_: Self) -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:90:1
+   |
+LL | impl Mul for Good {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:93:5
+   |
+LL |     fn mul(self, rhs: Self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:93:5
+   |
+LL |     fn mul(self, rhs: Self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:93:12
+   |
+LL |     fn mul(self, rhs: Self) -> Self {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:93:18
+   |
+LL |     fn mul(self, rhs: Self) -> Self {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: trait must be `unsafe`
+  --> tests/ui/use_self_trait.rs:98:1
+   |
+LL | / trait NameTrait {
+LL | |     fn refs(p1: &u8) -> &u8;
+LL | |     fn ref_refs<'a>(p1: &'a &'a u8) -> &'a &'a u8;
+LL | |     fn mut_refs(p1: &mut u8) -> &mut u8;
+LL | |     fn nested(p1: Box<u8>, p2: (&u8, &u8));
+LL | |     fn vals(p1: u8) -> u8;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:98:1
+   |
+LL | trait NameTrait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:99:5
+   |
+LL |     fn refs(p1: &u8) -> &u8;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:99:5
+   |
+LL |     fn refs(p1: &u8) -> &u8;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:99:13
+   |
+LL |     fn refs(p1: &u8) -> &u8;
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:99:17
+   |
+LL |     fn refs(p1: &u8) -> &u8;
+   |                 ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:99:25
+   |
+LL |     fn refs(p1: &u8) -> &u8;
+   |                         ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:100:5
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a u8) -> &'a &'a u8;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:100:5
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a u8) -> &'a &'a u8;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:100:21
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a u8) -> &'a &'a u8;
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:100:25
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a u8) -> &'a &'a u8;
+   |                         ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:100:29
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a u8) -> &'a &'a u8;
+   |                             ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:100:40
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a u8) -> &'a &'a u8;
+   |                                        ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:100:44
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a u8) -> &'a &'a u8;
+   |                                            ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:101:5
+   |
+LL |     fn mut_refs(p1: &mut u8) -> &mut u8;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:101:5
+   |
+LL |     fn mut_refs(p1: &mut u8) -> &mut u8;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:101:17
+   |
+LL |     fn mut_refs(p1: &mut u8) -> &mut u8;
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:101:21
+   |
+LL |     fn mut_refs(p1: &mut u8) -> &mut u8;
+   |                     ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:101:33
+   |
+LL |     fn mut_refs(p1: &mut u8) -> &mut u8;
+   |                                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:102:5
+   |
+LL |     fn nested(p1: Box<u8>, p2: (&u8, &u8));
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:102:5
+   |
+LL |     fn nested(p1: Box<u8>, p2: (&u8, &u8));
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:102:15
+   |
+LL |     fn nested(p1: Box<u8>, p2: (&u8, &u8));
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:102:28
+   |
+LL |     fn nested(p1: Box<u8>, p2: (&u8, &u8));
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:102:33
+   |
+LL |     fn nested(p1: Box<u8>, p2: (&u8, &u8));
+   |                                 ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:102:38
+   |
+LL |     fn nested(p1: Box<u8>, p2: (&u8, &u8));
+   |                                      ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:103:5
+   |
+LL |     fn vals(p1: u8) -> u8;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:103:5
+   |
+LL |     fn vals(p1: u8) -> u8;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:103:13
+   |
+LL |     fn vals(p1: u8) -> u8;
+   |             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:107:1
+   |
+LL | impl NameTrait for u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:108:5
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:108:5
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:108:13
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:108:17
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:108:27
+   |
+LL |     fn refs(p1: &Self) -> &Self {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:112:5
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:112:5
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:112:21
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:112:25
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                         ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:112:29
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                             ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:112:42
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                                          ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:112:46
+   |
+LL |     fn ref_refs<'a>(p1: &'a &'a Self) -> &'a &'a Self {
+   |                                              ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:116:5
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:116:5
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:116:17
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:116:21
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:116:35
+   |
+LL |     fn mut_refs(p1: &mut Self) -> &mut Self {
+   |                                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:120:5
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&Self, &Self)) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:120:5
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&Self, &Self)) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:120:15
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&Self, &Self)) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:120:31
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&Self, &Self)) {}
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:120:37
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&Self, &Self)) {}
+   |                                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/use_self_trait.rs:120:44
+   |
+LL |     fn nested(_p1: Box<Self>, _p2: (&Self, &Self)) {}
+   |                                            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:122:5
+   |
+LL |     fn vals(_: Self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:122:5
+   |
+LL |     fn vals(_: Self) -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:127:1
+   |
+LL | mod impl_in_macro {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:128:5
+   |
+LL |     macro_rules! parse_ip_impl {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:139:5
+   |
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/use_self_trait.rs:141:5
+   |
+LL | /     trait FooTrait {
+LL | |         fn new() -> Self;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:141:5
+   |
+LL |     trait FooTrait {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:142:9
+   |
+LL |         fn new() -> Self;
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:142:9
+   |
+LL |         fn new() -> Self;
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:145:5
+   |
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:146:9
+   |
+LL |         fn bar() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:146:9
+   |
+LL |         fn bar() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:131:13
+   |
+LL |             impl FooTrait for $ty {
+   |             ^ help: make this item public: `pub`
+...
+LL |     parse_ip_impl!(Foo); // Should not lint
+   |     ------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `parse_ip_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:132:17
+   |
+LL |                 fn new() -> Self {
+   |                 ^
+...
+LL |     parse_ip_impl!(Foo); // Should not lint
+   |     ------------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:132:17
+   |
+LL |                 fn new() -> Self {
+   |                 ^
+...
+LL |     parse_ip_impl!(Foo); // Should not lint
+   |     ------------------- in this macro invocation
+   = note: this error originates in the macro `parse_ip_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:153:1
+   |
+LL | mod full_path_replacement {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/use_self_trait.rs:154:5
+   |
+LL | /     trait Error {
+LL | |         fn custom<T: std::fmt::Display>(_msg: T) -> Self;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:154:5
+   |
+LL |     trait Error {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:155:9
+   |
+LL |         fn custom<T: std::fmt::Display>(_msg: T) -> Self;
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:155:9
+   |
+LL |         fn custom<T: std::fmt::Display>(_msg: T) -> Self;
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:155:41
+   |
+LL |         fn custom<T: std::fmt::Display>(_msg: T) -> Self;
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:158:5
+   |
+LL |     impl Error for std::fmt::Error {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:159:9
+   |
+LL |         fn custom<T: std::fmt::Display>(_msg: T) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:159:9
+   |
+LL |         fn custom<T: std::fmt::Display>(_msg: T) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/use_self_trait.rs:159:41
+   |
+LL |         fn custom<T: std::fmt::Display>(_msg: T) -> Self {
+   |                                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/use_self_trait.rs:167:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/use_self_trait.rs:167:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/use_self_trait.rs:167:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 151 previous errors
 

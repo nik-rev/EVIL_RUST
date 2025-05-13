@@ -1,30 +1,182 @@
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find.rs:5:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for s in strings {
-LL | |
-LL | |
-LL | |         if s == String::new() {
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `strings.into_iter().find(|s| s == String::new())`
-   |
-   = note: you may need to dereference some variables
-   = note: `-D clippy::manual-find` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_find)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual implementation of `Iterator::find`
-  --> tests/ui/manual_find.rs:16:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for (s, _) in arr {
-LL | |
-LL | |
-LL | |         if s == String::new() {
-...  |
-LL | |     None
-   | |________^ help: replace with an iterator: `arr.into_iter().map(|(s, _)| s).find(|s| s == String::new())`
-   |
-   = note: you may need to dereference some variables
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/manual_find.rs:4:1
+   |
+LL | fn vec_string(strings: Vec<String>) -> Option<String> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find.rs:4:1
+   |
+LL | fn vec_string(strings: Vec<String>) -> Option<String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find.rs:4:1
+   |
+LL | fn vec_string(strings: Vec<String>) -> Option<String> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find.rs:4:15
+   |
+LL | fn vec_string(strings: Vec<String>) -> Option<String> {
+   |               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find.rs:15:1
+   |
+LL | fn tuple(arr: Vec<(String, i32)>) -> Option<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find.rs:15:1
+   |
+LL | fn tuple(arr: Vec<(String, i32)>) -> Option<String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find.rs:15:1
+   |
+LL | fn tuple(arr: Vec<(String, i32)>) -> Option<String> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find.rs:15:10
+   |
+LL | fn tuple(arr: Vec<(String, i32)>) -> Option<String> {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find.rs:26:1
+   |
+LL | mod issue9521 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_find.rs:27:5
+   |
+LL |     fn condition(x: u32, y: u32) -> Result<bool, ()> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find.rs:27:5
+   |
+LL |     fn condition(x: u32, y: u32) -> Result<bool, ()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find.rs:27:5
+   |
+LL |     fn condition(x: u32, y: u32) -> Result<bool, ()> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find.rs:27:18
+   |
+LL |     fn condition(x: u32, y: u32) -> Result<bool, ()> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find.rs:27:26
+   |
+LL |     fn condition(x: u32, y: u32) -> Result<bool, ()> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find.rs:31:5
+   |
+LL |     fn find_with_early_return(v: Vec<u32>) -> Option<u32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find.rs:31:5
+   |
+LL |     fn find_with_early_return(v: Vec<u32>) -> Option<u32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find.rs:31:5
+   |
+LL |     fn find_with_early_return(v: Vec<u32>) -> Option<u32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find.rs:31:31
+   |
+LL |     fn find_with_early_return(v: Vec<u32>) -> Option<u32> {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find.rs:40:5
+   |
+LL |     fn find_with_early_break(v: Vec<u32>) -> Option<u32> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find.rs:40:5
+   |
+LL |     fn find_with_early_break(v: Vec<u32>) -> Option<u32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find.rs:40:5
+   |
+LL |     fn find_with_early_break(v: Vec<u32>) -> Option<u32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_find.rs:40:30
+   |
+LL |     fn find_with_early_break(v: Vec<u32>) -> Option<u32> {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_find.rs:54:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_find.rs:54:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_find.rs:54:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

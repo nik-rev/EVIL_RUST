@@ -1,177 +1,140 @@
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:5:18
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/octal_escapes.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/octal_escapes.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/octal_escapes.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:5:9
    |
 LL |     let _bad1 = "\033[0m";
-   |                  ^^^^
+   |         ^ help: make this variable mutable: `mut`
    |
-   = help: octal escapes are not supported, `\0` is always null
-   = note: `-D clippy::octal-escapes` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::octal_escapes)]`
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL -     let _bad1 = "\033[0m";
-LL +     let _bad1 = "\x1b[0m";
-   |
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad1 = "\x0033[0m";
-   |                   ++
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:7:19
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:7:9
    |
 LL |     let _bad2 = b"\033[0m";
-   |                   ^^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL -     let _bad2 = b"\033[0m";
-LL +     let _bad2 = b"\x1b[0m";
-   |
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad2 = b"\x0033[0m";
-   |                    ++
+   |         ^ help: make this variable mutable: `mut`
 
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:9:20
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:9:9
    |
 LL |     let _bad3 = "\\\033[0m";
-   |                    ^^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL -     let _bad3 = "\\\033[0m";
-LL +     let _bad3 = "\\\x1b[0m";
-   |
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad3 = "\\\x0033[0m";
-   |                     ++
+   |         ^ help: make this variable mutable: `mut`
 
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:12:18
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:12:9
    |
 LL |     let _bad4 = "\01234567";
-   |                  ^^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL -     let _bad4 = "\01234567";
-LL +     let _bad4 = "\x0a34567";
-   |
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad4 = "\x001234567";
-   |                   ++
+   |         ^ help: make this variable mutable: `mut`
 
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:14:20
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:14:9
    |
 LL |     let _bad5 = "\0\03";
-   |                    ^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL |     let _bad5 = "\0\x03";
-   |                     +
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad5 = "\0\x0003";
-   |                     +++
+   |         ^ help: make this variable mutable: `mut`
 
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:16:23
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:16:9
    |
 LL |     let _bad6 = "Text-\055\077-MoreText";
-   |                       ^^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL -     let _bad6 = "Text-\055\077-MoreText";
-LL +     let _bad6 = "Text-\x2d\077-MoreText";
-   |
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad6 = "Text-\x0055\077-MoreText";
-   |                        ++
+   |         ^ help: make this variable mutable: `mut`
 
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:16:27
-   |
-LL |     let _bad6 = "Text-\055\077-MoreText";
-   |                           ^^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL -     let _bad6 = "Text-\055\077-MoreText";
-LL +     let _bad6 = "Text-\055\x3f-MoreText";
-   |
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad6 = "Text-\055\x0077-MoreText";
-   |                            ++
-
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:20:31
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:20:9
    |
 LL |     let _bad7 = "EvenMoreText-\01\02-ShortEscapes";
-   |                               ^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL |     let _bad7 = "EvenMoreText-\x01\02-ShortEscapes";
-   |                                +
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad7 = "EvenMoreText-\x0001\02-ShortEscapes";
-   |                                +++
+   |         ^ help: make this variable mutable: `mut`
 
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:20:34
-   |
-LL |     let _bad7 = "EvenMoreText-\01\02-ShortEscapes";
-   |                                  ^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL |     let _bad7 = "EvenMoreText-\01\x02-ShortEscapes";
-   |                                   +
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad7 = "EvenMoreText-\01\x0002-ShortEscapes";
-   |                                   +++
-
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:24:19
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:24:9
    |
 LL |     let _bad8 = "锈\01锈";
-   |                    ^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL |     let _bad8 = "锈\x01锈";
-   |                     +
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad8 = "锈\x0001锈";
-   |                     +++
+   |         ^ help: make this variable mutable: `mut`
 
-error: octal-looking escape in a literal
-  --> tests/ui/octal_escapes.rs:26:19
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:26:9
    |
 LL |     let _bad9 = "锈\011锈";
-   |                    ^^^^
-   |
-help: if an octal escape is intended, use a hex escape instead
-   |
-LL -     let _bad9 = "锈\011锈";
-LL +     let _bad9 = "锈\x09锈";
-   |
-help: if a null escape is intended, disambiguate using
-   |
-LL |     let _bad9 = "锈\x0011锈";
-   |                     ++
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 11 previous errors
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:29:9
+   |
+LL |     let _good1 = "\\033[0m";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:30:9
+   |
+LL |     let _good2 = "\0\\0";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:31:9
+   |
+LL |     let _good3 = "\0\0";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:32:9
+   |
+LL |     let _good4 = "X\0\0X";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:33:9
+   |
+LL |     let _good5 = "锈\0锈";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/octal_escapes.rs:34:9
+   |
+LL |     let _good6 = "\0\\01";
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 21 previous errors
 

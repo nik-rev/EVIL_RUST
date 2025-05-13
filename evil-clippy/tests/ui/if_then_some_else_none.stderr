@@ -1,62 +1,299 @@
-error: this could be simplified with `bool::then`
-  --> tests/ui/if_then_some_else_none.rs:6:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = if foo() {
-   |  _____________^
-LL | |
-LL | |
-LL | |         println!("true!");
-...  |
-LL | |         None
-LL | |     };
-   | |_____^ help: try: `foo().then(||  { println!("true!"); "foo" })`
-   |
-   = note: `-D clippy::if-then-some-else-none` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::if_then_some_else_none)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this could be simplified with `bool::then`
-  --> tests/ui/if_then_some_else_none.rs:16:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = if matches!(true, true) {
-   |  _____________^
-LL | |
-LL | |
-LL | |         println!("true!");
-...  |
-LL | |         None
-LL | |     };
-   | |_____^ help: try: `matches!(true, true).then(||  { println!("true!"); matches!(true, false) })`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this could be simplified with `bool::then_some`
-  --> tests/ui/if_then_some_else_none.rs:27:28
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:4:1
    |
-LL |     let _ = x.and_then(|o| if o < 32 { Some(o) } else { None });
-   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `(o < 32).then_some(o)`
-
-error: this could be simplified with `bool::then_some`
-  --> tests/ui/if_then_some_else_none.rs:32:13
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = if !x { Some(0) } else { None };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `(!x).then_some(0)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this could be simplified with `bool::then`
-  --> tests/ui/if_then_some_else_none.rs:88:13
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:4:1
    |
-LL |       let _ = if foo() {
-   |  _____________^
-LL | |
-LL | |
-LL | |         println!("true!");
-...  |
-LL | |         None
-LL | |     };
-   | |_____^ help: try: `foo().then(||  { println!("true!"); 150 })`
-
-error: this could be simplified with `bool::then`
-  --> tests/ui/if_then_some_else_none.rs:138:5
+LL | fn main() {
+   | ^
    |
-LL |     if s == "1" { Some(true) } else { None }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `(s == "1").then(|| true)`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 6 previous errors
+error: variable must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:26:9
+   |
+LL |     let x = Some(5);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:31:9
+   |
+LL |     let x = true;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:76:1
+   |
+LL | fn _msrv_1_49() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:76:1
+   |
+LL | fn _msrv_1_49() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:76:1
+   |
+LL | fn _msrv_1_49() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:87:1
+   |
+LL | fn _msrv_1_50() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:87:1
+   |
+LL | fn _msrv_1_50() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:87:1
+   |
+LL | fn _msrv_1_50() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:98:1
+   |
+LL | fn foo() -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:98:1
+   |
+LL | fn foo() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:98:1
+   |
+LL | fn foo() -> bool {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:102:1
+   |
+LL | fn bar() -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:102:1
+   |
+LL | fn bar() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:102:1
+   |
+LL | fn bar() -> bool {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:106:1
+   |
+LL | fn into_some<T>(v: T) -> Option<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:106:1
+   |
+LL | fn into_some<T>(v: T) -> Option<T> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:106:1
+   |
+LL | fn into_some<T>(v: T) -> Option<T> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:106:17
+   |
+LL | fn into_some<T>(v: T) -> Option<T> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:110:1
+   |
+LL | fn into_none<T>() -> Option<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:110:1
+   |
+LL | fn into_none<T>() -> Option<T> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:110:1
+   |
+LL | fn into_none<T>() -> Option<T> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:115:1
+   |
+LL | fn f(b: bool, v: Option<()>) -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:115:1
+   |
+LL | fn f(b: bool, v: Option<()>) -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:115:1
+   |
+LL | fn f(b: bool, v: Option<()>) -> Option<()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:115:6
+   |
+LL | fn f(b: bool, v: Option<()>) -> Option<()> {
+   |      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:115:15
+   |
+LL | fn f(b: bool, v: Option<()>) -> Option<()> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:125:1
+   |
+LL | fn issue11394(b: bool, v: Result<(), ()>) -> Result<(), ()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:125:1
+   |
+LL | fn issue11394(b: bool, v: Result<(), ()>) -> Result<(), ()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:125:1
+   |
+LL | fn issue11394(b: bool, v: Result<(), ()>) -> Result<(), ()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:125:15
+   |
+LL | fn issue11394(b: bool, v: Result<(), ()>) -> Result<(), ()> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:125:24
+   |
+LL | fn issue11394(b: bool, v: Result<(), ()>) -> Result<(), ()> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:126:9
+   |
+LL |     let x = if b {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:137:1
+   |
+LL | fn issue13407(s: &str) -> Option<bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:137:1
+   |
+LL | fn issue13407(s: &str) -> Option<bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:137:1
+   |
+LL | fn issue13407(s: &str) -> Option<bool> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:137:15
+   |
+LL | fn issue13407(s: &str) -> Option<bool> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/if_then_some_else_none.rs:137:18
+   |
+LL | fn issue13407(s: &str) -> Option<bool> {
+   |                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/if_then_some_else_none.rs:142:1
+   |
+LL | const fn issue12103(x: u32) -> Option<u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:142:7
+   |
+LL | const fn issue12103(x: u32) -> Option<u32> {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/if_then_some_else_none.rs:142:7
+   |
+LL | const fn issue12103(x: u32) -> Option<u32> {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/if_then_some_else_none.rs:142:21
+   |
+LL | const fn issue12103(x: u32) -> Option<u32> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 37 previous errors
 

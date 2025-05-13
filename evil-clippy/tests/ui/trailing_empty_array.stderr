@@ -1,129 +1,523 @@
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:6:1
    |
-LL | / struct RarelyUseful {
-LL | |
-LL | |     field: i32,
-LL | |     last: [usize; 0],
-LL | | }
-   | |_^
+LL | struct RarelyUseful {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider annotating `RarelyUseful` with `#[repr(C)]` or another `repr` attribute
-   = note: `-D clippy::trailing-empty-array` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::trailing_empty_array)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:12:1
    |
-LL | / struct OnlyField {
-LL | |
-LL | |     first_and_last: [usize; 0],
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `OnlyField` with `#[repr(C)]` or another `repr` attribute
+LL | struct OnlyField {
+   | ^ help: make this item public: `pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:17:1
    |
-LL | / struct GenericArrayType<T> {
-LL | |
-LL | |     field: i32,
-LL | |     last: [T; 0],
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `GenericArrayType` with `#[repr(C)]` or another `repr` attribute
+LL | struct GenericArrayType<T> {
+   | ^ help: make this item public: `pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:24:1
    |
-LL | / struct OnlyAnotherAttribute {
-LL | |
-LL | |     field: i32,
-LL | |     last: [usize; 0],
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `OnlyAnotherAttribute` with `#[repr(C)]` or another `repr` attribute
+LL | struct OnlyAnotherAttribute {
+   | ^ help: make this item public: `pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:31:1
    |
-LL | / struct OnlyADeriveAttribute {
-LL | |
-LL | |     field: i32,
-LL | |     last: [usize; 0],
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `OnlyADeriveAttribute` with `#[repr(C)]` or another `repr` attribute
+LL | struct OnlyADeriveAttribute {
+   | ^ help: make this item public: `pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:30:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/trailing_empty_array.rs:30:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trailing_empty_array.rs:30:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/trailing_empty_array.rs:30:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/trailing_empty_array.rs:30:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:30:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:30:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:33:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+LL |     field: i32,
+   |     ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:34:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+LL |     last: [usize; 0],
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:34:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+LL |     last: [usize; 0],
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:37:1
+   |
+LL | const ZERO: usize = 0;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:38:1
    |
-LL | / struct ZeroSizedWithConst {
-LL | |
-LL | |     field: i32,
-LL | |     last: [usize; ZERO],
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `ZeroSizedWithConst` with `#[repr(C)]` or another `repr` attribute
+LL | struct ZeroSizedWithConst {
+   | ^ help: make this item public: `pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:45:1
+   |
+LL | const fn compute_zero() -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trailing_empty_array.rs:45:7
+   |
+LL | const fn compute_zero() -> usize {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trailing_empty_array.rs:45:7
+   |
+LL | const fn compute_zero() -> usize {
+   |       ^
+
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:48:1
    |
-LL | / struct ZeroSizedWithConstFunction {
-LL | |
-LL | |     field: i32,
-LL | |     last: [usize; compute_zero()],
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `ZeroSizedWithConstFunction` with `#[repr(C)]` or another `repr` attribute
+LL | struct ZeroSizedWithConstFunction {
+   | ^ help: make this item public: `pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:54:1
+   |
+LL | const fn compute_zero_from_arg(x: usize) -> usize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trailing_empty_array.rs:54:7
+   |
+LL | const fn compute_zero_from_arg(x: usize) -> usize {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trailing_empty_array.rs:54:7
+   |
+LL | const fn compute_zero_from_arg(x: usize) -> usize {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/trailing_empty_array.rs:54:32
+   |
+LL | const fn compute_zero_from_arg(x: usize) -> usize {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:57:1
    |
-LL | / struct ZeroSizedWithConstFunction2 {
-LL | |
-LL | |     field: i32,
-LL | |     last: [usize; compute_zero_from_arg(1)],
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `ZeroSizedWithConstFunction2` with `#[repr(C)]` or another `repr` attribute
+LL | struct ZeroSizedWithConstFunction2 {
+   | ^ help: make this item public: `pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:63:1
    |
 LL | struct ZeroSizedArrayWrapper([usize; 0]);
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider annotating `ZeroSizedArrayWrapper` with `#[repr(C)]` or another `repr` attribute
+   | ^ help: make this item public: `pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:66:1
    |
 LL | struct TupleStruct(i32, [usize; 0]);
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider annotating `TupleStruct` with `#[repr(C)]` or another `repr` attribute
+   | ^ help: make this item public: `pub`
 
-error: trailing zero-sized array in a struct which is not marked with a `repr` attribute
+error: item must be `pub`
   --> tests/ui/trailing_empty_array.rs:69:1
    |
-LL | / struct LotsOfFields {
-LL | |
-LL | |     f1: u32,
-LL | |     f2: u32,
-...  |
-LL | |     last: [usize; 0],
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `LotsOfFields` with `#[repr(C)]` or another `repr` attribute
+LL | struct LotsOfFields {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 11 previous errors
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:93:1
+   |
+LL | struct GoodReason {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:99:1
+   |
+LL | struct OnlyFieldWithReprC {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:103:1
+   |
+LL | struct NonZeroSizedArray {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:108:1
+   |
+LL | struct NotLastField {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:114:1
+   |
+LL | const ONE: usize = 1;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:115:1
+   |
+LL | struct NonZeroSizedWithConst {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:122:1
+   |
+LL | struct AlsoADeriveAttribute {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:120:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/trailing_empty_array.rs:120:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trailing_empty_array.rs:120:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/trailing_empty_array.rs:120:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/trailing_empty_array.rs:120:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:120:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:120:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:123:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+LL |     field: i32,
+   |     ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:124:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+LL |     last: [usize; 0],
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:124:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+LL |     last: [usize; 0],
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:129:1
+   |
+LL | struct AlsoAnotherAttribute {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:135:1
+   |
+LL | struct ReprPacked {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:141:1
+   |
+LL | struct ReprCPacked {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:147:1
+   |
+LL | struct ReprAlign {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:152:1
+   |
+LL | struct ReprCAlign {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:159:1
+   |
+LL | enum DontLintAnonymousStructsFromDesugaring {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:166:1
+   |
+LL | struct TupleStructReprC(i32, [usize; 0]);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:168:1
+   |
+LL | type NamedTuple = (i32, [usize; 0]);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:170:1
+   |
+LL | struct ConstParamZeroDefault<const N: usize = 0> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:175:1
+   |
+LL | struct ConstParamNoDefault<const N: usize> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:180:1
+   |
+LL | struct ConstParamNonZeroDefault<const N: usize = 1> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:185:1
+   |
+LL | struct TwoGenericParams<T, const N: usize> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:190:1
+   |
+LL | type A = ConstParamZeroDefault;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:191:1
+   |
+LL | type B = ConstParamZeroDefault<0>;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:192:1
+   |
+LL | type C = ConstParamNoDefault<0>;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:193:1
+   |
+LL | type D = ConstParamNonZeroDefault<0>;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:195:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trailing_empty_array.rs:195:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trailing_empty_array.rs:195:1
+   |
+LL | fn main() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:198:1
+   |
+LL | mod tests {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:204:5
+   |
+LL |     #[test]
+   |     ------- in this procedural macro expansion
+LL |     fn oldest_empty_is_none() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:204:5
+   |
+LL |     fn oldest_empty_is_none() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/trailing_empty_array.rs:204:5
+   |
+LL |     fn oldest_empty_is_none() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/trailing_empty_array.rs:204:5
+   |
+LL |     fn oldest_empty_is_none() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/trailing_empty_array.rs:205:9
+   |
+LL |         struct Michael {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+   |
+   = help: make this function unsafe: `unsafe`
+
+error: references are not allowed
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/trailing_empty_array.rs:204:5
+   |
+LL |       #[test]
+   |       ------- in this procedural macro expansion
+LL | /     fn oldest_empty_is_none() {
+LL | |         struct Michael {
+LL | |             friends: [Friend; 0],
+LL | |         }
+LL | |     }
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 72 previous errors
 

@@ -1,244 +1,181 @@
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:16:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let box 0 | box 2 = Box::new(0) {}
-   |            ^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::unnested-or-patterns` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnested_or_patterns)]`
-help: nest the patterns
-   |
-LL -     if let box 0 | box 2 = Box::new(0) {}
-LL +     if let box (0 | 2) = Box::new(0) {}
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:18:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let box ((0 | 1)) | box (2 | 3) | box 4 = Box::new(0) {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let box ((0 | 1)) | box (2 | 3) | box 4 = Box::new(0) {}
-LL +     if let box (0 | 1 | 2 | 3 | 4) = Box::new(0) {}
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:21:12
+error: item must be `pub`
+  --> tests/ui/unnested_or_patterns.rs:12:1
    |
-LL |     if let Some(1) | C0 | Some(2) = None {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: nest the patterns
-   |
-LL -     if let Some(1) | C0 | Some(2) = None {}
-LL +     if let Some(1 | 2) | C0 = None {}
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:23:12
+error: function must be `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/unnested_or_patterns.rs:14:22
+   |
+LL |     if let &0 | &2 = &0 {}
+   |                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/unnested_or_patterns.rs:20:5
+   |
+LL |     const C0: Option<u8> = Some(1);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unnested_or_patterns.rs:23:30
    |
 LL |     if let &mut 0 | &mut 2 = &mut 0 {}
-   |            ^^^^^^^^^^^^^^^
+   |                              ^^^^^^
    |
-help: nest the patterns
-   |
-LL -     if let &mut 0 | &mut 2 = &mut 0 {}
-LL +     if let &mut (0 | 2) = &mut 0 {}
-   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:25:12
+error: item must be `pub`
+  --> tests/ui/unnested_or_patterns.rs:41:5
    |
-LL |     if let x @ 0 | x @ 2 = 0 {}
-   |            ^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let x @ 0 | x @ 2 = 0 {}
-LL +     if let x @ (0 | 2) = 0 {}
-   |
+LL |     struct TS(u8, u8);
+   |     ^ help: make this item public: `pub`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:27:12
+error: item must be `pub`
+  --> tests/ui/unnested_or_patterns.rs:48:5
    |
-LL |     if let (0, 1) | (0, 2) | (0, 3) = (0, 0) {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let (0, 1) | (0, 2) | (0, 3) = (0, 0) {}
-LL +     if let (0, 1 | 2 | 3) = (0, 0) {}
-   |
+LL |     struct S {
+   |     ^ help: make this item public: `pub`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:29:12
+error: item must be `pub`
+  --> tests/ui/unnested_or_patterns.rs:58:1
    |
-LL |     if let (1, 0) | (2, 0) | (3, 0) = (0, 0) {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let (1, 0) | (2, 0) | (3, 0) = (0, 0) {}
-LL +     if let (1 | 2 | 3, 0) = (0, 0) {}
-   |
+LL | fn msrv_1_52() {
+   | ^ help: make this item public: `pub`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:31:12
+error: function must be `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:58:1
    |
-LL |     if let (x, ..) | (x, 1) | (x, 2) = (0, 1) {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn msrv_1_52() {
+   | ^
    |
-help: nest the patterns
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:58:1
    |
-LL -     if let (x, ..) | (x, 1) | (x, 2) = (0, 1) {}
-LL +     if let (x, ..) | (x, 1 | 2) = (0, 1) {}
-   |
+LL | fn msrv_1_52() {
+   | ^
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:33:12
+error: item must be `pub`
+  --> tests/ui/unnested_or_patterns.rs:63:1
    |
-LL |     if let [0] | [1] = [0] {}
-   |            ^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let [0] | [1] = [0] {}
-LL +     if let [0 | 1] = [0] {}
-   |
+LL | fn msrv_1_53() {
+   | ^ help: make this item public: `pub`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:35:12
+error: function must be `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:63:1
    |
-LL |     if let [x, 0] | [x, 1] = [0, 1] {}
-   |            ^^^^^^^^^^^^^^^
+LL | fn msrv_1_53() {
+   | ^
    |
-help: nest the patterns
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:63:1
    |
-LL -     if let [x, 0] | [x, 1] = [0, 1] {}
-LL +     if let [x, 0 | 1] = [0, 1] {}
-   |
+LL | fn msrv_1_53() {
+   | ^
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:37:12
+error: item must be `pub`
+  --> tests/ui/unnested_or_patterns.rs:68:1
    |
-LL |     if let [x, 0] | [x, 1] | [x, 2] = [0, 1] {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let [x, 0] | [x, 1] | [x, 2] = [0, 1] {}
-LL +     if let [x, 0 | 1 | 2] = [0, 1] {}
-   |
+LL | mod issue9952 {
+   | ^ help: make this item public: `pub`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:39:12
+error: item must be `pub`
+  --> tests/ui/unnested_or_patterns.rs:69:5
    |
-LL |     if let [x, ..] | [x, 1] | [x, 2] = [0, 1] {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let [x, ..] | [x, 1] | [x, 2] = [0, 1] {}
-LL +     if let [x, ..] | [x, 1 | 2] = [0, 1] {}
-   |
+LL |     fn or_in_local() {
+   |     ^ help: make this item public: `pub`
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:42:12
+error: function must be `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:69:5
    |
-LL |     if let TS(0, x) | TS(1, x) = TS(0, 0) {}
-   |            ^^^^^^^^^^^^^^^^^^^
+LL |     fn or_in_local() {
+   |     ^
    |
-help: nest the patterns
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:69:5
    |
-LL -     if let TS(0, x) | TS(1, x) = TS(0, 0) {}
-LL +     if let TS(0 | 1, x) = TS(0, 0) {}
-   |
+LL |     fn or_in_local() {
+   |     ^
 
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:44:12
-   |
-LL |     if let TS(1, 0) | TS(2, 0) | TS(3, 0) = TS(0, 0) {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let TS(1, 0) | TS(2, 0) | TS(3, 0) = TS(0, 0) {}
-LL +     if let TS(1 | 2 | 3, 0) = TS(0, 0) {}
-   |
-
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:46:12
-   |
-LL |     if let TS(x, ..) | TS(x, 1) | TS(x, 2) = TS(0, 0) {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let TS(x, ..) | TS(x, 1) | TS(x, 2) = TS(0, 0) {}
-LL +     if let TS(x, ..) | TS(x, 1 | 2) = TS(0, 0) {}
-   |
-
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:52:12
-   |
-LL |     if let S { x: 0, y } | S { y, x: 1 } = (S { x: 0, y: 1 }) {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let S { x: 0, y } | S { y, x: 1 } = (S { x: 0, y: 1 }) {}
-LL +     if let S { x: 0 | 1, y } = (S { x: 0, y: 1 }) {}
-   |
-
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:64:12
-   |
-LL |     if let [1] | [53] = [0] {}
-   |            ^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     if let [1] | [53] = [0] {}
-LL +     if let [1 | 53] = [0] {}
-   |
-
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:70:13
-   |
-LL |         let (0 | (1 | _)) = 0;
-   |             ^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -         let (0 | (1 | _)) = 0;
-LL +         let (0 | 1 | _) = 0;
-   |
-
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:73:16
-   |
-LL |         if let (0 | (1 | _)) = 0 {}
-   |                ^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -         if let (0 | (1 | _)) = 0 {}
-LL +         if let (0 | 1 | _) = 0 {}
-   |
-
-error: unnested or-patterns
-  --> tests/ui/unnested_or_patterns.rs:77:20
+error: item must be `pub`
+  --> tests/ui/unnested_or_patterns.rs:77:5
    |
 LL |     fn or_in_param((x | (x | x)): i32) {}
-   |                    ^^^^^^^^^^^^^
-   |
-help: nest the patterns
-   |
-LL -     fn or_in_param((x | (x | x)): i32) {}
-LL +     fn or_in_param((x | x | x): i32) {}
-   |
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 20 previous errors
+error: function must be `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:77:5
+   |
+LL |     fn or_in_param((x | (x | x)): i32) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnested_or_patterns.rs:77:5
+   |
+LL |     fn or_in_param((x | (x | x)): i32) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnested_or_patterns.rs:77:21
+   |
+LL |     fn or_in_param((x | (x | x)): i32) {}
+   |                     ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnested_or_patterns.rs:77:26
+   |
+LL |     fn or_in_param((x | (x | x)): i32) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnested_or_patterns.rs:77:30
+   |
+LL |     fn or_in_param((x | (x | x)): i32) {}
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

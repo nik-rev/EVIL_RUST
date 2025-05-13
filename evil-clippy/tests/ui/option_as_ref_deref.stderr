@@ -1,118 +1,137 @@
-error: called `.as_ref().map(Deref::deref)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:11:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = opt.clone().as_ref().map(Deref::deref).map(str::len);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `opt.clone().as_deref()`
-   |
-   = note: `-D clippy::option-as-ref-deref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::option_as_ref_deref)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `.as_ref().map(Deref::deref)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:15:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = opt.clone()
-   |  _____________^
-LL | |
-LL | |         .as_ref().map(
-LL | |             Deref::deref
-LL | |         )
-   | |_________^ help: consider using as_deref: `opt.clone().as_deref()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: called `.as_mut().map(DerefMut::deref_mut)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:22:13
+error: item must be `pub`
+  --> tests/ui/option_as_ref_deref.rs:8:1
    |
-LL |     let _ = opt.as_mut().map(DerefMut::deref_mut);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref_mut: `opt.as_deref_mut()`
-
-error: called `.as_ref().map(String::as_str)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:25:13
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = opt.as_ref().map(String::as_str);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `opt.as_deref()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: called `.as_ref().map(|x| x.as_str())` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:27:13
+error: function must be `unsafe`
+  --> tests/ui/option_as_ref_deref.rs:8:1
    |
-LL |     let _ = opt.as_ref().map(|x| x.as_str());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `opt.as_deref()`
-
-error: called `.as_mut().map(String::as_mut_str)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:29:13
+LL | fn main() {
+   | ^
    |
-LL |     let _ = opt.as_mut().map(String::as_mut_str);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref_mut: `opt.as_deref_mut()`
-
-error: called `.as_mut().map(|x| x.as_mut_str())` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:31:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/option_as_ref_deref.rs:8:1
    |
-LL |     let _ = opt.as_mut().map(|x| x.as_mut_str());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref_mut: `opt.as_deref_mut()`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: called `.as_ref().map(CString::as_c_str)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:33:13
+error: variable must be `mut`
+  --> tests/ui/option_as_ref_deref.rs:49:9
    |
-LL |     let _ = Some(CString::new(vec![]).unwrap()).as_ref().map(CString::as_c_str);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `Some(CString::new(vec![]).unwrap()).as_deref()`
-
-error: called `.as_ref().map(OsString::as_os_str)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:35:13
+LL |     let vc = vec![String::new()];
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _ = Some(OsString::new()).as_ref().map(OsString::as_os_str);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `Some(OsString::new()).as_deref()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: called `.as_ref().map(PathBuf::as_path)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:37:13
+error: references are not allowed
+  --> tests/ui/option_as_ref_deref.rs:52:19
    |
-LL |     let _ = Some(PathBuf::new()).as_ref().map(PathBuf::as_path);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `Some(PathBuf::new()).as_deref()`
-
-error: called `.as_ref().map(Vec::as_slice)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:39:13
+LL |     let _: Option<&str> = Some(&String::new()).as_ref().map(|x| x.as_str()); // should not be linted
+   |                   ^^^^
    |
-LL |     let _ = Some(Vec::<()>::new()).as_ref().map(Vec::as_slice);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `Some(Vec::<()>::new()).as_deref()`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: called `.as_mut().map(Vec::as_mut_slice)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:41:13
+error: references are not allowed
+  --> tests/ui/option_as_ref_deref.rs:52:32
    |
-LL |     let _ = Some(Vec::<()>::new()).as_mut().map(Vec::as_mut_slice);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref_mut: `Some(Vec::<()>::new()).as_deref_mut()`
-
-error: called `.as_ref().map(|x| x.deref())` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:44:13
+LL |     let _: Option<&str> = Some(&String::new()).as_ref().map(|x| x.as_str()); // should not be linted
+   |                                ^^^^^^^^^^^^^^
    |
-LL |     let _ = opt.as_ref().map(|x| x.deref());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `opt.as_deref()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: called `.as_mut().map(|x| x.deref_mut())` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:46:13
-   |
-LL |     let _ = opt.clone().as_mut().map(|x| x.deref_mut()).map(|x| x.len());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref_mut: `opt.clone().as_deref_mut()`
-
-error: called `.as_ref().map(|x| &**x)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:54:13
+error: references are not allowed
+  --> tests/ui/option_as_ref_deref.rs:54:34
    |
 LL |     let _ = opt.as_ref().map(|x| &**x);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `opt.as_deref()`
+   |                                  ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: called `.as_mut().map(|x| &mut **x)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:56:13
+error: references are not allowed
+  --> tests/ui/option_as_ref_deref.rs:56:34
    |
 LL |     let _ = opt.as_mut().map(|x| &mut **x);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref_mut: `opt.as_deref_mut()`
-
-error: called `.as_ref().map(std::ops::Deref::deref)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:60:13
+   |                                  ^^^^^^^^
    |
-LL |     let _ = opt.as_ref().map(std::ops::Deref::deref);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `opt.as_deref()`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: called `.as_ref().map(String::as_str)` on an `Option` value
-  --> tests/ui/option_as_ref_deref.rs:73:13
+error: item must be `pub`
+  --> tests/ui/option_as_ref_deref.rs:65:1
    |
-LL |     let _ = opt.as_ref().map(String::as_str);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `opt.as_deref()`
+LL | fn msrv_1_39() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 18 previous errors
+error: function must be `unsafe`
+  --> tests/ui/option_as_ref_deref.rs:65:1
+   |
+LL | fn msrv_1_39() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/option_as_ref_deref.rs:65:1
+   |
+LL | fn msrv_1_39() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/option_as_ref_deref.rs:66:9
+   |
+LL |     let opt = Some(String::from("123"));
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/option_as_ref_deref.rs:71:1
+   |
+LL | fn msrv_1_40() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/option_as_ref_deref.rs:71:1
+   |
+LL | fn msrv_1_40() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/option_as_ref_deref.rs:71:1
+   |
+LL | fn msrv_1_40() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/option_as_ref_deref.rs:72:9
+   |
+LL |     let opt = Some(String::from("123"));
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

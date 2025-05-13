@@ -1,47 +1,128 @@
-error: boolean short circuit operator in statement may be clearer using an explicit test
-  --> tests/ui/short_circuit_statement.rs:5:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     f() && g();
-   |     ^^^^^^^^^^^ help: replace it with: `if f() { g(); }`
-   |
-   = note: `-D clippy::short-circuit-statement` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::short_circuit_statement)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: boolean short circuit operator in statement may be clearer using an explicit test
-  --> tests/ui/short_circuit_statement.rs:8:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     f() || g();
-   |     ^^^^^^^^^^^ help: replace it with: `if !f() { g(); }`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: boolean short circuit operator in statement may be clearer using an explicit test
-  --> tests/ui/short_circuit_statement.rs:11:5
+error: item must be `pub`
+  --> tests/ui/short_circuit_statement.rs:4:1
    |
-LL |     1 == 2 || g();
-   |     ^^^^^^^^^^^^^^ help: replace it with: `if 1 != 2 { g(); }`
-
-error: boolean short circuit operator in statement may be clearer using an explicit test
-  --> tests/ui/short_circuit_statement.rs:14:5
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     (f() || g()) && (H * 2);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `if f() || g() { H * 2; }`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: boolean short circuit operator in statement may be clearer using an explicit test
-  --> tests/ui/short_circuit_statement.rs:17:5
+error: function must be `unsafe`
+  --> tests/ui/short_circuit_statement.rs:4:1
    |
-LL |     (f() || g()) || (H * 2);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `if !(f() || g()) { H * 2; }`
-
-error: boolean short circuit operator in statement may be clearer using an explicit test
-  --> tests/ui/short_circuit_statement.rs:32:5
+LL | fn main() {
+   | ^
    |
-LL |     mac!() && mac!();
-   |     ^^^^^^^^^^^^^^^^^ help: replace it with: `if mac!() { mac!(); }`
-
-error: boolean short circuit operator in statement may be clearer using an explicit test
-  --> tests/ui/short_circuit_statement.rs:35:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/short_circuit_statement.rs:4:1
    |
-LL |     mac!() || mac!();
-   |     ^^^^^^^^^^^^^^^^^ help: replace it with: `if !mac!() { mac!(); }`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 7 previous errors
+error: item must be `pub`
+  --> tests/ui/short_circuit_statement.rs:20:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/short_circuit_statement.rs:42:1
+   |
+LL | fn f() -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/short_circuit_statement.rs:42:1
+   |
+LL | fn f() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/short_circuit_statement.rs:42:1
+   |
+LL | fn f() -> bool {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/short_circuit_statement.rs:46:1
+   |
+LL | fn g() -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/short_circuit_statement.rs:46:1
+   |
+LL | fn g() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/short_circuit_statement.rs:46:1
+   |
+LL | fn g() -> bool {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/short_circuit_statement.rs:50:1
+   |
+LL | struct H;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/short_circuit_statement.rs:52:1
+   |
+LL | impl std::ops::Mul<u32> for H {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/short_circuit_statement.rs:54:5
+   |
+LL |     fn mul(self, other: u32) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/short_circuit_statement.rs:54:5
+   |
+LL |     fn mul(self, other: u32) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/short_circuit_statement.rs:54:12
+   |
+LL |     fn mul(self, other: u32) -> Self::Output {
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/short_circuit_statement.rs:54:18
+   |
+LL |     fn mul(self, other: u32) -> Self::Output {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 16 previous errors
 

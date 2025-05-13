@@ -1,115 +1,207 @@
-error: manual implementation of `ok`
-  --> tests/ui/manual_ok_err.rs:8:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = match funcall() {
-   |  _____________^
-LL | |
-LL | |         Ok(v) => Some(v),
-LL | |         Err(_) => None,
-LL | |     };
-   | |_____^ help: replace with: `funcall().ok()`
-   |
-   = note: `-D clippy::manual-ok-err` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_ok_err)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual implementation of `ok`
-  --> tests/ui/manual_ok_err.rs:14:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = match funcall() {
-   |  _____________^
-LL | |
-LL | |         Ok(v) => Some(v),
-LL | |         _v => None,
-LL | |     };
-   | |_____^ help: replace with: `funcall().ok()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual implementation of `err`
-  --> tests/ui/manual_ok_err.rs:20:13
+error: item must be `pub`
+  --> tests/ui/manual_ok_err.rs:3:1
    |
-LL |       let _ = match funcall() {
-   |  _____________^
-LL | |
-LL | |         Err(v) => Some(v),
-LL | |         Ok(_) => None,
-LL | |     };
-   | |_____^ help: replace with: `funcall().err()`
+LL | fn funcall() -> Result<u32, &'static str> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual implementation of `err`
-  --> tests/ui/manual_ok_err.rs:26:13
+error: function must be `unsafe`
+  --> tests/ui/manual_ok_err.rs:3:1
    |
-LL |       let _ = match funcall() {
-   |  _____________^
-LL | |
-LL | |         Err(v) => Some(v),
-LL | |         _v => None,
-LL | |     };
-   | |_____^ help: replace with: `funcall().err()`
+LL | fn funcall() -> Result<u32, &'static str> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ok_err.rs:3:1
+   |
+LL | fn funcall() -> Result<u32, &'static str> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual implementation of `ok`
-  --> tests/ui/manual_ok_err.rs:32:13
+error: references are not allowed
+  --> tests/ui/manual_ok_err.rs:3:29
    |
-LL |       let _ = if let Ok(v) = funcall() {
-   |  _____________^
-LL | |
-LL | |
-LL | |         Some(v)
-LL | |     } else {
-LL | |         None
-LL | |     };
-   | |_____^ help: replace with: `funcall().ok()`
+LL | fn funcall() -> Result<u32, &'static str> {
+   |                             ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: manual implementation of `err`
-  --> tests/ui/manual_ok_err.rs:40:13
+error: item must be `pub`
+  --> tests/ui/manual_ok_err.rs:7:1
    |
-LL |       let _ = if let Err(v) = funcall() {
-   |  _____________^
-LL | |
-LL | |
-LL | |         Some(v)
-LL | |     } else {
-LL | |         None
-LL | |     };
-   | |_____^ help: replace with: `funcall().err()`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: manual implementation of `ok`
-  --> tests/ui/manual_ok_err.rs:49:13
+error: function must be `unsafe`
+  --> tests/ui/manual_ok_err.rs:7:1
    |
-LL |       let _ = match funcall() {
-   |  _____________^
-LL | |
-LL | |         Ok(v) => Some(v),
-LL | |         _v @ _ => None,
-LL | |     };
-   | |_____^ help: replace with: `funcall().ok()`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ok_err.rs:7:1
+   |
+LL | fn main() {
+   | ^
 
-error: manual implementation of `ok`
-  --> tests/ui/manual_ok_err.rs:66:13
+error: item must be `pub`
+  --> tests/ui/manual_ok_err.rs:55:5
    |
-LL |       let _ = match -S {
-   |  _____________^
-LL | |
-LL | |         Ok(v) => Some(v),
-LL | |         _ => None,
-LL | |     };
-   | |_____^ help: replace with: `(-S).ok()`
+LL |     struct S;
+   |     ^ help: make this item public: `pub`
 
-error: manual implementation of `ok`
-  --> tests/ui/manual_ok_err.rs:137:12
+error: item must be `pub`
+  --> tests/ui/manual_ok_err.rs:57:5
    |
-LL |       } else if let Ok(n) = "1".parse::<u8>() {
-   |  ____________^
-LL | |         Some(n)
-LL | |     } else {
-LL | |         None
-LL | |     };
-   | |_____^
-   |
-help: replace with
-   |
-LL ~     } else {
-LL +         "1".parse::<u8>().ok()
-LL ~     };
-   |
+LL |     impl std::ops::Neg for S {
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 9 previous errors
+error: references are not allowed
+  --> tests/ui/manual_ok_err.rs:58:35
+   |
+LL |         type Output = Result<u32, &'static str>;
+   |                                   ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ok_err.rs:60:9
+   |
+LL |         fn neg(self) -> Self::Output {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ok_err.rs:60:9
+   |
+LL |         fn neg(self) -> Self::Output {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ok_err.rs:60:16
+   |
+LL |         fn neg(self) -> Self::Output {
+   |                ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_ok_err.rs:75:1
+   |
+LL | fn no_lint() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ok_err.rs:75:1
+   |
+LL | fn no_lint() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ok_err.rs:75:1
+   |
+LL | fn no_lint() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/manual_ok_err.rs:105:19
+   |
+LL |     let _: Option<&dyn std::any::Any> = match Ok::<_, ()>(&1) {
+   |                   ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_ok_err.rs:105:59
+   |
+LL |     let _: Option<&dyn std::any::Any> = match Ok::<_, ()>(&1) {
+   |                                                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_ok_err.rs:110:31
+   |
+LL |     let _ = match Ok::<_, ()>(&1) {
+   |                               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/manual_ok_err.rs:126:1
+   |
+LL | const fn cf(x: Result<u32, &'static str>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ok_err.rs:126:7
+   |
+LL | const fn cf(x: Result<u32, &'static str>) -> Option<u32> {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ok_err.rs:126:7
+   |
+LL | const fn cf(x: Result<u32, &'static str>) -> Option<u32> {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_ok_err.rs:126:13
+   |
+LL | const fn cf(x: Result<u32, &'static str>) -> Option<u32> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_ok_err.rs:126:28
+   |
+LL | const fn cf(x: Result<u32, &'static str>) -> Option<u32> {
+   |                            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_ok_err.rs:134:1
+   |
+LL | fn issue14239() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_ok_err.rs:134:1
+   |
+LL | fn issue14239() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_ok_err.rs:134:1
+   |
+LL | fn issue14239() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 25 previous errors
 

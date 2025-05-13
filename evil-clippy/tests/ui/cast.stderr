@@ -1,756 +1,1033 @@
-error: casting `i32` to `f32` causes a loss of precision (`i32` is 32 bits wide, but `f32`'s mantissa is only 23 bits wide)
-  --> tests/ui/cast.rs:25:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x0 as f32;
-   |     ^^^^^^^^^
-   |
-   = note: `-D clippy::cast-precision-loss` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cast_precision_loss)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: casting `i64` to `f32` causes a loss of precision (`i64` is 64 bits wide, but `f32`'s mantissa is only 23 bits wide)
-  --> tests/ui/cast.rs:29:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x1 as f32;
-   |     ^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: casting `i64` to `f64` causes a loss of precision (`i64` is 64 bits wide, but `f64`'s mantissa is only 52 bits wide)
-  --> tests/ui/cast.rs:32:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:22:1
    |
-LL |     x1 as f64;
-   |     ^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: casting `u32` to `f32` causes a loss of precision (`u32` is 32 bits wide, but `f32`'s mantissa is only 23 bits wide)
-  --> tests/ui/cast.rs:36:5
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:22:1
    |
-LL |     x2 as f32;
-   |     ^^^^^^^^^
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:22:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: casting `u64` to `f32` causes a loss of precision (`u64` is 64 bits wide, but `f32`'s mantissa is only 23 bits wide)
-  --> tests/ui/cast.rs:40:5
+error: variable must be `mut`
+  --> tests/ui/cast.rs:24:9
    |
-LL |     x3 as f32;
-   |     ^^^^^^^^^
+LL |     let x0 = 1i32;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: casting `u64` to `f64` causes a loss of precision (`u64` is 64 bits wide, but `f64`'s mantissa is only 52 bits wide)
-  --> tests/ui/cast.rs:43:5
+error: variable must be `mut`
+  --> tests/ui/cast.rs:28:9
    |
-LL |     x3 as f64;
-   |     ^^^^^^^^^
+LL |     let x1 = 1i64;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `f32` to `i32` may truncate the value
-  --> tests/ui/cast.rs:47:5
+error: variable must be `mut`
+  --> tests/ui/cast.rs:35:9
    |
-LL |     1f32 as i32;
-   |     ^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-   = note: `-D clippy::cast-possible-truncation` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cast_possible_truncation)]`
+LL |     let x2 = 1u32;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `f32` to `u32` may truncate the value
-  --> tests/ui/cast.rs:50:5
+error: variable must be `mut`
+  --> tests/ui/cast.rs:39:9
    |
-LL |     1f32 as u32;
-   |     ^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
+LL |     let x3 = 1u64;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `f32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:50:5
-   |
-LL |     1f32 as u32;
-   |     ^^^^^^^^^^^
-   |
-   = note: `-D clippy::cast-sign-loss` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cast_sign_loss)]`
-
-error: casting `f64` to `f32` may truncate the value
-  --> tests/ui/cast.rs:54:5
-   |
-LL |     1f64 as f32;
-   |     ^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-
-error: casting `i32` to `i8` may truncate the value
-  --> tests/ui/cast.rs:57:5
-   |
-LL |     1i32 as i8;
-   |     ^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     1i32 as i8;
-LL +     i8::try_from(1i32);
-   |
-
-error: casting `i32` to `u8` may truncate the value
-  --> tests/ui/cast.rs:60:5
-   |
-LL |     1i32 as u8;
-   |     ^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     1i32 as u8;
-LL +     u8::try_from(1i32);
-   |
-
-error: casting `f64` to `isize` may truncate the value
-  --> tests/ui/cast.rs:63:5
-   |
-LL |     1f64 as isize;
-   |     ^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-
-error: casting `f64` to `usize` may truncate the value
-  --> tests/ui/cast.rs:66:5
-   |
-LL |     1f64 as usize;
-   |     ^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-
-error: casting `f64` to `usize` may lose the sign of the value
-  --> tests/ui/cast.rs:66:5
-   |
-LL |     1f64 as usize;
-   |     ^^^^^^^^^^^^^
-
-error: casting `u32` to `u16` may truncate the value
-  --> tests/ui/cast.rs:70:5
-   |
-LL |     1f32 as u32 as u16;
-   |     ^^^^^^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     1f32 as u32 as u16;
-LL +     u16::try_from(1f32 as u32);
-   |
-
-error: casting `f32` to `u32` may truncate the value
-  --> tests/ui/cast.rs:70:5
-   |
-LL |     1f32 as u32 as u16;
-   |     ^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-
-error: casting `f32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:70:5
-   |
-LL |     1f32 as u32 as u16;
-   |     ^^^^^^^^^^^
-
-error: casting `i32` to `i8` may truncate the value
-  --> tests/ui/cast.rs:76:22
+error: variable must be `mut`
+  --> tests/ui/cast.rs:76:13
    |
 LL |         let _x: i8 = 1i32 as _;
-   |                      ^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -         let _x: i8 = 1i32 as _;
-LL +         let _x: i8 = 1i32.try_into();
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: casting `f32` to `i32` may truncate the value
-  --> tests/ui/cast.rs:79:9
+error: variable must be `mut`
+  --> tests/ui/cast.rs:231:9
    |
-LL |         1f32 as i32;
-   |         ^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
+LL |     let x: i64 = 5;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `f64` to `i32` may truncate the value
-  --> tests/ui/cast.rs:82:9
+error: variable must be `mut`
+  --> tests/ui/cast.rs:234:9
    |
-LL |         1f64 as i32;
-   |         ^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
+LL |     let s = x.signum();
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `f32` to `u8` may truncate the value
-  --> tests/ui/cast.rs:85:9
+error: variable must be `mut`
+  --> tests/ui/cast.rs:248:13
    |
-LL |         1f32 as u8;
-   |         ^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
+LL |         let x = 999999u64;
+   |             ^ help: make this variable mutable: `mut`
 
-error: casting `f32` to `u8` may lose the sign of the value
-  --> tests/ui/cast.rs:85:9
+error: item must be `pub`
+  --> tests/ui/cast.rs:257:5
    |
-LL |         1f32 as u8;
-   |         ^^^^^^^^^^
+LL |     enum E1 {
+   |     ^ help: make this item public: `pub`
 
-error: casting `u8` to `i8` may wrap around the value
-  --> tests/ui/cast.rs:90:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:256:14
    |
-LL |     1u8 as i8;
-   |     ^^^^^^^^^
-   |
-   = note: `-D clippy::cast-possible-wrap` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cast_possible_wrap)]`
+LL |     #[derive(Clone, Copy)]
+   |              ^
 
-error: casting `u16` to `i16` may wrap around the value
-  --> tests/ui/cast.rs:93:5
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:256:11
    |
-LL |     1u16 as i16;
-   |     ^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:256:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
 
-error: casting `u32` to `i32` may wrap around the value
-  --> tests/ui/cast.rs:96:5
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:256:14
    |
-LL |     1u32 as i32;
-   |     ^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
 
-error: casting `u64` to `i64` may wrap around the value
-  --> tests/ui/cast.rs:99:5
+error: references are not allowed
+  --> tests/ui/cast.rs:256:14
    |
-LL |     1u64 as i64;
-   |     ^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: casting `usize` to `isize` may wrap around the value
-  --> tests/ui/cast.rs:102:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:256:21
    |
-LL |     1usize as isize;
-   |     ^^^^^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |                     ^
 
-error: casting `usize` to `i8` may truncate the value
-  --> tests/ui/cast.rs:106:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:262:5
    |
-LL |     1usize as i8;
-   |     ^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     1usize as i8;
-LL +     i8::try_from(1usize);
-   |
+LL |     impl E1 {
+   |     ^ help: make this item public: `pub`
 
-error: casting `usize` to `i16` may truncate the value
-  --> tests/ui/cast.rs:110:5
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:263:9
    |
-LL |     1usize as i16;
-   |     ^^^^^^^^^^^^^
+LL |         fn test(self) {
+   |         ^
    |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:263:9
    |
-LL -     1usize as i16;
-LL +     i16::try_from(1usize);
-   |
+LL |         fn test(self) {
+   |         ^
 
-error: casting `usize` to `i16` may wrap around the value on targets with 16-bit wide pointers
-  --> tests/ui/cast.rs:110:5
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:263:17
    |
-LL |     1usize as i16;
-   |     ^^^^^^^^^^^^^
-   |
-   = note: `usize` and `isize` may be as small as 16 bits on some platforms
-   = note: for more information see https://doc.rust-lang.org/reference/types/numeric.html#machine-dependent-integer-types
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
 
-error: casting `usize` to `i32` may truncate the value on targets with 64-bit wide pointers
-  --> tests/ui/cast.rs:115:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:270:5
    |
-LL |     1usize as i32;
-   |     ^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     1usize as i32;
-LL +     i32::try_from(1usize);
-   |
+LL |     enum E2 {
+   |     ^ help: make this item public: `pub`
 
-error: casting `usize` to `i32` may wrap around the value on targets with 32-bit wide pointers
-  --> tests/ui/cast.rs:115:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:269:14
    |
-LL |     1usize as i32;
-   |     ^^^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |              ^
 
-error: casting `usize` to `i64` may wrap around the value on targets with 64-bit wide pointers
-  --> tests/ui/cast.rs:120:5
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:269:11
    |
-LL |     1usize as i64;
-   |     ^^^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:269:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
 
-error: casting `u16` to `isize` may wrap around the value on targets with 16-bit wide pointers
-  --> tests/ui/cast.rs:126:5
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:269:14
    |
-LL |     1u16 as isize;
-   |     ^^^^^^^^^^^^^
-   |
-   = note: `usize` and `isize` may be as small as 16 bits on some platforms
-   = note: for more information see https://doc.rust-lang.org/reference/types/numeric.html#machine-dependent-integer-types
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
 
-error: casting `u32` to `isize` may wrap around the value on targets with 32-bit wide pointers
-  --> tests/ui/cast.rs:130:5
+error: references are not allowed
+  --> tests/ui/cast.rs:269:14
    |
-LL |     1u32 as isize;
-   |     ^^^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: casting `u64` to `isize` may truncate the value on targets with 32-bit wide pointers
-  --> tests/ui/cast.rs:134:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:269:21
    |
-LL |     1u64 as isize;
-   |     ^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     1u64 as isize;
-LL +     isize::try_from(1u64);
-   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
 
-error: casting `u64` to `isize` may wrap around the value on targets with 64-bit wide pointers
-  --> tests/ui/cast.rs:134:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:274:5
    |
-LL |     1u64 as isize;
-   |     ^^^^^^^^^^^^^
+LL |     impl E2 {
+   |     ^ help: make this item public: `pub`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:140:5
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:275:9
    |
-LL |     -1i32 as u32;
-   |     ^^^^^^^^^^^^
+LL |         fn test(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:275:9
+   |
+LL |         fn test(self) {
+   |         ^
 
-error: casting `isize` to `usize` may lose the sign of the value
-  --> tests/ui/cast.rs:144:5
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:275:17
    |
-LL |     -1isize as usize;
-   |     ^^^^^^^^^^^^^^^^
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
 
-error: casting `i8` to `u8` may lose the sign of the value
-  --> tests/ui/cast.rs:156:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:290:5
    |
-LL |     (i8::MIN).abs() as u8;
-   |     ^^^^^^^^^^^^^^^^^^^^^
+LL |     enum E3 {
+   |     ^ help: make this item public: `pub`
 
-error: casting `i64` to `u64` may lose the sign of the value
-  --> tests/ui/cast.rs:161:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:289:14
    |
-LL |     (-1i64).abs() as u64;
-   |     ^^^^^^^^^^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |              ^
 
-error: casting `isize` to `usize` may lose the sign of the value
-  --> tests/ui/cast.rs:163:5
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:289:11
    |
-LL |     (-1isize).abs() as usize;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:289:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
 
-error: casting `i64` to `u64` may lose the sign of the value
-  --> tests/ui/cast.rs:171:5
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:289:14
    |
-LL |     (unsafe { (-1i64).checked_abs().unwrap_unchecked() }) as u64;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
 
-error: casting `i64` to `u64` may lose the sign of the value
-  --> tests/ui/cast.rs:187:5
+error: references are not allowed
+  --> tests/ui/cast.rs:289:14
    |
-LL |     (unsafe { (-1i64).checked_isqrt().unwrap_unchecked() }) as u64;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
 
-error: casting `i64` to `i8` may truncate the value
-  --> tests/ui/cast.rs:239:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:289:21
    |
-LL |     (-99999999999i64).min(1) as i8;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     (-99999999999i64).min(1) as i8;
-LL +     i8::try_from((-99999999999i64).min(1));
-   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
 
-error: casting `u64` to `u8` may truncate the value
-  --> tests/ui/cast.rs:253:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:295:5
    |
-LL |     999999u64.clamp(0, 256) as u8;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     999999u64.clamp(0, 256) as u8;
-LL +     u8::try_from(999999u64.clamp(0, 256));
-   |
+LL |     impl E3 {
+   |     ^ help: make this item public: `pub`
 
-error: casting `main::E2` to `u8` may truncate the value
-  --> tests/ui/cast.rs:276:21
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:296:9
    |
-LL |             let _ = self as u8;
-   |                     ^^^^^^^^^^
+LL |         fn test(self) {
+   |         ^
    |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:296:9
    |
-LL -             let _ = self as u8;
-LL +             let _ = u8::try_from(self);
-   |
+LL |         fn test(self) {
+   |         ^
 
-error: casting `main::E2::B` to `u8` will truncate the value
-  --> tests/ui/cast.rs:279:21
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:296:17
    |
-LL |             let _ = Self::B as u8;
-   |                     ^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::cast-enum-truncation` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cast_enum_truncation)]`
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
 
-error: casting `main::E5` to `i8` may truncate the value
-  --> tests/ui/cast.rs:321:21
+error: item must be `pub`
+  --> tests/ui/cast.rs:303:5
    |
-LL |             let _ = self as i8;
-   |                     ^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -             let _ = self as i8;
-LL +             let _ = i8::try_from(self);
-   |
+LL |     enum E4 {
+   |     ^ help: make this item public: `pub`
 
-error: casting `main::E5::A` to `i8` will truncate the value
-  --> tests/ui/cast.rs:324:21
+error: item must be `pub`
+  --> tests/ui/cast.rs:302:14
    |
-LL |             let _ = Self::A as i8;
-   |                     ^^^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |              ^
 
-error: casting `main::E6` to `i16` may truncate the value
-  --> tests/ui/cast.rs:342:21
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:302:11
    |
-LL |             let _ = self as i16;
-   |                     ^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
    |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:302:11
    |
-LL -             let _ = self as i16;
-LL +             let _ = i16::try_from(self);
-   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
 
-error: casting `main::E7` to `usize` may truncate the value on targets with 32-bit wide pointers
-  --> tests/ui/cast.rs:362:21
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:302:14
    |
-LL |             let _ = self as usize;
-   |                     ^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -             let _ = self as usize;
-LL +             let _ = usize::try_from(self);
-   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
 
-error: casting `main::E10` to `u16` may truncate the value
-  --> tests/ui/cast.rs:410:21
+error: references are not allowed
+  --> tests/ui/cast.rs:302:14
    |
-LL |             let _ = self as u16;
-   |                     ^^^^^^^^^^^
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
    |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -             let _ = self as u16;
-LL +             let _ = u16::try_from(self);
-   |
+   = help: use a raw pointer instead: `*const`
 
-error: casting `u32` to `u8` may truncate the value
-  --> tests/ui/cast.rs:422:13
+error: item must be `pub`
+  --> tests/ui/cast.rs:302:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:307:5
+   |
+LL |     impl E4 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:308:9
+   |
+LL |         fn test(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:308:9
+   |
+LL |         fn test(self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:308:17
+   |
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:315:5
+   |
+LL |     enum E5 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:314:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:314:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:314:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:314:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cast.rs:314:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:314:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:319:5
+   |
+LL |     impl E5 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:320:9
+   |
+LL |         fn test(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:320:9
+   |
+LL |         fn test(self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:320:17
+   |
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:336:5
+   |
+LL |     enum E6 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:334:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:334:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:334:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:334:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cast.rs:334:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:334:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:340:5
+   |
+LL |     impl E6 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:341:9
+   |
+LL |         fn test(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:341:9
+   |
+LL |         fn test(self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:341:17
+   |
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:356:5
+   |
+LL |     enum E7 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:354:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:354:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:354:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:354:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cast.rs:354:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:354:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:360:5
+   |
+LL |     impl E7 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:361:9
+   |
+LL |         fn test(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:361:9
+   |
+LL |         fn test(self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:361:17
+   |
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:374:5
+   |
+LL |     enum E8 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:372:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:372:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:372:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:372:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cast.rs:372:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:372:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:380:5
+   |
+LL |     impl E8 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:381:9
+   |
+LL |         fn test(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:381:9
+   |
+LL |         fn test(self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:381:17
+   |
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:389:5
+   |
+LL |     enum E9 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:387:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:387:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:387:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:387:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cast.rs:387:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:387:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:393:5
+   |
+LL |     impl E9 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:394:9
+   |
+LL |         fn test(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:394:9
+   |
+LL |         fn test(self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:394:17
+   |
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:404:5
+   |
+LL |     enum E10 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:402:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:402:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:402:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:402:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cast.rs:402:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:402:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:408:5
+   |
+LL |     impl E10 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:409:9
+   |
+LL |         fn test(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:409:9
+   |
+LL |         fn test(self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:409:17
+   |
+LL |         fn test(self) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:421:1
+   |
+LL | fn avoid_subtract_overflow(q: u32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:421:1
+   |
+LL | fn avoid_subtract_overflow(q: u32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:421:1
+   |
+LL | fn avoid_subtract_overflow(q: u32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:421:28
+   |
+LL | fn avoid_subtract_overflow(q: u32) {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/cast.rs:422:9
    |
 LL |     let c = (q >> 16) as u8;
-   |             ^^^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     let c = (q >> 16) as u8;
-LL +     let c = u8::try_from(q >> 16);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `u32` to `u8` may truncate the value
-  --> tests/ui/cast.rs:427:13
+error: variable must be `mut`
+  --> tests/ui/cast.rs:427:9
    |
 LL |     let c = (q / 1000) as u8;
-   |             ^^^^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     let c = (q / 1000) as u8;
-LL +     let c = u8::try_from(q / 1000);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:440:9
+error: item must be `pub`
+  --> tests/ui/cast.rs:433:1
    |
-LL |         (x * x) as u32;
-   |         ^^^^^^^^^^^^^^
+LL | fn issue11426() {
+   | ^ help: make this item public: `pub`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:446:32
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:433:1
    |
-LL |     let _a = |x: i32| -> u32 { (x * x * x * x) as u32 };
-   |                                ^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue11426() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:433:1
+   |
+LL | fn issue11426() {
+   | ^
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:449:5
+error: references are not allowed
+  --> tests/ui/cast.rs:434:6
    |
-LL |     (2_i32).checked_pow(3).unwrap() as u32;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:451:5
-   |
-LL |     (-2_i32).pow(3) as u32;
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:456:5
-   |
-LL |     (-5_i32 % 2) as u32;
-   |     ^^^^^^^^^^^^^^^^^^^
-
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:459:5
-   |
-LL |     (-5_i32 % -2) as u32;
-   |     ^^^^^^^^^^^^^^^^^^^^
-
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:463:5
-   |
-LL |     (-2_i32 >> 1) as u32;
-   |     ^^^^^^^^^^^^^^^^^^^^
-
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:467:5
-   |
-LL |     (x * x) as u32;
-   |     ^^^^^^^^^^^^^^
-
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:469:5
-   |
-LL |     (x * x * x) as u32;
-   |     ^^^^^^^^^^^^^^^^^^
-
-error: casting `i16` to `u16` may lose the sign of the value
-  --> tests/ui/cast.rs:473:5
-   |
-LL |     (y * y * y * y * -2) as u16;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: casting `i16` to `u16` may lose the sign of the value
-  --> tests/ui/cast.rs:476:5
-   |
-LL |     (y * y * y / y * 2) as u16;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: casting `i16` to `u16` may lose the sign of the value
-  --> tests/ui/cast.rs:478:5
-   |
-LL |     (y * y / y * 2) as u16;
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-
-error: casting `i16` to `u16` may lose the sign of the value
-  --> tests/ui/cast.rs:481:5
-   |
-LL |     (y / y * y * -2) as u16;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-
-error: equal expressions as operands to `/`
-  --> tests/ui/cast.rs:481:6
-   |
-LL |     (y / y * y * -2) as u16;
+LL |     (&42u8 >> 0xa9008fb6c9d81e42_0e25730562a601c8_u128) as usize;
    |      ^^^^^
    |
-   = note: `#[deny(clippy::eq_op)]` on by default
+   = help: use a raw borrowing instead: `&raw const`
 
-error: casting `i16` to `u16` may lose the sign of the value
-  --> tests/ui/cast.rs:485:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:437:1
    |
-LL |     (y + y + y + -2) as u16;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue11642() {
+   | ^ help: make this item public: `pub`
 
-error: casting `i16` to `u16` may lose the sign of the value
-  --> tests/ui/cast.rs:488:5
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:437:1
    |
-LL |     (y + y + y + 2) as u16;
-   |     ^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue11642() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:437:1
+   |
+LL | fn issue11642() {
+   | ^
 
-error: casting `i16` to `u16` may lose the sign of the value
-  --> tests/ui/cast.rs:492:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:438:5
    |
-LL |     (z + -2) as u16;
-   |     ^^^^^^^^^^^^^^^
+LL |     fn square(x: i16) -> u32 {
+   |     ^ help: make this item public: `pub`
 
-error: casting `i16` to `u16` may lose the sign of the value
-  --> tests/ui/cast.rs:495:5
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:438:5
    |
-LL |     (z + z + 2) as u16;
-   |     ^^^^^^^^^^^^^^^^^^
+LL |     fn square(x: i16) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:438:5
+   |
+LL |     fn square(x: i16) -> u32 {
+   |     ^
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:499:9
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:438:15
    |
-LL |         (a * a * b * b * c * c) as u32;
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn square(x: i16) -> u32 {
+   |               ^ help: make this parameter mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:501:9
+error: variable must be `mut`
+  --> tests/ui/cast.rs:439:13
    |
-LL |         (a * b * c) as u32;
-   |         ^^^^^^^^^^^^^^^^^^
+LL |         let x = x as i32;
+   |             ^ help: make this variable mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:504:9
+error: variable must be `mut`
+  --> tests/ui/cast.rs:446:9
    |
-LL |         (a * -b * c) as u32;
-   |         ^^^^^^^^^^^^^^^^^^^
+LL |     let _a = |x: i32| -> u32 { (x * x * x * x) as u32 };
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:507:9
+error: variable must be `mut`
+  --> tests/ui/cast.rs:466:9
    |
-LL |         (a * b * c * c) as u32;
-   |         ^^^^^^^^^^^^^^^^^^^^^^
+LL |     let x: i32 = 10;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:509:9
+error: variable must be `mut`
+  --> tests/ui/cast.rs:472:9
    |
-LL |         (a * -2) as u32;
-   |         ^^^^^^^^^^^^^^^
+LL |     let y: i16 = -2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:512:9
+error: variable must be `mut`
+  --> tests/ui/cast.rs:491:9
    |
-LL |         (a * b * c * -2) as u32;
-   |         ^^^^^^^^^^^^^^^^^^^^^^^
+LL |     let z: i16 = 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:515:9
+error: item must be `pub`
+  --> tests/ui/cast.rs:498:5
    |
-LL |         (a / b) as u32;
-   |         ^^^^^^^^^^^^^^
+LL |     fn foo(a: i32, b: i32, c: i32) -> u32 {
+   |     ^ help: make this item public: `pub`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:517:9
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:498:5
    |
-LL |         (a / b * c) as u32;
-   |         ^^^^^^^^^^^^^^^^^^
+LL |     fn foo(a: i32, b: i32, c: i32) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:498:5
+   |
+LL |     fn foo(a: i32, b: i32, c: i32) -> u32 {
+   |     ^
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:520:9
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:498:12
    |
-LL |         (a / b + b * c) as u32;
-   |         ^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn foo(a: i32, b: i32, c: i32) -> u32 {
+   |            ^ help: make this parameter mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:523:9
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:498:20
    |
-LL |         a.saturating_pow(3) as u32;
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn foo(a: i32, b: i32, c: i32) -> u32 {
+   |                    ^ help: make this parameter mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:526:9
+error: parameter must be `mut`
+  --> tests/ui/cast.rs:498:28
    |
-LL |         (a.abs() * b.pow(2) / c.abs()) as u32
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     fn foo(a: i32, b: i32, c: i32) -> u32 {
+   |                            ^ help: make this parameter mutable: `mut`
 
-error: casting `i32` to `u32` may lose the sign of the value
-  --> tests/ui/cast.rs:534:21
+error: item must be `pub`
+  --> tests/ui/cast.rs:531:1
    |
-LL |             let _ = i32::MIN as u32; // cast_sign_loss
-   |                     ^^^^^^^^^^^^^^^
-...
-LL |     m!();
-   |     ---- in this macro invocation
-   |
-   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
+LL | fn issue11738() {
+   | ^ help: make this item public: `pub`
 
-error: casting `u32` to `u8` may truncate the value
-  --> tests/ui/cast.rs:537:21
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:531:1
    |
-LL |             let _ = u32::MAX as u8; // cast_possible_truncation
-   |                     ^^^^^^^^^^^^^^
-...
-LL |     m!();
-   |     ---- in this macro invocation
+LL | fn issue11738() {
+   | ^
    |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
-help: ... or use `try_from` and handle the error accordingly
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:531:1
    |
-LL -             let _ = u32::MAX as u8; // cast_possible_truncation
-LL +             let _ = u8::try_from(u32::MAX); // cast_possible_truncation
-   |
+LL | fn issue11738() {
+   | ^
 
-error: casting `f64` to `f32` may truncate the value
-  --> tests/ui/cast.rs:540:21
+error: item must be `pub`
+  --> tests/ui/cast.rs:532:5
    |
-LL |             let _ = std::f64::consts::PI as f32; // cast_possible_truncation
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-...
-LL |     m!();
-   |     ---- in this macro invocation
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
+LL |     macro_rules! m {
+   |     ^ help: make this item public: `pub`
 
-error: casting `i64` to `usize` may truncate the value on targets with 32-bit wide pointers
-  --> tests/ui/cast.rs:551:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:549:1
    |
-LL |     bar.unwrap().unwrap() as usize
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     bar.unwrap().unwrap() as usize
-LL +     usize::try_from(bar.unwrap().unwrap())
-   |
+LL | fn issue12506() -> usize {
+   | ^ help: make this item public: `pub`
 
-error: casting `i64` to `usize` may lose the sign of the value
-  --> tests/ui/cast.rs:551:5
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:549:1
    |
-LL |     bar.unwrap().unwrap() as usize
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue12506() -> usize {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:549:1
+   |
+LL | fn issue12506() -> usize {
+   | ^
 
-error: casting `u64` to `u8` may truncate the value
-  --> tests/ui/cast.rs:568:5
+error: variable must be `mut`
+  --> tests/ui/cast.rs:550:9
    |
-LL |     (256 & 999999u64) as u8;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     (256 & 999999u64) as u8;
-LL +     u8::try_from(256 & 999999u64);
-   |
+LL |     let bar: Result<Option<i64>, u32> = Ok(Some(10));
+   |         ^ help: make this variable mutable: `mut`
 
-error: casting `u64` to `u8` may truncate the value
-  --> tests/ui/cast.rs:571:5
+error: item must be `pub`
+  --> tests/ui/cast.rs:556:1
    |
-LL |     (255 % 999999u64) as u8;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: if this is intentional allow the lint with `#[allow(clippy::cast_possible_truncation)]` ...
-help: ... or use `try_from` and handle the error accordingly
-   |
-LL -     (255 % 999999u64) as u8;
-LL +     u8::try_from(255 % 999999u64);
-   |
+LL | fn issue12721() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 92 previous errors
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:556:1
+   |
+LL | fn issue12721() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:556:1
+   |
+LL | fn issue12721() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/cast.rs:557:5
+   |
+LL |     fn x() -> u64 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cast.rs:557:5
+   |
+LL |     fn x() -> u64 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cast.rs:557:5
+   |
+LL |     fn x() -> u64 {
+   |     ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 137 previous errors
 

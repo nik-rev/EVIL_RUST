@@ -1,83 +1,155 @@
-error: comparison to empty slice
-  --> tests/ui/comparison_to_empty.rs:7:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = s == "";
-   |             ^^^^^^^ help: using `is_empty` is clearer and more explicit: `s.is_empty()`
-   |
-   = note: `-D clippy::comparison-to-empty` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::comparison_to_empty)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: comparison to empty slice
-  --> tests/ui/comparison_to_empty.rs:9:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = s != "";
-   |             ^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!s.is_empty()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: comparison to empty slice
-  --> tests/ui/comparison_to_empty.rs:13:13
+error: item must be `pub`
+  --> tests/ui/comparison_to_empty.rs:4:1
    |
-LL |     let _ = v == [];
-   |             ^^^^^^^ help: using `is_empty` is clearer and more explicit: `v.is_empty()`
-
-error: comparison to empty slice
-  --> tests/ui/comparison_to_empty.rs:15:13
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = v != [];
-   |             ^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!v.is_empty()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: comparison to empty slice using `if let`
-  --> tests/ui/comparison_to_empty.rs:17:8
+error: function must be `unsafe`
+  --> tests/ui/comparison_to_empty.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/comparison_to_empty.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/comparison_to_empty.rs:6:9
+   |
+LL |     let s = String::new();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/comparison_to_empty.rs:12:9
+   |
+LL |     let v = vec![0];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/comparison_to_empty.rs:17:17
    |
 LL |     if let [] = &*v {}
-   |        ^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `(*v).is_empty()`
-
-error: comparison to empty slice using `if let`
-  --> tests/ui/comparison_to_empty.rs:20:8
+   |                 ^^^
    |
-LL |     if let [] = s {}
-   |        ^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `s.is_empty()`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: comparison to empty slice using `if let`
-  --> tests/ui/comparison_to_empty.rs:22:8
+error: variable must be `mut`
+  --> tests/ui/comparison_to_empty.rs:19:9
+   |
+LL |     let s = [0].as_slice();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/comparison_to_empty.rs:22:17
    |
 LL |     if let [] = &*s {}
-   |        ^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `s.is_empty()`
+   |                 ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: comparison to empty slice using `if let`
-  --> tests/ui/comparison_to_empty.rs:24:8
+error: references are not allowed
+  --> tests/ui/comparison_to_empty.rs:24:17
    |
 LL |     if let [] = &*s
-   |        ^^^^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `s.is_empty()`
-
-error: comparison to empty slice
-  --> tests/ui/comparison_to_empty.rs:26:12
+   |                 ^^^
    |
-LL |         && s == []
-   |            ^^^^^^^ help: using `is_empty` is clearer and more explicit: `s.is_empty()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: comparison to empty slice
-  --> tests/ui/comparison_to_empty.rs:47:13
+error: variable must be `mut`
+  --> tests/ui/comparison_to_empty.rs:31:9
    |
-LL |     let _ = s.eq("");
-   |             ^^^^^^^^ help: using `is_empty` is clearer and more explicit: `s.is_empty()`
+LL |     let s = String::new();
+   |         ^ help: make this variable mutable: `mut`
 
-error: comparison to empty slice
-  --> tests/ui/comparison_to_empty.rs:49:13
+error: variable must be `mut`
+  --> tests/ui/comparison_to_empty.rs:35:9
    |
-LL |     let _ = s.ne("");
-   |             ^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!s.is_empty()`
+LL |     let v = vec![0];
+   |         ^ help: make this variable mutable: `mut`
 
-error: comparison to empty slice
-  --> tests/ui/comparison_to_empty.rs:52:13
+error: references are not allowed
+  --> tests/ui/comparison_to_empty.rs:38:18
+   |
+LL |     if let [0] = &*v {}
+   |                  ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/comparison_to_empty.rs:39:9
+   |
+LL |     let s = [0].as_slice();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/comparison_to_empty.rs:41:18
+   |
+LL |     if let [0] = &*s
+   |                  ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/comparison_to_empty.rs:46:9
+   |
+LL |     let s = String::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/comparison_to_empty.rs:51:9
+   |
+LL |     let v = vec![0];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/comparison_to_empty.rs:52:18
    |
 LL |     let _ = v.eq(&[]);
-   |             ^^^^^^^^^ help: using `is_empty` is clearer and more explicit: `v.is_empty()`
+   |                  ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: comparison to empty slice
-  --> tests/ui/comparison_to_empty.rs:54:13
+error: references are not allowed
+  --> tests/ui/comparison_to_empty.rs:54:18
    |
 LL |     let _ = v.ne(&[]);
-   |             ^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!v.is_empty()`
+   |                  ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 13 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 21 previous errors
 

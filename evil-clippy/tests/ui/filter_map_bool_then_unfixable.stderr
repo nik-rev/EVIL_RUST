@@ -1,65 +1,183 @@
-error: usage of `bool::then` in `filter_map`
-  --> tests/ui/filter_map_bool_then_unfixable.rs:7:48
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = (0..x.len()).zip(x.clone().iter()).filter_map(|(i, v)| {
-   |  ________________________________________________^
-LL | |
-LL | |         (x[i] != *v).then(|| {
-LL | |             x[i] = i;
-LL | |             i
-LL | |         })
-LL | |     });
-   | |______^
-   |
-   = help: consider using `filter` then `map` instead
-   = note: `-D clippy::filter-map-bool-then` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::filter_map_bool_then)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: usage of `bool::then` in `filter_map`
-  --> tests/ui/filter_map_bool_then_unfixable.rs:23:26
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _ = x.iter().filter_map(|&x| x?.then(|| do_something(())));
-   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using `filter` then `map` instead
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: usage of `bool::then` in `filter_map`
-  --> tests/ui/filter_map_bool_then_unfixable.rs:27:14
+error: item must be `pub`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:5:1
    |
-LL |             .filter_map(|&x| if let Some(x) = x { x } else { return None }.then(|| do_something(())));
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue11617() {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider using `filter` then `map` instead
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: usage of `bool::then` in `filter_map`
-  --> tests/ui/filter_map_bool_then_unfixable.rs:29:26
+error: function must be `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:5:1
    |
-LL |           let _ = x.iter().filter_map(|&x| {
-   |  __________________________^
-LL | |
-LL | |             match x {
-LL | |                 Some(x) => x,
-...  |
-LL | |             .then(|| do_something(()))
-LL | |         });
-   | |__________^
+LL | fn issue11617() {
+   | ^
    |
-   = help: consider using `filter` then `map` instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:5:1
+   |
+LL | fn issue11617() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: usage of `bool::then` in `filter_map`
-  --> tests/ui/filter_map_bool_then_unfixable.rs:47:26
+error: item must be `pub`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:16:1
    |
-LL |           let _ = x.iter().filter_map(|&x| {
-   |  __________________________^
-LL | |
-LL | |             match x {
-LL | |                 Foo::One(x) => x,
-...  |
-LL | |             .then(|| do_something(()))
-LL | |         });
-   | |__________^
-   |
-   = help: consider using `filter` then `map` instead
+LL | mod issue14368 {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: item must be `pub`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:18:5
+   |
+LL |     fn do_something(_: ()) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:18:5
+   |
+LL |     fn do_something(_: ()) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:18:5
+   |
+LL |     fn do_something(_: ()) -> bool {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:22:5
+   |
+LL |     fn option_with_early_return(x: &[Option<bool>]) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:22:5
+   |
+LL |     fn option_with_early_return(x: &[Option<bool>]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:22:5
+   |
+LL |     fn option_with_early_return(x: &[Option<bool>]) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:22:33
+   |
+LL |     fn option_with_early_return(x: &[Option<bool>]) {
+   |                                 ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/filter_map_bool_then_unfixable.rs:22:36
+   |
+LL |     fn option_with_early_return(x: &[Option<bool>]) {
+   |                                    ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:40:5
+   |
+LL |     enum Foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:39:14
+   |
+LL |     #[derive(Copy, Clone)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:39:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^
+
+error: function must be `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:39:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:39:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:39:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/filter_map_bool_then_unfixable.rs:39:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:46:5
+   |
+LL |     fn nested_type_with_early_return(x: &[Foo]) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:46:5
+   |
+LL |     fn nested_type_with_early_return(x: &[Foo]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:46:5
+   |
+LL |     fn nested_type_with_early_return(x: &[Foo]) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/filter_map_bool_then_unfixable.rs:46:38
+   |
+LL |     fn nested_type_with_early_return(x: &[Foo]) {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/filter_map_bool_then_unfixable.rs:46:41
+   |
+LL |     fn nested_type_with_early_return(x: &[Foo]) {
+   |                                         ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

@@ -1,76 +1,111 @@
-error: argument to `Path::join` starts with a path separator
-  --> tests/ui/join_absolute_paths.rs:10:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     path.join("/sh");
-   |               ^^^^^
-   |
-   = note: joining a path starting with separator will replace the path instead
-   = note: `-D clippy::join-absolute-paths` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::join_absolute_paths)]`
-help: if this is unintentional, try removing the starting separator
-   |
-LL -     path.join("/sh");
-LL +     path.join("sh");
-   |
-help: if this is intentional, consider using `Path::new`
-   |
-LL -     path.join("/sh");
-LL +     PathBuf::from("/sh");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: argument to `Path::join` starts with a path separator
-  --> tests/ui/join_absolute_paths.rs:14:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     path.join("\\user");
-   |               ^^^^^^^^
-   |
-   = note: joining a path starting with separator will replace the path instead
-help: if this is unintentional, try removing the starting separator
-   |
-LL -     path.join("\\user");
-LL +     path.join("\user");
-   |
-help: if this is intentional, consider using `Path::new`
-   |
-LL -     path.join("\\user");
-LL +     PathBuf::from("\\user");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: argument to `Path::join` starts with a path separator
-  --> tests/ui/join_absolute_paths.rs:18:15
+error: item must be `pub`
+  --> tests/ui/join_absolute_paths.rs:8:1
    |
-LL |     path.join("/sh");
-   |               ^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = note: joining a path starting with separator will replace the path instead
-help: if this is unintentional, try removing the starting separator
-   |
-LL -     path.join("/sh");
-LL +     path.join("sh");
-   |
-help: if this is intentional, consider using `Path::new`
-   |
-LL -     path.join("/sh");
-LL +     PathBuf::from("/sh");
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: argument to `Path::join` starts with a path separator
-  --> tests/ui/join_absolute_paths.rs:22:15
+error: function must be `unsafe`
+  --> tests/ui/join_absolute_paths.rs:8:1
    |
-LL |     path.join(r#"/sh"#);
-   |               ^^^^^^^^
+LL | fn main() {
+   | ^
    |
-   = note: joining a path starting with separator will replace the path instead
-help: if this is unintentional, try removing the starting separator
+help: make this function unsafe: `unsafe`
+  --> tests/ui/join_absolute_paths.rs:8:1
    |
-LL -     path.join(r#"/sh"#);
-LL +     path.join(r#"sh"#);
-   |
-help: if this is intentional, consider using `Path::new`
-   |
-LL -     path.join(r#"/sh"#);
-LL +     PathBuf::from(r#"/sh"#);
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/join_absolute_paths.rs:9:9
+   |
+LL |     let path = Path::new("/bin");
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/join_absolute_paths.rs:13:9
+   |
+LL |     let path = Path::new("C:\\Users");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/join_absolute_paths.rs:17:9
+   |
+LL |     let path = PathBuf::from("/bin");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/join_absolute_paths.rs:21:9
+   |
+LL |     let path = PathBuf::from("/bin");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/join_absolute_paths.rs:25:9
+   |
+LL |     let path: &[&str] = &["/bin"];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/join_absolute_paths.rs:25:15
+   |
+LL |     let path: &[&str] = &["/bin"];
+   |               ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/join_absolute_paths.rs:25:17
+   |
+LL |     let path: &[&str] = &["/bin"];
+   |                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/join_absolute_paths.rs:25:25
+   |
+LL |     let path: &[&str] = &["/bin"];
+   |                         ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/join_absolute_paths.rs:28:9
+   |
+LL |     let path = Path::new("/bin");
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

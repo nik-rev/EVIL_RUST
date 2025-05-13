@@ -1,131 +1,181 @@
-error: spawned process is never `wait()`ed on
-  --> tests/ui/zombie_processes.rs:14:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let mut x = Command::new("").spawn().unwrap();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider calling `.wait()`
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
-   = note: `-D clippy::zombie-processes` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::zombie_processes)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: spawned process is never `wait()`ed on
-  --> tests/ui/zombie_processes.rs:42:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let mut x = Command::new("").spawn().unwrap();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider calling `.wait()`
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: spawned process is never `wait()`ed on
-  --> tests/ui/zombie_processes.rs:68:21
+error: item must be `pub`
+  --> tests/ui/zombie_processes.rs:6:1
    |
-LL |         let mut x = Command::new("").spawn().unwrap();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider calling `.wait()`
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: spawned process is never `wait()`ed on
-  --> tests/ui/zombie_processes.rs:76:21
+error: function must be `unsafe`
+  --> tests/ui/zombie_processes.rs:6:1
    |
-LL |         let mut x = Command::new("").spawn().unwrap();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-   = help: consider calling `.wait()`
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zombie_processes.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: spawned process is not `wait()`ed on in all code paths
-  --> tests/ui/zombie_processes.rs:103:21
+error: variable must be `mut`
+  --> tests/ui/zombie_processes.rs:25:13
    |
-LL |         let mut x = Command::new("").spawn().unwrap();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |         let x = Command::new("").spawn().unwrap();
+   |             ^ help: make this variable mutable: `mut`
    |
-note: no `wait()` call exists on the code path to this early return
-  --> tests/ui/zombie_processes.rs:107:13
-   |
-LL |             return;
-   |             ^^^^^^
-note: `wait()` call exists, but it is unreachable due to the early return
-  --> tests/ui/zombie_processes.rs:109:9
-   |
-LL |         x.wait().unwrap();
-   |         ^
-   = help: consider calling `.wait()` in all code paths
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: spawned process is not `wait()`ed on in all code paths
-  --> tests/ui/zombie_processes.rs:113:21
+error: references are not allowed
+  --> tests/ui/zombie_processes.rs:34:21
    |
-LL |         let mut x = Command::new("").spawn().unwrap();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |         let mut r = &mut x;
+   |                     ^^^^^^
    |
-note: this if expression has a `wait()` call, but it is missing an else block
-  --> tests/ui/zombie_processes.rs:116:9
-   |
-LL | /         if true {
-LL | |             x.wait().unwrap();
-LL | |         }
-   | |_________^
-note: `wait()` called here
-  --> tests/ui/zombie_processes.rs:117:13
-   |
-LL |             x.wait().unwrap();
-   |             ^
-   = help: consider calling `.wait()` in all code paths
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: spawned process is not `wait()`ed on in all code paths
-  --> tests/ui/zombie_processes.rs:122:21
+error: variable must be `mut`
+  --> tests/ui/zombie_processes.rs:45:13
    |
-LL |         let mut x = Command::new("").spawn().unwrap();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: `wait()` is not called in this if branch
-  --> tests/ui/zombie_processes.rs:127:10
-   |
-LL |           } else {
-   |  __________^
-LL | |             // this else block exists to test the other help message
-LL | |         }
-   | |_________^
-note: `wait()` is called in the other branch
-  --> tests/ui/zombie_processes.rs:126:13
-   |
-LL |             x.wait().unwrap();
-   |             ^
-   = help: consider calling `.wait()` in all code paths
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+LL |         let v = &x;
+   |             ^ help: make this variable mutable: `mut`
 
-error: spawned process is not `wait()`ed on in all code paths
-  --> tests/ui/zombie_processes.rs:133:21
+error: references are not allowed
+  --> tests/ui/zombie_processes.rs:45:17
    |
-LL |         let mut x = Command::new("").spawn().unwrap();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |         let v = &x;
+   |                 ^^
    |
-note: `wait()` is not called in this if branch
-  --> tests/ui/zombie_processes.rs:136:9
-   |
-LL | /         if true {
-LL | |             // this else block exists to test the other help message
-LL | |         } else {
-   | |_________^
-note: `wait()` is called in the other branch
-  --> tests/ui/zombie_processes.rs:139:13
-   |
-LL |             x.wait().unwrap();
-   |             ^
-   = help: consider calling `.wait()` in all code paths
-   = note: not doing so might leave behind zombie processes
-   = note: see https://doc.rust-lang.org/stable/std/process/struct.Child.html#warning
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 8 previous errors
+error: item must be `pub`
+  --> tests/ui/zombie_processes.rs:92:9
+   |
+LL |         struct S {
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/zombie_processes.rs:171:1
+   |
+LL | fn process_child(c: Child) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zombie_processes.rs:171:1
+   |
+LL | fn process_child(c: Child) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zombie_processes.rs:171:1
+   |
+LL | fn process_child(c: Child) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/zombie_processes.rs:171:18
+   |
+LL | fn process_child(c: Child) {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/zombie_processes.rs:175:1
+   |
+LL | fn return_wait() -> ExitStatus {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zombie_processes.rs:175:1
+   |
+LL | fn return_wait() -> ExitStatus {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zombie_processes.rs:175:1
+   |
+LL | fn return_wait() -> ExitStatus {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/zombie_processes.rs:180:1
+   |
+LL | mod issue14677 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/zombie_processes.rs:184:5
+   |
+LL |     fn do_something<F: Fn() -> Result<(), ()>>(f: F) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zombie_processes.rs:184:5
+   |
+LL |     fn do_something<F: Fn() -> Result<(), ()>>(f: F) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zombie_processes.rs:184:5
+   |
+LL |     fn do_something<F: Fn() -> Result<(), ()>>(f: F) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/zombie_processes.rs:184:48
+   |
+LL |     fn do_something<F: Fn() -> Result<(), ()>>(f: F) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/zombie_processes.rs:188:5
+   |
+LL |     fn foo() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zombie_processes.rs:188:5
+   |
+LL |     fn foo() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zombie_processes.rs:188:5
+   |
+LL |     fn foo() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/zombie_processes.rs:190:13
+   |
+LL |         let some_condition = true;
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 23 previous errors
 

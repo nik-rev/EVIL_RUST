@@ -1,76 +1,229 @@
-error: you seem to be using a `LinkedList`! Perhaps you meant some other data structure?
-  --> tests/ui/linkedlist.rs:8:10
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:5:1
+   |
+LL | extern crate alloc;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:8:1
    |
 LL | const C: LinkedList<i32> = LinkedList::new();
-   |          ^^^^^^^^^^^^^^^
-   |
-   = help: a `VecDeque` might work
-   = note: `-D clippy::linkedlist` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::linkedlist)]`
+   | ^ help: make this item public: `pub`
 
-error: you seem to be using a `LinkedList`! Perhaps you meant some other data structure?
-  --> tests/ui/linkedlist.rs:11:11
+error: static must be `mut`
+  --> tests/ui/linkedlist.rs:11:8
    |
 LL | static S: LinkedList<i32> = LinkedList::new();
-   |           ^^^^^^^^^^^^^^^
+   |        ^ help: make this static mutable: `mut`
    |
-   = help: a `VecDeque` might work
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: you seem to be using a `LinkedList`! Perhaps you meant some other data structure?
-  --> tests/ui/linkedlist.rs:15:16
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:11:1
    |
-LL |     type Baz = LinkedList<u8>;
-   |                ^^^^^^^^^^^^^^
-   |
-   = help: a `VecDeque` might work
+LL | static S: LinkedList<i32> = LinkedList::new();
+   | ^ help: make this item public: `pub`
 
-error: you seem to be using a `LinkedList`! Perhaps you meant some other data structure?
-  --> tests/ui/linkedlist.rs:18:15
+error: trait must be `unsafe`
+  --> tests/ui/linkedlist.rs:14:1
+   |
+LL | / trait Foo {
+LL | |     type Baz = LinkedList<u8>;
+...  |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:14:1
+   |
+LL | trait Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/linkedlist.rs:18:5
    |
 LL |     fn foo(_: LinkedList<u8>);
-   |               ^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: a `VecDeque` might work
+help: make this function unsafe: `unsafe`
+  --> tests/ui/linkedlist.rs:18:5
+   |
+LL |     fn foo(_: LinkedList<u8>);
+   |     ^
 
-error: you seem to be using a `LinkedList`! Perhaps you meant some other data structure?
-  --> tests/ui/linkedlist.rs:21:23
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:26:1
    |
-LL |     const BAR: Option<LinkedList<u8>>;
-   |                       ^^^^^^^^^^^^^^
-   |
-   = help: a `VecDeque` might work
+LL | impl Foo for LinkedList<u8> {
+   | ^ help: make this item public: `pub`
 
-error: you seem to be using a `LinkedList`! Perhaps you meant some other data structure?
-  --> tests/ui/linkedlist.rs:32:29
-   |
-LL |     priv_linked_list_field: LinkedList<u8>,
-   |                             ^^^^^^^^^^^^^^
-   |
-   = help: a `VecDeque` might work
-
-error: you seem to be using a `LinkedList`! Perhaps you meant some other data structure?
-  --> tests/ui/linkedlist.rs:37:15
+error: function must be `unsafe`
+  --> tests/ui/linkedlist.rs:27:5
    |
 LL |     fn foo(_: LinkedList<u8>) {}
-   |               ^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: a `VecDeque` might work
+help: make this function unsafe: `unsafe`
+  --> tests/ui/linkedlist.rs:27:5
+   |
+LL |     fn foo(_: LinkedList<u8>) {}
+   |     ^
 
-error: you seem to be using a `LinkedList`! Perhaps you meant some other data structure?
-  --> tests/ui/linkedlist.rs:43:34
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:36:1
+   |
+LL | impl Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/linkedlist.rs:37:5
+   |
+LL |     fn foo(_: LinkedList<u8>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/linkedlist.rs:37:5
+   |
+LL |     fn foo(_: LinkedList<u8>) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:43:1
    |
 LL | fn test(my_favorite_linked_list: LinkedList<u8>) {}
-   |                                  ^^^^^^^^^^^^^^
-   |
-   = help: a `VecDeque` might work
+   | ^ help: make this item public: `pub`
 
-error: you seem to be using a `LinkedList`! Perhaps you meant some other data structure?
-  --> tests/ui/linkedlist.rs:46:25
+error: function must be `unsafe`
+  --> tests/ui/linkedlist.rs:43:1
+   |
+LL | fn test(my_favorite_linked_list: LinkedList<u8>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/linkedlist.rs:43:1
+   |
+LL | fn test(my_favorite_linked_list: LinkedList<u8>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/linkedlist.rs:43:9
+   |
+LL | fn test(my_favorite_linked_list: LinkedList<u8>) {}
+   |         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:46:1
    |
 LL | fn test_ret() -> Option<LinkedList<u8>> {
-   |                         ^^^^^^^^^^^^^^
-   |
-   = help: a `VecDeque` might work
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 9 previous errors
+error: function must be `unsafe`
+  --> tests/ui/linkedlist.rs:46:1
+   |
+LL | fn test_ret() -> Option<LinkedList<u8>> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/linkedlist.rs:46:1
+   |
+LL | fn test_ret() -> Option<LinkedList<u8>> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:51:1
+   |
+LL | fn test_local_not_linted() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/linkedlist.rs:51:1
+   |
+LL | fn test_local_not_linted() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/linkedlist.rs:51:1
+   |
+LL | fn test_local_not_linted() {
+   | ^
+
+error: function must be `unsafe`
+  --> tests/ui/linkedlist.rs:57:5
+   |
+LL | pub fn pub_test(the_most_awesome_linked_list: LinkedList<u8>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/linkedlist.rs:57:5
+   |
+LL | pub fn pub_test(the_most_awesome_linked_list: LinkedList<u8>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/linkedlist.rs:57:17
+   |
+LL | pub fn pub_test(the_most_awesome_linked_list: LinkedList<u8>) {}
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/linkedlist.rs:58:5
+   |
+LL | pub fn pub_test_ret() -> Option<LinkedList<u8>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/linkedlist.rs:58:5
+   |
+LL | pub fn pub_test_ret() -> Option<LinkedList<u8>> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/linkedlist.rs:62:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/linkedlist.rs:62:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/linkedlist.rs:62:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 27 previous errors
 

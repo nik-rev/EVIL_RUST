@@ -1,23 +1,375 @@
-error: this method is named `iter` but its return type does not implement `Iterator`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:3:1
+   |
+LL | struct Data {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:7:1
+   |
+LL | struct Counter {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:11:1
+   |
+LL | impl Data {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:12:5
+   |
+LL |     fn iter(&self) -> Counter {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:12:5
+   |
+LL |     fn iter(&self) -> Counter {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/iter_not_returning_iterator.rs:12:14
+   |
+LL |     fn iter(&self) -> Counter {
+   |              ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/iter_not_returning_iterator.rs:12:13
+   |
+LL |     fn iter(&self) -> Counter {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:16:5
+   |
+LL |     fn iter_mut(&self) -> Counter {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:16:5
+   |
+LL |     fn iter_mut(&self) -> Counter {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_not_returning_iterator.rs:16:18
+   |
+LL |     fn iter_mut(&self) -> Counter {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_not_returning_iterator.rs:16:17
+   |
+LL |     fn iter_mut(&self) -> Counter {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:21:1
+   |
+LL | struct Data2 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:25:1
+   |
+LL | struct Counter2 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:29:1
+   |
+LL | impl Data2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/iter_not_returning_iterator.rs:30:5
    |
 LL |     fn iter(&self) -> Counter2 {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = note: `-D clippy::iter-not-returning-iterator` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::iter_not_returning_iterator)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:30:5
+   |
+LL |     fn iter(&self) -> Counter2 {
+   |     ^
 
-error: this method is named `iter_mut` but its return type does not implement `Iterator`
+error: parameter must be `mut`
+  --> tests/ui/iter_not_returning_iterator.rs:30:14
+   |
+LL |     fn iter(&self) -> Counter2 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_not_returning_iterator.rs:30:13
+   |
+LL |     fn iter(&self) -> Counter2 {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
   --> tests/ui/iter_not_returning_iterator.rs:36:5
    |
 LL |     fn iter_mut(&self) -> Counter2 {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:36:5
+   |
+LL |     fn iter_mut(&self) -> Counter2 {
+   |     ^
 
-error: this method is named `iter` but its return type does not implement `Iterator`
+error: parameter must be `mut`
+  --> tests/ui/iter_not_returning_iterator.rs:36:18
+   |
+LL |     fn iter_mut(&self) -> Counter2 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_not_returning_iterator.rs:36:17
+   |
+LL |     fn iter_mut(&self) -> Counter2 {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:43:1
+   |
+LL | impl Iterator for Counter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:46:5
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:46:5
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_not_returning_iterator.rs:46:18
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_not_returning_iterator.rs:46:13
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: trait must be `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:52:1
+   |
+LL | / trait Iter {
+LL | |     type I;
+LL | |     fn iter(&self) -> Self::I;
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:52:1
+   |
+LL | trait Iter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/iter_not_returning_iterator.rs:54:5
    |
 LL |     fn iter(&self) -> Self::I;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:54:5
+   |
+LL |     fn iter(&self) -> Self::I;
+   |     ^
 
-error: aborting due to 3 previous errors
+error: parameter must be `mut`
+  --> tests/ui/iter_not_returning_iterator.rs:54:14
+   |
+LL |     fn iter(&self) -> Self::I;
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_not_returning_iterator.rs:54:13
+   |
+LL |     fn iter(&self) -> Self::I;
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:58:1
+   |
+LL | impl Iter for () {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:60:5
+   |
+LL |     fn iter(&self) -> Self::I {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:60:5
+   |
+LL |     fn iter(&self) -> Self::I {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_not_returning_iterator.rs:60:14
+   |
+LL |     fn iter(&self) -> Self::I {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_not_returning_iterator.rs:60:13
+   |
+LL |     fn iter(&self) -> Self::I {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:65:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:66:1
+   |
+LL | impl S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:67:5
+   |
+LL |     fn iter(&self) -> <() as Iter>::I {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:67:5
+   |
+LL |     fn iter(&self) -> <() as Iter>::I {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_not_returning_iterator.rs:67:14
+   |
+LL |     fn iter(&self) -> <() as Iter>::I {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_not_returning_iterator.rs:67:13
+   |
+LL |     fn iter(&self) -> <() as Iter>::I {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:72:1
+   |
+LL | struct S2([u8]);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:73:1
+   |
+LL | impl S2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:74:5
+   |
+LL |     fn iter(&self) -> core::slice::Iter<u8> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:74:5
+   |
+LL |     fn iter(&self) -> core::slice::Iter<u8> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_not_returning_iterator.rs:74:14
+   |
+LL |     fn iter(&self) -> core::slice::Iter<u8> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_not_returning_iterator.rs:74:13
+   |
+LL |     fn iter(&self) -> core::slice::Iter<u8> {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/iter_not_returning_iterator.rs:79:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:79:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_not_returning_iterator.rs:79:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 47 previous errors
 

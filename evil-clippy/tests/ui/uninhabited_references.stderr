@@ -1,13 +1,179 @@
-error: dereferencing a reference to an uninhabited type would be undefined behavior
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/uninhabited_references.rs:5:1
+   |
+LL | fn ret_uninh_ref() -> &'static std::convert::Infallible {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/uninhabited_references.rs:5:1
+   |
+LL | fn ret_uninh_ref() -> &'static std::convert::Infallible {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/uninhabited_references.rs:5:1
+   |
+LL | fn ret_uninh_ref() -> &'static std::convert::Infallible {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
   --> tests/ui/uninhabited_references.rs:5:23
    |
 LL | fn ret_uninh_ref() -> &'static std::convert::Infallible {
    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::uninhabited-references` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::uninhabited_references)]`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: dereferencing a reference to an uninhabited type would be undefined behavior
+error: references are not allowed
+  --> tests/ui/uninhabited_references.rs:7:34
+   |
+LL |     unsafe { std::mem::transmute(&()) }
+   |                                  ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/uninhabited_references.rs:10:1
+   |
+LL | macro_rules! ret_something {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/uninhabited_references.rs:12:9
+   |
+LL |         fn $name(x: &$ty) -> &$ty {
+   |         ^ help: make this item public: `pub`
+...
+LL | ret_something!(id_u32, u32);
+   | --------------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/uninhabited_references.rs:20:13
+   |
+LL | ret_something!(id_u32, u32);
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/uninhabited_references.rs:20:13
+   |
+LL | ret_something!(id_u32, u32);
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/uninhabited_references.rs:12:18
+   |
+LL |         fn $name(x: &$ty) -> &$ty {
+   |                  ^ help: make this parameter mutable: `mut`
+...
+LL | ret_something!(id_u32, u32);
+   | --------------------------- in this macro invocation
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+   = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/uninhabited_references.rs:12:21
+   |
+LL |         fn $name(x: &$ty) -> &$ty {
+   |                     ^^^^
+...
+LL | ret_something!(id_u32, u32);
+   | --------------------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/uninhabited_references.rs:12:30
+   |
+LL |         fn $name(x: &$ty) -> &$ty {
+   |                              ^^^^
+...
+LL | ret_something!(id_u32, u32);
+   | --------------------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/uninhabited_references.rs:14:13
+   |
+LL |             &*x
+   |             ^^^
+...
+LL | ret_something!(id_u32, u32);
+   | --------------------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/uninhabited_references.rs:12:9
+   |
+LL |         fn $name(x: &$ty) -> &$ty {
+   |         ^ help: make this item public: `pub`
+...
+LL | ret_something!(id_never, !);
+   | --------------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/uninhabited_references.rs:21:13
+   |
+LL | ret_something!(id_never, !);
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/uninhabited_references.rs:21:13
+   |
+LL | ret_something!(id_never, !);
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/uninhabited_references.rs:12:18
+   |
+LL |         fn $name(x: &$ty) -> &$ty {
+   |                  ^ help: make this parameter mutable: `mut`
+...
+LL | ret_something!(id_never, !);
+   | --------------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/uninhabited_references.rs:12:21
+   |
+LL |         fn $name(x: &$ty) -> &$ty {
+   |                     ^^^^
+...
+LL | ret_something!(id_never, !);
+   | --------------------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
   --> tests/ui/uninhabited_references.rs:12:30
    |
 LL |         fn $name(x: &$ty) -> &$ty {
@@ -16,24 +182,55 @@ LL |         fn $name(x: &$ty) -> &$ty {
 LL | ret_something!(id_never, !);
    | --------------------------- in this macro invocation
    |
+   = help: use a raw pointer instead: `*const`
    = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: dereferencing a reference to an uninhabited type is undefined behavior
-  --> tests/ui/uninhabited_references.rs:14:14
+error: references are not allowed
+  --> tests/ui/uninhabited_references.rs:14:13
    |
 LL |             &*x
-   |              ^^
+   |             ^^^
 ...
 LL | ret_something!(id_never, !);
    | --------------------------- in this macro invocation
    |
+   = help: use a raw borrowing instead: `&raw const`
    = note: this error originates in the macro `ret_something` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: dereferencing a reference to an uninhabited type is undefined behavior
-  --> tests/ui/uninhabited_references.rs:25:13
+error: item must be `pub`
+  --> tests/ui/uninhabited_references.rs:23:1
    |
-LL |     let _ = *x;
-   |             ^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/uninhabited_references.rs:23:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/uninhabited_references.rs:23:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/uninhabited_references.rs:24:9
+   |
+LL |     let x = ret_uninh_ref();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 24 previous errors
 

@@ -1,96 +1,284 @@
-error: this looks like you are swapping elements of `v` manually
-  --> tests/ui/manual_swap_auto_fix.rs:6:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     let index = v[0];
-LL | |
-LL | |
-LL | |     v[0] = v[index];
-LL | |     v[index] = index;
-   | |_____________________^
-   |
-   = note: `-D clippy::manual-swap` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_swap)]`
-help: try
-   |
-LL ~     let index = v[0];
-LL +     v.swap(0, index);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this looks like you are swapping elements of `v` manually
-  --> tests/ui/manual_swap_auto_fix.rs:15:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     let tmp = v[0];
-LL | |
-LL | |     v[0] = v[1];
-LL | |     v[1] = tmp;
-   | |_______________^
-   |
-help: try
-   |
-LL ~     let tmp = v[0];
-LL +     v.swap(0, 1);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this looks like you are swapping elements of `v` manually
-  --> tests/ui/manual_swap_auto_fix.rs:27:5
+error: item must be `pub`
+  --> tests/ui/manual_swap_auto_fix.rs:4:1
    |
-LL | /     let temp = v[i1];
-LL | |
-LL | |     v[i1] = v[i2];
-LL | |     v[i2] = temp;
-   | |_________________^ help: try: `v.swap(i1, i2);`
+LL | fn swap1() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this looks like you are swapping elements of `v` manually
-  --> tests/ui/manual_swap_auto_fix.rs:37:5
+error: function must be `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:4:1
    |
-LL | /     let temp = v[i1];
-LL | |
-LL | |     v[i1] = v[i2 + 1];
-LL | |     v[i2 + 1] = temp;
-   | |_____________________^ help: try: `v.swap(i1, i2 + 1);`
+LL | fn swap1() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:4:1
+   |
+LL | fn swap1() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this looks like you are swapping elements of `v` manually
-  --> tests/ui/manual_swap_auto_fix.rs:47:5
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:6:9
    |
-LL | /     let temp = v[i1];
-LL | |
-LL | |     v[i1] = v[i2 + 1];
-LL | |     v[i2 + 1] = temp;
-   | |_____________________^ help: try: `v.swap(i1, i2 + 1);`
+LL |     let index = v[0];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this looks like you are swapping elements of `v` manually
-  --> tests/ui/manual_swap_auto_fix.rs:55:5
+error: item must be `pub`
+  --> tests/ui/manual_swap_auto_fix.rs:13:1
    |
-LL | /     let index = v[0];
-LL | |
-LL | |
-LL | |     v[0] = v[index + 1];
-LL | |     v[index + 1] = index;
-   | |_________________________^
-   |
-help: try
-   |
-LL ~     let index = v[0];
-LL +     v.swap(0, index + 1);
-   |
+LL | fn swap2() {
+   | ^ help: make this item public: `pub`
 
-error: this looks like you are swapping elements of `v` manually
-  --> tests/ui/manual_swap_auto_fix.rs:66:5
+error: function must be `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:13:1
    |
-LL | /     let tmp = v[i1 * 3];
-LL | |
-LL | |     v[i1 * 3] = v[i2 / 2];
-LL | |     v[i2 / 2] = tmp;
-   | |____________________^ help: try: `v.swap(i1 * 3, i2 / 2);`
-
-error: this looks like you are swapping elements of `v` manually
-  --> tests/ui/manual_swap_auto_fix.rs:76:5
+LL | fn swap2() {
+   | ^
    |
-LL | /     let tmp = v[i1 + i2];
-LL | |
-LL | |     v[i1 + i2] = v[i2];
-LL | |     v[i2] = tmp;
-   | |________________^ help: try: `v.swap(i1 + i2, i2);`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:13:1
+   |
+LL | fn swap2() {
+   | ^
 
-error: aborting due to 8 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:15:9
+   |
+LL |     let tmp = v[0];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_swap_auto_fix.rs:23:1
+   |
+LL | fn swap3() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:23:1
+   |
+LL | fn swap3() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:23:1
+   |
+LL | fn swap3() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:25:9
+   |
+LL |     let i1 = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:26:9
+   |
+LL |     let i2 = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:27:9
+   |
+LL |     let temp = v[i1];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_swap_auto_fix.rs:33:1
+   |
+LL | fn swap4() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:33:1
+   |
+LL | fn swap4() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:33:1
+   |
+LL | fn swap4() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:35:9
+   |
+LL |     let i1 = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:36:9
+   |
+LL |     let i2 = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:37:9
+   |
+LL |     let temp = v[i1];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_swap_auto_fix.rs:43:1
+   |
+LL | fn swap5() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:43:1
+   |
+LL | fn swap5() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:43:1
+   |
+LL | fn swap5() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:45:9
+   |
+LL |     let i1 = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:46:9
+   |
+LL |     let i2 = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:47:9
+   |
+LL |     let temp = v[i1];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_swap_auto_fix.rs:53:1
+   |
+LL | fn swap6() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:53:1
+   |
+LL | fn swap6() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:53:1
+   |
+LL | fn swap6() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:55:9
+   |
+LL |     let index = v[0];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_swap_auto_fix.rs:62:1
+   |
+LL | fn swap7() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:62:1
+   |
+LL | fn swap7() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:62:1
+   |
+LL | fn swap7() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:64:9
+   |
+LL |     let i1 = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:65:9
+   |
+LL |     let i2 = 6;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:66:9
+   |
+LL |     let tmp = v[i1 * 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_swap_auto_fix.rs:72:1
+   |
+LL | fn swap8() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:72:1
+   |
+LL | fn swap8() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_swap_auto_fix.rs:72:1
+   |
+LL | fn swap8() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:74:9
+   |
+LL |     let i1 = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:75:9
+   |
+LL |     let i2 = 1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_swap_auto_fix.rs:76:9
+   |
+LL |     let tmp = v[i1 + i2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 38 previous errors
 

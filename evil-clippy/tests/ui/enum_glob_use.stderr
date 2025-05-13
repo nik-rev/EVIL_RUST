@@ -1,23 +1,84 @@
-error: usage of wildcard import for enum variants
-  --> tests/ui/enum_glob_use.rs:5:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | use std::cmp::Ordering::*;
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: try: `std::cmp::Ordering::Less`
-   |
-   = note: `-D clippy::enum-glob-use` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::enum_glob_use)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: usage of wildcard import for enum variants
-  --> tests/ui/enum_glob_use.rs:12:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | use self::Enum::*;
-   |     ^^^^^^^^^^^^^ help: try: `self::Enum::Foo`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: usage of wildcard import for enum variants
-  --> tests/ui/enum_glob_use.rs:17:13
+error: item must be `pub`
+  --> tests/ui/enum_glob_use.rs:8:1
    |
-LL |         use crate::Enum::*;
-   |             ^^^^^^^^^^^^^^ help: try: `crate::Enum::Foo`
+LL | enum Enum {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/enum_glob_use.rs:15:1
+   |
+LL | mod in_fn_test {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/enum_glob_use.rs:16:5
+   |
+LL |     fn blarg() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/enum_glob_use.rs:16:5
+   |
+LL |     fn blarg() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/enum_glob_use.rs:16:5
+   |
+LL |     fn blarg() {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/enum_glob_use.rs:24:1
+   |
+LL | mod blurg {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/enum_glob_use.rs:29:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/enum_glob_use.rs:29:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/enum_glob_use.rs:29:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

@@ -1,100 +1,776 @@
-error: mutable borrow from immutable input(s)
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:10:1
+   |
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:12:1
+   |
+LL | impl Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:13:5
+   |
+LL |     fn this_wont_hurt_a_bit(&self) -> &mut Foo {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:13:5
+   |
+LL |     fn this_wont_hurt_a_bit(&self) -> &mut Foo {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:13:30
+   |
+LL |     fn this_wont_hurt_a_bit(&self) -> &mut Foo {
+   |                              ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:13:29
+   |
+LL |     fn this_wont_hurt_a_bit(&self) -> &mut Foo {
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
   --> tests/ui/mut_from_ref.rs:13:39
    |
 LL |     fn this_wont_hurt_a_bit(&self) -> &mut Foo {
    |                                       ^^^^^^^^
    |
-note: immutable borrow here
-  --> tests/ui/mut_from_ref.rs:13:29
-   |
-LL |     fn this_wont_hurt_a_bit(&self) -> &mut Foo {
-   |                             ^^^^^
-   = note: `-D clippy::mut-from-ref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mut_from_ref)]`
+   = help: use a raw pointer instead: `*raw`
 
-error: mutable borrow from immutable input(s)
+error: trait must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:20:1
+   |
+LL | / trait Ouch {
+LL | |     fn ouch(x: &Foo) -> &mut Foo;
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:20:1
+   |
+LL | trait Ouch {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:21:5
+   |
+LL |     fn ouch(x: &Foo) -> &mut Foo;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:21:5
+   |
+LL |     fn ouch(x: &Foo) -> &mut Foo;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:21:13
+   |
+LL |     fn ouch(x: &Foo) -> &mut Foo;
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:21:16
+   |
+LL |     fn ouch(x: &Foo) -> &mut Foo;
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/mut_from_ref.rs:21:25
    |
 LL |     fn ouch(x: &Foo) -> &mut Foo;
    |                         ^^^^^^^^
    |
-note: immutable borrow here
-  --> tests/ui/mut_from_ref.rs:21:16
-   |
-LL |     fn ouch(x: &Foo) -> &mut Foo;
-   |                ^^^^
+   = help: use a raw pointer instead: `*raw`
 
-error: mutable borrow from immutable input(s)
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:25:1
+   |
+LL | impl Ouch for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:26:5
+   |
+LL |     fn ouch(x: &Foo) -> &mut Foo {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:26:5
+   |
+LL |     fn ouch(x: &Foo) -> &mut Foo {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:26:13
+   |
+LL |     fn ouch(x: &Foo) -> &mut Foo {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:26:16
+   |
+LL |     fn ouch(x: &Foo) -> &mut Foo {
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:26:25
+   |
+LL |     fn ouch(x: &Foo) -> &mut Foo {
+   |                         ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:31:1
+   |
+LL | fn fail(x: &u32) -> &mut u16 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:31:1
+   |
+LL | fn fail(x: &u32) -> &mut u16 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:31:1
+   |
+LL | fn fail(x: &u32) -> &mut u16 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:31:9
+   |
+LL | fn fail(x: &u32) -> &mut u16 {
+   |         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:31:12
+   |
+LL | fn fail(x: &u32) -> &mut u16 {
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/mut_from_ref.rs:31:21
    |
 LL | fn fail(x: &u32) -> &mut u16 {
    |                     ^^^^^^^^
    |
-note: immutable borrow here
-  --> tests/ui/mut_from_ref.rs:31:12
-   |
-LL | fn fail(x: &u32) -> &mut u16 {
-   |            ^^^^
+   = help: use a raw pointer instead: `*raw`
 
-error: mutable borrow from immutable input(s)
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:37:1
+   |
+LL | fn fail_lifetime<'a>(x: &'a u32, y: &mut u32) -> &'a mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:37:1
+   |
+LL | fn fail_lifetime<'a>(x: &'a u32, y: &mut u32) -> &'a mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:37:1
+   |
+LL | fn fail_lifetime<'a>(x: &'a u32, y: &mut u32) -> &'a mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:37:22
+   |
+LL | fn fail_lifetime<'a>(x: &'a u32, y: &mut u32) -> &'a mut u32 {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:37:34
+   |
+LL | fn fail_lifetime<'a>(x: &'a u32, y: &mut u32) -> &'a mut u32 {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:37:25
+   |
+LL | fn fail_lifetime<'a>(x: &'a u32, y: &mut u32) -> &'a mut u32 {
+   |                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:37:37
+   |
+LL | fn fail_lifetime<'a>(x: &'a u32, y: &mut u32) -> &'a mut u32 {
+   |                                     ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
   --> tests/ui/mut_from_ref.rs:37:50
    |
 LL | fn fail_lifetime<'a>(x: &'a u32, y: &mut u32) -> &'a mut u32 {
    |                                                  ^^^^^^^^^^^
    |
-note: immutable borrow here
-  --> tests/ui/mut_from_ref.rs:37:25
-   |
-LL | fn fail_lifetime<'a>(x: &'a u32, y: &mut u32) -> &'a mut u32 {
-   |                         ^^^^^^^
+   = help: use a raw pointer instead: `*raw`
 
-error: mutable borrow from immutable input(s)
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:43:1
+   |
+LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:43:1
+   |
+LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:43:1
+   |
+LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:43:24
+   |
+LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:43:36
+   |
+LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:43:48
+   |
+LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:43:27
+   |
+LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
+   |                           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:43:39
+   |
+LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
+   |                                       ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:43:51
+   |
+LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
+   |                                                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
   --> tests/ui/mut_from_ref.rs:43:67
    |
 LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
    |                                                                   ^^^^^^^^^^^
    |
-note: immutable borrow here
-  --> tests/ui/mut_from_ref.rs:43:27
-   |
-LL | fn fail_double<'a, 'b>(x: &'a u32, y: &'a u32, z: &'b mut u32) -> &'a mut u32 {
-   |                           ^^^^^^^     ^^^^^^^
+   = help: use a raw pointer instead: `*raw`
 
-error: mutable borrow from immutable input(s)
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:49:1
+   |
+LL | fn fail_tuples<'a>(x: (&'a u32, &'a u32)) -> &'a mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:49:1
+   |
+LL | fn fail_tuples<'a>(x: (&'a u32, &'a u32)) -> &'a mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:49:1
+   |
+LL | fn fail_tuples<'a>(x: (&'a u32, &'a u32)) -> &'a mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:49:20
+   |
+LL | fn fail_tuples<'a>(x: (&'a u32, &'a u32)) -> &'a mut u32 {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:49:24
+   |
+LL | fn fail_tuples<'a>(x: (&'a u32, &'a u32)) -> &'a mut u32 {
+   |                        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:49:33
+   |
+LL | fn fail_tuples<'a>(x: (&'a u32, &'a u32)) -> &'a mut u32 {
+   |                                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/mut_from_ref.rs:49:46
    |
 LL | fn fail_tuples<'a>(x: (&'a u32, &'a u32)) -> &'a mut u32 {
    |                                              ^^^^^^^^^^^
    |
-note: immutable borrow here
-  --> tests/ui/mut_from_ref.rs:49:24
-   |
-LL | fn fail_tuples<'a>(x: (&'a u32, &'a u32)) -> &'a mut u32 {
-   |                        ^^^^^^^  ^^^^^^^
+   = help: use a raw pointer instead: `*raw`
 
-error: mutable borrow from immutable input(s)
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:55:1
+   |
+LL | fn fail_box<'a>(x: Box<&'a u32>) -> &'a mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:55:1
+   |
+LL | fn fail_box<'a>(x: Box<&'a u32>) -> &'a mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:55:1
+   |
+LL | fn fail_box<'a>(x: Box<&'a u32>) -> &'a mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:55:17
+   |
+LL | fn fail_box<'a>(x: Box<&'a u32>) -> &'a mut u32 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:55:24
+   |
+LL | fn fail_box<'a>(x: Box<&'a u32>) -> &'a mut u32 {
+   |                        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/mut_from_ref.rs:55:37
    |
 LL | fn fail_box<'a>(x: Box<&'a u32>) -> &'a mut u32 {
    |                                     ^^^^^^^^^^^
    |
-note: immutable borrow here
-  --> tests/ui/mut_from_ref.rs:55:24
-   |
-LL | fn fail_box<'a>(x: Box<&'a u32>) -> &'a mut u32 {
-   |                        ^^^^^^^
+   = help: use a raw pointer instead: `*raw`
 
-error: mutable borrow from immutable input(s)
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:62:1
+   |
+LL | fn works<'a>(x: &u32, y: &'a mut u32) -> &'a mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:62:1
+   |
+LL | fn works<'a>(x: &u32, y: &'a mut u32) -> &'a mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:62:1
+   |
+LL | fn works<'a>(x: &u32, y: &'a mut u32) -> &'a mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:62:14
+   |
+LL | fn works<'a>(x: &u32, y: &'a mut u32) -> &'a mut u32 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:62:23
+   |
+LL | fn works<'a>(x: &u32, y: &'a mut u32) -> &'a mut u32 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:62:17
+   |
+LL | fn works<'a>(x: &u32, y: &'a mut u32) -> &'a mut u32 {
+   |                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:62:26
+   |
+LL | fn works<'a>(x: &u32, y: &'a mut u32) -> &'a mut u32 {
+   |                          ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:62:42
+   |
+LL | fn works<'a>(x: &u32, y: &'a mut u32) -> &'a mut u32 {
+   |                                          ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:67:1
+   |
+LL | fn also_works<'a>(x: &'a u32, y: &'a mut u32) -> &'a mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:67:1
+   |
+LL | fn also_works<'a>(x: &'a u32, y: &'a mut u32) -> &'a mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:67:1
+   |
+LL | fn also_works<'a>(x: &'a u32, y: &'a mut u32) -> &'a mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:67:19
+   |
+LL | fn also_works<'a>(x: &'a u32, y: &'a mut u32) -> &'a mut u32 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:67:31
+   |
+LL | fn also_works<'a>(x: &'a u32, y: &'a mut u32) -> &'a mut u32 {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:67:22
+   |
+LL | fn also_works<'a>(x: &'a u32, y: &'a mut u32) -> &'a mut u32 {
+   |                      ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:67:34
+   |
+LL | fn also_works<'a>(x: &'a u32, y: &'a mut u32) -> &'a mut u32 {
+   |                                  ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:67:50
+   |
+LL | fn also_works<'a>(x: &'a u32, y: &'a mut u32) -> &'a mut u32 {
+   |                                                  ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:71:1
+   |
+LL | fn works_tuples<'a>(x: (&'a u32, &'a mut u32)) -> &'a mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:71:1
+   |
+LL | fn works_tuples<'a>(x: (&'a u32, &'a mut u32)) -> &'a mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:71:1
+   |
+LL | fn works_tuples<'a>(x: (&'a u32, &'a mut u32)) -> &'a mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:71:21
+   |
+LL | fn works_tuples<'a>(x: (&'a u32, &'a mut u32)) -> &'a mut u32 {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:71:25
+   |
+LL | fn works_tuples<'a>(x: (&'a u32, &'a mut u32)) -> &'a mut u32 {
+   |                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:71:34
+   |
+LL | fn works_tuples<'a>(x: (&'a u32, &'a mut u32)) -> &'a mut u32 {
+   |                                  ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:71:51
+   |
+LL | fn works_tuples<'a>(x: (&'a u32, &'a mut u32)) -> &'a mut u32 {
+   |                                                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:75:1
+   |
+LL | fn works_box<'a>(x: &'a u32, y: Box<&'a mut u32>) -> &'a mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:75:1
+   |
+LL | fn works_box<'a>(x: &'a u32, y: Box<&'a mut u32>) -> &'a mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:75:1
+   |
+LL | fn works_box<'a>(x: &'a u32, y: Box<&'a mut u32>) -> &'a mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:75:18
+   |
+LL | fn works_box<'a>(x: &'a u32, y: Box<&'a mut u32>) -> &'a mut u32 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:75:30
+   |
+LL | fn works_box<'a>(x: &'a u32, y: Box<&'a mut u32>) -> &'a mut u32 {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:75:21
+   |
+LL | fn works_box<'a>(x: &'a u32, y: Box<&'a mut u32>) -> &'a mut u32 {
+   |                     ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:75:37
+   |
+LL | fn works_box<'a>(x: &'a u32, y: Box<&'a mut u32>) -> &'a mut u32 {
+   |                                     ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:75:54
+   |
+LL | fn works_box<'a>(x: &'a u32, y: Box<&'a mut u32>) -> &'a mut u32 {
+   |                                                      ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:79:1
+   |
+LL | struct RefMut<'a>(&'a mut u32);
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:79:19
+   |
+LL | struct RefMut<'a>(&'a mut u32);
+   |                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:81:1
+   |
+LL | fn works_parameter<'a>(x: &'a u32, y: RefMut<'a>) -> &'a mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:81:1
+   |
+LL | fn works_parameter<'a>(x: &'a u32, y: RefMut<'a>) -> &'a mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:81:1
+   |
+LL | fn works_parameter<'a>(x: &'a u32, y: RefMut<'a>) -> &'a mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:81:24
+   |
+LL | fn works_parameter<'a>(x: &'a u32, y: RefMut<'a>) -> &'a mut u32 {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:81:36
+   |
+LL | fn works_parameter<'a>(x: &'a u32, y: RefMut<'a>) -> &'a mut u32 {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:81:27
+   |
+LL | fn works_parameter<'a>(x: &'a u32, y: RefMut<'a>) -> &'a mut u32 {
+   |                           ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:81:54
+   |
+LL | fn works_parameter<'a>(x: &'a u32, y: RefMut<'a>) -> &'a mut u32 {
+   |                                                      ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:85:1
+   |
+LL | unsafe fn also_broken(x: &u32) -> &mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:85:23
+   |
+LL | unsafe fn also_broken(x: &u32) -> &mut u32 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:85:26
+   |
+LL | unsafe fn also_broken(x: &u32) -> &mut u32 {
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/mut_from_ref.rs:85:35
    |
 LL | unsafe fn also_broken(x: &u32) -> &mut u32 {
    |                                   ^^^^^^^^
    |
-note: immutable borrow here
-  --> tests/ui/mut_from_ref.rs:85:26
-   |
-LL | unsafe fn also_broken(x: &u32) -> &mut u32 {
-   |                          ^^^^
+   = help: use a raw pointer instead: `*raw`
 
-error: aborting due to 8 previous errors
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:91:1
+   |
+LL | fn without_unsafe(x: &u32) -> &mut u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:91:1
+   |
+LL | fn without_unsafe(x: &u32) -> &mut u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:91:1
+   |
+LL | fn without_unsafe(x: &u32) -> &mut u32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_from_ref.rs:91:19
+   |
+LL | fn without_unsafe(x: &u32) -> &mut u32 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:91:22
+   |
+LL | fn without_unsafe(x: &u32) -> &mut u32 {
+   |                      ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_from_ref.rs:91:31
+   |
+LL | fn without_unsafe(x: &u32) -> &mut u32 {
+   |                               ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_from_ref.rs:95:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_from_ref.rs:95:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_from_ref.rs:95:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 99 previous errors
 

@@ -1,131 +1,911 @@
-error: useless use of `vec!`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:6:1
+   |
+LL | struct StructWithVec {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:10:1
+   |
+LL | fn on_slice(_: &[u8]) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:10:1
+   |
+LL | fn on_slice(_: &[u8]) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:10:1
+   |
+LL | fn on_slice(_: &[u8]) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:10:16
+   |
+LL | fn on_slice(_: &[u8]) {}
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:12:1
+   |
+LL | fn on_mut_slice(_: &mut [u8]) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:12:1
+   |
+LL | fn on_mut_slice(_: &mut [u8]) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:12:1
+   |
+LL | fn on_mut_slice(_: &mut [u8]) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/vec.rs:12:20
+   |
+LL | fn on_mut_slice(_: &mut [u8]) {}
+   |                    ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:15:1
+   |
+LL | fn on_vec(_: &Vec<u8>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:15:1
+   |
+LL | fn on_vec(_: &Vec<u8>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:15:1
+   |
+LL | fn on_vec(_: &Vec<u8>) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/vec.rs:15:14
+   |
+LL | fn on_vec(_: &Vec<u8>) {}
+   |              ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:17:1
+   |
+LL | fn on_mut_vec(_: &mut Vec<u8>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:17:1
+   |
+LL | fn on_mut_vec(_: &mut Vec<u8>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:17:1
+   |
+LL | fn on_mut_vec(_: &mut Vec<u8>) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/vec.rs:17:18
+   |
+LL | fn on_mut_vec(_: &mut Vec<u8>) {}
+   |                  ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:19:1
+   |
+LL | struct Line {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:23:1
+   |
+LL | impl Line {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:24:5
+   |
+LL |     fn length(&self) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:24:5
+   |
+LL |     fn length(&self) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/vec.rs:24:16
+   |
+LL |     fn length(&self) -> usize {
+   |                ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:24:15
+   |
+LL |     fn length(&self) -> usize {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:29:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:29:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:29:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
   --> tests/ui/vec.rs:30:14
    |
 LL |     on_slice(&vec![]);
-   |              ^^^^^^^ help: you can use a slice directly: `&[]`
+   |              ^^^^^^^
    |
-   = note: `-D clippy::useless-vec` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::useless_vec)]`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: useless use of `vec!`
+error: references are not allowed
+  --> tests/ui/vec.rs:32:14
+   |
+LL |     on_slice(&[]);
+   |              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/vec.rs:33:18
    |
 LL |     on_mut_slice(&mut vec![]);
-   |                  ^^^^^^^^^^^ help: you can use a slice directly: `&mut []`
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: useless use of `vec!`
+error: references are not allowed
   --> tests/ui/vec.rs:36:14
    |
 LL |     on_slice(&vec![1, 2]);
-   |              ^^^^^^^^^^^ help: you can use a slice directly: `&[1, 2]`
+   |              ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: useless use of `vec!`
+error: references are not allowed
+  --> tests/ui/vec.rs:38:14
+   |
+LL |     on_slice(&[1, 2]);
+   |              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/vec.rs:39:18
    |
 LL |     on_mut_slice(&mut vec![1, 2]);
-   |                  ^^^^^^^^^^^^^^^ help: you can use a slice directly: `&mut [1, 2]`
+   |                  ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: useless use of `vec!`
+error: references are not allowed
   --> tests/ui/vec.rs:42:14
    |
 LL |     on_slice(&vec![1, 2]);
-   |              ^^^^^^^^^^^ help: you can use a slice directly: `&[1, 2]`
+   |              ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: useless use of `vec!`
+error: references are not allowed
+  --> tests/ui/vec.rs:44:14
+   |
+LL |     on_slice(&[1, 2]);
+   |              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/vec.rs:45:18
    |
 LL |     on_mut_slice(&mut vec![1, 2]);
-   |                  ^^^^^^^^^^^^^^^ help: you can use a slice directly: `&mut [1, 2]`
+   |                  ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: useless use of `vec!`
+error: references are not allowed
   --> tests/ui/vec.rs:48:14
    |
 LL |     on_slice(&vec!(1, 2));
-   |              ^^^^^^^^^^^ help: you can use a slice directly: `&[1, 2]`
+   |              ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: useless use of `vec!`
+error: references are not allowed
+  --> tests/ui/vec.rs:50:14
+   |
+LL |     on_slice(&[1, 2]);
+   |              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/vec.rs:51:18
    |
 LL |     on_mut_slice(&mut vec![1, 2]);
-   |                  ^^^^^^^^^^^^^^^ help: you can use a slice directly: `&mut [1, 2]`
+   |                  ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: useless use of `vec!`
+error: references are not allowed
   --> tests/ui/vec.rs:54:14
    |
 LL |     on_slice(&vec![1; 2]);
-   |              ^^^^^^^^^^^ help: you can use a slice directly: `&[1; 2]`
+   |              ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: useless use of `vec!`
+error: references are not allowed
+  --> tests/ui/vec.rs:56:14
+   |
+LL |     on_slice(&[1; 2]);
+   |              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/vec.rs:57:18
    |
 LL |     on_mut_slice(&mut vec![1; 2]);
-   |                  ^^^^^^^^^^^^^^^ help: you can use a slice directly: `&mut [1; 2]`
+   |                  ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: useless use of `vec!`
-  --> tests/ui/vec.rs:84:19
+error: references are not allowed
+  --> tests/ui/vec.rs:60:12
+   |
+LL |     on_vec(&vec![]);
+   |            ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:61:12
+   |
+LL |     on_vec(&vec![1, 2]);
+   |            ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:62:12
+   |
+LL |     on_vec(&vec![1; 2]);
+   |            ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:63:16
+   |
+LL |     on_mut_vec(&mut vec![]);
+   |                ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:64:16
+   |
+LL |     on_mut_vec(&mut vec![1, 2]);
+   |                ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:65:16
+   |
+LL |     on_mut_vec(&mut vec![1; 2]);
+   |                ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:68:9
+   |
+LL |     let line = Line { length: 2 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:70:14
+   |
+LL |     on_slice(&vec![2; line.length]);
+   |              ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:71:14
+   |
+LL |     on_slice(&vec![2; line.length()]);
+   |              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:72:18
+   |
+LL |     on_mut_slice(&mut vec![2; line.length]);
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:73:18
+   |
+LL |     on_mut_slice(&mut vec![2; line.length()]);
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:75:12
+   |
+LL |     on_vec(&vec![1; 201]); // Ok, size of `vec` higher than `too_large_for_stack`
+   |            ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:76:16
+   |
+LL |     on_mut_vec(&mut vec![1; 201]); // Ok, size of `vec` higher than `too_large_for_stack`
+   |                ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:84:9
    |
 LL |     let _x: i32 = vec![1, 2, 3].iter().sum();
-   |                   ^^^^^^^^^^^^^ help: you can use an array directly: `[1, 2, 3]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: useless use of `vec!`
-  --> tests/ui/vec.rs:88:17
+error: references are not allowed
+  --> tests/ui/vec.rs:91:5
    |
-LL |     let mut x = vec![1, 2, 3];
-   |                 ^^^^^^^^^^^^^ help: you can use an array directly: `[1, 2, 3]`
+LL |     dbg!(x[0]);
+   |     ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: useless use of `vec!`
+error: references are not allowed
+  --> tests/ui/vec.rs:92:5
+   |
+LL |     dbg!(x.len());
+   |     ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/vec.rs:93:5
+   |
+LL |     dbg!(x.iter().sum::<i32>());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:95:9
+   |
+LL |     let _x: &[i32] = &vec![1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:95:13
+   |
+LL |     let _x: &[i32] = &vec![1, 2, 3];
+   |             ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/vec.rs:95:22
    |
 LL |     let _x: &[i32] = &vec![1, 2, 3];
-   |                      ^^^^^^^^^^^^^^ help: you can use a slice directly: `&[1, 2, 3]`
-
-error: useless use of `vec!`
-  --> tests/ui/vec.rs:98:14
+   |                      ^^^^^^^^^^^^^^
    |
-LL |     for _ in vec![1, 2, 3] {}
-   |              ^^^^^^^^^^^^^ help: you can use an array directly: `[1, 2, 3]`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: useless use of `vec!`
-  --> tests/ui/vec.rs:138:20
+error: variable must be `mut`
+  --> tests/ui/vec.rs:102:9
    |
-LL |     for _string in vec![repro!(true), repro!(null)] {
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can use an array directly: `[repro!(true), repro!(null)]`
+LL |     let x = vec![1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
 
-error: useless use of `vec!`
-  --> tests/ui/vec.rs:156:18
+error: variable must be `mut`
+  --> tests/ui/vec.rs:103:9
    |
-LL |     in_macro!(1, vec![1, 2], vec![1; 2]);
-   |                  ^^^^^^^^^^ help: you can use an array directly: `[1, 2]`
+LL |     let _v: Vec<i32> = x;
+   |         ^ help: make this variable mutable: `mut`
 
-error: useless use of `vec!`
-  --> tests/ui/vec.rs:156:30
+error: variable must be `mut`
+  --> tests/ui/vec.rs:105:9
    |
-LL |     in_macro!(1, vec![1, 2], vec![1; 2]);
-   |                              ^^^^^^^^^^ help: you can use an array directly: `[1; 2]`
+LL |     let x = vec![1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
 
-error: useless use of `vec!`
-  --> tests/ui/vec.rs:177:14
+error: variable must be `mut`
+  --> tests/ui/vec.rs:106:9
    |
-LL |     for a in vec![1, 2, 3] {
-   |              ^^^^^^^^^^^^^ help: you can use an array directly: `[1, 2, 3]`
+LL |     let _s = StructWithVec { _x: x };
+   |         ^ help: make this variable mutable: `mut`
 
-error: useless use of `vec!`
-  --> tests/ui/vec.rs:182:14
+error: variable must be `mut`
+  --> tests/ui/vec.rs:110:9
    |
-LL |     for a in vec![String::new(), String::new()] {
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can use an array directly: `[String::new(), String::new()]`
+LL |     let _x: Vec<i32> = vec![1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
 
-error: useless use of `vec!`
-  --> tests/ui/vec.rs:215:33
+error: variable must be `mut`
+  --> tests/ui/vec.rs:114:9
    |
-LL |     this_macro_doesnt_need_vec!(vec![1]);
-   |                                 ^^^^^^^ help: you can use an array directly: `[1]`
+LL |     let re = &mut x;
+   |         ^ help: make this variable mutable: `mut`
 
-error: useless use of `vec!`
+error: references are not allowed
+  --> tests/ui/vec.rs:114:14
+   |
+LL |     let re = &mut x;
+   |              ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:118:9
+   |
+LL |     let x = vec![1, 2, 3];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:119:9
+   |
+LL |     let y = vec![1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:120:5
+   |
+LL |     dbg!(x == y);
+   |     ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `dbg` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:123:9
+   |
+LL |     let _x = vec![String::new(); 10];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:125:9
+   |
+LL |     let _x = vec![Rc::new(1); 10];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:128:9
+   |
+LL |     let _x = vec![1; 201];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:131:1
+   |
+LL | fn issue11075() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:131:1
+   |
+LL | fn issue11075() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:131:1
+   |
+LL | fn issue11075() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:132:5
+   |
+LL |     macro_rules! repro {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:143:5
+   |
+LL |     macro_rules! in_macro {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:160:5
+   |
+LL |     macro_rules! from_macro {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:165:5
+   |
+LL |     macro_rules! from_macro_repeat {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:176:1
+   |
+LL | fn above() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:176:1
+   |
+LL | fn above() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:176:1
+   |
+LL | fn above() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:189:1
+   |
+LL | fn below() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:189:1
+   |
+LL | fn below() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:189:1
+   |
+LL | fn below() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:199:1
+   |
+LL | fn func_needing_vec(_bar: usize, _baz: Vec<usize>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:199:1
+   |
+LL | fn func_needing_vec(_bar: usize, _baz: Vec<usize>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:199:1
+   |
+LL | fn func_needing_vec(_bar: usize, _baz: Vec<usize>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/vec.rs:199:21
+   |
+LL | fn func_needing_vec(_bar: usize, _baz: Vec<usize>) {}
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/vec.rs:199:34
+   |
+LL | fn func_needing_vec(_bar: usize, _baz: Vec<usize>) {}
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:200:1
+   |
+LL | fn func_not_needing_vec(_bar: usize, _baz: usize) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:200:1
+   |
+LL | fn func_not_needing_vec(_bar: usize, _baz: usize) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:200:1
+   |
+LL | fn func_not_needing_vec(_bar: usize, _baz: usize) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/vec.rs:200:25
+   |
+LL | fn func_not_needing_vec(_bar: usize, _baz: usize) {}
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/vec.rs:200:38
+   |
+LL | fn func_not_needing_vec(_bar: usize, _baz: usize) {}
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:202:1
+   |
+LL | fn issue11861() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:202:1
+   |
+LL | fn issue11861() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:202:1
+   |
+LL | fn issue11861() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:203:5
+   |
+LL |     macro_rules! this_macro_needs_vec {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:209:5
+   |
+LL |     macro_rules! this_macro_doesnt_need_vec {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:218:5
+   |
+LL |     macro_rules! m {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:220:13
+   |
+LL |             fn f2() {
+   |             ^ help: make this item public: `pub`
+...
+LL |     m!(vec![1]);
+   |     ----------- in this macro invocation
+   |
+   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:220:13
+   |
+LL |             fn f2() {
+   |             ^
+...
+LL |     m!(vec![1]);
+   |     ----------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:220:13
+   |
+LL |             fn f2() {
+   |             ^
+...
+LL |     m!(vec![1]);
+   |     ----------- in this macro invocation
+   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:221:21
+   |
+LL |                 let _x: Vec<i32> = $x;
+   |                     ^ help: make this variable mutable: `mut`
+...
+LL |     m!(vec![1]);
+   |     ----------- in this macro invocation
+   |
+   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:223:13
+   |
+LL |             fn f() {
+   |             ^ help: make this item public: `pub`
+...
+LL |     m!(vec![1]);
+   |     ----------- in this macro invocation
+   |
+   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:223:13
+   |
+LL |             fn f() {
+   |             ^
+...
+LL |     m!(vec![1]);
+   |     ----------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:223:13
+   |
+LL |             fn f() {
+   |             ^
+...
+LL |     m!(vec![1]);
+   |     ----------- in this macro invocation
+   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/vec.rs:224:21
+   |
+LL |                 let _x = $x;
+   |                     ^ help: make this variable mutable: `mut`
+...
+LL |     m!(vec![1]);
+   |     ----------- in this macro invocation
+   |
+   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/vec.rs:225:32
+   |
+LL |                 $x.starts_with(&[]);
+   |                                ^^^
+...
+LL |     m!(vec![1]);
+   |     ----------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `m` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:234:1
+   |
+LL | fn issue_11958() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:234:1
+   |
+LL | fn issue_11958() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:234:1
+   |
+LL | fn issue_11958() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:235:5
+   |
+LL |     fn f(_s: &[String]) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:235:5
+   |
+LL |     fn f(_s: &[String]) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:235:5
+   |
+LL |     fn f(_s: &[String]) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/vec.rs:235:10
+   |
+LL |     fn f(_s: &[String]) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:235:14
+   |
+LL |     fn f(_s: &[String]) {}
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/vec.rs:238:7
+   |
+LL |     f(&vec!["test".to_owned(); 2]);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/vec.rs:241:1
+   |
+LL | fn issue_12101() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/vec.rs:241:1
+   |
+LL | fn issue_12101() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/vec.rs:241:1
+   |
+LL | fn issue_12101() {
+   | ^
+
+error: references are not allowed
   --> tests/ui/vec.rs:242:14
    |
 LL |     for a in &(vec![1, 2]) {}
-   |              ^^^^^^^^^^^^^ help: you can use a slice directly: `&[1, 2]`
+   |              ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 21 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 112 previous errors
 

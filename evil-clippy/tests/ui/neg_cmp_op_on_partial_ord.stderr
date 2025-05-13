@@ -1,29 +1,143 @@
-error: the use of negated comparison operators on partially ordered types produces code that is hard to read and refactor, please consider using the `partial_cmp` method instead, to make it clear that the two values could be incomparable
-  --> tests/ui/neg_cmp_op_on_partial_ord.rs:16:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:9:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:9:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:9:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:10:9
+   |
+LL |     let a_value = 1.0;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:11:9
+   |
+LL |     let another_value = 7.0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:16:9
    |
 LL |     let _not_less = !(a_value < another_value);
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::neg-cmp-op-on-partial-ord` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::neg_cmp_op_on_partial_ord)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: the use of negated comparison operators on partially ordered types produces code that is hard to read and refactor, please consider using the `partial_cmp` method instead, to make it clear that the two values could be incomparable
-  --> tests/ui/neg_cmp_op_on_partial_ord.rs:20:30
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:20:9
    |
 LL |     let _not_less_or_equal = !(a_value <= another_value);
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: the use of negated comparison operators on partially ordered types produces code that is hard to read and refactor, please consider using the `partial_cmp` method instead, to make it clear that the two values could be incomparable
-  --> tests/ui/neg_cmp_op_on_partial_ord.rs:24:24
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:24:9
    |
 LL |     let _not_greater = !(a_value > another_value);
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: the use of negated comparison operators on partially ordered types produces code that is hard to read and refactor, please consider using the `partial_cmp` method instead, to make it clear that the two values could be incomparable
-  --> tests/ui/neg_cmp_op_on_partial_ord.rs:28:33
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:28:9
    |
 LL |     let _not_greater_or_equal = !(a_value >= another_value);
-   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:33:9
+   |
+LL |     let _not_less = match a_value.partial_cmp(&another_value) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:33:47
+   |
+LL |     let _not_less = match a_value.partial_cmp(&another_value) {
+   |                                               ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:37:9
+   |
+LL |     let _not_less_or_equal = match a_value.partial_cmp(&another_value) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:37:56
+   |
+LL |     let _not_less_or_equal = match a_value.partial_cmp(&another_value) {
+   |                                                        ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:41:9
+   |
+LL |     let _not_greater = match a_value.partial_cmp(&another_value) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:41:50
+   |
+LL |     let _not_greater = match a_value.partial_cmp(&another_value) {
+   |                                                  ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:45:9
+   |
+LL |     let _not_greater_or_equal = match a_value.partial_cmp(&another_value) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/neg_cmp_op_on_partial_ord.rs:45:59
+   |
+LL |     let _not_greater_or_equal = match a_value.partial_cmp(&another_value) {
+   |                                                           ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 20 previous errors
 

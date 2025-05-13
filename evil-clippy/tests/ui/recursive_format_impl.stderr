@@ -1,83 +1,1903 @@
-error: using `self.to_string` in `fmt::Display` implementation will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:31:25
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         write!(f, "{}", self.to_string())
-   |                         ^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::recursive-format-impl` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::recursive_format_impl)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: using `self` as `Display` in `impl Display` will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:76:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         write!(f, "{}", self)
-   |         ^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: this error originates in the macro `write` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: using `self` as `Display` in `impl Display` will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:86:9
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:12:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:13:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:14:5
+   |
+LL |     fn fmt(&self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:14:5
+   |
+LL |     fn fmt(&self) {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:14:13
+   |
+LL |     fn fmt(&self) {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:14:12
+   |
+LL |     fn fmt(&self) {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: trait must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:19:1
+   |
+LL | / trait B {
+LL | |     fn fmt(&self) {}
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:19:1
+   |
+LL | trait B {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:20:5
+   |
+LL |     fn fmt(&self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:20:5
+   |
+LL |     fn fmt(&self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:20:13
+   |
+LL |     fn fmt(&self) {}
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:20:12
+   |
+LL |     fn fmt(&self) {}
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:23:1
+   |
+LL | impl B for A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:24:5
+   |
+LL |     fn fmt(&self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:24:5
+   |
+LL |     fn fmt(&self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:24:13
+   |
+LL |     fn fmt(&self) {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:24:12
+   |
+LL |     fn fmt(&self) {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:29:1
+   |
+LL | impl fmt::Display for A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:30:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:30:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:30:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:30:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:30:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:30:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:36:1
+   |
+LL | fn fmt(a: A) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:36:1
+   |
+LL | fn fmt(a: A) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:36:1
+   |
+LL | fn fmt(a: A) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:36:8
+   |
+LL | fn fmt(a: A) {
+   |        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:40:1
+   |
+LL | struct C;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:42:1
+   |
+LL | impl C {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:45:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:45:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:45:19
+   |
+LL |     fn to_string(&self) -> String {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:45:18
+   |
+LL |     fn to_string(&self) -> String {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:50:1
+   |
+LL | impl fmt::Display for C {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:51:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:51:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:51:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:51:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:51:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:51:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:56:1
+   |
+LL | enum D {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:61:1
+   |
+LL | impl std::fmt::Display for D {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:62:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:62:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:62:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:62:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:62:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:62:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:63:15
+   |
+LL |         match &self {
+   |               ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:72:1
+   |
+LL | struct G;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:74:1
+   |
+LL | impl std::fmt::Display for G {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:75:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:75:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:75:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:75:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:75:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:75:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:82:1
+   |
+LL | struct H;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:84:1
+   |
+LL | impl std::fmt::Display for H {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:85:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:85:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:85:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:85:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:85:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:85:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:86:25
    |
 LL |         write!(f, "{}", &self)
-   |         ^^^^^^^^^^^^^^^^^^^^^^
+   |                         ^^^^^
    |
-   = note: this error originates in the macro `write` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use a raw borrowing instead: `&raw const`
 
-error: using `self` as `Debug` in `impl Debug` will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:93:9
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:91:1
+   |
+LL | impl std::fmt::Debug for H {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:92:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:92:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:92:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:92:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:92:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:92:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:93:27
    |
 LL |         write!(f, "{:?}", &self)
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^
+   |                           ^^^^^
    |
-   = note: this error originates in the macro `write` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use a raw borrowing instead: `&raw const`
 
-error: using `self` as `Display` in `impl Display` will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:103:9
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:99:1
+   |
+LL | struct H2;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:101:1
+   |
+LL | impl std::fmt::Display for H2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:102:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:102:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:102:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:102:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:102:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:102:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:103:25
    |
 LL |         write!(f, "{}", &&&self)
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^
+   |                         ^^^^^^^
    |
-   = note: this error originates in the macro `write` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use a raw borrowing instead: `&raw const`
 
-error: using `self` as `Display` in `impl Display` will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:178:9
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:103:26
+   |
+LL |         write!(f, "{}", &&&self)
+   |                          ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:103:27
+   |
+LL |         write!(f, "{}", &&&self)
+   |                           ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:109:1
+   |
+LL | struct I;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:111:1
+   |
+LL | impl std::ops::Deref for I {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:114:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:114:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:114:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:114:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:114:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:119:1
+   |
+LL | impl std::fmt::Display for I {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:120:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:120:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:120:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:120:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:120:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:120:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:121:25
+   |
+LL |         write!(f, "{}", &**self)
+   |                         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:125:1
+   |
+LL | impl std::fmt::Debug for I {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:126:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:126:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:126:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:126:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:126:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:126:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:127:27
+   |
+LL |         write!(f, "{:?}", &**self)
+   |                           ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:132:1
+   |
+LL | struct I2;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:134:1
+   |
+LL | impl std::ops::Deref for I2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:137:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:137:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:137:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:137:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:137:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:142:1
+   |
+LL | impl std::fmt::Display for I2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:143:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:143:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:143:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:143:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:143:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:143:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:144:27
+   |
+LL |         write!(f, "{}", **&&&**self)
+   |                           ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:144:28
+   |
+LL |         write!(f, "{}", **&&&**self)
+   |                            ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:144:29
+   |
+LL |         write!(f, "{}", **&&&**self)
+   |                             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:149:1
+   |
+LL | struct I3;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:151:1
+   |
+LL | impl std::ops::Deref for I3 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:154:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:154:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:154:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:154:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:154:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:159:1
+   |
+LL | impl std::fmt::Display for I3 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:160:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:160:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:160:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:160:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:160:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:160:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:161:25
+   |
+LL |         write!(f, "{}", &&**&&&**self)
+   |                         ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:161:26
+   |
+LL |         write!(f, "{}", &&**&&&**self)
+   |                          ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:161:29
+   |
+LL |         write!(f, "{}", &&**&&&**self)
+   |                             ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:161:30
+   |
+LL |         write!(f, "{}", &&**&&&**self)
+   |                              ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:161:31
+   |
+LL |         write!(f, "{}", &&**&&&**self)
+   |                               ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:166:1
+   |
+LL | struct J;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:168:1
+   |
+LL | impl std::ops::Deref for J {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:171:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:171:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:171:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:171:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:171:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:176:1
+   |
+LL | impl std::fmt::Display for J {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:177:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:177:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:177:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:177:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:177:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:177:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:178:25
    |
 LL |         write!(f, "{}", &*self)
-   |         ^^^^^^^^^^^^^^^^^^^^^^^
+   |                         ^^^^^^
    |
-   = note: this error originates in the macro `write` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use a raw borrowing instead: `&raw const`
 
-error: using `self` as `Debug` in `impl Debug` will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:185:9
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:183:1
+   |
+LL | impl std::fmt::Debug for J {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:184:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:184:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:184:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:184:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:184:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:184:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:185:27
    |
 LL |         write!(f, "{:?}", &*self)
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                           ^^^^^^
    |
-   = note: this error originates in the macro `write` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use a raw borrowing instead: `&raw const`
 
-error: using `self` as `Display` in `impl Display` will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:202:9
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:190:1
    |
-LL |         write!(f, "{}", *self)
-   |         ^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: this error originates in the macro `write` (in Nightly builds, run with -Z macro-backtrace for more info)
+LL | struct J2;
+   | ^ help: make this item public: `pub`
 
-error: using `self` as `Display` in `impl Display` will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:219:9
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:192:1
+   |
+LL | impl std::ops::Deref for J2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:195:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:195:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:195:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:195:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:195:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:200:1
+   |
+LL | impl std::fmt::Display for J2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:201:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:201:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:201:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:201:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:201:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:201:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:207:1
+   |
+LL | struct J3;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:209:1
+   |
+LL | impl std::ops::Deref for J3 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:212:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:212:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:212:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:212:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:212:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:217:1
+   |
+LL | impl std::fmt::Display for J3 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:218:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:218:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:218:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:218:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:218:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:218:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:219:27
    |
 LL |         write!(f, "{}", **&&*self)
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                           ^^^^^^^
    |
-   = note: this error originates in the macro `write` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use a raw borrowing instead: `&raw const`
 
-error: using `self` as `Display` in `impl Display` will cause infinite recursion
-  --> tests/ui/recursive_format_impl.rs:236:9
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:219:28
+   |
+LL |         write!(f, "{}", **&&*self)
+   |                            ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:224:1
+   |
+LL | struct J4;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:226:1
+   |
+LL | impl std::ops::Deref for J4 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:229:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:229:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:229:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:229:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:229:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:234:1
+   |
+LL | impl std::fmt::Display for J4 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:235:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:235:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:235:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:235:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:235:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:235:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:236:25
    |
 LL |         write!(f, "{}", &&**&&*self)
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                         ^^^^^^^^^^^
    |
-   = note: this error originates in the macro `write` (in Nightly builds, run with -Z macro-backtrace for more info)
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 10 previous errors
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:236:26
+   |
+LL |         write!(f, "{}", &&**&&*self)
+   |                          ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:236:29
+   |
+LL |         write!(f, "{}", &&**&&*self)
+   |                             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:236:30
+   |
+LL |         write!(f, "{}", &&**&&*self)
+   |                              ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:242:1
+   |
+LL | struct K;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:244:1
+   |
+LL | impl std::fmt::Debug for K {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:245:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:245:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:245:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:245:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:245:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:245:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:250:1
+   |
+LL | impl std::fmt::Display for K {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:251:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:251:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:251:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:251:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:251:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:251:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:257:1
+   |
+LL | struct K2;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:259:1
+   |
+LL | impl std::fmt::Debug for K2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:260:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:260:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:260:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:260:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:260:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:260:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:265:1
+   |
+LL | impl std::fmt::Display for K2 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:266:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:266:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:266:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:266:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:266:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:266:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:272:1
+   |
+LL | struct L {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:277:1
+   |
+LL | impl std::fmt::Display for L {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:278:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:278:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:278:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:278:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:278:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:278:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:283:1
+   |
+LL | impl std::fmt::Debug for L {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:284:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:284:5
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:284:13
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:284:19
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:284:12
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:284:22
+   |
+LL |     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:290:1
+   |
+LL | enum Tree {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:295:1
+   |
+LL | impl std::fmt::Display for Tree {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:296:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:296:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:296:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:296:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:296:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:296:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:310:1
+   |
+LL | impl std::fmt::Debug for Tree {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:311:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:311:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:311:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/recursive_format_impl.rs:311:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:311:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/recursive_format_impl.rs:311:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/recursive_format_impl.rs:325:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/recursive_format_impl.rs:325:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/recursive_format_impl.rs:325:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/recursive_format_impl.rs:326:9
+   |
+LL |     let a = A;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/recursive_format_impl.rs:331:9
+   |
+LL |     let c = C;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 248 previous errors
 

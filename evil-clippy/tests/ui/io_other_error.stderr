@@ -1,64 +1,281 @@
-error: this can be `std::io::Error::other(_)`
-  --> tests/ui/io_other_error.rs:23:16
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/io_other_error.rs:5:1
+   |
+LL | struct E;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/io_other_error.rs:4:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/io_other_error.rs:4:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/io_other_error.rs:4:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/io_other_error.rs:4:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/io_other_error.rs:4:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/io_other_error.rs:4:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/io_other_error.rs:4:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/io_other_error.rs:7:1
+   |
+LL | impl std::error::Error for E {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/io_other_error.rs:8:1
+   |
+LL | impl fmt::Display for E {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/io_other_error.rs:9:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/io_other_error.rs:9:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/io_other_error.rs:9:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/io_other_error.rs:9:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/io_other_error.rs:9:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/io_other_error.rs:9:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/io_other_error.rs:14:1
+   |
+LL | macro_rules! o {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/io_other_error.rs:18:1
+   |
+LL | macro_rules! e {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/io_other_error.rs:22:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/io_other_error.rs:22:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/io_other_error.rs:22:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:23:9
    |
 LL |     let _err = std::io::Error::new(std::io::ErrorKind::Other, E);
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::io-other-error` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::io_other_error)]`
-help: use `std::io::Error::other`
-   |
-LL -     let _err = std::io::Error::new(std::io::ErrorKind::Other, E);
-LL +     let _err = std::io::Error::other(E);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: this can be `std::io::Error::other(_)`
-  --> tests/ui/io_other_error.rs:26:16
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:25:9
+   |
+LL |     let other = std::io::ErrorKind::Other;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:26:9
    |
 LL |     let _err = std::io::Error::new(other, E);
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: use `std::io::Error::other`
-   |
-LL -     let _err = std::io::Error::new(other, E);
-LL +     let _err = std::io::Error::other(E);
-   |
+   |         ^ help: make this variable mutable: `mut`
 
-error: this can be `std::io::Error::other(_)`
-  --> tests/ui/io_other_error.rs:45:20
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:30:9
+   |
+LL |     let _err = std::io::Error::new(std::io::ErrorKind::TimedOut, E);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:33:9
+   |
+LL |     let _err = e!(other);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:34:9
+   |
+LL |     let _err = std::io::Error::new(o!(), E);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:35:9
+   |
+LL |     let _err = e!(o!());
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/io_other_error.rs:41:1
+   |
+LL | mod paths {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/io_other_error.rs:44:9
+   |
+LL |     pub fn short() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/io_other_error.rs:44:9
+   |
+LL |     pub fn short() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:45:13
    |
 LL |         let _err = Error::new(ErrorKind::Other, super::E);
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: use `std::io::Error::other`
-   |
-LL -         let _err = Error::new(ErrorKind::Other, super::E);
-LL +         let _err = Error::other(super::E);
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: this can be `std::io::Error::other(_)`
-  --> tests/ui/io_other_error.rs:47:20
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:47:13
    |
 LL |         let _err = io::Error::new(io::ErrorKind::Other, super::E);
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: use `std::io::Error::other`
-   |
-LL -         let _err = io::Error::new(io::ErrorKind::Other, super::E);
-LL +         let _err = io::Error::other(super::E);
-   |
+   |             ^ help: make this variable mutable: `mut`
 
-error: this can be `std::io::Error::other(_)`
-  --> tests/ui/io_other_error.rs:58:5
+error: item must be `pub`
+  --> tests/ui/io_other_error.rs:53:1
    |
-LL |     std::io::Error::new(std::io::ErrorKind::Other, format!("{x}"))
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: use `std::io::Error::other`
-   |
-LL -     std::io::Error::new(std::io::ErrorKind::Other, format!("{x}"))
-LL +     std::io::Error::other(format!("{x}"))
-   |
+LL | fn under_msrv() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: function must be `unsafe`
+  --> tests/ui/io_other_error.rs:53:1
+   |
+LL | fn under_msrv() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/io_other_error.rs:53:1
+   |
+LL | fn under_msrv() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/io_other_error.rs:54:9
+   |
+LL |     let _err = std::io::Error::new(std::io::ErrorKind::Other, E);
+   |         ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/io_other_error.rs:57:5
+   |
+LL | pub fn issue14346(x: i32) -> std::io::Error {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/io_other_error.rs:57:5
+   |
+LL | pub fn issue14346(x: i32) -> std::io::Error {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/io_other_error.rs:57:19
+   |
+LL | pub fn issue14346(x: i32) -> std::io::Error {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 38 previous errors
 

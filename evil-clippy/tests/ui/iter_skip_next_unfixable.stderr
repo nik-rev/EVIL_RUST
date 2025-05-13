@@ -1,40 +1,111 @@
-error: called `skip(..).next()` on an iterator
-  --> tests/ui/iter_skip_next_unfixable.rs:9:26
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: Vec<&str> = sp.skip(1).next().unwrap().split(' ').collect();
-   |                          ^^^^^^^^^^^^^^^ help: use `nth` instead: `.nth(1)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-help: for this change `sp` has to be mutable
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/iter_skip_next_unfixable.rs:5:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_skip_next_unfixable.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_skip_next_unfixable.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/iter_skip_next_unfixable.rs:7:9
+   |
+LL |     let test_string = "1|1 2";
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
   --> tests/ui/iter_skip_next_unfixable.rs:8:9
    |
 LL |     let sp = test_string.split('|').map(|s| s.trim());
-   |         ^^
-   = note: `-D clippy::iter-skip-next` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::iter_skip_next)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: called `skip(..).next()` on an iterator
-  --> tests/ui/iter_skip_next_unfixable.rs:13:29
+error: references are not allowed
+  --> tests/ui/iter_skip_next_unfixable.rs:9:16
+   |
+LL |     let _: Vec<&str> = sp.skip(1).next().unwrap().split(' ').collect();
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/iter_skip_next_unfixable.rs:13:20
    |
 LL |         let _: Vec<&str> = s.skip(1).next().unwrap().split(' ').collect();
-   |                             ^^^^^^^^^^^^^^^ help: use `nth` instead: `.nth(1)`
+   |                    ^^^^
    |
-help: for this change `s` has to be mutable
-  --> tests/ui/iter_skip_next_unfixable.rs:12:17
-   |
-LL |     if let Some(s) = Some(test_string.split('|').map(|s| s.trim())) {
-   |                 ^
+   = help: use a raw pointer instead: `*const`
 
-error: called `skip(..).next()` on an iterator
-  --> tests/ui/iter_skip_next_unfixable.rs:20:29
+error: item must be `pub`
+  --> tests/ui/iter_skip_next_unfixable.rs:16:5
    |
-LL |         let _: Vec<&str> = s.skip(1).next().unwrap().split(' ').collect();
-   |                             ^^^^^^^^^^^^^^^ help: use `nth` instead: `.nth(1)`
+LL |     fn check<T>(s: T)
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_skip_next_unfixable.rs:16:5
    |
-help: for this change `s` has to be mutable
+LL |     fn check<T>(s: T)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_skip_next_unfixable.rs:16:5
+   |
+LL |     fn check<T>(s: T)
+   |     ^
+
+error: parameter must be `mut`
   --> tests/ui/iter_skip_next_unfixable.rs:16:17
    |
 LL |     fn check<T>(s: T)
-   |                 ^
+   |                 ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 3 previous errors
+error: references are not allowed
+  --> tests/ui/iter_skip_next_unfixable.rs:20:20
+   |
+LL |         let _: Vec<&str> = s.skip(1).next().unwrap().split(' ').collect();
+   |                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 14 previous errors
 

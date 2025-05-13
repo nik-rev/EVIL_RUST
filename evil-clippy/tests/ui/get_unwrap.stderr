@@ -1,3 +1,364 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/get_unwrap.rs:13:1
+   |
+LL | struct GetFalsePositive {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/get_unwrap.rs:17:1
+   |
+LL | impl GetFalsePositive {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/get_unwrap.rs:18:5
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/get_unwrap.rs:18:5
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/get_unwrap.rs:18:13
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/get_unwrap.rs:18:19
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:18:12
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:18:41
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |                                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/get_unwrap.rs:21:5
+   |
+LL |     fn get_mut(&mut self, pos: usize) -> Option<&mut u32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/get_unwrap.rs:21:5
+   |
+LL |     fn get_mut(&mut self, pos: usize) -> Option<&mut u32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/get_unwrap.rs:21:21
+   |
+LL |     fn get_mut(&mut self, pos: usize) -> Option<&mut u32> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/get_unwrap.rs:21:27
+   |
+LL |     fn get_mut(&mut self, pos: usize) -> Option<&mut u32> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:21:16
+   |
+LL |     fn get_mut(&mut self, pos: usize) -> Option<&mut u32> {
+   |                ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:21:49
+   |
+LL |     fn get_mut(&mut self, pos: usize) -> Option<&mut u32> {
+   |                                                 ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/get_unwrap.rs:26:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/get_unwrap.rs:26:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/get_unwrap.rs:26:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:28:26
+   |
+LL |     let mut some_slice = &mut [0, 1, 2, 3];
+   |                          ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:49:34
+   |
+LL |         let _ = some_hashmap.get(&1).unwrap();
+   |                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:52:35
+   |
+LL |         let _ = some_btreemap.get(&1).unwrap();
+   |                                   ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:80:35
+   |
+LL |             *some_hashmap.get_mut(&1).unwrap() = 'b';
+   |                                   ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:81:36
+   |
+LL |             *some_btreemap.get_mut(&1).unwrap() = 'b';
+   |                                    ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/get_unwrap.rs:96:1
+   |
+LL | mod issue9909 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/get_unwrap.rs:100:5
+   |
+LL |     fn reduced() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/get_unwrap.rs:100:5
+   |
+LL |     fn reduced() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/get_unwrap.rs:100:5
+   |
+LL |     fn reduced() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/get_unwrap.rs:101:13
+   |
+LL |         let f = &[1, 2, 3];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:101:17
+   |
+LL |         let f = &[1, 2, 3];
+   |                 ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/get_unwrap.rs:104:13
+   |
+LL |         let _x: &i32 = f.get(1 + 2).unwrap();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:104:17
+   |
+LL |         let _x: &i32 = f.get(1 + 2).unwrap();
+   |                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/get_unwrap.rs:108:13
+   |
+LL |         let _x = f.get(1 + 2).unwrap().to_string();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/get_unwrap.rs:112:13
+   |
+LL |         let _x = f.get(1 + 2).unwrap().abs();
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/get_unwrap.rs:117:5
+   |
+LL |     fn linidx(row: usize, col: usize) -> usize {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/get_unwrap.rs:117:5
+   |
+LL |     fn linidx(row: usize, col: usize) -> usize {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/get_unwrap.rs:117:5
+   |
+LL |     fn linidx(row: usize, col: usize) -> usize {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/get_unwrap.rs:117:15
+   |
+LL |     fn linidx(row: usize, col: usize) -> usize {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/get_unwrap.rs:117:27
+   |
+LL |     fn linidx(row: usize, col: usize) -> usize {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/get_unwrap.rs:121:5
+   |
+LL |     fn main_() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/get_unwrap.rs:121:5
+   |
+LL |     fn main_() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/get_unwrap.rs:121:5
+   |
+LL |     fn main_() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/get_unwrap.rs:128:30
+   |
+LL |                         let (x, rest) = mat.split_at_mut(linidx(i, k) + 1);
+   |                              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/get_unwrap.rs:128:33
+   |
+LL |                         let (x, rest) = mat.split_at_mut(linidx(i, k) + 1);
+   |                                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/get_unwrap.rs:129:29
+   |
+LL |                         let a = x.last_mut().unwrap();
+   |                             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/get_unwrap.rs:130:29
+   |
+LL |                         let b = rest.get_mut(linidx(j, k) - linidx(i, k) - 1).unwrap();
+   |                             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:137:9
+   |
+LL |         assert_eq!([9.0, 5.0, 1.0, 10.0, 6.0, 2.0, 11.0, 7.0, 3.0, 12.0, 8.0, 4.0], mat);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:137:9
+   |
+LL |         assert_eq!([9.0, 5.0, 1.0, 10.0, 6.0, 2.0, 11.0, 7.0, 3.0, 12.0, 8.0, 4.0], mat);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/get_unwrap.rs:137:9
+   |
+LL |         assert_eq!([9.0, 5.0, 1.0, 10.0, 6.0, 2.0, 11.0, 7.0, 3.0, 12.0, 8.0, 4.0], mat);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:137:9
+   |
+LL |         assert_eq!([9.0, 5.0, 1.0, 10.0, 6.0, 2.0, 11.0, 7.0, 3.0, 12.0, 8.0, 4.0], mat);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/get_unwrap.rs:137:9
+   |
+LL |         assert_eq!([9.0, 5.0, 1.0, 10.0, 6.0, 2.0, 11.0, 7.0, 3.0, 12.0, 8.0, 4.0], mat);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: called `.get().unwrap()` on a slice
   --> tests/ui/get_unwrap.rs:37:17
    |
@@ -15,17 +376,6 @@ LL -         let _ = boxed_slice.get(1).unwrap();
 LL +         let _ = &boxed_slice[1];
    |
 
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:37:17
-   |
-LL |         let _ = boxed_slice.get(1).unwrap();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
-   = note: `-D clippy::unwrap-used` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unwrap_used)]`
-
 error: called `.get().unwrap()` on a slice
   --> tests/ui/get_unwrap.rs:40:17
    |
@@ -37,15 +387,6 @@ help: using `[]` is clearer and more concise
 LL -         let _ = some_slice.get(0).unwrap();
 LL +         let _ = &some_slice[0];
    |
-
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:40:17
-   |
-LL |         let _ = some_slice.get(0).unwrap();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
 
 error: called `.get().unwrap()` on a Vec
   --> tests/ui/get_unwrap.rs:43:17
@@ -59,15 +400,6 @@ LL -         let _ = some_vec.get(0).unwrap();
 LL +         let _ = &some_vec[0];
    |
 
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:43:17
-   |
-LL |         let _ = some_vec.get(0).unwrap();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
-
 error: called `.get().unwrap()` on a VecDeque
   --> tests/ui/get_unwrap.rs:46:17
    |
@@ -79,15 +411,6 @@ help: using `[]` is clearer and more concise
 LL -         let _ = some_vecdeque.get(0).unwrap();
 LL +         let _ = &some_vecdeque[0];
    |
-
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:46:17
-   |
-LL |         let _ = some_vecdeque.get(0).unwrap();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
 
 error: called `.get().unwrap()` on a HashMap
   --> tests/ui/get_unwrap.rs:49:17
@@ -101,15 +424,6 @@ LL -         let _ = some_hashmap.get(&1).unwrap();
 LL +         let _ = &some_hashmap[&1];
    |
 
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:49:17
-   |
-LL |         let _ = some_hashmap.get(&1).unwrap();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
-
 error: called `.get().unwrap()` on a BTreeMap
   --> tests/ui/get_unwrap.rs:52:17
    |
@@ -121,15 +435,6 @@ help: using `[]` is clearer and more concise
 LL -         let _ = some_btreemap.get(&1).unwrap();
 LL +         let _ = &some_btreemap[&1];
    |
-
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:52:17
-   |
-LL |         let _ = some_btreemap.get(&1).unwrap();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
 
 error: called `.get().unwrap()` on a slice
   --> tests/ui/get_unwrap.rs:58:21
@@ -143,15 +448,6 @@ LL -         let _: u8 = *boxed_slice.get(1).unwrap();
 LL +         let _: u8 = boxed_slice[1];
    |
 
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:58:22
-   |
-LL |         let _: u8 = *boxed_slice.get(1).unwrap();
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
-
 error: called `.get_mut().unwrap()` on a slice
   --> tests/ui/get_unwrap.rs:65:9
    |
@@ -163,15 +459,6 @@ help: using `[]` is clearer and more concise
 LL -         *boxed_slice.get_mut(0).unwrap() = 1;
 LL +         boxed_slice[0] = 1;
    |
-
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:65:10
-   |
-LL |         *boxed_slice.get_mut(0).unwrap() = 1;
-   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
 
 error: called `.get_mut().unwrap()` on a slice
   --> tests/ui/get_unwrap.rs:68:9
@@ -185,15 +472,6 @@ LL -         *some_slice.get_mut(0).unwrap() = 1;
 LL +         some_slice[0] = 1;
    |
 
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:68:10
-   |
-LL |         *some_slice.get_mut(0).unwrap() = 1;
-   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
-
 error: called `.get_mut().unwrap()` on a Vec
   --> tests/ui/get_unwrap.rs:71:9
    |
@@ -205,15 +483,6 @@ help: using `[]` is clearer and more concise
 LL -         *some_vec.get_mut(0).unwrap() = 1;
 LL +         some_vec[0] = 1;
    |
-
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:71:10
-   |
-LL |         *some_vec.get_mut(0).unwrap() = 1;
-   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
 
 error: called `.get_mut().unwrap()` on a VecDeque
   --> tests/ui/get_unwrap.rs:74:9
@@ -227,15 +496,6 @@ LL -         *some_vecdeque.get_mut(0).unwrap() = 1;
 LL +         some_vecdeque[0] = 1;
    |
 
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:74:10
-   |
-LL |         *some_vecdeque.get_mut(0).unwrap() = 1;
-   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
-
 error: called `.get().unwrap()` on a Vec
   --> tests/ui/get_unwrap.rs:88:17
    |
@@ -248,15 +508,6 @@ LL -         let _ = some_vec.get(0..1).unwrap().to_vec();
 LL +         let _ = some_vec[0..1].to_vec();
    |
 
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:88:17
-   |
-LL |         let _ = some_vec.get(0..1).unwrap().to_vec();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
-
 error: called `.get_mut().unwrap()` on a Vec
   --> tests/ui/get_unwrap.rs:91:17
    |
@@ -268,15 +519,6 @@ help: using `[]` is clearer and more concise
 LL -         let _ = some_vec.get_mut(0..1).unwrap().to_vec();
 LL +         let _ = some_vec[0..1].to_vec();
    |
-
-error: used `unwrap()` on an `Option` value
-  --> tests/ui/get_unwrap.rs:91:17
-   |
-LL |         let _ = some_vec.get_mut(0..1).unwrap().to_vec();
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: if this value is `None`, it will panic
-   = help: consider using `expect()` to provide a better panic message
 
 error: called `.get().unwrap()` on a slice
   --> tests/ui/get_unwrap.rs:104:24
@@ -326,5 +568,5 @@ LL -                         let b = rest.get_mut(linidx(j, k) - linidx(i, k) - 
 LL +                         let b = &mut rest[linidx(j, k) - linidx(i, k) - 1];
    |
 
-error: aborting due to 30 previous errors
+error: aborting due to 64 previous errors
 

@@ -1,53 +1,126 @@
-error: this union has the default representation
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
   --> tests/ui/default_union_representation.rs:5:1
    |
-LL | / union NoAttribute {
-LL | |
-LL | |     a: i32,
-LL | |     b: u32,
-LL | | }
-   | |_^
+LL | union NoAttribute {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider annotating `NoAttribute` with `#[repr(C)]` to explicitly specify memory layout
-   = note: `-D clippy::default-union-representation` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::default_union_representation)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this union has the default representation
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:12:1
+   |
+LL | union ReprC {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/default_union_representation.rs:18:1
    |
-LL | / union ReprPacked {
-LL | |
-LL | |     a: i32,
-LL | |     b: u32,
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `ReprPacked` with `#[repr(C)]` to explicitly specify memory layout
+LL | union ReprPacked {
+   | ^ help: make this item public: `pub`
 
-error: this union has the default representation
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:25:1
+   |
+LL | union ReprCPacked {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:31:1
+   |
+LL | union ReprCAlign {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/default_union_representation.rs:37:1
    |
-LL | / union ReprAlign {
-LL | |
-LL | |     a: i32,
-LL | |     b: u32,
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `ReprAlign` with `#[repr(C)]` to explicitly specify memory layout
+LL | union ReprAlign {
+   | ^ help: make this item public: `pub`
 
-error: this union has the default representation
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:43:1
+   |
+LL | union SingleZST {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:46:1
+   |
+LL | union ZSTsAndField1 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:52:1
+   |
+LL | union ZSTsAndField2 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/default_union_representation.rs:58:1
    |
-LL | / union ZSTAndTwoFields {
-LL | |
-LL | |     f0: u32,
-LL | |     f1: u64,
-LL | |     f2: (),
-LL | | }
-   | |_^
-   |
-   = help: consider annotating `ZSTAndTwoFields` with `#[repr(C)]` to explicitly specify memory layout
+LL | union ZSTAndTwoFields {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:66:1
+   |
+LL | union CZSTAndTwoFields {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:73:1
+   |
+LL | union ReprTransparent {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:78:1
+   |
+LL | union ReprTransparentZST {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_union_representation.rs:83:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_union_representation.rs:83:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_union_representation.rs:83:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 19 previous errors
 

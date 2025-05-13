@@ -1,76 +1,362 @@
-error: you seem to be trying to use `Box<Vec<..>>`. Consider using just `Vec<..>`
-  --> tests/ui/box_collection.rs:20:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:10:1
+   |
+LL | macro_rules! boxit {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:16:1
+   |
+LL | fn test_macro() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:16:1
+   |
+LL | fn test_macro() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:16:1
+   |
+LL | fn test_macro() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:20:1
    |
 LL | fn test1(foo: Box<Vec<bool>>) {}
-   |               ^^^^^^^^^^^^^^
-   |
-   = help: `Vec<..>` is already on the heap, `Box<Vec<..>>` makes an extra allocation
-   = note: `-D clippy::box-collection` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::box_collection)]`
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `Box<String>`. Consider using just `String`
-  --> tests/ui/box_collection.rs:28:15
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:20:1
+   |
+LL | fn test1(foo: Box<Vec<bool>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:20:1
+   |
+LL | fn test1(foo: Box<Vec<bool>>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:20:10
+   |
+LL | fn test1(foo: Box<Vec<bool>>) {}
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:23:1
+   |
+LL | fn test2(foo: Box<dyn Fn(Vec<u32>)>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:23:1
+   |
+LL | fn test2(foo: Box<dyn Fn(Vec<u32>)>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:23:1
+   |
+LL | fn test2(foo: Box<dyn Fn(Vec<u32>)>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:23:10
+   |
+LL | fn test2(foo: Box<dyn Fn(Vec<u32>)>) {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:28:1
    |
 LL | fn test3(foo: Box<String>) {}
-   |               ^^^^^^^^^^^
-   |
-   = help: `String` is already on the heap, `Box<String>` makes an extra allocation
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `Box<HashMap<..>>`. Consider using just `HashMap<..>`
-  --> tests/ui/box_collection.rs:31:15
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:28:1
+   |
+LL | fn test3(foo: Box<String>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:28:1
+   |
+LL | fn test3(foo: Box<String>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:28:10
+   |
+LL | fn test3(foo: Box<String>) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:31:1
    |
 LL | fn test4(foo: Box<HashMap<String, String>>) {}
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: `HashMap<..>` is already on the heap, `Box<HashMap<..>>` makes an extra allocation
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `Box<HashSet<..>>`. Consider using just `HashSet<..>`
-  --> tests/ui/box_collection.rs:34:15
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:31:1
+   |
+LL | fn test4(foo: Box<HashMap<String, String>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:31:1
+   |
+LL | fn test4(foo: Box<HashMap<String, String>>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:31:10
+   |
+LL | fn test4(foo: Box<HashMap<String, String>>) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:34:1
    |
 LL | fn test5(foo: Box<HashSet<i64>>) {}
-   |               ^^^^^^^^^^^^^^^^^
-   |
-   = help: `HashSet<..>` is already on the heap, `Box<HashSet<..>>` makes an extra allocation
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `Box<VecDeque<..>>`. Consider using just `VecDeque<..>`
-  --> tests/ui/box_collection.rs:37:15
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:34:1
+   |
+LL | fn test5(foo: Box<HashSet<i64>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:34:1
+   |
+LL | fn test5(foo: Box<HashSet<i64>>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:34:10
+   |
+LL | fn test5(foo: Box<HashSet<i64>>) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:37:1
    |
 LL | fn test6(foo: Box<VecDeque<i32>>) {}
-   |               ^^^^^^^^^^^^^^^^^^
-   |
-   = help: `VecDeque<..>` is already on the heap, `Box<VecDeque<..>>` makes an extra allocation
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `Box<LinkedList<..>>`. Consider using just `LinkedList<..>`
-  --> tests/ui/box_collection.rs:40:15
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:37:1
+   |
+LL | fn test6(foo: Box<VecDeque<i32>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:37:1
+   |
+LL | fn test6(foo: Box<VecDeque<i32>>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:37:10
+   |
+LL | fn test6(foo: Box<VecDeque<i32>>) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:40:1
    |
 LL | fn test7(foo: Box<LinkedList<i16>>) {}
-   |               ^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: `LinkedList<..>` is already on the heap, `Box<LinkedList<..>>` makes an extra allocation
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `Box<BTreeMap<..>>`. Consider using just `BTreeMap<..>`
-  --> tests/ui/box_collection.rs:43:15
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:40:1
+   |
+LL | fn test7(foo: Box<LinkedList<i16>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:40:1
+   |
+LL | fn test7(foo: Box<LinkedList<i16>>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:40:10
+   |
+LL | fn test7(foo: Box<LinkedList<i16>>) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:43:1
    |
 LL | fn test8(foo: Box<BTreeMap<i8, String>>) {}
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: `BTreeMap<..>` is already on the heap, `Box<BTreeMap<..>>` makes an extra allocation
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `Box<BTreeSet<..>>`. Consider using just `BTreeSet<..>`
-  --> tests/ui/box_collection.rs:46:15
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:43:1
+   |
+LL | fn test8(foo: Box<BTreeMap<i8, String>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:43:1
+   |
+LL | fn test8(foo: Box<BTreeMap<i8, String>>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:43:10
+   |
+LL | fn test8(foo: Box<BTreeMap<i8, String>>) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:46:1
    |
 LL | fn test9(foo: Box<BTreeSet<u64>>) {}
-   |               ^^^^^^^^^^^^^^^^^^
-   |
-   = help: `BTreeSet<..>` is already on the heap, `Box<BTreeSet<..>>` makes an extra allocation
+   | ^ help: make this item public: `pub`
 
-error: you seem to be trying to use `Box<BinaryHeap<..>>`. Consider using just `BinaryHeap<..>`
-  --> tests/ui/box_collection.rs:49:16
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:46:1
+   |
+LL | fn test9(foo: Box<BTreeSet<u64>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:46:1
+   |
+LL | fn test9(foo: Box<BTreeSet<u64>>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:46:10
+   |
+LL | fn test9(foo: Box<BTreeSet<u64>>) {}
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:49:1
    |
 LL | fn test10(foo: Box<BinaryHeap<u32>>) {}
-   |                ^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: `BinaryHeap<..>` is already on the heap, `Box<BinaryHeap<..>>` makes an extra allocation
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 9 previous errors
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:49:1
+   |
+LL | fn test10(foo: Box<BinaryHeap<u32>>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:49:1
+   |
+LL | fn test10(foo: Box<BinaryHeap<u32>>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:49:11
+   |
+LL | fn test10(foo: Box<BinaryHeap<u32>>) {}
+   |           ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:52:1
+   |
+LL | fn test_local_not_linted() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:52:1
+   |
+LL | fn test_local_not_linted() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:52:1
+   |
+LL | fn test_local_not_linted() {
+   | ^
+
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:58:5
+   |
+LL | pub fn pub_test(foo: Box<Vec<bool>>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:58:5
+   |
+LL | pub fn pub_test(foo: Box<Vec<bool>>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/box_collection.rs:58:17
+   |
+LL | pub fn pub_test(foo: Box<Vec<bool>>) {}
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:60:5
+   |
+LL | pub fn pub_test_ret() -> Box<Vec<bool>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:60:5
+   |
+LL | pub fn pub_test_ret() -> Box<Vec<bool>> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/box_collection.rs:64:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/box_collection.rs:64:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/box_collection.rs:64:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 44 previous errors
 

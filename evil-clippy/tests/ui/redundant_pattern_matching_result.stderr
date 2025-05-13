@@ -1,213 +1,233 @@
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:14:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:12:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_result.rs:13:9
+   |
+LL |     let result: Result<usize, usize> = Err(5);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/redundant_pattern_matching_result.rs:14:20
    |
 LL |     if let Ok(_) = &result {}
-   |     -------^^^^^---------- help: try: `if result.is_ok()`
+   |                    ^^^^^^^
    |
-   = note: `-D clippy::redundant-pattern-matching` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_pattern_matching)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:17:12
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:81:1
    |
-LL |     if let Ok(_) = Ok::<i32, i32>(42) {}
-   |     -------^^^^^--------------------- help: try: `if Ok::<i32, i32>(42).is_ok()`
+LL | fn gen_res() -> Result<(), ()> {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:20:12
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:81:1
    |
-LL |     if let Err(_) = Err::<i32, i32>(42) {}
-   |     -------^^^^^^---------------------- help: try: `if Err::<i32, i32>(42).is_err()`
+LL | fn gen_res() -> Result<(), ()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:81:1
+   |
+LL | fn gen_res() -> Result<(), ()> {
+   | ^
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:23:15
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:85:1
    |
-LL |     while let Ok(_) = Ok::<i32, i32>(10) {}
-   |     ----------^^^^^--------------------- help: try: `while Ok::<i32, i32>(10).is_ok()`
+LL | macro_rules! m {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:26:15
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:91:1
    |
-LL |     while let Err(_) = Ok::<i32, i32>(10) {}
-   |     ----------^^^^^^--------------------- help: try: `while Ok::<i32, i32>(10).is_err()`
+LL | fn issue5504() {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:37:5
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:91:1
    |
-LL | /     match Ok::<i32, i32>(42) {
-LL | |
-LL | |         Ok(_) => true,
-LL | |         Err(_) => false,
-LL | |     };
-   | |_____^ help: try: `Ok::<i32, i32>(42).is_ok()`
+LL | fn issue5504() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:91:1
+   |
+LL | fn issue5504() {
+   | ^
 
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:43:5
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:92:5
    |
-LL | /     match Ok::<i32, i32>(42) {
-LL | |
-LL | |         Ok(_) => false,
-LL | |         Err(_) => true,
-LL | |     };
-   | |_____^ help: try: `Ok::<i32, i32>(42).is_err()`
+LL |     fn result_opt() -> Result<Option<i32>, i32> {
+   |     ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:49:5
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:92:5
    |
-LL | /     match Err::<i32, i32>(42) {
-LL | |
-LL | |         Ok(_) => false,
-LL | |         Err(_) => true,
-LL | |     };
-   | |_____^ help: try: `Err::<i32, i32>(42).is_err()`
+LL |     fn result_opt() -> Result<Option<i32>, i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:92:5
+   |
+LL |     fn result_opt() -> Result<Option<i32>, i32> {
+   |     ^
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:55:5
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:96:5
    |
-LL | /     match Err::<i32, i32>(42) {
-LL | |
-LL | |         Ok(_) => true,
-LL | |         Err(_) => false,
-LL | |     };
-   | |_____^ help: try: `Err::<i32, i32>(42).is_ok()`
+LL |     fn try_result_opt() -> Result<i32, i32> {
+   |     ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:61:20
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:96:5
    |
-LL |     let _ = if let Ok(_) = Ok::<usize, ()>(4) { true } else { false };
-   |             -------^^^^^--------------------- help: try: `if Ok::<usize, ()>(4).is_ok()`
+LL |     fn try_result_opt() -> Result<i32, i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:96:5
+   |
+LL |     fn try_result_opt() -> Result<i32, i32> {
+   |     ^
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:70:20
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:112:1
    |
-LL |     let _ = if let Ok(_) = gen_res() {
-   |             -------^^^^^------------ help: try: `if gen_res().is_ok()`
+LL | fn issue6065() {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:73:19
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:112:1
    |
-LL |     } else if let Err(_) = gen_res() {
-   |            -------^^^^^^------------ help: try: `if gen_res().is_err()`
+LL | fn issue6065() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:112:1
+   |
+LL | fn issue6065() {
+   | ^
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_result.rs:97:19
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:113:5
    |
-LL |         while let Some(_) = r#try!(result_opt()) {}
-   |         ----------^^^^^^^----------------------- help: try: `while r#try!(result_opt()).is_some()`
+LL |     macro_rules! if_let_in_macro {
+   |     ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_result.rs:99:16
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:126:1
    |
-LL |         if let Some(_) = r#try!(result_opt()) {}
-   |         -------^^^^^^^----------------------- help: try: `if r#try!(result_opt()).is_some()`
+LL | const fn issue6067() {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_result.rs:106:12
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:126:7
    |
-LL |     if let Some(_) = m!() {}
-   |     -------^^^^^^^------- help: try: `if m!().is_some()`
+LL | const fn issue6067() {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:126:7
+   |
+LL | const fn issue6067() {
+   |       ^
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/redundant_pattern_matching_result.rs:108:15
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:152:1
    |
-LL |     while let Some(_) = m!() {}
-   |     ----------^^^^^^^------- help: try: `while m!().is_some()`
+LL | fn issue10726() {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:127:12
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:152:1
    |
-LL |     if let Ok(_) = Ok::<i32, i32>(42) {}
-   |     -------^^^^^--------------------- help: try: `if Ok::<i32, i32>(42).is_ok()`
+LL | fn issue10726() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:152:1
+   |
+LL | fn issue10726() {
+   | ^
 
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:130:12
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_result.rs:154:9
    |
-LL |     if let Err(_) = Err::<i32, i32>(42) {}
-   |     -------^^^^^^---------------------- help: try: `if Err::<i32, i32>(42).is_err()`
+LL |     let x: Result<i32, i32> = Ok(42);
+   |         ^ help: make this variable mutable: `mut`
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:133:15
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_result.rs:193:1
    |
-LL |     while let Ok(_) = Ok::<i32, i32>(10) {}
-   |     ----------^^^^^--------------------- help: try: `while Ok::<i32, i32>(10).is_ok()`
+LL | fn issue10803() {
+   | ^ help: make this item public: `pub`
 
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:136:15
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:193:1
    |
-LL |     while let Err(_) = Ok::<i32, i32>(10) {}
-   |     ----------^^^^^^--------------------- help: try: `while Ok::<i32, i32>(10).is_err()`
+LL | fn issue10803() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_result.rs:193:1
+   |
+LL | fn issue10803() {
+   | ^
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:139:5
+error: variable must be `mut`
+  --> tests/ui/redundant_pattern_matching_result.rs:194:9
    |
-LL | /     match Ok::<i32, i32>(42) {
-LL | |
-LL | |         Ok(_) => true,
-LL | |         Err(_) => false,
-LL | |     };
-   | |_____^ help: try: `Ok::<i32, i32>(42).is_ok()`
+LL |     let x: Result<i32, i32> = Ok(42);
+   |         ^ help: make this variable mutable: `mut`
 
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:145:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match Err::<i32, i32>(42) {
-LL | |
-LL | |         Ok(_) => false,
-LL | |         Err(_) => true,
-LL | |     };
-   | |_____^ help: try: `Err::<i32, i32>(42).is_err()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:156:5
+error: missing `#![no_std]`
    |
-LL | /     match x {
-LL | |
-LL | |         Ok(_) => true,
-LL | |         _ => false,
-LL | |     };
-   | |_____^ help: try: `x.is_ok()`
-
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:162:5
-   |
-LL | /     match x {
-LL | |
-LL | |         Ok(_) => false,
-LL | |         _ => true,
-LL | |     };
-   | |_____^ help: try: `x.is_err()`
-
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:168:5
-   |
-LL | /     match x {
-LL | |
-LL | |         Err(_) => true,
-LL | |         _ => false,
-LL | |     };
-   | |_____^ help: try: `x.is_err()`
-
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:174:5
-   |
-LL | /     match x {
-LL | |
-LL | |         Err(_) => false,
-LL | |         _ => true,
-LL | |     };
-   | |_____^ help: try: `x.is_ok()`
-
-error: redundant pattern matching, consider using `is_ok()`
-  --> tests/ui/redundant_pattern_matching_result.rs:196:13
-   |
-LL |     let _ = matches!(x, Ok(_));
-   |             ^^^^^^^^^^^^^^^^^^ help: try: `x.is_ok()`
-
-error: redundant pattern matching, consider using `is_err()`
-  --> tests/ui/redundant_pattern_matching_result.rs:199:13
-   |
-LL |     let _ = matches!(x, Err(_));
-   |             ^^^^^^^^^^^^^^^^^^^ help: try: `x.is_err()`
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
 error: aborting due to 28 previous errors
 

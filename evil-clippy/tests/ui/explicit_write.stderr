@@ -1,83 +1,104 @@
-error: use of `write!(stdout(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:23:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         write!(std::io::stdout(), "test").unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `print!("test")`
-   |
-   = note: `-D clippy::explicit-write` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::explicit_write)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `write!(stderr(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:25:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         write!(std::io::stderr(), "test").unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `eprint!("test")`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `writeln!(stdout(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:27:9
+error: item must be `pub`
+  --> tests/ui/explicit_write.rs:5:1
    |
-LL |         writeln!(std::io::stdout(), "test").unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `println!("test")`
+LL | fn stdout() -> String {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: use of `writeln!(stderr(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:29:9
+error: function must be `unsafe`
+  --> tests/ui/explicit_write.rs:5:1
    |
-LL |         writeln!(std::io::stderr(), "test").unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `eprintln!("test")`
+LL | fn stdout() -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_write.rs:5:1
+   |
+LL | fn stdout() -> String {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: use of `stdout().write_fmt(...).unwrap()`
-  --> tests/ui/explicit_write.rs:31:9
+error: item must be `pub`
+  --> tests/ui/explicit_write.rs:9:1
    |
-LL |         std::io::stdout().write_fmt(format_args!("test")).unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `print!("test")`
+LL | fn stderr() -> String {
+   | ^ help: make this item public: `pub`
 
-error: use of `stderr().write_fmt(...).unwrap()`
-  --> tests/ui/explicit_write.rs:33:9
+error: function must be `unsafe`
+  --> tests/ui/explicit_write.rs:9:1
    |
-LL |         std::io::stderr().write_fmt(format_args!("test")).unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `eprint!("test")`
+LL | fn stderr() -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_write.rs:9:1
+   |
+LL | fn stderr() -> String {
+   | ^
 
-error: use of `writeln!(stdout(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:37:9
+error: item must be `pub`
+  --> tests/ui/explicit_write.rs:13:1
    |
-LL |         writeln!(std::io::stdout(), "test\ntest").unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `println!("test\ntest")`
+LL | macro_rules! one {
+   | ^ help: make this item public: `pub`
 
-error: use of `writeln!(stderr(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:39:9
+error: item must be `pub`
+  --> tests/ui/explicit_write.rs:19:1
    |
-LL |         writeln!(std::io::stderr(), "test\ntest").unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `eprintln!("test\ntest")`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: use of `writeln!(stderr(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:43:9
+error: function must be `unsafe`
+  --> tests/ui/explicit_write.rs:19:1
    |
-LL |         writeln!(std::io::stderr(), "with {}", value).unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `eprintln!("with {}", value)`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/explicit_write.rs:19:1
+   |
+LL | fn main() {
+   | ^
 
-error: use of `writeln!(stderr(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:45:9
+error: variable must be `mut`
+  --> tests/ui/explicit_write.rs:42:13
    |
-LL |         writeln!(std::io::stderr(), "with {} {}", 2, value).unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `eprintln!("with {} {}", 2, value)`
+LL |         let value = 1;
+   |             ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: use of `writeln!(stderr(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:47:9
+error: variable must be `mut`
+  --> tests/ui/explicit_write.rs:51:13
    |
-LL |         writeln!(std::io::stderr(), "with {value}").unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `eprintln!("with {value}")`
+LL |         let width = 2;
+   |             ^ help: make this variable mutable: `mut`
 
-error: use of `writeln!(stderr(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:49:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         writeln!(std::io::stderr(), "macro arg {}", one!()).unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `eprintln!("macro arg {}", one!())`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `writeln!(stderr(), ...).unwrap()`
-  --> tests/ui/explicit_write.rs:52:9
+error: missing `#![no_std]`
    |
-LL |         writeln!(std::io::stderr(), "{:w$}", value, w = width).unwrap();
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `eprintln!("{:w$}", value, w = width)`
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
 error: aborting due to 13 previous errors
 

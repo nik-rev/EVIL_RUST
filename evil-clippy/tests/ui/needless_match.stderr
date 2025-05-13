@@ -1,155 +1,859 @@
-error: this match expression is unnecessary
-  --> tests/ui/needless_match.rs:15:18
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _: i32 = match i {
-   |  __________________^
-LL | |
-LL | |         0 => 0,
-LL | |         1 => 1,
-LL | |         2 => 2,
-LL | |         _ => i,
-LL | |     };
-   | |_____^ help: replace it with: `i`
-   |
-   = note: `-D clippy::needless-match` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_match)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this match expression is unnecessary
-  --> tests/ui/needless_match.rs:23:19
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _: &str = match s {
-   |  ___________________^
-LL | |
-LL | |         "a" => "a",
-LL | |         "b" => "b",
-LL | |         s => s,
-LL | |     };
-   | |_____^ help: replace it with: `s`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this match expression is unnecessary
-  --> tests/ui/needless_match.rs:33:21
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:6:1
    |
-LL |       let _: Simple = match se {
-   |  _____________________^
-LL | |
-LL | |         Simple::A => Simple::A,
-LL | |         Simple::B => Simple::B,
-LL | |         Simple::C => Simple::C,
-LL | |         Simple::D => Simple::D,
-LL | |     };
-   | |_____^ help: replace it with: `se`
-
-error: this match expression is unnecessary
-  --> tests/ui/needless_match.rs:56:26
+LL | enum Simple {
+   | ^ help: make this item public: `pub`
    |
-LL |       let _: Option<i32> = match x {
-   |  __________________________^
-LL | |
-LL | |         Some(a) => Some(a),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: replace it with: `x`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this match expression is unnecessary
-  --> tests/ui/needless_match.rs:73:31
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:5:10
    |
-LL |       let _: Result<i32, i32> = match Ok(1) {
-   |  _______________________________^
-LL | |
-LL | |         Ok(a) => Ok(a),
-LL | |         Err(err) => Err(err),
-LL | |     };
-   | |_____^ help: replace it with: `Ok(1)`
+LL | #[derive(Clone, Copy)]
+   |          ^
 
-error: this match expression is unnecessary
-  --> tests/ui/needless_match.rs:78:31
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:5:7
    |
-LL |       let _: Result<i32, i32> = match func_ret_err(0_i32) {
-   |  _______________________________^
-LL | |
-LL | |         Err(err) => Err(err),
-LL | |         Ok(a) => Ok(a),
-LL | |     };
-   | |_____^ help: replace it with: `func_ret_err(0_i32)`
-
-error: this if-let expression is unnecessary
-  --> tests/ui/needless_match.rs:92:13
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
    |
-LL |     let _ = if let Some(a) = Some(1) { Some(a) } else { None };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `Some(1)`
-
-error: this if-let expression is unnecessary
-  --> tests/ui/needless_match.rs:128:31
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:5:7
    |
-LL |     let _: Result<i32, i32> = if let Err(e) = x { Err(e) } else { x };
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `x`
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this if-let expression is unnecessary
-  --> tests/ui/needless_match.rs:130:31
+error: parameter must be `mut`
+  --> tests/ui/needless_match.rs:5:10
    |
-LL |     let _: Result<i32, i32> = if let Ok(val) = x { Ok(val) } else { x };
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `x`
-
-error: this if-let expression is unnecessary
-  --> tests/ui/needless_match.rs:138:21
+LL | #[derive(Clone, Copy)]
+   |          ^ help: make this parameter mutable: `mut`
    |
-LL |       let _: Simple = if let Simple::A = x {
-   |  _____________________^
-LL | |
-LL | |         Simple::A
-LL | |     } else if let Simple::B = x {
-...  |
-LL | |         x
-LL | |     };
-   | |_____^ help: replace it with: `x`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this match expression is unnecessary
-  --> tests/ui/needless_match.rs:178:26
+error: references are not allowed
+  --> tests/ui/needless_match.rs:5:10
    |
-LL |           let _: Complex = match ce {
-   |  __________________________^
-LL | |
-LL | |             Complex::A(a) => Complex::A(a),
-LL | |             Complex::B(a, b) => Complex::B(a, b),
-...  |
-LL | |             Complex::D(E::VariantB(ea, eb), b) => Complex::D(E::VariantB(ea, eb), b),
-LL | |         };
-   | |_________^ help: replace it with: `ce`
-
-error: this match expression is unnecessary
-  --> tests/ui/needless_match.rs:263:17
+LL | #[derive(Clone, Copy)]
+   |          ^^^^^
    |
-LL |           let _ = match e {
-   |  _________________^
-LL | |
-LL | |             _ if some_bool => e,
-LL | |             _ => e,
-LL | |         };
-   | |_________^ help: replace it with: `e`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this match expression is unnecessary
-  --> tests/ui/needless_match.rs:270:17
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:5:17
    |
-LL |           let _ = match e {
-   |  _________________^
-LL | |
-LL | |             Some(i) => Some(i),
-LL | |             _ if some_bool => e,
-LL | |             _ => e,
-LL | |         };
-   | |_________^ help: replace it with: `e`
+LL | #[derive(Clone, Copy)]
+   |                 ^
 
-error: this if-let expression is unnecessary
-  --> tests/ui/needless_match.rs:352:9
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:13:1
    |
-LL | /         if let Some(num) = A {
-LL | |
-LL | |             Some(num)
-LL | |         } else if let Some(num) = A {
-...  |
-LL | |             None
-LL | |         }
-   | |_________^ help: replace it with: `A`
+LL | fn useless_match() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 14 previous errors
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:13:1
+   |
+LL | fn useless_match() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:13:1
+   |
+LL | fn useless_match() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:14:9
+   |
+LL |     let i = 10;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:22:9
+   |
+LL |     let s = "test";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:23:12
+   |
+LL |     let _: &str = match s {
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:31:1
+   |
+LL | fn custom_type_match() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:31:1
+   |
+LL | fn custom_type_match() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:31:1
+   |
+LL | fn custom_type_match() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:32:9
+   |
+LL |     let se = Simple::A;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:55:1
+   |
+LL | fn option_match(x: Option<i32>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:55:1
+   |
+LL | fn option_match(x: Option<i32>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:55:1
+   |
+LL | fn option_match(x: Option<i32>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_match.rs:55:17
+   |
+LL | fn option_match(x: Option<i32>) {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:68:1
+   |
+LL | fn func_ret_err<T>(err: T) -> Result<i32, T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:68:1
+   |
+LL | fn func_ret_err<T>(err: T) -> Result<i32, T> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:68:1
+   |
+LL | fn func_ret_err<T>(err: T) -> Result<i32, T> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_match.rs:68:20
+   |
+LL | fn func_ret_err<T>(err: T) -> Result<i32, T> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:72:1
+   |
+LL | fn result_match() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:72:1
+   |
+LL | fn result_match() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:72:1
+   |
+LL | fn result_match() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:84:9
+   |
+LL |     let res = &func_ret_err(0_i32);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:84:15
+   |
+LL |     let res = &func_ret_err(0_i32);
+   |               ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:85:19
+   |
+LL |     let _: Result<&i32, &i32> = match *res {
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:85:25
+   |
+LL |     let _: Result<&i32, &i32> = match *res {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_match.rs:86:12
+   |
+LL |         Ok(ref x) => Ok(x),
+   |            ^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/needless_match.rs:87:13
+   |
+LL |         Err(ref x) => Err(x),
+   |             ^^^^^
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:91:1
+   |
+LL | fn if_let_option() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:91:1
+   |
+LL | fn if_let_option() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:91:1
+   |
+LL | fn if_let_option() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:95:5
+   |
+LL |     fn do_something() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:95:5
+   |
+LL |     fn do_something() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:95:5
+   |
+LL |     fn do_something() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:117:1
+   |
+LL | fn if_let_option_result() -> Result<(), ()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:117:1
+   |
+LL | fn if_let_option_result() -> Result<(), ()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:117:1
+   |
+LL | fn if_let_option_result() -> Result<(), ()> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:118:5
+   |
+LL |     fn f(x: i32) -> Result<Option<i32>, ()> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:118:5
+   |
+LL |     fn f(x: i32) -> Result<Option<i32>, ()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:118:5
+   |
+LL |     fn f(x: i32) -> Result<Option<i32>, ()> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_match.rs:118:10
+   |
+LL |     fn f(x: i32) -> Result<Option<i32>, ()> {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:126:1
+   |
+LL | fn if_let_result() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:126:1
+   |
+LL | fn if_let_result() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:126:1
+   |
+LL | fn if_let_result() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:127:9
+   |
+LL |     let x: Result<i32, i32> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:137:1
+   |
+LL | fn if_let_custom_enum(x: Simple) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:137:1
+   |
+LL | fn if_let_custom_enum(x: Simple) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:137:1
+   |
+LL | fn if_let_custom_enum(x: Simple) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_match.rs:137:23
+   |
+LL | fn if_let_custom_enum(x: Simple) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:159:1
+   |
+LL | mod issue8542 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:161:5
+   |
+LL |     enum E {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:160:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:160:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:160:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_match.rs:160:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:160:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:160:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:166:5
+   |
+LL |     enum Complex {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:173:5
+   |
+LL |     fn match_test() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:173:5
+   |
+LL |     fn match_test() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:173:5
+   |
+LL |     fn match_test() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:174:13
+   |
+LL |         let ce = Complex::B(8, false);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:175:13
+   |
+LL |         let aa = 0_u8;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:176:13
+   |
+LL |         let bb = false;
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:207:1
+   |
+LL | mod issue8551 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_match.rs:208:5
+   |
+LL |     trait Trait {}
+   |     ^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:208:5
+   |
+LL |     trait Trait {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:209:5
+   |
+LL |     struct Struct;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:210:5
+   |
+LL |     impl Trait for Struct {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:212:5
+   |
+LL |     fn optmap(s: Option<&Struct>) -> Option<&dyn Trait> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:212:5
+   |
+LL |     fn optmap(s: Option<&Struct>) -> Option<&dyn Trait> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:212:5
+   |
+LL |     fn optmap(s: Option<&Struct>) -> Option<&dyn Trait> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_match.rs:212:15
+   |
+LL |     fn optmap(s: Option<&Struct>) -> Option<&dyn Trait> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:212:25
+   |
+LL |     fn optmap(s: Option<&Struct>) -> Option<&dyn Trait> {
+   |                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:212:45
+   |
+LL |     fn optmap(s: Option<&Struct>) -> Option<&dyn Trait> {
+   |                                             ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:219:5
+   |
+LL |     fn lint_tests() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:219:5
+   |
+LL |     fn lint_tests() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:219:5
+   |
+LL |     fn lint_tests() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:220:13
+   |
+LL |         let option: Option<&Struct> = None;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:220:28
+   |
+LL |         let option: Option<&Struct> = None;
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:221:23
+   |
+LL |         let _: Option<&dyn Trait> = match option {
+   |                       ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:226:23
+   |
+LL |         let _: Option<&dyn Trait> = if true {
+   |                       ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:235:13
+   |
+LL |         let result: Result<&Struct, i32> = Err(0);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:235:28
+   |
+LL |         let result: Result<&Struct, i32> = Err(0);
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:236:23
+   |
+LL |         let _: Result<&dyn Trait, i32> = match result {
+   |                       ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:241:23
+   |
+LL |         let _: Option<&dyn Trait> = if let Some(s) = option { Some(s) } else { None };
+   |                       ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_match.rs:245:1
+   |
+LL | / trait Tr {
+LL | |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32>;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:245:1
+   |
+LL | trait Tr {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:246:5
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32>;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:246:5
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32>;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_match.rs:246:20
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32>;
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:246:15
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32>;
+   |               ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:246:36
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32>;
+   |                                    ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:246:46
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32>;
+   |                                              ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:248:1
+   |
+LL | impl Tr for Result<i32, i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:249:5
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:249:5
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_match.rs:249:20
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:249:15
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32> {
+   |               ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:249:36
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32> {
+   |                                    ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_match.rs:249:46
+   |
+LL |     fn as_mut(&mut self) -> Result<&mut i32, &mut i32> {
+   |                                              ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:257:1
+   |
+LL | mod issue9084 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:258:5
+   |
+LL |     fn wildcard_if() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:258:5
+   |
+LL |     fn wildcard_if() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:258:5
+   |
+LL |     fn wildcard_if() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_match.rs:260:13
+   |
+LL |         let e = Some(1);
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:305:1
+   |
+LL | fn a() -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:305:1
+   |
+LL | fn a() -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:305:1
+   |
+LL | fn a() -> Option<()> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:308:1
+   |
+LL | fn b() -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:308:1
+   |
+LL | fn b() -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:308:1
+   |
+LL | fn b() -> Option<()> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:311:1
+   |
+LL | fn c() -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:311:1
+   |
+LL | fn c() -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:311:1
+   |
+LL | fn c() -> Option<()> {
+   | ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:316:5
+   |
+LL | pub fn issue13574() -> Option<()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:316:5
+   |
+LL | pub fn issue13574() -> Option<()> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:331:5
+   |
+LL |     const A: Option<()> = Some(());
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:332:5
+   |
+LL |     const B: Option<()> = Some(());
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:333:5
+   |
+LL |     const C: Option<()> = Some(());
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:334:5
+   |
+LL |     const D: Option<()> = Some(());
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_match.rs:367:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_match.rs:367:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_match.rs:367:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 110 previous errors
 

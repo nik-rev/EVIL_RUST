@@ -1,11 +1,117 @@
-error: you are iterating over `Iterator::next()` which is an Option; this will compile but is probably not what you want
-  --> tests/ui/iter_next_loop.rs:6:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     for _ in x.iter().next() {}
-   |              ^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::iter-next-loop` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::iter_next_loop)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/iter_next_loop.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_next_loop.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_next_loop.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/iter_next_loop.rs:5:9
+   |
+LL |     let x = [1, 2, 3, 4];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/iter_next_loop.rs:9:5
+   |
+LL |     struct Unrelated(&'static [u8]);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/iter_next_loop.rs:9:22
+   |
+LL |     struct Unrelated(&'static [u8]);
+   |                      ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/iter_next_loop.rs:10:5
+   |
+LL |     impl Unrelated {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/iter_next_loop.rs:11:9
+   |
+LL |         fn next(&self) -> std::slice::Iter<u8> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/iter_next_loop.rs:11:9
+   |
+LL |         fn next(&self) -> std::slice::Iter<u8> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/iter_next_loop.rs:11:18
+   |
+LL |         fn next(&self) -> std::slice::Iter<u8> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_next_loop.rs:11:17
+   |
+LL |         fn next(&self) -> std::slice::Iter<u8> {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/iter_next_loop.rs:15:9
+   |
+LL |     let u = Unrelated(&[0]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/iter_next_loop.rs:15:23
+   |
+LL |     let u = Unrelated(&[0]);
+   |                       ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

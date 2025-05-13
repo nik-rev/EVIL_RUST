@@ -1,28 +1,83 @@
-error: `to_string()` called on a `String`
-  --> tests/ui/string_to_string.rs:6:17
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let mut v = message.to_string();
-   |                 ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using `.clone()`
-   = note: `-D clippy::string-to-string` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::string_to_string)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `to_string()` called on a `String`
-  --> tests/ui/string_to_string.rs:14:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         x.to_string()
-   |         ^^^^^^^^^^^^^
-   |
-   = help: consider using `.clone()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: `to_string()` called on a `String`
-  --> tests/ui/string_to_string.rs:19:33
+error: item must be `pub`
+  --> tests/ui/string_to_string.rs:4:1
    |
-LL |     let _ = x.unwrap_or_else(|| v.to_string());
-   |                                 ^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider using `.clone()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/string_to_string.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/string_to_string.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/string_to_string.rs:9:9
+   |
+LL |     let variable1 = String::new();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/string_to_string.rs:10:9
+   |
+LL |     let v = &variable1;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/string_to_string.rs:10:13
+   |
+LL |     let v = &variable1;
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/string_to_string.rs:11:9
+   |
+LL |     let variable2 = Some(v);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/string_to_string.rs:18:9
+   |
+LL |     let x = Some(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

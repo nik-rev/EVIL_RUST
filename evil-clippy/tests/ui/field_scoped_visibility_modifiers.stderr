@@ -1,28 +1,78 @@
-error: scoped visibility modifier on a field
-  --> tests/ui/field_scoped_visibility_modifiers.rs:9:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         pub(crate) pub_crate_field: bool,
-   |         ^^^^^^^^^^
-   |
-   = help: consider making the field private and adding a scoped visibility method for it
-   = note: `-D clippy::field-scoped-visibility-modifiers` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::field_scoped_visibility_modifiers)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: scoped visibility modifier on a field
-  --> tests/ui/field_scoped_visibility_modifiers.rs:11:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         pub(in crate::pub_module) pub_in_path_field: bool,
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider making the field private and adding a scoped visibility method for it
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: scoped visibility modifier on a field
-  --> tests/ui/field_scoped_visibility_modifiers.rs:13:9
+error: item must be `pub`
+  --> tests/ui/field_scoped_visibility_modifiers.rs:4:5
    |
-LL |         pub(super) pub_super_field: bool,
-   |         ^^^^^^^^^^
+LL |     pub(in crate::pub_module) mod pub_in_path_module {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: make this item public: `pub`
    |
-   = help: consider making the field private and adding a scoped visibility method for it
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: item must be `pub`
+  --> tests/ui/field_scoped_visibility_modifiers.rs:5:5
+   |
+LL |     pub(super) mod pub_super_module {}
+   |     ^^^^^^^^^^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/field_scoped_visibility_modifiers.rs:6:5
+   |
+LL |     struct MyStruct {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/field_scoped_visibility_modifiers.rs:19:1
+   |
+LL | pub(crate) mod pub_crate_module {}
+   | ^^^^^^^^^^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/field_scoped_visibility_modifiers.rs:22:1
+   |
+LL | pub(self) mod pub_self_module {}
+   | ^^^^^^^^^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/field_scoped_visibility_modifiers.rs:24:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/field_scoped_visibility_modifiers.rs:24:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/field_scoped_visibility_modifiers.rs:24:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

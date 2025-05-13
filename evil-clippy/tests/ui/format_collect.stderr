@@ -1,64 +1,177 @@
-error: use of `format!` to build up a string from an iterator
-  --> tests/ui/format_collect.rs:5:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     bytes.iter().map(|b| format!("{b:02X}")).collect()
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: call `fold` instead
-  --> tests/ui/format_collect.rs:5:18
-   |
-LL |     bytes.iter().map(|b| format!("{b:02X}")).collect()
-   |                  ^^^
-help: ... and use the `write!` macro here
-  --> tests/ui/format_collect.rs:5:26
-   |
-LL |     bytes.iter().map(|b| format!("{b:02X}")).collect()
-   |                          ^^^^^^^^^^^^^^^^^^
-   = note: this can be written more efficiently by appending to a `String` directly
-   = note: `-D clippy::format-collect` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::format_collect)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `format!` to build up a string from an iterator
-  --> tests/ui/format_collect.rs:11:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     bytes.iter().map(|b| {{{{{ format!("{b:02X}") }}}}}).collect()
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: call `fold` instead
-  --> tests/ui/format_collect.rs:11:18
-   |
-LL |     bytes.iter().map(|b| {{{{{ format!("{b:02X}") }}}}}).collect()
-   |                  ^^^
-help: ... and use the `write!` macro here
-  --> tests/ui/format_collect.rs:11:32
-   |
-LL |     bytes.iter().map(|b| {{{{{ format!("{b:02X}") }}}}}).collect()
-   |                                ^^^^^^^^^^^^^^^^^^
-   = note: this can be written more efficiently by appending to a `String` directly
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `format!` to build up a string from an iterator
-  --> tests/ui/format_collect.rs:27:5
+error: item must be `pub`
+  --> tests/ui/format_collect.rs:4:1
    |
-LL | /     (1..10)
-LL | |
-LL | |         .map(|s| {
-LL | |             let y = 1;
-LL | |             format!("{s} {y}")
-LL | |         })
-LL | |         .collect()
-   | |__________________^
+LL | fn hex_encode(bytes: &[u8]) -> String {
+   | ^ help: make this item public: `pub`
    |
-help: call `fold` instead
-  --> tests/ui/format_collect.rs:29:10
-   |
-LL |         .map(|s| {
-   |          ^^^
-help: ... and use the `write!` macro here
-  --> tests/ui/format_collect.rs:31:13
-   |
-LL |             format!("{s} {y}")
-   |             ^^^^^^^^^^^^^^^^^^
-   = note: this can be written more efficiently by appending to a `String` directly
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/format_collect.rs:4:1
+   |
+LL | fn hex_encode(bytes: &[u8]) -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_collect.rs:4:1
+   |
+LL | fn hex_encode(bytes: &[u8]) -> String {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/format_collect.rs:4:15
+   |
+LL | fn hex_encode(bytes: &[u8]) -> String {
+   |               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/format_collect.rs:4:22
+   |
+LL | fn hex_encode(bytes: &[u8]) -> String {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/format_collect.rs:10:1
+   |
+LL | fn hex_encode_deep(bytes: &[u8]) -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_collect.rs:10:1
+   |
+LL | fn hex_encode_deep(bytes: &[u8]) -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_collect.rs:10:1
+   |
+LL | fn hex_encode_deep(bytes: &[u8]) -> String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/format_collect.rs:10:20
+   |
+LL | fn hex_encode_deep(bytes: &[u8]) -> String {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_collect.rs:10:27
+   |
+LL | fn hex_encode_deep(bytes: &[u8]) -> String {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/format_collect.rs:16:1
+   |
+LL | macro_rules! fmt {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/format_collect.rs:22:1
+   |
+LL | fn from_macro(bytes: &[u8]) -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_collect.rs:22:1
+   |
+LL | fn from_macro(bytes: &[u8]) -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_collect.rs:22:1
+   |
+LL | fn from_macro(bytes: &[u8]) -> String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/format_collect.rs:22:15
+   |
+LL | fn from_macro(bytes: &[u8]) -> String {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_collect.rs:22:22
+   |
+LL | fn from_macro(bytes: &[u8]) -> String {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/format_collect.rs:26:1
+   |
+LL | fn with_block() -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_collect.rs:26:1
+   |
+LL | fn with_block() -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_collect.rs:26:1
+   |
+LL | fn with_block() -> String {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/format_collect.rs:30:17
+   |
+LL |             let y = 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/format_collect.rs:35:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_collect.rs:35:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_collect.rs:35:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 22 previous errors
 

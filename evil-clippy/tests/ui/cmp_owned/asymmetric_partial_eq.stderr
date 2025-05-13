@@ -1,47 +1,1031 @@
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:46:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         if borrowed.to_owned() == owned {}
-   |            ^^^^^^^^^^^^^^^^^^^ help: try: `borrowed`
-   |
-   = note: `-D clippy::cmp-owned` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cmp_owned)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:48:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         if owned == borrowed.to_owned() {}
-   |            ---------^^^^^^^^^^^^^^^^^^^
-   |            |
-   |            help: try: `borrowed == owned`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:67:21
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:9:1
    |
-LL |         if owned == borrowed.to_owned() {}
-   |                     ^^^^^^^^^^^^^^^^^^^ help: try: `borrowed`
-
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:69:12
+LL | macro_rules! impl_types {
+   | ^ help: make this item public: `pub`
    |
-LL |         if borrowed.to_owned() == owned {}
-   |            ^^^^^^^^^^^^^^^^^^^---------
-   |            |
-   |            help: try: `owned == borrowed`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:96:20
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:33:1
    |
-LL |         if "Hi" == borrowed.to_string() {}
-   |            --------^^^^^^^^^^^^^^^^^^^^
-   |            |
-   |            help: try: `borrowed == "Hi"`
+LL | mod borrowed_eq_owned {
+   | ^ help: make this item public: `pub`
 
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:98:12
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
    |
-LL |         if borrowed.to_string() == "Hi" {}
-   |            ^^^^^^^^^^^^^^^^^^^^ help: try: `borrowed`
+LL |         #[derive(PartialEq)]
+   |                  ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 6 previous errors
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:15
+   |
+LL |         #[derive(PartialEq)]
+   |               ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:15
+   |
+LL |         #[derive(PartialEq)]
+   |               ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^^^^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^^^^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:16:9
+   |
+LL |         impl ToOwned for Borrowed {
+   |         ^ help: make this item public: `pub`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:13
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:13
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:26
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |                          ^ help: make this parameter mutable: `mut`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:25
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |                         ^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:23:9
+   |
+LL |         impl std::borrow::Borrow<Borrowed> for Owned {
+   |         ^ help: make this item public: `pub`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:13
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:13
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:24
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |                        ^ help: make this parameter mutable: `mut`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:23
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |                       ^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:33
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |                                 ^^^^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: static must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:25:24
+   |
+LL |                 static VALUE: Borrowed = Borrowed {};
+   |                        ^ help: make this static mutable: `mut`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:25:17
+   |
+LL |                 static VALUE: Borrowed = Borrowed {};
+   |                 ^ help: make this item public: `pub`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:26:17
+   |
+LL |                 &VALUE
+   |                 ^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:36:5
+   |
+LL |     impl PartialEq<Owned> for Borrowed {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:37:9
+   |
+LL |         fn eq(&self, _: &Owned) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:37:9
+   |
+LL |         fn eq(&self, _: &Owned) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:37:16
+   |
+LL |         fn eq(&self, _: &Owned) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:37:15
+   |
+LL |         fn eq(&self, _: &Owned) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:37:25
+   |
+LL |         fn eq(&self, _: &Owned) -> bool {
+   |                         ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:42:9
+   |
+LL |     pub fn compare() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:42:9
+   |
+LL |     pub fn compare() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:43:13
+   |
+LL |         let owned = Owned {};
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:44:13
+   |
+LL |         let borrowed = Borrowed {};
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:54:1
+   |
+LL | mod owned_eq_borrowed {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:15
+   |
+LL |         #[derive(PartialEq)]
+   |               ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:15
+   |
+LL |         #[derive(PartialEq)]
+   |               ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^^^^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^^^^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:16:9
+   |
+LL |         impl ToOwned for Borrowed {
+   |         ^ help: make this item public: `pub`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:13
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:13
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:26
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |                          ^ help: make this parameter mutable: `mut`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:25
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |                         ^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:23:9
+   |
+LL |         impl std::borrow::Borrow<Borrowed> for Owned {
+   |         ^ help: make this item public: `pub`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:13
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:13
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:24
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |                        ^ help: make this parameter mutable: `mut`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:23
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |                       ^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:33
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |                                 ^^^^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: static must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:25:24
+   |
+LL |                 static VALUE: Borrowed = Borrowed {};
+   |                        ^ help: make this static mutable: `mut`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:25:17
+   |
+LL |                 static VALUE: Borrowed = Borrowed {};
+   |                 ^ help: make this item public: `pub`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:26:17
+   |
+LL |                 &VALUE
+   |                 ^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:57:5
+   |
+LL |     impl PartialEq<Borrowed> for Owned {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:58:9
+   |
+LL |         fn eq(&self, _: &Borrowed) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:58:9
+   |
+LL |         fn eq(&self, _: &Borrowed) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:58:16
+   |
+LL |         fn eq(&self, _: &Borrowed) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:58:15
+   |
+LL |         fn eq(&self, _: &Borrowed) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:58:25
+   |
+LL |         fn eq(&self, _: &Borrowed) -> bool {
+   |                         ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:63:5
+   |
+LL |     fn compare() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:63:5
+   |
+LL |     fn compare() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:63:5
+   |
+LL |     fn compare() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:64:13
+   |
+LL |         let owned = Owned {};
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:65:13
+   |
+LL |         let borrowed = Borrowed {};
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:74:1
+   |
+LL | mod issue_4874 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:15
+   |
+LL |         #[derive(PartialEq)]
+   |               ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:15
+   |
+LL |         #[derive(PartialEq)]
+   |               ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^^^^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:11:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^^^^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `PartialEq` which comes from the expansion of the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:16:9
+   |
+LL |         impl ToOwned for Borrowed {
+   |         ^ help: make this item public: `pub`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:13
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:13
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:26
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |                          ^ help: make this parameter mutable: `mut`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:18:25
+   |
+LL |             fn to_owned(&self) -> Owned {
+   |                         ^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:23:9
+   |
+LL |         impl std::borrow::Borrow<Borrowed> for Owned {
+   |         ^ help: make this item public: `pub`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:13
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:13
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |             ^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:24
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |                        ^ help: make this parameter mutable: `mut`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:23
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |                       ^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:24:33
+   |
+LL |             fn borrow(&self) -> &Borrowed {
+   |                                 ^^^^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: static must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:25:24
+   |
+LL |                 static VALUE: Borrowed = Borrowed {};
+   |                        ^ help: make this static mutable: `mut`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:25:17
+   |
+LL |                 static VALUE: Borrowed = Borrowed {};
+   |                 ^ help: make this item public: `pub`
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:26:17
+   |
+LL |                 &VALUE
+   |                 ^^^^^^
+...
+LL |     impl_types!();
+   |     ------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `impl_types` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:78:5
+   |
+LL |     impl<T> PartialEq<T> for Borrowed
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:82:9
+   |
+LL |         fn eq(&self, _: &T) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:82:9
+   |
+LL |         fn eq(&self, _: &T) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:82:16
+   |
+LL |         fn eq(&self, _: &T) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:82:15
+   |
+LL |         fn eq(&self, _: &T) -> bool {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:82:25
+   |
+LL |         fn eq(&self, _: &T) -> bool {
+   |                         ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:87:5
+   |
+LL |     impl std::fmt::Display for Borrowed {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:88:9
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:88:9
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:88:17
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:88:23
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:88:16
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:88:26
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:93:5
+   |
+LL |     fn compare() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:93:5
+   |
+LL |     fn compare() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:93:5
+   |
+LL |     fn compare() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:94:13
+   |
+LL |         let borrowed = Borrowed {};
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:103:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:103:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/asymmetric_partial_eq.rs:103:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 98 previous errors
 

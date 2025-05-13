@@ -1,47 +1,109 @@
-error: using `libc::strlen` on a `CString` or `CStr` value
-  --> tests/ui/strlen_on_c_strings.rs:13:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = unsafe { libc::strlen(cstring.as_ptr()) };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `cstring.as_bytes().len()`
-   |
-   = note: `-D clippy::strlen-on-c-strings` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::strlen_on_c_strings)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: using `libc::strlen` on a `CString` or `CStr` value
-  --> tests/ui/strlen_on_c_strings.rs:18:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = unsafe { libc::strlen(cstr.as_ptr()) };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `cstr.to_bytes().len()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: using `libc::strlen` on a `CString` or `CStr` value
-  --> tests/ui/strlen_on_c_strings.rs:21:13
+error: item must be `pub`
+  --> tests/ui/strlen_on_c_strings.rs:4:1
    |
-LL |     let _ = unsafe { strlen(cstr.as_ptr()) };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `cstr.to_bytes().len()`
-
-error: using `libc::strlen` on a `CString` or `CStr` value
-  --> tests/ui/strlen_on_c_strings.rs:25:22
+LL | extern crate libc;
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = unsafe { strlen((*pcstr).as_ptr()) };
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `(*pcstr).to_bytes().len()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: using `libc::strlen` on a `CString` or `CStr` value
-  --> tests/ui/strlen_on_c_strings.rs:31:22
+error: item must be `pub`
+  --> tests/ui/strlen_on_c_strings.rs:10:1
    |
-LL |     let _ = unsafe { strlen(unsafe_identity(cstr).as_ptr()) };
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unsafe_identity(cstr).to_bytes().len()`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: using `libc::strlen` on a `CString` or `CStr` value
-  --> tests/ui/strlen_on_c_strings.rs:33:13
+error: function must be `unsafe`
+  --> tests/ui/strlen_on_c_strings.rs:10:1
    |
-LL |     let _ = unsafe { strlen(unsafe { unsafe_identity(cstr) }.as_ptr()) };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unsafe { unsafe_identity(cstr) }.to_bytes().len()`
-
-error: using `libc::strlen` on a `CString` or `CStr` value
-  --> tests/ui/strlen_on_c_strings.rs:37:22
+LL | fn main() {
+   | ^
    |
-LL |     let _ = unsafe { strlen(f(cstr).as_ptr()) };
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `f(cstr).to_bytes().len()`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/strlen_on_c_strings.rs:10:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 7 previous errors
+error: variable must be `mut`
+  --> tests/ui/strlen_on_c_strings.rs:12:9
+   |
+LL |     let cstring = CString::new("foo").expect("CString::new failed");
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/strlen_on_c_strings.rs:17:9
+   |
+LL |     let cstr = CStr::from_bytes_with_nul(b"foo\0").expect("CStr::from_bytes_with_nul failed");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/strlen_on_c_strings.rs:24:9
+   |
+LL |     let pcstr: *const &CStr = &cstr;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/strlen_on_c_strings.rs:24:23
+   |
+LL |     let pcstr: *const &CStr = &cstr;
+   |                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/strlen_on_c_strings.rs:24:31
+   |
+LL |     let pcstr: *const &CStr = &cstr;
+   |                               ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/strlen_on_c_strings.rs:28:5
+   |
+LL |     unsafe fn unsafe_identity<T>(x: T) -> T {
+   |     ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/strlen_on_c_strings.rs:28:34
+   |
+LL |     unsafe fn unsafe_identity<T>(x: T) -> T {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/strlen_on_c_strings.rs:36:9
+   |
+LL |     let f: unsafe fn(_) -> _ = unsafe_identity;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

@@ -1,36 +1,321 @@
-error: boxed return of the sized type `usize`
-  --> tests/ui/unnecessary_box_returns.rs:5:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:3:1
+   |
+LL | / trait Bar {
+LL | |     // lint
+LL | |     fn baz(&self) -> Box<usize>;
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:3:1
+   |
+LL | trait Bar {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:5:5
    |
 LL |     fn baz(&self) -> Box<usize>;
-   |                      ^^^^^^^^^^ help: try: `usize`
+   |     ^
    |
-   = help: changing this also requires a change to the return expressions in this function
-   = note: `-D clippy::unnecessary-box-returns` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_box_returns)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:5:5
+   |
+LL |     fn baz(&self) -> Box<usize>;
+   |     ^
 
-error: boxed return of the sized type `usize`
-  --> tests/ui/unnecessary_box_returns.rs:19:22
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_box_returns.rs:5:13
+   |
+LL |     fn baz(&self) -> Box<usize>;
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_box_returns.rs:5:12
+   |
+LL |     fn baz(&self) -> Box<usize>;
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:11:1
+   |
+LL | impl Bar for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:13:5
    |
 LL |     fn baz(&self) -> Box<usize> {
-   |                      ^^^^^^^^^^ help: try: `usize`
+   |     ^
    |
-   = help: changing this also requires a change to the return expressions in this function
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:13:5
+   |
+LL |     fn baz(&self) -> Box<usize> {
+   |     ^
 
-error: boxed return of the sized type `usize`
-  --> tests/ui/unnecessary_box_returns.rs:28:20
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_box_returns.rs:13:13
+   |
+LL |     fn baz(&self) -> Box<usize> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_box_returns.rs:13:12
+   |
+LL |     fn baz(&self) -> Box<usize> {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:18:1
+   |
+LL | impl Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:19:5
+   |
+LL |     fn baz(&self) -> Box<usize> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:19:5
+   |
+LL |     fn baz(&self) -> Box<usize> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_box_returns.rs:19:13
+   |
+LL |     fn baz(&self) -> Box<usize> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_box_returns.rs:19:12
+   |
+LL |     fn baz(&self) -> Box<usize> {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:28:1
    |
 LL | fn bxed_usize() -> Box<usize> {
-   |                    ^^^^^^^^^^ help: try: `usize`
-   |
-   = help: changing this also requires a change to the return expressions in this function
+   | ^ help: make this item public: `pub`
 
-error: boxed return of the sized type `Foo`
-  --> tests/ui/unnecessary_box_returns.rs:35:19
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:28:1
+   |
+LL | fn bxed_usize() -> Box<usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:28:1
+   |
+LL | fn bxed_usize() -> Box<usize> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:35:1
    |
 LL | fn _bxed_foo() -> Box<Foo> {
-   |                   ^^^^^^^^ help: try: `Foo`
-   |
-   = help: changing this also requires a change to the return expressions in this function
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:35:1
+   |
+LL | fn _bxed_foo() -> Box<Foo> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:35:1
+   |
+LL | fn _bxed_foo() -> Box<Foo> {
+   | ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:42:5
+   |
+LL | pub fn bxed_foo() -> Box<Foo> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:42:5
+   |
+LL | pub fn bxed_foo() -> Box<Foo> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:47:1
+   |
+LL | fn bxed_str() -> Box<str> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:47:1
+   |
+LL | fn bxed_str() -> Box<str> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:47:1
+   |
+LL | fn bxed_str() -> Box<str> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:52:1
+   |
+LL | fn boxed_usize() -> Box<usize> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:52:1
+   |
+LL | fn boxed_usize() -> Box<usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:52:1
+   |
+LL | fn boxed_usize() -> Box<usize> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:57:1
+   |
+LL | fn default() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:57:1
+   |
+LL | fn default() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:57:1
+   |
+LL | fn default() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:60:1
+   |
+LL | fn string() -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:60:1
+   |
+LL | fn string() -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:60:1
+   |
+LL | fn string() -> String {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:64:1
+   |
+LL | struct Huge([u8; 500]);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:65:1
+   |
+LL | struct HasHuge(Box<Huge>);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:67:1
+   |
+LL | impl HasHuge {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:69:5
+   |
+LL |     fn into_huge(self) -> Box<Huge> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:69:5
+   |
+LL |     fn into_huge(self) -> Box<Huge> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_box_returns.rs:69:18
+   |
+LL |     fn into_huge(self) -> Box<Huge> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_box_returns.rs:74:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:74:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_box_returns.rs:74:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_box_returns.rs:76:9
+   |
+LL |     let a = || -> Box<usize> { Box::new(5) };
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 38 previous errors
 

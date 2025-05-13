@@ -1,23 +1,85 @@
-error: this range is reversed and using it to index a slice will panic at run-time
-  --> tests/ui/reversed_empty_ranges_unfixable.rs:8:18
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/reversed_empty_ranges_unfixable.rs:3:1
+   |
+LL | const ANSWER: i32 = 42;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/reversed_empty_ranges_unfixable.rs:4:1
+   |
+LL | const SOME_NUM: usize = 3;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/reversed_empty_ranges_unfixable.rs:6:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/reversed_empty_ranges_unfixable.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/reversed_empty_ranges_unfixable.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/reversed_empty_ranges_unfixable.rs:7:9
+   |
+LL |     let arr = [1, 2, 3, 4, 5];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/reversed_empty_ranges_unfixable.rs:8:13
    |
 LL |     let _ = &arr[3usize..=1usize];
-   |                  ^^^^^^^^^^^^^^^
+   |             ^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::reversed-empty-ranges` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::reversed_empty_ranges)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this range is reversed and using it to index a slice will panic at run-time
-  --> tests/ui/reversed_empty_ranges_unfixable.rs:11:18
+error: references are not allowed
+  --> tests/ui/reversed_empty_ranges_unfixable.rs:11:13
    |
 LL |     let _ = &arr[SOME_NUM..1];
-   |                  ^^^^^^^^^^^
-
-error: this range is empty so it will yield no values
-  --> tests/ui/reversed_empty_ranges_unfixable.rs:14:14
+   |             ^^^^^^^^^^^^^^^^^
    |
-LL |     for _ in ANSWER..ANSWER {}
-   |              ^^^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 3 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

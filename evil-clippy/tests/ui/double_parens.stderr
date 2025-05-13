@@ -1,41 +1,385 @@
-error: consider removing unnecessary double parentheses
-  --> tests/ui/double_parens.rs:15:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     ((0))
-   |     ^^^^^
-   |
-   = note: `-D clippy::double-parens` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::double_parens)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: consider removing unnecessary double parentheses
-  --> tests/ui/double_parens.rs:22:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     dummy_fn((0));
-   |              ^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: consider removing unnecessary double parentheses
-  --> tests/ui/double_parens.rs:28:20
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:6:1
    |
-LL |     x.dummy_method((0));
-   |                    ^^^
-
-error: consider removing unnecessary double parentheses
-  --> tests/ui/double_parens.rs:34:5
+LL | fn dummy_fn<T>(_: T) {}
+   | ^ help: make this item public: `pub`
    |
-LL |     ((1, 2))
-   |     ^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: consider removing unnecessary double parentheses
-  --> tests/ui/double_parens.rs:40:5
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:6:1
    |
-LL |     (())
-   |     ^^^^
+LL | fn dummy_fn<T>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:6:1
+   |
+LL | fn dummy_fn<T>(_: T) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: consider removing unnecessary double parentheses
-  --> tests/ui/double_parens.rs:64:16
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:8:1
+   |
+LL | struct DummyStruct;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:10:1
+   |
+LL | impl DummyStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:11:5
+   |
+LL |     fn dummy_method<T>(self, _: T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:11:5
+   |
+LL |     fn dummy_method<T>(self, _: T) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_parens.rs:11:24
+   |
+LL |     fn dummy_method<T>(self, _: T) {}
+   |                        ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:14:1
+   |
+LL | fn simple_double_parens() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:14:1
+   |
+LL | fn simple_double_parens() -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:14:1
+   |
+LL | fn simple_double_parens() -> i32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:21:1
+   |
+LL | fn fn_double_parens() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:21:1
+   |
+LL | fn fn_double_parens() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:21:1
+   |
+LL | fn fn_double_parens() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:27:1
+   |
+LL | fn method_double_parens(x: DummyStruct) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:27:1
+   |
+LL | fn method_double_parens(x: DummyStruct) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:27:1
+   |
+LL | fn method_double_parens(x: DummyStruct) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_parens.rs:27:25
+   |
+LL | fn method_double_parens(x: DummyStruct) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:33:1
+   |
+LL | fn tuple_double_parens() -> (i32, i32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:33:1
+   |
+LL | fn tuple_double_parens() -> (i32, i32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:33:1
+   |
+LL | fn tuple_double_parens() -> (i32, i32) {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:39:1
+   |
+LL | fn unit_double_parens() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:39:1
+   |
+LL | fn unit_double_parens() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:39:1
+   |
+LL | fn unit_double_parens() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:45:1
+   |
+LL | fn fn_tuple_ok() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:45:1
+   |
+LL | fn fn_tuple_ok() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:45:1
+   |
+LL | fn fn_tuple_ok() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:49:1
+   |
+LL | fn method_tuple_ok(x: DummyStruct) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:49:1
+   |
+LL | fn method_tuple_ok(x: DummyStruct) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:49:1
+   |
+LL | fn method_tuple_ok(x: DummyStruct) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_parens.rs:49:20
+   |
+LL | fn method_tuple_ok(x: DummyStruct) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:53:1
+   |
+LL | fn fn_unit_ok() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:53:1
+   |
+LL | fn fn_unit_ok() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:53:1
+   |
+LL | fn fn_unit_ok() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:57:1
+   |
+LL | fn method_unit_ok(x: DummyStruct) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:57:1
+   |
+LL | fn method_unit_ok(x: DummyStruct) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:57:1
+   |
+LL | fn method_unit_ok(x: DummyStruct) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/double_parens.rs:57:19
+   |
+LL | fn method_unit_ok(x: DummyStruct) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:62:1
+   |
+LL | fn inside_macro() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:62:1
+   |
+LL | fn inside_macro() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:62:1
+   |
+LL | fn inside_macro() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/double_parens.rs:63:5
+   |
+LL |     assert_eq!((1, 2), (1, 2), "Error");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/double_parens.rs:63:5
+   |
+LL |     assert_eq!((1, 2), (1, 2), "Error");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/double_parens.rs:63:5
+   |
+LL |     assert_eq!((1, 2), (1, 2), "Error");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/double_parens.rs:63:5
+   |
+LL |     assert_eq!((1, 2), (1, 2), "Error");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/double_parens.rs:63:5
+   |
+LL |     assert_eq!((1, 2), (1, 2), "Error");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/double_parens.rs:64:5
    |
 LL |     assert_eq!(((1, 2)), (1, 2), "Error");
-   |                ^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: aborting due to 6 previous errors
+error: references are not allowed
+  --> tests/ui/double_parens.rs:64:5
+   |
+LL |     assert_eq!(((1, 2)), (1, 2), "Error");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/double_parens.rs:64:5
+   |
+LL |     assert_eq!(((1, 2)), (1, 2), "Error");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/double_parens.rs:64:5
+   |
+LL |     assert_eq!(((1, 2)), (1, 2), "Error");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/double_parens.rs:64:5
+   |
+LL |     assert_eq!(((1, 2)), (1, 2), "Error");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/double_parens.rs:69:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_parens.rs:69:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_parens.rs:69:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 45 previous errors
 

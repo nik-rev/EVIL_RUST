@@ -1,105 +1,119 @@
-error: useless use of `format!`
-  --> tests/ui/format.rs:20:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     format!("foo");
-   |     ^^^^^^^^^^^^^^ help: consider using `.to_string()`: `"foo".to_string()`
-   |
-   = note: `-D clippy::useless-format` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::useless_format)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:22:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     format!("{{}}");
-   |     ^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `"{}".to_string()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:24:5
+error: item must be `pub`
+  --> tests/ui/format.rs:13:1
    |
-LL |     format!("{{}} abc {{}}");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `"{} abc {}".to_string()`
+LL | struct Foo(pub String);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:26:5
+error: item must be `pub`
+  --> tests/ui/format.rs:15:1
    |
-LL | /     format!(
-LL | |
-LL | |         r##"foo {{}}
-LL | | " bar"##
-LL | |     );
-   | |_____^
-   |
-help: consider using `.to_string()`
-   |
-LL ~     r##"foo {}
-LL ~ " bar"##.to_string();
-   |
+LL | macro_rules! foo {
+   | ^ help: make this item public: `pub`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:32:13
+error: item must be `pub`
+  --> tests/ui/format.rs:19:1
    |
-LL |     let _ = format!("");
-   |             ^^^^^^^^^^^ help: consider using `String::new()`: `String::new()`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:35:5
+error: function must be `unsafe`
+  --> tests/ui/format.rs:19:1
    |
-LL |     format!("{}", "foo");
-   |     ^^^^^^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `"foo".to_string()`
-
-error: useless use of `format!`
-  --> tests/ui/format.rs:44:5
+LL | fn main() {
+   | ^
    |
-LL |     format!("{}", arg);
-   |     ^^^^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `arg.to_string()`
-
-error: useless use of `format!`
-  --> tests/ui/format.rs:75:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format.rs:19:1
    |
-LL |     format!("{}", 42.to_string());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `42.to_string()`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:78:5
+error: variable must be `mut`
+  --> tests/ui/format.rs:43:9
    |
-LL |     format!("{}", x.display().to_string());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `x.display().to_string()`
-
-error: useless use of `format!`
-  --> tests/ui/format.rs:83:18
+LL |     let arg = String::new();
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _ = Some(format!("{}", a + "bar"));
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `a + "bar"`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:88:22
+error: variable must be `mut`
+  --> tests/ui/format.rs:77:9
+   |
+LL |     let x = std::path::PathBuf::from("/bar/foo/qux");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/format.rs:82:9
+   |
+LL |     let a = "foo".to_string();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/format.rs:87:9
+   |
+LL |     let v: Vec<String> = vec!["foo".to_string(), "bar".to_string()];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/format.rs:88:9
    |
 LL |     let _s: String = format!("{}", &*v.join("\n"));
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `(&*v.join("\n")).to_string()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:95:13
+error: references are not allowed
+  --> tests/ui/format.rs:88:36
    |
-LL |     let _ = format!("{x}");
-   |             ^^^^^^^^^^^^^^ help: consider using `.to_string()`: `x.to_string()`
-
-error: useless use of `format!`
-  --> tests/ui/format.rs:98:13
+LL |     let _s: String = format!("{}", &*v.join("\n"));
+   |                                    ^^^^^^^^^^^^^^
    |
-LL |     let _ = format!("{y}", y = x);
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `x.to_string()`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:103:13
+error: variable must be `mut`
+  --> tests/ui/format.rs:94:9
    |
-LL |     let _ = format!("{abc}");
-   |             ^^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `abc.to_string()`
+LL |     let x = "foo";
+   |         ^ help: make this variable mutable: `mut`
 
-error: useless use of `format!`
-  --> tests/ui/format.rs:106:13
+error: variable must be `mut`
+  --> tests/ui/format.rs:102:9
    |
-LL |     let _ = format!("{xx}");
-   |             ^^^^^^^^^^^^^^^ help: consider using `.to_string()`: `xx.to_string()`
+LL |     let abc = "abc";
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 15 previous errors
+error: variable must be `mut`
+  --> tests/ui/format.rs:105:9
+   |
+LL |     let xx = "xx";
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

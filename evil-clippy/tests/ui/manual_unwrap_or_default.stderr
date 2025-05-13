@@ -1,101 +1,407 @@
-error: match can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default.rs:6:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match x {
-LL | |
-LL | |         Some(v) => v,
-LL | |         None => Vec::default(),
-LL | |     };
-   | |_____^ help: replace it with: `x.unwrap_or_default()`
-   |
-   = note: `-D clippy::manual-unwrap-or-default` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_unwrap_or_default)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: match can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     match x {
-LL | |
-LL | |         Some(v) => v,
-LL | |         _ => Vec::default(),
-LL | |     };
-   | |_____^ help: replace it with: `x.unwrap_or_default()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: match can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default.rs:20:5
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:4:1
    |
-LL | /     match x {
-LL | |
-LL | |         Some(v) => v,
-LL | |         None => String::new(),
-LL | |     };
-   | |_____^ help: replace it with: `x.unwrap_or_default()`
-
-error: match can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default.rs:27:5
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL | /     match x {
-LL | |
-LL | |         None => Vec::default(),
-LL | |         Some(v) => v,
-LL | |     };
-   | |_____^ help: replace it with: `x.unwrap_or_default()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: if let can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default.rs:34:5
+error: function must be `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:4:1
    |
-LL | /     if let Some(v) = x {
-LL | |
-LL | |
-LL | |         v
-LL | |     } else {
-LL | |         Vec::default()
-LL | |     };
-   | |_____^ help: replace it with: `x.unwrap_or_default()`
-
-error: match can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default.rs:53:5
+LL | fn main() {
+   | ^
    |
-LL | /     match x {
-LL | |
-LL | |         Ok(v) => v,
-LL | |         Err(_) => String::new(),
-LL | |     };
-   | |_____^ help: replace it with: `x.unwrap_or_default()`
-
-error: if let can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default.rs:60:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:4:1
    |
-LL | /     if let Ok(v) = x {
-LL | |
-LL | |
-LL | |         v
-LL | |     } else {
-LL | |         String::new()
-LL | |     };
-   | |_____^ help: replace it with: `x.unwrap_or_default()`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: match can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default.rs:74:24
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:5:9
    |
-LL |               Some(_) => match *b {
-   |  ________________________^
-LL | |
-LL | |                 Some(v) => v,
-LL | |                 _ => 0,
-LL | |             },
-   | |_____________^ help: replace it with: `(*b).unwrap_or_default()`
-
-error: if let can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default.rs:143:5
+LL |     let x: Option<Vec<String>> = None;
+   |         ^ help: make this variable mutable: `mut`
    |
-LL | /     if let Some(x) = Some(42) {
-LL | |
-LL | |         x
-LL | |     } else {
-LL | |         0
-LL | |     }
-   | |_____^ help: replace it with: `Some(42).unwrap_or_default()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: aborting due to 9 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:12:9
+   |
+LL |     let x: Option<Vec<String>> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:19:9
+   |
+LL |     let x: Option<String> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:26:9
+   |
+LL |     let x: Option<Vec<String>> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:33:9
+   |
+LL |     let x: Option<Vec<String>> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:45:9
+   |
+LL |     let x: &[_] = if let Some(x) = map.get(&0) { x } else { &[] };
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_unwrap_or_default.rs:45:12
+   |
+LL |     let x: &[_] = if let Some(x) = map.get(&0) { x } else { &[] };
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/manual_unwrap_or_default.rs:45:44
+   |
+LL |     let x: &[_] = if let Some(x) = map.get(&0) { x } else { &[] };
+   |                                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_unwrap_or_default.rs:45:61
+   |
+LL |     let x: &[_] = if let Some(x) = map.get(&0) { x } else { &[] };
+   |                                                             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:47:9
+   |
+LL |     let x: &[_] = match map.get(&0) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_unwrap_or_default.rs:47:12
+   |
+LL |     let x: &[_] = match map.get(&0) {
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_unwrap_or_default.rs:47:33
+   |
+LL |     let x: &[_] = match map.get(&0) {
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_unwrap_or_default.rs:49:17
+   |
+LL |         None => &[],
+   |                 ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:52:9
+   |
+LL |     let x: Result<String, i64> = Ok(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:59:9
+   |
+LL |     let x: Result<String, i64> = Ok(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:70:1
+   |
+LL | unsafe fn no_deref_ptr(a: Option<i32>, b: *const Option<i32>) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:70:24
+   |
+LL | unsafe fn no_deref_ptr(a: Option<i32>, b: *const Option<i32>) -> i32 {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:70:40
+   |
+LL | unsafe fn no_deref_ptr(a: Option<i32>, b: *const Option<i32>) -> i32 {
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:84:1
+   |
+LL | const fn issue_12568(opt: Option<bool>) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:84:7
+   |
+LL | const fn issue_12568(opt: Option<bool>) -> bool {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:84:7
+   |
+LL | const fn issue_12568(opt: Option<bool>) -> bool {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:84:22
+   |
+LL | const fn issue_12568(opt: Option<bool>) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:91:1
+   |
+LL | fn issue_12569() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:91:1
+   |
+LL | fn issue_12569() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:91:1
+   |
+LL | fn issue_12569() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:92:9
+   |
+LL |     let match_none_se = match 1u32.checked_div(0) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:99:9
+   |
+LL |     let match_some_se = match 1u32.checked_div(0) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:106:9
+   |
+LL |     let iflet_else_se = if let Some(v) = 1u32.checked_div(0) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:112:9
+   |
+LL |     let iflet_then_se = if let Some(v) = 1u32.checked_div(0) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:121:1
+   |
+LL | fn issue_12928() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:121:1
+   |
+LL | fn issue_12928() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:121:1
+   |
+LL | fn issue_12928() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:122:9
+   |
+LL |     let x = Some((1, 2));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:123:9
+   |
+LL |     let y = if let Some((a, _)) = x { a } else { 0 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:124:9
+   |
+LL |     let y = if let Some((a, ..)) = x { a } else { 0 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:125:9
+   |
+LL |     let x = Some([1, 2]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:126:9
+   |
+LL |     let y = if let Some([a, _]) = x { a } else { 0 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:127:9
+   |
+LL |     let y = if let Some([a, ..]) = x { a } else { 0 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:129:5
+   |
+LL |     struct X {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:133:9
+   |
+LL |     let x = Some(X { a: 0, b: 0 });
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:134:9
+   |
+LL |     let y = if let Some(X { a, .. }) = x { a } else { 0 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:135:5
+   |
+LL |     struct Y(u8, u8);
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:136:9
+   |
+LL |     let x = Some(Y(0, 0));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:137:9
+   |
+LL |     let y = if let Some(Y(a, _)) = x { a } else { 0 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:138:9
+   |
+LL |     let y = if let Some(Y(a, ..)) = x { a } else { 0 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:142:1
+   |
+LL | fn allowed_manual_unwrap_or_zero() -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:142:1
+   |
+LL | fn allowed_manual_unwrap_or_zero() -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:142:1
+   |
+LL | fn allowed_manual_unwrap_or_zero() -> u32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:151:1
+   |
+LL | mod issue14716 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:152:5
+   |
+LL |     struct Foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default.rs:156:5
+   |
+LL |     fn bar(project: &Foo) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:156:5
+   |
+LL |     fn bar(project: &Foo) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_unwrap_or_default.rs:156:5
+   |
+LL |     fn bar(project: &Foo) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:156:12
+   |
+LL |     fn bar(project: &Foo) {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_unwrap_or_default.rs:156:21
+   |
+LL |     fn bar(project: &Foo) {
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default.rs:157:13
+   |
+LL |         let _name = match project.name {
+   |             ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/manual_unwrap_or_default.rs:158:18
+   |
+LL |             Some(ref x) => x,
+   |                  ^^^^^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 58 previous errors
 

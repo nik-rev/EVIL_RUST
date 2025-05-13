@@ -1,17 +1,171 @@
-error: manual backwards iteration
-  --> tests/ui/manual_next_back.rs:32:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (0..10).rev().next().unwrap();
-   |                    ^^^^^^^^^^^^^ help: use: `.next_back()`
-   |
-   = note: `-D clippy::manual-next-back` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_next_back)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual backwards iteration
-  --> tests/ui/manual_next_back.rs:34:32
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = "something".bytes().rev().next();
-   |                                ^^^^^^^^^^^^^ help: use: `.next_back()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/manual_next_back.rs:4:1
+   |
+LL | struct FakeIter(std::ops::Range<i32>);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_next_back.rs:6:1
+   |
+LL | impl FakeIter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_next_back.rs:7:5
+   |
+LL |     fn rev(self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_next_back.rs:7:5
+   |
+LL |     fn rev(self) -> Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_next_back.rs:7:12
+   |
+LL |     fn rev(self) -> Self {
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_next_back.rs:11:5
+   |
+LL |     fn next(&self) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_next_back.rs:11:5
+   |
+LL |     fn next(&self) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_next_back.rs:11:14
+   |
+LL |     fn next(&self) {}
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_next_back.rs:11:13
+   |
+LL |     fn next(&self) {}
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/manual_next_back.rs:14:1
+   |
+LL | impl DoubleEndedIterator for FakeIter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_next_back.rs:15:5
+   |
+LL |     fn next_back(&mut self) -> Option<Self::Item> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_next_back.rs:15:5
+   |
+LL |     fn next_back(&mut self) -> Option<Self::Item> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_next_back.rs:15:23
+   |
+LL |     fn next_back(&mut self) -> Option<Self::Item> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_next_back.rs:15:18
+   |
+LL |     fn next_back(&mut self) -> Option<Self::Item> {
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/manual_next_back.rs:20:1
+   |
+LL | impl Iterator for FakeIter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_next_back.rs:22:5
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_next_back.rs:22:5
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_next_back.rs:22:18
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_next_back.rs:22:13
+   |
+LL |     fn next(&mut self) -> Option<Self::Item> {
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/manual_next_back.rs:27:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_next_back.rs:27:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_next_back.rs:27:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 21 previous errors
 

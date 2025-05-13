@@ -1,239 +1,685 @@
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:17:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = !true;
-   |             ^^^^^ help: try: `false`
-   |
-   = note: `-D clippy::nonminimal-bool` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::nonminimal_bool)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:20:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = !false;
-   |             ^^^^^^ help: try: `true`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:23:13
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:11:1
    |
-LL |     let _ = !!a;
-   |             ^^^ help: try: `a`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:26:13
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:11:1
    |
-LL |     let _ = false || a;
-   |             ^^^^^^^^^^ help: try: `a`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:11:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:32:13
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:12:9
    |
-LL |     let _ = !(!a && b);
-   |             ^^^^^^^^^^ help: try: `a || !b`
+LL |     let a: bool = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:35:13
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:13:9
    |
-LL |     let _ = !(!a || b);
-   |             ^^^^^^^^^^ help: try: `a && !b`
+LL |     let b: bool = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:38:13
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:14:9
    |
-LL |     let _ = !a && !(b && c);
-   |             ^^^^^^^^^^^^^^^ help: try: `!(a || b && c)`
+LL |     let c: bool = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:47:13
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:15:9
    |
-LL |     let _ = a == b && c == 5 && a == b;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     let _ = a == b && c == 5 && a == b;
-LL +     let _ = !(a != b || c != 5);
-   |
-LL -     let _ = a == b && c == 5 && a == b;
-LL +     let _ = a == b && c == 5;
-   |
+LL |     let d: bool = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:50:13
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:16:9
    |
-LL |     let _ = a == b || c == 5 || a == b;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     let _ = a == b || c == 5 || a == b;
-LL +     let _ = !(a != b && c != 5);
-   |
-LL -     let _ = a == b || c == 5 || a == b;
-LL +     let _ = a == b || c == 5;
-   |
+LL |     let e: bool = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:53:13
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:42:1
    |
-LL |     let _ = a == b && c == 5 && b == a;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     let _ = a == b && c == 5 && b == a;
-LL +     let _ = !(a != b || c != 5);
-   |
-LL -     let _ = a == b && c == 5 && b == a;
-LL +     let _ = a == b && c == 5;
-   |
+LL | fn equality_stuff() {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:56:13
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:42:1
    |
-LL |     let _ = a != b || !(a != b || c == d);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn equality_stuff() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:42:1
    |
-LL -     let _ = a != b || !(a != b || c == d);
-LL +     let _ = !(a == b && c == d);
-   |
-LL -     let _ = a != b || !(a != b || c == d);
-LL +     let _ = a != b || c != d;
-   |
+LL | fn equality_stuff() {
+   | ^
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:59:13
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:43:9
    |
-LL |     let _ = a != b && !(a != b && c == d);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL -     let _ = a != b && !(a != b && c == d);
-LL +     let _ = !(a == b || c == d);
-   |
-LL -     let _ = a != b && !(a != b && c == d);
-LL +     let _ = a != b && c != d;
-   |
+LL |     let a: i32 = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:90:8
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:44:9
    |
-LL |     if matches!(true, true) && true {
-   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `matches!(true, true)`
+LL |     let b: i32 = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:171:8
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:45:9
    |
-LL |     if !(12 == a) {}
-   |        ^^^^^^^^^^ help: try: `(12 != a)`
+LL |     let c: i32 = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:173:8
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:46:9
    |
-LL |     if !(a == 12) {}
-   |        ^^^^^^^^^^ help: try: `(a != 12)`
+LL |     let d: i32 = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:175:8
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:63:1
    |
-LL |     if !(12 != a) {}
-   |        ^^^^^^^^^^ help: try: `(12 == a)`
+LL | fn issue3847(a: u32, b: u32) -> bool {
+   | ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:177:8
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:63:1
    |
-LL |     if !(a != 12) {}
-   |        ^^^^^^^^^^ help: try: `(a == 12)`
+LL | fn issue3847(a: u32, b: u32) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:63:1
+   |
+LL | fn issue3847(a: u32, b: u32) -> bool {
+   | ^
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:182:8
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:63:14
    |
-LL |     if !b == true {}
-   |        ^^^^^^^^^^ help: try: `b != true`
+LL | fn issue3847(a: u32, b: u32) -> bool {
+   |              ^ help: make this parameter mutable: `mut`
 
-error: this comparison might be written more concisely
-  --> tests/ui/nonminimal_bool.rs:182:8
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:63:22
    |
-LL |     if !b == true {}
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `b != true`
-   |
-   = note: `-D clippy::bool-comparison` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::bool_comparison)]`
+LL | fn issue3847(a: u32, b: u32) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
 
-error: equality checks against true are unnecessary
-  --> tests/ui/nonminimal_bool.rs:182:8
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:64:5
    |
-LL |     if !b == true {}
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `!b`
+LL |     const THRESHOLD: u32 = 1_000;
+   |     ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:186:8
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:72:1
    |
-LL |     if !b != true {}
-   |        ^^^^^^^^^^ help: try: `b == true`
+LL | fn issue4548() {
+   | ^ help: make this item public: `pub`
 
-error: inequality checks against true can be replaced by a negation
-  --> tests/ui/nonminimal_bool.rs:186:8
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:72:1
    |
-LL |     if !b != true {}
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `!(!b)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:189:8
+LL | fn issue4548() {
+   | ^
    |
-LL |     if true == !b {}
-   |        ^^^^^^^^^^ help: try: `true != b`
-
-error: this comparison might be written more concisely
-  --> tests/ui/nonminimal_bool.rs:189:8
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:72:1
    |
-LL |     if true == !b {}
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `true != b`
+LL | fn issue4548() {
+   | ^
 
-error: equality checks against true are unnecessary
-  --> tests/ui/nonminimal_bool.rs:189:8
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:73:5
    |
-LL |     if true == !b {}
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `!b`
+LL |     fn f(_i: u32, _j: u32) -> u32 {
+   |     ^ help: make this item public: `pub`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:193:8
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:73:5
    |
-LL |     if true != !b {}
-   |        ^^^^^^^^^^ help: try: `true == b`
-
-error: inequality checks against true can be replaced by a negation
-  --> tests/ui/nonminimal_bool.rs:193:8
+LL |     fn f(_i: u32, _j: u32) -> u32 {
+   |     ^
    |
-LL |     if true != !b {}
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `!(!b)`
-
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:196:8
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:73:5
    |
-LL |     if !b == !c {}
-   |        ^^^^^^^^ help: try: `b == c`
+LL |     fn f(_i: u32, _j: u32) -> u32 {
+   |     ^
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:198:8
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:73:10
    |
-LL |     if !b != !c {}
-   |        ^^^^^^^^ help: try: `b != c`
+LL |     fn f(_i: u32, _j: u32) -> u32 {
+   |          ^ help: make this parameter mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:214:8
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:73:19
    |
-LL |     if !(a < 2.0 && !b) {
-   |        ^^^^^^^^^^^^^^^^ help: try: `a >= 2.0 || b`
+LL |     fn f(_i: u32, _j: u32) -> u32 {
+   |                   ^ help: make this parameter mutable: `mut`
 
-error: this boolean expression can be simplified
-  --> tests/ui/nonminimal_bool.rs:233:12
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:77:9
+   |
+LL |     let i = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:78:9
+   |
+LL |     let j = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:83:1
+   |
+LL | fn check_expect() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:83:1
+   |
+LL | fn check_expect() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:83:1
+   |
+LL | fn check_expect() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:84:9
+   |
+LL |     let a: bool = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:89:1
+   |
+LL | fn issue9428() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:89:1
+   |
+LL | fn issue9428() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:89:1
+   |
+LL | fn issue9428() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:97:1
+   |
+LL | fn issue_10523() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:97:1
+   |
+LL | fn issue_10523() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:97:1
+   |
+LL | fn issue_10523() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:98:5
+   |
+LL |     macro_rules! a {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:103:9
+   |
+LL |     let x: Option<u32> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:107:1
+   |
+LL | fn issue_10523_1() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:107:1
+   |
+LL | fn issue_10523_1() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:107:1
+   |
+LL | fn issue_10523_1() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:108:5
+   |
+LL |     macro_rules! a {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:113:9
+   |
+LL |     let x: Option<u32> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:117:1
+   |
+LL | fn issue_10523_2() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:117:1
+   |
+LL | fn issue_10523_2() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:117:1
+   |
+LL | fn issue_10523_2() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:118:5
+   |
+LL |     macro_rules! a {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:126:1
+   |
+LL | fn issue_10435() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:126:1
+   |
+LL | fn issue_10435() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:126:1
+   |
+LL | fn issue_10435() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:127:9
+   |
+LL |     let x = vec![0];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:128:9
+   |
+LL |     let y = vec![1];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:129:9
+   |
+LL |     let z = vec![2];
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:144:1
+   |
+LL | fn issue10836() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:144:1
+   |
+LL | fn issue10836() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:144:1
+   |
+LL | fn issue10836() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:145:5
+   |
+LL |     struct Foo(bool);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:146:5
+   |
+LL |     impl std::ops::Not for Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:149:9
+   |
+LL |         fn not(self) -> Self::Output {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:149:9
+   |
+LL |         fn not(self) -> Self::Output {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:149:16
+   |
+LL |         fn not(self) -> Self::Output {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:158:1
+   |
+LL | fn issue11932() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:158:1
+   |
+LL | fn issue11932() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:158:1
+   |
+LL | fn issue11932() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:159:9
+   |
+LL |     let x: i32 = unimplemented!();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:169:1
+   |
+LL | fn issue_5794() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:169:1
+   |
+LL | fn issue_5794() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:169:1
+   |
+LL | fn issue_5794() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:170:9
+   |
+LL |     let a = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:180:9
+   |
+LL |     let b = true;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/nonminimal_bool.rs:181:9
+   |
+LL |     let c = false;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:202:1
+   |
+LL | fn issue_12371(x: usize) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:202:1
+   |
+LL | fn issue_12371(x: usize) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:202:1
+   |
+LL | fn issue_12371(x: usize) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:202:16
+   |
+LL | fn issue_12371(x: usize) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:209:1
+   |
+LL | fn many_ops(a: bool, b: bool, c: bool, d: bool, e: bool, f: bool) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:209:1
+   |
+LL | fn many_ops(a: bool, b: bool, c: bool, d: bool, e: bool, f: bool) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:209:1
+   |
+LL | fn many_ops(a: bool, b: bool, c: bool, d: bool, e: bool, f: bool) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:209:13
+   |
+LL | fn many_ops(a: bool, b: bool, c: bool, d: bool, e: bool, f: bool) -> bool {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:209:22
+   |
+LL | fn many_ops(a: bool, b: bool, c: bool, d: bool, e: bool, f: bool) -> bool {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:209:31
+   |
+LL | fn many_ops(a: bool, b: bool, c: bool, d: bool, e: bool, f: bool) -> bool {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:209:40
+   |
+LL | fn many_ops(a: bool, b: bool, c: bool, d: bool, e: bool, f: bool) -> bool {
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:209:49
+   |
+LL | fn many_ops(a: bool, b: bool, c: bool, d: bool, e: bool, f: bool) -> bool {
+   |                                                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:209:58
+   |
+LL | fn many_ops(a: bool, b: bool, c: bool, d: bool, e: bool, f: bool) -> bool {
+   |                                                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:213:1
+   |
+LL | fn issue14184(a: f32, b: bool) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:213:1
+   |
+LL | fn issue14184(a: f32, b: bool) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:213:1
+   |
+LL | fn issue14184(a: f32, b: bool) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:213:15
+   |
+LL | fn issue14184(a: f32, b: bool) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:213:23
+   |
+LL | fn issue14184(a: f32, b: bool) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:220:1
+   |
+LL | mod issue14404 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:221:5
+   |
+LL |     enum TyKind {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:226:5
+   |
+LL |     struct Expr;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:228:5
+   |
+LL |     fn is_mutable(expr: &Expr) -> bool {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:228:5
+   |
+LL |     fn is_mutable(expr: &Expr) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:228:5
+   |
+LL |     fn is_mutable(expr: &Expr) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:228:19
+   |
+LL |     fn is_mutable(expr: &Expr) -> bool {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/nonminimal_bool.rs:228:25
+   |
+LL |     fn is_mutable(expr: &Expr) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/nonminimal_bool.rs:232:5
+   |
+LL |     fn should_not_give_macro(ty: TyKind, expr: Expr) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/nonminimal_bool.rs:232:5
+   |
+LL |     fn should_not_give_macro(ty: TyKind, expr: Expr) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/nonminimal_bool.rs:232:5
+   |
+LL |     fn should_not_give_macro(ty: TyKind, expr: Expr) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:232:30
+   |
+LL |     fn should_not_give_macro(ty: TyKind, expr: Expr) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/nonminimal_bool.rs:232:42
+   |
+LL |     fn should_not_give_macro(ty: TyKind, expr: Expr) {
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/nonminimal_bool.rs:233:64
    |
 LL |         if !(matches!(ty, TyKind::Ref(_, _, _)) && !is_mutable(&expr)) {
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `!matches!(ty, TyKind::Ref(_, _, _)) || is_mutable(&expr)`
+   |                                                                ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 31 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 92 previous errors
 

@@ -1,40 +1,797 @@
-error: needlessly taken reference of both operands
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:6:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:7:9
+   |
+LL |     let tracked_fds: HashSet<i32> = HashSet::new();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:8:9
+   |
+LL |     let new_fds = HashSet::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:9:9
+   |
+LL |     let unwanted = &tracked_fds - &new_fds;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:9:20
+   |
+LL |     let unwanted = &tracked_fds - &new_fds;
+   |                    ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:9:35
+   |
+LL |     let unwanted = &tracked_fds - &new_fds;
+   |                                   ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:11:9
+   |
+LL |     let foo = &5 - &6;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/op_ref.rs:11:15
    |
 LL |     let foo = &5 - &6;
-   |               ^^^^^^^
+   |               ^^
    |
-   = note: `-D clippy::op-ref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::op_ref)]`
-help: use the values directly
-   |
-LL -     let foo = &5 - &6;
-LL +     let foo = 5 - 6;
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: taken reference of right operand
-  --> tests/ui/op_ref.rs:57:13
+error: references are not allowed
+  --> tests/ui/op_ref.rs:11:20
+   |
+LL |     let foo = &5 - &6;
+   |                    ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:14:9
+   |
+LL |     let bar = String::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:15:9
+   |
+LL |     let bar = "foo" == &bar;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:15:24
+   |
+LL |     let bar = "foo" == &bar;
+   |                        ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:17:9
+   |
+LL |     let a = "a".to_string();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:18:9
+   |
+LL |     let b = "a";
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:20:12
+   |
+LL |     if b < &a {
+   |            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:24:5
+   |
+LL |     struct X(i32);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:25:5
+   |
+LL |     impl BitAnd for X {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:27:9
+   |
+LL |         fn bitand(self, rhs: X) -> X {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:27:9
+   |
+LL |         fn bitand(self, rhs: X) -> X {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:27:19
+   |
+LL |         fn bitand(self, rhs: X) -> X {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:27:25
+   |
+LL |         fn bitand(self, rhs: X) -> X {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:31:5
+   |
+LL |     impl<'a> BitAnd<&'a X> for X {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:31:21
+   |
+LL |     impl<'a> BitAnd<&'a X> for X {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:33:9
+   |
+LL |         fn bitand(self, rhs: &'a X) -> X {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:33:9
+   |
+LL |         fn bitand(self, rhs: &'a X) -> X {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:33:19
+   |
+LL |         fn bitand(self, rhs: &'a X) -> X {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:33:25
+   |
+LL |         fn bitand(self, rhs: &'a X) -> X {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:33:30
+   |
+LL |         fn bitand(self, rhs: &'a X) -> X {
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:37:9
+   |
+LL |     let x = X(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:38:9
+   |
+LL |     let y = X(2);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:39:9
    |
 LL |     let z = x & &y;
-   |             ^^^^--
-   |                 |
-   |                 help: use the right value directly: `y`
+   |         ^ help: make this variable mutable: `mut`
 
-error: taken reference of right operand
-  --> tests/ui/op_ref.rs:91:17
+error: references are not allowed
+  --> tests/ui/op_ref.rs:39:17
+   |
+LL |     let z = x & &y;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:42:5
+   |
+LL |     struct Y(i32);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:41:14
+   |
+LL |     #[derive(Copy, Clone)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:41:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:41:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:41:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:41:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:41:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:43:5
+   |
+LL |     impl BitAnd for Y {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:45:9
+   |
+LL |         fn bitand(self, rhs: Y) -> Y {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:45:9
+   |
+LL |         fn bitand(self, rhs: Y) -> Y {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:45:19
+   |
+LL |         fn bitand(self, rhs: Y) -> Y {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:45:25
+   |
+LL |         fn bitand(self, rhs: Y) -> Y {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:49:5
+   |
+LL |     impl<'a> BitAnd<&'a Y> for Y {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:49:21
+   |
+LL |     impl<'a> BitAnd<&'a Y> for Y {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:51:9
+   |
+LL |         fn bitand(self, rhs: &'a Y) -> Y {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:51:9
+   |
+LL |         fn bitand(self, rhs: &'a Y) -> Y {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:51:19
+   |
+LL |         fn bitand(self, rhs: &'a Y) -> Y {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:51:25
+   |
+LL |         fn bitand(self, rhs: &'a Y) -> Y {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:51:30
+   |
+LL |         fn bitand(self, rhs: &'a Y) -> Y {
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:55:9
+   |
+LL |     let x = Y(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:56:9
+   |
+LL |     let y = Y(2);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:57:9
+   |
+LL |     let z = x & &y;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:57:17
+   |
+LL |     let z = x & &y;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:62:1
+   |
+LL | struct A(i32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:61:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:61:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:61:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:61:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:61:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:61:17
+   |
+LL | #[derive(Clone, Copy)]
+   |                 ^
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:64:1
+   |
+LL | struct B(i32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:63:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:63:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:63:7
+   |
+LL | #[derive(Clone, Copy)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:63:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:63:10
+   |
+LL | #[derive(Clone, Copy)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:63:17
+   |
+LL | #[derive(Clone, Copy)]
+   |                 ^
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:66:1
+   |
+LL | impl Mul<&A> for B {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:66:10
+   |
+LL | impl Mul<&A> for B {
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:68:5
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:68:5
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:68:12
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:68:18
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:68:23
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |                       ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:72:1
+   |
+LL | impl Mul<A> for B {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:74:5
+   |
+LL |     fn mul(self, rhs: A) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:74:5
+   |
+LL |     fn mul(self, rhs: A) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:74:12
+   |
+LL |     fn mul(self, rhs: A) -> Self::Output {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:74:18
+   |
+LL |     fn mul(self, rhs: A) -> Self::Output {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:76:16
+   |
+LL |         self * &rhs
+   |                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:79:1
+   |
+LL | impl Mul<&A> for A {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:79:10
+   |
+LL | impl Mul<&A> for A {
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:81:5
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:81:5
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:81:12
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:81:18
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:81:23
+   |
+LL |     fn mul(self, rhs: &A) -> Self::Output {
+   |                       ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:85:1
+   |
+LL | impl Mul<A> for A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:87:5
+   |
+LL |     fn mul(self, rhs: A) -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:87:5
+   |
+LL |     fn mul(self, rhs: A) -> Self::Output {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:87:12
+   |
+LL |     fn mul(self, rhs: A) -> Self::Output {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:87:18
+   |
+LL |     fn mul(self, rhs: A) -> Self::Output {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:88:13
+   |
+LL |         let one = B(1);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:89:13
+   |
+LL |         let two = 2;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:90:13
+   |
+LL |         let three = 3;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:91:23
    |
 LL |         let _ = one * &self;
-   |                 ^^^^^^-----
-   |                       |
-   |                       help: use the right value directly: `self`
+   |                       ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: taken reference of right operand
-  --> tests/ui/op_ref.rs:94:17
+error: references are not allowed
+  --> tests/ui/op_ref.rs:94:23
    |
 LL |         let _ = two + &three;
-   |                 ^^^^^^------
-   |                       |
-   |                       help: use the right value directly: `three`
+   |                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 4 previous errors
+error: references are not allowed
+  --> tests/ui/op_ref.rs:98:16
+   |
+LL |         self * &rhs
+   |                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:102:1
+   |
+LL | mod issue_2597 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/op_ref.rs:103:5
+   |
+LL |     fn ex1() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:103:5
+   |
+LL |     fn ex1() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:103:5
+   |
+LL |     fn ex1() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:104:13
+   |
+LL |         let a: &str = "abc";
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:104:16
+   |
+LL |         let a: &str = "abc";
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/op_ref.rs:105:13
+   |
+LL |         let b: String = "abc".to_owned();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:106:28
+   |
+LL |         println!("{}", a > &b);
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/op_ref.rs:109:9
+   |
+LL |     pub fn ex2<T: Ord + PartialOrd>(array: &[T], val: &T, idx: usize) -> bool {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/op_ref.rs:109:9
+   |
+LL |     pub fn ex2<T: Ord + PartialOrd>(array: &[T], val: &T, idx: usize) -> bool {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:109:37
+   |
+LL |     pub fn ex2<T: Ord + PartialOrd>(array: &[T], val: &T, idx: usize) -> bool {
+   |                                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:109:50
+   |
+LL |     pub fn ex2<T: Ord + PartialOrd>(array: &[T], val: &T, idx: usize) -> bool {
+   |                                                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/op_ref.rs:109:59
+   |
+LL |     pub fn ex2<T: Ord + PartialOrd>(array: &[T], val: &T, idx: usize) -> bool {
+   |                                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:109:44
+   |
+LL |     pub fn ex2<T: Ord + PartialOrd>(array: &[T], val: &T, idx: usize) -> bool {
+   |                                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:109:55
+   |
+LL |     pub fn ex2<T: Ord + PartialOrd>(array: &[T], val: &T, idx: usize) -> bool {
+   |                                                       ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/op_ref.rs:110:9
+   |
+LL |         &array[idx] < val
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 108 previous errors
 

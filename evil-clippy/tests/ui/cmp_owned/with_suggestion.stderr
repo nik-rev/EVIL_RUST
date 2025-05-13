@@ -1,53 +1,521 @@
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/with_suggestion.rs:5:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         x != "foo".to_string();
-   |              ^^^^^^^^^^^^^^^^^ help: try: `"foo"`
-   |
-   = note: `-D clippy::cmp-owned` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cmp_owned)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/with_suggestion.rs:8:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         "foo".to_string() != x;
-   |         ^^^^^^^^^^^^^^^^^ help: try: `"foo"`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/with_suggestion.rs:16:10
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:3:1
    |
-LL |     x != "foo".to_owned();
-   |          ^^^^^^^^^^^^^^^^ help: try: `"foo"`
-
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/with_suggestion.rs:19:10
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     x != String::from("foo");
-   |          ^^^^^^^^^^^^^^^^^^^ help: try: `"foo"`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/with_suggestion.rs:24:5
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:3:1
    |
-LL |     Foo.to_owned() == Foo;
-   |     ^^^^^^^^^^^^^^ help: try: `Foo`
-
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/with_suggestion.rs:27:30
+LL | fn main() {
+   | ^
    |
-LL |     "abc".chars().filter(|c| c.to_owned() != 'X');
-   |                              ^^^^^^^^^^^^ help: try: `*c`
-
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/with_suggestion.rs:80:21
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:3:1
    |
-LL |     let _ = foo1 == "foo".to_owned();
-   |                     ^^^^^^^^^^^^^^^^ help: try: `"foo"`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this creates an owned instance just for comparison
-  --> tests/ui/cmp_owned/with_suggestion.rs:83:21
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:4:5
    |
-LL |     let _ = foo1 == foo2.to_owned();
-   |                     ^^^^^^^^^^^^^^^ help: try: `foo2`
+LL |     fn with_to_string(x: &str) {
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 8 previous errors
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:4:5
+   |
+LL |     fn with_to_string(x: &str) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:4:5
+   |
+LL |     fn with_to_string(x: &str) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:4:23
+   |
+LL |     fn with_to_string(x: &str) {
+   |                       ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:4:26
+   |
+LL |     fn with_to_string(x: &str) {
+   |                          ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:12:9
+   |
+LL |     let x = "oh";
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:33:1
+   |
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:35:1
+   |
+LL | impl PartialEq for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:40:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:40:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:40:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:40:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:40:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:40:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:45:1
+   |
+LL | impl ToOwned for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:47:5
+   |
+LL |     fn to_owned(&self) -> Bar {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:47:5
+   |
+LL |     fn to_owned(&self) -> Bar {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:47:18
+   |
+LL |     fn to_owned(&self) -> Bar {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:47:17
+   |
+LL |     fn to_owned(&self) -> Bar {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:53:1
+   |
+LL | struct Bar;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:7
+   |
+LL | #[derive(PartialEq, Eq)]
+   |       ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:7
+   |
+LL | #[derive(PartialEq, Eq)]
+   |       ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:21
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                     ^
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:18
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                  ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:18
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                  ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:21
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:52:21
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                     ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:55:1
+   |
+LL | impl PartialEq<Foo> for Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:56:5
+   |
+LL |     fn eq(&self, _: &Foo) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:56:5
+   |
+LL |     fn eq(&self, _: &Foo) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:56:12
+   |
+LL |     fn eq(&self, _: &Foo) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:56:11
+   |
+LL |     fn eq(&self, _: &Foo) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:56:21
+   |
+LL |     fn eq(&self, _: &Foo) -> bool {
+   |                     ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:61:1
+   |
+LL | impl std::borrow::Borrow<Foo> for Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:62:5
+   |
+LL |     fn borrow(&self) -> &Foo {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:62:5
+   |
+LL |     fn borrow(&self) -> &Foo {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:62:16
+   |
+LL |     fn borrow(&self) -> &Foo {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:62:15
+   |
+LL |     fn borrow(&self) -> &Foo {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:62:25
+   |
+LL |     fn borrow(&self) -> &Foo {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: static must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:63:16
+   |
+LL |         static FOO: Foo = Foo;
+   |                ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:63:9
+   |
+LL |         static FOO: Foo = Foo;
+   |         ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:64:9
+   |
+LL |         &FOO
+   |         ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:69:1
+   |
+LL | struct Baz;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:7
+   |
+LL | #[derive(PartialEq, Eq)]
+   |       ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:7
+   |
+LL | #[derive(PartialEq, Eq)]
+   |       ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:10
+   |
+LL | #[derive(PartialEq, Eq)]
+   |          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:21
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                     ^
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:18
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                  ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:18
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                  ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:21
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:68:21
+   |
+LL | #[derive(PartialEq, Eq)]
+   |                     ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:71:1
+   |
+LL | impl ToOwned for Baz {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:73:5
+   |
+LL |     fn to_owned(&self) -> Baz {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:73:5
+   |
+LL |     fn to_owned(&self) -> Baz {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:73:18
+   |
+LL |     fn to_owned(&self) -> Baz {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/cmp_owned/with_suggestion.rs:73:17
+   |
+LL |     fn to_owned(&self) -> Baz {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/cmp_owned/with_suggestion.rs:78:1
+   |
+LL | fn issue_8103() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:78:1
+   |
+LL | fn issue_8103() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cmp_owned/with_suggestion.rs:78:1
+   |
+LL | fn issue_8103() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:79:9
+   |
+LL |     let foo1 = String::from("foo");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/cmp_owned/with_suggestion.rs:82:9
+   |
+LL |     let foo2 = "foo";
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 67 previous errors
 

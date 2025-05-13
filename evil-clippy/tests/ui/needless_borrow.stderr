@@ -1,173 +1,1835 @@
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:12:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:12:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:13:9
+   |
+LL |     let a = 5;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:14:9
+   |
+LL |     let ref_a = &a;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:14:17
+   |
+LL |     let ref_a = &a;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:15:15
+   |
+LL |     let _ = x(&a); // no warning
+   |               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:16:15
    |
 LL |     let _ = x(&&a); // warn
-   |               ^^^ help: change this to: `&a`
+   |               ^^^
    |
-   = note: `-D clippy::needless-borrow` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_borrow)]`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:16:16
+   |
+LL |     let _ = x(&&a); // warn
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:21:13
+   |
+LL |     mut_ref(&mut b); // no warning
+   |             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:22:13
    |
 LL |     mut_ref(&mut &mut b); // warn
-   |             ^^^^^^^^^^^ help: change this to: `&mut b`
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:22:18
+   |
+LL |     mut_ref(&mut &mut b); // warn
+   |                  ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:26:9
+   |
+LL |     let s = &String::from("hi");
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:26:13
+   |
+LL |     let s = &String::from("hi");
+   |             ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:27:9
+   |
+LL |     let s_ident = f(&s); // should not error, because `&String` implements Copy, but `String` does not
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:27:21
+   |
+LL |     let s_ident = f(&s); // should not error, because `&String` implements Copy, but `String` does not
+   |                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:28:9
+   |
+LL |     let g_val = g(&Vec::new()); // should not error, because `&Vec<T>` derefs to `&[T]`
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:28:19
+   |
+LL |     let g_val = g(&Vec::new()); // should not error, because `&Vec<T>` derefs to `&[T]`
+   |                   ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:29:9
+   |
+LL |     let vec = Vec::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:30:9
+   |
+LL |     let vec_val = g(&vec); // should not error, because `&Vec<T>` derefs to `&[T]`
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:30:21
+   |
+LL |     let vec_val = g(&vec); // should not error, because `&Vec<T>` derefs to `&[T]`
+   |                     ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:31:7
+   |
+LL |     h(&"foo"); // should not error, because the `&&str` is required, due to `&Trait`
+   |       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:32:9
+   |
+LL |     let garbl = match 42 {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:33:15
+   |
+LL |         44 => &a,
+   |               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:36:13
    |
 LL |             &&a
-   |             ^^^ help: change this to: `&a`
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:36:14
+   |
+LL |             &&a
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:39:15
    |
 LL |         46 => &&a,
-   |               ^^^ help: change this to: `&a`
+   |               ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:39:16
+   |
+LL |         46 => &&a,
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:46:27
    |
 LL |                     break &ref_a;
-   |                           ^^^^^^ help: change this to: `ref_a`
+   |                           ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:51:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:51:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:51:14
+   |
+LL |         _ => panic!(),
+   |              ^^^^^^^^
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:54:15
    |
 LL |     let _ = x(&&&a);
-   |               ^^^^ help: change this to: `&a`
+   |               ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:54:16
+   |
+LL |     let _ = x(&&&a);
+   |                ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:54:17
+   |
+LL |     let _ = x(&&&a);
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:56:15
    |
 LL |     let _ = x(&mut &&a);
-   |               ^^^^^^^^ help: change this to: `&a`
+   |               ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:56:20
+   |
+LL |     let _ = x(&mut &&a);
+   |                    ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:56:21
+   |
+LL |     let _ = x(&mut &&a);
+   |                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:58:15
    |
 LL |     let _ = x(&&&mut b);
-   |               ^^^^^^^^ help: change this to: `&mut b`
+   |               ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:58:16
+   |
+LL |     let _ = x(&&&mut b);
+   |                ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:58:17
+   |
+LL |     let _ = x(&&&mut b);
+   |                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:60:15
    |
 LL |     let _ = x(&&ref_a);
-   |               ^^^^^^^ help: change this to: `ref_a`
+   |               ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:60:16
+   |
+LL |     let _ = x(&&ref_a);
+   |                ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:63:13
+   |
+LL |         let b = &mut b;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:63:17
+   |
+LL |         let b = &mut b;
+   |                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:64:11
    |
 LL |         x(&b);
-   |           ^^ help: change this to: `b`
+   |           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:70:17
+   |
+LL |     let mut x = &mut x;
+   |                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:72:13
    |
 LL |     mut_ref(&mut x);
-   |             ^^^^^^ help: change this to: `x`
+   |             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:74:13
    |
 LL |     mut_ref(&mut &mut x);
-   |             ^^^^^^^^^^^ help: change this to: `x`
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:74:18
+   |
+LL |     mut_ref(&mut &mut x);
+   |                  ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:76:9
+   |
+LL |     let y: &mut i32 = &mut x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:76:12
+   |
+LL |     let y: &mut i32 = &mut x;
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:76:23
    |
 LL |     let y: &mut i32 = &mut x;
-   |                       ^^^^^^ help: change this to: `x`
+   |                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:78:9
+   |
+LL |     let y: &mut i32 = &mut &mut x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:78:12
+   |
+LL |     let y: &mut i32 = &mut &mut x;
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:78:23
    |
 LL |     let y: &mut i32 = &mut &mut x;
-   |                       ^^^^^^^^^^^ help: change this to: `x`
+   |                       ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:78:28
+   |
+LL |     let y: &mut i32 = &mut &mut x;
+   |                            ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:81:9
+   |
+LL |     let y = match 0 {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:83:14
+   |
+LL |         0 => &mut x,
+   |              ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:84:14
+   |
+LL |         _ => &mut *x,
+   |              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:86:9
+   |
+LL |     let y: &mut i32 = match 0 {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:86:12
+   |
+LL |     let y: &mut i32 = match 0 {
+   |            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:88:14
    |
 LL |         0 => &mut x,
-   |              ^^^^^^ help: change this to: `x`
+   |              ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:90:14
+   |
+LL |         _ => &mut *x,
+   |              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:92:5
+   |
+LL |     fn ref_mut_i32(_: &mut i32) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:92:5
+   |
+LL |     fn ref_mut_i32(_: &mut i32) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:92:5
+   |
+LL |     fn ref_mut_i32(_: &mut i32) {}
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:92:23
+   |
+LL |     fn ref_mut_i32(_: &mut i32) {}
+   |                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:95:14
    |
 LL |         0 => &mut x,
-   |              ^^^^^^ help: change this to: `x`
+   |              ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression borrows a value the compiler would automatically borrow
-  --> tests/ui/needless_borrow.rs:108:13
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:97:14
+   |
+LL |         _ => &mut *x,
+   |              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:102:9
+   |
+LL |     let s = String::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:107:9
+   |
+LL |     let x = (1, 2);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:108:14
    |
 LL |     let _ = (&x).0;
-   |             ^^^^ help: change this to: `x`
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression borrows a value the compiler would automatically borrow
-  --> tests/ui/needless_borrow.rs:111:22
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:110:9
+   |
+LL |     let x = &x as *const (i32, i32);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:110:13
+   |
+LL |     let x = &x as *const (i32, i32);
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:111:23
    |
 LL |     let _ = unsafe { (&*x).0 };
-   |                      ^^^^^ help: change this to: `(*x)`
+   |                       ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
-  --> tests/ui/needless_borrow.rs:122:5
+error: trait must be `unsafe`
+  --> tests/ui/needless_borrow.rs:115:5
+   |
+LL | /     trait Foo {
+LL | |         fn foo(self);
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:115:5
+   |
+LL |     trait Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:116:9
+   |
+LL |         fn foo(self);
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:116:9
+   |
+LL |         fn foo(self);
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:116:16
+   |
+LL |         fn foo(self);
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:118:5
+   |
+LL |     impl Foo for &'_ () {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:118:18
+   |
+LL |     impl Foo for &'_ () {
+   |                  ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:119:9
+   |
+LL |         fn foo(self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:119:9
+   |
+LL |         fn foo(self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:119:16
+   |
+LL |         fn foo(self) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:121:6
+   |
+LL |     (&()).foo(); // Don't lint. `()` doesn't implement `Foo`
+   |      ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:122:6
    |
 LL |     (&&()).foo();
-   |     ^^^^^^ help: change this to: `(&())`
+   |      ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
-  --> tests/ui/needless_borrow.rs:132:5
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:122:7
+   |
+LL |     (&&()).foo();
+   |       ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:125:5
+   |
+LL |     impl Foo for i32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:126:9
+   |
+LL |         fn foo(self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:126:9
+   |
+LL |         fn foo(self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:126:16
+   |
+LL |         fn foo(self) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:128:5
+   |
+LL |     impl Foo for &'_ i32 {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:128:18
+   |
+LL |     impl Foo for &'_ i32 {
+   |                  ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:129:9
+   |
+LL |         fn foo(self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:129:9
+   |
+LL |         fn foo(self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:129:16
+   |
+LL |         fn foo(self) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:131:6
+   |
+LL |     (&5).foo(); // Don't lint. `5` will call `<i32 as Foo>::foo`
+   |      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:132:6
    |
 LL |     (&&5).foo();
-   |     ^^^^^ help: change this to: `(&5)`
+   |      ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:132:7
+   |
+LL |     (&&5).foo();
+   |       ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_borrow.rs:135:5
+   |
+LL | /     trait FooRef {
+LL | |         fn foo_ref(&self);
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:135:5
+   |
+LL |     trait FooRef {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:136:9
+   |
+LL |         fn foo_ref(&self);
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:136:9
+   |
+LL |         fn foo_ref(&self);
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:136:21
+   |
+LL |         fn foo_ref(&self);
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:136:20
+   |
+LL |         fn foo_ref(&self);
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:138:5
+   |
+LL |     impl FooRef for () {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:139:9
+   |
+LL |         fn foo_ref(&self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:139:9
+   |
+LL |         fn foo_ref(&self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:139:21
+   |
+LL |         fn foo_ref(&self) {}
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:139:20
+   |
+LL |         fn foo_ref(&self) {}
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:141:5
+   |
+LL |     impl FooRef for &'_ () {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:141:21
+   |
+LL |     impl FooRef for &'_ () {
+   |                     ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:142:9
+   |
+LL |         fn foo_ref(&self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:142:9
+   |
+LL |         fn foo_ref(&self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:142:21
+   |
+LL |         fn foo_ref(&self) {}
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:142:20
+   |
+LL |         fn foo_ref(&self) {}
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:144:6
+   |
+LL |     (&&()).foo_ref(); // Don't lint. `&()` will call `<() as FooRef>::foo_ref`
+   |      ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:144:7
+   |
+LL |     (&&()).foo_ref(); // Don't lint. `&()` will call `<() as FooRef>::foo_ref`
+   |       ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:146:5
+   |
+LL |     struct S;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:147:5
+   |
+LL |     impl From<S> for u32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:148:9
+   |
+LL |         fn from(s: S) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:148:9
+   |
+LL |         fn from(s: S) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:148:17
+   |
+LL |         fn from(s: S) -> Self {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:149:14
+   |
+LL |             (&s).into()
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:152:5
+   |
+LL |     impl From<&S> for u32 {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:152:15
+   |
+LL |     impl From<&S> for u32 {
+   |               ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:153:9
+   |
+LL |         fn from(s: &S) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:153:9
+   |
+LL |         fn from(s: &S) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:153:17
+   |
+LL |         fn from(s: &S) -> Self {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:153:20
+   |
+LL |         fn from(s: &S) -> Self {
+   |                    ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:159:9
+   |
+LL |     let x: (&str,) = (&"",);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:159:13
+   |
+LL |     let x: (&str,) = (&"",);
+   |             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:159:23
    |
 LL |     let x: (&str,) = (&"",);
-   |                       ^^^ help: change this to: `""`
+   |                       ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression borrows a value the compiler would automatically borrow
-  --> tests/ui/needless_borrow.rs:202:13
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:164:1
+   |
+LL | fn x(y: &i32) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:164:1
+   |
+LL | fn x(y: &i32) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:164:1
+   |
+LL | fn x(y: &i32) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:164:6
+   |
+LL | fn x(y: &i32) -> i32 {
+   |      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:164:9
+   |
+LL | fn x(y: &i32) -> i32 {
+   |         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:168:1
+   |
+LL | fn mut_ref(y: &mut i32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:168:1
+   |
+LL | fn mut_ref(y: &mut i32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:168:1
+   |
+LL | fn mut_ref(y: &mut i32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:168:12
+   |
+LL | fn mut_ref(y: &mut i32) {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:168:15
+   |
+LL | fn mut_ref(y: &mut i32) {
+   |               ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:172:1
+   |
+LL | fn f<T: Copy>(y: &T) -> T {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:172:1
+   |
+LL | fn f<T: Copy>(y: &T) -> T {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:172:1
+   |
+LL | fn f<T: Copy>(y: &T) -> T {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:172:15
+   |
+LL | fn f<T: Copy>(y: &T) -> T {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:172:18
+   |
+LL | fn f<T: Copy>(y: &T) -> T {
+   |                  ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:176:1
+   |
+LL | fn g(y: &[u8]) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:176:1
+   |
+LL | fn g(y: &[u8]) -> u8 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:176:1
+   |
+LL | fn g(y: &[u8]) -> u8 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:176:6
+   |
+LL | fn g(y: &[u8]) -> u8 {
+   |      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:176:9
+   |
+LL | fn g(y: &[u8]) -> u8 {
+   |         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_borrow.rs:180:1
+   |
+LL | trait Trait {}
+   | ^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:180:1
+   |
+LL | trait Trait {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:182:1
+   |
+LL | impl<'a> Trait for &'a str {}
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:182:20
+   |
+LL | impl<'a> Trait for &'a str {}
+   |                    ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:184:1
+   |
+LL | fn h(_: &dyn Trait) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:184:1
+   |
+LL | fn h(_: &dyn Trait) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:184:1
+   |
+LL | fn h(_: &dyn Trait) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:184:9
+   |
+LL | fn h(_: &dyn Trait) {}
+   |         ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:186:1
+   |
+LL | fn check_expect_suppression() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:186:1
+   |
+LL | fn check_expect_suppression() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:186:1
+   |
+LL | fn check_expect_suppression() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:187:9
+   |
+LL |     let a = 5;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:189:15
+   |
+LL |     let _ = x(&&a);
+   |               ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:189:16
+   |
+LL |     let _ = x(&&a);
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:192:1
+   |
+LL | mod issue9160 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:197:5
+   |
+LL |     impl<T, F> S<F>
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:201:9
+   |
+LL |         fn calls_field(&self) -> T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:201:9
+   |
+LL |         fn calls_field(&self) -> T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:201:25
+   |
+LL |         fn calls_field(&self) -> T {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:201:24
+   |
+LL |         fn calls_field(&self) -> T {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:202:14
    |
 LL |             (&self.f)()
-   |             ^^^^^^^^^ help: change this to: `(self.f)`
+   |              ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: this expression borrows a value the compiler would automatically borrow
-  --> tests/ui/needless_borrow.rs:212:13
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:207:5
+   |
+LL |     impl<T, F> S<F>
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:211:9
+   |
+LL |         fn calls_mut_field(&mut self) -> T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:211:9
+   |
+LL |         fn calls_mut_field(&mut self) -> T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:211:33
+   |
+LL |         fn calls_mut_field(&mut self) -> T {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:211:28
+   |
+LL |         fn calls_mut_field(&mut self) -> T {
+   |                            ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:212:14
    |
 LL |             (&mut self.f)()
-   |             ^^^^^^^^^^^^^ help: change this to: `(self.f)`
-
-error: this expression borrows a value the compiler would automatically borrow
-  --> tests/ui/needless_borrow.rs:250:22
+   |              ^^^^^^^^^^^
    |
-LL |         let _ = &mut (&mut { x.u }).x;
-   |                      ^^^^^^^^^^^^^^ help: change this to: `{ x.u }`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression borrows a value the compiler would automatically borrow
-  --> tests/ui/needless_borrow.rs:258:22
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:218:1
    |
-LL |         let _ = &mut (&mut { x.u }).x;
-   |                      ^^^^^^^^^^^^^^ help: change this to: `{ x.u }`
+LL | fn issue9383() {
+   | ^ help: make this item public: `pub`
 
-error: this expression borrows a value the compiler would automatically borrow
-  --> tests/ui/needless_borrow.rs:263:22
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:218:1
+   |
+LL | fn issue9383() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:218:1
+   |
+LL | fn issue9383() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:223:5
+   |
+LL |     struct Wrap<T>(T);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:222:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:222:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:222:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:222:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:222:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:223:20
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ----- in this derive macro expansion
+LL |     struct Wrap<T>(T);
+   |                    ^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:222:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:224:5
+   |
+LL |     impl<T> core::ops::Deref for Wrap<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:226:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:226:9
+   |
+LL |         fn deref(&self) -> &T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:226:19
+   |
+LL |         fn deref(&self) -> &T {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:226:18
+   |
+LL |         fn deref(&self) -> &T {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:226:28
+   |
+LL |         fn deref(&self) -> &T {
+   |                            ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:227:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:230:5
+   |
+LL |     impl<T> core::ops::DerefMut for Wrap<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:231:9
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:231:9
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:231:27
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:231:22
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:231:36
+   |
+LL |         fn deref_mut(&mut self) -> &mut T {
+   |                                    ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:232:13
+   |
+LL |             &mut self.0
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:236:5
+   |
+LL |     union U<T: Copy> {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:241:5
+   |
+LL |     struct Foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:240:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:240:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:240:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:240:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:240:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:240:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:249:17
    |
 LL |         let _ = &mut (&mut x.u).x;
-   |                      ^^^^^^^^^^ help: change this to: `x.u`
+   |                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression borrows a value the compiler would automatically borrow
-  --> tests/ui/needless_borrow.rs:265:22
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:249:23
+   |
+LL |         let _ = &mut (&mut x.u).x;
+   |                       ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:250:17
    |
 LL |         let _ = &mut (&mut { x.u }).x;
-   |                      ^^^^^^^^^^^^^^ help: change this to: `{ x.u }`
+   |                 ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: this expression creates a reference which is immediately dereferenced by the compiler
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:250:23
+   |
+LL |         let _ = &mut (&mut { x.u }).x;
+   |                       ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:252:17
+   |
+LL |         let _ = &mut ({ &mut x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:252:25
+   |
+LL |         let _ = &mut ({ &mut x.u }).x;
+   |                         ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:257:17
+   |
+LL |         let _ = &mut (&mut x.u).x;
+   |                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:257:23
+   |
+LL |         let _ = &mut (&mut x.u).x;
+   |                       ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:258:17
+   |
+LL |         let _ = &mut (&mut { x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:258:23
+   |
+LL |         let _ = &mut (&mut { x.u }).x;
+   |                       ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:260:17
+   |
+LL |         let _ = &mut ({ &mut x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:260:25
+   |
+LL |         let _ = &mut ({ &mut x.u }).x;
+   |                         ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:263:17
+   |
+LL |         let _ = &mut (&mut x.u).x;
+   |                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:263:23
+   |
+LL |         let _ = &mut (&mut x.u).x;
+   |                       ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:265:17
+   |
+LL |         let _ = &mut (&mut { x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:265:23
+   |
+LL |         let _ = &mut (&mut { x.u }).x;
+   |                       ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:267:17
+   |
+LL |         let _ = &mut ({ &mut x.u }).x;
+   |                 ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:267:25
+   |
+LL |         let _ = &mut ({ &mut x.u }).x;
+   |                         ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:271:1
+   |
+LL | mod issue_10253 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:272:5
+   |
+LL |     struct S;
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/needless_borrow.rs:273:5
+   |
+LL | /     trait X {
+LL | |         fn f<T>(&self);
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:273:5
+   |
+LL |     trait X {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:274:9
+   |
+LL |         fn f<T>(&self);
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:274:9
+   |
+LL |         fn f<T>(&self);
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:274:18
+   |
+LL |         fn f<T>(&self);
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:274:17
+   |
+LL |         fn f<T>(&self);
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:276:5
+   |
+LL |     impl X for &S {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:276:16
+   |
+LL |     impl X for &S {
+   |                ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:277:9
+   |
+LL |         fn f<T>(&self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:277:9
+   |
+LL |         fn f<T>(&self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_borrow.rs:277:18
+   |
+LL |         fn f<T>(&self) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:277:17
+   |
+LL |         fn f<T>(&self) {}
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:279:5
+   |
+LL |     fn f() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:279:5
+   |
+LL |     fn f() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:279:5
+   |
+LL |     fn f() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:280:10
+   |
+LL |         (&S).f::<()>();
+   |          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/needless_borrow.rs:284:1
+   |
+LL | fn issue_12268() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_borrow.rs:284:1
+   |
+LL | fn issue_12268() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_borrow.rs:284:1
+   |
+LL | fn issue_12268() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:285:9
+   |
+LL |     let option = Some((&1,));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:285:24
+   |
+LL |     let option = Some((&1,));
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/needless_borrow.rs:286:9
+   |
+LL |     let x = (&1,);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_borrow.rs:286:14
+   |
+LL |     let x = (&1,);
+   |              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
   --> tests/ui/needless_borrow.rs:287:23
    |
 LL |     option.unwrap_or((&x.0,));
-   |                       ^^^^ help: change this to: `x.0`
+   |                       ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 28 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 234 previous errors
 

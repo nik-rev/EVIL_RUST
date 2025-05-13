@@ -1,110 +1,679 @@
-error: `panic` should not be present in production code
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:4:1
+   |
+LL | extern crate core;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:6:1
+   |
+LL | const _: () = {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:12:1
+   |
+LL | fn inline_const() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:12:1
+   |
+LL | fn inline_const() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:12:1
+   |
+LL | fn inline_const() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:20:1
+   |
+LL | fn panic() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:20:1
+   |
+LL | fn panic() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:20:1
+   |
+LL | fn panic() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:21:9
+   |
+LL |     let a = 2;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:22:5
+   |
+LL |     panic!();
+   |     ^^^^^^^^
+
+error: function must be `unsafe`
   --> tests/ui/panicking_macros.rs:22:5
    |
 LL |     panic!();
    |     ^^^^^^^^
    |
-   = note: `-D clippy::panic` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::panic)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:22:5
+   |
+LL |     panic!();
+   |     ^^^^^^^^
 
-error: `panic` should not be present in production code
-  --> tests/ui/panicking_macros.rs:25:5
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:31:9
    |
-LL |     panic!("message");
-   |     ^^^^^^^^^^^^^^^^^
+LL |     let b = a + 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: `panic` should not be present in production code
-  --> tests/ui/panicking_macros.rs:28:5
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:34:1
    |
-LL |     panic!("{} {}", "panic with", "multiple arguments");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn todo() {
+   | ^ help: make this item public: `pub`
 
-error: `todo` should not be present in production code
-  --> tests/ui/panicking_macros.rs:36:5
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:34:1
    |
-LL |     todo!();
-   |     ^^^^^^^
+LL | fn todo() {
+   | ^
    |
-   = note: `-D clippy::todo` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::todo)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:34:1
+   |
+LL | fn todo() {
+   | ^
 
-error: `todo` should not be present in production code
-  --> tests/ui/panicking_macros.rs:39:5
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:35:9
    |
-LL |     todo!("message");
-   |     ^^^^^^^^^^^^^^^^
+LL |     let a = 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: `todo` should not be present in production code
-  --> tests/ui/panicking_macros.rs:42:5
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:45:9
    |
-LL |     todo!("{} {}", "panic with", "multiple arguments");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     let b = a + 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: `unimplemented` should not be present in production code
-  --> tests/ui/panicking_macros.rs:50:5
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:48:1
    |
-LL |     unimplemented!();
-   |     ^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::unimplemented` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unimplemented)]`
+LL | fn unimplemented() {
+   | ^ help: make this item public: `pub`
 
-error: `unimplemented` should not be present in production code
-  --> tests/ui/panicking_macros.rs:53:5
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:48:1
    |
-LL |     unimplemented!("message");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn unimplemented() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:48:1
+   |
+LL | fn unimplemented() {
+   | ^
 
-error: `unimplemented` should not be present in production code
-  --> tests/ui/panicking_macros.rs:56:5
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:49:9
    |
-LL |     unimplemented!("{} {}", "panic with", "multiple arguments");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL |     let a = 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: usage of the `unreachable!` macro
-  --> tests/ui/panicking_macros.rs:64:5
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:59:9
    |
-LL |     unreachable!();
-   |     ^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::unreachable` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unreachable)]`
+LL |     let b = a + 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: usage of the `unreachable!` macro
-  --> tests/ui/panicking_macros.rs:67:5
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:62:1
    |
-LL |     unreachable!("message");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn unreachable() {
+   | ^ help: make this item public: `pub`
 
-error: usage of the `unreachable!` macro
-  --> tests/ui/panicking_macros.rs:70:5
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:62:1
    |
-LL |     unreachable!("{} {}", "panic with", "multiple arguments");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn unreachable() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:62:1
+   |
+LL | fn unreachable() {
+   | ^
 
-error: `panic` should not be present in production code
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:63:9
+   |
+LL |     let a = 2;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:73:9
+   |
+LL |     let b = a + 2;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:76:1
+   |
+LL | fn core_versions() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:76:1
+   |
+LL | fn core_versions() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:76:1
+   |
+LL | fn core_versions() {
+   | ^
+
+error: item must be `pub`
   --> tests/ui/panicking_macros.rs:78:5
    |
 LL |     panic!();
    |     ^^^^^^^^
 
-error: `todo` should not be present in production code
-  --> tests/ui/panicking_macros.rs:81:5
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:78:5
    |
-LL |     todo!();
-   |     ^^^^^^^
-
-error: `unimplemented` should not be present in production code
-  --> tests/ui/panicking_macros.rs:84:5
+LL |     panic!();
+   |     ^^^^^^^^
    |
-LL |     unimplemented!();
-   |     ^^^^^^^^^^^^^^^^
-
-error: usage of the `unreachable!` macro
-  --> tests/ui/panicking_macros.rs:87:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:78:5
    |
-LL |     unreachable!();
-   |     ^^^^^^^^^^^^^^
+LL |     panic!();
+   |     ^^^^^^^^
 
-error: aborting due to 16 previous errors
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:91:1
+   |
+LL | fn assert() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:91:1
+   |
+LL | fn assert() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:91:1
+   |
+LL | fn assert() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:93:5
+   |
+LL |     assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:93:5
+   |
+LL |     assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:93:5
+   |
+LL |     assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:93:5
+   |
+LL |     assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:93:5
+   |
+LL |     assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:94:5
+   |
+LL |     assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:94:5
+   |
+LL |     assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:94:5
+   |
+LL |     assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:94:5
+   |
+LL |     assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:94:5
+   |
+LL |     assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:97:1
+   |
+LL | fn assert_msg() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:97:1
+   |
+LL | fn assert_msg() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:97:1
+   |
+LL | fn assert_msg() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:99:5
+   |
+LL |     assert_eq!(true, true, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:99:5
+   |
+LL |     assert_eq!(true, true, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:99:5
+   |
+LL |     assert_eq!(true, true, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:99:5
+   |
+LL |     assert_eq!(true, true, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:99:5
+   |
+LL |     assert_eq!(true, true, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:100:5
+   |
+LL |     assert_ne!(true, false, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:100:5
+   |
+LL |     assert_ne!(true, false, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:100:5
+   |
+LL |     assert_ne!(true, false, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:100:5
+   |
+LL |     assert_ne!(true, false, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:100:5
+   |
+LL |     assert_ne!(true, false, "this should not panic");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:103:1
+   |
+LL | fn debug_assert() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:103:1
+   |
+LL | fn debug_assert() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:103:1
+   |
+LL | fn debug_assert() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:105:5
+   |
+LL |     debug_assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:105:5
+   |
+LL |     debug_assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:105:5
+   |
+LL |     debug_assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:105:5
+   |
+LL |     debug_assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:105:5
+   |
+LL |     debug_assert_eq!(true, true);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:106:5
+   |
+LL |     debug_assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:106:5
+   |
+LL |     debug_assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:106:5
+   |
+LL |     debug_assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:106:5
+   |
+LL |     debug_assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:106:5
+   |
+LL |     debug_assert_ne!(true, false);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:109:1
+   |
+LL | fn debug_assert_msg() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:109:1
+   |
+LL | fn debug_assert_msg() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:109:1
+   |
+LL | fn debug_assert_msg() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:111:5
+   |
+LL |     debug_assert_eq!(true, true, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:111:5
+   |
+LL |     debug_assert_eq!(true, true, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:111:5
+   |
+LL |     debug_assert_eq!(true, true, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:111:5
+   |
+LL |     debug_assert_eq!(true, true, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:111:5
+   |
+LL |     debug_assert_eq!(true, true, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:112:5
+   |
+LL |     debug_assert_ne!(true, false, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:112:5
+   |
+LL |     debug_assert_ne!(true, false, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/panicking_macros.rs:112:5
+   |
+LL |     debug_assert_ne!(true, false, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:112:5
+   |
+LL |     debug_assert_ne!(true, false, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/panicking_macros.rs:112:5
+   |
+LL |     debug_assert_ne!(true, false, "test");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/panicking_macros.rs:115:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/panicking_macros.rs:115:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/panicking_macros.rs:115:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 80 previous errors
 

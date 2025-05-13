@@ -1,236 +1,632 @@
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:12:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     loop {
-...  |
-LL | |         break;
-LL | |     }
-   | |_____^
-   |
-   = note: `#[deny(clippy::never_loop)]` on by default
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:36:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     loop {
-...  |
-LL | |         break;
-LL | |     }
-   | |_____^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:58:5
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:10:1
    |
-LL | /     loop {
-...  |
-LL | |         return;
-LL | |     }
-   | |_____^
+LL | fn test1() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:62:9
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:10:1
    |
-LL | /         while i == 0 {
-...  |
-LL | |         }
-   | |_________^
+LL | fn test1() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:10:1
+   |
+LL | fn test1() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:76:9
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:24:1
    |
-LL | /         loop {
-...  |
-LL | |             continue 'outer;
-LL | |         }
-   | |_________^
+LL | fn test2() {
+   | ^ help: make this item public: `pub`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:114:5
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:24:1
    |
-LL | /     while let Some(y) = x {
-...  |
-LL | |     }
-   | |_____^
+LL | fn test2() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:24:1
+   |
+LL | fn test2() {
+   | ^
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:123:5
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:34:1
    |
-LL | /     for x in 0..10 {
-...  |
-LL | |     }
-   | |_____^
-   |
-help: if you need the first element of the iterator, try writing
-   |
-LL -     for x in 0..10 {
-LL +     if let Some(x) = (0..10).next() {
-   |
+LL | fn test3() {
+   | ^ help: make this item public: `pub`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:173:5
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:34:1
    |
-LL | /     'outer: while a {
-...  |
-LL | |         break 'outer;
-LL | |     }
-   | |_____^
+LL | fn test3() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:34:1
+   |
+LL | fn test3() {
+   | ^
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:190:9
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:45:1
    |
-LL | /         while false {
-LL | |
-LL | |
-LL | |             break 'label;
-LL | |         }
-   | |_________^
+LL | fn test4() {
+   | ^ help: make this item public: `pub`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:243:13
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:45:1
    |
-LL |       let _ = loop {
-   |  _____________^
-LL | |
-LL | |
-LL | |         let Some(x) = x else {
-...  |
-LL | |         break x;
-LL | |     };
-   | |_____^
+LL | fn test4() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:45:1
+   |
+LL | fn test4() {
+   | ^
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:266:5
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:56:1
    |
-LL | /     'a: loop {
-LL | |
-LL | |
-LL | |         'b: {
-...  |
-LL | |     }
-   | |_____^
+LL | fn test5() {
+   | ^ help: make this item public: `pub`
 
-error: sub-expression diverges
-  --> tests/ui/never_loop.rs:271:17
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:56:1
    |
-LL |                 break 'a;
-   |                 ^^^^^^^^
+LL | fn test5() {
+   | ^
    |
-   = note: `-D clippy::diverging-sub-expression` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::diverging_sub_expression)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:56:1
+   |
+LL | fn test5() {
+   | ^
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:303:13
+error: variable must be `mut`
+  --> tests/ui/never_loop.rs:57:9
    |
-LL | /             for _ in 0..20 {
-LL | |
-LL | |
-LL | |                 break 'block;
-LL | |             }
-   | |_____________^
+LL |     let i = 0;
+   |         ^ help: make this variable mutable: `mut`
    |
-help: if you need the first element of the iterator, try writing
-   |
-LL -             for _ in 0..20 {
-LL +             if let Some(_) = (0..20).next() {
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:388:13
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:72:1
    |
-LL | /             'c: loop {
-LL | |
-LL | |
-LL | |                 if b { break 'c } else { break 'b }
-LL | |             }
-   | |_____________^
+LL | fn test6() {
+   | ^ help: make this item public: `pub`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:400:5
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:72:1
    |
-LL | /     loop {
-LL | |
-LL | |
-LL | |         panic!("oh no");
-LL | |     }
-   | |_____^
+LL | fn test6() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:72:1
+   |
+LL | fn test6() {
+   | ^
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:405:5
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:89:1
    |
-LL | /     loop {
-LL | |
-LL | |
-LL | |         unimplemented!("not yet");
-LL | |     }
-   | |_____^
+LL | fn test7() {
+   | ^ help: make this item public: `pub`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:426:5
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:89:1
    |
-LL | /     for v in 0..10 {
-LL | |
-LL | |         break;
-LL | |         println!("{v}");
-LL | |     }
-   | |_____^
+LL | fn test7() {
+   | ^
    |
-help: if you need the first element of the iterator, try writing
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:89:1
    |
-LL -     for v in 0..10 {
-LL +     if let Some(v) = (0..10).next() {
-   |
+LL | fn test7() {
+   | ^
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:434:5
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:101:1
    |
-LL | /     'outer: for v in 0..10 {
-LL | |
-LL | |         loop {
-...  |
-LL | |         return;
-LL | |     }
-   | |_____^
-   |
-help: if you need the first element of the iterator, try writing
-   |
-LL -     'outer: for v in 0..10 {
-LL +     if let Some(v) = (0..10).next() {
-   |
+LL | fn test8() {
+   | ^ help: make this item public: `pub`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:436:9
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:101:1
    |
-LL | /         loop {
-LL | |
-LL | |             break 'outer;
-LL | |         }
-   | |_________^
+LL | fn test8() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:101:1
+   |
+LL | fn test8() {
+   | ^
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:443:5
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:112:1
    |
-LL | /     for v in 0..10 {
-LL | |
-LL | |         'inner: loop {
-...  |
-LL | |         return;
-LL | |     }
-   | |_____^
-   |
-help: if you need the first element of the iterator, try writing
-   |
-LL -     for v in 0..10 {
-LL +     if let Some(v) = (0..10).next() {
-   |
+LL | fn test9() {
+   | ^ help: make this item public: `pub`
 
-error: this loop never actually loops
-  --> tests/ui/never_loop.rs:445:9
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:112:1
    |
-LL | /         'inner: loop {
-LL | |
-LL | |             break 'inner;
-LL | |         }
-   | |_________^
+LL | fn test9() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:112:1
+   |
+LL | fn test9() {
+   | ^
 
-error: aborting due to 21 previous errors
+error: variable must be `mut`
+  --> tests/ui/never_loop.rs:113:9
+   |
+LL |     let x = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:122:1
+   |
+LL | fn test10() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:122:1
+   |
+LL | fn test10() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:122:1
+   |
+LL | fn test10() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:134:1
+   |
+LL | fn test11<F: FnMut() -> i32>(mut f: F) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:134:1
+   |
+LL | fn test11<F: FnMut() -> i32>(mut f: F) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:134:1
+   |
+LL | fn test11<F: FnMut() -> i32>(mut f: F) {
+   | ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:143:5
+   |
+LL | pub fn test12(a: bool, b: bool) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:143:5
+   |
+LL | pub fn test12(a: bool, b: bool) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/never_loop.rs:143:15
+   |
+LL | pub fn test12(a: bool, b: bool) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/never_loop.rs:143:24
+   |
+LL | pub fn test12(a: bool, b: bool) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:157:5
+   |
+LL | pub fn test13() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:157:5
+   |
+LL | pub fn test13() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:171:5
+   |
+LL | pub fn test14() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:171:5
+   |
+LL | pub fn test14() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:188:5
+   |
+LL | pub fn test15() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:188:5
+   |
+LL | pub fn test15() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:199:5
+   |
+LL | pub fn test16() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:199:5
+   |
+LL | pub fn test16() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:210:5
+   |
+LL | pub fn test17() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:210:5
+   |
+LL | pub fn test17() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:211:5
+   |
+LL |     struct Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:227:5
+   |
+LL | pub fn test18() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:227:5
+   |
+LL | pub fn test18() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/never_loop.rs:228:9
+   |
+LL |     let x = Some(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/never_loop.rs:229:9
+   |
+LL |     let y = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/never_loop.rs:232:18
+   |
+LL |         let Some(x) = x else {
+   |                  ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/never_loop.rs:246:18
+   |
+LL |         let Some(x) = x else {
+   |                  ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:255:5
+   |
+LL | pub fn test19() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:255:5
+   |
+LL | pub fn test19() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:256:5
+   |
+LL |     fn thing(iter: impl Iterator) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:256:5
+   |
+LL |     fn thing(iter: impl Iterator) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:256:5
+   |
+LL |     fn thing(iter: impl Iterator) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/never_loop.rs:256:14
+   |
+LL |     fn thing(iter: impl Iterator) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:265:5
+   |
+LL | pub fn test20() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:265:5
+   |
+LL | pub fn test20() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:278:5
+   |
+LL | pub fn test21() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:278:5
+   |
+LL | pub fn test21() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:290:5
+   |
+LL | pub fn test22() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:290:5
+   |
+LL | pub fn test22() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:300:5
+   |
+LL | pub fn test23() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:300:5
+   |
+LL | pub fn test23() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:313:5
+   |
+LL | pub fn test24() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:313:5
+   |
+LL | pub fn test24() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/never_loop.rs:316:17
+   |
+LL |             let x = Some(1);
+   |                 ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:326:5
+   |
+LL | pub fn test25() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:326:5
+   |
+LL | pub fn test25() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:337:5
+   |
+LL | pub fn test26() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:337:5
+   |
+LL | pub fn test26() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:348:5
+   |
+LL | pub fn test27() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:348:5
+   |
+LL | pub fn test27() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/never_loop.rs:351:17
+   |
+LL |             let x = true;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:361:5
+   |
+LL | pub fn test29() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:361:5
+   |
+LL | pub fn test29() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:372:5
+   |
+LL | pub fn test30() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:372:5
+   |
+LL | pub fn test30() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:385:5
+   |
+LL | pub fn test31(b: bool) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:385:5
+   |
+LL | pub fn test31(b: bool) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/never_loop.rs:385:15
+   |
+LL | pub fn test31(b: bool) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:399:5
+   |
+LL | pub fn test32() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:399:5
+   |
+LL | pub fn test32() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:416:5
+   |
+LL | pub fn issue12205() -> Option<()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:416:5
+   |
+LL | pub fn issue12205() -> Option<()> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:425:1
+   |
+LL | fn stmt_after_return() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:425:1
+   |
+LL | fn stmt_after_return() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:425:1
+   |
+LL | fn stmt_after_return() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:433:1
+   |
+LL | fn loop_label() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:433:1
+   |
+LL | fn loop_label() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:433:1
+   |
+LL | fn loop_label() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/never_loop.rs:453:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/never_loop.rs:453:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/never_loop.rs:453:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 68 previous errors
 

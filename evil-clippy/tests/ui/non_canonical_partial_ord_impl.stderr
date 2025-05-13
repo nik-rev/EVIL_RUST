@@ -1,48 +1,2337 @@
-error: non-canonical implementation of `partial_cmp` on an `Ord` type
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:8:1
+   |
+LL | struct A(u32);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:7:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:10:1
+   |
+LL | impl Ord for A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:11:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:11:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:11:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:11:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:11:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:11:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
   --> tests/ui/non_canonical_partial_ord_impl.rs:16:1
    |
-LL | /  impl PartialOrd for A {
-LL | |
-LL | |      fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-   | | _____________________________________________________________-
-LL | ||         todo!();
-LL | ||     }
-   | ||_____- help: change this to: `{ Some(self.cmp(other)) }`
-LL | |  }
-   | |__^
-   |
-   = note: `-D clippy::non-canonical-partial-ord-impl` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::non_canonical_partial_ord_impl)]`
+LL | impl PartialOrd for A {
+   | ^ help: make this item public: `pub`
 
-error: non-canonical implementation of `partial_cmp` on an `Ord` type
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:18:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:18:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:18:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:18:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:18:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:18:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:26:1
+   |
+LL | struct B(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:25:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:28:1
+   |
+LL | impl Ord for B {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:29:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:29:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:29:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:29:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:29:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:29:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:34:1
+   |
+LL | impl PartialOrd for B {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:35:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:35:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:35:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:35:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:35:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:35:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:43:1
+   |
+LL | struct C(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:42:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:45:1
+   |
+LL | impl Ord for C {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:46:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:46:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:46:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:46:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:46:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:46:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
   --> tests/ui/non_canonical_partial_ord_impl.rs:51:1
    |
-LL | / impl PartialOrd for C {
-LL | |
-LL | |     fn partial_cmp(&self, _: &Self) -> Option<Ordering> {
-LL | |         todo!();
-LL | |     }
-LL | | }
-   | |_^
-   |
-help: change this to
-   |
-LL -     fn partial_cmp(&self, _: &Self) -> Option<Ordering> {
-LL +     fn partial_cmp(&self, other: &Self) -> Option<Ordering> { Some(self.cmp(other)) }
-   |
+LL | impl PartialOrd for C {
+   | ^ help: make this item public: `pub`
 
-error: non-canonical implementation of `partial_cmp` on an `Ord` type
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:53:5
+   |
+LL |     fn partial_cmp(&self, _: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:53:5
+   |
+LL |     fn partial_cmp(&self, _: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:53:21
+   |
+LL |     fn partial_cmp(&self, _: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:53:20
+   |
+LL |     fn partial_cmp(&self, _: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:53:30
+   |
+LL |     fn partial_cmp(&self, _: &Self) -> Option<Ordering> {
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:61:1
+   |
+LL | struct D(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:10
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:7
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:7
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:10
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:10
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:14
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:11
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |           ^  --- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:11
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |           ^  --- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:14
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:14
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:14
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |              ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:14
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |              ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:61:10
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |              --- in this derive macro expansion
+LL | struct D(u32);
+   |          ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:61:10
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |              --- in this derive macro expansion
+LL | struct D(u32);
+   |          ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:19
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                   ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:19
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                   ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:16
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:16
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:19
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:19
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                   ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:19
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:19
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:30
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                              ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:27
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                           ^  ---------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:27
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                           ^  ---------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:30
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:30
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:30
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                              ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:60:30
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                              ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:61:10
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                              ---------- in this derive macro expansion
+LL | struct D(u32);
+   |          ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:61:10
+   |
+LL | #[derive(Eq, Ord, PartialEq, PartialOrd)]
+   |                              ---------- in this derive macro expansion
+LL | struct D(u32);
+   |          ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:66:1
+   |
+LL | struct E(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:65:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:68:1
+   |
+LL | impl PartialOrd for E {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:69:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:69:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:69:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:69:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:69:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:69:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:77:1
+   |
+LL | struct Uwu<A>(A);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:76:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:79:1
+   |
+LL | impl<A: std::fmt::Debug + Ord + PartialOrd> Ord for Uwu<A> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:80:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:80:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:80:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:80:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:80:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:80:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:85:1
+   |
+LL | impl<A: Ord + PartialOrd> PartialOrd for Uwu<A> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:86:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:86:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:86:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:86:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:86:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:86:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:94:1
+   |
+LL | struct F(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:93:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:96:1
+   |
+LL | impl Ord for F {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:97:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:97:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:97:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:97:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:97:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:97:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:102:1
+   |
+LL | impl PartialOrd for F {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:103:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:103:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:103:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:103:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:103:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:103:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:108:1
+   |
+LL | impl PartialEq<u32> for F {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:109:5
+   |
+LL |     fn eq(&self, other: &u32) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:109:5
+   |
+LL |     fn eq(&self, other: &u32) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:109:12
+   |
+LL |     fn eq(&self, other: &u32) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:109:18
+   |
+LL |     fn eq(&self, other: &u32) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:109:11
+   |
+LL |     fn eq(&self, other: &u32) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:109:25
+   |
+LL |     fn eq(&self, other: &u32) -> bool {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:114:1
+   |
+LL | impl PartialOrd<u32> for F {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:115:5
+   |
+LL |     fn partial_cmp(&self, other: &u32) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:115:5
+   |
+LL |     fn partial_cmp(&self, other: &u32) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:115:21
+   |
+LL |     fn partial_cmp(&self, other: &u32) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:115:27
+   |
+LL |     fn partial_cmp(&self, other: &u32) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:115:20
+   |
+LL |     fn partial_cmp(&self, other: &u32) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:115:34
+   |
+LL |     fn partial_cmp(&self, other: &u32) -> Option<Ordering> {
+   |                                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:123:1
+   |
+LL | struct G(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:122:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:125:1
+   |
+LL | impl Ord for G {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:126:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:126:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:126:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:126:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:126:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:126:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:131:1
+   |
+LL | impl PartialOrd for G {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:132:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:132:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:132:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:132:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:132:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:132:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:138:1
+   |
+LL | struct H(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:137:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:140:1
+   |
+LL | impl Ord for H {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:141:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:141:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:141:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:141:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:141:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:141:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:146:1
+   |
+LL | impl PartialOrd for H {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:147:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:147:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:147:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:147:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:147:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:147:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:155:1
+   |
+LL | struct I(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:154:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:157:1
+   |
+LL | impl Ord for I {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:158:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:158:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:158:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:158:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:158:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:158:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:163:1
+   |
+LL | impl PartialOrd for I {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:165:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:165:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:165:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:165:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:165:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:165:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:173:1
+   |
+LL | struct J(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:172:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:175:1
+   |
+LL | impl Ord for J {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:176:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:176:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:176:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:176:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:176:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:176:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:181:1
+   |
+LL | impl PartialOrd for J {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:182:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:182:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:182:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:182:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:182:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:182:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:190:1
+   |
+LL | struct K(u32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:7
+   |
+LL | #[derive(Eq, PartialEq)]
+   |       ^  -- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:10
+   |
+LL | #[derive(Eq, PartialEq)]
+   |          ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:11
+   |
+LL | #[derive(Eq, PartialEq)]
+   |           ^  --------- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:189:14
+   |
+LL | #[derive(Eq, PartialEq)]
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:192:1
+   |
+LL | impl Ord for K {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:193:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:193:5
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:193:13
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:193:19
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:193:12
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:193:26
+   |
+LL |     fn cmp(&self, other: &Self) -> Ordering {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
   --> tests/ui/non_canonical_partial_ord_impl.rs:198:1
    |
-LL | /  impl PartialOrd for K {
-LL | |
-LL | |      fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-   | | _____________________________________________________________-
-LL | ||         Ordering::Greater.into()
-LL | ||     }
-   | ||_____- help: change this to: `{ Some(self.cmp(other)) }`
-LL | |  }
-   | |__^
+LL | impl PartialOrd for K {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:200:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:200:5
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:200:21
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/non_canonical_partial_ord_impl.rs:200:27
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:200:20
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/non_canonical_partial_ord_impl.rs:200:34
+   |
+LL |     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+   |                                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 301 previous errors
 

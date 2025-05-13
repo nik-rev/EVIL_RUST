@@ -1,41 +1,92 @@
-error: needlessly owned Cow type
-  --> tests/ui/owned_cow.rs:8:25
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/owned_cow.rs:7:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/owned_cow.rs:7:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/owned_cow.rs:7:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/owned_cow.rs:8:9
    |
 LL |     let x: Cow<'static, String> = Cow::Owned(String::from("Hi!"));
-   |                         ^^^^^^ help: use: `str`
+   |         ^ help: make this variable mutable: `mut`
    |
-   = note: `-D clippy::owned-cow` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::owned_cow)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: needlessly owned Cow type
-  --> tests/ui/owned_cow.rs:10:20
+error: variable must be `mut`
+  --> tests/ui/owned_cow.rs:10:9
    |
 LL |     let y: Cow<'_, Vec<u8>> = Cow::Owned(vec![]);
-   |                    ^^^^^^^ help: use: `[u8]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: needlessly owned Cow type
-  --> tests/ui/owned_cow.rs:12:20
+error: variable must be `mut`
+  --> tests/ui/owned_cow.rs:12:9
    |
 LL |     let z: Cow<'_, Vec<_>> = Cow::Owned(vec![2_i32]);
-   |                    ^^^^^^ help: use: `[_]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: needlessly owned Cow type
-  --> tests/ui/owned_cow.rs:14:20
+error: variable must be `mut`
+  --> tests/ui/owned_cow.rs:14:9
    |
 LL |     let o: Cow<'_, OsString> = Cow::Owned(OsString::new());
-   |                    ^^^^^^^^ help: use: `std::ffi::OsStr`
+   |         ^ help: make this variable mutable: `mut`
 
-error: needlessly owned Cow type
-  --> tests/ui/owned_cow.rs:16:20
+error: variable must be `mut`
+  --> tests/ui/owned_cow.rs:16:9
    |
 LL |     let c: Cow<'_, CString> = Cow::Owned(CString::new("").unwrap());
-   |                    ^^^^^^^ help: use: `std::ffi::CStr`
+   |         ^ help: make this variable mutable: `mut`
 
-error: needlessly owned Cow type
-  --> tests/ui/owned_cow.rs:18:20
+error: variable must be `mut`
+  --> tests/ui/owned_cow.rs:18:9
    |
 LL |     let p: Cow<'_, PathBuf> = Cow::Owned(PathBuf::new());
-   |                    ^^^^^^^ help: use: `std::path::Path`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 6 previous errors
+error: variable must be `mut`
+  --> tests/ui/owned_cow.rs:22:9
+   |
+LL |     let b: Cow<'_, str> = Cow::Borrowed("Hi!");
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

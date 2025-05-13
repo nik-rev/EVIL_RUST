@@ -1,28 +1,149 @@
-error: argument to `size_of_val()` is a reference to a reference
-  --> tests/ui/size_of_ref.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/size_of_ref.rs:6:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/size_of_ref.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/size_of_ref.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/size_of_ref.rs:7:9
+   |
+LL |     let x = 5;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/size_of_ref.rs:8:9
+   |
+LL |     let y = &x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/size_of_ref.rs:8:13
+   |
+LL |     let y = &x;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/size_of_ref.rs:10:17
+   |
+LL |     size_of_val(&x); // no lint
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/size_of_ref.rs:13:17
    |
 LL |     size_of_val(&&x);
-   |     ^^^^^^^^^^^^^^^^
+   |                 ^^^
    |
-   = help: dereference the argument to `size_of_val()` to get the size of the value instead of the size of the reference-type
-   = note: `-D clippy::size-of-ref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::size_of_ref)]`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: argument to `size_of_val()` is a reference to a reference
-  --> tests/ui/size_of_ref.rs:16:5
+error: references are not allowed
+  --> tests/ui/size_of_ref.rs:13:18
+   |
+LL |     size_of_val(&&x);
+   |                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/size_of_ref.rs:16:17
    |
 LL |     size_of_val(&y);
-   |     ^^^^^^^^^^^^^^^
+   |                 ^^
    |
-   = help: dereference the argument to `size_of_val()` to get the size of the value instead of the size of the reference-type
+   = help: use a raw borrowing instead: `&raw const`
 
-error: argument to `size_of_val()` is a reference to a reference
-  --> tests/ui/size_of_ref.rs:28:9
+error: item must be `pub`
+  --> tests/ui/size_of_ref.rs:20:1
+   |
+LL | struct S {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/size_of_ref.rs:25:1
+   |
+LL | impl S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/size_of_ref.rs:27:9
+   |
+LL |     pub fn size(&self) -> usize {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/size_of_ref.rs:27:9
+   |
+LL |     pub fn size(&self) -> usize {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/size_of_ref.rs:27:18
+   |
+LL |     pub fn size(&self) -> usize {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/size_of_ref.rs:27:17
+   |
+LL |     pub fn size(&self) -> usize {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/size_of_ref.rs:28:31
    |
 LL |         std::mem::size_of_val(&self) + (std::mem::size_of::<u8>() * self.data.capacity())
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                               ^^^^^
    |
-   = help: dereference the argument to `size_of_val()` to get the size of the value instead of the size of the reference-type
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 3 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 19 previous errors
 

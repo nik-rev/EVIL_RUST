@@ -1,215 +1,241 @@
-error: this match arm has an identical body to the `_` wildcard arm
-  --> tests/ui/match_same_arms2.rs:17:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /         42 => {
-LL | |             foo();
-LL | |             let mut a = 42 + [23].len() as i32;
-LL | |             if true {
-...  |
-LL | |         },
-LL | |
-   | |________^ help: try removing the arm
-   |
-   = help: or try changing either arm body
-note: `_` wildcard arm here
-  --> tests/ui/match_same_arms2.rs:27:9
-   |
-LL | /         _ => {
-LL | |             foo();
-LL | |             let mut a = 42 + [23].len() as i32;
-LL | |             if true {
-...  |
-LL | |             a
-LL | |         },
-   | |_________^
-   = note: `-D clippy::match-same-arms` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::match_same_arms)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:40:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         51 => foo(),
-   |         ^^^^^^^^^^^
-   |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
-   |
-LL -         42 => foo(),
-LL -         51 => foo(),
-LL +         51 | 42 => foo(),
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:47:9
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:10:1
    |
-LL |         None => 24,
-   |         ^^^^^^^^^^
+LL | fn bar<T>(_: T) {}
+   | ^ help: make this item public: `pub`
    |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
-   |
-LL -         Some(_) => 24,
-LL -         None => 24,
-LL +         None | Some(_) => 24,
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:70:9
+error: function must be `unsafe`
+  --> tests/ui/match_same_arms2.rs:10:1
    |
-LL |         (None, Some(a)) => bar(a),
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn bar<T>(_: T) {}
+   | ^
    |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_same_arms2.rs:10:1
    |
-LL -         (Some(a), None) => bar(a),
-LL -         (None, Some(a)) => bar(a),
-LL +         (None, Some(a)) | (Some(a), None) => bar(a),
-   |
+LL | fn bar<T>(_: T) {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:85:9
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:11:1
    |
-LL |         (None, Some(a)) if a == 42 => a,
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
-   |
-LL -         (Some(a), None) if a == 42 => a,
-LL -         (None, Some(a)) if a == 42 => a,
-LL +         (None, Some(a)) | (Some(a), None) if a == 42 => a,
-   |
+LL | fn foo() -> bool {
+   | ^ help: make this item public: `pub`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:91:9
+error: function must be `unsafe`
+  --> tests/ui/match_same_arms2.rs:11:1
    |
-LL |         (Some(a), ..) => bar(a),
-   |         ^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn foo() -> bool {
+   | ^
    |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_same_arms2.rs:11:1
    |
-LL ~         (Some(a), ..) | (.., Some(a)) => bar(a),
-LL |
-LL ~         _ => (),
-   |
+LL | fn foo() -> bool {
+   | ^
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:126:9
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:15:1
    |
-LL |         (Ok(x), Some(_)) => println!("ok {}", x),
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
-   |
-LL ~         (Ok(x), Some(_)) | (Ok(_), Some(x)) => println!("ok {}", x),
-LL |
-LL ~         _ => println!("err"),
-   |
+LL | fn match_same_arms() {
+   | ^ help: make this item public: `pub`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:143:9
+error: function must be `unsafe`
+  --> tests/ui/match_same_arms2.rs:15:1
    |
-LL |         Ok(_) => println!("ok"),
-   |         ^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn match_same_arms() {
+   | ^
    |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_same_arms2.rs:15:1
    |
-LL -         Ok(3) => println!("ok"),
-LL -         Ok(_) => println!("ok"),
-LL +         Ok(_) | Ok(3) => println!("ok"),
-   |
+LL | fn match_same_arms() {
+   | ^
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:171:9
+error: variable must be `mut`
+  --> tests/ui/match_same_arms2.rs:108:9
    |
-LL | /         1 => {
-LL | |             empty!(0);
-LL | |         },
-   | |_________^
+LL |     let x: Result<i32, &str> = Ok(3);
+   |         ^ help: make this variable mutable: `mut`
    |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
-   |
-LL -         0 => {
-LL -             empty!(0);
-LL -         },
-LL -         1 => {
-LL +         1 | 0 => {
-   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:222:9
+error: references are not allowed
+  --> tests/ui/match_same_arms2.rs:108:24
    |
-LL |         Foo::X(0) => 1,
-   |         ^^^^^^^^^^^^^^
+LL |     let x: Result<i32, &str> = Ok(3);
+   |                        ^^^^
    |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
-   |
-LL ~         Foo::X(0) | Foo::Z(_) => 1,
-LL |
-LL |         Foo::X(_) | Foo::Y(_) => 2,
-LL ~         _ => 0,
-   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:233:9
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:151:5
    |
-LL |         Foo::Z(_) => 1,
-   |         ^^^^^^^^^^^^^^
-   |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
-   |
-LL ~         Foo::Y(_) | Foo::Z(0) => 2,
-LL ~         Foo::Z(_) | Foo::X(0) => 1,
-   |
+LL |     macro_rules! empty {
+   |     ^ help: make this item public: `pub`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:257:9
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:183:1
    |
-LL |         Some(Bar { y: 0, x: 5, .. }) => 1,
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
-   |
-LL ~         Some(Bar { y: 10, z: 0, .. }) => 2,
-LL |         None => 50,
-LL ~         Some(Bar { y: 0, x: 5, .. }) | Some(Bar { x: 0, y: 5, .. }) => 1,
-   |
+LL | fn match_expr_like_matches_macro_priority() {
+   | ^ help: make this item public: `pub`
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:272:9
+error: function must be `unsafe`
+  --> tests/ui/match_same_arms2.rs:183:1
    |
-LL |         1 => cfg!(not_enable),
-   |         ^^^^^^^^^^^^^^^^^^^^^
+LL | fn match_expr_like_matches_macro_priority() {
+   | ^
    |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_same_arms2.rs:183:1
    |
-LL -         0 => cfg!(not_enable),
-LL -         1 => cfg!(not_enable),
-LL +         1 | 0 => cfg!(not_enable),
-   |
+LL | fn match_expr_like_matches_macro_priority() {
+   | ^
 
-error: this match arm has an identical body to another arm
-  --> tests/ui/match_same_arms2.rs:289:17
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:184:5
    |
-LL |                 MaybeStaticStr::Borrowed(s) => s,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: try changing either arm body
-help: or try merging the arm patterns and removing the obsolete arm
-   |
-LL -                 MaybeStaticStr::Static(s) => s,
-LL -                 MaybeStaticStr::Borrowed(s) => s,
-LL +                 MaybeStaticStr::Borrowed(s) | MaybeStaticStr::Static(s) => s,
-   |
+LL |     enum E {
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 14 previous errors
+error: variable must be `mut`
+  --> tests/ui/match_same_arms2.rs:189:9
+   |
+LL |     let x = E::A;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_same_arms2.rs:190:9
+   |
+LL |     let _ans = match x {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:197:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_same_arms2.rs:197:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_same_arms2.rs:197:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:206:5
+   |
+LL |     enum Foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:246:5
+   |
+LL |     struct Bar {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:279:1
+   |
+LL | mod with_lifetime {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:280:5
+   |
+LL |     enum MaybeStaticStr<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/match_same_arms2.rs:281:16
+   |
+LL |         Static(&'static str),
+   |                ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/match_same_arms2.rs:282:18
+   |
+LL |         Borrowed(&'a str),
+   |                  ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/match_same_arms2.rs:285:5
+   |
+LL |     impl<'a> MaybeStaticStr<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_same_arms2.rs:286:9
+   |
+LL |         fn get(&self) -> &'a str {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_same_arms2.rs:286:9
+   |
+LL |         fn get(&self) -> &'a str {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_same_arms2.rs:286:17
+   |
+LL |         fn get(&self) -> &'a str {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_same_arms2.rs:286:16
+   |
+LL |         fn get(&self) -> &'a str {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/match_same_arms2.rs:286:26
+   |
+LL |         fn get(&self) -> &'a str {
+   |                          ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 31 previous errors
 

@@ -1,53 +1,392 @@
-error: manual implementation of `abs` method
-  --> tests/ui/floating_point_abs.rs:14:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if num >= 0.0 { num } else { -num }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `num.abs()`
-   |
-   = note: `-D clippy::suboptimal-flops` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suboptimal_flops)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual implementation of `abs` method
-  --> tests/ui/floating_point_abs.rs:19:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if 0.0 < num { num } else { -num }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `num.abs()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual implementation of `abs` method
-  --> tests/ui/floating_point_abs.rs:24:5
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:4:11
    |
-LL |     if a.a > 0.0 { a.a } else { -a.a }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `a.a.abs()`
-
-error: manual implementation of `abs` method
-  --> tests/ui/floating_point_abs.rs:29:5
+LL | pub const fn in_const_context(num: f64) -> f64 {
+   |           ^
    |
-LL |     if 0.0 >= num { -num } else { num }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `num.abs()`
-
-error: manual implementation of `abs` method
-  --> tests/ui/floating_point_abs.rs:34:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:4:11
    |
-LL |     if a.a < 0.0 { -a.a } else { a.a }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `a.a.abs()`
+LL | pub const fn in_const_context(num: f64) -> f64 {
+   |           ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual implementation of negation of `abs` method
-  --> tests/ui/floating_point_abs.rs:39:5
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:4:31
    |
-LL |     if num < 0.0 { num } else { -num }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `-num.abs()`
-
-error: manual implementation of negation of `abs` method
-  --> tests/ui/floating_point_abs.rs:44:5
+LL | pub const fn in_const_context(num: f64) -> f64 {
+   |                               ^ help: make this parameter mutable: `mut`
    |
-LL |     if 0.0 >= num { num } else { -num }
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `-num.abs()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: manual implementation of negation of `abs` method
-  --> tests/ui/floating_point_abs.rs:50:12
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:8:1
    |
-LL |         a: if a.a >= 0.0 { -a.a } else { a.a },
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `-a.a.abs()`
+LL | struct A {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 8 previous errors
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:13:1
+   |
+LL | fn fake_abs1(num: f64) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:13:1
+   |
+LL | fn fake_abs1(num: f64) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:13:1
+   |
+LL | fn fake_abs1(num: f64) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:13:14
+   |
+LL | fn fake_abs1(num: f64) -> f64 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:18:1
+   |
+LL | fn fake_abs2(num: f64) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:18:1
+   |
+LL | fn fake_abs2(num: f64) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:18:1
+   |
+LL | fn fake_abs2(num: f64) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:18:14
+   |
+LL | fn fake_abs2(num: f64) -> f64 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:23:1
+   |
+LL | fn fake_abs3(a: A) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:23:1
+   |
+LL | fn fake_abs3(a: A) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:23:1
+   |
+LL | fn fake_abs3(a: A) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:23:14
+   |
+LL | fn fake_abs3(a: A) -> f64 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:28:1
+   |
+LL | fn fake_abs4(num: f64) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:28:1
+   |
+LL | fn fake_abs4(num: f64) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:28:1
+   |
+LL | fn fake_abs4(num: f64) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:28:14
+   |
+LL | fn fake_abs4(num: f64) -> f64 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:33:1
+   |
+LL | fn fake_abs5(a: A) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:33:1
+   |
+LL | fn fake_abs5(a: A) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:33:1
+   |
+LL | fn fake_abs5(a: A) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:33:14
+   |
+LL | fn fake_abs5(a: A) -> f64 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:38:1
+   |
+LL | fn fake_nabs1(num: f64) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:38:1
+   |
+LL | fn fake_nabs1(num: f64) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:38:1
+   |
+LL | fn fake_nabs1(num: f64) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:38:15
+   |
+LL | fn fake_nabs1(num: f64) -> f64 {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:43:1
+   |
+LL | fn fake_nabs2(num: f64) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:43:1
+   |
+LL | fn fake_nabs2(num: f64) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:43:1
+   |
+LL | fn fake_nabs2(num: f64) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:43:15
+   |
+LL | fn fake_nabs2(num: f64) -> f64 {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:48:1
+   |
+LL | fn fake_nabs3(a: A) -> A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:48:1
+   |
+LL | fn fake_nabs3(a: A) -> A {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:48:1
+   |
+LL | fn fake_nabs3(a: A) -> A {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:48:15
+   |
+LL | fn fake_nabs3(a: A) -> A {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:56:1
+   |
+LL | fn not_fake_abs1(num: f64) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:56:1
+   |
+LL | fn not_fake_abs1(num: f64) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:56:1
+   |
+LL | fn not_fake_abs1(num: f64) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:56:18
+   |
+LL | fn not_fake_abs1(num: f64) -> f64 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:60:1
+   |
+LL | fn not_fake_abs2(num: f64) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:60:1
+   |
+LL | fn not_fake_abs2(num: f64) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:60:1
+   |
+LL | fn not_fake_abs2(num: f64) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:60:18
+   |
+LL | fn not_fake_abs2(num: f64) -> f64 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:64:1
+   |
+LL | fn not_fake_abs3(num1: f64, num2: f64) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:64:1
+   |
+LL | fn not_fake_abs3(num1: f64, num2: f64) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:64:1
+   |
+LL | fn not_fake_abs3(num1: f64, num2: f64) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:64:18
+   |
+LL | fn not_fake_abs3(num1: f64, num2: f64) -> f64 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:64:29
+   |
+LL | fn not_fake_abs3(num1: f64, num2: f64) -> f64 {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:68:1
+   |
+LL | fn not_fake_abs4(a: A) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:68:1
+   |
+LL | fn not_fake_abs4(a: A) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:68:1
+   |
+LL | fn not_fake_abs4(a: A) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:68:18
+   |
+LL | fn not_fake_abs4(a: A) -> f64 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:72:1
+   |
+LL | fn not_fake_abs5(a: A) -> f64 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:72:1
+   |
+LL | fn not_fake_abs5(a: A) -> f64 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:72:1
+   |
+LL | fn not_fake_abs5(a: A) -> f64 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/floating_point_abs.rs:72:18
+   |
+LL | fn not_fake_abs5(a: A) -> f64 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_abs.rs:76:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_abs.rs:76:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_abs.rs:76:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 49 previous errors
 

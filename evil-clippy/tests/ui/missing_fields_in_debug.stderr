@@ -1,65 +1,1009 @@
-error: manual `Debug` impl does not include all fields
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:9:1
+   |
+LL | struct NamedStruct1Ignored {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
   --> tests/ui/missing_fields_in_debug.rs:14:1
    |
-LL | / impl fmt::Debug for NamedStruct1Ignored {
-...  |
-LL | | }
-   | |_^
-   |
-note: this field is unused
-  --> tests/ui/missing_fields_in_debug.rs:11:5
-   |
-LL |     hidden: u32,
-   |     ^^^^^^^^^^^
-   = help: consider including all fields in this `Debug` impl
-   = help: consider calling `.finish_non_exhaustive()` if you intend to ignore fields
-   = note: `-D clippy::missing-fields-in-debug` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::missing_fields_in_debug)]`
+LL | impl fmt::Debug for NamedStruct1Ignored {
+   | ^ help: make this item public: `pub`
 
-error: manual `Debug` impl does not include all fields
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:18:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:18:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:18:13
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:18:19
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:18:12
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:18:30
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:21:28
+   |
+LL |             .field("data", &self.data)
+   |                            ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:26:1
+   |
+LL | struct NamedStructMultipleIgnored {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/missing_fields_in_debug.rs:34:1
    |
-LL | / impl fmt::Debug for NamedStructMultipleIgnored {
-...  |
-LL | | }
-   | |_^
-   |
-note: this field is unused
-  --> tests/ui/missing_fields_in_debug.rs:28:5
-   |
-LL |     hidden: u32,
-   |     ^^^^^^^^^^^
-note: this field is unused
-  --> tests/ui/missing_fields_in_debug.rs:29:5
-   |
-LL |     hidden2: String,
-   |     ^^^^^^^^^^^^^^^
-note: this field is unused
-  --> tests/ui/missing_fields_in_debug.rs:31:5
-   |
-LL |     hidden4: ((((u8), u16), u32), u64),
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   = help: consider including all fields in this `Debug` impl
-   = help: consider calling `.finish_non_exhaustive()` if you intend to ignore fields
+LL | impl fmt::Debug for NamedStructMultipleIgnored {
+   | ^ help: make this item public: `pub`
 
-error: manual `Debug` impl does not include all fields
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:38:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:38:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:38:13
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:38:19
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:38:12
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:38:30
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:41:28
+   |
+LL |             .field("data", &self.data)
+   |                            ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:42:31
+   |
+LL |             .field("hidden3", &self.hidden3)
+   |                               ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:47:1
+   |
+LL | struct Unit;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:50:1
+   |
+LL | impl fmt::Debug for Unit {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:51:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:51:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:51:13
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:51:19
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:51:12
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:51:30
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:56:1
+   |
+LL | struct UnnamedStruct1Ignored(String);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:58:1
+   |
+LL | impl fmt::Debug for UnnamedStruct1Ignored {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:59:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:59:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:59:13
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:59:19
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:59:12
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:59:30
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:64:1
+   |
+LL | struct UnnamedStructMultipleIgnored(String, Vec<u8>, i32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:67:1
+   |
+LL | impl fmt::Debug for UnnamedStructMultipleIgnored {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:68:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:68:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:68:13
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:68:19
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:68:12
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:68:30
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:71:20
+   |
+LL |             .field(&self.1)
+   |                    ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:76:1
+   |
+LL | struct NamedStructNonExhaustive {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:82:1
+   |
+LL | impl fmt::Debug for NamedStructNonExhaustive {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:83:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:83:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:83:13
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:83:19
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:83:12
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:83:30
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:86:25
+   |
+LL |             .field("a", &self.a)
+   |                         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:91:1
+   |
+LL | struct MultiExprDebugImpl {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/missing_fields_in_debug.rs:97:1
    |
-LL | / impl fmt::Debug for MultiExprDebugImpl {
-LL | |
-LL | |
-LL | |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-...  |
-LL | | }
-   | |_^
-   |
-note: this field is unused
-  --> tests/ui/missing_fields_in_debug.rs:93:5
-   |
-LL |     b: String,
-   |     ^^^^^^^^^
-   = help: consider including all fields in this `Debug` impl
-   = help: consider calling `.finish_non_exhaustive()` if you intend to ignore fields
+LL | impl fmt::Debug for MultiExprDebugImpl {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:100:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:100:5
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:100:13
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:100:19
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:100:12
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:100:30
+   |
+LL |     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:102:22
+   |
+LL |         f.field("a", &self.a);
+   |                      ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:108:1
+   |
+LL | struct DerivedStruct {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:107:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:107:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:107:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:107:10
+   |
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:107:10
+   |
+LL | #[derive(Debug)]
+   |          ^
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:107:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:107:10
+   |
+LL | #[derive(Debug)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:109:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | struct DerivedStruct {
+LL |     a: u8,
+   |     ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:110:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+LL |     b: i32,
+   |     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:110:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+LL |     b: i32,
+   |     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:115:1
+   |
+LL | struct Inner {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:120:1
+   |
+LL | struct HasInner {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:124:1
+   |
+LL | impl HasInner {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:125:5
+   |
+LL |     fn get(&self) -> &Inner {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:125:5
+   |
+LL |     fn get(&self) -> &Inner {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:125:13
+   |
+LL |     fn get(&self) -> &Inner {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:125:12
+   |
+LL |     fn get(&self) -> &Inner {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:125:22
+   |
+LL |     fn get(&self) -> &Inner {
+   |                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:126:9
+   |
+LL |         &self.inner
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:130:1
+   |
+LL | impl fmt::Debug for HasInner {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:131:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:131:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:131:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:131:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:131:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:131:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:132:13
+   |
+LL |         let inner = self.get();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:135:25
+   |
+LL |             .field("a", &inner.a)
+   |                         ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:136:25
+   |
+LL |             .field("b", &inner.b)
+   |                         ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:142:1
+   |
+LL | struct Foo {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:147:1
+   |
+LL | impl fmt::Debug for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:148:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:148:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:148:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:148:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:148:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:148:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:149:42
+   |
+LL |         f.debug_struct("Foo").field("a", &self.a).field("b", &()).finish()
+   |                                          ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:149:62
+   |
+LL |         f.debug_struct("Foo").field("a", &self.a).field("b", &()).finish()
+   |                                                              ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:154:1
+   |
+LL | mod comment1175473620 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:157:5
+   |
+LL |     struct Inner {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:161:5
+   |
+LL |     struct Wrapper(Inner);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:163:5
+   |
+LL |     impl Deref for Wrapper {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:166:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:166:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:166:19
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:166:18
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:166:28
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:167:13
+   |
+LL |             &self.0
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:171:5
+   |
+LL |     impl fmt::Debug for Wrapper {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:172:9
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:172:9
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:172:17
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:172:23
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:172:16
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:172:26
+   |
+LL |         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:174:29
+   |
+LL |                 .field("a", &self.a)
+   |                             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:175:29
+   |
+LL |                 .field("b", &self.b)
+   |                             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:183:1
+   |
+LL | struct WithPD {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:189:1
+   |
+LL | impl fmt::Debug for WithPD {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:190:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:190:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:190:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:190:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:190:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:190:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:192:25
+   |
+LL |             .field("a", &self.a)
+   |                         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:193:25
+   |
+LL |             .field("b", &self.b)
+   |                         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:198:1
+   |
+LL | struct InClosure {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:203:1
+   |
+LL | impl fmt::Debug for InClosure {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:204:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:204:5
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:204:13
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/missing_fields_in_debug.rs:204:19
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:204:12
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:204:22
+   |
+LL |     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:206:22
+   |
+LL |         d.field("a", &self.a);
+   |                      ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/missing_fields_in_debug.rs:208:26
+   |
+LL |             d.field("b", &self.b);
+   |                          ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/missing_fields_in_debug.rs:215:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:215:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/missing_fields_in_debug.rs:215:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 132 previous errors
 

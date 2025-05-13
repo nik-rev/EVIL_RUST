@@ -1,65 +1,525 @@
-error: use of `default` to create a unit struct
-  --> tests/ui/default_constructed_unit_structs.rs:11:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         Self::default()
-   |         ^^^^-----------
-   |             |
-   |             help: remove this call to `default`
-   |
-   = note: `-D clippy::default-constructed-unit-structs` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::default_constructed_unit_structs)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `default` to create a unit struct
-  --> tests/ui/default_constructed_unit_structs.rs:54:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |             inner: PhantomData::default(),
-   |                    ^^^^^^^^^^^-----------
-   |                               |
-   |                               help: remove this call to `default`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `default` to create a unit struct
-  --> tests/ui/default_constructed_unit_structs.rs:128:13
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:6:1
    |
-LL |     let _ = PhantomData::<usize>::default();
-   |             ^^^^^^^^^^^^^^^^^^^^-----------
-   |                                 |
-   |                                 help: remove this call to `default`
+LL | struct UnitStruct;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: use of `default` to create a unit struct
-  --> tests/ui/default_constructed_unit_structs.rs:130:31
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:5:10
    |
-LL |     let _: PhantomData<i32> = PhantomData::default();
-   |                               ^^^^^^^^^^^-----------
-   |                                          |
-   |                                          help: remove this call to `default`
+LL | #[derive(Default)]
+   |          ^
 
-error: use of `default` to create a unit struct
-  --> tests/ui/default_constructed_unit_structs.rs:132:31
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:5:7
    |
-LL |     let _: PhantomData<i32> = std::marker::PhantomData::default();
-   |                               ^^^^^^^^^^^^^^^^^^^^^^^^-----------
-   |                                                       |
-   |                                                       help: remove this call to `default`
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:5:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: use of `default` to create a unit struct
-  --> tests/ui/default_constructed_unit_structs.rs:134:13
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:8:1
    |
-LL |     let _ = UnitStruct::default();
-   |             ^^^^^^^^^^-----------
-   |                       |
-   |                       help: remove this call to `default`
+LL | impl UnitStruct {
+   | ^ help: make this item public: `pub`
 
-error: use of `default` to create a unit struct
-  --> tests/ui/default_constructed_unit_structs.rs:172:7
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:9:5
    |
-LL |     f(<G>::default());
-   |       ^^^^^^^^^^^^^^
+LL |     fn new() -> Self {
+   |     ^
    |
-help: remove this call to `default`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:9:5
    |
-LL -     f(<G>::default());
-LL +     f(G);
-   |
+LL |     fn new() -> Self {
+   |     ^
 
-error: aborting due to 7 previous errors
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:17:1
+   |
+LL | struct TupleStruct(usize);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:16:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:16:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:16:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:19:1
+   |
+LL | impl TupleStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:20:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:20:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:28:1
+   |
+LL | struct NormalStruct {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:27:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:27:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:27:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:32:1
+   |
+LL | struct NonDefaultStruct;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:34:1
+   |
+LL | impl NonDefaultStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:35:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:35:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:41:1
+   |
+LL | enum SomeEnum {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:40:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:40:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:40:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:50:1
+   |
+LL | impl NormalStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:51:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:51:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:59:5
+   |
+LL |     fn new2() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:59:5
+   |
+LL |     fn new2() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:68:1
+   |
+LL | struct GenericStruct<T> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:67:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:67:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:67:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:72:1
+   |
+LL | impl<T: Default> GenericStruct<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:73:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:73:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:78:5
+   |
+LL |     fn new2() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:78:5
+   |
+LL |     fn new2() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:84:1
+   |
+LL | struct FakeDefault;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:85:1
+   |
+LL | impl FakeDefault {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:86:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:86:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:91:1
+   |
+LL | impl Default for FakeDefault {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:92:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:92:5
+   |
+LL |     fn default() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:98:1
+   |
+LL | struct EmptyStruct {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:97:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:97:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:97:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:102:1
+   |
+LL | struct NonExhaustiveStruct;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:100:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:100:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:100:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:104:1
+   |
+LL | mod issue_10755 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:105:5
+   |
+LL |     struct Sqlite {}
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:107:5
+   |
+LL | /     trait HasArguments<'q> {
+LL | |         type Arguments;
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:107:5
+   |
+LL |     trait HasArguments<'q> {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:111:5
+   |
+LL |     impl<'q> HasArguments<'q> for Sqlite {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/default_constructed_unit_structs.rs:112:51
+   |
+LL |         type Arguments = std::marker::PhantomData<&'q ()>;
+   |                                                   ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:115:5
+   |
+LL |     type SqliteArguments<'q> = <Sqlite as HasArguments<'q>>::Arguments;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:117:5
+   |
+LL |     fn foo() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:117:5
+   |
+LL |     fn foo() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:117:5
+   |
+LL |     fn foo() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:126:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:126:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:126:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:147:5
+   |
+LL |     macro_rules! in_macro {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:156:5
+   |
+LL |     macro_rules! struct_from_macro {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:165:1
+   |
+LL | fn issue12654() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:165:1
+   |
+LL | fn issue12654() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:165:1
+   |
+LL | fn issue12654() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:167:5
+   |
+LL |     struct G;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:166:14
+   |
+LL |     #[derive(Default)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:166:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:166:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/default_constructed_unit_structs.rs:169:5
+   |
+LL |     fn f(_g: G) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:169:5
+   |
+LL |     fn f(_g: G) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/default_constructed_unit_structs.rs:169:5
+   |
+LL |     fn f(_g: G) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/default_constructed_unit_structs.rs:169:10
+   |
+LL |     fn f(_g: G) {}
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 64 previous errors
 

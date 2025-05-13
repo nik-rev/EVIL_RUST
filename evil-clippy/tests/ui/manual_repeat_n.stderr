@@ -1,35 +1,93 @@
-error: this `repeat().take()` can be written more concisely
-  --> tests/ui/manual_repeat_n.rs:6:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = repeat(10).take(3);
-   |             ^^^^^^^^^^^^^^^^^^ help: consider using `repeat_n()` instead: `std::iter::repeat_n(10, 3)`
-   |
-   = note: `-D clippy::manual-repeat-n` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_repeat_n)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `repeat().take()` can be written more concisely
-  --> tests/ui/manual_repeat_n.rs:9:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = repeat(String::from("foo")).take(4);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `repeat_n()` instead: `std::iter::repeat_n(String::from("foo"), 4)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `repeat().take()` can be written more concisely
-  --> tests/ui/manual_repeat_n.rs:12:18
+error: item must be `pub`
+  --> tests/ui/manual_repeat_n.rs:5:1
    |
-LL |     for value in std::iter::repeat(5).take(3) {}
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `repeat_n()` instead: `std::iter::repeat_n(5, 3)`
-
-error: this `repeat().take()` can be written more concisely
-  --> tests/ui/manual_repeat_n.rs:15:21
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _: Vec<_> = std::iter::repeat(String::from("bar")).take(10).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `repeat_n()` instead: `std::iter::repeat_n(String::from("bar"), 10)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this `repeat().take()` can be written more concisely
-  --> tests/ui/manual_repeat_n.rs:18:13
+error: function must be `unsafe`
+  --> tests/ui/manual_repeat_n.rs:5:1
    |
-LL |     let _ = repeat(vec![1, 2]).take(2);
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using `repeat_n()` instead: `std::iter::repeat_n(vec![1, 2], 2)`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_repeat_n.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 5 previous errors
+error: item must be `pub`
+  --> tests/ui/manual_repeat_n.rs:22:1
+   |
+LL | mod foo_lib {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_repeat_n.rs:23:9
+   |
+LL |     pub fn iter() -> std::iter::Take<std::iter::Repeat<&'static [u8]>> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_repeat_n.rs:23:9
+   |
+LL |     pub fn iter() -> std::iter::Take<std::iter::Repeat<&'static [u8]>> {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/manual_repeat_n.rs:23:56
+   |
+LL |     pub fn iter() -> std::iter::Take<std::iter::Repeat<&'static [u8]>> {
+   |                                                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/manual_repeat_n.rs:28:1
+   |
+LL | fn foo() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_repeat_n.rs:28:1
+   |
+LL | fn foo() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_repeat_n.rs:28:1
+   |
+LL | fn foo() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

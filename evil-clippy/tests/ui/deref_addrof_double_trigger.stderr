@@ -1,23 +1,115 @@
-error: immediately dereferencing a reference
-  --> tests/ui/deref_addrof_double_trigger.rs:10:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/deref_addrof_double_trigger.rs:5:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/deref_addrof_double_trigger.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/deref_addrof_double_trigger.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/deref_addrof_double_trigger.rs:6:9
+   |
+LL |     let a = 10;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/deref_addrof_double_trigger.rs:10:9
    |
 LL |     let b = **&&a;
-   |              ^^^^ help: try: `&a`
-   |
-   = note: `-D clippy::deref-addrof` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::deref_addrof)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: immediately dereferencing a reference
-  --> tests/ui/deref_addrof_double_trigger.rs:15:17
+error: references are not allowed
+  --> tests/ui/deref_addrof_double_trigger.rs:10:15
+   |
+LL |     let b = **&&a;
+   |               ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/deref_addrof_double_trigger.rs:10:16
+   |
+LL |     let b = **&&a;
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/deref_addrof_double_trigger.rs:15:13
    |
 LL |         let y = *&mut x;
-   |                 ^^^^^^^ help: try: `x`
+   |             ^ help: make this variable mutable: `mut`
 
-error: immediately dereferencing a reference
-  --> tests/ui/deref_addrof_double_trigger.rs:23:18
+error: references are not allowed
+  --> tests/ui/deref_addrof_double_trigger.rs:15:18
+   |
+LL |         let y = *&mut x;
+   |                  ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/deref_addrof_double_trigger.rs:23:13
    |
 LL |         let y = **&mut &mut x;
-   |                  ^^^^^^^^^^^^ help: try: `&mut x`
+   |             ^ help: make this variable mutable: `mut`
 
-error: aborting due to 3 previous errors
+error: references are not allowed
+  --> tests/ui/deref_addrof_double_trigger.rs:23:19
+   |
+LL |         let y = **&mut &mut x;
+   |                   ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/deref_addrof_double_trigger.rs:23:24
+   |
+LL |         let y = **&mut &mut x;
+   |                        ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

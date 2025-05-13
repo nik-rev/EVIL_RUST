@@ -1,173 +1,2029 @@
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:42:19
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:7:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:9:1
+   |
+LL | impl S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:10:5
+   |
+LL |     fn bool_self_ref(&self) -> bool { false }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:10:5
+   |
+LL |     fn bool_self_ref(&self) -> bool { false }
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:10:23
+   |
+LL |     fn bool_self_ref(&self) -> bool { false }
+   |                       ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:10:22
+   |
+LL |     fn bool_self_ref(&self) -> bool { false }
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:11:5
+   |
+LL |     fn bool_self_mut(&mut self) -> bool { false }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:11:5
+   |
+LL |     fn bool_self_mut(&mut self) -> bool { false }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:11:27
+   |
+LL |     fn bool_self_mut(&mut self) -> bool { false }
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:11:22
+   |
+LL |     fn bool_self_mut(&mut self) -> bool { false }
+   |                      ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:12:5
+   |
+LL |     fn bool_self_ref_arg_ref(&self, _: &u32) -> bool { false }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:12:5
+   |
+LL |     fn bool_self_ref_arg_ref(&self, _: &u32) -> bool { false }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:12:31
+   |
+LL |     fn bool_self_ref_arg_ref(&self, _: &u32) -> bool { false }
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:12:30
+   |
+LL |     fn bool_self_ref_arg_ref(&self, _: &u32) -> bool { false }
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:12:40
+   |
+LL |     fn bool_self_ref_arg_ref(&self, _: &u32) -> bool { false }
+   |                                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:13:5
+   |
+LL |     fn bool_self_ref_arg_mut(&self, _: &mut u32) -> bool { false }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:13:5
+   |
+LL |     fn bool_self_ref_arg_mut(&self, _: &mut u32) -> bool { false }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:13:31
+   |
+LL |     fn bool_self_ref_arg_mut(&self, _: &mut u32) -> bool { false }
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:13:30
+   |
+LL |     fn bool_self_ref_arg_mut(&self, _: &mut u32) -> bool { false }
+   |                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:13:40
+   |
+LL |     fn bool_self_ref_arg_mut(&self, _: &mut u32) -> bool { false }
+   |                                        ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:14:5
+   |
+LL |     fn bool_self_mut_arg_ref(&mut self, _: &u32) -> bool { false }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:14:5
+   |
+LL |     fn bool_self_mut_arg_ref(&mut self, _: &u32) -> bool { false }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:14:35
+   |
+LL |     fn bool_self_mut_arg_ref(&mut self, _: &u32) -> bool { false }
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:14:30
+   |
+LL |     fn bool_self_mut_arg_ref(&mut self, _: &u32) -> bool { false }
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:14:44
+   |
+LL |     fn bool_self_mut_arg_ref(&mut self, _: &u32) -> bool { false }
+   |                                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:15:5
+   |
+LL |     fn bool_self_mut_arg_mut(&mut self, _: &mut u32) -> bool { false }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:15:5
+   |
+LL |     fn bool_self_mut_arg_mut(&mut self, _: &mut u32) -> bool { false }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:15:35
+   |
+LL |     fn bool_self_mut_arg_mut(&mut self, _: &mut u32) -> bool { false }
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:15:30
+   |
+LL |     fn bool_self_mut_arg_mut(&mut self, _: &mut u32) -> bool { false }
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:15:44
+   |
+LL |     fn bool_self_mut_arg_mut(&mut self, _: &mut u32) -> bool { false }
+   |                                            ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:17:5
+   |
+LL |     fn u32_self_ref(&self) -> u32 { 0 }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:17:5
+   |
+LL |     fn u32_self_ref(&self) -> u32 { 0 }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:17:22
+   |
+LL |     fn u32_self_ref(&self) -> u32 { 0 }
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:17:21
+   |
+LL |     fn u32_self_ref(&self) -> u32 { 0 }
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:18:5
+   |
+LL |     fn u32_self_mut(&mut self) -> u32 { 0 }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:18:5
+   |
+LL |     fn u32_self_mut(&mut self) -> u32 { 0 }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:18:26
+   |
+LL |     fn u32_self_mut(&mut self) -> u32 { 0 }
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:18:21
+   |
+LL |     fn u32_self_mut(&mut self) -> u32 { 0 }
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:19:5
+   |
+LL |     fn u32_self_ref_arg_ref(&self, _: &u32) -> u32 { 0 }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:19:5
+   |
+LL |     fn u32_self_ref_arg_ref(&self, _: &u32) -> u32 { 0 }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:19:30
+   |
+LL |     fn u32_self_ref_arg_ref(&self, _: &u32) -> u32 { 0 }
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:19:29
+   |
+LL |     fn u32_self_ref_arg_ref(&self, _: &u32) -> u32 { 0 }
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:19:39
+   |
+LL |     fn u32_self_ref_arg_ref(&self, _: &u32) -> u32 { 0 }
+   |                                       ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:20:5
+   |
+LL |     fn u32_self_ref_arg_mut(&self, _: &mut u32) -> u32 { 0 }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:20:5
+   |
+LL |     fn u32_self_ref_arg_mut(&self, _: &mut u32) -> u32 { 0 }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:20:30
+   |
+LL |     fn u32_self_ref_arg_mut(&self, _: &mut u32) -> u32 { 0 }
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:20:29
+   |
+LL |     fn u32_self_ref_arg_mut(&self, _: &mut u32) -> u32 { 0 }
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:20:39
+   |
+LL |     fn u32_self_ref_arg_mut(&self, _: &mut u32) -> u32 { 0 }
+   |                                       ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:21:5
+   |
+LL |     fn u32_self_mut_arg_ref(&mut self, _: &u32) -> u32 { 0 }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:21:5
+   |
+LL |     fn u32_self_mut_arg_ref(&mut self, _: &u32) -> u32 { 0 }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:21:34
+   |
+LL |     fn u32_self_mut_arg_ref(&mut self, _: &u32) -> u32 { 0 }
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:21:29
+   |
+LL |     fn u32_self_mut_arg_ref(&mut self, _: &u32) -> u32 { 0 }
+   |                             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:21:43
+   |
+LL |     fn u32_self_mut_arg_ref(&mut self, _: &u32) -> u32 { 0 }
+   |                                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:22:5
+   |
+LL |     fn u32_self_mut_arg_mut(&mut self, _: &mut u32) -> u32 { 0 }
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:22:5
+   |
+LL |     fn u32_self_mut_arg_mut(&mut self, _: &mut u32) -> u32 { 0 }
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:22:34
+   |
+LL |     fn u32_self_mut_arg_mut(&mut self, _: &mut u32) -> u32 { 0 }
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:22:29
+   |
+LL |     fn u32_self_mut_arg_mut(&mut self, _: &mut u32) -> u32 { 0 }
+   |                             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:22:43
+   |
+LL |     fn u32_self_mut_arg_mut(&mut self, _: &mut u32) -> u32 { 0 }
+   |                                           ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:25:1
+   |
+LL | fn bool_ref(_: &u32) -> bool { false }
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:25:1
+   |
+LL | fn bool_ref(_: &u32) -> bool { false }
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:25:1
+   |
+LL | fn bool_ref(_: &u32) -> bool { false }
+   | ^
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:25:16
+   |
+LL | fn bool_ref(_: &u32) -> bool { false }
+   |                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:26:1
+   |
+LL | fn bool_mut(_: &mut u32) -> bool { false }
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:26:1
+   |
+LL | fn bool_mut(_: &mut u32) -> bool { false }
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:26:1
+   |
+LL | fn bool_mut(_: &mut u32) -> bool { false }
+   | ^
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:26:16
+   |
+LL | fn bool_mut(_: &mut u32) -> bool { false }
+   |                ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:27:1
+   |
+LL | fn u32_ref(_: &u32) -> u32 { 0 }
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:27:1
+   |
+LL | fn u32_ref(_: &u32) -> u32 { 0 }
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:27:1
+   |
+LL | fn u32_ref(_: &u32) -> u32 { 0 }
+   | ^
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:27:15
+   |
+LL | fn u32_ref(_: &u32) -> u32 { 0 }
+   |               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:28:1
+   |
+LL | fn u32_mut(_: &mut u32) -> u32 { 0 }
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:28:1
+   |
+LL | fn u32_mut(_: &mut u32) -> u32 { 0 }
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:28:1
+   |
+LL | fn u32_mut(_: &mut u32) -> u32 { 0 }
+   | ^
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:28:15
+   |
+LL | fn u32_mut(_: &mut u32) -> u32 { 0 }
+   |               ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:30:1
+   |
+LL | fn func_non_mutable() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:30:1
+   |
+LL | fn func_non_mutable() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:30:1
+   |
+LL | fn func_non_mutable() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:31:28
+   |
+LL |     debug_assert!(bool_ref(&3));
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:32:29
+   |
+LL |     debug_assert!(!bool_ref(&3));
+   |                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:34:5
+   |
+LL |     debug_assert_eq!(0, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:34:5
+   |
+LL |     debug_assert_eq!(0, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:34:33
+   |
+LL |     debug_assert_eq!(0, u32_ref(&3));
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:34:5
+   |
+LL |     debug_assert_eq!(0, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:34:5
+   |
+LL |     debug_assert_eq!(0, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:34:5
+   |
+LL |     debug_assert_eq!(0, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:35:5
+   |
+LL |     debug_assert_eq!(u32_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:35:30
+   |
+LL |     debug_assert_eq!(u32_ref(&3), 0);
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:35:5
+   |
+LL |     debug_assert_eq!(u32_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:35:5
+   |
+LL |     debug_assert_eq!(u32_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:35:5
+   |
+LL |     debug_assert_eq!(u32_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:35:5
+   |
+LL |     debug_assert_eq!(u32_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:37:5
+   |
+LL |     debug_assert_ne!(1, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:37:5
+   |
+LL |     debug_assert_ne!(1, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:37:33
+   |
+LL |     debug_assert_ne!(1, u32_ref(&3));
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:37:5
+   |
+LL |     debug_assert_ne!(1, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:37:5
+   |
+LL |     debug_assert_ne!(1, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:37:5
+   |
+LL |     debug_assert_ne!(1, u32_ref(&3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:38:5
+   |
+LL |     debug_assert_ne!(u32_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:38:30
+   |
+LL |     debug_assert_ne!(u32_ref(&3), 1);
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:38:5
+   |
+LL |     debug_assert_ne!(u32_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:38:5
+   |
+LL |     debug_assert_ne!(u32_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:38:5
+   |
+LL |     debug_assert_ne!(u32_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:38:5
+   |
+LL |     debug_assert_ne!(u32_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:41:1
+   |
+LL | fn func_mutable() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:41:1
+   |
+LL | fn func_mutable() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:41:1
+   |
+LL | fn func_mutable() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:42:28
    |
 LL |     debug_assert!(bool_mut(&mut 3));
-   |                   ^^^^^^^^^^^^^^^^
+   |                            ^^^^^^
    |
-   = note: `-D clippy::debug-assert-with-mut-call` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::debug_assert_with_mut_call)]`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:46:20
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:46:29
    |
 LL |     debug_assert!(!bool_mut(&mut 3));
-   |                    ^^^^^^^^^^^^^^^^
+   |                             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: do not call a function with mutable arguments inside of `debug_assert_eq!`
-  --> tests/ui/debug_assert_with_mut_call.rs:50:25
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:50:5
    |
 LL |     debug_assert_eq!(0, u32_mut(&mut 3));
-   |                         ^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_eq!`
-  --> tests/ui/debug_assert_with_mut_call.rs:53:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:50:5
+   |
+LL |     debug_assert_eq!(0, u32_mut(&mut 3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:50:33
+   |
+LL |     debug_assert_eq!(0, u32_mut(&mut 3));
+   |                                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:50:5
+   |
+LL |     debug_assert_eq!(0, u32_mut(&mut 3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:50:5
+   |
+LL |     debug_assert_eq!(0, u32_mut(&mut 3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:50:5
+   |
+LL |     debug_assert_eq!(0, u32_mut(&mut 3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:53:5
    |
 LL |     debug_assert_eq!(u32_mut(&mut 3), 0);
-   |                      ^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_ne!`
-  --> tests/ui/debug_assert_with_mut_call.rs:57:25
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:53:30
+   |
+LL |     debug_assert_eq!(u32_mut(&mut 3), 0);
+   |                              ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:53:5
+   |
+LL |     debug_assert_eq!(u32_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:53:5
+   |
+LL |     debug_assert_eq!(u32_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:53:5
+   |
+LL |     debug_assert_eq!(u32_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:53:5
+   |
+LL |     debug_assert_eq!(u32_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:57:5
    |
 LL |     debug_assert_ne!(1, u32_mut(&mut 3));
-   |                         ^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_ne!`
-  --> tests/ui/debug_assert_with_mut_call.rs:60:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:57:5
+   |
+LL |     debug_assert_ne!(1, u32_mut(&mut 3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:57:33
+   |
+LL |     debug_assert_ne!(1, u32_mut(&mut 3));
+   |                                 ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:57:5
+   |
+LL |     debug_assert_ne!(1, u32_mut(&mut 3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:57:5
+   |
+LL |     debug_assert_ne!(1, u32_mut(&mut 3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:57:5
+   |
+LL |     debug_assert_ne!(1, u32_mut(&mut 3));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:60:5
    |
 LL |     debug_assert_ne!(u32_mut(&mut 3), 1);
-   |                      ^^^^^^^^^^^^^^^
-
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:77:19
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     debug_assert!(S.bool_self_mut());
-   |                   ^^^^^^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:80:20
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:60:30
    |
-LL |     debug_assert!(!S.bool_self_mut());
-   |                    ^^^^^^^^^^^^^^^^^
+LL |     debug_assert_ne!(u32_mut(&mut 3), 1);
+   |                              ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:83:19
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:60:5
+   |
+LL |     debug_assert_ne!(u32_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:60:5
+   |
+LL |     debug_assert_ne!(u32_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:60:5
+   |
+LL |     debug_assert_ne!(u32_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:60:5
+   |
+LL |     debug_assert_ne!(u32_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:65:1
+   |
+LL | fn method_non_mutable() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:65:1
+   |
+LL | fn method_non_mutable() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:65:1
+   |
+LL | fn method_non_mutable() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:67:43
+   |
+LL |     debug_assert!(S.bool_self_ref_arg_ref(&3));
+   |                                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:69:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref(), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:69:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref(), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:69:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref(), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:69:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref(), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:69:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref(), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:70:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:70:45
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_ref(&3), 0);
+   |                                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:70:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:70:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:70:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:70:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:72:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref(), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:72:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref(), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:72:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref(), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:72:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref(), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:72:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref(), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:73:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:73:45
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_ref(&3), 1);
+   |                                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:73:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:73:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:73:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:73:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:76:1
+   |
+LL | fn method_mutable() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:76:1
+   |
+LL | fn method_mutable() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:76:1
+   |
+LL | fn method_mutable() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:83:43
    |
 LL |     debug_assert!(S.bool_self_ref_arg_mut(&mut 3));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                           ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:86:19
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:86:43
    |
 LL |     debug_assert!(S.bool_self_mut_arg_ref(&3));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:89:19
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:89:43
    |
 LL |     debug_assert!(S.bool_self_mut_arg_mut(&mut 3));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                           ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: do not call a function with mutable arguments inside of `debug_assert_eq!`
-  --> tests/ui/debug_assert_with_mut_call.rs:93:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:93:5
    |
 LL |     debug_assert_eq!(S.u32_self_mut(), 0);
-   |                      ^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_eq!`
-  --> tests/ui/debug_assert_with_mut_call.rs:96:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:93:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut(), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:93:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut(), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:93:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut(), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:93:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut(), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:96:5
    |
 LL |     debug_assert_eq!(S.u32_self_mut_arg_ref(&3), 0);
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_eq!`
-  --> tests/ui/debug_assert_with_mut_call.rs:99:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:96:45
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_ref(&3), 0);
+   |                                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:96:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:96:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:96:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:96:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_ref(&3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:99:5
    |
 LL |     debug_assert_eq!(S.u32_self_ref_arg_mut(&mut 3), 0);
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_eq!`
-  --> tests/ui/debug_assert_with_mut_call.rs:102:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:99:45
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_mut(&mut 3), 0);
+   |                                             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:99:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:99:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:99:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:99:5
+   |
+LL |     debug_assert_eq!(S.u32_self_ref_arg_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:102:5
    |
 LL |     debug_assert_eq!(S.u32_self_mut_arg_mut(&mut 3), 0);
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_ne!`
-  --> tests/ui/debug_assert_with_mut_call.rs:106:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:102:45
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_mut(&mut 3), 0);
+   |                                             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:102:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:102:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:102:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:102:5
+   |
+LL |     debug_assert_eq!(S.u32_self_mut_arg_mut(&mut 3), 0);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:106:5
    |
 LL |     debug_assert_ne!(S.u32_self_mut(), 1);
-   |                      ^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_ne!`
-  --> tests/ui/debug_assert_with_mut_call.rs:109:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:106:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut(), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:106:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut(), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:106:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut(), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:106:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut(), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:109:5
    |
 LL |     debug_assert_ne!(S.u32_self_mut_arg_ref(&3), 1);
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_ne!`
-  --> tests/ui/debug_assert_with_mut_call.rs:112:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:109:45
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_ref(&3), 1);
+   |                                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:109:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:109:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:109:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:109:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_ref(&3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:112:5
    |
 LL |     debug_assert_ne!(S.u32_self_ref_arg_mut(&mut 3), 1);
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_ne!`
-  --> tests/ui/debug_assert_with_mut_call.rs:115:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:112:45
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_mut(&mut 3), 1);
+   |                                             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:112:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:112:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:112:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:112:5
+   |
+LL |     debug_assert_ne!(S.u32_self_ref_arg_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:115:5
    |
 LL |     debug_assert_ne!(S.u32_self_mut_arg_mut(&mut 3), 1);
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_eq!`
-  --> tests/ui/debug_assert_with_mut_call.rs:125:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:115:45
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_mut(&mut 3), 1);
+   |                                             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:115:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:115:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:115:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:115:5
+   |
+LL |     debug_assert_ne!(S.u32_self_mut_arg_mut(&mut 3), 1);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:120:1
+   |
+LL | fn misc() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:120:1
+   |
+LL | fn misc() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:120:1
+   |
+LL | fn misc() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:123:5
+   |
+LL |     debug_assert_eq!(v.get(0), Some(&1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:123:5
+   |
+LL |     debug_assert_eq!(v.get(0), Some(&1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:123:37
+   |
+LL |     debug_assert_eq!(v.get(0), Some(&1));
+   |                                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:123:5
+   |
+LL |     debug_assert_eq!(v.get(0), Some(&1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:123:5
+   |
+LL |     debug_assert_eq!(v.get(0), Some(&1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:123:5
+   |
+LL |     debug_assert_eq!(v.get(0), Some(&1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:124:5
+   |
+LL |     debug_assert_ne!(v[0], 2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:124:5
+   |
+LL |     debug_assert_ne!(v[0], 2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:124:5
+   |
+LL |     debug_assert_ne!(v[0], 2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:124:5
+   |
+LL |     debug_assert_ne!(v[0], 2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:124:5
+   |
+LL |     debug_assert_ne!(v[0], 2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:125:5
    |
 LL |     debug_assert_eq!(v.pop(), Some(1));
-   |                      ^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert_ne!`
-  --> tests/ui/debug_assert_with_mut_call.rs:128:31
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:125:5
+   |
+LL |     debug_assert_eq!(v.pop(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:125:5
+   |
+LL |     debug_assert_eq!(v.pop(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:125:5
+   |
+LL |     debug_assert_eq!(v.pop(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:125:5
+   |
+LL |     debug_assert_eq!(v.pop(), Some(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:128:5
    |
 LL |     debug_assert_ne!(Some(3), v.pop());
-   |                               ^^^^^^^
-
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:133:19
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     debug_assert!(bool_mut(a));
-   |                   ^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:138:31
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:128:5
+   |
+LL |     debug_assert_ne!(Some(3), v.pop());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:128:5
+   |
+LL |     debug_assert_ne!(Some(3), v.pop());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:128:5
+   |
+LL |     debug_assert_ne!(Some(3), v.pop());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:128:5
+   |
+LL |     debug_assert_ne!(Some(3), v.pop());
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_ne` which comes from the expansion of the macro `debug_assert_ne` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:132:9
+   |
+LL |     let a = &mut 3;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:132:13
+   |
+LL |     let a = &mut 3;
+   |             ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:138:30
    |
 LL |     debug_assert!(!(bool_ref(&u32_mut(&mut 3))));
-   |                               ^^^^^^^^^^^^^^^
+   |                              ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: do not call a function with mutable arguments inside of `debug_assert_eq!`
-  --> tests/ui/debug_assert_with_mut_call.rs:143:22
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:138:39
+   |
+LL |     debug_assert!(!(bool_ref(&u32_mut(&mut 3))));
+   |                                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:143:5
    |
 LL |     debug_assert_eq!(v.pop().unwrap(), 3);
-   |                      ^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:149:19
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:143:5
+   |
+LL |     debug_assert_eq!(v.pop().unwrap(), 3);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/debug_assert_with_mut_call.rs:143:5
+   |
+LL |     debug_assert_eq!(v.pop().unwrap(), 3);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:143:5
+   |
+LL |     debug_assert_eq!(v.pop().unwrap(), 3);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:143:5
+   |
+LL |     debug_assert_eq!(v.pop().unwrap(), 3);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `$crate::assert_eq` which comes from the expansion of the macro `debug_assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:148:28
+   |
+LL |     debug_assert!(bool_ref(&3), "w/o format");
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:149:28
    |
 LL |     debug_assert!(bool_mut(&mut 3), "w/o format");
-   |                   ^^^^^^^^^^^^^^^^
+   |                            ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:153:19
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:152:28
+   |
+LL |     debug_assert!(bool_ref(&3), "{} format", "w/");
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:153:28
    |
 LL |     debug_assert!(bool_mut(&mut 3), "{} format", "w/");
-   |                   ^^^^^^^^^^^^^^^^
+   |                            ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:160:9
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:160:18
    |
 LL |         bool_mut(&mut x);
-   |         ^^^^^^^^^^^^^^^^
+   |                  ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: do not call a function with mutable arguments inside of `debug_assert!`
-  --> tests/ui/debug_assert_with_mut_call.rs:169:9
+error: references are not allowed
+  --> tests/ui/debug_assert_with_mut_call.rs:169:18
    |
 LL |         bool_mut(&mut x);
-   |         ^^^^^^^^^^^^^^^^
+   |                  ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 28 previous errors
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:176:1
+   |
+LL | async fn debug_await() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:176:7
+   |
+LL | async fn debug_await() {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:176:7
+   |
+LL | async fn debug_await() {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/debug_assert_with_mut_call.rs:182:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:182:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/debug_assert_with_mut_call.rs:182:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 236 previous errors
 

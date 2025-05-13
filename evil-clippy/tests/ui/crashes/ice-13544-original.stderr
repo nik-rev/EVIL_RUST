@@ -1,0 +1,239 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:7:1
+   |
+LL | / trait Scopable: Sized {
+LL | |     type SubType: Scopable;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-13544-original.rs:7:1
+   |
+LL | trait Scopable: Sized {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-13544-original.rs:11:1
+   |
+LL | struct Subtree<T: Scopable>(ManuallyDrop<Box<Tree<T::SubType>>>);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-13544-original.rs:13:1
+   |
+LL | impl<T: Scopable> Drop for Subtree<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:14:5
+   |
+LL |     fn drop(&mut self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:14:5
+   |
+LL |     fn drop(&mut self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/crashes/ice-13544-original.rs:14:18
+   |
+LL |     fn drop(&mut self) {
+   |                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-13544-original.rs:14:13
+   |
+LL |     fn drop(&mut self) {
+   |             ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-13544-original.rs:16:37
+   |
+LL |         unsafe { ManuallyDrop::drop(&mut self.0) }
+   |                                     ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-13544-original.rs:20:1
+   |
+LL | impl<T: Scopable> Deref for Subtree<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:22:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:22:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/crashes/ice-13544-original.rs:22:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-13544-original.rs:22:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-13544-original.rs:22:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-13544-original.rs:23:9
+   |
+LL |         &self.0
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-13544-original.rs:27:1
+   |
+LL | impl<T: Scopable> DerefMut for Subtree<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:28:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:28:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/crashes/ice-13544-original.rs:28:23
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-13544-original.rs:28:18
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-13544-original.rs:28:32
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                                ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/crashes/ice-13544-original.rs:29:9
+   |
+LL |         &mut self.0
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-13544-original.rs:33:1
+   |
+LL | enum Tree<T: Scopable> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-13544-original.rs:39:1
+   |
+LL | impl<T: Scopable> Tree<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:40:5
+   |
+LL |     fn foo(self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:40:5
+   |
+LL |     fn foo(self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/crashes/ice-13544-original.rs:40:12
+   |
+LL |     fn foo(self) -> Self {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-13544-original.rs:45:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:45:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-13544-original.rs:45:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 30 previous errors
+

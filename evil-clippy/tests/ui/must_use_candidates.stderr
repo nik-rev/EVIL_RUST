@@ -1,35 +1,506 @@
-error: this function could have a `#[must_use]` attribute
-  --> tests/ui/must_use_candidates.rs:16:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:16:5
    |
 LL | pub fn pure(i: u8) -> u8 {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^ help: add the attribute: `#[must_use] pub fn pure(i: u8) -> u8`
+   |     ^
    |
-   = note: `-D clippy::must-use-candidate` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::must_use_candidate)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:16:5
+   |
+LL | pub fn pure(i: u8) -> u8 {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this method could have a `#[must_use]` attribute
-  --> tests/ui/must_use_candidates.rs:22:5
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:16:13
+   |
+LL | pub fn pure(i: u8) -> u8 {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/must_use_candidates.rs:21:1
+   |
+LL | impl MyPure {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:22:9
    |
 LL |     pub fn inherent_pure(&self) -> u8 {
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: add the attribute: `#[must_use] pub fn inherent_pure(&self) -> u8`
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:22:9
+   |
+LL |     pub fn inherent_pure(&self) -> u8 {
+   |         ^
 
-error: this function could have a `#[must_use]` attribute
-  --> tests/ui/must_use_candidates.rs:54:1
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:22:27
+   |
+LL |     pub fn inherent_pure(&self) -> u8 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:22:26
+   |
+LL |     pub fn inherent_pure(&self) -> u8 {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: trait must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:28:1
+   |
+LL | / pub trait MyPureTrait {
+LL | |     fn trait_pure(&self, i: u32) -> u32 {
+LL | |         self.trait_impl_pure(i) + 1
+...  |
+LL | |     fn trait_impl_pure(&self, i: u32) -> u32;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:29:5
+   |
+LL |     fn trait_pure(&self, i: u32) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:29:5
+   |
+LL |     fn trait_pure(&self, i: u32) -> u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:29:20
+   |
+LL |     fn trait_pure(&self, i: u32) -> u32 {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:29:26
+   |
+LL |     fn trait_pure(&self, i: u32) -> u32 {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:29:19
+   |
+LL |     fn trait_pure(&self, i: u32) -> u32 {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:33:5
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:33:5
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:33:25
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32;
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:33:31
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32;
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:33:24
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32;
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/must_use_candidates.rs:36:1
+   |
+LL | impl MyPureTrait for MyPure {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:37:5
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:37:5
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:37:25
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:37:31
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32 {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:37:24
+   |
+LL |     fn trait_impl_pure(&self, i: u32) -> u32 {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:42:5
+   |
+LL | pub fn without_result() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:42:5
+   |
+LL | pub fn without_result() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:46:5
+   |
+LL | pub fn impure_primitive(i: &mut u8) -> u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:46:5
+   |
+LL | pub fn impure_primitive(i: &mut u8) -> u8 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:46:25
+   |
+LL | pub fn impure_primitive(i: &mut u8) -> u8 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:46:28
+   |
+LL | pub fn impure_primitive(i: &mut u8) -> u8 {
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:50:5
+   |
+LL | pub fn with_callback<F: Fn(u32) -> bool>(f: &F) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:50:5
+   |
+LL | pub fn with_callback<F: Fn(u32) -> bool>(f: &F) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:50:42
+   |
+LL | pub fn with_callback<F: Fn(u32) -> bool>(f: &F) -> bool {
+   |                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:50:45
+   |
+LL | pub fn with_callback<F: Fn(u32) -> bool>(f: &F) -> bool {
+   |                                             ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:54:5
    |
 LL | pub fn with_marker(_d: std::marker::PhantomData<&mut u32>) -> bool {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: add the attribute: `#[must_use] pub fn with_marker(_d: std::marker::PhantomData<&mut u32>) -> bool`
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:54:5
+   |
+LL | pub fn with_marker(_d: std::marker::PhantomData<&mut u32>) -> bool {
+   |     ^
 
-error: this function could have a `#[must_use]` attribute
-  --> tests/ui/must_use_candidates.rs:67:1
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:54:20
+   |
+LL | pub fn with_marker(_d: std::marker::PhantomData<&mut u32>) -> bool {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:54:49
+   |
+LL | pub fn with_marker(_d: std::marker::PhantomData<&mut u32>) -> bool {
+   |                                                 ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:59:5
+   |
+LL | pub fn quoth_the_raven(_more: !) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:59:5
+   |
+LL | pub fn quoth_the_raven(_more: !) -> u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:59:24
+   |
+LL | pub fn quoth_the_raven(_more: !) -> u32 {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:63:5
+   |
+LL | pub fn atomics(b: &AtomicBool) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:63:5
+   |
+LL | pub fn atomics(b: &AtomicBool) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:63:16
+   |
+LL | pub fn atomics(b: &AtomicBool) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:63:19
+   |
+LL | pub fn atomics(b: &AtomicBool) -> bool {
+   |                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:67:5
    |
 LL | pub fn rcd(_x: Rc<u32>) -> bool {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: add the attribute: `#[must_use] pub fn rcd(_x: Rc<u32>) -> bool`
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:67:5
+   |
+LL | pub fn rcd(_x: Rc<u32>) -> bool {
+   |     ^
 
-error: this function could have a `#[must_use]` attribute
-  --> tests/ui/must_use_candidates.rs:76:1
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:67:12
+   |
+LL | pub fn rcd(_x: Rc<u32>) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:72:5
+   |
+LL | pub fn rcmut(_x: Rc<&mut u32>) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:72:5
+   |
+LL | pub fn rcmut(_x: Rc<&mut u32>) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:72:14
+   |
+LL | pub fn rcmut(_x: Rc<&mut u32>) -> bool {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:72:21
+   |
+LL | pub fn rcmut(_x: Rc<&mut u32>) -> bool {
+   |                     ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:76:5
    |
 LL | pub fn arcd(_x: Arc<u32>) -> bool {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: add the attribute: `#[must_use] pub fn arcd(_x: Arc<u32>) -> bool`
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:76:5
+   |
+LL | pub fn arcd(_x: Arc<u32>) -> bool {
+   |     ^
 
-error: aborting due to 5 previous errors
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:76:13
+   |
+LL | pub fn arcd(_x: Arc<u32>) -> bool {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:81:5
+   |
+LL | pub fn inner_types(_m: &MyAtomic) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:81:5
+   |
+LL | pub fn inner_types(_m: &MyAtomic) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:81:20
+   |
+LL | pub fn inner_types(_m: &MyAtomic) -> bool {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:81:24
+   |
+LL | pub fn inner_types(_m: &MyAtomic) -> bool {
+   |                        ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/must_use_candidates.rs:85:1
+   |
+LL | static mut COUNTER: usize = 0;
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:98:5
+   |
+LL | pub extern "C" fn unmangled(i: bool) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:98:5
+   |
+LL | pub extern "C" fn unmangled(i: bool) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/must_use_candidates.rs:98:29
+   |
+LL | pub extern "C" fn unmangled(i: bool) -> bool {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/must_use_candidates.rs:102:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/must_use_candidates.rs:102:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/must_use_candidates.rs:102:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:103:5
+   |
+LL |     assert_eq!(1, pure(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:103:5
+   |
+LL |     assert_eq!(1, pure(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/must_use_candidates.rs:103:5
+   |
+LL |     assert_eq!(1, pure(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:103:5
+   |
+LL |     assert_eq!(1, pure(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/must_use_candidates.rs:103:5
+   |
+LL |     assert_eq!(1, pure(1));
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 59 previous errors
 

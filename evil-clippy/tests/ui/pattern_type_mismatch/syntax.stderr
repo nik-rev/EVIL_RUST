@@ -1,80 +1,501 @@
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/syntax.rs:16:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         Some(_) => (),
-   |         ^^^^^^^
-   |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
-   = note: `-D clippy::pattern-type-mismatch` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::pattern_type_mismatch)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/syntax.rs:36:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let Some(_) = ref_value {}
-   |            ^^^^^^^
-   |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/syntax.rs:48:15
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:9:1
    |
-LL |     while let Some(_) = ref_value {
-   |               ^^^^^^^
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
    |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/syntax.rs:68:9
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:9:1
    |
-LL |     for (_a, _b) in slice.iter() {}
-   |         ^^^^^^^^
+LL | fn main() {}
+   | ^
    |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:9:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/syntax.rs:79:9
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:11:1
+   |
+LL | fn syntax_match() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:11:1
+   |
+LL | fn syntax_match() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:11:1
+   |
+LL | fn syntax_match() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:12:9
+   |
+LL |     let ref_value = &Some(&Some(42));
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:12:21
+   |
+LL |     let ref_value = &Some(&Some(42));
+   |                     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:12:27
+   |
+LL |     let ref_value = &Some(&Some(42));
+   |                           ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:32:1
+   |
+LL | fn syntax_if_let() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:32:1
+   |
+LL | fn syntax_if_let() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:32:1
+   |
+LL | fn syntax_if_let() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:33:9
+   |
+LL |     let ref_value = &Some(42);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:33:21
+   |
+LL |     let ref_value = &Some(42);
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:44:1
+   |
+LL | fn syntax_while_let() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:44:1
+   |
+LL | fn syntax_while_let() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:44:1
+   |
+LL | fn syntax_while_let() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:45:9
+   |
+LL |     let ref_value = &Some(42);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:45:21
+   |
+LL |     let ref_value = &Some(42);
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:63:1
+   |
+LL | fn syntax_for() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:63:1
+   |
+LL | fn syntax_for() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:63:1
+   |
+LL | fn syntax_for() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:64:9
+   |
+LL |     let ref_value = &Some(23);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:64:21
+   |
+LL |     let ref_value = &Some(23);
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:65:9
+   |
+LL |     let slice = &[(2, 3), (4, 2)];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:65:17
+   |
+LL |     let slice = &[(2, 3), (4, 2)];
+   |                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:75:1
+   |
+LL | fn syntax_let() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:75:1
+   |
+LL | fn syntax_let() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:75:1
+   |
+LL | fn syntax_let() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:76:9
+   |
+LL |     let ref_value = &(2, 3);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:76:21
+   |
+LL |     let ref_value = &(2, 3);
+   |                     ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:79:10
    |
 LL |     let (_n, _m) = ref_value;
-   |         ^^^^^^^^
-   |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+   |          ^ help: make this variable mutable: `mut`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/syntax.rs:89:12
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:79:14
+   |
+LL |     let (_n, _m) = ref_value;
+   |              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:83:11
+   |
+LL |     let &(_n, _m) = ref_value;
+   |           ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:83:15
+   |
+LL |     let &(_n, _m) = ref_value;
+   |               ^ help: make this variable mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:83:10
+   |
+LL |     let &(_n, _m) = ref_value;
+   |          ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:84:10
+   |
+LL |     let (_n, _m) = *ref_value;
+   |          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:84:14
+   |
+LL |     let (_n, _m) = *ref_value;
+   |              ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:87:1
+   |
+LL | fn syntax_fn() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:87:1
+   |
+LL | fn syntax_fn() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:87:1
+   |
+LL | fn syntax_fn() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:89:5
    |
 LL |     fn foo((_a, _b): &(i32, i32)) {}
-   |            ^^^^^^^^
-   |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+   |     ^ help: make this item public: `pub`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/syntax.rs:104:10
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:89:5
    |
-LL |     foo(|(_a, _b)| ());
-   |          ^^^^^^^^
+LL |     fn foo((_a, _b): &(i32, i32)) {}
+   |     ^
    |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:89:5
+   |
+LL |     fn foo((_a, _b): &(i32, i32)) {}
+   |     ^
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/syntax.rs:121:9
+error: parameter must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:89:13
    |
-LL |         Some(_) => (),
-   |         ^^^^^^^
-   |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+LL |     fn foo((_a, _b): &(i32, i32)) {}
+   |             ^ help: make this parameter mutable: `mut`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/syntax.rs:142:17
+error: parameter must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:89:17
    |
-LL |                 Some(_) => (),
-   |                 ^^^^^^^
-...
-LL |     matching_macro!(value);
-   |     ---------------------- in this macro invocation
-   |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
-   = note: this error originates in the macro `matching_macro` (in Nightly builds, run with -Z macro-backtrace for more info)
+LL |     fn foo((_a, _b): &(i32, i32)) {}
+   |                 ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 9 previous errors
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:89:22
+   |
+LL |     fn foo((_a, _b): &(i32, i32)) {}
+   |                      ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:93:5
+   |
+LL |     fn foo_ok_1(&(_a, _b): &(i32, i32)) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:93:5
+   |
+LL |     fn foo_ok_1(&(_a, _b): &(i32, i32)) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:93:5
+   |
+LL |     fn foo_ok_1(&(_a, _b): &(i32, i32)) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:93:19
+   |
+LL |     fn foo_ok_1(&(_a, _b): &(i32, i32)) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:93:23
+   |
+LL |     fn foo_ok_1(&(_a, _b): &(i32, i32)) {}
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:93:18
+   |
+LL |     fn foo_ok_1(&(_a, _b): &(i32, i32)) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:93:28
+   |
+LL |     fn foo_ok_1(&(_a, _b): &(i32, i32)) {}
+   |                            ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:96:1
+   |
+LL | fn syntax_closure() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:96:1
+   |
+LL | fn syntax_closure() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:96:1
+   |
+LL | fn syntax_closure() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:97:5
+   |
+LL |     fn foo<F>(f: F)
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:97:5
+   |
+LL |     fn foo<F>(f: F)
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:97:5
+   |
+LL |     fn foo<F>(f: F)
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:97:15
+   |
+LL |     fn foo<F>(f: F)
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:99:19
+   |
+LL |         F: FnOnce(&(i32, i32)),
+   |                   ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:111:1
+   |
+LL | fn macro_with_expression() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:111:1
+   |
+LL | fn macro_with_expression() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:111:1
+   |
+LL | fn macro_with_expression() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:112:5
+   |
+LL |     macro_rules! matching_macro {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:117:9
+   |
+LL |     let value = &Some(23);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:117:17
+   |
+LL |     let value = &Some(23);
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:137:1
+   |
+LL | fn macro_expansion() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:137:1
+   |
+LL | fn macro_expansion() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:137:1
+   |
+LL | fn macro_expansion() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:138:5
+   |
+LL |     macro_rules! matching_macro {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/syntax.rs:159:9
+   |
+LL |     let value = &Some(23);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/syntax.rs:159:17
+   |
+LL |     let value = &Some(23);
+   |                 ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 65 previous errors
 

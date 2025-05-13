@@ -1,155 +1,631 @@
-error: mutable key type
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:9:1
+   |
+LL | struct Key(AtomicUsize);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:11:1
+   |
+LL | impl Clone for Key {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:12:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:12:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:12:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:12:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:17:1
+   |
+LL | impl PartialEq for Key {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:18:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:18:5
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:18:12
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:18:18
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:18:11
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:18:25
+   |
+LL |     fn eq(&self, other: &Self) -> bool {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:23:1
+   |
+LL | impl Eq for Key {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:25:1
+   |
+LL | impl Hash for Key {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:26:5
+   |
+LL |     fn hash<H: Hasher>(&self, h: &mut H) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:26:5
+   |
+LL |     fn hash<H: Hasher>(&self, h: &mut H) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:26:25
+   |
+LL |     fn hash<H: Hasher>(&self, h: &mut H) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:26:31
+   |
+LL |     fn hash<H: Hasher>(&self, h: &mut H) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:26:24
+   |
+LL |     fn hash<H: Hasher>(&self, h: &mut H) {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:26:34
+   |
+LL |     fn hash<H: Hasher>(&self, h: &mut H) {
+   |                                  ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:31:1
+   |
+LL | fn should_not_take_this_arg(m: &mut HashMap<Key, usize>, _n: usize) -> HashSet<Key> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:31:1
+   |
+LL | fn should_not_take_this_arg(m: &mut HashMap<Key, usize>, _n: usize) -> HashSet<Key> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:31:1
+   |
+LL | fn should_not_take_this_arg(m: &mut HashMap<Key, usize>, _n: usize) -> HashSet<Key> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:31:29
+   |
+LL | fn should_not_take_this_arg(m: &mut HashMap<Key, usize>, _n: usize) -> HashSet<Key> {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:31:58
+   |
+LL | fn should_not_take_this_arg(m: &mut HashMap<Key, usize>, _n: usize) -> HashSet<Key> {
+   |                                                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/mut_key.rs:31:32
    |
 LL | fn should_not_take_this_arg(m: &mut HashMap<Key, usize>, _n: usize) -> HashSet<Key> {
    |                                ^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: ... because it contains `Key`, which has interior mutability
-   = note: ... because it contains `AtomicUsize`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
-   = note: `-D clippy::mutable-key-type` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mutable_key_type)]`
+   = help: use a raw pointer instead: `*raw`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:31:72
-   |
-LL | fn should_not_take_this_arg(m: &mut HashMap<Key, usize>, _n: usize) -> HashSet<Key> {
-   |                                                                        ^^^^^^^^^^^^
-   |
-   = note: ... because it contains `Key`, which has interior mutability
-   = note: ... because it contains `AtomicUsize`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
-
-error: mutable key type
-  --> tests/ui/mut_key.rs:35:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:35:9
    |
 LL |     let _other: HashMap<Key, bool> = HashMap::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `Key`, which has interior mutability
-   = note: ... because it contains `AtomicUsize`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:41:1
+   |
+LL | fn this_is_ok(_m: &mut HashMap<usize, Key>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:41:1
+   |
+LL | fn this_is_ok(_m: &mut HashMap<usize, Key>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:41:1
+   |
+LL | fn this_is_ok(_m: &mut HashMap<usize, Key>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:41:15
+   |
+LL | fn this_is_ok(_m: &mut HashMap<usize, Key>) {}
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:41:19
+   |
+LL | fn this_is_ok(_m: &mut HashMap<usize, Key>) {}
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:48:1
+   |
+LL | fn raw_ptr_is_ok(_m: &mut HashMap<*const Key, ()>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:48:1
+   |
+LL | fn raw_ptr_is_ok(_m: &mut HashMap<*const Key, ()>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:48:1
+   |
+LL | fn raw_ptr_is_ok(_m: &mut HashMap<*const Key, ()>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:48:18
+   |
+LL | fn raw_ptr_is_ok(_m: &mut HashMap<*const Key, ()>) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:48:22
+   |
+LL | fn raw_ptr_is_ok(_m: &mut HashMap<*const Key, ()>) {}
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:49:1
+   |
+LL | fn raw_mut_ptr_is_ok(_m: &mut HashMap<*mut Key, ()>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:49:1
+   |
+LL | fn raw_mut_ptr_is_ok(_m: &mut HashMap<*mut Key, ()>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:49:1
+   |
+LL | fn raw_mut_ptr_is_ok(_m: &mut HashMap<*mut Key, ()>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:49:22
+   |
+LL | fn raw_mut_ptr_is_ok(_m: &mut HashMap<*mut Key, ()>) {}
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:49:26
+   |
+LL | fn raw_mut_ptr_is_ok(_m: &mut HashMap<*mut Key, ()>) {}
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: trait must be `unsafe`
+  --> tests/ui/mut_key.rs:52:1
+   |
+LL | / trait Trait {
+LL | |     type AssociatedType;
+LL | |
+LL | |     fn trait_fn(&self, set: HashSet<Self::AssociatedType>);
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:52:1
+   |
+LL | trait Trait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:55:5
+   |
+LL |     fn trait_fn(&self, set: HashSet<Self::AssociatedType>);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:55:5
+   |
+LL |     fn trait_fn(&self, set: HashSet<Self::AssociatedType>);
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:55:18
+   |
+LL |     fn trait_fn(&self, set: HashSet<Self::AssociatedType>);
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:55:24
+   |
+LL |     fn trait_fn(&self, set: HashSet<Self::AssociatedType>);
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:55:17
+   |
+LL |     fn trait_fn(&self, set: HashSet<Self::AssociatedType>);
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:58:1
+   |
+LL | fn generics_are_ok_too<K>(_m: &mut HashSet<K>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:58:1
+   |
+LL | fn generics_are_ok_too<K>(_m: &mut HashSet<K>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:58:1
+   |
+LL | fn generics_are_ok_too<K>(_m: &mut HashSet<K>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:58:27
+   |
+LL | fn generics_are_ok_too<K>(_m: &mut HashSet<K>) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:58:31
+   |
+LL | fn generics_are_ok_too<K>(_m: &mut HashSet<K>) {
+   |                               ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:62:1
+   |
+LL | fn tuples<U>(_m: &mut HashMap<((), U), ()>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:62:1
+   |
+LL | fn tuples<U>(_m: &mut HashMap<((), U), ()>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:62:1
+   |
+LL | fn tuples<U>(_m: &mut HashMap<((), U), ()>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:62:14
+   |
+LL | fn tuples<U>(_m: &mut HashMap<((), U), ()>) {}
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:62:18
+   |
+LL | fn tuples<U>(_m: &mut HashMap<((), U), ()>) {}
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:64:1
+   |
+LL | fn tuples_bad<U>(_m: &mut HashMap<(Key, U), bool>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:64:1
+   |
+LL | fn tuples_bad<U>(_m: &mut HashMap<(Key, U), bool>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:64:1
+   |
+LL | fn tuples_bad<U>(_m: &mut HashMap<(Key, U), bool>) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/mut_key.rs:64:18
+   |
+LL | fn tuples_bad<U>(_m: &mut HashMap<(Key, U), bool>) {}
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
   --> tests/ui/mut_key.rs:64:22
    |
 LL | fn tuples_bad<U>(_m: &mut HashMap<(Key, U), bool>) {}
    |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: ... because it contains `(Key, U)`, which has interior mutability
-   = note: ... because it contains `Key`, which has interior mutability
-   = note: ... because it contains `AtomicUsize`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   = help: use a raw pointer instead: `*raw`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:77:5
+error: item must be `pub`
+  --> tests/ui/mut_key.rs:67:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mut_key.rs:67:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mut_key.rs:67:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:68:38
+   |
+LL |     let _ = should_not_take_this_arg(&mut HashMap::new(), 1);
+   |                                      ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:69:16
+   |
+LL |     this_is_ok(&mut HashMap::new());
+   |                ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:70:19
+   |
+LL |     tuples::<Key>(&mut HashMap::new());
+   |                   ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:71:18
+   |
+LL |     tuples::<()>(&mut HashMap::new());
+   |                  ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:72:22
+   |
+LL |     tuples_bad::<()>(&mut HashMap::new());
+   |                      ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:74:19
+   |
+LL |     raw_ptr_is_ok(&mut HashMap::new());
+   |                   ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:75:23
+   |
+LL |     raw_mut_ptr_is_ok(&mut HashMap::new());
+   |                       ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:77:9
    |
 LL |     let _map = HashMap::<Cell<usize>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:80:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:80:9
    |
 LL |     let _map = HashMap::<&mut Cell<usize>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `&mut Cell<usize>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:84:5
+error: references are not allowed
+  --> tests/ui/mut_key.rs:80:26
+   |
+LL |     let _map = HashMap::<&mut Cell<usize>, usize>::new();
+   |                          ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:84:9
    |
 LL |     let _map = HashMap::<Vec<Cell<usize>>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `Vec<Cell<usize>>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:87:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:87:9
    |
 LL |     let _map = HashMap::<BTreeMap<Cell<usize>, ()>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `BTreeMap<Cell<usize>, ()>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:90:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:90:9
    |
 LL |     let _map = HashMap::<BTreeMap<(), Cell<usize>>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `BTreeMap<(), Cell<usize>>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:93:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:93:9
    |
 LL |     let _map = HashMap::<BTreeSet<Cell<usize>>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `BTreeSet<Cell<usize>>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:96:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:96:9
    |
 LL |     let _map = HashMap::<Option<Cell<usize>>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `Option<Cell<usize>>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:99:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:99:9
    |
 LL |     let _map = HashMap::<Option<Vec<Cell<usize>>>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `Option<Vec<Cell<usize>>>`, which has interior mutability
-   = note: ... because it contains `Vec<Cell<usize>>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:103:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:103:9
    |
 LL |     let _map = HashMap::<Box<Cell<usize>>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `Box<Cell<usize>>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:106:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:106:9
    |
 LL |     let _map = HashMap::<Rc<Cell<usize>>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `Rc<Cell<usize>>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: mutable key type
-  --> tests/ui/mut_key.rs:109:5
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:109:9
    |
 LL |     let _map = HashMap::<Arc<Cell<usize>>, usize>::new();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: ... because it contains `Arc<Cell<usize>>`, which has interior mutability
-   = note: ... because it contains `Cell<usize>`, which has interior mutability
-   = note: ... because it contains `UnsafeCell<usize>`, which has interior mutability
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 15 previous errors
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:113:9
+   |
+LL |     let _map = HashMap::<&mut usize, usize>::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:113:26
+   |
+LL |     let _map = HashMap::<&mut usize, usize>::new();
+   |                          ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/mut_key.rs:114:9
+   |
+LL |     let _map = HashMap::<Result<&mut usize, ()>, usize>::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mut_key.rs:114:33
+   |
+LL |     let _map = HashMap::<Result<&mut usize, ()>, usize>::new();
+   |                                 ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 83 previous errors
 

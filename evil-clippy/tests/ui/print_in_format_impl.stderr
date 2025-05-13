@@ -1,47 +1,219 @@
-error: use of `print!` in `Debug` impl
-  --> tests/ui/print_in_format_impl.rs:20:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         print!("{}", 1);
-   |         ^^^^^^^^^^^^^^^ help: replace with: `write!(f, ..)`
-   |
-   = note: `-D clippy::print-in-format-impl` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::print_in_format_impl)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `println!` in `Debug` impl
-  --> tests/ui/print_in_format_impl.rs:23:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         println!("{}", 2);
-   |         ^^^^^^^^^^^^^^^^^ help: replace with: `writeln!(f, ..)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `eprint!` in `Debug` impl
-  --> tests/ui/print_in_format_impl.rs:26:9
+error: item must be `pub`
+  --> tests/ui/print_in_format_impl.rs:5:1
    |
-LL |         eprint!("{}", 3);
-   |         ^^^^^^^^^^^^^^^^ help: replace with: `write!(f, ..)`
-
-error: use of `eprintln!` in `Debug` impl
-  --> tests/ui/print_in_format_impl.rs:29:9
+LL | macro_rules! indirect {
+   | ^ help: make this item public: `pub`
    |
-LL |         eprintln!("{}", 4);
-   |         ^^^^^^^^^^^^^^^^^^ help: replace with: `writeln!(f, ..)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: use of `println!` in `Debug` impl
-  --> tests/ui/print_in_format_impl.rs:33:13
+error: item must be `pub`
+  --> tests/ui/print_in_format_impl.rs:9:1
    |
-LL |             println!("nested");
-   |             ^^^^^^^^^^^^^^^^^^ help: replace with: `writeln!(f, ..)`
+LL | macro_rules! nested {
+   | ^ help: make this item public: `pub`
 
-error: use of `print!` in `Display` impl
-  --> tests/ui/print_in_format_impl.rs:48:9
+error: item must be `pub`
+  --> tests/ui/print_in_format_impl.rs:15:1
    |
-LL |         print!("Display");
-   |         ^^^^^^^^^^^^^^^^^ help: replace with: `write!(f, ..)`
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
 
-error: use of `println!` in `Debug` impl
-  --> tests/ui/print_in_format_impl.rs:60:9
+error: item must be `pub`
+  --> tests/ui/print_in_format_impl.rs:16:1
    |
-LL |         println!("UnnamedFormatter");
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `writeln!(..)`
+LL | impl Debug for Foo {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 7 previous errors
+error: function must be `unsafe`
+  --> tests/ui/print_in_format_impl.rs:17:5
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/print_in_format_impl.rs:17:5
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/print_in_format_impl.rs:17:13
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/print_in_format_impl.rs:17:19
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/print_in_format_impl.rs:17:12
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/print_in_format_impl.rs:17:22
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |                      ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: static must be `mut`
+  --> tests/ui/print_in_format_impl.rs:18:16
+   |
+LL |         static WORKS_WITH_NESTED_ITEMS: bool = true;
+   |                ^ help: make this static mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/print_in_format_impl.rs:18:9
+   |
+LL |         static WORKS_WITH_NESTED_ITEMS: bool = true;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/print_in_format_impl.rs:46:1
+   |
+LL | impl Display for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/print_in_format_impl.rs:47:5
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/print_in_format_impl.rs:47:5
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/print_in_format_impl.rs:47:13
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/print_in_format_impl.rs:47:19
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/print_in_format_impl.rs:47:12
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/print_in_format_impl.rs:47:22
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+   |                      ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/print_in_format_impl.rs:57:1
+   |
+LL | struct UnnamedFormatter;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/print_in_format_impl.rs:58:1
+   |
+LL | impl Debug for UnnamedFormatter {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/print_in_format_impl.rs:59:5
+   |
+LL |     fn fmt(&self, _: &mut Formatter) -> Result<(), Error> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/print_in_format_impl.rs:59:5
+   |
+LL |     fn fmt(&self, _: &mut Formatter) -> Result<(), Error> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/print_in_format_impl.rs:59:13
+   |
+LL |     fn fmt(&self, _: &mut Formatter) -> Result<(), Error> {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/print_in_format_impl.rs:59:12
+   |
+LL |     fn fmt(&self, _: &mut Formatter) -> Result<(), Error> {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/print_in_format_impl.rs:59:22
+   |
+LL |     fn fmt(&self, _: &mut Formatter) -> Result<(), Error> {
+   |                      ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/print_in_format_impl.rs:67:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/print_in_format_impl.rs:67:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/print_in_format_impl.rs:67:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 29 previous errors
 

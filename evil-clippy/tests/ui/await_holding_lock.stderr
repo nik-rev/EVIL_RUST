@@ -1,179 +1,833 @@
-error: this `MutexGuard` is held across an await point
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/await_holding_lock.rs:5:1
+   |
+LL | mod std_mutex {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:9:15
+   |
+LL |     pub async fn bad(x: &Mutex<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:9:15
+   |
+LL |     pub async fn bad(x: &Mutex<u32>) -> u32 {
+   |               ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:9:22
+   |
+LL |     pub async fn bad(x: &Mutex<u32>) -> u32 {
+   |                      ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:9:25
+   |
+LL |     pub async fn bad(x: &Mutex<u32>) -> u32 {
+   |                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:10:13
    |
 LL |         let guard = x.lock().unwrap();
-   |             ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:12:15
-   |
-LL |         baz().await
-   |               ^^^^^
-   = note: `-D clippy::await-holding-lock` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::await_holding_lock)]`
+   |             ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:15:15
+   |
+LL |     pub async fn good(x: &Mutex<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:15:15
+   |
+LL |     pub async fn good(x: &Mutex<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:15:23
+   |
+LL |     pub async fn good(x: &Mutex<u32>) -> u32 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:15:26
+   |
+LL |     pub async fn good(x: &Mutex<u32>) -> u32 {
+   |                          ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:17:17
+   |
+LL |             let guard = x.lock().unwrap();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:18:17
+   |
+LL |             let y = *guard + 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:21:13
+   |
+LL |         let guard = x.lock().unwrap();
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:25:15
+   |
+LL |     pub async fn bad_rw(x: &RwLock<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:25:15
+   |
+LL |     pub async fn bad_rw(x: &RwLock<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:25:25
+   |
+LL |     pub async fn bad_rw(x: &RwLock<u32>) -> u32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:25:28
+   |
+LL |     pub async fn bad_rw(x: &RwLock<u32>) -> u32 {
+   |                            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:26:13
    |
 LL |         let guard = x.read().unwrap();
-   |             ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:28:15
-   |
-LL |         baz().await
-   |               ^^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
-  --> tests/ui/await_holding_lock.rs:32:13
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:31:15
    |
-LL |         let mut guard = x.write().unwrap();
-   |             ^^^^^^^^^
+LL |     pub async fn bad_rw_write(x: &RwLock<u32>) -> u32 {
+   |               ^
    |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:34:15
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:31:15
    |
-LL |         baz().await
-   |               ^^^^^
+LL |     pub async fn bad_rw_write(x: &RwLock<u32>) -> u32 {
+   |               ^
 
-error: this `MutexGuard` is held across an await point
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:31:31
+   |
+LL |     pub async fn bad_rw_write(x: &RwLock<u32>) -> u32 {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:31:34
+   |
+LL |     pub async fn bad_rw_write(x: &RwLock<u32>) -> u32 {
+   |                                  ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:37:15
+   |
+LL |     pub async fn good_rw(x: &RwLock<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:37:15
+   |
+LL |     pub async fn good_rw(x: &RwLock<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:37:26
+   |
+LL |     pub async fn good_rw(x: &RwLock<u32>) -> u32 {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:37:29
+   |
+LL |     pub async fn good_rw(x: &RwLock<u32>) -> u32 {
+   |                             ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:39:17
+   |
+LL |             let guard = x.read().unwrap();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:40:17
+   |
+LL |             let y = *guard + 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:47:13
+   |
+LL |         let guard = x.read().unwrap();
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:51:15
+   |
+LL |     pub async fn also_bad(x: &Mutex<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:51:15
+   |
+LL |     pub async fn also_bad(x: &Mutex<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:51:27
+   |
+LL |     pub async fn also_bad(x: &Mutex<u32>) -> u32 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:51:30
+   |
+LL |     pub async fn also_bad(x: &Mutex<u32>) -> u32 {
+   |                              ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:52:13
+   |
+LL |         let first = baz().await;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:54:13
    |
 LL |         let guard = x.lock().unwrap();
-   |             ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:57:28
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:57:13
    |
 LL |         let second = baz().await;
-   |                            ^^^^^
-LL |
-LL |         let third = baz().await;
-   |                           ^^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:59:13
+   |
+LL |         let third = baz().await;
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:64:15
+   |
+LL |     pub async fn not_good(x: &Mutex<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:64:15
+   |
+LL |     pub async fn not_good(x: &Mutex<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:64:27
+   |
+LL |     pub async fn not_good(x: &Mutex<u32>) -> u32 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:64:30
+   |
+LL |     pub async fn not_good(x: &Mutex<u32>) -> u32 {
+   |                              ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:65:13
+   |
+LL |         let first = baz().await;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:67:13
+   |
+LL |         let second = {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:68:17
    |
 LL |             let guard = x.lock().unwrap();
-   |                 ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:70:19
-   |
-LL |             baz().await
-   |                   ^^^^^
+   |                 ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:73:13
+   |
+LL |         let third = baz().await;
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:79:9
+   |
+LL |     pub fn block_bad(x: &Mutex<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:79:9
+   |
+LL |     pub fn block_bad(x: &Mutex<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:79:22
+   |
+LL |     pub fn block_bad(x: &Mutex<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:79:25
+   |
+LL |     pub fn block_bad(x: &Mutex<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:81:17
    |
 LL |             let guard = x.lock().unwrap();
-   |                 ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:83:19
-   |
-LL |             baz().await
-   |                   ^^^^^
+   |                 ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
+error: item must be `pub`
+  --> tests/ui/await_holding_lock.rs:89:1
+   |
+LL | mod parking_lot_mutex {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:93:15
+   |
+LL |     pub async fn bad(x: &Mutex<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:93:15
+   |
+LL |     pub async fn bad(x: &Mutex<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:93:22
+   |
+LL |     pub async fn bad(x: &Mutex<u32>) -> u32 {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:93:25
+   |
+LL |     pub async fn bad(x: &Mutex<u32>) -> u32 {
+   |                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:94:13
    |
 LL |         let guard = x.lock();
-   |             ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:96:15
-   |
-LL |         baz().await
-   |               ^^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:99:15
+   |
+LL |     pub async fn good(x: &Mutex<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:99:15
+   |
+LL |     pub async fn good(x: &Mutex<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:99:23
+   |
+LL |     pub async fn good(x: &Mutex<u32>) -> u32 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:99:26
+   |
+LL |     pub async fn good(x: &Mutex<u32>) -> u32 {
+   |                          ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:101:17
+   |
+LL |             let guard = x.lock();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:102:17
+   |
+LL |             let y = *guard + 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:105:13
+   |
+LL |         let guard = x.lock();
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:109:15
+   |
+LL |     pub async fn bad_rw(x: &RwLock<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:109:15
+   |
+LL |     pub async fn bad_rw(x: &RwLock<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:109:25
+   |
+LL |     pub async fn bad_rw(x: &RwLock<u32>) -> u32 {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:109:28
+   |
+LL |     pub async fn bad_rw(x: &RwLock<u32>) -> u32 {
+   |                            ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:110:13
    |
 LL |         let guard = x.read();
-   |             ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:112:15
-   |
-LL |         baz().await
-   |               ^^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
-  --> tests/ui/await_holding_lock.rs:116:13
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:115:15
    |
-LL |         let mut guard = x.write();
-   |             ^^^^^^^^^
+LL |     pub async fn bad_rw_write(x: &RwLock<u32>) -> u32 {
+   |               ^
    |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:118:15
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:115:15
    |
-LL |         baz().await
-   |               ^^^^^
+LL |     pub async fn bad_rw_write(x: &RwLock<u32>) -> u32 {
+   |               ^
 
-error: this `MutexGuard` is held across an await point
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:115:31
+   |
+LL |     pub async fn bad_rw_write(x: &RwLock<u32>) -> u32 {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:115:34
+   |
+LL |     pub async fn bad_rw_write(x: &RwLock<u32>) -> u32 {
+   |                                  ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:121:15
+   |
+LL |     pub async fn good_rw(x: &RwLock<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:121:15
+   |
+LL |     pub async fn good_rw(x: &RwLock<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:121:26
+   |
+LL |     pub async fn good_rw(x: &RwLock<u32>) -> u32 {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:121:29
+   |
+LL |     pub async fn good_rw(x: &RwLock<u32>) -> u32 {
+   |                             ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:123:17
+   |
+LL |             let guard = x.read();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:124:17
+   |
+LL |             let y = *guard + 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:131:13
+   |
+LL |         let guard = x.read();
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:135:15
+   |
+LL |     pub async fn also_bad(x: &Mutex<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:135:15
+   |
+LL |     pub async fn also_bad(x: &Mutex<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:135:27
+   |
+LL |     pub async fn also_bad(x: &Mutex<u32>) -> u32 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:135:30
+   |
+LL |     pub async fn also_bad(x: &Mutex<u32>) -> u32 {
+   |                              ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:136:13
+   |
+LL |         let first = baz().await;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:138:13
    |
 LL |         let guard = x.lock();
-   |             ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:141:28
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:141:13
    |
 LL |         let second = baz().await;
-   |                            ^^^^^
-LL |
-LL |         let third = baz().await;
-   |                           ^^^^^
+   |             ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:143:13
+   |
+LL |         let third = baz().await;
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:148:15
+   |
+LL |     pub async fn not_good(x: &Mutex<u32>) -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:148:15
+   |
+LL |     pub async fn not_good(x: &Mutex<u32>) -> u32 {
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:148:27
+   |
+LL |     pub async fn not_good(x: &Mutex<u32>) -> u32 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:148:30
+   |
+LL |     pub async fn not_good(x: &Mutex<u32>) -> u32 {
+   |                              ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:149:13
+   |
+LL |         let first = baz().await;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:151:13
+   |
+LL |         let second = {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:152:17
    |
 LL |             let guard = x.lock();
-   |                 ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:154:19
-   |
-LL |             baz().await
-   |                   ^^^^^
+   |                 ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:157:13
+   |
+LL |         let third = baz().await;
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:163:9
+   |
+LL |     pub fn block_bad(x: &Mutex<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:163:9
+   |
+LL |     pub fn block_bad(x: &Mutex<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:163:22
+   |
+LL |     pub fn block_bad(x: &Mutex<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:163:25
+   |
+LL |     pub fn block_bad(x: &Mutex<u32>) -> impl std::future::Future<Output = u32> + '_ {
+   |                         ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
   --> tests/ui/await_holding_lock.rs:165:17
    |
 LL |             let guard = x.lock();
-   |                 ^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:167:19
-   |
-LL |             baz().await
-   |                   ^^^^^
+   |                 ^ help: make this variable mutable: `mut`
 
-error: this `MutexGuard` is held across an await point
-  --> tests/ui/await_holding_lock.rs:186:9
+error: item must be `pub`
+  --> tests/ui/await_holding_lock.rs:172:1
    |
-LL |     let mut guard = x.lock().unwrap();
-   |         ^^^^^^^^^
-   |
-   = help: consider using an async-aware `Mutex` type or ensuring the `MutexGuard` is dropped before calling `await`
-note: these are all the await points this lock is held through
-  --> tests/ui/await_holding_lock.rs:190:11
-   |
-LL |     baz().await;
-   |           ^^^^^
+LL | async fn baz() -> u32 {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 13 previous errors
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:172:7
+   |
+LL | async fn baz() -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:172:7
+   |
+LL | async fn baz() -> u32 {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/await_holding_lock.rs:176:1
+   |
+LL | async fn no_await(x: std::sync::Mutex<u32>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:176:7
+   |
+LL | async fn no_await(x: std::sync::Mutex<u32>) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:176:7
+   |
+LL | async fn no_await(x: std::sync::Mutex<u32>) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:176:19
+   |
+LL | async fn no_await(x: std::sync::Mutex<u32>) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/await_holding_lock.rs:185:1
+   |
+LL | async fn dropped_before_await(x: std::sync::Mutex<u32>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:185:7
+   |
+LL | async fn dropped_before_await(x: std::sync::Mutex<u32>) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:185:7
+   |
+LL | async fn dropped_before_await(x: std::sync::Mutex<u32>) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/await_holding_lock.rs:185:31
+   |
+LL | async fn dropped_before_await(x: std::sync::Mutex<u32>) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/await_holding_lock.rs:193:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/await_holding_lock.rs:193:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/await_holding_lock.rs:193:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:194:9
+   |
+LL |     let m = std::sync::Mutex::new(100);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:195:21
+   |
+LL |     std_mutex::good(&m);
+   |                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:196:20
+   |
+LL |     std_mutex::bad(&m);
+   |                    ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:197:25
+   |
+LL |     std_mutex::also_bad(&m);
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:198:25
+   |
+LL |     std_mutex::not_good(&m);
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:199:26
+   |
+LL |     std_mutex::block_bad(&m);
+   |                          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/await_holding_lock.rs:201:9
+   |
+LL |     let m = parking_lot::Mutex::new(100);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:202:29
+   |
+LL |     parking_lot_mutex::good(&m);
+   |                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:203:28
+   |
+LL |     parking_lot_mutex::bad(&m);
+   |                            ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:204:33
+   |
+LL |     parking_lot_mutex::also_bad(&m);
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/await_holding_lock.rs:205:33
+   |
+LL |     parking_lot_mutex::not_good(&m);
+   |                                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 109 previous errors
 

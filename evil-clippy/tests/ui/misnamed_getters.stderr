@@ -1,203 +1,891 @@
-error: getter function appears to return the wrong field
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters.rs:5:1
+   |
+LL | struct A {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters.rs:11:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:12:5
    |
-LL | /     fn a(&self) -> &u8 {
-LL | |
-LL | |
-LL | |         &self.b
-   | |         ------- help: consider using: `&self.a`
-LL | |     }
-   | |_____^
+LL |     fn a(&self) -> &u8 {
+   |     ^
    |
-   = note: `-D clippy::misnamed-getters` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::misnamed_getters)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:12:5
+   |
+LL |     fn a(&self) -> &u8 {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: getter function appears to return the wrong field
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:12:11
+   |
+LL |     fn a(&self) -> &u8 {
+   |           ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:12:10
+   |
+LL |     fn a(&self) -> &u8 {
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:12:20
+   |
+LL |     fn a(&self) -> &u8 {
+   |                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:15:9
+   |
+LL |         &self.b
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:17:5
    |
-LL | /     fn a_mut(&mut self) -> &mut u8 {
-LL | |
-LL | |
-LL | |         &mut self.b
-   | |         ----------- help: consider using: `&mut self.a`
-LL | |     }
-   | |_____^
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:17:5
+   |
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |     ^
 
-error: getter function appears to return the wrong field
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:17:19
+   |
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:17:14
+   |
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:17:28
+   |
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:20:9
+   |
+LL |         &mut self.b
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:23:5
    |
-LL | /     fn b(self) -> u8 {
-LL | |
-LL | |
-LL | |         self.a
-   | |         ------ help: consider using: `self.b`
-LL | |     }
-   | |_____^
+LL |     fn b(self) -> u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:23:5
+   |
+LL |     fn b(self) -> u8 {
+   |     ^
 
-error: getter function appears to return the wrong field
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:23:10
+   |
+LL |     fn b(self) -> u8 {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:29:5
    |
-LL | /     fn b_mut(&mut self) -> &mut u8 {
-LL | |
-LL | |
-LL | |         &mut self.a
-   | |         ----------- help: consider using: `&mut self.b`
-LL | |     }
-   | |_____^
+LL |     fn b_mut(&mut self) -> &mut u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:29:5
+   |
+LL |     fn b_mut(&mut self) -> &mut u8 {
+   |     ^
 
-error: getter function appears to return the wrong field
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:29:19
+   |
+LL |     fn b_mut(&mut self) -> &mut u8 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:29:14
+   |
+LL |     fn b_mut(&mut self) -> &mut u8 {
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:29:28
+   |
+LL |     fn b_mut(&mut self) -> &mut u8 {
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:32:9
+   |
+LL |         &mut self.a
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:35:5
    |
-LL | /     fn c(&self) -> &u8 {
-LL | |
-LL | |
-LL | |         &self.b
-   | |         ------- help: consider using: `&self.c`
-LL | |     }
-   | |_____^
+LL |     fn c(&self) -> &u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:35:5
+   |
+LL |     fn c(&self) -> &u8 {
+   |     ^
 
-error: getter function appears to return the wrong field
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:35:11
+   |
+LL |     fn c(&self) -> &u8 {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:35:10
+   |
+LL |     fn c(&self) -> &u8 {
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:35:20
+   |
+LL |     fn c(&self) -> &u8 {
+   |                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:38:9
+   |
+LL |         &self.b
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:41:5
    |
-LL | /     fn c_mut(&mut self) -> &mut u8 {
-LL | |
-LL | |
-LL | |         &mut self.a
-   | |         ----------- help: consider using: `&mut self.c`
-LL | |     }
-   | |_____^
-
-error: getter function appears to return the wrong field
-  --> tests/ui/misnamed_getters.rs:54:5
+LL |     fn c_mut(&mut self) -> &mut u8 {
+   |     ^
    |
-LL | /     unsafe fn a(&self) -> &u8 {
-LL | |
-LL | |
-LL | |         unsafe { &self.b }
-   | |                  ------- help: consider using: `&self.a`
-LL | |     }
-   | |_____^
-
-error: getter function appears to return the wrong field
-  --> tests/ui/misnamed_getters.rs:59:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:41:5
    |
-LL | /     unsafe fn a_mut(&mut self) -> &mut u8 {
-LL | |
-LL | |
-LL | |         unsafe { &mut self.b }
-   | |                  ----------- help: consider using: `&mut self.a`
-LL | |     }
-   | |_____^
+LL |     fn c_mut(&mut self) -> &mut u8 {
+   |     ^
 
-error: getter function appears to return the wrong field
-  --> tests/ui/misnamed_getters.rs:65:5
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:41:19
    |
-LL | /     unsafe fn b(self) -> u8 {
-LL | |
-LL | |
-LL | |         unsafe { self.a }
-   | |                  ------ help: consider using: `self.b`
-LL | |     }
-   | |_____^
+LL |     fn c_mut(&mut self) -> &mut u8 {
+   |                   ^ help: make this parameter mutable: `mut`
 
-error: getter function appears to return the wrong field
-  --> tests/ui/misnamed_getters.rs:71:5
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:41:14
    |
-LL | /     unsafe fn b_mut(&mut self) -> &mut u8 {
-LL | |
-LL | |
-LL | |         unsafe { &mut self.a }
-   | |                  ----------- help: consider using: `&mut self.b`
-LL | |     }
-   | |_____^
-
-error: getter function appears to return the wrong field
-  --> tests/ui/misnamed_getters.rs:85:5
+LL |     fn c_mut(&mut self) -> &mut u8 {
+   |              ^^^^^^^^^
    |
-LL | /     unsafe fn a_unchecked(&self) -> &u8 {
-LL | |
-LL | |
-LL | |         unsafe { &self.b }
-   | |                  ------- help: consider using: `&self.a`
-LL | |     }
-   | |_____^
+   = help: use a raw pointer instead: `*raw`
 
-error: getter function appears to return the wrong field
-  --> tests/ui/misnamed_getters.rs:90:5
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:41:28
    |
-LL | /     unsafe fn a_unchecked_mut(&mut self) -> &mut u8 {
-LL | |
-LL | |
-LL | |         unsafe { &mut self.b }
-   | |                  ----------- help: consider using: `&mut self.a`
-LL | |     }
-   | |_____^
-
-error: getter function appears to return the wrong field
-  --> tests/ui/misnamed_getters.rs:96:5
+LL |     fn c_mut(&mut self) -> &mut u8 {
+   |                            ^^^^^^^
    |
-LL | /     unsafe fn b_unchecked(self) -> u8 {
-LL | |
-LL | |
-LL | |         unsafe { self.a }
-   | |                  ------ help: consider using: `self.b`
-LL | |     }
-   | |_____^
+   = help: use a raw pointer instead: `*raw`
 
-error: getter function appears to return the wrong field
-  --> tests/ui/misnamed_getters.rs:102:5
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:44:9
    |
-LL | /     unsafe fn b_unchecked_mut(&mut self) -> &mut u8 {
-LL | |
-LL | |
-LL | |         unsafe { &mut self.a }
-   | |                  ----------- help: consider using: `&mut self.b`
-LL | |     }
-   | |_____^
+LL |         &mut self.a
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: getter function appears to return the wrong field
+error: item must be `pub`
+  --> tests/ui/misnamed_getters.rs:48:1
+   |
+LL | union B {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters.rs:53:1
+   |
+LL | impl B {
+   | ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:54:18
+   |
+LL |     unsafe fn a(&self) -> &u8 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:54:17
+   |
+LL |     unsafe fn a(&self) -> &u8 {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:54:27
+   |
+LL |     unsafe fn a(&self) -> &u8 {
+   |                           ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:57:18
+   |
+LL |         unsafe { &self.b }
+   |                  ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:59:26
+   |
+LL |     unsafe fn a_mut(&mut self) -> &mut u8 {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:59:21
+   |
+LL |     unsafe fn a_mut(&mut self) -> &mut u8 {
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:59:35
+   |
+LL |     unsafe fn a_mut(&mut self) -> &mut u8 {
+   |                                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:62:18
+   |
+LL |         unsafe { &mut self.b }
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:65:17
+   |
+LL |     unsafe fn b(self) -> u8 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:71:26
+   |
+LL |     unsafe fn b_mut(&mut self) -> &mut u8 {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:71:21
+   |
+LL |     unsafe fn b_mut(&mut self) -> &mut u8 {
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:71:35
+   |
+LL |     unsafe fn b_mut(&mut self) -> &mut u8 {
+   |                                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:74:18
+   |
+LL |         unsafe { &mut self.a }
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:77:18
+   |
+LL |     unsafe fn c(&self) -> &u8 {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:77:17
+   |
+LL |     unsafe fn c(&self) -> &u8 {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:77:27
+   |
+LL |     unsafe fn c(&self) -> &u8 {
+   |                           ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:78:18
+   |
+LL |         unsafe { &self.b }
+   |                  ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:81:26
+   |
+LL |     unsafe fn c_mut(&mut self) -> &mut u8 {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:81:21
+   |
+LL |     unsafe fn c_mut(&mut self) -> &mut u8 {
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:81:35
+   |
+LL |     unsafe fn c_mut(&mut self) -> &mut u8 {
+   |                                   ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:82:18
+   |
+LL |         unsafe { &mut self.a }
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:85:28
+   |
+LL |     unsafe fn a_unchecked(&self) -> &u8 {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:85:27
+   |
+LL |     unsafe fn a_unchecked(&self) -> &u8 {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:85:37
+   |
+LL |     unsafe fn a_unchecked(&self) -> &u8 {
+   |                                     ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:88:18
+   |
+LL |         unsafe { &self.b }
+   |                  ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:90:36
+   |
+LL |     unsafe fn a_unchecked_mut(&mut self) -> &mut u8 {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:90:31
+   |
+LL |     unsafe fn a_unchecked_mut(&mut self) -> &mut u8 {
+   |                               ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:90:45
+   |
+LL |     unsafe fn a_unchecked_mut(&mut self) -> &mut u8 {
+   |                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:93:18
+   |
+LL |         unsafe { &mut self.b }
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:96:27
+   |
+LL |     unsafe fn b_unchecked(self) -> u8 {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:102:36
+   |
+LL |     unsafe fn b_unchecked_mut(&mut self) -> &mut u8 {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:102:31
+   |
+LL |     unsafe fn b_unchecked_mut(&mut self) -> &mut u8 {
+   |                               ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:102:45
+   |
+LL |     unsafe fn b_unchecked_mut(&mut self) -> &mut u8 {
+   |                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:105:18
+   |
+LL |         unsafe { &mut self.a }
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:108:28
+   |
+LL |     unsafe fn c_unchecked(&self) -> &u8 {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:108:27
+   |
+LL |     unsafe fn c_unchecked(&self) -> &u8 {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:108:37
+   |
+LL |     unsafe fn c_unchecked(&self) -> &u8 {
+   |                                     ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:109:18
+   |
+LL |         unsafe { &self.b }
+   |                  ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:112:36
+   |
+LL |     unsafe fn c_unchecked_mut(&mut self) -> &mut u8 {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:112:31
+   |
+LL |     unsafe fn c_unchecked_mut(&mut self) -> &mut u8 {
+   |                               ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:112:45
+   |
+LL |     unsafe fn c_unchecked_mut(&mut self) -> &mut u8 {
+   |                                             ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:113:18
+   |
+LL |         unsafe { &mut self.a }
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters.rs:117:1
+   |
+LL | struct D {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters.rs:122:1
+   |
+LL | impl core::ops::Deref for D {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/misnamed_getters.rs:124:5
+   |
+LL |     fn deref(&self) -> &A {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:124:5
+   |
+LL |     fn deref(&self) -> &A {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:124:15
+   |
+LL |     fn deref(&self) -> &A {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:124:14
+   |
+LL |     fn deref(&self) -> &A {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:124:24
+   |
+LL |     fn deref(&self) -> &A {
+   |                        ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:125:9
+   |
+LL |         &self.inner
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters.rs:129:1
+   |
+LL | impl core::ops::DerefMut for D {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/misnamed_getters.rs:130:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut A {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:130:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut A {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:130:23
+   |
+LL |     fn deref_mut(&mut self) -> &mut A {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:130:18
+   |
+LL |     fn deref_mut(&mut self) -> &mut A {
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:130:32
+   |
+LL |     fn deref_mut(&mut self) -> &mut A {
+   |                                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:131:9
+   |
+LL |         &mut self.inner
+   |         ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters.rs:135:1
+   |
+LL | impl D {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:136:5
    |
-LL | /     fn a(&self) -> &u8 {
-LL | |
-LL | |
-LL | |         &self.b
-   | |         ------- help: consider using: `&self.a`
-LL | |     }
-   | |_____^
+LL |     fn a(&self) -> &u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:136:5
+   |
+LL |     fn a(&self) -> &u8 {
+   |     ^
 
-error: getter function appears to return the wrong field
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:136:11
+   |
+LL |     fn a(&self) -> &u8 {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:136:10
+   |
+LL |     fn a(&self) -> &u8 {
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:136:20
+   |
+LL |     fn a(&self) -> &u8 {
+   |                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:139:9
+   |
+LL |         &self.b
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:141:5
    |
-LL | /     fn a_mut(&mut self) -> &mut u8 {
-LL | |
-LL | |
-LL | |         &mut self.b
-   | |         ----------- help: consider using: `&mut self.a`
-LL | |     }
-   | |_____^
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:141:5
+   |
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |     ^
 
-error: getter function appears to return the wrong field
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:141:19
+   |
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:141:14
+   |
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:141:28
+   |
+LL |     fn a_mut(&mut self) -> &mut u8 {
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:144:9
+   |
+LL |         &mut self.b
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:147:5
    |
-LL | /     fn d(&self) -> &u8 {
-LL | |
-LL | |
-LL | |         &self.b
-   | |         ------- help: consider using: `&self.d`
-LL | |     }
-   | |_____^
+LL |     fn d(&self) -> &u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:147:5
+   |
+LL |     fn d(&self) -> &u8 {
+   |     ^
 
-error: getter function appears to return the wrong field
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:147:11
+   |
+LL |     fn d(&self) -> &u8 {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:147:10
+   |
+LL |     fn d(&self) -> &u8 {
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:147:20
+   |
+LL |     fn d(&self) -> &u8 {
+   |                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:150:9
+   |
+LL |         &self.b
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
   --> tests/ui/misnamed_getters.rs:152:5
    |
-LL | /     fn d_mut(&mut self) -> &mut u8 {
-LL | |
-LL | |
-LL | |         &mut self.b
-   | |         ----------- help: consider using: `&mut self.d`
-LL | |     }
-   | |_____^
+LL |     fn d_mut(&mut self) -> &mut u8 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:152:5
+   |
+LL |     fn d_mut(&mut self) -> &mut u8 {
+   |     ^
 
-error: aborting due to 18 previous errors
+error: parameter must be `mut`
+  --> tests/ui/misnamed_getters.rs:152:19
+   |
+LL |     fn d_mut(&mut self) -> &mut u8 {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:152:14
+   |
+LL |     fn d_mut(&mut self) -> &mut u8 {
+   |              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:152:28
+   |
+LL |     fn d_mut(&mut self) -> &mut u8 {
+   |                            ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/misnamed_getters.rs:155:9
+   |
+LL |         &mut self.b
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/misnamed_getters.rs:159:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/misnamed_getters.rs:159:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/misnamed_getters.rs:159:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 113 previous errors
 

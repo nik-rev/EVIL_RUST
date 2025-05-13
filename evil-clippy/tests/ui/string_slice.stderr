@@ -1,29 +1,101 @@
-error: indexing into a string may panic if the index is within a UTF-8 character
-  --> tests/ui/string_slice.rs:7:6
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/string_slice.rs:6:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/string_slice.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/string_slice.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/string_slice.rs:7:5
    |
 LL |     &"Ölkanne"[1..];
-   |      ^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::string-slice` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::string_slice)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: indexing into a string may panic if the index is within a UTF-8 character
-  --> tests/ui/string_slice.rs:11:6
+error: variable must be `mut`
+  --> tests/ui/string_slice.rs:10:9
+   |
+LL |     let m = "Mötörhead";
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/string_slice.rs:11:5
    |
 LL |     &m[2..5];
-   |      ^^^^^^^
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: indexing into a string may panic if the index is within a UTF-8 character
-  --> tests/ui/string_slice.rs:15:6
+error: variable must be `mut`
+  --> tests/ui/string_slice.rs:14:9
+   |
+LL |     let s = String::from(m);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/string_slice.rs:15:5
    |
 LL |     &s[0..2];
-   |      ^^^^^^^
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: indexing into a string may panic if the index is within a UTF-8 character
-  --> tests/ui/string_slice.rs:19:6
+error: variable must be `mut`
+  --> tests/ui/string_slice.rs:18:9
+   |
+LL |     let a = Cow::Borrowed("foo");
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/string_slice.rs:19:5
    |
 LL |     &a[0..3];
-   |      ^^^^^^^
+   |     ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 4 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

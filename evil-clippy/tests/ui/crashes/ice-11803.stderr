@@ -1,26 +1,78 @@
-error: `impl Trait` used as a function parameter
-  --> tests/ui/crashes/ice-11803.rs:5:54
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11803.rs:5:5
    |
 LL | pub fn g<T: IntoIterator<Item = impl Iterator<Item = impl Clone>>>() {
-   |                                                      ^^^^^^^^^^
+   |     ^
    |
-   = note: `-D clippy::impl-trait-in-params` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::impl_trait_in_params)]`
-help: add a type parameter
-   |
-LL | pub fn g<T: IntoIterator<Item = impl Iterator<Item = impl Clone>>, { /* Generic name */ }: Clone>() {
-   |                                                                  +++++++++++++++++++++++++++++++
-
-error: `impl Trait` used as a function parameter
-  --> tests/ui/crashes/ice-11803.rs:5:33
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11803.rs:5:5
    |
 LL | pub fn g<T: IntoIterator<Item = impl Iterator<Item = impl Clone>>>() {
-   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: add a type parameter
-   |
-LL | pub fn g<T: IntoIterator<Item = impl Iterator<Item = impl Clone>>, { /* Generic name */ }: Iterator<Item = impl Clone>>() {
-   |                                                                  +++++++++++++++++++++++++++++++++++++++++++++++++++++
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11803.rs:8:5
+   |
+LL |     extern "C" fn implementation_detail() {}
+   |     ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11803.rs:8:5
+   |
+LL |     extern "C" fn implementation_detail() {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11803.rs:8:5
+   |
+LL |     extern "C" fn implementation_detail() {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11803.rs:11:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11803.rs:11:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11803.rs:11:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 9 previous errors
 

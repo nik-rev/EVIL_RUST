@@ -1,65 +1,128 @@
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:31:17
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unreadable_literal.rs:3:1
+   |
+LL | struct Foo(u64);
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/unreadable_literal.rs:5:1
+   |
+LL | macro_rules! foo {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unreadable_literal.rs:11:1
+   |
+LL | struct Bar(f32);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unreadable_literal.rs:13:1
+   |
+LL | macro_rules! bar {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unreadable_literal.rs:19:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unreadable_literal.rs:19:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unreadable_literal.rs:19:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/unreadable_literal.rs:20:9
+   |
+LL |     let _good = (
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/unreadable_literal.rs:31:9
    |
 LL |     let _bad = (0b110110_i64, 0x12345678_usize, 123456_f32, 1.234567_f32);
-   |                 ^^^^^^^^^^^^ help: consider: `0b11_0110_i64`
-   |
-   = note: `-D clippy::unreadable-literal` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unreadable_literal)]`
+   |         ^ help: make this variable mutable: `mut`
 
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:31:31
+error: variable must be `mut`
+  --> tests/ui/unreadable_literal.rs:36:9
    |
-LL |     let _bad = (0b110110_i64, 0x12345678_usize, 123456_f32, 1.234567_f32);
-   |                               ^^^^^^^^^^^^^^^^ help: consider: `0x1234_5678_usize`
+LL |     let _good_sci = 1.1234e1;
+   |         ^ help: make this variable mutable: `mut`
 
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:31:49
-   |
-LL |     let _bad = (0b110110_i64, 0x12345678_usize, 123456_f32, 1.234567_f32);
-   |                                                 ^^^^^^^^^^ help: consider: `123_456_f32`
-
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:31:61
-   |
-LL |     let _bad = (0b110110_i64, 0x12345678_usize, 123456_f32, 1.234567_f32);
-   |                                                             ^^^^^^^^^^^^ help: consider: `1.234_567_f32`
-
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:37:20
+error: variable must be `mut`
+  --> tests/ui/unreadable_literal.rs:37:9
    |
 LL |     let _bad_sci = 1.123456e1;
-   |                    ^^^^^^^^^^ help: consider: `1.123_456e1`
+   |         ^ help: make this variable mutable: `mut`
 
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:40:18
+error: variable must be `mut`
+  --> tests/ui/unreadable_literal.rs:40:9
    |
 LL |     let _fail1 = 0xabcdef;
-   |                  ^^^^^^^^ help: consider: `0x00ab_cdef`
+   |         ^ help: make this variable mutable: `mut`
 
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:42:23
+error: variable must be `mut`
+  --> tests/ui/unreadable_literal.rs:42:9
    |
 LL |     let _fail2: u32 = 0xBAFEBAFE;
-   |                       ^^^^^^^^^^ help: consider: `0xBAFE_BAFE`
+   |         ^ help: make this variable mutable: `mut`
 
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:44:18
+error: variable must be `mut`
+  --> tests/ui/unreadable_literal.rs:44:9
    |
 LL |     let _fail3 = 0xabcdeff;
-   |                  ^^^^^^^^^ help: consider: `0x0abc_deff`
+   |         ^ help: make this variable mutable: `mut`
 
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:46:24
+error: variable must be `mut`
+  --> tests/ui/unreadable_literal.rs:46:9
    |
 LL |     let _fail4: i128 = 0xabcabcabcabcabcabc;
-   |                        ^^^^^^^^^^^^^^^^^^^^ help: consider: `0x00ab_cabc_abca_bcab_cabc`
+   |         ^ help: make this variable mutable: `mut`
 
-error: long literal lacking separators
-  --> tests/ui/unreadable_literal.rs:48:18
+error: variable must be `mut`
+  --> tests/ui/unreadable_literal.rs:48:9
    |
 LL |     let _fail5 = 1.100300400;
-   |                  ^^^^^^^^^^^ help: consider: `1.100_300_400`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 10 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 19 previous errors
 

@@ -1,63 +1,271 @@
-error: this loop could be written as a `while let` loop
-  --> tests/ui/while_let_loop.rs:6:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     loop {
-LL | |
-LL | |
-LL | |         if let Some(_x) = y {
-...  |
-LL | |     }
-   | |_____^ help: try: `while let Some(_x) = y { .. }`
-   |
-   = note: `-D clippy::while-let-loop` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::while_let_loop)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this loop could be written as a `while let` loop
-  --> tests/ui/while_let_loop.rs:25:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     loop {
-LL | |
-LL | |
-LL | |         match y {
-...  |
-LL | |         };
-LL | |     }
-   | |_____^ help: try: `while let Some(_x) = y { .. }`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this loop could be written as a `while let` loop
-  --> tests/ui/while_let_loop.rs:34:5
+error: item must be `pub`
+  --> tests/ui/while_let_loop.rs:4:1
    |
-LL | /     loop {
-LL | |
-LL | |
-LL | |         let x = match y {
-...  |
-LL | |         let _str = "foo";
-LL | |     }
-   | |_____^ help: try: `while let Some(x) = y { .. }`
-
-error: this loop could be written as a `while let` loop
-  --> tests/ui/while_let_loop.rs:45:5
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL | /     loop {
-LL | |
-LL | |
-LL | |         let x = match y {
-...  |
-LL | |     }
-   | |_____^ help: try: `while let Some(x) = y { .. }`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this loop could be written as a `while let` loop
-  --> tests/ui/while_let_loop.rs:77:5
+error: function must be `unsafe`
+  --> tests/ui/while_let_loop.rs:4:1
    |
-LL | /     loop {
-LL | |
-LL | |
-LL | |         let (e, l) = match "".split_whitespace().next() {
-...  |
-LL | |         let _ = (e, l);
-LL | |     }
-   | |_____^ help: try: `while let Some(word) = "".split_whitespace().next() { .. }`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/while_let_loop.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 5 previous errors
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:5:9
+   |
+LL |     let y = Some(true);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:10:17
+   |
+LL |             let _v = 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:20:17
+   |
+LL |             let _v = 1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:37:13
+   |
+LL |         let x = match y {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:41:13
+   |
+LL |         let _x = x;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:42:13
+   |
+LL |         let _str = "foo";
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:48:13
+   |
+LL |         let x = match y {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:53:17
+   |
+LL |             let _a = "bar";
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:56:17
+   |
+LL |             let _b = "foobar";
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:65:21
+   |
+LL |                 let _z = 1;
+   |                     ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:80:14
+   |
+LL |         let (e, l) = match "".split_whitespace().next() {
+   |              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:80:17
+   |
+LL |         let (e, l) = match "".split_whitespace().next() {
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/while_let_loop.rs:89:1
+   |
+LL | fn issue771() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/while_let_loop.rs:89:1
+   |
+LL | fn issue771() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/while_let_loop.rs:89:1
+   |
+LL | fn issue771() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:91:9
+   |
+LL |     let b = Some(true);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/while_let_loop.rs:104:1
+   |
+LL | fn issue1017() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/while_let_loop.rs:104:1
+   |
+LL | fn issue1017() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/while_let_loop.rs:104:1
+   |
+LL | fn issue1017() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:105:9
+   |
+LL |     let r: Result<u32, u32> = Ok(42);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/while_let_loop.rs:120:1
+   |
+LL | fn issue1948() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/while_let_loop.rs:120:1
+   |
+LL | fn issue1948() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/while_let_loop.rs:120:1
+   |
+LL | fn issue1948() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:122:9
+   |
+LL |     let a = Some(10);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:123:9
+   |
+LL |     let b = loop {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/while_let_loop.rs:132:1
+   |
+LL | fn issue_7913(m: &std::sync::Mutex<Vec<u32>>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/while_let_loop.rs:132:1
+   |
+LL | fn issue_7913(m: &std::sync::Mutex<Vec<u32>>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/while_let_loop.rs:132:1
+   |
+LL | fn issue_7913(m: &std::sync::Mutex<Vec<u32>>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/while_let_loop.rs:132:15
+   |
+LL | fn issue_7913(m: &std::sync::Mutex<Vec<u32>>) {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/while_let_loop.rs:132:18
+   |
+LL | fn issue_7913(m: &std::sync::Mutex<Vec<u32>>) {
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:135:13
+   |
+LL |         let x = if let Some(x) = m.lock().unwrap().pop() {
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/while_let_loop.rs:145:1
+   |
+LL | fn issue_5715(mut m: core::cell::RefCell<Option<u32>>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/while_let_loop.rs:145:1
+   |
+LL | fn issue_5715(mut m: core::cell::RefCell<Option<u32>>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/while_let_loop.rs:145:1
+   |
+LL | fn issue_5715(mut m: core::cell::RefCell<Option<u32>>) {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/while_let_loop.rs:148:13
+   |
+LL |         let x = if let &mut Some(x) = &mut *m.borrow_mut() {
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/while_let_loop.rs:148:39
+   |
+LL |         let x = if let &mut Some(x) = &mut *m.borrow_mut() {
+   |                                       ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 37 previous errors
 

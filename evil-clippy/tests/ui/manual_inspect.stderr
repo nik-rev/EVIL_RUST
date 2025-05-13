@@ -1,204 +1,515 @@
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:5:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = Some(0).map(|x| {
-   |                     ^^^
-   |
-   = note: `-D clippy::manual-inspect` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_inspect)]`
-help: try
-   |
-LL ~     let _ = Some(0).inspect(|&x| {
-LL |
-LL ~         println!("{}", x);
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:11:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = Some(0).map(|x| {
-   |                     ^^^
-   |
-help: try
-   |
-LL ~     let _ = Some(0).inspect(|&x| {
-LL |
-LL ~         println!("{x}");
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:17:21
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:4:1
    |
-LL |     let _ = Some(0).map(|x| {
-   |                     ^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: try
-   |
-LL ~     let _ = Some(0).inspect(|&x| {
-LL |
-LL ~         println!("{}", x * 5 + 1);
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:23:21
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:4:1
    |
-LL |     let _ = Some(0).map(|x| {
-   |                     ^^^
+LL | fn main() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:4:1
    |
-LL ~     let _ = Some(0).inspect(|&x| {
-LL |
-LL |         if x == 0 {
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:26:13
+   |
 LL |             panic!();
-LL ~         }
-   |
+   |             ^^^^^^^^
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:31:21
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:26:13
    |
-LL |     let _ = Some(0).map(|x| {
-   |                     ^^^
-   |
-help: try
-   |
-LL ~     let _ = Some(0).inspect(|&x| {
-LL |
-...
 LL |             panic!();
-LL ~         }
+   |             ^^^^^^^^
    |
-
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:83:41
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:26:13
    |
-LL |     let _ = Some((String::new(), 0u32)).map(|x| {
-   |                                         ^^^
-   |
-help: try
-   |
-LL ~     let _ = Some((String::new(), 0u32)).inspect(|x| {
-LL |
-...
 LL |             panic!();
-LL ~         }
-   |
+   |             ^^^^^^^^
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:110:33
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:33:12
    |
-LL |     let _ = Some(String::new()).map(|x| {
-   |                                 ^^^
+LL |         if &x == &0 {
+   |            ^^
    |
-help: try
-   |
-LL ~     let _ = Some(String::new()).inspect(|x| {
-LL |
-LL |         if x.is_empty() {
-LL |             let _ = || {
-LL ~                 let _x = x;
-LL |             };
-LL ~             return ;
-LL |         }
-LL ~         println!("test");
-   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:122:21
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:33:18
    |
-LL |     let _ = Some(0).map(|x| {
-   |                     ^^^
+LL |         if &x == &0 {
+   |                  ^^
    |
-help: try
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_inspect.rs:34:17
    |
-LL ~     let _ = Some(0).inspect(|&x| {
-LL |
-...
+LL |             let _y = x;
+   |                 ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:35:13
+   |
 LL |             panic!();
-LL ~         }
-   |
+   |             ^^^^^^^^
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:138:46
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:35:13
    |
-LL |         let _ = Some(Cell2(Cell::new(0u32))).map(|x| {
-   |                                              ^^^
+LL |             panic!();
+   |             ^^^^^^^^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:35:13
    |
-LL ~         let _ = Some(Cell2(Cell::new(0u32))).inspect(|x| {
-LL |
-LL ~             x.0.set(1);
-   |
+LL |             panic!();
+   |             ^^^^^^^^
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:155:34
+error: variable must be `mut`
+  --> tests/ui/manual_inspect.rs:41:13
    |
-LL |     let _: Result<_, ()> = Ok(0).map(|x| {
-   |                                  ^^^
-   |
-help: try
-   |
-LL ~     let _: Result<_, ()> = Ok(0).inspect(|&x| {
-LL |
-LL ~         println!("{}", x);
-   |
+LL |         let y = x + 1;
+   |             ^ help: make this variable mutable: `mut`
 
-error: using `map_err` over `inspect_err`
-  --> tests/ui/manual_inspect.rs:161:35
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:50:9
    |
-LL |     let _: Result<(), _> = Err(0).map_err(|x| {
-   |                                   ^^^^^^^
-   |
-help: try
-   |
-LL ~     let _: Result<(), _> = Err(0).inspect_err(|&x| {
-LL |
-LL ~         println!("{}", x);
-   |
+LL |         struct Foo(i32);
+   |         ^ help: make this item public: `pub`
 
-error: this call to `map()` won't have an effect on the call to `count()`
-  --> tests/ui/manual_inspect.rs:167:13
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:49:18
    |
-LL |       let _ = [0]
-   |  _____________^
-LL | |
-LL | |         .into_iter()
-LL | |         .map(|x| {
-...  |
-LL | |         })
-LL | |         .count();
-   | |________________^
-   |
-   = help: make sure you did not confuse `map` with `filter`, `for_each` or `inspect`
-   = note: `-D clippy::suspicious-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suspicious_map)]`
+LL |         #[derive(PartialEq)]
+   |                  ^
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:170:10
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:49:18
    |
-LL |         .map(|x| {
-   |          ^^^
+LL |         #[derive(PartialEq)]
+   |                  ^
    |
-help: try
-   |
-LL ~         .inspect(|&x| {
-LL |
-LL ~             println!("{}", x);
-   |
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: using `map` over `inspect`
-  --> tests/ui/manual_inspect.rs:203:30
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:49:15
    |
-LL |     if let Some(x) = Some(1).map(|x| { println!("{x}");
-   |                              ^^^
+LL |         #[derive(PartialEq)]
+   |               ^  --------- in this derive macro expansion
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:49:15
    |
-LL ~     if let Some(x) = Some(1).inspect(|&x| { println!("{x}");
-LL |         // Do not collapse code into this comment
-LL ~          }) {
-   |
+LL |         #[derive(PartialEq)]
+   |               ^  --------- in this derive macro expansion
 
-error: aborting due to 14 previous errors
+error: parameter must be `mut`
+  --> tests/ui/manual_inspect.rs:49:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_inspect.rs:49:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:49:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:49:18
+   |
+LL |         #[derive(PartialEq)]
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:54:17
+   |
+LL |                 panic!();
+   |                 ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:54:17
+   |
+LL |                 panic!();
+   |                 ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:54:17
+   |
+LL |                 panic!();
+   |                 ^^^^^^^^
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:60:16
+   |
+LL |             if &x == &Foo(0) {
+   |                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:60:22
+   |
+LL |             if &x == &Foo(0) {
+   |                      ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_inspect.rs:61:21
+   |
+LL |                 let _y = x;
+   |                     ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:62:17
+   |
+LL |                 panic!();
+   |                 ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:62:17
+   |
+LL |                 panic!();
+   |                 ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:62:17
+   |
+LL |                 panic!();
+   |                 ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:69:9
+   |
+LL |         macro_rules! maybe_ret {
+   |         ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/manual_inspect.rs:86:17
+   |
+LL |             let _x = x.1;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:87:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:87:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:87:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/manual_inspect.rs:94:17
+   |
+LL |             let _x = x.0;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:95:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:95:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:95:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/manual_inspect.rs:103:21
+   |
+LL |                 let _x = x;
+   |                     ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:105:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:105:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:105:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/manual_inspect.rs:114:21
+   |
+LL |                 let _x = &x;
+   |                     ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:114:26
+   |
+LL |                 let _x = &x;
+   |                          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_inspect.rs:126:21
+   |
+LL |                 let _x = x;
+   |                     ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:128:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:128:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:128:13
+   |
+LL |             panic!();
+   |             ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:136:9
+   |
+LL |         struct Cell2(core::cell::Cell<u32>);
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:135:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:135:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:135:15
+   |
+LL |         #[derive(Debug)]
+   |               ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/manual_inspect.rs:135:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_inspect.rs:135:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:135:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:135:18
+   |
+LL |         #[derive(Debug)]
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:136:22
+   |
+LL |         #[derive(Debug)]
+   |                  ----- in this derive macro expansion
+LL |         struct Cell2(core::cell::Cell<u32>);
+   |                      ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:136:22
+   |
+LL |         #[derive(Debug)]
+   |                  ----- in this derive macro expansion
+LL |         struct Cell2(core::cell::Cell<u32>);
+   |                      ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: variable must be `mut`
+  --> tests/ui/manual_inspect.rs:145:17
+   |
+LL |             let y = &x;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_inspect.rs:145:21
+   |
+LL |             let y = &x;
+   |                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:178:9
+   |
+LL |         struct S<T>(T);
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:179:9
+   |
+LL |         impl<T> S<T> {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:180:13
+   |
+LL |             fn map<U>(self, f: impl FnOnce(T) -> U) -> S<U> {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:180:13
+   |
+LL |             fn map<U>(self, f: impl FnOnce(T) -> U) -> S<U> {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_inspect.rs:180:23
+   |
+LL |             fn map<U>(self, f: impl FnOnce(T) -> U) -> S<U> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_inspect.rs:180:29
+   |
+LL |             fn map<U>(self, f: impl FnOnce(T) -> U) -> S<U> {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:184:13
+   |
+LL |             fn map_err<U>(self, f: impl FnOnce(T) -> U) -> S<U> {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:184:13
+   |
+LL |             fn map_err<U>(self, f: impl FnOnce(T) -> U) -> S<U> {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_inspect.rs:184:27
+   |
+LL |             fn map_err<U>(self, f: impl FnOnce(T) -> U) -> S<U> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_inspect.rs:184:33
+   |
+LL |             fn map_err<U>(self, f: impl FnOnce(T) -> U) -> S<U> {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_inspect.rs:202:1
+   |
+LL | fn layout_check() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_inspect.rs:202:1
+   |
+LL | fn layout_check() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_inspect.rs:202:1
+   |
+LL | fn layout_check() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 65 previous errors
 

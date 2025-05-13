@@ -1,36 +1,104 @@
-error: constant division of `0.0` with `0.0` will always result in NaN
-  --> tests/ui/zero_div_zero.rs:4:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/zero_div_zero.rs:3:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zero_div_zero.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_div_zero.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/zero_div_zero.rs:4:9
    |
 LL |     let nan = 0.0 / 0.0;
-   |               ^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
    |
-   = help: consider using `f64::NAN` if you would like a constant representing NaN
-   = note: `-D clippy::zero-divided-by-zero` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::zero_divided_by_zero)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: constant division of `0.0` with `0.0` will always result in NaN
-  --> tests/ui/zero_div_zero.rs:7:19
+error: variable must be `mut`
+  --> tests/ui/zero_div_zero.rs:7:9
    |
 LL |     let f64_nan = 0.0 / 0.0f64;
-   |                   ^^^^^^^^^^^^
-   |
-   = help: consider using `f64::NAN` if you would like a constant representing NaN
+   |         ^ help: make this variable mutable: `mut`
 
-error: constant division of `0.0` with `0.0` will always result in NaN
-  --> tests/ui/zero_div_zero.rs:10:25
+error: variable must be `mut`
+  --> tests/ui/zero_div_zero.rs:10:9
    |
 LL |     let other_f64_nan = 0.0f64 / 0.0;
-   |                         ^^^^^^^^^^^^
-   |
-   = help: consider using `f64::NAN` if you would like a constant representing NaN
+   |         ^ help: make this variable mutable: `mut`
 
-error: constant division of `0.0` with `0.0` will always result in NaN
-  --> tests/ui/zero_div_zero.rs:13:28
+error: variable must be `mut`
+  --> tests/ui/zero_div_zero.rs:13:9
    |
 LL |     let one_more_f64_nan = 0.0f64 / 0.0f64;
-   |                            ^^^^^^^^^^^^^^^
-   |
-   = help: consider using `f64::NAN` if you would like a constant representing NaN
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/zero_div_zero.rs:16:9
+   |
+LL |     let zero = 0.0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/zero_div_zero.rs:17:9
+   |
+LL |     let other_zero = 0.0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/zero_div_zero.rs:18:9
+   |
+LL |     let other_nan = zero / other_zero; // fine - this lint doesn't propagate constants.
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/zero_div_zero.rs:19:9
+   |
+LL |     let not_nan = 2.0 / 0.0; // not an error: 2/0 = inf
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/zero_div_zero.rs:20:9
+   |
+LL |     let also_not_nan = 0.0 / 2.0; // not an error: 0/2 = 0
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

@@ -1,48 +1,292 @@
-error: `impl Trait` used as a function parameter
-  --> tests/ui/impl_trait_in_params.rs:9:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:5:1
+   |
+LL | pub trait Trait {}
+   | ^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: trait must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:6:1
+   |
+LL | pub trait AnotherTrait<T> {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:9:5
    |
 LL | pub fn a(_: impl Trait) {}
-   |             ^^^^^^^^^^
+   |     ^
    |
-   = note: `-D clippy::impl-trait-in-params` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::impl_trait_in_params)]`
-help: add a type parameter
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:9:5
    |
-LL | pub fn a<{ /* Generic name */ }: Trait>(_: impl Trait) {}
-   |         +++++++++++++++++++++++++++++++
+LL | pub fn a(_: impl Trait) {}
+   |     ^
 
-error: `impl Trait` used as a function parameter
-  --> tests/ui/impl_trait_in_params.rs:12:29
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:12:5
    |
 LL | pub fn c<C: Trait>(_: C, _: impl Trait) {}
-   |                             ^^^^^^^^^^
+   |     ^
    |
-help: add a type parameter
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:12:5
    |
-LL | pub fn c<C: Trait, { /* Generic name */ }: Trait>(_: C, _: impl Trait) {}
-   |                  +++++++++++++++++++++++++++++++
+LL | pub fn c<C: Trait>(_: C, _: impl Trait) {}
+   |     ^
 
-error: `impl Trait` used as a function parameter
-  --> tests/ui/impl_trait_in_params.rs:37:17
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:17:5
+   |
+LL | pub fn b<B: Trait>(_: B) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:17:5
+   |
+LL | pub fn b<B: Trait>(_: B) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/impl_trait_in_params.rs:18:1
+   |
+LL | fn e<T: AnotherTrait<u32>>(_: T) {}
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:18:1
+   |
+LL | fn e<T: AnotherTrait<u32>>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:18:1
+   |
+LL | fn e<T: AnotherTrait<u32>>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/impl_trait_in_params.rs:19:1
+   |
+LL | fn d(_: impl AnotherTrait<u32>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:19:1
+   |
+LL | fn d(_: impl AnotherTrait<u32>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:19:1
+   |
+LL | fn d(_: impl AnotherTrait<u32>) {}
+   | ^
+
+error: trait must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:23:1
+   |
+LL | / pub trait Public {
+LL | |     // See test in ui-toml for a case where avoid-breaking-exported-api is set to false
+LL | |     fn t(_: impl Trait);
+LL | |     fn tt<T: Trait>(_: T) {}
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:25:5
+   |
+LL |     fn t(_: impl Trait);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:25:5
+   |
+LL |     fn t(_: impl Trait);
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:26:5
+   |
+LL |     fn tt<T: Trait>(_: T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:26:5
+   |
+LL |     fn tt<T: Trait>(_: T) {}
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:29:1
+   |
+LL | / trait Private {
+LL | |     // This shouldn't lint
+LL | |     fn t(_: impl Trait);
+LL | |     fn tt<T: Trait>(_: T) {}
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/impl_trait_in_params.rs:29:1
+   |
+LL | trait Private {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:31:5
+   |
+LL |     fn t(_: impl Trait);
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:31:5
+   |
+LL |     fn t(_: impl Trait);
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:32:5
+   |
+LL |     fn tt<T: Trait>(_: T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:32:5
+   |
+LL |     fn tt<T: Trait>(_: T) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/impl_trait_in_params.rs:35:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/impl_trait_in_params.rs:36:1
+   |
+LL | impl S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:37:9
    |
 LL |     pub fn h(_: impl Trait) {}
-   |                 ^^^^^^^^^^
+   |         ^
    |
-help: add a type parameter
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:37:9
    |
-LL |     pub fn h<{ /* Generic name */ }: Trait>(_: impl Trait) {}
-   |             +++++++++++++++++++++++++++++++
+LL |     pub fn h(_: impl Trait) {}
+   |         ^
 
-error: `impl Trait` used as a function parameter
-  --> tests/ui/impl_trait_in_params.rs:41:45
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:39:5
+   |
+LL |     fn i(_: impl Trait) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:39:5
+   |
+LL |     fn i(_: impl Trait) {}
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:40:9
+   |
+LL |     pub fn j<J: Trait>(_: J) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:40:9
+   |
+LL |     pub fn j<J: Trait>(_: J) {}
+   |         ^
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:41:9
    |
 LL |     pub fn k<K: AnotherTrait<u32>>(_: K, _: impl AnotherTrait<u32>) {}
-   |                                             ^^^^^^^^^^^^^^^^^^^^^^
+   |         ^
    |
-help: add a type parameter
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:41:9
    |
-LL |     pub fn k<K: AnotherTrait<u32>, { /* Generic name */ }: AnotherTrait<u32>>(_: K, _: impl AnotherTrait<u32>) {}
-   |                                  +++++++++++++++++++++++++++++++++++++++++++
+LL |     pub fn k<K: AnotherTrait<u32>>(_: K, _: impl AnotherTrait<u32>) {}
+   |         ^
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/impl_trait_in_params.rs:46:1
+   |
+LL | impl Public for S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:47:5
+   |
+LL |     fn t(_: impl Trait) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:47:5
+   |
+LL |     fn t(_: impl Trait) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/impl_trait_in_params.rs:50:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:50:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/impl_trait_in_params.rs:50:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 30 previous errors
 

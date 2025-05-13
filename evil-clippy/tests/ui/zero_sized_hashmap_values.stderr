@@ -1,108 +1,358 @@
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:5:28
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:4:1
+   |
+LL | const CONST_OK: Option<HashMap<String, usize>> = None;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:5:1
    |
 LL | const CONST_NOT_OK: Option<HashMap<String, ()>> = None;
-   |                            ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using a set instead
-   = note: `-D clippy::zero-sized-map-values` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::zero_sized_map_values)]`
+   | ^ help: make this item public: `pub`
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:9:30
+error: static must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:8:8
+   |
+LL | static STATIC_OK: Option<HashMap<String, usize>> = None;
+   |        ^ help: make this static mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:8:1
+   |
+LL | static STATIC_OK: Option<HashMap<String, usize>> = None;
+   | ^ help: make this item public: `pub`
+
+error: static must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:9:8
    |
 LL | static STATIC_NOT_OK: Option<HashMap<String, ()>> = None;
-   |                              ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using a set instead
+   |        ^ help: make this static mutable: `mut`
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:13:17
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:9:1
+   |
+LL | static STATIC_NOT_OK: Option<HashMap<String, ()>> = None;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:12:1
+   |
+LL | type OkMap = HashMap<String, usize>;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:13:1
    |
 LL | type NotOkMap = HashMap<String, ()>;
-   |                 ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using a set instead
+   | ^ help: make this item public: `pub`
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:18:11
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:16:1
    |
-LL |     NotOk(HashMap<String, ()>),
-   |           ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using a set instead
+LL | enum TestEnum {
+   | ^ help: make this item public: `pub`
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:24:13
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:22:1
    |
-LL |     not_ok: HashMap<String, ()>,
-   |             ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using a set instead
+LL | struct Test {
+   | ^ help: make this item public: `pub`
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:26:22
+error: trait must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:30:1
    |
-LL |     also_not_ok: Vec<HashMap<usize, ()>>,
-   |                      ^^^^^^^^^^^^^^^^^^
+LL | / trait TestTrait {
+LL | |     type Output;
+LL | |
+LL | |     fn produce_output() -> Self::Output;
+...  |
+LL | | }
+   | |_^
    |
-   = help: consider using a set instead
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:35:30
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:30:1
+   |
+LL | trait TestTrait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:33:5
+   |
+LL |     fn produce_output() -> Self::Output;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:33:5
+   |
+LL |     fn produce_output() -> Self::Output;
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:35:5
    |
 LL |     fn weird_map(&self, map: HashMap<usize, ()>);
-   |                              ^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: consider using a set instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:35:5
+   |
+LL |     fn weird_map(&self, map: HashMap<usize, ()>);
+   |     ^
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:44:25
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:35:19
+   |
+LL |     fn weird_map(&self, map: HashMap<usize, ()>);
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:35:25
+   |
+LL |     fn weird_map(&self, map: HashMap<usize, ()>);
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/zero_sized_hashmap_values.rs:35:18
+   |
+LL |     fn weird_map(&self, map: HashMap<usize, ()>);
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:39:1
+   |
+LL | impl Test {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:40:5
+   |
+LL |     fn ok(&self) -> HashMap<String, usize> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:40:5
+   |
+LL |     fn ok(&self) -> HashMap<String, usize> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:40:12
+   |
+LL |     fn ok(&self) -> HashMap<String, usize> {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/zero_sized_hashmap_values.rs:40:11
+   |
+LL |     fn ok(&self) -> HashMap<String, usize> {
+   |           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:44:5
    |
 LL |     fn not_ok(&self) -> HashMap<String, ()> {
-   |                         ^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: consider using a set instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:44:5
+   |
+LL |     fn not_ok(&self) -> HashMap<String, ()> {
+   |     ^
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:63:14
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:44:16
+   |
+LL |     fn not_ok(&self) -> HashMap<String, ()> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/zero_sized_hashmap_values.rs:44:15
+   |
+LL |     fn not_ok(&self) -> HashMap<String, ()> {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:51:1
+   |
+LL | impl TestTrait for Test {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:54:5
+   |
+LL |     fn produce_output() -> Self::Output {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:54:5
+   |
+LL |     fn produce_output() -> Self::Output {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:58:5
+   |
+LL |     fn weird_map(&self, map: HashMap<usize, ()>) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:58:5
+   |
+LL |     fn weird_map(&self, map: HashMap<usize, ()>) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:58:19
+   |
+LL |     fn weird_map(&self, map: HashMap<usize, ()>) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:58:25
+   |
+LL |     fn weird_map(&self, map: HashMap<usize, ()>) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/zero_sized_hashmap_values.rs:58:18
+   |
+LL |     fn weird_map(&self, map: HashMap<usize, ()>) {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:63:1
    |
 LL | fn test(map: HashMap<String, ()>, key: &str) -> HashMap<String, ()> {
-   |              ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using a set instead
+   | ^ help: make this item public: `pub`
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:63:49
+error: function must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:63:1
    |
 LL | fn test(map: HashMap<String, ()>, key: &str) -> HashMap<String, ()> {
-   |                                                 ^^^^^^^^^^^^^^^^^^^
+   | ^
    |
-   = help: consider using a set instead
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:63:1
+   |
+LL | fn test(map: HashMap<String, ()>, key: &str) -> HashMap<String, ()> {
+   | ^
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:75:34
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:63:9
    |
-LL |     let _: HashMap<String, ()> = HashMap::new();
-   |                                  ^^^^^^^
-   |
-   = help: consider using a set instead
+LL | fn test(map: HashMap<String, ()>, key: &str) -> HashMap<String, ()> {
+   |         ^ help: make this parameter mutable: `mut`
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:75:12
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:63:35
    |
-LL |     let _: HashMap<String, ()> = HashMap::new();
-   |            ^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using a set instead
+LL | fn test(map: HashMap<String, ()>, key: &str) -> HashMap<String, ()> {
+   |                                   ^ help: make this parameter mutable: `mut`
 
-error: map with zero-sized value type
-  --> tests/ui/zero_sized_hashmap_values.rs:81:12
+error: references are not allowed
+  --> tests/ui/zero_sized_hashmap_values.rs:63:40
    |
-LL |     let _: HashMap<_, _> = std::iter::empty::<(String, ())>().collect();
-   |            ^^^^^^^^^^^^^
+LL | fn test(map: HashMap<String, ()>, key: &str) -> HashMap<String, ()> {
+   |                                        ^^^^
    |
-   = help: consider using a set instead
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 13 previous errors
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:70:1
+   |
+LL | fn test2(map: HashMap<String, usize>, key: &str) -> HashMap<String, usize> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:70:1
+   |
+LL | fn test2(map: HashMap<String, usize>, key: &str) -> HashMap<String, usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:70:1
+   |
+LL | fn test2(map: HashMap<String, usize>, key: &str) -> HashMap<String, usize> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:70:10
+   |
+LL | fn test2(map: HashMap<String, usize>, key: &str) -> HashMap<String, usize> {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/zero_sized_hashmap_values.rs:70:39
+   |
+LL | fn test2(map: HashMap<String, usize>, key: &str) -> HashMap<String, usize> {
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/zero_sized_hashmap_values.rs:70:44
+   |
+LL | fn test2(map: HashMap<String, usize>, key: &str) -> HashMap<String, usize> {
+   |                                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/zero_sized_hashmap_values.rs:74:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:74:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/zero_sized_hashmap_values.rs:74:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 46 previous errors
 

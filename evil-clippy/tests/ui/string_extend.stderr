@@ -1,29 +1,145 @@
-error: calling `.extend(_.chars())`
-  --> tests/ui/string_extend.rs:16:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     s.extend(abc.chars());
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: try: `s.push_str(abc)`
-   |
-   = note: `-D clippy::string-extend-chars` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::string_extend_chars)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: calling `.extend(_.chars())`
-  --> tests/ui/string_extend.rs:20:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     s.extend("abc".chars());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.push_str("abc")`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: calling `.extend(_.chars())`
-  --> tests/ui/string_extend.rs:24:5
+error: item must be `pub`
+  --> tests/ui/string_extend.rs:2:1
    |
-LL |     s.extend(def.chars());
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: try: `s.push_str(&def)`
-
-error: calling `.extend(_.chars())`
-  --> tests/ui/string_extend.rs:35:5
+LL | struct HasChars;
+   | ^ help: make this item public: `pub`
    |
-LL |     s.extend(abc[0..2].chars());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.push_str(&abc[0..2])`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/string_extend.rs:1:10
+   |
+LL | #[derive(Copy, Clone)]
+   |          ^
+
+error: item must be `pub`
+  --> tests/ui/string_extend.rs:1:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^
+
+error: function must be `unsafe`
+  --> tests/ui/string_extend.rs:1:13
+   |
+LL | #[derive(Copy, Clone)]
+   |             ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/string_extend.rs:1:13
+   |
+LL | #[derive(Copy, Clone)]
+   |             ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/string_extend.rs:1:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/string_extend.rs:1:16
+   |
+LL | #[derive(Copy, Clone)]
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/string_extend.rs:4:1
+   |
+LL | impl HasChars {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/string_extend.rs:5:5
+   |
+LL |     fn chars(self) -> std::str::Chars<'static> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/string_extend.rs:5:5
+   |
+LL |     fn chars(self) -> std::str::Chars<'static> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/string_extend.rs:5:14
+   |
+LL |     fn chars(self) -> std::str::Chars<'static> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/string_extend.rs:10:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/string_extend.rs:10:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/string_extend.rs:10:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/string_extend.rs:11:9
+   |
+LL |     let abc = "abc";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/string_extend.rs:12:9
+   |
+LL |     let def = String::from("def");
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/string_extend.rs:23:16
+   |
+LL |     s.push_str(&def);
+   |                ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/string_extend.rs:31:9
+   |
+LL |     let f = HasChars;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 19 previous errors
 

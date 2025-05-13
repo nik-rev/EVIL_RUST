@@ -1,37 +1,433 @@
-error: it is more idiomatic to use `Option<&T>` instead of `&Option<T>`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:8:1
+   |
+LL | / pub trait PubTrait {
+LL | |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>);
+LL | |
+LL | |     fn pub_trait_ret(&self) -> &Option<Vec<u8>>;
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: function must be `unsafe`
   --> tests/ui/ref_option/ref_option_traits.rs:9:5
    |
 LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^----------------^^
-   |                                |
-   |                                help: change this to: `Option<&Vec<u8>>`
+   |     ^
    |
-   = note: `-D clippy::ref-option` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::ref_option)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:9:5
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>);
+   |     ^
 
-error: it is more idiomatic to use `Option<&T>` instead of `&Option<T>`
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:9:23
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>);
+   |                       ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:9:29
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>);
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:9:22
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>);
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:9:32
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>);
+   |                                ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
   --> tests/ui/ref_option/ref_option_traits.rs:11:5
    |
 LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>>;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^----------------^
-   |                                |
-   |                                help: change this to: `Option<&Vec<u8>>`
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:11:5
+   |
+LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>>;
+   |     ^
 
-error: it is more idiomatic to use `Option<&T>` instead of `&Option<T>`
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:11:23
+   |
+LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>>;
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:11:22
+   |
+LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>>;
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:11:32
+   |
+LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>>;
+   |                                ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:15:1
+   |
+LL | / trait PrivateTrait {
+LL | |     fn trait_opt(&self, a: &Option<String>);
+LL | |
+LL | |     fn trait_ret(&self) -> &Option<String>;
+LL | |
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/ref_option/ref_option_traits.rs:15:1
+   |
+LL | trait PrivateTrait {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
   --> tests/ui/ref_option/ref_option_traits.rs:16:5
    |
 LL |     fn trait_opt(&self, a: &Option<String>);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^---------------^^
-   |                            |
-   |                            help: change this to: `Option<&String>`
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:16:5
+   |
+LL |     fn trait_opt(&self, a: &Option<String>);
+   |     ^
 
-error: it is more idiomatic to use `Option<&T>` instead of `&Option<T>`
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:16:19
+   |
+LL |     fn trait_opt(&self, a: &Option<String>);
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:16:25
+   |
+LL |     fn trait_opt(&self, a: &Option<String>);
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:16:18
+   |
+LL |     fn trait_opt(&self, a: &Option<String>);
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:16:28
+   |
+LL |     fn trait_opt(&self, a: &Option<String>);
+   |                            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
   --> tests/ui/ref_option/ref_option_traits.rs:18:5
    |
 LL |     fn trait_ret(&self) -> &Option<String>;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^---------------^
-   |                            |
-   |                            help: change this to: `Option<&String>`
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:18:5
+   |
+LL |     fn trait_ret(&self) -> &Option<String>;
+   |     ^
 
-error: aborting due to 4 previous errors
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:18:19
+   |
+LL |     fn trait_ret(&self) -> &Option<String>;
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:18:18
+   |
+LL |     fn trait_ret(&self) -> &Option<String>;
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:18:28
+   |
+LL |     fn trait_ret(&self) -> &Option<String>;
+   |                            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ref_option/ref_option_traits.rs:24:1
+   |
+LL | impl PubTrait for PubStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:25:5
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:25:5
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:25:23
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>) {}
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:25:29
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>) {}
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:25:22
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>) {}
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:25:32
+   |
+LL |     fn pub_trait_opt(&self, a: &Option<Vec<u8>>) {}
+   |                                ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:26:5
+   |
+LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:26:5
+   |
+LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:26:23
+   |
+LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>> {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:26:22
+   |
+LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>> {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:26:32
+   |
+LL |     fn pub_trait_ret(&self) -> &Option<Vec<u8>> {
+   |                                ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ref_option/ref_option_traits.rs:27:9
+   |
+LL |         panic!()
+   |         ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:27:9
+   |
+LL |         panic!()
+   |         ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:27:9
+   |
+LL |         panic!()
+   |         ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/ref_option/ref_option_traits.rs:31:1
+   |
+LL | struct PrivateStruct;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/ref_option/ref_option_traits.rs:33:1
+   |
+LL | impl PrivateTrait for PrivateStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:34:5
+   |
+LL |     fn trait_opt(&self, a: &Option<String>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:34:5
+   |
+LL |     fn trait_opt(&self, a: &Option<String>) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:34:19
+   |
+LL |     fn trait_opt(&self, a: &Option<String>) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:34:25
+   |
+LL |     fn trait_opt(&self, a: &Option<String>) {}
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:34:18
+   |
+LL |     fn trait_opt(&self, a: &Option<String>) {}
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:34:28
+   |
+LL |     fn trait_opt(&self, a: &Option<String>) {}
+   |                            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:35:5
+   |
+LL |     fn trait_ret(&self) -> &Option<String> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:35:5
+   |
+LL |     fn trait_ret(&self) -> &Option<String> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/ref_option/ref_option_traits.rs:35:19
+   |
+LL |     fn trait_ret(&self) -> &Option<String> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:35:18
+   |
+LL |     fn trait_ret(&self) -> &Option<String> {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/ref_option/ref_option_traits.rs:35:28
+   |
+LL |     fn trait_ret(&self) -> &Option<String> {
+   |                            ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ref_option/ref_option_traits.rs:36:9
+   |
+LL |         panic!()
+   |         ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:36:9
+   |
+LL |         panic!()
+   |         ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:36:9
+   |
+LL |         panic!()
+   |         ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/ref_option/ref_option_traits.rs:40:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:40:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ref_option/ref_option_traits.rs:40:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 52 previous errors
 

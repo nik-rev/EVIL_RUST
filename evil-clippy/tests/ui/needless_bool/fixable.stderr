@@ -1,213 +1,617 @@
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:41:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if x {
-LL | |         true
-LL | |     } else {
-LL | |         false
-LL | |     };
-   | |_____^ help: you can reduce it to: `x`
-   |
-   = note: `-D clippy::needless-bool` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::needless_bool)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:47:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if x {
-LL | |         false
-LL | |     } else {
-LL | |         true
-LL | |     };
-   | |_____^ help: you can reduce it to: `!x`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:53:5
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:16:1
    |
-LL | /     if x && y {
-LL | |         false
-LL | |     } else {
-LL | |         true
-LL | |     };
-   | |_____^ help: you can reduce it to: `!(x && y)`
+LL | macro_rules! bool_comparison_trigger {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:62:5
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:38:1
    |
-LL | /     if a == b {
-LL | |         false
-LL | |     } else {
-LL | |         true
-LL | |     };
-   | |_____^ help: you can reduce it to: `a != b`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:68:5
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:38:1
    |
-LL | /     if a != b {
-LL | |         false
-LL | |     } else {
-LL | |         true
-LL | |     };
-   | |_____^ help: you can reduce it to: `a == b`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:38:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:74:5
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:39:9
    |
-LL | /     if a < b {
-LL | |         false
-LL | |     } else {
-LL | |         true
-LL | |     };
-   | |_____^ help: you can reduce it to: `a >= b`
+LL |     let x = true;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:80:5
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:40:9
    |
-LL | /     if a <= b {
-LL | |         false
-LL | |     } else {
-LL | |         true
-LL | |     };
-   | |_____^ help: you can reduce it to: `a > b`
+LL |     let y = false;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:86:5
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:59:9
    |
-LL | /     if a > b {
-LL | |         false
-LL | |     } else {
-LL | |         true
-LL | |     };
-   | |_____^ help: you can reduce it to: `a <= b`
+LL |     let a = 0;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:92:5
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:60:9
    |
-LL | /     if a >= b {
-LL | |         false
-LL | |     } else {
-LL | |         true
-LL | |     };
-   | |_____^ help: you can reduce it to: `a < b`
+LL |     let b = 1;
+   |         ^ help: make this variable mutable: `mut`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:121:5
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:120:1
    |
-LL | /     if x {
-LL | |         return true;
-LL | |     } else {
-LL | |         return false;
-LL | |     };
-   | |_____^ help: you can reduce it to: `return x`
+LL | fn bool_ret3(x: bool) -> bool {
+   | ^ help: make this item public: `pub`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:130:5
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:120:1
    |
-LL | /     if x {
-LL | |         return false;
-LL | |     } else {
-LL | |         return true;
-LL | |     };
-   | |_____^ help: you can reduce it to: `return !x`
+LL | fn bool_ret3(x: bool) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:120:1
+   |
+LL | fn bool_ret3(x: bool) -> bool {
+   | ^
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:139:5
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:120:14
    |
-LL | /     if x && y {
-LL | |         return true;
-LL | |     } else {
-LL | |         return false;
-LL | |     };
-   | |_____^ help: you can reduce it to: `return x && y`
+LL | fn bool_ret3(x: bool) -> bool {
+   |              ^ help: make this parameter mutable: `mut`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:148:5
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:129:1
    |
-LL | /     if x && y {
-LL | |         return false;
-LL | |     } else {
-LL | |         return true;
-LL | |     };
-   | |_____^ help: you can reduce it to: `return !(x && y)`
+LL | fn bool_ret4(x: bool) -> bool {
+   | ^ help: make this item public: `pub`
 
-error: equality checks against true are unnecessary
-  --> tests/ui/needless_bool/fixable.rs:157:8
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:129:1
    |
-LL |     if x == true {};
-   |        ^^^^^^^^^ help: try simplifying it as shown: `x`
+LL | fn bool_ret4(x: bool) -> bool {
+   | ^
    |
-   = note: `-D clippy::bool-comparison` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::bool_comparison)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:129:1
+   |
+LL | fn bool_ret4(x: bool) -> bool {
+   | ^
 
-error: equality checks against false can be replaced by a negation
-  --> tests/ui/needless_bool/fixable.rs:162:8
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:129:14
    |
-LL |     if x == false {};
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `!x`
+LL | fn bool_ret4(x: bool) -> bool {
+   |              ^ help: make this parameter mutable: `mut`
 
-error: equality checks against true are unnecessary
-  --> tests/ui/needless_bool/fixable.rs:173:8
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:138:1
    |
-LL |     if x == true {};
-   |        ^^^^^^^^^ help: try simplifying it as shown: `x`
+LL | fn bool_ret5(x: bool, y: bool) -> bool {
+   | ^ help: make this item public: `pub`
 
-error: equality checks against false can be replaced by a negation
-  --> tests/ui/needless_bool/fixable.rs:175:8
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:138:1
    |
-LL |     if x == false {};
-   |        ^^^^^^^^^^ help: try simplifying it as shown: `!x`
-
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:185:12
+LL | fn bool_ret5(x: bool, y: bool) -> bool {
+   | ^
    |
-LL |       } else if returns_bool() {
-   |  ____________^
-LL | |         false
-LL | |     } else {
-LL | |         true
-LL | |     };
-   | |_____^ help: you can reduce it to: `{ !returns_bool() }`
-
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:199:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:138:1
    |
-LL | /     if unsafe { no(4) } & 1 != 0 {
-LL | |         true
-LL | |     } else {
-LL | |         false
-LL | |     };
-   | |_____^ help: you can reduce it to: `(unsafe { no(4) } & 1 != 0)`
+LL | fn bool_ret5(x: bool, y: bool) -> bool {
+   | ^
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:205:30
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:138:14
+   |
+LL | fn bool_ret5(x: bool, y: bool) -> bool {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:138:23
+   |
+LL | fn bool_ret5(x: bool, y: bool) -> bool {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:147:1
+   |
+LL | fn bool_ret6(x: bool, y: bool) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:147:1
+   |
+LL | fn bool_ret6(x: bool, y: bool) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:147:1
+   |
+LL | fn bool_ret6(x: bool, y: bool) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:147:14
+   |
+LL | fn bool_ret6(x: bool, y: bool) -> bool {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:147:23
+   |
+LL | fn bool_ret6(x: bool, y: bool) -> bool {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:156:1
+   |
+LL | fn needless_bool(x: bool) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:156:1
+   |
+LL | fn needless_bool(x: bool) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:156:1
+   |
+LL | fn needless_bool(x: bool) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:156:18
+   |
+LL | fn needless_bool(x: bool) {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:161:1
+   |
+LL | fn needless_bool2(x: bool) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:161:1
+   |
+LL | fn needless_bool2(x: bool) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:161:1
+   |
+LL | fn needless_bool2(x: bool) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:161:19
+   |
+LL | fn needless_bool2(x: bool) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:166:1
+   |
+LL | fn needless_bool3(x: bool) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:166:1
+   |
+LL | fn needless_bool3(x: bool) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:166:1
+   |
+LL | fn needless_bool3(x: bool) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:166:19
+   |
+LL | fn needless_bool3(x: bool) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:19:18
+   |
+LL |           #[derive(Clone)]
+   |                    ^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = note: this error originates in the derive macro `Clone` which comes from the expansion of the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:19:15
+   |
+LL |           #[derive(Clone)]
+   |                 ^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:19:15
+   |
+LL |           #[derive(Clone)]
+   |                 ^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   = note: this error originates in the derive macro `Clone` which comes from the expansion of the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:19:18
+   |
+LL |         #[derive(Clone)]
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/needless_bool/fixable.rs:19:18
+   |
+LL |           #[derive(Clone)]
+   |                    ^^^^^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+   = note: this error originates in the derive macro `Clone` which comes from the expansion of the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_bool/fixable.rs:21:15
+   |
+LL |               $($i: (Cell<bool>, bool, bool)),+
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the derive macro `Clone` which comes from the expansion of the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_bool/fixable.rs:21:15
+   |
+LL |               $($i: (Cell<bool>, bool, bool)),+
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Clone` which comes from the expansion of the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_bool/fixable.rs:21:15
+   |
+LL |               $($i: (Cell<bool>, bool, bool)),+
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+   = note: this error originates in the derive macro `Clone` which comes from the expansion of the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:25:9
+   |
+LL |           impl Trigger {
+   |           ^ help: make this item public: `pub`
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = note: this error originates in the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:26:17
+   |
+LL |               pub fn trigger(&self, key: &str) -> bool {
+   |                   ^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:26:17
+   |
+LL |               pub fn trigger(&self, key: &str) -> bool {
+   |                   ^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   = note: this error originates in the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:26:29
+   |
+LL |               pub fn trigger(&self, key: &str) -> bool {
+   |                               ^ help: make this parameter mutable: `mut`
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = note: this error originates in the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:26:35
+   |
+LL |               pub fn trigger(&self, key: &str) -> bool {
+   |                                     ^ help: make this parameter mutable: `mut`
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = note: this error originates in the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_bool/fixable.rs:26:28
+   |
+LL |               pub fn trigger(&self, key: &str) -> bool {
+   |                              ^^^^^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/needless_bool/fixable.rs:26:40
+   |
+LL |               pub fn trigger(&self, key: &str) -> bool {
+   |                                          ^^^^
+...
+LL | /     bool_comparison_trigger! {
+LL | |         test_one:   false, false;
+LL | |         test_three: false, false;
+LL | |         test_two:   true, true;
+LL | |     }
+   | |_____- in this macro invocation
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: this error originates in the macro `bool_comparison_trigger` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:179:1
+   |
+LL | fn needless_bool_in_the_suggestion_wraps_the_predicate_of_if_else_statement_in_brackets() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:179:1
+   |
+LL | fn needless_bool_in_the_suggestion_wraps_the_predicate_of_if_else_statement_in_brackets() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:179:1
+   |
+LL | fn needless_bool_in_the_suggestion_wraps_the_predicate_of_if_else_statement_in_brackets() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:180:9
+   |
+LL |     let b = false;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:181:9
+   |
+LL |     let returns_bool = || false;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:183:9
+   |
+LL |     let x = if b {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:193:1
+   |
+LL | unsafe fn no(v: u8) -> u8 {
+   | ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:193:14
+   |
+LL | unsafe fn no(v: u8) -> u8 {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:198:1
+   |
+LL | fn needless_bool_condition() -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:198:1
+   |
+LL | fn needless_bool_condition() -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:198:1
+   |
+LL | fn needless_bool_condition() -> bool {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:205:9
    |
 LL |     let _brackets_unneeded = if unsafe { no(4) } & 1 != 0 { true } else { false };
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `unsafe { no(4) } & 1 != 0`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:209:9
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:207:5
    |
-LL |         if unsafe { no(4) } & 1 != 0 { true } else { false }
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `(unsafe { no(4) } & 1 != 0)`
+LL |     fn foo() -> bool {
+   |     ^ help: make this item public: `pub`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:221:14
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:207:5
+   |
+LL |     fn foo() -> bool {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:207:5
+   |
+LL |     fn foo() -> bool {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/needless_bool/fixable.rs:216:1
+   |
+LL | fn issue12846() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:216:1
+   |
+LL | fn issue12846() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/needless_bool/fixable.rs:216:1
+   |
+LL | fn issue12846() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:217:9
+   |
+LL |     let a = true;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:218:9
+   |
+LL |     let b = false;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:221:9
    |
 LL |     let _x = if a && b { true } else { false }.then(|| todo!());
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `(a && b)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:223:14
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:223:9
    |
 LL |     let _x = if a && b { true } else { false } as u8;
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `(a && b)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: this if-then-else expression returns a bool literal
-  --> tests/ui/needless_bool/fixable.rs:227:14
+error: variable must be `mut`
+  --> tests/ui/needless_bool/fixable.rs:227:9
    |
 LL |     let _x = if a { true } else { false }.then(|| todo!());
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: you can reduce it to: `a`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 24 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 66 previous errors
 

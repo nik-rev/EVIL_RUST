@@ -1,69 +1,216 @@
-error: statement with no effect
-  --> tests/ui/no_effect_return.rs:9:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         0u32;
-   |         -^^^^
-   |         |
-   |         help: did you mean to return it?: `return`
-   |
-   = note: `-D clippy::no-effect` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::no_effect)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: statement with no effect
-  --> tests/ui/no_effect_return.rs:17:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         0u32;
-   |         -^^^^
-   |         |
-   |         help: did you mean to return it?: `return`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: statement with no effect
-  --> tests/ui/no_effect_return.rs:26:9
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:7:1
    |
-LL |         0i32 as C;
-   |         -^^^^^^^^^
-   |         |
-   |         help: did you mean to return it?: `return`
-
-error: statement with no effect
-  --> tests/ui/no_effect_return.rs:35:9
+LL | fn a() -> u32 {
+   | ^ help: make this item public: `pub`
    |
-LL |         0u128;
-   |         ^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: statement with no effect
-  --> tests/ui/no_effect_return.rs:46:9
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:7:1
    |
-LL |         0u16;
-   |         ^^^^^
-
-error: statement with no effect
-  --> tests/ui/no_effect_return.rs:54:9
+LL | fn a() -> u32 {
+   | ^
    |
-LL |         [1u16];
-   |         -^^^^^^
-   |         |
-   |         help: did you mean to return it?: `return`
-
-error: statement with no effect
-  --> tests/ui/no_effect_return.rs:62:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:7:1
    |
-LL |         ControlFlow::Break::<()>(());
-   |         -^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |         |
-   |         help: did you mean to return it?: `return`
+LL | fn a() -> u32 {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: statement with no effect
-  --> tests/ui/no_effect_return.rs:80:9
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:15:1
    |
-LL |         ();
-   |         ^^^
+LL | async fn b() -> u32 {
+   | ^ help: make this item public: `pub`
 
-error: statement with no effect
-  --> tests/ui/no_effect_return.rs:89:9
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:15:7
    |
-LL |         ();
-   |         ^^^
+LL | async fn b() -> u32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:15:7
+   |
+LL | async fn b() -> u32 {
+   |       ^
 
-error: aborting due to 9 previous errors
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:23:1
+   |
+LL | type C = i32;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:24:1
+   |
+LL | async fn c() -> C {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:24:7
+   |
+LL | async fn c() -> C {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:24:7
+   |
+LL | async fn c() -> C {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:32:1
+   |
+LL | fn d() -> u128 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:32:1
+   |
+LL | fn d() -> u128 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:32:1
+   |
+LL | fn d() -> u128 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:43:1
+   |
+LL | fn e() -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:43:1
+   |
+LL | fn e() -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:43:1
+   |
+LL | fn e() -> u32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:52:1
+   |
+LL | fn f() -> [u16; 1] {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:52:1
+   |
+LL | fn f() -> [u16; 1] {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:52:1
+   |
+LL | fn f() -> [u16; 1] {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:60:1
+   |
+LL | fn g() -> ControlFlow<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:60:1
+   |
+LL | fn g() -> ControlFlow<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:60:1
+   |
+LL | fn g() -> ControlFlow<()> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:68:1
+   |
+LL | fn h() -> Vec<u16> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:68:1
+   |
+LL | fn h() -> Vec<u16> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:68:1
+   |
+LL | fn h() -> Vec<u16> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:77:1
+   |
+LL | fn i() -> () {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:77:1
+   |
+LL | fn i() -> () {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:77:1
+   |
+LL | fn i() -> () {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/no_effect_return.rs:86:1
+   |
+LL | fn j() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/no_effect_return.rs:86:1
+   |
+LL | fn j() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/no_effect_return.rs:86:1
+   |
+LL | fn j() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 25 previous errors
 

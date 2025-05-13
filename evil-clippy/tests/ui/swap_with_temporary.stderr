@@ -1,100 +1,375 @@
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary.rs:22:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     swap(&mut func(), &mut y);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: use assignment instead: `y = func()`
-   |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary.rs:22:15
-   |
-LL |     swap(&mut func(), &mut y);
-   |               ^^^^^^
-   = note: `-D clippy::swap-with-temporary` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::swap_with_temporary)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary.rs:25:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     swap(&mut x, &mut func());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ help: use assignment instead: `x = func()`
-   |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary.rs:25:23
-   |
-LL |     swap(&mut x, &mut func());
-   |                       ^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary.rs:28:5
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary.rs:5:1
    |
-LL |     swap(z, &mut func());
-   |     ^^^^^^^^^^^^^^^^^^^^ help: use assignment instead: `*z = func()`
+LL | fn func() -> String {
+   | ^ help: make this item public: `pub`
    |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary.rs:28:18
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/swap_with_temporary.rs:5:1
    |
-LL |     swap(z, &mut func());
+LL | fn func() -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/swap_with_temporary.rs:5:1
+   |
+LL | fn func() -> String {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary.rs:9:1
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/swap_with_temporary.rs:9:1
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/swap_with_temporary.rs:9:1
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/swap_with_temporary.rs:9:26
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   |                          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:9:29
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   |                             ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:9:45
+   |
+LL | fn func_returning_refmut(s: &mut String) -> &mut String {
+   |                                             ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary.rs:13:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/swap_with_temporary.rs:13:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/swap_with_temporary.rs:13:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/swap_with_temporary.rs:17:9
+   |
+LL |     let z = &mut zz;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:17:13
+   |
+LL |     let z = &mut zz;
+   |             ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:20:10
+   |
+LL |     swap(&mut x, &mut y);
+   |          ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:20:18
+   |
+LL |     swap(&mut x, &mut y);
    |                  ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary.rs:36:5
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:22:10
+   |
+LL |     swap(&mut func(), &mut y);
+   |          ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:22:23
+   |
+LL |     swap(&mut func(), &mut y);
+   |                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:25:10
+   |
+LL |     swap(&mut x, &mut func());
+   |          ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:25:18
+   |
+LL |     swap(&mut x, &mut func());
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:28:13
+   |
+LL |     swap(z, &mut func());
+   |             ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:32:35
+   |
+LL |     swap(z, func_returning_refmut(&mut x));
+   |                                   ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:34:10
+   |
+LL |     swap(&mut y, z);
+   |          ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:36:10
    |
 LL |     swap(&mut func(), z);
-   |     ^^^^^^^^^^^^^^^^^^^^ help: use assignment instead: `*z = func()`
+   |          ^^^^^^^^^^^
    |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary.rs:36:15
-   |
-LL |     swap(&mut func(), z);
-   |               ^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary.rs:53:5
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary.rs:39:5
+   |
+LL |     macro_rules! mac {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:53:10
    |
 LL |     swap(&mut mac!(funcall func), z);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use assignment instead: `*z = mac!(funcall func)`
+   |          ^^^^^^^^^^^^^^^^^^^^^^^
    |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary.rs:53:15
-   |
-LL |     swap(&mut mac!(funcall func), z);
-   |               ^^^^^^^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary.rs:55:5
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:55:10
    |
 LL |     swap(&mut mac!(funcall func), mac!(ident z));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use assignment instead: `*mac!(ident z) = mac!(funcall func)`
+   |          ^^^^^^^^^^^^^^^^^^^^^^^
    |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary.rs:55:15
-   |
-LL |     swap(&mut mac!(funcall func), mac!(ident z));
-   |               ^^^^^^^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary.rs:57:5
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:57:25
    |
 LL |     swap(mac!(ident z), &mut mac!(funcall func));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use assignment instead: `*mac!(ident z) = mac!(funcall func)`
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^
    |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary.rs:57:30
-   |
-LL |     swap(mac!(ident z), &mut mac!(funcall func));
-   |                              ^^^^^^^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: swapping with a temporary value is inefficient
-  --> tests/ui/swap_with_temporary.rs:59:5
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:41:13
+   |
+LL |             &mut $x
+   |             ^^^^^^^
+...
+LL |     swap(mac!(refmut y), &mut func());
+   |          -------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:59:26
    |
 LL |     swap(mac!(refmut y), &mut func());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use assignment instead: `*mac!(refmut y) = func()`
+   |                          ^^^^^^^^^^^
    |
-note: this expression returns a temporary value
-  --> tests/ui/swap_with_temporary.rs:59:31
-   |
-LL |     swap(mac!(refmut y), &mut func());
-   |                               ^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 8 previous errors
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:47:18
+   |
+LL |             swap(&mut 42, &mut 0)
+   |                  ^^^^^^^
+...
+LL |     mac!(wholeexpr);
+   |     --------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:47:27
+   |
+LL |             swap(&mut 42, &mut 0)
+   |                           ^^^^^^
+...
+LL |     mac!(wholeexpr);
+   |     --------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `mac` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary.rs:66:1
+   |
+LL | struct S {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/swap_with_temporary.rs:70:1
+   |
+LL | fn dont_lint_those(s: &mut S, v: &mut [String], w: Option<&mut String>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/swap_with_temporary.rs:70:1
+   |
+LL | fn dont_lint_those(s: &mut S, v: &mut [String], w: Option<&mut String>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/swap_with_temporary.rs:70:1
+   |
+LL | fn dont_lint_those(s: &mut S, v: &mut [String], w: Option<&mut String>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/swap_with_temporary.rs:70:20
+   |
+LL | fn dont_lint_those(s: &mut S, v: &mut [String], w: Option<&mut String>) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/swap_with_temporary.rs:70:31
+   |
+LL | fn dont_lint_those(s: &mut S, v: &mut [String], w: Option<&mut String>) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/swap_with_temporary.rs:70:49
+   |
+LL | fn dont_lint_those(s: &mut S, v: &mut [String], w: Option<&mut String>) {
+   |                                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:70:23
+   |
+LL | fn dont_lint_those(s: &mut S, v: &mut [String], w: Option<&mut String>) {
+   |                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:70:34
+   |
+LL | fn dont_lint_those(s: &mut S, v: &mut [String], w: Option<&mut String>) {
+   |                                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:70:59
+   |
+LL | fn dont_lint_those(s: &mut S, v: &mut [String], w: Option<&mut String>) {
+   |                                                           ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:71:10
+   |
+LL |     swap(&mut s.t, &mut v[0]);
+   |          ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:71:20
+   |
+LL |     swap(&mut s.t, &mut v[0]);
+   |                    ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:72:10
+   |
+LL |     swap(&mut s.t, v.get_mut(0).unwrap());
+   |          ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/swap_with_temporary.rs:73:22
+   |
+LL |     swap(w.unwrap(), &mut s.t);
+   |                      ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 46 previous errors
 

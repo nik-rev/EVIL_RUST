@@ -1,20 +1,143 @@
-error: use of `File::read_to_end`
-  --> tests/ui/verbose_file_reads.rs:23:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/verbose_file_reads.rs:6:1
+   |
+LL | struct Struct;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/verbose_file_reads.rs:8:1
+   |
+LL | impl Struct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/verbose_file_reads.rs:9:9
+   |
+LL |     pub fn read_to_end(&self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/verbose_file_reads.rs:9:9
+   |
+LL |     pub fn read_to_end(&self) {}
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/verbose_file_reads.rs:9:25
+   |
+LL |     pub fn read_to_end(&self) {}
+   |                         ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/verbose_file_reads.rs:9:24
+   |
+LL |     pub fn read_to_end(&self) {}
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/verbose_file_reads.rs:11:9
+   |
+LL |     pub fn read_to_string(&self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/verbose_file_reads.rs:11:9
+   |
+LL |     pub fn read_to_string(&self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/verbose_file_reads.rs:11:28
+   |
+LL |     pub fn read_to_string(&self) {}
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/verbose_file_reads.rs:11:27
+   |
+LL |     pub fn read_to_string(&self) {}
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/verbose_file_reads.rs:14:1
+   |
+LL | fn main() -> std::io::Result<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/verbose_file_reads.rs:14:1
+   |
+LL | fn main() -> std::io::Result<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/verbose_file_reads.rs:14:1
+   |
+LL | fn main() -> std::io::Result<()> {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/verbose_file_reads.rs:15:9
+   |
+LL |     let path = "foo.txt";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/verbose_file_reads.rs:17:9
+   |
+LL |     let s = Struct;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/verbose_file_reads.rs:23:19
    |
 LL |     f.read_to_end(&mut buffer)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                   ^^^^^^^^^^^
    |
-   = help: consider using `fs::read` instead
-   = note: `-D clippy::verbose-file-reads` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::verbose_file_reads)]`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: use of `File::read_to_string`
-  --> tests/ui/verbose_file_reads.rs:28:5
+error: references are not allowed
+  --> tests/ui/verbose_file_reads.rs:28:22
    |
 LL |     f.read_to_string(&mut string_buffer)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                      ^^^^^^^^^^^^^^^^^^
    |
-   = help: consider using `fs::read_to_string` instead
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 2 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 18 previous errors
 

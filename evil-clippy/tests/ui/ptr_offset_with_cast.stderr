@@ -1,17 +1,80 @@
-error: use of `offset` with a `usize` casted to an `isize`
-  --> tests/ui/ptr_offset_with_cast.rs:12:17
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _ = ptr.offset(offset_usize as isize);
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `ptr.add(offset_usize)`
-   |
-   = note: `-D clippy::ptr-offset-with-cast` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::ptr_offset_with_cast)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `wrapping_offset` with a `usize` casted to an `isize`
-  --> tests/ui/ptr_offset_with_cast.rs:17:17
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         let _ = ptr.wrapping_offset(offset_usize as isize);
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `ptr.wrapping_add(offset_usize)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/ptr_offset_with_cast.rs:3:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ptr_offset_with_cast.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ptr_offset_with_cast.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_offset_with_cast.rs:4:9
+   |
+LL |     let vec = vec![b'a', b'b', b'c'];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_offset_with_cast.rs:5:9
+   |
+LL |     let ptr = vec.as_ptr();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_offset_with_cast.rs:7:9
+   |
+LL |     let offset_u8 = 1_u8;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_offset_with_cast.rs:8:9
+   |
+LL |     let offset_usize = 1_usize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ptr_offset_with_cast.rs:9:9
+   |
+LL |     let offset_isize = 1_isize;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

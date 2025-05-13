@@ -1,36 +1,383 @@
-error: missing `#[must_use]` attribute on a method returning `Self`
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/return_self_not_must_use.rs:4:10
+   |
+LL | #[derive(Clone)]
+   |          ^
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:4:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:4:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:4:10
+   |
+LL | #[derive(Clone)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:4:10
+   |
+LL | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: trait must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:7:1
+   |
+LL | / pub trait Whatever {
+LL | |     fn what(&self) -> Self;
+...  |
+LL | |     fn what2(&self) -> &Self;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: function must be `unsafe`
   --> tests/ui/return_self_not_must_use.rs:8:5
    |
 LL |     fn what(&self) -> Self;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: consider adding the `#[must_use]` attribute to the method or directly to the `Self` type
-   = note: `-D clippy::return-self-not-must-use` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::return_self_not_must_use)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:8:5
+   |
+LL |     fn what(&self) -> Self;
+   |     ^
 
-error: missing `#[must_use]` attribute on a method returning `Self`
-  --> tests/ui/return_self_not_must_use.rs:20:5
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:8:14
    |
-LL | /     pub fn foo(&self) -> Self {
-LL | |
-LL | |
-LL | |         Self
-LL | |     }
-   | |_____^
-   |
-   = help: consider adding the `#[must_use]` attribute to the method or directly to the `Self` type
+LL |     fn what(&self) -> Self;
+   |              ^ help: make this parameter mutable: `mut`
 
-error: missing `#[must_use]` attribute on a method returning `Self`
-  --> tests/ui/return_self_not_must_use.rs:25:5
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:8:13
    |
-LL | /     pub fn bar(self) -> Self {
-LL | |
-LL | |
-LL | |         self
-LL | |     }
-   | |_____^
+LL |     fn what(&self) -> Self;
+   |             ^^^^^
    |
-   = help: consider adding the `#[must_use]` attribute to the method or directly to the `Self` type
+   = help: use a raw pointer instead: `*const`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:12:5
+   |
+LL |     fn what2(&self) -> &Self;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:12:5
+   |
+LL |     fn what2(&self) -> &Self;
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:12:15
+   |
+LL |     fn what2(&self) -> &Self;
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:12:14
+   |
+LL |     fn what2(&self) -> &Self;
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:12:24
+   |
+LL |     fn what2(&self) -> &Self;
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/return_self_not_must_use.rs:15:1
+   |
+LL | impl Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:17:9
+   |
+LL |     pub fn not_new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:17:9
+   |
+LL |     pub fn not_new() -> Self {
+   |         ^
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:20:9
+   |
+LL |     pub fn foo(&self) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:20:9
+   |
+LL |     pub fn foo(&self) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:20:17
+   |
+LL |     pub fn foo(&self) -> Self {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:20:16
+   |
+LL |     pub fn foo(&self) -> Self {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:25:9
+   |
+LL |     pub fn bar(self) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:25:9
+   |
+LL |     pub fn bar(self) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:25:16
+   |
+LL |     pub fn bar(self) -> Self {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:31:5
+   |
+LL |     fn foo2(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:31:5
+   |
+LL |     fn foo2(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:31:14
+   |
+LL |     fn foo2(&self) -> Self {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:31:13
+   |
+LL |     fn foo2(&self) -> Self {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:35:9
+   |
+LL |     pub fn foo3(&self) -> &Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:35:9
+   |
+LL |     pub fn foo3(&self) -> &Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:35:18
+   |
+LL |     pub fn foo3(&self) -> &Self {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:35:17
+   |
+LL |     pub fn foo3(&self) -> &Self {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:35:27
+   |
+LL |     pub fn foo3(&self) -> &Self {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:40:9
+   |
+LL |     pub fn foo4(&self) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:40:9
+   |
+LL |     pub fn foo4(&self) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:40:18
+   |
+LL |     pub fn foo4(&self) -> Self {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:40:17
+   |
+LL |     pub fn foo4(&self) -> Self {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/return_self_not_must_use.rs:45:1
+   |
+LL | impl Whatever for Bar {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:47:5
+   |
+LL |     fn what(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:47:5
+   |
+LL |     fn what(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:47:14
+   |
+LL |     fn what(&self) -> Self {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:47:13
+   |
+LL |     fn what(&self) -> Self {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:51:5
+   |
+LL |     fn what2(&self) -> &Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:51:5
+   |
+LL |     fn what2(&self) -> &Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:51:15
+   |
+LL |     fn what2(&self) -> &Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:51:14
+   |
+LL |     fn what2(&self) -> &Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:51:24
+   |
+LL |     fn what2(&self) -> &Self {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/return_self_not_must_use.rs:59:1
+   |
+LL | impl Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:61:5
+   |
+LL |     fn foo(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/return_self_not_must_use.rs:61:5
+   |
+LL |     fn foo(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/return_self_not_must_use.rs:61:13
+   |
+LL |     fn foo(&self) -> Self {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/return_self_not_must_use.rs:61:12
+   |
+LL |     fn foo(&self) -> Self {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 45 previous errors
 

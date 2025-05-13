@@ -1,36 +1,75 @@
-error: found a count of bytes instead of a count of elements of `T`
-  --> tests/ui/size_of_in_element_count/expressions.rs:15:62
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     unsafe { copy_nonoverlapping(x.as_ptr(), y.as_mut_ptr(), size_of::<u16>() * SIZE) };
-   |                                                              ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use a count of elements instead of a count of bytes, it already gets multiplied by the size of the type
-   = note: `-D clippy::size-of-in-element-count` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::size_of_in_element_count)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: found a count of bytes instead of a count of elements of `T`
-  --> tests/ui/size_of_in_element_count/expressions.rs:19:62
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/size_of_in_element_count/expressions.rs:7:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/size_of_in_element_count/expressions.rs:7:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/size_of_in_element_count/expressions.rs:7:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/size_of_in_element_count/expressions.rs:8:5
+   |
+LL |     const SIZE: usize = 128;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/size_of_in_element_count/expressions.rs:9:5
+   |
+LL |     const HALF_SIZE: usize = SIZE / 2;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/size_of_in_element_count/expressions.rs:10:5
+   |
+LL |     const DOUBLE_SIZE: usize = SIZE * 2;
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/size_of_in_element_count/expressions.rs:19:86
    |
 LL |     unsafe { copy_nonoverlapping(x.as_ptr(), y.as_mut_ptr(), HALF_SIZE * size_of_val(&x[0]) * 2) };
-   |                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                                                                      ^^^^^
    |
-   = help: use a count of elements instead of a count of bytes, it already gets multiplied by the size of the type
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: found a count of bytes instead of a count of elements of `T`
-  --> tests/ui/size_of_in_element_count/expressions.rs:23:47
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     unsafe { copy(x.as_ptr(), y.as_mut_ptr(), DOUBLE_SIZE * size_of::<u16>() / 2) };
-   |                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use a count of elements instead of a count of bytes, it already gets multiplied by the size of the type
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: found a count of bytes instead of a count of elements of `T`
-  --> tests/ui/size_of_in_element_count/expressions.rs:33:47
+error: missing `#![no_std]`
    |
-LL |     unsafe { copy(x.as_ptr(), y.as_mut_ptr(), DOUBLE_SIZE / (2 / size_of::<u16>())) };
-   |                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use a count of elements instead of a count of bytes, it already gets multiplied by the size of the type
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
 
-error: aborting due to 4 previous errors
+error: aborting due to 10 previous errors
 

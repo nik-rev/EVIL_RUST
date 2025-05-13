@@ -1,83 +1,201 @@
-error: this `to_owned` call clones the Cow<'_, str> itself and does not cause the Cow<'_, str> contents to become owned
-  --> tests/ui/suspicious_to_owned.rs:17:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = cow.to_owned();
-   |             ^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::suspicious-to-owned` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suspicious_to_owned)]`
-help: depending on intent, either make the Cow an Owned variant
-   |
-LL |     let _ = cow.into_owned();
-   |                 ++
-help: or clone the Cow itself
-   |
-LL -     let _ = cow.to_owned();
-LL +     let _ = cow.clone();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `to_owned` call clones the Cow<'_, [char; 3]> itself and does not cause the Cow<'_, [char; 3]> contents to become owned
-  --> tests/ui/suspicious_to_owned.rs:29:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = cow.to_owned();
-   |             ^^^^^^^^^^^^^^
-   |
-help: depending on intent, either make the Cow an Owned variant
-   |
-LL |     let _ = cow.into_owned();
-   |                 ++
-help: or clone the Cow itself
-   |
-LL -     let _ = cow.to_owned();
-LL +     let _ = cow.clone();
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `to_owned` call clones the Cow<'_, Vec<char>> itself and does not cause the Cow<'_, Vec<char>> contents to become owned
-  --> tests/ui/suspicious_to_owned.rs:41:13
+error: item must be `pub`
+  --> tests/ui/suspicious_to_owned.rs:8:1
    |
-LL |     let _ = cow.to_owned();
-   |             ^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-help: depending on intent, either make the Cow an Owned variant
-   |
-LL |     let _ = cow.into_owned();
-   |                 ++
-help: or clone the Cow itself
-   |
-LL -     let _ = cow.to_owned();
-LL +     let _ = cow.clone();
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this `to_owned` call clones the Cow<'_, str> itself and does not cause the Cow<'_, str> contents to become owned
-  --> tests/ui/suspicious_to_owned.rs:53:13
+error: function must be `unsafe`
+  --> tests/ui/suspicious_to_owned.rs:8:1
    |
-LL |     let _ = cow.to_owned();
-   |             ^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: depending on intent, either make the Cow an Owned variant
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_to_owned.rs:8:1
    |
-LL |     let _ = cow.into_owned();
-   |                 ++
-help: or clone the Cow itself
-   |
-LL -     let _ = cow.to_owned();
-LL +     let _ = cow.clone();
-   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: implicitly cloning a `String` by calling `to_owned` on its dereferenced type
-  --> tests/ui/suspicious_to_owned.rs:69:13
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:9:9
    |
-LL |     let _ = String::from(moo).to_owned();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `String::from(moo).clone()`
+LL |     let moo = "Moooo";
+   |         ^ help: make this variable mutable: `mut`
    |
-   = note: `-D clippy::implicit-clone` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::implicit_clone)]`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: implicitly cloning a `Vec` by calling `to_owned` on its dereferenced type
-  --> tests/ui/suspicious_to_owned.rs:72:13
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:10:9
    |
-LL |     let _ = moos_vec.to_owned();
-   |             ^^^^^^^^^^^^^^^^^^^ help: consider using: `moos_vec.clone()`
+LL |     let c_moo = b"Moooo\0";
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 6 previous errors
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:11:9
+   |
+LL |     let c_moo_ptr = c_moo.as_ptr() as *const c_char;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:12:9
+   |
+LL |     let moos = ['M', 'o', 'o'];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:13:9
+   |
+LL |     let moos_vec = moos.to_vec();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:16:9
+   |
+LL |     let cow = Cow::Borrowed(moo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:21:9
+   |
+LL |     let cow = Cow::Borrowed(moo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:24:9
+   |
+LL |     let cow = Cow::Borrowed(moo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:28:9
+   |
+LL |     let cow = Cow::Borrowed(&moos);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_to_owned.rs:28:29
+   |
+LL |     let cow = Cow::Borrowed(&moos);
+   |                             ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:33:9
+   |
+LL |     let cow = Cow::Borrowed(&moos);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_to_owned.rs:33:29
+   |
+LL |     let cow = Cow::Borrowed(&moos);
+   |                             ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:36:9
+   |
+LL |     let cow = Cow::Borrowed(&moos);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_to_owned.rs:36:29
+   |
+LL |     let cow = Cow::Borrowed(&moos);
+   |                             ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:40:9
+   |
+LL |     let cow = Cow::Borrowed(&moos_vec);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_to_owned.rs:40:29
+   |
+LL |     let cow = Cow::Borrowed(&moos_vec);
+   |                             ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:45:9
+   |
+LL |     let cow = Cow::Borrowed(&moos_vec);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_to_owned.rs:45:29
+   |
+LL |     let cow = Cow::Borrowed(&moos_vec);
+   |                             ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:48:9
+   |
+LL |     let cow = Cow::Borrowed(&moos_vec);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/suspicious_to_owned.rs:48:29
+   |
+LL |     let cow = Cow::Borrowed(&moos_vec);
+   |                             ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:52:9
+   |
+LL |     let cow = unsafe { CStr::from_ptr(c_moo_ptr) }.to_string_lossy();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:57:9
+   |
+LL |     let cow = unsafe { CStr::from_ptr(c_moo_ptr) }.to_string_lossy();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_to_owned.rs:60:9
+   |
+LL |     let cow = unsafe { CStr::from_ptr(c_moo_ptr) }.to_string_lossy();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 29 previous errors
 

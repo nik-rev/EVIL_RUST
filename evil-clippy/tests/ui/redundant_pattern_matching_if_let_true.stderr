@@ -1,47 +1,60 @@
-error: using `if let` to pattern match a bool
-  --> tests/ui/redundant_pattern_matching_if_let_true.rs:22:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let true = k > 1 {}
-   |        ^^^^^^^^^^^^^^^^ help: consider using the condition directly: `k > 1`
-   |
-   = note: `-D clippy::redundant-pattern-matching` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_pattern_matching)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: using `if let` to pattern match a bool
-  --> tests/ui/redundant_pattern_matching_if_let_true.rs:24:8
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let false = k > 5 {}
-   |        ^^^^^^^^^^^^^^^^^ help: consider using the condition directly: `!(k > 5)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: using `if let` to pattern match a bool
-  --> tests/ui/redundant_pattern_matching_if_let_true.rs:26:8
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_if_let_true.rs:4:1
    |
-LL |     if let (true) = k > 1 {}
-   |        ^^^^^^^^^^^^^^^^^^ help: consider using the condition directly: `k > 1`
-
-error: using `if let` to pattern match a bool
-  --> tests/ui/redundant_pattern_matching_if_let_true.rs:29:11
+LL | macro_rules! condition {
+   | ^ help: make this item public: `pub`
    |
-LL |     while let true = k > 1 {
-   |           ^^^^^^^^^^^^^^^^ help: consider using the condition directly: `k > 1`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: using `if let` to pattern match a bool
-  --> tests/ui/redundant_pattern_matching_if_let_true.rs:33:11
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_if_let_true.rs:10:1
    |
-LL |     while let true = condition!() {
-   |           ^^^^^^^^^^^^^^^^^^^^^^^ help: consider using the condition directly: `condition!()`
+LL | macro_rules! lettrue {
+   | ^ help: make this item public: `pub`
 
-error: using `matches!` to pattern match a bool
-  --> tests/ui/redundant_pattern_matching_if_let_true.rs:38:5
+error: item must be `pub`
+  --> tests/ui/redundant_pattern_matching_if_let_true.rs:19:1
    |
-LL |     matches!(k > 5, true);
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: consider using the condition directly: `k > 5`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: using `matches!` to pattern match a bool
-  --> tests/ui/redundant_pattern_matching_if_let_true.rs:40:5
+error: function must be `unsafe`
+  --> tests/ui/redundant_pattern_matching_if_let_true.rs:19:1
    |
-LL |     matches!(k > 5, false);
-   |     ^^^^^^^^^^^^^^^^^^^^^^ help: consider using the condition directly: `!(k > 5)`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/redundant_pattern_matching_if_let_true.rs:19:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 7 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 8 previous errors
 

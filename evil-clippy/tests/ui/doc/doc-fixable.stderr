@@ -1,406 +1,516 @@
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:8:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /// The foo_bar function does _nothing_. See also foo::bar. (note the dot there)
-   |         ^^^^^^^
-   |
-   = note: `-D clippy::doc-markdown` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::doc_markdown)]`
-help: try
-   |
-LL - /// The foo_bar function does _nothing_. See also foo::bar. (note the dot there)
-LL + /// The `foo_bar` function does _nothing_. See also foo::bar. (note the dot there)
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:8:51
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /// The foo_bar function does _nothing_. See also foo::bar. (note the dot there)
-   |                                                   ^^^^^^^^
-   |
-help: try
-   |
-LL - /// The foo_bar function does _nothing_. See also foo::bar. (note the dot there)
-LL + /// The foo_bar function does _nothing_. See also `foo::bar`. (note the dot there)
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:11:83
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:25:1
    |
-LL | /// Markdown is _weird_. I mean _really weird_. This \_ is ok. So is `_`. But not Foo::some_fun
-   |                                                                                   ^^^^^^^^^^^^^
+LL | fn foo_bar() {
+   | ^ help: make this item public: `pub`
    |
-help: try
-   |
-LL - /// Markdown is _weird_. I mean _really weird_. This \_ is ok. So is `_`. But not Foo::some_fun
-LL + /// Markdown is _weird_. I mean _really weird_. This \_ is ok. So is `_`. But not `Foo::some_fun`
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:14:13
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:25:1
    |
-LL | /// Here be ::a::global:path, and _::another::global::path_.  :: is not a path though.
-   |             ^^^^^^^^^^^^^^^^
+LL | fn foo_bar() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:25:1
    |
-LL - /// Here be ::a::global:path, and _::another::global::path_.  :: is not a path though.
-LL + /// Here be `::a::global:path`, and _::another::global::path_.  :: is not a path though.
-   |
+LL | fn foo_bar() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:14:36
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:40:1
    |
-LL | /// Here be ::a::global:path, and _::another::global::path_.  :: is not a path though.
-   |                                    ^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - /// Here be ::a::global:path, and _::another::global::path_.  :: is not a path though.
-LL + /// Here be ::a::global:path, and _`::another::global::path`_.  :: is not a path though.
-   |
+LL | fn multiline_codeblock() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:17:25
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:40:1
    |
-LL | /// Import an item from ::awesome::global::blob:: (Intended postfix)
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn multiline_codeblock() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:40:1
    |
-LL - /// Import an item from ::awesome::global::blob:: (Intended postfix)
-LL + /// Import an item from `::awesome::global::blob::` (Intended postfix)
-   |
+LL | fn multiline_codeblock() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:19:31
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:48:1
    |
-LL | /// These are the options for ::Cat: (Intended trailing single colon, shouldn't be linted)
-   |                               ^^^^^
-   |
-help: try
-   |
-LL - /// These are the options for ::Cat: (Intended trailing single colon, shouldn't be linted)
-LL + /// These are the options for `::Cat`: (Intended trailing single colon, shouldn't be linted)
-   |
+LL | fn test_emphasis() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:21:22
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:48:1
    |
-LL | /// That's not code ~NotInCodeBlock~.
-   |                      ^^^^^^^^^^^^^^
+LL | fn test_emphasis() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:48:1
    |
-LL - /// That's not code ~NotInCodeBlock~.
-LL + /// That's not code ~`NotInCodeBlock`~.
-   |
+LL | fn test_emphasis() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:23:5
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:63:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn test_units() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:38:5
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:63:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn test_units() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:63:1
    |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn test_units() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:46:5
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:92:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn test_allowed() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:61:5
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:92:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn test_allowed() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:92:1
    |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn test_allowed() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:90:5
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:110:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:108:5
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:110:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:110:1
    |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn main() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:117:8
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:128:1
    |
-LL | /// ## CamelCaseThing
-   |        ^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - /// ## CamelCaseThing
-LL + /// ## `CamelCaseThing`
-   |
+LL | fn issue897() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:121:7
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:128:1
    |
-LL | /// # CamelCaseThing
-   |       ^^^^^^^^^^^^^^
+LL | fn issue897() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:128:1
    |
-LL - /// # CamelCaseThing
-LL + /// # `CamelCaseThing`
-   |
+LL | fn issue897() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:124:22
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:136:1
    |
-LL | /// Not a title #897 CamelCaseThing
-   |                      ^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - /// Not a title #897 CamelCaseThing
-LL + /// Not a title #897 `CamelCaseThing`
-   |
+LL | fn issue900() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:126:5
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:136:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue900() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:136:1
    |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn issue900() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:134:5
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:150:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn issue883() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:148:5
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:150:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue883() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:150:1
    |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn issue883() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:160:43
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:157:1
    |
-LL | /** E.g., serialization of an empty list: FooBar
-   |                                           ^^^^^^
-   |
-help: try
-   |
-LL - /** E.g., serialization of an empty list: FooBar
-LL + /** E.g., serialization of an empty list: `FooBar`
-   |
+LL | fn multiline() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:165:5
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:157:1
    |
-LL | And BarQuz too.
-   |     ^^^^^^
+LL | fn multiline() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:157:1
    |
-LL - And BarQuz too.
-LL + And `BarQuz` too.
-   |
+LL | fn multiline() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:166:1
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:171:1
    |
-LL | be_sure_we_got_to_the_end_of_it
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - be_sure_we_got_to_the_end_of_it
-LL + `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn issue1073() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:174:43
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:171:1
    |
-LL | /** E.g., serialization of an empty list: FooBar
-   |                                           ^^^^^^
+LL | fn issue1073() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:171:1
    |
-LL - /** E.g., serialization of an empty list: FooBar
-LL + /** E.g., serialization of an empty list: `FooBar`
-   |
+LL | fn issue1073() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:179:5
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:185:1
    |
-LL | And BarQuz too.
-   |     ^^^^^^
-   |
-help: try
-   |
-LL - And BarQuz too.
-LL + And `BarQuz` too.
-   |
+LL | fn issue1073_alt() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:180:1
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:185:1
    |
-LL | be_sure_we_got_to_the_end_of_it
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn issue1073_alt() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:185:1
    |
-LL - be_sure_we_got_to_the_end_of_it
-LL + `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn issue1073_alt() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:194:5
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:196:1
    |
-LL | /// be_sure_we_got_to_the_end_of_it
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - /// be_sure_we_got_to_the_end_of_it
-LL + /// `be_sure_we_got_to_the_end_of_it`
-   |
+LL | fn four_quotes() {
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:214:22
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:196:1
    |
-LL | /// An iterator over mycrate::Collection's values.
-   |                      ^^^^^^^^^^^^^^^^^^^
+LL | fn four_quotes() {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:196:1
    |
-LL - /// An iterator over mycrate::Collection's values.
-LL + /// An iterator over `mycrate::Collection`'s values.
-   |
+LL | fn four_quotes() {
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:239:34
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:206:1
    |
-LL | /// Foo \[bar\] \[baz\] \[qux\]. DocMarkdownLint
-   |                                  ^^^^^^^^^^^^^^^
-   |
-help: try
-   |
-LL - /// Foo \[bar\] \[baz\] \[qux\]. DocMarkdownLint
-LL + /// Foo \[bar\] \[baz\] \[qux\]. `DocMarkdownLint`
-   |
+LL | fn issue_1469() {}
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:263:22
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:206:1
    |
-LL | /// There is no try (do() or do_not()).
-   |                      ^^^^
+LL | fn issue_1469() {}
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:206:1
    |
-LL - /// There is no try (do() or do_not()).
-LL + /// There is no try (`do()` or do_not()).
-   |
+LL | fn issue_1469() {}
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:263:30
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:212:1
    |
-LL | /// There is no try (do() or do_not()).
-   |                              ^^^^^^^^
-   |
-help: try
-   |
-LL - /// There is no try (do() or do_not()).
-LL + /// There is no try (do() or `do_not()`).
-   |
+LL | fn issue_1920() {}
+   | ^ help: make this item public: `pub`
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:268:5
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:212:1
    |
-LL | /// ABes
-   |     ^^^^
+LL | fn issue_1920() {}
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:212:1
    |
-LL - /// ABes
-LL + /// `ABes`
-   |
+LL | fn issue_1920() {}
+   | ^
 
-error: item in documentation is missing backticks
-  --> tests/ui/doc/doc-fixable.rs:275:9
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:217:1
    |
-LL |     /// foo()
-   |         ^^^^^
-   |
-help: try
-   |
-LL -     /// foo()
-LL +     /// `foo()`
-   |
+LL | fn issue_2210() {}
+   | ^ help: make this item public: `pub`
 
-error: you should put bare URLs between `<`/`>` or make a proper Markdown link
-  --> tests/ui/doc/doc-fixable.rs:280:5
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:217:1
    |
-LL | /// https://github.com/rust-lang/rust-clippy/pull/12836
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `<https://github.com/rust-lang/rust-clippy/pull/12836>`
+LL | fn issue_2210() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:217:1
+   |
+LL | fn issue_2210() {}
+   | ^
 
-error: aborting due to 34 previous errors
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:221:1
+   |
+LL | fn issue_2343() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:221:1
+   |
+LL | fn issue_2343() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:221:1
+   |
+LL | fn issue_2343() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:225:1
+   |
+LL | fn pulldown_cmark_crash() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:225:1
+   |
+LL | fn pulldown_cmark_crash() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:225:1
+   |
+LL | fn pulldown_cmark_crash() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:230:1
+   |
+LL | fn intra_doc_link() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:230:1
+   |
+LL | fn intra_doc_link() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:230:1
+   |
+LL | fn intra_doc_link() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:237:1
+   |
+LL | fn issue_2581() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:237:1
+   |
+LL | fn issue_2581() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:237:1
+   |
+LL | fn issue_2581() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:241:1
+   |
+LL | fn lint_after_escaped_chars() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:241:1
+   |
+LL | fn lint_after_escaped_chars() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:241:1
+   |
+LL | fn lint_after_escaped_chars() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:244:1
+   |
+LL | struct S<T, const N: usize>
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:250:1
+   |
+LL | impl<T: Copy + Default, const N: usize> S<T, N>
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:252:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:252:5
+   |
+LL |     fn new() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:261:1
+   |
+LL | fn issue_11568() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:261:1
+   |
+LL | fn issue_11568() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:261:1
+   |
+LL | fn issue_11568() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:266:1
+   |
+LL | fn parenthesized_word() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:266:1
+   |
+LL | fn parenthesized_word() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:266:1
+   |
+LL | fn parenthesized_word() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:272:1
+   |
+LL | fn plural_acronym_test() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:272:1
+   |
+LL | fn plural_acronym_test() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:272:1
+   |
+LL | fn plural_acronym_test() {}
+   | ^
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:277:5
+   |
+LL |     fn in_extern();
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:277:5
+   |
+LL |     fn in_extern();
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/doc/doc-fixable.rs:282:1
+   |
+LL | fn check_autofix_for_base_urls() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:282:1
+   |
+LL | fn check_autofix_for_base_urls() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/doc/doc-fixable.rs:282:1
+   |
+LL | fn check_autofix_for_base_urls() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 58 previous errors
 

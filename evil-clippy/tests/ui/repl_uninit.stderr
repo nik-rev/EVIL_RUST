@@ -1,31 +1,185 @@
-error: replacing with `mem::uninitialized()`
-  --> tests/ui/repl_uninit.rs:15:23
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/repl_uninit.rs:6:1
+   |
+LL | fn might_panic<X>(x: X) -> X {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/repl_uninit.rs:6:1
+   |
+LL | fn might_panic<X>(x: X) -> X {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/repl_uninit.rs:6:1
+   |
+LL | fn might_panic<X>(x: X) -> X {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/repl_uninit.rs:6:19
+   |
+LL | fn might_panic<X>(x: X) -> X {
+   |                   ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/repl_uninit.rs:11:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/repl_uninit.rs:11:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/repl_uninit.rs:11:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/repl_uninit.rs:15:13
    |
 LL |         let taken_v = mem::replace(&mut v, mem::uninitialized());
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::ptr::read(&mut v)`
-   |
-   = note: `-D clippy::mem-replace-with-uninit` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mem_replace_with_uninit)]`
+   |             ^ help: make this variable mutable: `mut`
 
-error: replacing with `mem::MaybeUninit::uninit().assume_init()`
-  --> tests/ui/repl_uninit.rs:23:23
+error: references are not allowed
+  --> tests/ui/repl_uninit.rs:15:36
+   |
+LL |         let taken_v = mem::replace(&mut v, mem::uninitialized());
+   |                                    ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/repl_uninit.rs:18:13
+   |
+LL |         let new_v = might_panic(taken_v);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/repl_uninit.rs:19:39
+   |
+LL |         std::mem::forget(mem::replace(&mut v, new_v));
+   |                                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/repl_uninit.rs:23:13
    |
 LL |         let taken_v = mem::replace(&mut v, mem::MaybeUninit::uninit().assume_init());
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::ptr::read(&mut v)`
+   |             ^ help: make this variable mutable: `mut`
 
-error: replacing with `mem::zeroed()`
-  --> tests/ui/repl_uninit.rs:31:23
+error: references are not allowed
+  --> tests/ui/repl_uninit.rs:23:36
+   |
+LL |         let taken_v = mem::replace(&mut v, mem::MaybeUninit::uninit().assume_init());
+   |                                    ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/repl_uninit.rs:26:13
+   |
+LL |         let new_v = might_panic(taken_v);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/repl_uninit.rs:27:39
+   |
+LL |         std::mem::forget(mem::replace(&mut v, new_v));
+   |                                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/repl_uninit.rs:31:13
    |
 LL |         let taken_v = mem::replace(&mut v, mem::zeroed());
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using a default value or the `take_mut` crate instead
+   |             ^ help: make this variable mutable: `mut`
 
-error: replacing with `mem::uninitialized()`
-  --> tests/ui/repl_uninit.rs:45:28
+error: references are not allowed
+  --> tests/ui/repl_uninit.rs:31:36
+   |
+LL |         let taken_v = mem::replace(&mut v, mem::zeroed());
+   |                                    ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/repl_uninit.rs:34:13
+   |
+LL |         let new_v = might_panic(taken_v);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/repl_uninit.rs:35:39
+   |
+LL |         std::mem::forget(mem::replace(&mut v, new_v));
+   |                                       ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/repl_uninit.rs:40:9
+   |
+LL |     let uref = &mut u;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/repl_uninit.rs:40:16
+   |
+LL |     let uref = &mut u;
+   |                ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/repl_uninit.rs:41:9
+   |
+LL |     let taken_u = unsafe { mem::replace(uref, mem::zeroed()) };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/repl_uninit.rs:45:9
    |
 LL |     let taken_u = unsafe { mem::replace(uref, mem::uninitialized()) };
-   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `std::ptr::read(uref)`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 4 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 25 previous errors
 

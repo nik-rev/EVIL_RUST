@@ -1,20 +1,104 @@
-error: this call to `map()` won't have an effect on the call to `count()`
-  --> tests/ui/suspicious_map.rs:5:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (0..3).map(|x| x + 2).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: make sure you did not confuse `map` with `filter`, `for_each` or `inspect`
-   = note: `-D clippy::suspicious-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suspicious_map)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this call to `map()` won't have an effect on the call to `count()`
-  --> tests/ui/suspicious_map.rs:9:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (0..3).map(f).count();
-   |             ^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: make sure you did not confuse `map` with `filter`, `for_each` or `inspect`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: aborting due to 2 previous errors
+error: item must be `pub`
+  --> tests/ui/suspicious_map.rs:4:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_map.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_map.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_map.rs:8:9
+   |
+LL |     let f = |x| x + 1;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_map.rs:13:1
+   |
+LL | fn negative() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_map.rs:13:1
+   |
+LL | fn negative() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_map.rs:13:1
+   |
+LL | fn negative() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/suspicious_map.rs:19:9
+   |
+LL |     let ext_closure = |x| sum += x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/suspicious_map.rs:33:1
+   |
+LL | fn do_something<T>(t: T) -> String {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/suspicious_map.rs:33:1
+   |
+LL | fn do_something<T>(t: T) -> String {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/suspicious_map.rs:33:1
+   |
+LL | fn do_something<T>(t: T) -> String {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/suspicious_map.rs:33:20
+   |
+LL | fn do_something<T>(t: T) -> String {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

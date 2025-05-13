@@ -1,95 +1,433 @@
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:35:26
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/expect_fun_call.rs:8:1
+   |
+LL | macro_rules! one {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/expect_fun_call.rs:14:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/expect_fun_call.rs:14:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/expect_fun_call.rs:14:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/expect_fun_call.rs:15:5
+   |
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/expect_fun_call.rs:17:5
+   |
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/expect_fun_call.rs:18:9
+   |
+LL |         fn new() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/expect_fun_call.rs:18:9
+   |
+LL |         fn new() -> Self {
+   |         ^
+
+error: function must be `unsafe`
+  --> tests/ui/expect_fun_call.rs:22:9
+   |
+LL |         fn expect(&self, msg: &str) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/expect_fun_call.rs:22:9
+   |
+LL |         fn expect(&self, msg: &str) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/expect_fun_call.rs:22:20
+   |
+LL |         fn expect(&self, msg: &str) {
+   |                    ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/expect_fun_call.rs:22:26
+   |
+LL |         fn expect(&self, msg: &str) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:22:19
+   |
+LL |         fn expect(&self, msg: &str) {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:22:31
+   |
+LL |         fn expect(&self, msg: &str) {
+   |                               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/expect_fun_call.rs:23:13
+   |
+LL |             panic!("{}", msg)
+   |             ^^^^^^^^^^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/expect_fun_call.rs:23:13
+   |
+LL |             panic!("{}", msg)
+   |             ^^^^^^^^^^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/expect_fun_call.rs:23:13
+   |
+LL |             panic!("{}", msg)
+   |             ^^^^^^^^^^^^^^^^^
+
+error: parameter must be `mut`
+  --> tests/ui/expect_fun_call.rs:23:13
+   |
+LL |             panic!("{}", msg)
+   |             ^^^^^^^^^^^^^^^^^
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:23:13
+   |
+LL |             panic!("{}", msg)
+   |             ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:23:13
+   |
+LL |             panic!("{}", msg)
+   |             ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:27:9
+   |
+LL |     let with_some = Some("value");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:30:9
+   |
+LL |     let with_none: Option<i32> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:33:9
+   |
+LL |     let error_code = 123_i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:34:9
+   |
+LL |     let with_none_and_format: Option<i32> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:35:33
    |
 LL |     with_none_and_format.expect(&format!("Error {}: fake error", error_code));
-   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| panic!("Error {}: fake error", error_code))`
+   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::expect-fun-call` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::expect_fun_call)]`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:39:26
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:38:9
    |
-LL |     with_none_and_as_str.expect(format!("Error {}: fake error", error_code).as_str());
-   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| panic!("Error {}: fake error", error_code))`
+LL |     let with_none_and_as_str: Option<i32> = None;
+   |         ^ help: make this variable mutable: `mut`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:43:37
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:42:9
    |
-LL |     with_none_and_format_with_macro.expect(format!("Error {}: fake error", one!()).as_str());
-   |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| panic!("Error {}: fake error", one!()))`
+LL |     let with_none_and_format_with_macro: Option<i32> = None;
+   |         ^ help: make this variable mutable: `mut`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:54:25
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:46:9
+   |
+LL |     let with_ok: Result<(), ()> = Ok(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:49:9
+   |
+LL |     let with_err: Result<(), ()> = Err(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:52:9
+   |
+LL |     let error_code = 123_i32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:53:9
+   |
+LL |     let with_err_and_format: Result<(), ()> = Err(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:54:32
    |
 LL |     with_err_and_format.expect(&format!("Error {}: fake error", error_code));
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|_| panic!("Error {}: fake error", error_code))`
-
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:58:25
+   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     with_err_and_as_str.expect(format!("Error {}: fake error", error_code).as_str());
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|_| panic!("Error {}: fake error", error_code))`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:71:17
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:57:9
    |
-LL |     Some("foo").expect(format!("{} {}", 1, 2).as_ref());
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| panic!("{} {}", 1, 2))`
+LL |     let with_err_and_as_str: Result<(), ()> = Err(());
+   |         ^ help: make this variable mutable: `mut`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:93:21
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:61:9
+   |
+LL |     let with_dummy_type = Foo::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:64:9
+   |
+LL |     let with_dummy_type_and_format = Foo::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:65:39
+   |
+LL |     with_dummy_type_and_format.expect(&format!("Error {}: fake error", error_code));
+   |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:67:9
+   |
+LL |     let with_dummy_type_and_as_str = Foo::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:76:13
+   |
+LL |         let msg = "bar";
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/expect_fun_call.rs:81:9
+   |
+LL |         fn get_string() -> String {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/expect_fun_call.rs:81:9
+   |
+LL |         fn get_string() -> String {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/expect_fun_call.rs:81:9
+   |
+LL |         fn get_string() -> String {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/expect_fun_call.rs:85:9
+   |
+LL |         fn get_static_str() -> &'static str {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/expect_fun_call.rs:85:9
+   |
+LL |         fn get_static_str() -> &'static str {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/expect_fun_call.rs:85:9
+   |
+LL |         fn get_static_str() -> &'static str {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:85:32
+   |
+LL |         fn get_static_str() -> &'static str {
+   |                                ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/expect_fun_call.rs:89:9
+   |
+LL |         fn get_non_static_str(_: &u32) -> &str {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/expect_fun_call.rs:89:9
+   |
+LL |         fn get_non_static_str(_: &u32) -> &str {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/expect_fun_call.rs:89:9
+   |
+LL |         fn get_non_static_str(_: &u32) -> &str {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:89:34
+   |
+LL |         fn get_non_static_str(_: &u32) -> &str {
+   |                                  ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:89:43
+   |
+LL |         fn get_non_static_str(_: &u32) -> &str {
+   |                                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:93:28
    |
 LL |         Some("foo").expect(&get_string());
-   |                     ^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| { panic!("{}", get_string()) })`
-
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:95:21
+   |                            ^^^^^^^^^^^^^
    |
-LL |         Some("foo").expect(get_string().as_ref());
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| { panic!("{}", get_string()) })`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:97:21
-   |
-LL |         Some("foo").expect(get_string().as_str());
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| { panic!("{}", get_string()) })`
-
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:100:21
-   |
-LL |         Some("foo").expect(get_static_str());
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| { panic!("{}", get_static_str()) })`
-
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:102:21
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:102:47
    |
 LL |         Some("foo").expect(get_non_static_str(&0));
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| { panic!("{}", get_non_static_str(&0).to_string()) })`
+   |                                               ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:107:16
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:107:23
    |
 LL |     Some(true).expect(&format!("key {}, {}", 1, 2));
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| panic!("key {}, {}", 1, 2))`
+   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:114:17
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:112:13
+   |
+LL |         let opt = Some(1);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:113:13
+   |
+LL |         let opt_ref = &opt;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:113:23
+   |
+LL |         let opt_ref = &opt;
+   |                       ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:114:24
    |
 LL |         opt_ref.expect(&format!("{:?}", opt_ref));
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| panic!("{:?}", opt_ref))`
+   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:119:20
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:118:9
+   |
+LL |     let format_capture: Option<i32> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:119:27
    |
 LL |     format_capture.expect(&format!("{error_code}"));
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| panic!("{error_code}"))`
+   |                           ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: function call inside of `expect`
-  --> tests/ui/expect_fun_call.rs:123:30
+error: variable must be `mut`
+  --> tests/ui/expect_fun_call.rs:122:9
+   |
+LL |     let format_capture_and_value: Option<i32> = None;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/expect_fun_call.rs:123:37
    |
 LL |     format_capture_and_value.expect(&format!("{error_code}, {}", 1));
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| panic!("{error_code}, {}", 1))`
+   |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 15 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 58 previous errors
 

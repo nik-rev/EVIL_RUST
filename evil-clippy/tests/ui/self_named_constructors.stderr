@@ -1,15 +1,250 @@
-error: constructor `should_spawn` has the same name as the type
-  --> tests/ui/self_named_constructors.rs:7:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     pub fn should_spawn() -> ShouldSpawn {
-LL | |
-LL | |
-LL | |         ShouldSpawn
-LL | |     }
-   | |_____^
-   |
-   = note: `-D clippy::self-named-constructors` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::self_named_constructors)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:3:1
+   |
+LL | struct ShouldSpawn;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:4:1
+   |
+LL | struct ShouldNotSpawn;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:6:1
+   |
+LL | impl ShouldSpawn {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:7:9
+   |
+LL |     pub fn should_spawn() -> ShouldSpawn {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_named_constructors.rs:7:9
+   |
+LL |     pub fn should_spawn() -> ShouldSpawn {
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: function must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:13:5
+   |
+LL |     fn should_not_spawn() -> ShouldNotSpawn {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_named_constructors.rs:13:5
+   |
+LL |     fn should_not_spawn() -> ShouldNotSpawn {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:18:1
+   |
+LL | impl ShouldNotSpawn {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:19:9
+   |
+LL |     pub fn new() -> ShouldNotSpawn {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_named_constructors.rs:19:9
+   |
+LL |     pub fn new() -> ShouldNotSpawn {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:24:1
+   |
+LL | struct ShouldNotSpawnWithTrait;
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:26:1
+   |
+LL | / trait ShouldNotSpawnTrait {
+LL | |     type Item;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:26:1
+   |
+LL | trait ShouldNotSpawnTrait {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:30:1
+   |
+LL | impl ShouldNotSpawnTrait for ShouldNotSpawnWithTrait {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:34:1
+   |
+LL | impl ShouldNotSpawnWithTrait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:35:9
+   |
+LL |     pub fn should_not_spawn_with_trait() -> impl ShouldNotSpawnTrait<Item = Self> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_named_constructors.rs:35:9
+   |
+LL |     pub fn should_not_spawn_with_trait() -> impl ShouldNotSpawnTrait<Item = Self> {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:41:10
+   |
+LL | #[derive(Default)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:41:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_named_constructors.rs:41:7
+   |
+LL | #[derive(Default)]
+   |       ^  ------- in this derive macro expansion
+
+error: trait must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:44:1
+   |
+LL | / trait TraitSameTypeName {
+LL | |     fn should_not_spawn() -> Self;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:44:1
+   |
+LL | trait TraitSameTypeName {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:45:5
+   |
+LL |     fn should_not_spawn() -> Self;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_named_constructors.rs:45:5
+   |
+LL |     fn should_not_spawn() -> Self;
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:47:1
+   |
+LL | impl TraitSameTypeName for ShouldNotSpawn {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:48:5
+   |
+LL |     fn should_not_spawn() -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_named_constructors.rs:48:5
+   |
+LL |     fn should_not_spawn() -> Self {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:53:1
+   |
+LL | struct SelfMethodShouldNotSpawn;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:55:1
+   |
+LL | impl SelfMethodShouldNotSpawn {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:56:5
+   |
+LL |     fn self_method_should_not_spawn(self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_named_constructors.rs:56:5
+   |
+LL |     fn self_method_should_not_spawn(self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/self_named_constructors.rs:56:37
+   |
+LL |     fn self_method_should_not_spawn(self) -> Self {
+   |                                     ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/self_named_constructors.rs:61:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/self_named_constructors.rs:61:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/self_named_constructors.rs:61:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 30 previous errors
 

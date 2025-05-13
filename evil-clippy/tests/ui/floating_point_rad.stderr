@@ -1,53 +1,92 @@
-error: conversion to radians can be done more accurately
-  --> tests/ui/floating_point_rad.rs:10:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = degrees as f64 * std::f64::consts::PI / 180.0;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `(degrees as f64).to_radians()`
-   |
-   = note: `-D clippy::suboptimal-flops` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::suboptimal_flops)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: conversion to degrees can be done more accurately
-  --> tests/ui/floating_point_rad.rs:12:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = degrees as f64 * 180.0 / std::f64::consts::PI;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `(degrees as f64).to_degrees()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: conversion to degrees can be done more accurately
-  --> tests/ui/floating_point_rad.rs:18:13
+error: function must be `unsafe`
+  --> tests/ui/floating_point_rad.rs:4:11
    |
-LL |     let _ = x * 180f32 / std::f32::consts::PI;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `x.to_degrees()`
-
-error: conversion to degrees can be done more accurately
-  --> tests/ui/floating_point_rad.rs:20:13
+LL | pub const fn const_context() {
+   |           ^
    |
-LL |     let _ = 90. * 180f64 / std::f64::consts::PI;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `90.0_f64.to_degrees()`
-
-error: conversion to degrees can be done more accurately
-  --> tests/ui/floating_point_rad.rs:22:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_rad.rs:4:11
    |
-LL |     let _ = 90.5 * 180f64 / std::f64::consts::PI;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `90.5_f64.to_degrees()`
+LL | pub const fn const_context() {
+   |           ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: conversion to radians can be done more accurately
-  --> tests/ui/floating_point_rad.rs:24:13
+error: variable must be `mut`
+  --> tests/ui/floating_point_rad.rs:5:9
    |
-LL |     let _ = x * std::f32::consts::PI / 180f32;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `x.to_radians()`
-
-error: conversion to radians can be done more accurately
-  --> tests/ui/floating_point_rad.rs:26:13
+LL |     let x = 3f32;
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _ = 90. * std::f32::consts::PI / 180f32;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `90.0_f64.to_radians()`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: conversion to radians can be done more accurately
-  --> tests/ui/floating_point_rad.rs:28:13
+error: function must be `unsafe`
+  --> tests/ui/floating_point_rad.rs:9:5
    |
-LL |     let _ = 90.5 * std::f32::consts::PI / 180f32;
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using: `90.5_f64.to_radians()`
+LL | pub fn issue9391(degrees: i64) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_rad.rs:9:5
+   |
+LL | pub fn issue9391(degrees: i64) {
+   |     ^
 
-error: aborting due to 8 previous errors
+error: parameter must be `mut`
+  --> tests/ui/floating_point_rad.rs:9:18
+   |
+LL | pub fn issue9391(degrees: i64) {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/floating_point_rad.rs:16:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/floating_point_rad.rs:16:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/floating_point_rad.rs:16:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/floating_point_rad.rs:17:9
+   |
+LL |     let x = 3f32;
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
 

@@ -1,45 +1,128 @@
-error: code is excluded from test builds
-  --> tests/ui/cfg_not_test.rs:8:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     #[cfg(not(test))]
-   |     ^^^^^^^^^^^^^^^^^
-   |
-   = help: consider not excluding any code from test builds
-   = note: this could increase code coverage despite not actually being tested
-   = note: `-D clippy::cfg-not-test` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::cfg_not_test)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: code is excluded from test builds
-  --> tests/ui/cfg_not_test.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     #[cfg(not(test))]
-   |     ^^^^^^^^^^^^^^^^^
-   |
-   = help: consider not excluding any code from test builds
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: code is excluded from test builds
-  --> tests/ui/cfg_not_test.rs:26:1
+error: item must be `pub`
+  --> tests/ui/cfg_not_test.rs:4:1
    |
-LL | #[cfg(not(test))]
-   | ^^^^^^^^^^^^^^^^^
+LL | fn important_check() {}
+   | ^ help: make this item public: `pub`
    |
-   = help: consider not excluding any code from test builds
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: code is excluded from test builds
-  --> tests/ui/cfg_not_test.rs:29:1
+error: function must be `unsafe`
+  --> tests/ui/cfg_not_test.rs:4:1
    |
-LL | #[cfg(all(debug_assertions, not(test)))]
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | fn important_check() {}
+   | ^
    |
-   = help: consider not excluding any code from test builds
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cfg_not_test.rs:4:1
+   |
+LL | fn important_check() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: code is excluded from test builds
-  --> tests/ui/cfg_not_test.rs:32:1
+error: item must be `pub`
+  --> tests/ui/cfg_not_test.rs:6:1
    |
-LL | #[cfg(not(any(not(debug_assertions), test)))]
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider not excluding any code from test builds
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: function must be `unsafe`
+  --> tests/ui/cfg_not_test.rs:6:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cfg_not_test.rs:6:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/cfg_not_test.rs:10:9
+   |
+LL |     let answer = 42;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/cfg_not_test.rs:28:1
+   |
+LL | fn foo() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cfg_not_test.rs:28:1
+   |
+LL | fn foo() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cfg_not_test.rs:28:1
+   |
+LL | fn foo() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/cfg_not_test.rs:31:1
+   |
+LL | fn bar() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cfg_not_test.rs:31:1
+   |
+LL | fn bar() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cfg_not_test.rs:31:1
+   |
+LL | fn bar() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/cfg_not_test.rs:34:1
+   |
+LL | fn baz() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/cfg_not_test.rs:34:1
+   |
+LL | fn baz() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/cfg_not_test.rs:34:1
+   |
+LL | fn baz() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

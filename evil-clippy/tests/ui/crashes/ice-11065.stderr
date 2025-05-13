@@ -1,0 +1,104 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11065.rs:7:1
+   |
+LL | fn eq<T: Eq>(a: T, b: T) -> bool {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11065.rs:7:1
+   |
+LL | fn eq<T: Eq>(a: T, b: T) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11065.rs:7:1
+   |
+LL | fn eq<T: Eq>(a: T, b: T) -> bool {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/crashes/ice-11065.rs:7:14
+   |
+LL | fn eq<T: Eq>(a: T, b: T) -> bool {
+   |              ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/crashes/ice-11065.rs:7:20
+   |
+LL | fn eq<T: Eq>(a: T, b: T) -> bool {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11065.rs:11:1
+   |
+LL | macro_rules! tests {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-11065.rs:12:58
+   |
+LL |       ($($expr:expr, $ty:ty, ($($test:expr),*);)+) => (pub fn main() {$({
+   |                                                            ^
+...
+LL | / tests! {
+LL | |     FromIterator::from_iter, fn(OptionIter<i32>) -> Vec<i32>, (Some(5).into_iter());
+LL | | }
+   | |_- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-11065.rs:12:58
+   |
+LL |       ($($expr:expr, $ty:ty, ($($test:expr),*);)+) => (pub fn main() {$({
+   |                                                            ^
+...
+LL | / tests! {
+LL | |     FromIterator::from_iter, fn(OptionIter<i32>) -> Vec<i32>, (Some(5).into_iter());
+LL | | }
+   | |_- in this macro invocation
+   = note: this error originates in the macro `tests` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-11065.rs:13:9
+   |
+LL |           const C: $ty = $expr;
+   |           ^ help: make this item public: `pub`
+...
+LL | / tests! {
+LL | |     FromIterator::from_iter, fn(OptionIter<i32>) -> Vec<i32>, (Some(5).into_iter());
+LL | | }
+   | |_- in this macro invocation
+   |
+   = note: this error originates in the macro `tests` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 11 previous errors
+

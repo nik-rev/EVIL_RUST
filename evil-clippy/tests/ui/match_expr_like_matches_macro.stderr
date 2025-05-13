@@ -1,148 +1,459 @@
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:14:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _y = match x {
-   |  ______________^
-LL | |         Some(0) => true,
-LL | |         _ => false,
-LL | |     };
-   | |_____^ help: try: `matches!(x, Some(0))`
-   |
-   = note: `-D clippy::match-like-matches-macro` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::match_like_matches_macro)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: redundant pattern matching, consider using `is_some()`
-  --> tests/ui/match_expr_like_matches_macro.rs:21:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _w = match x {
-   |  ______________^
-LL | |         Some(_) => true,
-LL | |         _ => false,
-LL | |     };
-   | |_____^ help: try: `x.is_some()`
-   |
-   = note: `-D clippy::redundant-pattern-matching` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_pattern_matching)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: redundant pattern matching, consider using `is_none()`
-  --> tests/ui/match_expr_like_matches_macro.rs:28:14
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:10:1
    |
-LL |       let _z = match x {
-   |  ______________^
-LL | |         Some(_) => false,
-LL | |         None => true,
-LL | |     };
-   | |_____^ help: try: `x.is_none()`
-
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:35:15
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |       let _zz = match x {
-   |  _______________^
-LL | |         Some(r) if r == 0 => false,
-LL | |         _ => true,
-LL | |     };
-   | |_____^ help: try: `!matches!(x, Some(r) if r == 0)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: if let .. else expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:42:16
+error: function must be `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:10:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:10:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:11:9
+   |
+LL |     let x = Some(5);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:14:9
+   |
+LL |     let _y = match x {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:21:9
+   |
+LL |     let _w = match x {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:28:9
+   |
+LL |     let _z = match x {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:35:9
+   |
+LL |     let _zz = match x {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:42:9
    |
 LL |     let _zzz = if let Some(5) = x { true } else { false };
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `matches!(x, Some(5))`
+   |         ^ help: make this variable mutable: `mut`
 
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:67:20
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:46:9
    |
-LL |           let _ans = match x {
-   |  ____________________^
-LL | |             E::A(_) => true,
-LL | |             E::B(_) => true,
-LL | |             _ => false,
-LL | |         };
-   | |_________^ help: try: `matches!(x, E::A(_) | E::B(_))`
+LL |     let _a = match x {
+   |         ^ help: make this variable mutable: `mut`
 
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:78:20
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:52:9
    |
-LL |           let _ans = match x {
-   |  ____________________^
-LL | |             E::A(_) => {
-LL | |                 true
-...  |
-LL | |             _ => false,
-LL | |         };
-   | |_________^ help: try: `matches!(x, E::A(_) | E::B(_))`
+LL |     let _ab = match x {
+   |         ^ help: make this variable mutable: `mut`
 
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:89:20
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:58:5
    |
-LL |           let _ans = match x {
-   |  ____________________^
-LL | |             E::B(_) => false,
-LL | |             E::C => false,
-LL | |             _ => true,
-LL | |         };
-   | |_________^ help: try: `!matches!(x, E::B(_) | E::C)`
+LL |     enum E {
+   |     ^ help: make this item public: `pub`
 
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:150:18
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:64:9
    |
-LL |           let _z = match &z {
-   |  __________________^
-LL | |             Some(3) => true,
-LL | |             _ => false,
-LL | |         };
-   | |_________^ help: try: `matches!(z, Some(3))`
+LL |     let x = E::A(2);
+   |         ^ help: make this variable mutable: `mut`
 
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:160:18
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:67:13
    |
-LL |           let _z = match &z {
-   |  __________________^
-LL | |             Some(3) => true,
-LL | |             _ => false,
-LL | |         };
-   | |_________^ help: try: `matches!(&z, Some(3))`
+LL |         let _ans = match x {
+   |             ^ help: make this variable mutable: `mut`
 
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:178:21
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:78:13
    |
-LL |               let _ = match &z {
-   |  _____________________^
-LL | |                 AnEnum::X => true,
-LL | |                 _ => false,
-LL | |             };
-   | |_____________^ help: try: `matches!(&z, AnEnum::X)`
+LL |         let _ans = match x {
+   |             ^ help: make this variable mutable: `mut`
 
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:193:20
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:89:13
    |
-LL |           let _res = match &val {
-   |  ____________________^
-LL | |             &Some(ref _a) => true,
-LL | |             _ => false,
-LL | |         };
-   | |_________^ help: try: `matches!(&val, &Some(ref _a))`
+LL |         let _ans = match x {
+   |             ^ help: make this variable mutable: `mut`
 
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:206:20
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:98:13
    |
-LL |           let _res = match &val {
-   |  ____________________^
-LL | |             &Some(ref _a) => true,
-LL | |             _ => false,
-LL | |         };
-   | |_________^ help: try: `matches!(&val, &Some(ref _a))`
+LL |         let _ans = match x {
+   |             ^ help: make this variable mutable: `mut`
 
-error: match expression looks like `matches!` macro
-  --> tests/ui/match_expr_like_matches_macro.rs:265:14
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:107:13
    |
-LL |       let _y = match Some(5) {
-   |  ______________^
-LL | |         Some(0) => true,
-LL | |         _ => false,
-LL | |     };
-   | |_____^ help: try: `matches!(Some(5), Some(0))`
+LL |         let _ans = match x {
+   |             ^ help: make this variable mutable: `mut`
 
-error: aborting due to 14 previous errors
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:116:13
+   |
+LL |         let _ans = match x {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:124:13
+   |
+LL |         let _ans = match x {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:132:13
+   |
+LL |         let _ans = match x {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:140:13
+   |
+LL |         let _ans = match x {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:149:13
+   |
+LL |         let z = &Some(3);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_expr_like_matches_macro.rs:149:17
+   |
+LL |         let z = &Some(3);
+   |                 ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:150:13
+   |
+LL |         let _z = match &z {
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_expr_like_matches_macro.rs:150:24
+   |
+LL |         let _z = match &z {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:159:13
+   |
+LL |         let z = Some(3);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:160:13
+   |
+LL |         let _z = match &z {
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_expr_like_matches_macro.rs:160:24
+   |
+LL |         let _z = match &z {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:168:9
+   |
+LL |         enum AnEnum {
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:173:9
+   |
+LL |         fn foo(_x: AnEnum) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:173:9
+   |
+LL |         fn foo(_x: AnEnum) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:173:9
+   |
+LL |         fn foo(_x: AnEnum) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:173:16
+   |
+LL |         fn foo(_x: AnEnum) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:175:9
+   |
+LL |         fn main() {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:175:9
+   |
+LL |         fn main() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:175:9
+   |
+LL |         fn main() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:176:17
+   |
+LL |             let z = AnEnum::X;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_expr_like_matches_macro.rs:178:27
+   |
+LL |             let _ = match &z {
+   |                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:188:9
+   |
+LL |         struct S(i32);
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:190:9
+   |
+LL |         fn fun(_val: Option<S>) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:190:9
+   |
+LL |         fn fun(_val: Option<S>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:190:9
+   |
+LL |         fn fun(_val: Option<S>) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:190:16
+   |
+LL |         fn fun(_val: Option<S>) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:191:13
+   |
+LL |         let val = Some(S(42));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:193:13
+   |
+LL |         let _res = match &val {
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_expr_like_matches_macro.rs:193:26
+   |
+LL |         let _res = match &val {
+   |                          ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/match_expr_like_matches_macro.rs:194:19
+   |
+LL |             &Some(ref _a) => true,
+   |                   ^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:202:9
+   |
+LL |         struct S(i32);
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:204:9
+   |
+LL |         fn fun(_val: Option<S>) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:204:9
+   |
+LL |         fn fun(_val: Option<S>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:204:9
+   |
+LL |         fn fun(_val: Option<S>) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:204:16
+   |
+LL |         fn fun(_val: Option<S>) {}
+   |                ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:205:13
+   |
+LL |         let val = Some(S(42));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:206:13
+   |
+LL |         let _res = match &val {
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/match_expr_like_matches_macro.rs:206:26
+   |
+LL |         let _res = match &val {
+   |                          ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/match_expr_like_matches_macro.rs:207:19
+   |
+LL |             &Some(ref _a) => true,
+   |                   ^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:215:9
+   |
+LL |         enum E {
+   |         ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:229:9
+   |
+LL |     let x = ' ';
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:231:9
+   |
+LL |     let _line_comments = match x {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:241:9
+   |
+LL |     let _block_comments = match x {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:256:1
+   |
+LL | fn msrv_1_41() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:256:1
+   |
+LL | fn msrv_1_41() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:256:1
+   |
+LL | fn msrv_1_41() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:257:9
+   |
+LL |     let _y = match Some(5) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/match_expr_like_matches_macro.rs:264:1
+   |
+LL | fn msrv_1_42() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:264:1
+   |
+LL | fn msrv_1_42() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/match_expr_like_matches_macro.rs:264:1
+   |
+LL | fn msrv_1_42() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/match_expr_like_matches_macro.rs:265:9
+   |
+LL |     let _y = match Some(5) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 66 previous errors
 

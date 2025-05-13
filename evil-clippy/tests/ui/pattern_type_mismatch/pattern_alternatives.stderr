@@ -1,28 +1,105 @@
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:14:12
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let Value::B | Value::A(_) = ref_value {}
-   |            ^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: use `*` to dereference the match expression or explicitly match against a `&_` pattern and adjust the enclosed variable bindings
-   = note: `-D clippy::pattern-type-mismatch` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::pattern_type_mismatch)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:17:34
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     if let &Value::B | &Value::A(Some(_)) = ref_value {}
-   |                                  ^^^^^^^
-   |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: type of pattern does not match the expression type
-  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:20:32
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:3:1
    |
-LL |     if let Value::B | Value::A(Some(_)) = *ref_value {}
-   |                                ^^^^^^^
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
    |
-   = help: explicitly match against a `&_` pattern and adjust the enclosed variable bindings
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 3 previous errors
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:3:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:3:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:5:1
+   |
+LL | fn alternatives() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:5:1
+   |
+LL | fn alternatives() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:5:1
+   |
+LL | fn alternatives() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:6:5
+   |
+LL |     enum Value<'a> {
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:8:11
+   |
+LL |         A(&'a Option<i32>),
+   |           ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:11:9
+   |
+LL |     let ref_value = &Value::A(&Some(23));
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:11:21
+   |
+LL |     let ref_value = &Value::A(&Some(23));
+   |                     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/pattern_type_mismatch/pattern_alternatives.rs:11:31
+   |
+LL |     let ref_value = &Value::A(&Some(23));
+   |                               ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

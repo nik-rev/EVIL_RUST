@@ -1,35 +1,175 @@
-error: accessing first element with `x.get(0)`
-  --> tests/ui/get_first.rs:17:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = x.get(0);
-   |             ^^^^^^^^ help: try: `x.first()`
-   |
-   = note: `-D clippy::get-first` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::get_first)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: accessing first element with `y.get(0)`
-  --> tests/ui/get_first.rs:24:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = y.get(0);
-   |             ^^^^^^^^ help: try: `y.first()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: accessing first element with `z.get(0)`
-  --> tests/ui/get_first.rs:31:13
+error: item must be `pub`
+  --> tests/ui/get_first.rs:5:1
    |
-LL |     let _ = z.get(0);
-   |             ^^^^^^^^ help: try: `z.first()`
-
-error: accessing first element with `vecdeque.get(0)`
-  --> tests/ui/get_first.rs:38:13
+LL | struct Bar {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = vecdeque.get(0);
-   |             ^^^^^^^^^^^^^^^ help: try: `vecdeque.front()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: accessing first element with `non_primitives.get(0)`
-  --> tests/ui/get_first.rs:52:13
+error: item must be `pub`
+  --> tests/ui/get_first.rs:9:1
    |
-LL |     let _ = non_primitives.get(0);
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: try: `non_primitives.first()`
+LL | impl Bar {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: function must be `unsafe`
+  --> tests/ui/get_first.rs:10:5
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/get_first.rs:10:5
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/get_first.rs:10:13
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/get_first.rs:10:19
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/get_first.rs:10:12
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/get_first.rs:10:41
+   |
+LL |     fn get(&self, pos: usize) -> Option<&u32> {
+   |                                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/get_first.rs:15:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/get_first.rs:15:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/get_first.rs:15:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/get_first.rs:16:9
+   |
+LL |     let x = vec![2, 3, 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/get_first.rs:23:9
+   |
+LL |     let y = [2, 3, 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/get_first.rs:30:9
+   |
+LL |     let z = &[2, 3, 5];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/get_first.rs:30:13
+   |
+LL |     let z = &[2, 3, 5];
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/get_first.rs:37:9
+   |
+LL |     let vecdeque: VecDeque<_> = x.iter().cloned().collect();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/get_first.rs:43:9
+   |
+LL |     let hashmap: HashMap<u8, char> = HashMap::from_iter(vec![(0, 'a'), (1, 'b')]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/get_first.rs:44:9
+   |
+LL |     let btreemap: BTreeMap<u8, char> = BTreeMap::from_iter(vec![(0, 'a'), (1, 'b')]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/get_first.rs:45:25
+   |
+LL |     let _ = hashmap.get(&0); // Do not lint, because HashMap is not slice.
+   |                         ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/get_first.rs:46:26
+   |
+LL |     let _ = btreemap.get(&0); // Do not lint, because BTreeMap is not slice.
+   |                          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/get_first.rs:48:9
+   |
+LL |     let bar = Bar { arr: [0, 1, 2] };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/get_first.rs:51:9
+   |
+LL |     let non_primitives = [vec![1, 2], vec![3, 4]];
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 24 previous errors
 

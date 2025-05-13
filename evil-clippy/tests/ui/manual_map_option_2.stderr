@@ -1,101 +1,597 @@
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option_2.rs:6:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = match Some(0) {
-   |  _____________^
-LL | |
-LL | |         Some(x) => Some({
-LL | |             let y = (String::new(), String::new());
-...  |
-LL | |         None => None,
-LL | |     };
-   | |_____^
-   |
-   = note: `-D clippy::manual-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_map)]`
-help: try
-   |
-LL ~     let _ = Some(0).map(|x| {
-LL +             let y = (String::new(), String::new());
-LL +             (x, y.0)
-LL ~         });
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option_2.rs:49:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = match &s {
-   |  _____________^
-LL | |
-LL | |         Some(x) => Some({ if let Some(ref s) = s { (x.clone(), s) } else { panic!() } }),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `s.as_ref().map(|x| { if let Some(ref s) = s { (x.clone(), s) } else { panic!() } })`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option_2.rs:65:17
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:4:1
    |
-LL |           let _ = match Some(0) {
-   |  _________________^
-LL | |
-LL | |             Some(x) => Some(f(x)),
-LL | |             None => None,
-LL | |         };
-   | |_________^ help: try: `Some(0).map(|x| f(x))`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option_2.rs:71:13
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:4:1
    |
-LL |       let _ = match Some(0) {
-   |  _____________^
-LL | |
-LL | |         Some(x) => unsafe { Some(f(x)) },
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `Some(0).map(|x| unsafe { f(x) })`
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option_2.rs:76:13
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:9:17
    |
-LL |       let _ = match Some(0) {
-   |  _____________^
-LL | |
-LL | |         Some(x) => Some(unsafe { f(x) }),
-LL | |         None => None,
-LL | |     };
-   | |_____^ help: try: `Some(0).map(|x| unsafe { f(x) })`
+LL |             let y = (String::new(), String::new());
+   |                 ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option_2.rs:113:17
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:17:9
    |
-LL |           let _ = match Some(0) {
-   |  _________________^
-LL | |
-LL | |             Some(_) => Some(match f() {
-LL | |                 Ok(res) => Ok(Box::new(res)),
-...  |
-LL | |             None => None,
-LL | |         };
-   | |_________^
-   |
-help: try
-   |
-LL ~         let _ = Some(0).map(|_| match f() {
-LL +                 Ok(res) => Ok(Box::new(res)),
-LL +                 _ => Err(()),
-LL ~             });
-   |
+LL |     let s = Some(String::new());
+   |         ^ help: make this variable mutable: `mut`
 
-error: manual implementation of `Option::map`
-  --> tests/ui/manual_map_option_2.rs:136:37
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:18:19
    |
-LL |           let _: Option<Box<&[u8]>> = match Some(0) {
-   |  _____________________________________^
-LL | |
-LL | |             Some(_) => Some(g(x)),
-LL | |             None => None,
-LL | |         };
-   | |_________^ help: try: `Some(0).map(|_| g(x))`
+LL |     let _ = match &s {
+   |                   ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: aborting due to 7 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:25:9
+   |
+LL |     let s = Some(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:26:19
+   |
+LL |     let _ = match &s {
+   |                   ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:28:17
+   |
+LL |             let clone = x.clone();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:29:17
+   |
+LL |             let s = || s;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:38:19
+   |
+LL |     let _ = match &s {
+   |                   ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:40:17
+   |
+LL |             let clone = x.clone();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/manual_map_option_2.rs:41:17
+   |
+LL |             let ref mut s = s;
+   |                 ^^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:47:9
+   |
+LL |     let s = Some(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:49:19
+   |
+LL |     let _ = match &s {
+   |                   ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/manual_map_option_2.rs:51:39
+   |
+LL |         Some(x) => Some({ if let Some(ref s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                       ^^^^^
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:51:76
+   |
+LL |         Some(x) => Some({ if let Some(ref s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                            ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:51:76
+   |
+LL |         Some(x) => Some({ if let Some(ref s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                            ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:51:76
+   |
+LL |         Some(x) => Some({ if let Some(ref s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                            ^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:55:9
+   |
+LL |     let x: Option<(String, &str)> = match &s {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:55:28
+   |
+LL |     let x: Option<(String, &str)> = match &s {
+   |                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:55:43
+   |
+LL |     let x: Option<(String, &str)> = match &s {
+   |                                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/manual_map_option_2.rs:56:39
+   |
+LL |         Some(x) => Some({ if let Some(ref s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                       ^^^^^
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:56:76
+   |
+LL |         Some(x) => Some({ if let Some(ref s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                            ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:56:76
+   |
+LL |         Some(x) => Some({ if let Some(ref s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                            ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:56:76
+   |
+LL |         Some(x) => Some({ if let Some(ref s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                            ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:61:5
+   |
+LL |     unsafe fn f(x: u32) -> u32 {
+   |     ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/manual_map_option_2.rs:61:17
+   |
+LL |     unsafe fn f(x: u32) -> u32 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:84:1
+   |
+LL | mod with_type_coercion {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:85:5
+   |
+LL |     trait DummyTrait {}
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:85:5
+   |
+LL |     trait DummyTrait {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:87:5
+   |
+LL |     fn foo<T: DummyTrait, F: Fn() -> Result<T, ()>>(f: F) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:87:5
+   |
+LL |     fn foo<T: DummyTrait, F: Fn() -> Result<T, ()>>(f: F) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:87:5
+   |
+LL |     fn foo<T: DummyTrait, F: Fn() -> Result<T, ()>>(f: F) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_map_option_2.rs:87:53
+   |
+LL |     fn foo<T: DummyTrait, F: Fn() -> Result<T, ()>>(f: F) {
+   |                                                     ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:97:27
+   |
+LL |         let _: Option<Box<&[u8]>> = match Some(()) {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:102:13
+   |
+LL |         let x = String::new();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:103:27
+   |
+LL |         let _: Option<Box<&str>> = match Some(()) {
+   |                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:104:38
+   |
+LL |             Some(_) => Some(Box::new(&x)),
+   |                                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:108:23
+   |
+LL |         let _: Option<&str> = match Some(()) {
+   |                       ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:109:29
+   |
+LL |             Some(_) => Some(&x),
+   |                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:124:5
+   |
+LL |     fn bar() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:124:5
+   |
+LL |     fn bar() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:124:5
+   |
+LL |     fn bar() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:125:9
+   |
+LL |         fn f(_: Option<Box<&[u8]>>) {}
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:125:9
+   |
+LL |         fn f(_: Option<Box<&[u8]>>) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:125:9
+   |
+LL |         fn f(_: Option<Box<&[u8]>>) {}
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:125:28
+   |
+LL |         fn f(_: Option<Box<&[u8]>>) {}
+   |                            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:126:9
+   |
+LL |         fn g(b: &[u8]) -> Box<&[u8]> {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:126:9
+   |
+LL |         fn g(b: &[u8]) -> Box<&[u8]> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:126:9
+   |
+LL |         fn g(b: &[u8]) -> Box<&[u8]> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_map_option_2.rs:126:14
+   |
+LL |         fn g(b: &[u8]) -> Box<&[u8]> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:126:17
+   |
+LL |         fn g(b: &[u8]) -> Box<&[u8]> {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:126:31
+   |
+LL |         fn g(b: &[u8]) -> Box<&[u8]> {
+   |                               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:130:13
+   |
+LL |         let x: &[u8; 4] = b"1234";
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:130:16
+   |
+LL |         let x: &[u8; 4] = b"1234";
+   |                ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:136:27
+   |
+LL |         let _: Option<Box<&[u8]>> = match Some(0) {
+   |                           ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:143:5
+   |
+LL |     fn with_fn_ret(s: &Option<String>) -> Option<(String, &str)> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:143:5
+   |
+LL |     fn with_fn_ret(s: &Option<String>) -> Option<(String, &str)> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:143:5
+   |
+LL |     fn with_fn_ret(s: &Option<String>) -> Option<(String, &str)> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_map_option_2.rs:143:20
+   |
+LL |     fn with_fn_ret(s: &Option<String>) -> Option<(String, &str)> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:143:23
+   |
+LL |     fn with_fn_ret(s: &Option<String>) -> Option<(String, &str)> {
+   |                       ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:143:59
+   |
+LL |     fn with_fn_ret(s: &Option<String>) -> Option<(String, &str)> {
+   |                                                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:146:76
+   |
+LL |             Some(x) => Some({ if let Some(s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                            ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:146:76
+   |
+LL |             Some(x) => Some({ if let Some(s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                            ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:146:76
+   |
+LL |             Some(x) => Some({ if let Some(s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                            ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:151:5
+   |
+LL |     fn with_fn_ret_2(s: &Option<String>) -> Option<(String, &str)> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:151:5
+   |
+LL |     fn with_fn_ret_2(s: &Option<String>) -> Option<(String, &str)> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:151:5
+   |
+LL |     fn with_fn_ret_2(s: &Option<String>) -> Option<(String, &str)> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_map_option_2.rs:151:22
+   |
+LL |     fn with_fn_ret_2(s: &Option<String>) -> Option<(String, &str)> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:151:25
+   |
+LL |     fn with_fn_ret_2(s: &Option<String>) -> Option<(String, &str)> {
+   |                         ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:151:61
+   |
+LL |     fn with_fn_ret_2(s: &Option<String>) -> Option<(String, &str)> {
+   |                                                             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:155:80
+   |
+LL |                 Some(x) => Some({ if let Some(s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                                ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:155:80
+   |
+LL |                 Some(x) => Some({ if let Some(s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                                ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:155:80
+   |
+LL |                 Some(x) => Some({ if let Some(s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                                ^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:163:5
+   |
+LL |     fn with_fn_ret_3<'a>(s: &'a Option<String>) -> Option<(String, &'a str)> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:163:5
+   |
+LL |     fn with_fn_ret_3<'a>(s: &'a Option<String>) -> Option<(String, &'a str)> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:163:5
+   |
+LL |     fn with_fn_ret_3<'a>(s: &'a Option<String>) -> Option<(String, &'a str)> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_map_option_2.rs:163:26
+   |
+LL |     fn with_fn_ret_3<'a>(s: &'a Option<String>) -> Option<(String, &'a str)> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:163:29
+   |
+LL |     fn with_fn_ret_3<'a>(s: &'a Option<String>) -> Option<(String, &'a str)> {
+   |                             ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:163:68
+   |
+LL |     fn with_fn_ret_3<'a>(s: &'a Option<String>) -> Option<(String, &'a str)> {
+   |                                                                    ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/manual_map_option_2.rs:164:13
+   |
+LL |         let x: Option<(String, &'a str)>;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_map_option_2.rs:164:32
+   |
+LL |         let x: Option<(String, &'a str)>;
+   |                                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_map_option_2.rs:167:80
+   |
+LL |                 Some(x) => Some({ if let Some(s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                                ^^^^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_map_option_2.rs:167:80
+   |
+LL |                 Some(x) => Some({ if let Some(s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                                ^^^^^^^^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_map_option_2.rs:167:80
+   |
+LL |                 Some(x) => Some({ if let Some(s) = s { (x.clone(), s) } else { panic!() } }),
+   |                                                                                ^^^^^^^^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 77 previous errors
 

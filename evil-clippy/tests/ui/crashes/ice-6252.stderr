@@ -1,3 +1,10 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
 error[E0412]: cannot find type `PhantomData` in this scope
   --> tests/ui/crashes/ice-6252.rs:9:9
    |
@@ -20,6 +27,68 @@ help: you might be missing a type parameter
 LL | impl<N, M, VAL> TypeVal<usize> for Multiply<N, M> where N: TypeVal<VAL> {}
    |          +++++
 
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: trait must be `unsafe`
+  --> tests/ui/crashes/ice-6252.rs:4:1
+   |
+LL | / trait TypeVal<T> {
+LL | |     const VAL: T;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-6252.rs:4:1
+   |
+LL | trait TypeVal<T> {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-6252.rs:7:1
+   |
+LL | struct Five;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-6252.rs:8:1
+   |
+LL | struct Multiply<N, M> {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-6252.rs:12:1
+   |
+LL | impl<N, M> TypeVal<usize> for Multiply<N, M> where N: TypeVal<VAL> {}
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-6252.rs:16:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-6252.rs:16:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-6252.rs:16:1
+   |
+LL | fn main() {
+   | ^
+
 error[E0046]: not all trait items implemented, missing: `VAL`
   --> tests/ui/crashes/ice-6252.rs:12:1
    |
@@ -29,7 +98,7 @@ LL |     const VAL: T;
 LL | impl<N, M> TypeVal<usize> for Multiply<N, M> where N: TypeVal<VAL> {}
    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `VAL` in implementation
 
-error: aborting due to 3 previous errors
+error: aborting due to 12 previous errors
 
 Some errors have detailed explanations: E0046, E0412.
 For more information about an error, try `rustc --explain E0046`.

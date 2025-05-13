@@ -1,56 +1,193 @@
-error: use of `Debug`-based formatting
-  --> tests/ui/print.rs:11:20
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         write!(f, "{:?}", 43.1415)
-   |                    ^^^^
-   |
-   = note: `-D clippy::use-debug` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::use_debug)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `println!`
-  --> tests/ui/print.rs:24:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     println!("Hello");
-   |     ^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::print-stdout` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::print_stdout)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: use of `print!`
-  --> tests/ui/print.rs:27:5
+error: item must be `pub`
+  --> tests/ui/print.rs:7:1
    |
-LL |     print!("Hello");
-   |     ^^^^^^^^^^^^^^^
-
-error: use of `print!`
-  --> tests/ui/print.rs:30:5
+LL | struct Foo;
+   | ^ help: make this item public: `pub`
    |
-LL |     print!("Hello {}", "World");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: use of `print!`
-  --> tests/ui/print.rs:33:5
+error: item must be `pub`
+  --> tests/ui/print.rs:9:1
    |
-LL |     print!("Hello {:?}", "World");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | impl Display for Foo {
+   | ^ help: make this item public: `pub`
 
-error: use of `Debug`-based formatting
-  --> tests/ui/print.rs:33:19
+error: function must be `unsafe`
+  --> tests/ui/print.rs:10:5
    |
-LL |     print!("Hello {:?}", "World");
-   |                   ^^^^
-
-error: use of `print!`
-  --> tests/ui/print.rs:37:5
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |     ^
    |
-LL |     print!("Hello {:#?}", "#orld");
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: use of `Debug`-based formatting
-  --> tests/ui/print.rs:37:19
+help: make this function unsafe: `unsafe`
+  --> tests/ui/print.rs:10:5
    |
-LL |     print!("Hello {:#?}", "#orld");
-   |                   ^^^^^
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 8 previous errors
+error: parameter must be `mut`
+  --> tests/ui/print.rs:10:13
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |             ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/print.rs:10:19
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/print.rs:10:12
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/print.rs:10:22
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |                      ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/print.rs:16:1
+   |
+LL | impl Debug for Foo {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/print.rs:17:5
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/print.rs:17:5
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/print.rs:17:13
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/print.rs:17:19
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/print.rs:17:12
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |            ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/print.rs:17:22
+   |
+LL |     fn fmt(&self, f: &mut Formatter) -> Result {
+   |                      ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/print.rs:23:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/print.rs:23:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/print.rs:23:1
+   |
+LL | fn main() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/print.rs:41:5
+   |
+LL |     assert_eq!(42, 1337);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/print.rs:41:5
+   |
+LL |     assert_eq!(42, 1337);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: variable must be `mut`
+  --> tests/ui/print.rs:41:5
+   |
+LL |     assert_eq!(42, 1337);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/print.rs:41:5
+   |
+LL |     assert_eq!(42, 1337);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/print.rs:41:5
+   |
+LL |     assert_eq!(42, 1337);
+   |     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 24 previous errors
 

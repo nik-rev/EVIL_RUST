@@ -1,36 +1,66 @@
-error: mixed usage of pub and non-pub fields
-  --> tests/ui/partial_pub_fields.rs:10:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         pub paths: HashMap<u32, String>,
-   |         ^^^
-   |
-   = help: consider using private field here
-   = note: `-D clippy::partial-pub-fields` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::partial_pub_fields)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: mixed usage of pub and non-pub fields
-  --> tests/ui/partial_pub_fields.rs:17:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |         b: u8,
-   |         ^
-   |
-   = help: consider using public field here
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: mixed usage of pub and non-pub fields
-  --> tests/ui/partial_pub_fields.rs:21:27
+error: item must be `pub`
+  --> tests/ui/partial_pub_fields.rs:4:1
    |
-LL |     pub struct Point(i32, pub i32);
-   |                           ^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider using private field here
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: mixed usage of pub and non-pub fields
-  --> tests/ui/partial_pub_fields.rs:26:9
+error: function must be `unsafe`
+  --> tests/ui/partial_pub_fields.rs:4:1
    |
-LL |         pub pos: u32,
-   |         ^^^
+LL | fn main() {
+   | ^
    |
-   = help: consider using private field here
+help: make this function unsafe: `unsafe`
+  --> tests/ui/partial_pub_fields.rs:4:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/partial_pub_fields.rs:7:14
+   |
+LL |     #[derive(Default)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/partial_pub_fields.rs:7:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/partial_pub_fields.rs:7:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 8 previous errors
 

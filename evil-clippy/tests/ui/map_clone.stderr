@@ -1,95 +1,555 @@
-error: you are using an explicit closure for copying elements
-  --> tests/ui/map_clone.rs:14:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: Vec<i8> = vec![5_i8; 6].iter().map(|x| *x).collect();
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `copied` method: `vec![5_i8; 6].iter().copied()`
-   |
-   = note: `-D clippy::map-clone` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::map_clone)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: you are using an explicit closure for cloning elements
-  --> tests/ui/map_clone.rs:16:26
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: Vec<String> = vec![String::new()].iter().map(|x| x.clone()).collect();
-   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `cloned` method: `vec![String::new()].iter().cloned()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: you are using an explicit closure for copying elements
-  --> tests/ui/map_clone.rs:18:23
+error: item must be `pub`
+  --> tests/ui/map_clone.rs:13:1
    |
-LL |     let _: Vec<u32> = vec![42, 43].iter().map(|&x| x).collect();
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `copied` method: `vec![42, 43].iter().copied()`
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: you are using an explicit closure for copying elements
-  --> tests/ui/map_clone.rs:21:26
+error: function must be `unsafe`
+  --> tests/ui/map_clone.rs:13:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/map_clone.rs:13:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:21:31
    |
 LL |     let _: Option<u64> = Some(&16).map(|b| *b);
-   |                          ^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `copied` method: `Some(&16).copied()`
+   |                               ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: you are using an explicit closure for copying elements
-  --> tests/ui/map_clone.rs:23:25
+error: references are not allowed
+  --> tests/ui/map_clone.rs:23:30
    |
 LL |     let _: Option<u8> = Some(&1).map(|x| x.clone());
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `copied` method: `Some(&1).copied()`
-
-error: you are needlessly cloning iterator elements
-  --> tests/ui/map_clone.rs:35:29
+   |                              ^^
    |
-LL |     let _ = std::env::args().map(|v| v.clone());
-   |                             ^^^^^^^^^^^^^^^^^^^ help: remove the `map` call
+   = help: use a raw borrowing instead: `&raw const`
 
-error: you are explicitly cloning with `.map()`
-  --> tests/ui/map_clone.rs:75:13
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:27:9
+   |
+LL |     let v = vec![5_i8; 6];
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:28:9
+   |
+LL |     let a = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:29:9
+   |
+LL |     let b = &a;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:29:13
+   |
+LL |     let b = &a;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:42:13
+   |
+LL |         let o: Option<Rc<u32>> = Some(Rc::new(0_u32));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:44:13
+   |
+LL |         let v: Vec<Rc<u32>> = vec![Rc::new(0_u32)];
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:51:13
+   |
+LL |         let v = vec![&mut c];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:51:22
+   |
+LL |         let v = vec![&mut c];
+   |                      ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:54:13
+   |
+LL |         let v = vec![&mut d];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:54:22
+   |
+LL |         let v = vec![&mut d];
+   |                      ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:62:13
+   |
+LL |         let items = vec![&mut aa, &mut bb];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:62:26
+   |
+LL |         let items = vec![&mut aa, &mut bb];
+   |                          ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:62:35
+   |
+LL |         let items = vec![&mut aa, &mut bb];
+   |                                   ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:73:9
+   |
+LL |     let x = Some(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:74:9
+   |
+LL |     let x = x.as_ref(); // We do this to prevent triggering the `useless_asref` lint.
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:75:9
    |
 LL |     let y = x.map(|x| String::clone(x));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `cloned` method: `x.cloned()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: you are explicitly cloning with `.map()`
-  --> tests/ui/map_clone.rs:78:13
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:78:9
    |
 LL |     let y = x.map(Clone::clone);
-   |             ^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `cloned` method: `x.cloned()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: you are explicitly cloning with `.map()`
-  --> tests/ui/map_clone.rs:81:13
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:81:9
    |
 LL |     let y = x.map(String::clone);
-   |             ^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `cloned` method: `x.cloned()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: you are explicitly cloning with `.map()`
-  --> tests/ui/map_clone.rs:86:13
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:84:9
+   |
+LL |     let x: Option<u32> = Some(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:85:9
+   |
+LL |     let x = x.as_ref(); // We do this to prevent triggering the `useless_asref` lint.
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:86:9
    |
 LL |     let y = x.map(|x| u32::clone(x));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `copied` method: `x.copied()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: you are explicitly cloning with `.map()`
-  --> tests/ui/map_clone.rs:89:13
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:89:9
    |
 LL |     let y = x.map(|x| Clone::clone(x));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `copied` method: `x.copied()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: you are explicitly cloning with `.map()`
-  --> tests/ui/map_clone.rs:100:13
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:93:9
+   |
+LL |     let x: Option<u32> = Some(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:94:9
+   |
+LL |     let y = x.map(|x| u32::clone(&x));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:94:34
+   |
+LL |     let y = x.map(|x| u32::clone(&x));
+   |                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:95:9
+   |
+LL |     let y = x.map(|x| Clone::clone(&x));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:95:36
+   |
+LL |     let y = x.map(|x| Clone::clone(&x));
+   |                                    ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:98:9
+   |
+LL |     let x: Result<String, ()> = Ok(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:99:9
+   |
+LL |     let x = x.as_ref(); // We do this to prevent triggering the `useless_asref` lint.
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:100:9
    |
 LL |     let y = x.map(|x| String::clone(x));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `cloned` method: `x.cloned()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: you are explicitly cloning with `.map()`
-  --> tests/ui/map_clone.rs:103:13
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:103:9
    |
 LL |     let y = x.map(|x| Clone::clone(x));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `cloned` method: `x.cloned()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: you are explicitly cloning with `.map()`
-  --> tests/ui/map_clone.rs:108:13
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:106:9
+   |
+LL |     let x: Result<u32, ()> = Ok(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:107:9
+   |
+LL |     let x = x.as_ref(); // We do this to prevent triggering the `useless_asref` lint.
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:108:9
    |
 LL |     let y = x.map(|x| u32::clone(x));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `copied` method: `x.copied()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: you are explicitly cloning with `.map()`
-  --> tests/ui/map_clone.rs:111:13
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:111:9
    |
 LL |     let y = x.map(|x| Clone::clone(x));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider calling the dedicated `copied` method: `x.copied()`
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 15 previous errors
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:115:9
+   |
+LL |     let x: Result<u32, ()> = Ok(0);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:116:9
+   |
+LL |     let y = x.map(|x| u32::clone(&x));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:116:34
+   |
+LL |     let y = x.map(|x| u32::clone(&x));
+   |                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:117:9
+   |
+LL |     let y = x.map(|x| Clone::clone(&x));
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:117:36
+   |
+LL |     let y = x.map(|x| Clone::clone(&x));
+   |                                    ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:120:9
+   |
+LL |     let x = Some(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:121:9
+   |
+LL |     let y = x.as_ref().map(|x| String::clone(x));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:122:9
+   |
+LL |     let x: Result<String, ()> = Ok(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:123:9
+   |
+LL |     let y = x.as_ref().map(|x| String::clone(x));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:128:13
+   |
+LL |         let x: Option<&u8> = None;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:128:23
+   |
+LL |         let x: Option<&u8> = None;
+   |                       ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:129:13
+   |
+LL |         let y = x.map(|x| String::clone(loop {}));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:130:13
+   |
+LL |         let x: Option<&u8> = None;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:130:23
+   |
+LL |         let x: Option<&u8> = None;
+   |                       ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:131:13
+   |
+LL |         let y = x.map(|x| u8::clone(loop {}));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:132:13
+   |
+LL |         let x: Vec<&u8> = vec![];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:132:20
+   |
+LL |         let x: Vec<&u8> = vec![];
+   |                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:133:13
+   |
+LL |         let y = x.into_iter().map(|x| String::clone(loop {}));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:134:13
+   |
+LL |         let x: Vec<&u8> = vec![];
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:134:20
+   |
+LL |         let x: Vec<&u8> = vec![];
+   |                    ^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:135:13
+   |
+LL |         let y = x.into_iter().map(|x| u8::clone(loop {}));
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/map_clone.rs:143:9
+   |
+LL |         struct Foo;
+   |         ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:145:13
+   |
+LL |         let x = Arc::new(Foo);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:146:13
+   |
+LL |         let y = Some(&x);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:146:22
+   |
+LL |         let y = Some(&x);
+   |                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:147:13
+   |
+LL |         let _z = y.map(Arc::clone);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:149:13
+   |
+LL |         let x = Rc::new(Foo);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:150:13
+   |
+LL |         let y = Some(&x);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:150:22
+   |
+LL |         let y = Some(&x);
+   |                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:151:13
+   |
+LL |         let _z = y.map(Rc::clone);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:153:13
+   |
+LL |         let x = Arc::downgrade(&Arc::new(Foo));
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:153:32
+   |
+LL |         let x = Arc::downgrade(&Arc::new(Foo));
+   |                                ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:154:13
+   |
+LL |         let y = Some(&x);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:154:22
+   |
+LL |         let y = Some(&x);
+   |                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:155:13
+   |
+LL |         let _z = y.map(ArcWeak::clone);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:157:13
+   |
+LL |         let x = Rc::downgrade(&Rc::new(Foo));
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:157:31
+   |
+LL |         let x = Rc::downgrade(&Rc::new(Foo));
+   |                               ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:158:13
+   |
+LL |         let y = Some(&x);
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/map_clone.rs:158:22
+   |
+LL |         let y = Some(&x);
+   |                      ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/map_clone.rs:159:13
+   |
+LL |         let _z = y.map(RcWeak::clone);
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 83 previous errors
 

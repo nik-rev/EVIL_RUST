@@ -1,287 +1,1286 @@
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:9:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if a.is_none() {
-LL | |
-LL | |         return None;
-LL | |     }
-   | |_____^ help: replace it with: `a?;`
-   |
-   = note: `-D clippy::question-mark` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::question_mark)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:55:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /         if (self.opt).is_none() {
-LL | |
-LL | |             return None;
-LL | |         }
-   | |_________^ help: replace it with: `(self.opt)?;`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:60:9
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:8:1
    |
-LL | /         if self.opt.is_none() {
-LL | |
-LL | |             return None
-LL | |         }
-   | |_________^ help: replace it with: `self.opt?;`
-
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:65:17
+LL | fn some_func(a: Option<u32>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
    |
-LL |           let _ = if self.opt.is_none() {
-   |  _________________^
-LL | |
-LL | |             return None;
-LL | |         } else {
-LL | |             self.opt
-LL | |         };
-   | |_________^ help: replace it with: `Some(self.opt?)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:72:17
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:8:1
    |
-LL |           let _ = if let Some(x) = self.opt {
-   |  _________________^
-LL | |
-LL | |             x
-LL | |         } else {
-LL | |             return None;
-LL | |         };
-   | |_________^ help: replace it with: `self.opt?`
-
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:90:9
+LL | fn some_func(a: Option<u32>) -> Option<u32> {
+   | ^
    |
-LL | /         if self.opt.is_none() {
-LL | |
-LL | |             return None;
-LL | |         }
-   | |_________^ help: replace it with: `self.opt.as_ref()?;`
-
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:99:9
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:8:1
    |
-LL | /         if self.opt.is_none() {
-LL | |
-LL | |             return None;
-LL | |         }
-   | |_________^ help: replace it with: `self.opt.as_ref()?;`
+LL | fn some_func(a: Option<u32>) -> Option<u32> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:108:9
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:8:14
    |
-LL | /         if self.opt.is_none() {
-LL | |
-LL | |             return None;
-LL | |         }
-   | |_________^ help: replace it with: `self.opt.as_ref()?;`
-
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:116:26
+LL | fn some_func(a: Option<u32>) -> Option<u32> {
+   |              ^ help: make this parameter mutable: `mut`
    |
-LL |           let v: &Vec<_> = if let Some(ref v) = self.opt {
-   |  __________________________^
-LL | |
-LL | |             v
-LL | |         } else {
-LL | |             return None;
-LL | |         };
-   | |_________^ help: replace it with: `self.opt.as_ref()?`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:127:17
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:17:1
    |
-LL |           let v = if let Some(v) = self.opt {
-   |  _________________^
-LL | |
-LL | |             v
-LL | |         } else {
-LL | |             return None;
-LL | |         };
-   | |_________^ help: replace it with: `self.opt?`
+LL | fn some_other_func(a: Option<u32>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:149:5
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:17:1
    |
-LL | /     if f().is_none() {
-LL | |
-LL | |         return None;
-LL | |     }
-   | |_____^ help: replace it with: `f()?;`
-
-error: this `match` expression can be replaced with `?`
-  --> tests/ui/question_mark.rs:154:16
+LL | fn some_other_func(a: Option<u32>) -> Option<u32> {
+   | ^
    |
-LL |       let _val = match f() {
-   |  ________________^
-LL | |
-LL | |         Some(val) => val,
-LL | |         None => return None,
-LL | |     };
-   | |_____^ help: try instead: `f()?`
-
-error: this `match` expression can be replaced with `?`
-  --> tests/ui/question_mark.rs:165:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:17:1
    |
-LL | /     match f() {
-LL | |
-LL | |         Some(val) => val,
-LL | |         None => return None,
-LL | |     };
-   | |_____^ help: try instead: `f()?`
+LL | fn some_other_func(a: Option<u32>) -> Option<u32> {
+   | ^
 
-error: this `match` expression can be replaced with `?`
-  --> tests/ui/question_mark.rs:171:5
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:17:20
    |
-LL | /     match opt_none!() {
-LL | |
-LL | |         Some(x) => x,
-LL | |         None => return None,
-LL | |     };
-   | |_____^ help: try instead: `opt_none!()?`
+LL | fn some_other_func(a: Option<u32>) -> Option<u32> {
+   |                    ^ help: make this parameter mutable: `mut`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:198:13
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:31:1
    |
-LL |     let _ = if let Ok(x) = x { x } else { return x };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `x?`
+LL | impl<T> SeemsOption<T> {
+   | ^ help: make this item public: `pub`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:201:5
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:32:9
    |
-LL | /     if x.is_err() {
-LL | |
-LL | |         return x;
-LL | |     }
-   | |_____^ help: replace it with: `x?;`
-
-error: this `match` expression can be replaced with `?`
-  --> tests/ui/question_mark.rs:206:16
+LL |     pub fn is_none(&self) -> bool {
+   |         ^
    |
-LL |       let _val = match func_returning_result() {
-   |  ________________^
-LL | |
-LL | |         Ok(val) => val,
-LL | |         Err(err) => return Err(err),
-LL | |     };
-   | |_____^ help: try instead: `func_returning_result()?`
-
-error: this `match` expression can be replaced with `?`
-  --> tests/ui/question_mark.rs:212:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:32:9
    |
-LL | /     match func_returning_result() {
-LL | |
-LL | |         Ok(val) => val,
-LL | |         Err(err) => return Err(err),
-LL | |     };
-   | |_____^ help: try instead: `func_returning_result()?`
+LL |     pub fn is_none(&self) -> bool {
+   |         ^
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:304:5
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:32:21
    |
-LL | /     if let Err(err) = func_returning_result() {
-LL | |
-LL | |         return Err(err);
-LL | |     }
-   | |_____^ help: replace it with: `func_returning_result()?;`
+LL |     pub fn is_none(&self) -> bool {
+   |                     ^ help: make this parameter mutable: `mut`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:312:5
+error: references are not allowed
+  --> tests/ui/question_mark.rs:32:20
    |
-LL | /     if let Err(err) = func_returning_result() {
-LL | |
-LL | |         return Err(err);
-LL | |     }
-   | |_____^ help: replace it with: `func_returning_result()?;`
-
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:395:13
+LL |     pub fn is_none(&self) -> bool {
+   |                    ^^^^^
    |
-LL | /             if a.is_none() {
-LL | |
-LL | |                 return None;
-...  |
-LL | |             }
-   | |_____________^ help: replace it with: `a?;`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:456:5
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:40:1
    |
-LL | /     let Some(v) = bar.foo.owned.clone() else {
-LL | |         return None;
-LL | |     };
-   | |______^ help: replace it with: `let v = bar.foo.owned.clone()?;`
+LL | fn returns_something_similar_to_option(a: SeemsOption<u32>) -> SeemsOption<u32> {
+   | ^ help: make this item public: `pub`
 
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:471:5
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:40:1
    |
-LL | /     let Some(ref x) = foo.opt_x else {
-LL | |         return None;
-LL | |     };
-   | |______^ help: replace it with: `let x = foo.opt_x.as_ref()?;`
-
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:481:5
+LL | fn returns_something_similar_to_option(a: SeemsOption<u32>) -> SeemsOption<u32> {
+   | ^
    |
-LL | /     let Some(ref mut x) = foo.opt_x else {
-LL | |         return None;
-LL | |     };
-   | |______^ help: replace it with: `let x = foo.opt_x.as_mut()?;`
-
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:492:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:40:1
    |
-LL | /     let Some(ref x @ ref y) = foo.opt_x else {
-LL | |         return None;
-LL | |     };
-   | |______^ help: replace it with: `let x @ y = foo.opt_x.as_ref()?;`
+LL | fn returns_something_similar_to_option(a: SeemsOption<u32>) -> SeemsOption<u32> {
+   | ^
 
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:496:5
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:40:40
    |
-LL | /     let Some(ref x @ WrapperStructWithString(_)) = bar else {
-LL | |         return None;
-LL | |     };
-   | |______^ help: replace it with: `let x @ &WrapperStructWithString(_) = bar.as_ref()?;`
+LL | fn returns_something_similar_to_option(a: SeemsOption<u32>) -> SeemsOption<u32> {
+   |                                        ^ help: make this parameter mutable: `mut`
 
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:500:5
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:52:1
    |
-LL | /     let Some(ref mut x @ WrapperStructWithString(_)) = bar else {
-LL | |         return None;
-LL | |     };
-   | |______^ help: replace it with: `let x @ &mut WrapperStructWithString(_) = bar.as_mut()?;`
+LL | impl CopyStruct {
+   | ^ help: make this item public: `pub`
 
-error: this block may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:522:5
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:54:9
    |
-LL | /     if arg.is_none() {
-LL | |
-LL | |         return None;
-LL | |     }
-   | |_____^ help: replace it with: `arg?;`
-
-error: this `match` expression can be replaced with `?`
-  --> tests/ui/question_mark.rs:526:15
+LL |     pub fn func(&self) -> Option<u32> {
+   |         ^
    |
-LL |       let val = match arg {
-   |  _______________^
-LL | |
-LL | |         Some(val) => val,
-LL | |         None => return None,
-LL | |     };
-   | |_____^ help: try instead: `arg?`
-
-error: this `let...else` may be rewritten with the `?` operator
-  --> tests/ui/question_mark.rs:536:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:54:9
    |
-LL | /     let Some(a) = *a else {
-LL | |         return None;
-LL | |     };
-   | |______^ help: replace it with: `let a = (*a)?;`
+LL |     pub fn func(&self) -> Option<u32> {
+   |         ^
 
-error: aborting due to 30 previous errors
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:54:18
+   |
+LL |     pub fn func(&self) -> Option<u32> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:54:17
+   |
+LL |     pub fn func(&self) -> Option<u32> {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:83:10
+   |
+LL | #[derive(Clone)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:83:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:83:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:83:10
+   |
+LL | #[derive(Clone)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:83:10
+   |
+LL | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:85:5
+   |
+LL | #[derive(Clone)]
+   |          ----- in this derive macro expansion
+LL | pub struct MoveStruct {
+LL |     pub opt: Option<Vec<u32>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:88:1
+   |
+LL | impl MoveStruct {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:89:9
+   |
+LL |     pub fn ref_func(&self) -> Option<Vec<u32>> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:89:9
+   |
+LL |     pub fn ref_func(&self) -> Option<Vec<u32>> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:89:22
+   |
+LL |     pub fn ref_func(&self) -> Option<Vec<u32>> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:89:21
+   |
+LL |     pub fn ref_func(&self) -> Option<Vec<u32>> {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:98:9
+   |
+LL |     pub fn mov_func_reuse(self) -> Option<Vec<u32>> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:98:9
+   |
+LL |     pub fn mov_func_reuse(self) -> Option<Vec<u32>> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:98:27
+   |
+LL |     pub fn mov_func_reuse(self) -> Option<Vec<u32>> {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:107:9
+   |
+LL |     pub fn mov_func_no_use(self) -> Option<Vec<u32>> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:107:9
+   |
+LL |     pub fn mov_func_no_use(self) -> Option<Vec<u32>> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:107:28
+   |
+LL |     pub fn mov_func_no_use(self) -> Option<Vec<u32>> {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:115:9
+   |
+LL |     pub fn if_let_ref_func(self) -> Option<Vec<u32>> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:115:9
+   |
+LL |     pub fn if_let_ref_func(self) -> Option<Vec<u32>> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:115:28
+   |
+LL |     pub fn if_let_ref_func(self) -> Option<Vec<u32>> {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:116:13
+   |
+LL |         let v: &Vec<_> = if let Some(ref v) = self.opt {
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:116:16
+   |
+LL |         let v: &Vec<_> = if let Some(ref v) = self.opt {
+   |                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/question_mark.rs:116:38
+   |
+LL |         let v: &Vec<_> = if let Some(ref v) = self.opt {
+   |                                      ^^^^^
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:126:9
+   |
+LL |     pub fn if_let_mov_func(self) -> Option<Vec<u32>> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:126:9
+   |
+LL |     pub fn if_let_mov_func(self) -> Option<Vec<u32>> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:126:28
+   |
+LL |     pub fn if_let_mov_func(self) -> Option<Vec<u32>> {
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:127:13
+   |
+LL |         let v = if let Some(v) = self.opt {
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:138:1
+   |
+LL | fn func() -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:138:1
+   |
+LL | fn func() -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:138:1
+   |
+LL | fn func() -> Option<i32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:139:5
+   |
+LL |     macro_rules! opt_none {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:145:5
+   |
+LL |     fn f() -> Option<String> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:145:5
+   |
+LL |     fn f() -> Option<String> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:145:5
+   |
+LL |     fn f() -> Option<String> {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:154:9
+   |
+LL |     let _val = match f() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:160:9
+   |
+LL |     let s: &str = match &Some(String::new()) {
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:160:12
+   |
+LL |     let s: &str = match &Some(String::new()) {
+   |            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:160:25
+   |
+LL |     let s: &str = match &Some(String::new()) {
+   |                         ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:193:1
+   |
+LL | fn func_returning_result() -> Result<i32, i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:193:1
+   |
+LL | fn func_returning_result() -> Result<i32, i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:193:1
+   |
+LL | fn func_returning_result() -> Result<i32, i32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:197:1
+   |
+LL | fn result_func(x: Result<i32, i32>) -> Result<i32, i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:197:1
+   |
+LL | fn result_func(x: Result<i32, i32>) -> Result<i32, i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:197:1
+   |
+LL | fn result_func(x: Result<i32, i32>) -> Result<i32, i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:197:16
+   |
+LL | fn result_func(x: Result<i32, i32>) -> Result<i32, i32> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:206:9
+   |
+LL |     let _val = match func_returning_result() {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:219:9
+   |
+LL |     let y = if let Ok(x) = x {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:261:1
+   |
+LL | fn infer_check() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:261:1
+   |
+LL | fn infer_check() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:261:1
+   |
+LL | fn infer_check() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:262:9
+   |
+LL |     let closure = |x: Result<u8, ()>| {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:264:13
+   |
+LL |         let _val = match x {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:272:9
+   |
+LL |     let closure = |x: Result<u8, ()>| -> Result<(), _> {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:274:13
+   |
+LL |         let _val = match x {
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:290:1
+   |
+LL | fn obj(_: i32) -> Result<(), NotOption> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:290:1
+   |
+LL | fn obj(_: i32) -> Result<(), NotOption> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:290:1
+   |
+LL | fn obj(_: i32) -> Result<(), NotOption> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:294:1
+   |
+LL | fn f() -> NotOption {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:294:1
+   |
+LL | fn f() -> NotOption {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:294:1
+   |
+LL | fn f() -> NotOption {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:301:1
+   |
+LL | fn do_something() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:301:1
+   |
+LL | fn do_something() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:301:1
+   |
+LL | fn do_something() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:303:1
+   |
+LL | fn err_immediate_return() -> Result<i32, i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:303:1
+   |
+LL | fn err_immediate_return() -> Result<i32, i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:303:1
+   |
+LL | fn err_immediate_return() -> Result<i32, i32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:311:1
+   |
+LL | fn err_immediate_return_and_do_something() -> Result<i32, i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:311:1
+   |
+LL | fn err_immediate_return_and_do_something() -> Result<i32, i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:311:1
+   |
+LL | fn err_immediate_return_and_do_something() -> Result<i32, i32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:321:1
+   |
+LL | fn no_immediate_return() -> Result<i32, i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:321:1
+   |
+LL | fn no_immediate_return() -> Result<i32, i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:321:1
+   |
+LL | fn no_immediate_return() -> Result<i32, i32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:330:1
+   |
+LL | fn mixed_result_and_option() -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:330:1
+   |
+LL | fn mixed_result_and_option() -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:330:1
+   |
+LL | fn mixed_result_and_option() -> Option<i32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:338:1
+   |
+LL | fn else_if_check() -> Result<i32, i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:338:1
+   |
+LL | fn else_if_check() -> Result<i32, i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:338:1
+   |
+LL | fn else_if_check() -> Result<i32, i32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:351:1
+   |
+LL | fn option_map() -> Option<bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:351:1
+   |
+LL | fn option_map() -> Option<bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:351:1
+   |
+LL | fn option_map() -> Option<bool> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:364:1
+   |
+LL | fn pattern() -> Result<(), PatternedError> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:364:1
+   |
+LL | fn pattern() -> Result<(), PatternedError> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:364:1
+   |
+LL | fn pattern() -> Result<(), PatternedError> {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:365:9
+   |
+LL |     let res = Ok(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:374:1
+   |
+LL | fn expect_expr(a: Option<usize>) -> Option<usize> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:374:1
+   |
+LL | fn expect_expr(a: Option<usize>) -> Option<usize> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:374:1
+   |
+LL | fn expect_expr(a: Option<usize>) -> Option<usize> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:374:16
+   |
+LL | fn expect_expr(a: Option<usize>) -> Option<usize> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:379:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:379:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:379:1
+   |
+LL | fn main() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:382:1
+   |
+LL | fn issue8628(a: Option<u32>) -> Option<u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:382:1
+   |
+LL | fn issue8628(a: Option<u32>) -> Option<u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:382:1
+   |
+LL | fn issue8628(a: Option<u32>) -> Option<u32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:382:14
+   |
+LL | fn issue8628(a: Option<u32>) -> Option<u32> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:383:9
+   |
+LL |     let b: Option<u32> = try {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:392:1
+   |
+LL | fn issue6828_nested_body() -> Option<u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:392:1
+   |
+LL | fn issue6828_nested_body() -> Option<u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:392:1
+   |
+LL | fn issue6828_nested_body() -> Option<u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:394:9
+   |
+LL |         fn f2(a: Option<i32>) -> Option<i32> {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:394:9
+   |
+LL |         fn f2(a: Option<i32>) -> Option<i32> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:394:9
+   |
+LL |         fn f2(a: Option<i32>) -> Option<i32> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:394:15
+   |
+LL |         fn f2(a: Option<i32>) -> Option<i32> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:408:1
+   |
+LL | const fn issue9175(option: Option<()>) -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:408:7
+   |
+LL | const fn issue9175(option: Option<()>) -> Option<()> {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:408:7
+   |
+LL | const fn issue9175(option: Option<()>) -> Option<()> {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:408:20
+   |
+LL | const fn issue9175(option: Option<()>) -> Option<()> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:416:1
+   |
+LL | fn issue12337() -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:416:1
+   |
+LL | fn issue12337() -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:416:1
+   |
+LL | fn issue12337() -> Option<i32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:426:1
+   |
+LL | fn issue11983(option: &Option<String>) -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:426:1
+   |
+LL | fn issue11983(option: &Option<String>) -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:426:1
+   |
+LL | fn issue11983(option: &Option<String>) -> Option<()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:426:15
+   |
+LL | fn issue11983(option: &Option<String>) -> Option<()> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:426:23
+   |
+LL | fn issue11983(option: &Option<String>) -> Option<()> {
+   |                       ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:428:14
+   |
+LL |     let Some(v) = option else { return None };
+   |              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:430:9
+   |
+LL |     let opt = Some(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:433:14
+   |
+LL |     let Some(v) = &opt else { return None };
+   |              ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:433:19
+   |
+LL |     let Some(v) = &opt else { return None };
+   |                   ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:434:9
+   |
+LL |     let mov = opt;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:439:1
+   |
+LL | struct Foo {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:442:1
+   |
+LL | struct Bar {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:446:1
+   |
+LL | fn issue12412(foo: &Foo, bar: &Bar) -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:446:1
+   |
+LL | fn issue12412(foo: &Foo, bar: &Bar) -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:446:1
+   |
+LL | fn issue12412(foo: &Foo, bar: &Bar) -> Option<()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:446:15
+   |
+LL | fn issue12412(foo: &Foo, bar: &Bar) -> Option<()> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:446:26
+   |
+LL | fn issue12412(foo: &Foo, bar: &Bar) -> Option<()> {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:446:20
+   |
+LL | fn issue12412(foo: &Foo, bar: &Bar) -> Option<()> {
+   |                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:446:31
+   |
+LL | fn issue12412(foo: &Foo, bar: &Bar) -> Option<()> {
+   |                               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:448:14
+   |
+LL |     let Some(v) = &foo.owned else {
+   |              ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:448:19
+   |
+LL |     let Some(v) = &foo.owned else {
+   |                   ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:452:14
+   |
+LL |     let Some(v) = &bar.foo.owned else {
+   |              ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:452:19
+   |
+LL |     let Some(v) = &bar.foo.owned else {
+   |                   ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:456:14
+   |
+LL |     let Some(v) = bar.foo.owned.clone() else {
+   |              ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:463:1
+   |
+LL | struct StructWithOptionString {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:467:1
+   |
+LL | struct WrapperStructWithString(String);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:470:1
+   |
+LL | fn issue_13417(foo: &mut StructWithOptionString) -> Option<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:470:1
+   |
+LL | fn issue_13417(foo: &mut StructWithOptionString) -> Option<String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:470:1
+   |
+LL | fn issue_13417(foo: &mut StructWithOptionString) -> Option<String> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:470:16
+   |
+LL | fn issue_13417(foo: &mut StructWithOptionString) -> Option<String> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:470:21
+   |
+LL | fn issue_13417(foo: &mut StructWithOptionString) -> Option<String> {
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:471:18
+   |
+LL |     let Some(ref x) = foo.opt_x else {
+   |                  ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/question_mark.rs:471:14
+   |
+LL |     let Some(ref x) = foo.opt_x else {
+   |              ^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:475:9
+   |
+LL |     let opt_y = Some(x.clone());
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:476:23
+   |
+LL |     std::mem::replace(&mut foo.opt_x, opt_y)
+   |                       ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:480:1
+   |
+LL | fn issue_13417_mut(foo: &mut StructWithOptionString) -> Option<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:480:1
+   |
+LL | fn issue_13417_mut(foo: &mut StructWithOptionString) -> Option<String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:480:1
+   |
+LL | fn issue_13417_mut(foo: &mut StructWithOptionString) -> Option<String> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:480:20
+   |
+LL | fn issue_13417_mut(foo: &mut StructWithOptionString) -> Option<String> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:480:25
+   |
+LL | fn issue_13417_mut(foo: &mut StructWithOptionString) -> Option<String> {
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/question_mark.rs:481:14
+   |
+LL |     let Some(ref mut x) = foo.opt_x else {
+   |              ^^^^^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:485:9
+   |
+LL |     let opt_y = Some(x.clone());
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:486:23
+   |
+LL |     std::mem::replace(&mut foo.opt_x, opt_y)
+   |                       ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:491:1
+   |
+LL | fn issue_13417_weirder(foo: &mut StructWithOptionString, mut bar: Option<WrapperStructWithString>) -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:491:1
+   |
+LL | fn issue_13417_weirder(foo: &mut StructWithOptionString, mut bar: Option<WrapperStructWithString>) -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:491:1
+   |
+LL | fn issue_13417_weirder(foo: &mut StructWithOptionString, mut bar: Option<WrapperStructWithString>) -> Option<()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:491:24
+   |
+LL | fn issue_13417_weirder(foo: &mut StructWithOptionString, mut bar: Option<WrapperStructWithString>) -> Option<()> {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/question_mark.rs:491:29
+   |
+LL | fn issue_13417_weirder(foo: &mut StructWithOptionString, mut bar: Option<WrapperStructWithString>) -> Option<()> {
+   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:492:18
+   |
+LL |     let Some(ref x @ ref y) = foo.opt_x else {
+   |                  ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/question_mark.rs:492:14
+   |
+LL |     let Some(ref x @ ref y) = foo.opt_x else {
+   |              ^^^^^^^^^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/question_mark.rs:492:22
+   |
+LL |     let Some(ref x @ ref y) = foo.opt_x else {
+   |                      ^^^^^
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:496:18
+   |
+LL |     let Some(ref x @ WrapperStructWithString(_)) = bar else {
+   |                  ^ help: make this variable mutable: `mut`
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/question_mark.rs:496:14
+   |
+LL |     let Some(ref x @ WrapperStructWithString(_)) = bar else {
+   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: `ref` is not allowed, as it binds by reference
+  --> tests/ui/question_mark.rs:500:14
+   |
+LL |     let Some(ref mut x @ WrapperStructWithString(_)) = bar else {
+   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:508:1
+   |
+LL | fn msrv_1_12(arg: Option<i32>) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:508:1
+   |
+LL | fn msrv_1_12(arg: Option<i32>) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:508:1
+   |
+LL | fn msrv_1_12(arg: Option<i32>) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:508:14
+   |
+LL | fn msrv_1_12(arg: Option<i32>) -> Option<i32> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:512:9
+   |
+LL |     let val = match arg {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:521:1
+   |
+LL | fn msrv_1_13(arg: Option<i32>) -> Option<i32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:521:1
+   |
+LL | fn msrv_1_13(arg: Option<i32>) -> Option<i32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:521:1
+   |
+LL | fn msrv_1_13(arg: Option<i32>) -> Option<i32> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:521:14
+   |
+LL | fn msrv_1_13(arg: Option<i32>) -> Option<i32> {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:526:9
+   |
+LL |     let val = match arg {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/question_mark.rs:535:1
+   |
+LL | fn issue_14615(a: MutexGuard<Option<u32>>) -> Option<String> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/question_mark.rs:535:1
+   |
+LL | fn issue_14615(a: MutexGuard<Option<u32>>) -> Option<String> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/question_mark.rs:535:1
+   |
+LL | fn issue_14615(a: MutexGuard<Option<u32>>) -> Option<String> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/question_mark.rs:535:16
+   |
+LL | fn issue_14615(a: MutexGuard<Option<u32>>) -> Option<String> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/question_mark.rs:536:14
+   |
+LL |     let Some(a) = *a else {
+   |              ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 165 previous errors
 

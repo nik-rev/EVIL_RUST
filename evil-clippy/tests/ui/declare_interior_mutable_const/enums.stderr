@@ -1,89 +1,233 @@
-error: a `const` item should not be interior mutable
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:6:1
+   |
+LL | enum OptionalCell {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
   --> tests/ui/declare_interior_mutable_const/enums.rs:12:1
    |
 LL | const UNFROZEN_VARIANT: OptionalCell = OptionalCell::Unfrozen(Cell::new(true));
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider making this `Sync` so that it can go in a static item or using a `thread_local`
-   = note: `-D clippy::declare-interior-mutable-const` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::declare_interior_mutable_const)]`
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:14:1
+   |
+LL | const FROZEN_VARIANT: OptionalCell = OptionalCell::Frozen;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:16:1
+   |
+LL | const fn unfrozen_variant() -> OptionalCell {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:16:7
+   |
+LL | const fn unfrozen_variant() -> OptionalCell {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:16:7
+   |
+LL | const fn unfrozen_variant() -> OptionalCell {
+   |       ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:20:1
+   |
+LL | const fn frozen_variant() -> OptionalCell {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:20:7
+   |
+LL | const fn frozen_variant() -> OptionalCell {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:20:7
+   |
+LL | const fn frozen_variant() -> OptionalCell {
+   |       ^
+
+error: item must be `pub`
   --> tests/ui/declare_interior_mutable_const/enums.rs:24:1
    |
 LL | const UNFROZEN_VARIANT_FROM_FN: OptionalCell = unfrozen_variant();
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider making this `Sync` so that it can go in a static item or using a `thread_local`
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:26:1
+   |
+LL | const FROZEN_VARIANT_FROM_FN: OptionalCell = frozen_variant();
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:28:1
+   |
+LL | enum NestedInnermost {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:33:1
+   |
+LL | struct NestedInner {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:37:1
+   |
+LL | enum NestedOuter {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:42:1
+   |
+LL | struct NestedOutermost {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/declare_interior_mutable_const/enums.rs:47:1
    |
-LL | / const NESTED_UNFROZEN_VARIANT: NestedOutermost = NestedOutermost {
+LL | const NESTED_UNFROZEN_VARIANT: NestedOutermost = NestedOutermost {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:53:1
+   |
+LL | const NESTED_FROZEN_VARIANT: NestedOutermost = NestedOutermost {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:59:1
+   |
+LL | / trait AssocConsts {
+LL | |     // When there's no default value, lint it only according to its type.
+LL | |     // Further details are on the corresponding code (`NonCopyConst::check_trait_item`).
+LL | |     const TO_BE_UNFROZEN_VARIANT: OptionalCell;
+...  |
+LL | |     const DEFAULTED_ON_FROZEN_VARIANT: OptionalCell = OptionalCell::Frozen;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:59:1
+   |
+LL | trait AssocConsts {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:75:1
+   |
+LL | impl AssocConsts for u64 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:85:1
+   |
+LL | / trait AssocTypes {
+LL | |     type ToBeUnfrozen;
 LL | |
-LL | |     outer: NestedOuter::NestedInner(NestedInner {
-LL | |         inner: NestedInnermost::Unfrozen(AtomicUsize::new(2)),
-LL | |     }),
-LL | | };
-   | |__^
+LL | |     const TO_BE_UNFROZEN_VARIANT: Option<Self::ToBeUnfrozen>;
+LL | |     const TO_BE_FROZEN_VARIANT: Option<Self::ToBeUnfrozen>;
+LL | | }
+   | |_^
    |
-   = help: consider making this a static item
+   = help: make this trait unsafe: `unsafe trait`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/enums.rs:62:5
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:85:1
    |
-LL |     const TO_BE_UNFROZEN_VARIANT: OptionalCell;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | trait AssocTypes {
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/enums.rs:64:5
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:92:1
    |
-LL |     const TO_BE_FROZEN_VARIANT: OptionalCell;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | impl AssocTypes for u64 {
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/enums.rs:68:5
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:101:1
    |
-LL |     const DEFAULTED_ON_UNFROZEN_VARIANT: OptionalCell = OptionalCell::Unfrozen(Cell::new(false));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | enum BothOfCellAndGeneric<T> {
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/enums.rs:95:5
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:107:1
    |
-LL |     const TO_BE_UNFROZEN_VARIANT: Option<Self::ToBeUnfrozen> = Some(Self::ToBeUnfrozen::new(4));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | impl<T> BothOfCellAndGeneric<T> {
+   | ^ help: make this item public: `pub`
 
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/enums.rs:108:5
+error: trait must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:124:1
    |
-LL |     const UNFROZEN_VARIANT: BothOfCellAndGeneric<T> = BothOfCellAndGeneric::Unfrozen(Cell::new(std::ptr::null()));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/enums.rs:112:5
-   |
-LL |     const GENERIC_VARIANT: BothOfCellAndGeneric<T> = BothOfCellAndGeneric::Generic(std::ptr::null());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/enums.rs:119:5
-   |
-LL |     const NO_ENUM: Cell<*const T> = Cell::new(std::ptr::null());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/enums.rs:127:5
-   |
-LL | /     const UNFROZEN_VARIANT: BothOfCellAndGeneric<Self::AssocType> =
+LL | / trait BothOfCellAndGenericWithAssocType {
+LL | |     type AssocType;
 LL | |
-LL | |         BothOfCellAndGeneric::Unfrozen(Cell::new(std::ptr::null()));
-   | |____________________________________________________________________^
-
-error: a `const` item should not be interior mutable
-  --> tests/ui/declare_interior_mutable_const/enums.rs:130:5
+LL | |     const UNFROZEN_VARIANT: BothOfCellAndGeneric<Self::AssocType> =
+...  |
+LL | |     const FROZEN_VARIANT: BothOfCellAndGeneric<Self::AssocType> = BothOfCellAndGeneric::Frozen(5);
+LL | | }
+   | |_^
    |
-LL |     const GENERIC_VARIANT: BothOfCellAndGeneric<Self::AssocType> = BothOfCellAndGeneric::Generic(std::ptr::null());
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: make this trait unsafe: `unsafe trait`
 
-error: aborting due to 12 previous errors
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:124:1
+   |
+LL | trait BothOfCellAndGenericWithAssocType {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:135:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:135:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/declare_interior_mutable_const/enums.rs:135:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 31 previous errors
 

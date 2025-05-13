@@ -1,250 +1,605 @@
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:24:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if !m.contains_key(&k) {
-LL | |
-LL | |         m.insert(k, v);
-LL | |     }
-   | |_____^ help: try: `m.entry(k).or_insert(v);`
-   |
-   = note: `-D clippy::map-entry` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::map_entry)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:30:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if !m.contains_key(&k) {
-LL | |
-LL | |         if true {
-LL | |             m.insert(k, v);
-...  |
-LL | |     }
-   | |_____^
-   |
-help: try
-   |
-LL ~     m.entry(k).or_insert_with(|| {
-LL +
-LL +         if true {
-LL +             v
-LL +         } else {
-LL +             v2
-LL +         }
-LL +     });
-   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:40:5
+error: item must be `pub`
+  --> tests/ui/entry.rs:10:1
    |
-LL | /     if !m.contains_key(&k) {
-LL | |
-LL | |         if true {
-LL | |             m.insert(k, v)
-...  |
-LL | |         };
-LL | |     }
-   | |_____^
+LL | macro_rules! m {
+   | ^ help: make this item public: `pub`
    |
-help: try
-   |
-LL ~     m.entry(k).or_insert_with(|| {
-LL +
-LL +         if true {
-LL +             v
-LL +         } else {
-LL +             v2
-LL +         }
-LL +     });
-   |
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:50:5
+error: item must be `pub`
+  --> tests/ui/entry.rs:14:1
    |
-LL | /     if !m.contains_key(&k) {
-LL | |
-LL | |         if true {
-LL | |             m.insert(k, v);
-...  |
-LL | |     }
-   | |_____^
-   |
-help: try
-   |
-LL ~     if let std::collections::hash_map::Entry::Vacant(e) = m.entry(k) {
-LL +
-LL +         if true {
-LL +             e.insert(v);
-LL +         } else {
-LL +             e.insert(v2);
-LL +             return;
-LL +         }
-LL +     }
-   |
+LL | macro_rules! insert {
+   | ^ help: make this item public: `pub`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:61:5
+error: item must be `pub`
+  --> tests/ui/entry.rs:20:1
    |
-LL | /     if !m.contains_key(&k) {
-LL | |
-LL | |         foo();
-LL | |         m.insert(k, v);
-LL | |     }
-   | |_____^
-   |
-help: try
-   |
-LL ~     m.entry(k).or_insert_with(|| {
-LL +
-LL +         foo();
-LL +         v
-LL +     });
-   |
+LL | fn foo() {}
+   | ^ help: make this item public: `pub`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:68:5
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:20:1
    |
-LL | /     if !m.contains_key(&k) {
-LL | |
-LL | |         match 0 {
-LL | |             1 if true => {
-...  |
-LL | |         };
-LL | |     }
-   | |_____^
+LL | fn foo() {}
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:20:1
    |
-LL ~     m.entry(k).or_insert_with(|| {
-LL +
-LL +         match 0 {
-LL +             1 if true => {
-LL +                 v
-LL +             },
-LL +             _ => {
-LL +                 v2
-LL +             },
-LL +         }
-LL +     });
-   |
+LL | fn foo() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:81:5
+error: item must be `pub`
+  --> tests/ui/entry.rs:22:1
    |
-LL | /     if !m.contains_key(&k) {
-LL | |
-LL | |         match 0 {
-LL | |             0 => foo(),
-...  |
-LL | |         };
-LL | |     }
-   | |_____^
-   |
-help: try
-   |
-LL ~     if let std::collections::hash_map::Entry::Vacant(e) = m.entry(k) {
-LL +
-LL +         match 0 {
-LL +             0 => foo(),
-LL +             _ => {
-LL +                 e.insert(v2);
-LL +             },
-LL +         };
-LL +     }
-   |
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   | ^ help: make this item public: `pub`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:92:5
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:22:1
    |
-LL | /     if !m.contains_key(&k) {
-LL | |
-LL | |         foo();
-LL | |         match 0 {
-...  |
-LL | |     }
-   | |_____^
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:22:1
    |
-LL ~     m.entry(k).or_insert_with(|| {
-LL +
-LL +         foo();
-LL +         match 0 {
-LL +             0 if false => {
-LL +                 v
-LL +             },
-LL +             1 => {
-LL +                 foo();
-LL +                 v
-LL +             },
-LL +             2 | 3 => {
-LL +                 for _ in 0..2 {
-LL +                     foo();
-LL +                 }
-LL +                 if true {
-LL +                     v
-LL +                 } else {
-LL +                     v2
-LL +                 }
-LL +             },
-LL +             _ => {
-LL +                 v2
-LL +             },
-LL +         }
-LL +     });
-   |
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   | ^
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:127:5
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:22:43
    |
-LL | /     if !m.contains_key(&m!(k)) {
-LL | |
-LL | |         m.insert(m!(k), m!(v));
-LL | |     }
-   | |_____^ help: try: `m.entry(m!(k)).or_insert_with(|| m!(v));`
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   |                                           ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:160:5
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:22:66
    |
-LL | /     if !m.contains_key(&k) {
-LL | |
-LL | |         let x = (String::new(), String::new());
-LL | |         let _ = x.0;
-LL | |         m.insert(k, v);
-LL | |     }
-   | |_____^
-   |
-help: try
-   |
-LL ~     m.entry(k).or_insert_with(|| {
-LL +
-LL +         let x = (String::new(), String::new());
-LL +         let _ = x.0;
-LL +         v
-LL +     });
-   |
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   |                                                                  ^ help: make this parameter mutable: `mut`
 
-error: usage of `contains_key` followed by `insert` on a `HashMap`
-  --> tests/ui/entry.rs:194:5
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:22:90
    |
-LL | /     if !map.contains_key(&1) {
-LL | |
-LL | |         let Some(1) = Some(2) else {
-LL | |             return None;
-LL | |         };
-LL | |         map.insert(1, 42);
-LL | |     }
-   | |_____^
-   |
-help: try
-   |
-LL ~     if let std::collections::hash_map::Entry::Vacant(e) = map.entry(1) {
-LL +
-LL +         let Some(1) = Some(2) else {
-LL +             return None;
-LL +         };
-LL +         e.insert(42);
-LL +     }
-   |
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   |                                                                                          ^ help: make this parameter mutable: `mut`
 
-error: aborting due to 11 previous errors
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:22:96
+   |
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   |                                                                                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:22:103
+   |
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   |                                                                                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:22:109
+   |
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   |                                                                                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:22:46
+   |
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   |                                              ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:22:70
+   |
+LL | fn hash_map<K: Eq + Hash + Copy, V: Copy>(m: &mut HashMap<K, V>, m2: &mut HashMap<K, V>, k: K, k2: K, v: V, v2: V) {
+   |                                                                      ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:24:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:30:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:40:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:50:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:61:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:68:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:81:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:92:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:120:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:127:24
+   |
+LL |     if !m.contains_key(&m!(k)) {
+   |                        ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:133:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:139:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:145:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:150:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:155:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:160:24
+   |
+LL |     if !m.contains_key(&k) {
+   |                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/entry.rs:162:13
+   |
+LL |         let x = (String::new(), String::new());
+   |             ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:171:5
+   |
+LL | pub fn issue_10331() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:171:5
+   |
+LL | pub fn issue_10331() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/entry.rs:175:27
+   |
+LL |     while !m.contains_key(&x) {
+   |                           ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:184:5
+   |
+LL | pub fn issue_11935() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:184:5
+   |
+LL | pub fn issue_11935() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/entry.rs:186:29
+   |
+LL |     if !counts.contains_key(&1) {
+   |                             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:189:37
+   |
+LL |         counts.insert(1, counts.get(&1).unwrap() + 1);
+   |                                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/entry.rs:193:1
+   |
+LL | fn issue12489(map: &mut HashMap<u64, u64>) -> Option<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:193:1
+   |
+LL | fn issue12489(map: &mut HashMap<u64, u64>) -> Option<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:193:1
+   |
+LL | fn issue12489(map: &mut HashMap<u64, u64>) -> Option<()> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:193:15
+   |
+LL | fn issue12489(map: &mut HashMap<u64, u64>) -> Option<()> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:193:20
+   |
+LL | fn issue12489(map: &mut HashMap<u64, u64>) -> Option<()> {
+   |                    ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:194:26
+   |
+LL |     if !map.contains_key(&1) {
+   |                          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/entry.rs:204:1
+   |
+LL | mod issue13934 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry.rs:207:5
+   |
+LL |     struct Member {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry.rs:213:5
+   |
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:214:13
+   |
+LL |         pub fn should_also_not_cause_lint(&mut self, input: u8) {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:214:13
+   |
+LL |         pub fn should_also_not_cause_lint(&mut self, input: u8) {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:214:48
+   |
+LL |         pub fn should_also_not_cause_lint(&mut self, input: u8) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:214:54
+   |
+LL |         pub fn should_also_not_cause_lint(&mut self, input: u8) {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:214:43
+   |
+LL |         pub fn should_also_not_cause_lint(&mut self, input: u8) {
+   |                                           ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:215:42
+   |
+LL |             if self.members.contains_key(&input) {
+   |                                          ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:223:9
+   |
+LL |         fn other(&self) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:223:9
+   |
+LL |         fn other(&self) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:223:19
+   |
+LL |         fn other(&self) {}
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:223:18
+   |
+LL |         fn other(&self) {}
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/entry.rs:227:1
+   |
+LL | fn issue11976() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:227:1
+   |
+LL | fn issue11976() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:227:1
+   |
+LL | fn issue11976() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/entry.rs:229:30
+   |
+LL |     if !hashmap.contains_key(&0) {
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:230:32
+   |
+LL |         let _ = || hashmap.get(&0);
+   |                                ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/entry.rs:235:1
+   |
+LL | mod issue14449 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/entry.rs:242:5
+   |
+LL |     impl Meow {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:243:9
+   |
+LL |         fn pet(&self, _key: &str, _v: u32) -> u32 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:243:9
+   |
+LL |         fn pet(&self, _key: &str, _v: u32) -> u32 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:243:17
+   |
+LL |         fn pet(&self, _key: &str, _v: u32) -> u32 {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:243:23
+   |
+LL |         fn pet(&self, _key: &str, _v: u32) -> u32 {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:243:35
+   |
+LL |         fn pet(&self, _key: &str, _v: u32) -> u32 {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:243:16
+   |
+LL |         fn pet(&self, _key: &str, _v: u32) -> u32 {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:243:29
+   |
+LL |         fn pet(&self, _key: &str, _v: u32) -> u32 {
+   |                             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:248:9
+   |
+LL |     pub fn f(meow: &Meow, x: String) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:248:9
+   |
+LL |     pub fn f(meow: &Meow, x: String) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:248:14
+   |
+LL |     pub fn f(meow: &Meow, x: String) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/entry.rs:248:27
+   |
+LL |     pub fn f(meow: &Meow, x: String) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:248:20
+   |
+LL |     pub fn f(meow: &Meow, x: String) {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:249:34
+   |
+LL |         if meow.map.contains_key(&x) {
+   |                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:250:30
+   |
+LL |             let _ = meow.pet(&x, 1);
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/entry.rs:252:30
+   |
+LL |             let _ = meow.pet(&x, 0);
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/entry.rs:257:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/entry.rs:257:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/entry.rs:257:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 77 previous errors
 

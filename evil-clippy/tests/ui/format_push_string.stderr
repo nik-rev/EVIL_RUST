@@ -1,25 +1,100 @@
-error: `format!(..)` appended to existing `String`
-  --> tests/ui/format_push_string.rs:5:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/format_push_string.rs:3:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_push_string.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_push_string.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: references are not allowed
+  --> tests/ui/format_push_string.rs:5:15
    |
 LL |     string += &format!("{:?}", 1234);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |               ^^^^^^^^^^^^^^^^^^^^^^
    |
-   = help: consider using `write!` to avoid the extra allocation
-   = note: `-D clippy::format-push-string` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::format_push_string)]`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: `format!(..)` appended to existing `String`
-  --> tests/ui/format_push_string.rs:8:5
+error: references are not allowed
+  --> tests/ui/format_push_string.rs:8:21
    |
 LL |     string.push_str(&format!("{:?}", 5678));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                     ^^^^^^^^^^^^^^^^^^^^^^
    |
-   = help: consider using `write!` to avoid the extra allocation
+   = help: use a raw borrowing instead: `&raw const`
 
-error: `format!(..)` appended to existing `String`
-  --> tests/ui/format_push_string.rs:16:13
+error: item must be `pub`
+  --> tests/ui/format_push_string.rs:12:1
    |
-LL | /             hex += &(if upper {
+LL | mod issue9493 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/format_push_string.rs:13:9
+   |
+LL |     pub fn u8vec_to_hex(vector: &Vec<u8>, upper: bool) -> String {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_push_string.rs:13:9
+   |
+LL |     pub fn u8vec_to_hex(vector: &Vec<u8>, upper: bool) -> String {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/format_push_string.rs:13:25
+   |
+LL |     pub fn u8vec_to_hex(vector: &Vec<u8>, upper: bool) -> String {
+   |                         ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/format_push_string.rs:13:43
+   |
+LL |     pub fn u8vec_to_hex(vector: &Vec<u8>, upper: bool) -> String {
+   |                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/format_push_string.rs:13:33
+   |
+LL |     pub fn u8vec_to_hex(vector: &Vec<u8>, upper: bool) -> String {
+   |                                 ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/format_push_string.rs:16:20
+   |
+LL |               hex += &(if upper {
+   |  ____________________^
 LL | |
 LL | |
 LL | |                 format!("{byte:02X}")
@@ -28,12 +103,25 @@ LL | |                 format!("{byte:02x}")
 LL | |             });
    | |______________^
    |
-   = help: consider using `write!` to avoid the extra allocation
+   = help: use a raw borrowing instead: `&raw const`
 
-error: `format!(..)` appended to existing `String`
-  --> tests/ui/format_push_string.rs:30:9
+error: function must be `unsafe`
+  --> tests/ui/format_push_string.rs:27:9
    |
-LL | /         s += &(if let Some(_a) = Some(1234) {
+LL |     pub fn other_cases() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/format_push_string.rs:27:9
+   |
+LL |     pub fn other_cases() {
+   |         ^
+
+error: references are not allowed
+  --> tests/ui/format_push_string.rs:30:14
+   |
+LL |           s += &(if let Some(_a) = Some(1234) {
+   |  ______________^
 LL | |
 LL | |
 LL | |             format!("{}", 1234)
@@ -42,19 +130,31 @@ LL | |             format!("{}", 1234)
 LL | |         });
    | |__________^
    |
-   = help: consider using `write!` to avoid the extra allocation
+   = help: use a raw borrowing instead: `&raw const`
 
-error: `format!(..)` appended to existing `String`
-  --> tests/ui/format_push_string.rs:38:9
+error: references are not allowed
+  --> tests/ui/format_push_string.rs:38:14
    |
-LL | /         s += &(match Some(1234) {
+LL |           s += &(match Some(1234) {
+   |  ______________^
 LL | |
 LL | |             Some(_) => format!("{}", 1234),
 LL | |             None => format!("{}", 1234),
 LL | |         });
    | |__________^
    |
-   = help: consider using `write!` to avoid the extra allocation
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 5 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

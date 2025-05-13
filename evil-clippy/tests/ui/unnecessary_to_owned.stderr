@@ -1,554 +1,3266 @@
-error: redundant clone
-  --> tests/ui/unnecessary_to_owned.rs:218:64
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     require_c_str(&CString::from_vec_with_nul(vec![0]).unwrap().to_owned());
-   |                                                                ^^^^^^^^^^^ help: remove this
-   |
-note: this value is dropped without further use
-  --> tests/ui/unnecessary_to_owned.rs:218:20
-   |
-LL |     require_c_str(&CString::from_vec_with_nul(vec![0]).unwrap().to_owned());
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   = note: `-D clippy::redundant-clone` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::redundant_clone)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: redundant clone
-  --> tests/ui/unnecessary_to_owned.rs:220:40
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     require_os_str(&OsString::from("x").to_os_string());
-   |                                        ^^^^^^^^^^^^^^^ help: remove this
-   |
-note: this value is dropped without further use
-  --> tests/ui/unnecessary_to_owned.rs:220:21
-   |
-LL |     require_os_str(&OsString::from("x").to_os_string());
-   |                     ^^^^^^^^^^^^^^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: redundant clone
-  --> tests/ui/unnecessary_to_owned.rs:222:48
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:17:1
    |
-LL |     require_path(&std::path::PathBuf::from("x").to_path_buf());
-   |                                                ^^^^^^^^^^^^^^ help: remove this
+LL | struct X(String);
+   | ^ help: make this item public: `pub`
    |
-note: this value is dropped without further use
-  --> tests/ui/unnecessary_to_owned.rs:222:19
-   |
-LL |     require_path(&std::path::PathBuf::from("x").to_path_buf());
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: redundant clone
-  --> tests/ui/unnecessary_to_owned.rs:224:35
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:16:10
    |
-LL |     require_str(&String::from("x").to_string());
-   |                                   ^^^^^^^^^^^^ help: remove this
-   |
-note: this value is dropped without further use
-  --> tests/ui/unnecessary_to_owned.rs:224:18
-   |
-LL |     require_str(&String::from("x").to_string());
-   |                  ^^^^^^^^^^^^^^^^^
+LL | #[derive(Clone)]
+   |          ^
 
-error: redundant clone
-  --> tests/ui/unnecessary_to_owned.rs:226:39
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:16:7
    |
-LL |     require_slice(&[String::from("x")].to_owned());
-   |                                       ^^^^^^^^^^^ help: remove this
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
    |
-note: this value is dropped without further use
-  --> tests/ui/unnecessary_to_owned.rs:226:20
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:16:7
    |
-LL |     require_slice(&[String::from("x")].to_owned());
-   |                    ^^^^^^^^^^^^^^^^^^^
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: unnecessary use of `into_owned`
-  --> tests/ui/unnecessary_to_owned.rs:66:36
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:16:10
+   |
+LL | #[derive(Clone)]
+   |          ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:16:10
+   |
+LL | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:17:10
+   |
+LL | #[derive(Clone)]
+   |          ----- in this derive macro expansion
+LL | struct X(String);
+   |          ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:19:1
+   |
+LL | impl Deref for X {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:21:5
+   |
+LL |     fn deref(&self) -> &[u8] {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:21:5
+   |
+LL |     fn deref(&self) -> &[u8] {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:21:15
+   |
+LL |     fn deref(&self) -> &[u8] {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:21:14
+   |
+LL |     fn deref(&self) -> &[u8] {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:21:24
+   |
+LL |     fn deref(&self) -> &[u8] {
+   |                        ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:26:1
+   |
+LL | impl AsRef<str> for X {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:27:5
+   |
+LL |     fn as_ref(&self) -> &str {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:27:5
+   |
+LL |     fn as_ref(&self) -> &str {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:27:16
+   |
+LL |     fn as_ref(&self) -> &str {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:27:15
+   |
+LL |     fn as_ref(&self) -> &str {
+   |               ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:27:25
+   |
+LL |     fn as_ref(&self) -> &str {
+   |                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:33:1
+   |
+LL | impl ToString for X {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:34:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:34:5
+   |
+LL |     fn to_string(&self) -> String {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:34:19
+   |
+LL |     fn to_string(&self) -> String {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:34:18
+   |
+LL |     fn to_string(&self) -> String {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:39:1
+   |
+LL | impl X {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:40:5
+   |
+LL |     fn join(&self, other: impl AsRef<str>) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:40:5
+   |
+LL |     fn join(&self, other: impl AsRef<str>) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:40:14
+   |
+LL |     fn join(&self, other: impl AsRef<str>) -> Self {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:40:20
+   |
+LL |     fn join(&self, other: impl AsRef<str>) -> Self {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:40:13
+   |
+LL |     fn join(&self, other: impl AsRef<str>) -> Self {
+   |             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:49:1
+   |
+LL | enum FileType {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:48:10
+   |
+LL | #[derive(Clone)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:48:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:48:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:48:10
+   |
+LL | #[derive(Clone)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:48:10
+   |
+LL | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:55:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:55:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:55:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:56:9
+   |
+LL |     let c_str = CStr::from_bytes_with_nul(&[0]).unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:56:43
+   |
+LL |     let c_str = CStr::from_bytes_with_nul(&[0]).unwrap();
+   |                                           ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:57:9
+   |
+LL |     let os_str = OsStr::new("x");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:58:9
+   |
+LL |     let path = std::path::Path::new("x");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:59:9
+   |
+LL |     let s = "x";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:60:9
+   |
+LL |     let array = ["x"];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:61:9
+   |
+LL |     let array_ref = &["x"];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:61:21
+   |
+LL |     let array_ref = &["x"];
+   |                     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:62:9
+   |
+LL |     let slice = &["x"][..];
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:62:17
+   |
+LL |     let slice = &["x"][..];
+   |                 ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:63:9
+   |
+LL |     let x = X(String::from("x"));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:64:9
+   |
+LL |     let x_ref = &x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:64:17
+   |
+LL |     let x_ref = &x;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:66:19
    |
 LL |     require_c_str(&Cow::from(c_str).into_owned());
-   |                                    ^^^^^^^^^^^^^ help: remove this
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: `-D clippy::unnecessary-to-owned` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_to_owned)]`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:68:19
    |
 LL |     require_c_str(&c_str.to_owned());
-   |                   ^^^^^^^^^^^^^^^^^ help: use: `c_str`
+   |                   ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_os_string`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:71:20
    |
 LL |     require_os_str(&os_str.to_os_string());
-   |                    ^^^^^^^^^^^^^^^^^^^^^^ help: use: `os_str`
+   |                    ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `into_owned`
-  --> tests/ui/unnecessary_to_owned.rs:73:38
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:73:20
    |
 LL |     require_os_str(&Cow::from(os_str).into_owned());
-   |                                      ^^^^^^^^^^^^^ help: remove this
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:75:20
    |
 LL |     require_os_str(&os_str.to_owned());
-   |                    ^^^^^^^^^^^^^^^^^^ help: use: `os_str`
+   |                    ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_path_buf`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:78:18
    |
 LL |     require_path(&path.to_path_buf());
-   |                  ^^^^^^^^^^^^^^^^^^^ help: use: `path`
+   |                  ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `into_owned`
-  --> tests/ui/unnecessary_to_owned.rs:80:34
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:80:18
    |
 LL |     require_path(&Cow::from(path).into_owned());
-   |                                  ^^^^^^^^^^^^^ help: remove this
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:82:18
    |
 LL |     require_path(&path.to_owned());
-   |                  ^^^^^^^^^^^^^^^^ help: use: `path`
+   |                  ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_string`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:85:17
    |
 LL |     require_str(&s.to_string());
-   |                 ^^^^^^^^^^^^^^ help: use: `s`
+   |                 ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `into_owned`
-  --> tests/ui/unnecessary_to_owned.rs:87:30
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:87:17
    |
 LL |     require_str(&Cow::from(s).into_owned());
-   |                              ^^^^^^^^^^^^^ help: remove this
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:89:17
    |
 LL |     require_str(&s.to_owned());
-   |                 ^^^^^^^^^^^^^ help: use: `s`
+   |                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_string`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:91:17
    |
 LL |     require_str(&x_ref.to_string());
-   |                 ^^^^^^^^^^^^^^^^^^ help: use: `x_ref.as_ref()`
+   |                 ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_vec`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:94:19
    |
 LL |     require_slice(&slice.to_vec());
-   |                   ^^^^^^^^^^^^^^^ help: use: `slice`
+   |                   ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `into_owned`
-  --> tests/ui/unnecessary_to_owned.rs:96:36
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:96:19
    |
 LL |     require_slice(&Cow::from(slice).into_owned());
-   |                                    ^^^^^^^^^^^^^ help: remove this
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:98:19
    |
 LL |     require_slice(&array.to_owned());
-   |                   ^^^^^^^^^^^^^^^^^ help: use: `array.as_ref()`
+   |                   ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:100:19
    |
 LL |     require_slice(&array_ref.to_owned());
-   |                   ^^^^^^^^^^^^^^^^^^^^^ help: use: `array_ref.as_ref()`
+   |                   ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:102:19
    |
 LL |     require_slice(&slice.to_owned());
-   |                   ^^^^^^^^^^^^^^^^^ help: use: `slice`
+   |                   ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `into_owned`
-  --> tests/ui/unnecessary_to_owned.rs:106:42
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:104:19
+   |
+LL |     require_slice(&x_ref.to_owned()); // No longer flagged because of #8759.
+   |                   ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:106:15
    |
 LL |     require_x(&Cow::<X>::Owned(x.clone()).into_owned());
-   |                                          ^^^^^^^^^^^^^ help: remove this
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:110:25
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     require_deref_c_str(c_str.to_owned());
-   |                         ^^^^^^^^^^^^^^^^ help: use: `c_str`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:112:26
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:108:15
    |
-LL |     require_deref_os_str(os_str.to_owned());
-   |                          ^^^^^^^^^^^^^^^^^ help: use: `os_str`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:114:24
+LL |     require_x(&x_ref.to_owned()); // No longer flagged because of #8759.
+   |               ^^^^^^^^^^^^^^^^^
    |
-LL |     require_deref_path(path.to_owned());
-   |                        ^^^^^^^^^^^^^^^ help: use: `path`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:116:23
-   |
-LL |     require_deref_str(s.to_owned());
-   |                       ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:118:25
-   |
-LL |     require_deref_slice(slice.to_owned());
-   |                         ^^^^^^^^^^^^^^^^ help: use: `slice`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:121:30
-   |
-LL |     require_impl_deref_c_str(c_str.to_owned());
-   |                              ^^^^^^^^^^^^^^^^ help: use: `c_str`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:123:31
-   |
-LL |     require_impl_deref_os_str(os_str.to_owned());
-   |                               ^^^^^^^^^^^^^^^^^ help: use: `os_str`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:125:29
-   |
-LL |     require_impl_deref_path(path.to_owned());
-   |                             ^^^^^^^^^^^^^^^ help: use: `path`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:127:28
-   |
-LL |     require_impl_deref_str(s.to_owned());
-   |                            ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:129:30
-   |
-LL |     require_impl_deref_slice(slice.to_owned());
-   |                              ^^^^^^^^^^^^^^^^ help: use: `slice`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:132:29
-   |
-LL |     require_deref_str_slice(s.to_owned(), slice.to_owned());
-   |                             ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:132:43
-   |
-LL |     require_deref_str_slice(s.to_owned(), slice.to_owned());
-   |                                           ^^^^^^^^^^^^^^^^ help: use: `slice`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:135:29
-   |
-LL |     require_deref_slice_str(slice.to_owned(), s.to_owned());
-   |                             ^^^^^^^^^^^^^^^^ help: use: `slice`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:135:47
-   |
-LL |     require_deref_slice_str(slice.to_owned(), s.to_owned());
-   |                                               ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:139:26
-   |
-LL |     require_as_ref_c_str(c_str.to_owned());
-   |                          ^^^^^^^^^^^^^^^^ help: use: `c_str`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:141:27
-   |
-LL |     require_as_ref_os_str(os_str.to_owned());
-   |                           ^^^^^^^^^^^^^^^^^ help: use: `os_str`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:143:25
-   |
-LL |     require_as_ref_path(path.to_owned());
-   |                         ^^^^^^^^^^^^^^^ help: use: `path`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:145:24
-   |
-LL |     require_as_ref_str(s.to_owned());
-   |                        ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:147:24
-   |
-LL |     require_as_ref_str(x.to_owned());
-   |                        ^^^^^^^^^^^^ help: use: `&x`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:149:26
-   |
-LL |     require_as_ref_slice(array.to_owned());
-   |                          ^^^^^^^^^^^^^^^^ help: use: `array`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:151:26
-   |
-LL |     require_as_ref_slice(array_ref.to_owned());
-   |                          ^^^^^^^^^^^^^^^^^^^^ help: use: `array_ref`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:153:26
-   |
-LL |     require_as_ref_slice(slice.to_owned());
-   |                          ^^^^^^^^^^^^^^^^ help: use: `slice`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:156:31
-   |
-LL |     require_impl_as_ref_c_str(c_str.to_owned());
-   |                               ^^^^^^^^^^^^^^^^ help: use: `c_str`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:158:32
-   |
-LL |     require_impl_as_ref_os_str(os_str.to_owned());
-   |                                ^^^^^^^^^^^^^^^^^ help: use: `os_str`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:160:30
-   |
-LL |     require_impl_as_ref_path(path.to_owned());
-   |                              ^^^^^^^^^^^^^^^ help: use: `path`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:162:29
-   |
-LL |     require_impl_as_ref_str(s.to_owned());
-   |                             ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:164:29
-   |
-LL |     require_impl_as_ref_str(x.to_owned());
-   |                             ^^^^^^^^^^^^ help: use: `&x`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:166:31
-   |
-LL |     require_impl_as_ref_slice(array.to_owned());
-   |                               ^^^^^^^^^^^^^^^^ help: use: `array`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:168:31
-   |
-LL |     require_impl_as_ref_slice(array_ref.to_owned());
-   |                               ^^^^^^^^^^^^^^^^^^^^ help: use: `array_ref`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:170:31
-   |
-LL |     require_impl_as_ref_slice(slice.to_owned());
-   |                               ^^^^^^^^^^^^^^^^ help: use: `slice`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:173:30
-   |
-LL |     require_as_ref_str_slice(s.to_owned(), array.to_owned());
-   |                              ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:173:44
-   |
-LL |     require_as_ref_str_slice(s.to_owned(), array.to_owned());
-   |                                            ^^^^^^^^^^^^^^^^ help: use: `array`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:176:30
-   |
-LL |     require_as_ref_str_slice(s.to_owned(), array_ref.to_owned());
-   |                              ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:176:44
-   |
-LL |     require_as_ref_str_slice(s.to_owned(), array_ref.to_owned());
-   |                                            ^^^^^^^^^^^^^^^^^^^^ help: use: `array_ref`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:179:30
-   |
-LL |     require_as_ref_str_slice(s.to_owned(), slice.to_owned());
-   |                              ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:179:44
-   |
-LL |     require_as_ref_str_slice(s.to_owned(), slice.to_owned());
-   |                                            ^^^^^^^^^^^^^^^^ help: use: `slice`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:182:30
-   |
-LL |     require_as_ref_slice_str(array.to_owned(), s.to_owned());
-   |                              ^^^^^^^^^^^^^^^^ help: use: `array`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:182:48
-   |
-LL |     require_as_ref_slice_str(array.to_owned(), s.to_owned());
-   |                                                ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:185:30
-   |
-LL |     require_as_ref_slice_str(array_ref.to_owned(), s.to_owned());
-   |                              ^^^^^^^^^^^^^^^^^^^^ help: use: `array_ref`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:185:52
-   |
-LL |     require_as_ref_slice_str(array_ref.to_owned(), s.to_owned());
-   |                                                    ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:188:30
-   |
-LL |     require_as_ref_slice_str(slice.to_owned(), s.to_owned());
-   |                              ^^^^^^^^^^^^^^^^ help: use: `slice`
-
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:188:48
-   |
-LL |     require_as_ref_slice_str(slice.to_owned(), s.to_owned());
-   |                                                ^^^^^^^^^^^^ help: use: `s`
-
-error: unnecessary use of `to_string`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:192:20
    |
 LL |     let _ = x.join(&x_ref.to_string());
-   |                    ^^^^^^^^^^^^^^^^^^ help: use: `x_ref`
-
-error: unnecessary use of `to_vec`
-  --> tests/ui/unnecessary_to_owned.rs:195:13
+   |                    ^^^^^^^^^^^^^^^^^^
    |
-LL |     let _ = slice.to_vec().into_iter();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use: `slice.iter().copied()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:197:13
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:205:25
    |
-LL |     let _ = slice.to_owned().into_iter();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use: `slice.iter().copied()`
-
-error: unnecessary use of `to_vec`
-  --> tests/ui/unnecessary_to_owned.rs:200:13
+LL |     let _ = check_files(&[FileType::Account]);
+   |                         ^^^^^^^^^^^^^^^^^^^^
    |
-LL |     let _ = IntoIterator::into_iter(slice.to_vec());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use: `slice.iter().copied()`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
-  --> tests/ui/unnecessary_to_owned.rs:202:13
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:208:20
    |
-LL |     let _ = IntoIterator::into_iter(slice.to_owned());
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use: `slice.iter().copied()`
+LL |     require_string(&s.to_string());
+   |                    ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: allocating a new `String` only to create a temporary `&str` from it
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:209:20
+   |
+LL |     require_string(&Cow::from(s).into_owned());
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:210:20
+   |
+LL |     require_string(&s.to_owned());
+   |                    ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:211:20
+   |
+LL |     require_string(&x_ref.to_string());
+   |                    ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:214:19
+   |
+LL |     require_slice(&x.to_owned());
+   |                   ^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:218:19
+   |
+LL |     require_c_str(&CString::from_vec_with_nul(vec![0]).unwrap().to_owned());
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:220:20
+   |
+LL |     require_os_str(&OsString::from("x").to_os_string());
+   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:222:18
+   |
+LL |     require_path(&std::path::PathBuf::from("x").to_path_buf());
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:224:17
+   |
+LL |     require_str(&String::from("x").to_string());
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:226:19
+   |
+LL |     require_slice(&[String::from("x")].to_owned());
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:229:9
+   |
+LL |     let slice = [0u8; 1024];
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:230:9
+   |
+LL |     let _ref_str: &str = &String::from_utf8(slice.to_vec()).expect("not UTF-8");
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:230:19
+   |
+LL |     let _ref_str: &str = &String::from_utf8(slice.to_vec()).expect("not UTF-8");
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:230:26
    |
 LL |     let _ref_str: &str = &String::from_utf8(slice.to_vec()).expect("not UTF-8");
    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: convert from `&[u8]` to `&str` directly
-   |
-LL -     let _ref_str: &str = &String::from_utf8(slice.to_vec()).expect("not UTF-8");
-LL +     let _ref_str: &str = core::str::from_utf8(&slice).expect("not UTF-8");
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: allocating a new `String` only to create a temporary `&str` from it
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:232:9
+   |
+LL |     let _ref_str: &str = &String::from_utf8(b"foo".to_vec()).unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:232:19
+   |
+LL |     let _ref_str: &str = &String::from_utf8(b"foo".to_vec()).unwrap();
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:232:26
    |
 LL |     let _ref_str: &str = &String::from_utf8(b"foo".to_vec()).unwrap();
    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: convert from `&[u8]` to `&str` directly
-   |
-LL -     let _ref_str: &str = &String::from_utf8(b"foo".to_vec()).unwrap();
-LL +     let _ref_str: &str = core::str::from_utf8(b"foo").unwrap();
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: allocating a new `String` only to create a temporary `&str` from it
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:234:9
+   |
+LL |     let _ref_str: &str = &String::from_utf8(b"foo".as_slice().to_owned()).unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:234:19
+   |
+LL |     let _ref_str: &str = &String::from_utf8(b"foo".as_slice().to_owned()).unwrap();
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:234:26
    |
 LL |     let _ref_str: &str = &String::from_utf8(b"foo".as_slice().to_owned()).unwrap();
    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-help: convert from `&[u8]` to `&str` directly
-   |
-LL -     let _ref_str: &str = &String::from_utf8(b"foo".as_slice().to_owned()).unwrap();
-LL +     let _ref_str: &str = core::str::from_utf8(b"foo".as_slice()).unwrap();
-   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_vec`
-  --> tests/ui/unnecessary_to_owned.rs:292:14
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:237:9
    |
-LL |     for t in file_types.to_vec() {
-   |              ^^^^^^^^^^^^^^^^^^^
-   |
-help: remove any references to the binding
-   |
-LL ~     for t in file_types {
-LL |
-LL ~         let path = match get_file_path(t) {
-   |
+LL |     let _ref_string = &String::from_utf8(b"foo".to_vec()).unwrap();
+   |         ^ help: make this variable mutable: `mut`
 
-error: unnecessary use of `to_string`
-  --> tests/ui/unnecessary_to_owned.rs:358:24
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:237:23
    |
-LL |         Box::new(build(y.to_string()))
-   |                        ^^^^^^^^^^^^^ help: use: `y`
-
-error: unnecessary use of `to_string`
-  --> tests/ui/unnecessary_to_owned.rs:468:12
+LL |     let _ref_string = &String::from_utf8(b"foo".to_vec()).unwrap();
+   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |         id("abc".to_string())
-   |            ^^^^^^^^^^^^^^^^^ help: use: `"abc"`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_vec`
-  --> tests/ui/unnecessary_to_owned.rs:612:37
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:238:5
+   |
+LL |     macro_rules! arg_from_macro {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:243:5
+   |
+LL |     macro_rules! string_from_utf8_from_macro {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:248:9
+   |
+LL |     let _ref_str: &str = &String::from_utf8(arg_from_macro!()).unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:248:19
+   |
+LL |     let _ref_str: &str = &String::from_utf8(arg_from_macro!()).unwrap();
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:248:26
+   |
+LL |     let _ref_str: &str = &String::from_utf8(arg_from_macro!()).unwrap();
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:249:9
+   |
+LL |     let _ref_str: &str = string_from_utf8_from_macro!();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:249:19
+   |
+LL |     let _ref_str: &str = string_from_utf8_from_macro!();
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:245:13
+   |
+LL |             &String::from_utf8(b"foo".to_vec()).unwrap()
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+LL |     let _ref_str: &str = string_from_utf8_from_macro!();
+   |                          ------------------------------ in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: this error originates in the macro `string_from_utf8_from_macro` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:252:1
+   |
+LL | fn require_c_str(_: &CStr) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:252:1
+   |
+LL | fn require_c_str(_: &CStr) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:252:1
+   |
+LL | fn require_c_str(_: &CStr) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:252:21
+   |
+LL | fn require_c_str(_: &CStr) {}
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:253:1
+   |
+LL | fn require_os_str(_: &OsStr) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:253:1
+   |
+LL | fn require_os_str(_: &OsStr) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:253:1
+   |
+LL | fn require_os_str(_: &OsStr) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:253:22
+   |
+LL | fn require_os_str(_: &OsStr) {}
+   |                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:254:1
+   |
+LL | fn require_path(_: &std::path::Path) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:254:1
+   |
+LL | fn require_path(_: &std::path::Path) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:254:1
+   |
+LL | fn require_path(_: &std::path::Path) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:254:20
+   |
+LL | fn require_path(_: &std::path::Path) {}
+   |                    ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:255:1
+   |
+LL | fn require_str(_: &str) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:255:1
+   |
+LL | fn require_str(_: &str) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:255:1
+   |
+LL | fn require_str(_: &str) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:255:19
+   |
+LL | fn require_str(_: &str) {}
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:256:1
+   |
+LL | fn require_slice<T>(_: &[T]) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:256:1
+   |
+LL | fn require_slice<T>(_: &[T]) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:256:1
+   |
+LL | fn require_slice<T>(_: &[T]) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:256:24
+   |
+LL | fn require_slice<T>(_: &[T]) {}
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:257:1
+   |
+LL | fn require_x(_: &X) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:257:1
+   |
+LL | fn require_x(_: &X) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:257:1
+   |
+LL | fn require_x(_: &X) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:257:17
+   |
+LL | fn require_x(_: &X) {}
+   |                 ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:259:1
+   |
+LL | fn require_deref_c_str<T: Deref<Target = CStr>>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:259:1
+   |
+LL | fn require_deref_c_str<T: Deref<Target = CStr>>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:259:1
+   |
+LL | fn require_deref_c_str<T: Deref<Target = CStr>>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:260:1
+   |
+LL | fn require_deref_os_str<T: Deref<Target = OsStr>>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:260:1
+   |
+LL | fn require_deref_os_str<T: Deref<Target = OsStr>>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:260:1
+   |
+LL | fn require_deref_os_str<T: Deref<Target = OsStr>>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:261:1
+   |
+LL | fn require_deref_path<T: Deref<Target = std::path::Path>>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:261:1
+   |
+LL | fn require_deref_path<T: Deref<Target = std::path::Path>>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:261:1
+   |
+LL | fn require_deref_path<T: Deref<Target = std::path::Path>>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:262:1
+   |
+LL | fn require_deref_str<T: Deref<Target = str>>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:262:1
+   |
+LL | fn require_deref_str<T: Deref<Target = str>>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:262:1
+   |
+LL | fn require_deref_str<T: Deref<Target = str>>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:263:1
+   |
+LL | fn require_deref_slice<T, U: Deref<Target = [T]>>(_: U) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:263:1
+   |
+LL | fn require_deref_slice<T, U: Deref<Target = [T]>>(_: U) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:263:1
+   |
+LL | fn require_deref_slice<T, U: Deref<Target = [T]>>(_: U) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:265:1
+   |
+LL | fn require_impl_deref_c_str(_: impl Deref<Target = CStr>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:265:1
+   |
+LL | fn require_impl_deref_c_str(_: impl Deref<Target = CStr>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:265:1
+   |
+LL | fn require_impl_deref_c_str(_: impl Deref<Target = CStr>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:266:1
+   |
+LL | fn require_impl_deref_os_str(_: impl Deref<Target = OsStr>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:266:1
+   |
+LL | fn require_impl_deref_os_str(_: impl Deref<Target = OsStr>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:266:1
+   |
+LL | fn require_impl_deref_os_str(_: impl Deref<Target = OsStr>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:267:1
+   |
+LL | fn require_impl_deref_path(_: impl Deref<Target = std::path::Path>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:267:1
+   |
+LL | fn require_impl_deref_path(_: impl Deref<Target = std::path::Path>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:267:1
+   |
+LL | fn require_impl_deref_path(_: impl Deref<Target = std::path::Path>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:268:1
+   |
+LL | fn require_impl_deref_str(_: impl Deref<Target = str>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:268:1
+   |
+LL | fn require_impl_deref_str(_: impl Deref<Target = str>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:268:1
+   |
+LL | fn require_impl_deref_str(_: impl Deref<Target = str>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:269:1
+   |
+LL | fn require_impl_deref_slice<T>(_: impl Deref<Target = [T]>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:269:1
+   |
+LL | fn require_impl_deref_slice<T>(_: impl Deref<Target = [T]>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:269:1
+   |
+LL | fn require_impl_deref_slice<T>(_: impl Deref<Target = [T]>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:271:1
+   |
+LL | fn require_deref_str_slice<T: Deref<Target = str>, U, V: Deref<Target = [U]>>(_: T, _: V) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:271:1
+   |
+LL | fn require_deref_str_slice<T: Deref<Target = str>, U, V: Deref<Target = [U]>>(_: T, _: V) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:271:1
+   |
+LL | fn require_deref_str_slice<T: Deref<Target = str>, U, V: Deref<Target = [U]>>(_: T, _: V) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:272:1
+   |
+LL | fn require_deref_slice_str<T, U: Deref<Target = [T]>, V: Deref<Target = str>>(_: U, _: V) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:272:1
+   |
+LL | fn require_deref_slice_str<T, U: Deref<Target = [T]>, V: Deref<Target = str>>(_: U, _: V) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:272:1
+   |
+LL | fn require_deref_slice_str<T, U: Deref<Target = [T]>, V: Deref<Target = str>>(_: U, _: V) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:274:1
+   |
+LL | fn require_as_ref_c_str<T: AsRef<CStr>>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:274:1
+   |
+LL | fn require_as_ref_c_str<T: AsRef<CStr>>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:274:1
+   |
+LL | fn require_as_ref_c_str<T: AsRef<CStr>>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:275:1
+   |
+LL | fn require_as_ref_os_str<T: AsRef<OsStr>>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:275:1
+   |
+LL | fn require_as_ref_os_str<T: AsRef<OsStr>>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:275:1
+   |
+LL | fn require_as_ref_os_str<T: AsRef<OsStr>>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:276:1
+   |
+LL | fn require_as_ref_path<T: AsRef<std::path::Path>>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:276:1
+   |
+LL | fn require_as_ref_path<T: AsRef<std::path::Path>>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:276:1
+   |
+LL | fn require_as_ref_path<T: AsRef<std::path::Path>>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:277:1
+   |
+LL | fn require_as_ref_str<T: AsRef<str>>(_: T) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:277:1
+   |
+LL | fn require_as_ref_str<T: AsRef<str>>(_: T) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:277:1
+   |
+LL | fn require_as_ref_str<T: AsRef<str>>(_: T) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:278:1
+   |
+LL | fn require_as_ref_slice<T, U: AsRef<[T]>>(_: U) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:278:1
+   |
+LL | fn require_as_ref_slice<T, U: AsRef<[T]>>(_: U) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:278:1
+   |
+LL | fn require_as_ref_slice<T, U: AsRef<[T]>>(_: U) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:280:1
+   |
+LL | fn require_impl_as_ref_c_str(_: impl AsRef<CStr>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:280:1
+   |
+LL | fn require_impl_as_ref_c_str(_: impl AsRef<CStr>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:280:1
+   |
+LL | fn require_impl_as_ref_c_str(_: impl AsRef<CStr>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:281:1
+   |
+LL | fn require_impl_as_ref_os_str(_: impl AsRef<OsStr>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:281:1
+   |
+LL | fn require_impl_as_ref_os_str(_: impl AsRef<OsStr>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:281:1
+   |
+LL | fn require_impl_as_ref_os_str(_: impl AsRef<OsStr>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:282:1
+   |
+LL | fn require_impl_as_ref_path(_: impl AsRef<std::path::Path>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:282:1
+   |
+LL | fn require_impl_as_ref_path(_: impl AsRef<std::path::Path>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:282:1
+   |
+LL | fn require_impl_as_ref_path(_: impl AsRef<std::path::Path>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:283:1
+   |
+LL | fn require_impl_as_ref_str(_: impl AsRef<str>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:283:1
+   |
+LL | fn require_impl_as_ref_str(_: impl AsRef<str>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:283:1
+   |
+LL | fn require_impl_as_ref_str(_: impl AsRef<str>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:284:1
+   |
+LL | fn require_impl_as_ref_slice<T>(_: impl AsRef<[T]>) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:284:1
+   |
+LL | fn require_impl_as_ref_slice<T>(_: impl AsRef<[T]>) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:284:1
+   |
+LL | fn require_impl_as_ref_slice<T>(_: impl AsRef<[T]>) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:286:1
+   |
+LL | fn require_as_ref_str_slice<T: AsRef<str>, U, V: AsRef<[U]>>(_: T, _: V) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:286:1
+   |
+LL | fn require_as_ref_str_slice<T: AsRef<str>, U, V: AsRef<[U]>>(_: T, _: V) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:286:1
+   |
+LL | fn require_as_ref_str_slice<T: AsRef<str>, U, V: AsRef<[U]>>(_: T, _: V) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:287:1
+   |
+LL | fn require_as_ref_slice_str<T, U: AsRef<[T]>, V: AsRef<str>>(_: U, _: V) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:287:1
+   |
+LL | fn require_as_ref_slice_str<T, U: AsRef<[T]>, V: AsRef<str>>(_: U, _: V) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:287:1
+   |
+LL | fn require_as_ref_slice_str<T, U: AsRef<[T]>, V: AsRef<str>>(_: U, _: V) {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:291:1
+   |
+LL | fn check_files(file_types: &[FileType]) -> bool {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:291:1
+   |
+LL | fn check_files(file_types: &[FileType]) -> bool {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:291:1
+   |
+LL | fn check_files(file_types: &[FileType]) -> bool {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:291:16
+   |
+LL | fn check_files(file_types: &[FileType]) -> bool {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:291:28
+   |
+LL | fn check_files(file_types: &[FileType]) -> bool {
+   |                            ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:294:13
+   |
+LL |         let path = match get_file_path(&t) {
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:294:40
+   |
+LL |         let path = match get_file_path(&t) {
+   |                                        ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:307:1
+   |
+LL | fn get_file_path(_file_type: &FileType) -> Result<std::path::PathBuf, std::io::Error> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:307:1
+   |
+LL | fn get_file_path(_file_type: &FileType) -> Result<std::path::PathBuf, std::io::Error> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:307:1
+   |
+LL | fn get_file_path(_file_type: &FileType) -> Result<std::path::PathBuf, std::io::Error> {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:307:18
+   |
+LL | fn get_file_path(_file_type: &FileType) -> Result<std::path::PathBuf, std::io::Error> {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:307:30
+   |
+LL | fn get_file_path(_file_type: &FileType) -> Result<std::path::PathBuf, std::io::Error> {
+   |                              ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:311:1
+   |
+LL | fn require_string(_: &String) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:311:1
+   |
+LL | fn require_string(_: &String) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:311:1
+   |
+LL | fn require_string(_: &String) {}
+   | ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:311:22
+   |
+LL | fn require_string(_: &String) {}
+   |                      ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:314:1
+   |
+LL | mod issue_8507 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:317:5
+   |
+LL |     struct Opaque<P>(P);
+   |     ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:319:5
+   |
+LL |     pub trait Abstracted {}
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:321:5
+   |
+LL |     impl<P> Abstracted for Opaque<P> {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:323:5
+   |
+LL |     fn build<P>(p: P) -> Opaque<P>
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:323:5
+   |
+LL |     fn build<P>(p: P) -> Opaque<P>
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:323:5
+   |
+LL |     fn build<P>(p: P) -> Opaque<P>
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:323:17
+   |
+LL |     fn build<P>(p: P) -> Opaque<P>
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:331:5
+   |
+LL |     fn test_str(s: &str) -> Box<dyn Abstracted> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:331:5
+   |
+LL |     fn test_str(s: &str) -> Box<dyn Abstracted> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:331:5
+   |
+LL |     fn test_str(s: &str) -> Box<dyn Abstracted> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:331:17
+   |
+LL |     fn test_str(s: &str) -> Box<dyn Abstracted> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:331:20
+   |
+LL |     fn test_str(s: &str) -> Box<dyn Abstracted> {
+   |                    ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:336:5
+   |
+LL |     fn test_x(x: super::X) -> Box<dyn Abstracted> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:336:5
+   |
+LL |     fn test_x(x: super::X) -> Box<dyn Abstracted> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:336:5
+   |
+LL |     fn test_x(x: super::X) -> Box<dyn Abstracted> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:336:15
+   |
+LL |     fn test_x(x: super::X) -> Box<dyn Abstracted> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:341:5
+   |
+LL |     struct Y(&'static str);
+   |     ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:341:14
+   |
+LL |     struct Y(&'static str);
+   |              ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:340:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:340:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:340:11
+   |
+LL |     #[derive(Clone, Copy)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:340:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:340:14
+   |
+LL |     #[derive(Clone, Copy)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:341:14
+   |
+LL |     struct Y(&'static str);
+   |              ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:340:21
+   |
+LL |     #[derive(Clone, Copy)]
+   |                     ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:343:5
+   |
+LL |     impl AsRef<str> for Y {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:344:9
+   |
+LL |         fn as_ref(&self) -> &str {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:344:9
+   |
+LL |         fn as_ref(&self) -> &str {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:344:20
+   |
+LL |         fn as_ref(&self) -> &str {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:344:19
+   |
+LL |         fn as_ref(&self) -> &str {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:344:29
+   |
+LL |         fn as_ref(&self) -> &str {
+   |                             ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:350:5
+   |
+LL |     impl ToString for Y {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:351:9
+   |
+LL |         fn to_string(&self) -> String {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:351:9
+   |
+LL |         fn to_string(&self) -> String {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:351:23
+   |
+LL |         fn to_string(&self) -> String {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:351:22
+   |
+LL |         fn to_string(&self) -> String {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:357:5
+   |
+LL |     fn test_y(y: Y) -> Box<dyn Abstracted> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:357:5
+   |
+LL |     fn test_y(y: Y) -> Box<dyn Abstracted> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:357:5
+   |
+LL |     fn test_y(y: Y) -> Box<dyn Abstracted> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:357:15
+   |
+LL |     fn test_y(y: Y) -> Box<dyn Abstracted> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:364:1
+   |
+LL | mod issue_8759 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:368:5
+   |
+LL |     struct View {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:367:14
+   |
+LL |     #[derive(Default)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:367:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:367:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:370:5
+   |
+LL |     impl std::borrow::ToOwned for View {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:372:9
+   |
+LL |         fn to_owned(&self) -> Self::Owned {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:372:9
+   |
+LL |         fn to_owned(&self) -> Self::Owned {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:372:22
+   |
+LL |         fn to_owned(&self) -> Self::Owned {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:372:21
+   |
+LL |         fn to_owned(&self) -> Self::Owned {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:378:5
+   |
+LL |     struct RenderWindow {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:377:14
+   |
+LL |     #[derive(Default)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:377:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:377:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:382:5
+   |
+LL |     impl RenderWindow {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:383:9
+   |
+LL |         fn default_view(&self) -> &View {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:383:9
+   |
+LL |         fn default_view(&self) -> &View {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:383:26
+   |
+LL |         fn default_view(&self) -> &View {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:383:25
+   |
+LL |         fn default_view(&self) -> &View {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:383:35
+   |
+LL |         fn default_view(&self) -> &View {
+   |                                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:384:13
+   |
+LL |             &self.default_view
+   |             ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:386:9
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:386:9
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:386:26
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:386:32
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:386:21
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:386:39
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |                                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:389:5
+   |
+LL |     fn main() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:389:5
+   |
+LL |     fn main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:389:5
+   |
+LL |     fn main() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:391:21
+   |
+LL |         rw.set_view(&rw.default_view().to_owned());
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:395:1
+   |
+LL | mod issue_8759_variant {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:399:5
+   |
+LL |     struct View {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:398:14
+   |
+LL |     #[derive(Clone, Default)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:398:11
+   |
+LL |     #[derive(Clone, Default)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:398:11
+   |
+LL |     #[derive(Clone, Default)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:398:14
+   |
+LL |     #[derive(Clone, Default)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:398:14
+   |
+LL |     #[derive(Clone, Default)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:398:21
+   |
+LL |     #[derive(Clone, Default)]
+   |                     ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:398:18
+   |
+LL |     #[derive(Clone, Default)]
+   |                  ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:398:18
+   |
+LL |     #[derive(Clone, Default)]
+   |                  ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:402:5
+   |
+LL |     struct RenderWindow {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:401:14
+   |
+LL |     #[derive(Default)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:401:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:401:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:406:5
+   |
+LL |     impl RenderWindow {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:407:9
+   |
+LL |         fn default_view(&self) -> &View {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:407:9
+   |
+LL |         fn default_view(&self) -> &View {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:407:26
+   |
+LL |         fn default_view(&self) -> &View {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:407:25
+   |
+LL |         fn default_view(&self) -> &View {
+   |                         ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:407:35
+   |
+LL |         fn default_view(&self) -> &View {
+   |                                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:408:13
+   |
+LL |             &self.default_view
+   |             ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:410:9
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:410:9
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:410:26
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:410:32
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:410:21
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |                     ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:410:39
+   |
+LL |         fn set_view(&mut self, _view: &View) {}
+   |                                       ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:413:5
+   |
+LL |     fn main() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:413:5
+   |
+LL |     fn main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:413:5
+   |
+LL |     fn main() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:415:21
+   |
+LL |         rw.set_view(&rw.default_view().to_owned());
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:419:1
+   |
+LL | mod issue_9317 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:422:5
+   |
+LL |     struct Bytes {}
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:425:5
+   |
+LL |     impl ToString for Bytes {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:426:9
+   |
+LL |         fn to_string(&self) -> String {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:426:9
+   |
+LL |         fn to_string(&self) -> String {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:426:23
+   |
+LL |         fn to_string(&self) -> String {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:426:22
+   |
+LL |         fn to_string(&self) -> String {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:431:5
+   |
+LL |     impl AsRef<[u8]> for Bytes {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:432:9
+   |
+LL |         fn as_ref(&self) -> &[u8] {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:432:9
+   |
+LL |         fn as_ref(&self) -> &[u8] {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:432:20
+   |
+LL |         fn as_ref(&self) -> &[u8] {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:432:19
+   |
+LL |         fn as_ref(&self) -> &[u8] {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:432:29
+   |
+LL |         fn as_ref(&self) -> &[u8] {
+   |                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:433:13
+   |
+LL |             &[1, 2, 3]
+   |             ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:437:5
+   |
+LL |     fn consume<C: AsRef<[u8]>>(c: C) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:437:5
+   |
+LL |     fn consume<C: AsRef<[u8]>>(c: C) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:437:5
+   |
+LL |     fn consume<C: AsRef<[u8]>>(c: C) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:437:32
+   |
+LL |     fn consume<C: AsRef<[u8]>>(c: C) {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:441:9
+   |
+LL |     pub fn main() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:441:9
+   |
+LL |     pub fn main() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:442:13
+   |
+LL |         let b = Bytes {};
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:448:1
+   |
+LL | mod issue_9351 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:454:5
+   |
+LL |     fn require_deref_path<T: Deref<Target = std::path::Path>>(x: T) -> T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:454:5
+   |
+LL |     fn require_deref_path<T: Deref<Target = std::path::Path>>(x: T) -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:454:5
+   |
+LL |     fn require_deref_path<T: Deref<Target = std::path::Path>>(x: T) -> T {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:454:63
+   |
+LL |     fn require_deref_path<T: Deref<Target = std::path::Path>>(x: T) -> T {
+   |                                                               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:458:5
+   |
+LL |     fn generic_arg_used_elsewhere<T: AsRef<Path>>(_x: T, _y: T) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:458:5
+   |
+LL |     fn generic_arg_used_elsewhere<T: AsRef<Path>>(_x: T, _y: T) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:458:5
+   |
+LL |     fn generic_arg_used_elsewhere<T: AsRef<Path>>(_x: T, _y: T) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:458:51
+   |
+LL |     fn generic_arg_used_elsewhere<T: AsRef<Path>>(_x: T, _y: T) {}
+   |                                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:458:58
+   |
+LL |     fn generic_arg_used_elsewhere<T: AsRef<Path>>(_x: T, _y: T) {}
+   |                                                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:460:5
+   |
+LL |     fn id<T: AsRef<str>>(x: T) -> T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:460:5
+   |
+LL |     fn id<T: AsRef<str>>(x: T) -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:460:5
+   |
+LL |     fn id<T: AsRef<str>>(x: T) -> T {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:460:26
+   |
+LL |     fn id<T: AsRef<str>>(x: T) -> T {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:464:5
+   |
+LL |     fn predicates_are_satisfied(_x: impl std::fmt::Write) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:464:5
+   |
+LL |     fn predicates_are_satisfied(_x: impl std::fmt::Write) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:464:5
+   |
+LL |     fn predicates_are_satisfied(_x: impl std::fmt::Write) {}
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:464:33
+   |
+LL |     fn predicates_are_satisfied(_x: impl std::fmt::Write) {}
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:467:5
+   |
+LL |     fn single_return() -> impl AsRef<str> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:467:5
+   |
+LL |     fn single_return() -> impl AsRef<str> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:467:5
+   |
+LL |     fn single_return() -> impl AsRef<str> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:473:5
+   |
+LL |     fn multiple_returns(b: bool) -> impl AsRef<str> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:473:5
+   |
+LL |     fn multiple_returns(b: bool) -> impl AsRef<str> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:473:5
+   |
+LL |     fn multiple_returns(b: bool) -> impl AsRef<str> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:473:25
+   |
+LL |     fn multiple_returns(b: bool) -> impl AsRef<str> {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:481:5
+   |
+LL |     struct S1(String);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:484:5
+   |
+LL |     fn fields1() -> S1 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:484:5
+   |
+LL |     fn fields1() -> S1 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:484:5
+   |
+LL |     fn fields1() -> S1 {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:488:5
+   |
+LL |     struct S2 {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:493:5
+   |
+LL |     fn fields2() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:493:5
+   |
+LL |     fn fields2() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:493:5
+   |
+LL |     fn fields2() {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:498:9
+   |
+LL |     pub fn main() {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:498:9
+   |
+LL |     pub fn main() {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:499:13
+   |
+LL |         let path = std::path::Path::new("x");
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:500:13
+   |
+LL |         let path_buf = path.to_owned();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:503:13
+   |
+LL |         let _x: PathBuf = require_deref_path(path.to_owned());
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:509:1
+   |
+LL | mod issue_9504 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:512:5
+   |
+LL |     async fn foo<S: AsRef<str>>(_: S) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:512:11
+   |
+LL |     async fn foo<S: AsRef<str>>(_: S) {}
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:512:11
+   |
+LL |     async fn foo<S: AsRef<str>>(_: S) {}
+   |           ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:513:5
+   |
+LL |     async fn bar() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:513:11
+   |
+LL |     async fn bar() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:513:11
+   |
+LL |     async fn bar() {
+   |           ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:518:1
+   |
+LL | mod issue_9771a {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:525:5
+   |
+LL |     impl<K: AsRef<[u8]>, V: ?Sized> Key<K, V> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:526:13
+   |
+LL |         pub fn new(key: K) -> Key<K, V> {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:526:13
+   |
+LL |         pub fn new(key: K) -> Key<K, V> {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:526:20
+   |
+LL |         pub fn new(key: K) -> Key<K, V> {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:531:9
+   |
+LL |     pub fn pkh(pkh: &[u8]) -> Key<Vec<u8>, String> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:531:9
+   |
+LL |     pub fn pkh(pkh: &[u8]) -> Key<Vec<u8>, String> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:531:16
+   |
+LL |     pub fn pkh(pkh: &[u8]) -> Key<Vec<u8>, String> {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:531:21
+   |
+LL |     pub fn pkh(pkh: &[u8]) -> Key<Vec<u8>, String> {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:536:1
+   |
+LL | mod issue_9771b {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:541:9
+   |
+LL |     pub fn from(c: &[u8]) -> Key<Vec<u8>> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:541:9
+   |
+LL |     pub fn from(c: &[u8]) -> Key<Vec<u8>> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:541:17
+   |
+LL |     pub fn from(c: &[u8]) -> Key<Vec<u8>> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:541:20
+   |
+LL |     pub fn from(c: &[u8]) -> Key<Vec<u8>> {
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:542:13
+   |
+LL |         let v = [c].concat();
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:550:1
+   |
+LL | mod issue_10021 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:555:5
+   |
+LL |     impl<T: AsRef<str>> Iri<T> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:556:13
+   |
+LL |         pub fn parse(iri: T) -> Result<Self, ()> {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:556:13
+   |
+LL |         pub fn parse(iri: T) -> Result<Self, ()> {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:556:22
+   |
+LL |         pub fn parse(iri: T) -> Result<Self, ()> {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:561:9
+   |
+LL |     pub fn parse_w3c_rdf_test_file(url: &str) -> Result<(), ()> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:561:9
+   |
+LL |     pub fn parse_w3c_rdf_test_file(url: &str) -> Result<(), ()> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:561:36
+   |
+LL |     pub fn parse_w3c_rdf_test_file(url: &str) -> Result<(), ()> {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:561:41
+   |
+LL |     pub fn parse_w3c_rdf_test_file(url: &str) -> Result<(), ()> {
+   |                                         ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:562:13
+   |
+LL |         let base_iri = Iri::parse(url.to_owned())?;
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:567:1
+   |
+LL | mod issue_10033 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:572:5
+   |
+LL |     fn _main() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:572:5
+   |
+LL |     fn _main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:572:5
+   |
+LL |     fn _main() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:573:13
+   |
+LL |         let f = Foo;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:577:13
+   |
+LL |         foo(&f.to_string());
+   |             ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:580:5
+   |
+LL |     fn foo(s: &str) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:580:5
+   |
+LL |     fn foo(s: &str) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:580:5
+   |
+LL |     fn foo(s: &str) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:580:12
+   |
+LL |     fn foo(s: &str) {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:580:15
+   |
+LL |     fn foo(s: &str) {
+   |               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:584:5
+   |
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:586:5
+   |
+LL |     impl Deref for Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:589:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:589:9
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:589:19
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:589:18
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                  ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:589:28
+   |
+LL |         fn deref(&self) -> &Self::Target {
+   |                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:594:5
+   |
+LL |     impl Display for Foo {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:595:9
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:595:9
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:595:17
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:595:23
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:595:16
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:595:26
+   |
+LL |         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:601:1
+   |
+LL | mod issue_11952 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:604:5
+   |
+LL |     fn foo<'a, T: AsRef<[u8]>>(x: T, y: &'a i32) -> impl 'a + Future<Output = Result<(), ()>> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:604:5
+   |
+LL |     fn foo<'a, T: AsRef<[u8]>>(x: T, y: &'a i32) -> impl 'a + Future<Output = Result<(), ()>> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:604:5
+   |
+LL |     fn foo<'a, T: AsRef<[u8]>>(x: T, y: &'a i32) -> impl 'a + Future<Output = Result<(), ()>> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:604:32
+   |
+LL |     fn foo<'a, T: AsRef<[u8]>>(x: T, y: &'a i32) -> impl 'a + Future<Output = Result<(), ()>> {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:604:38
+   |
+LL |     fn foo<'a, T: AsRef<[u8]>>(x: T, y: &'a i32) -> impl 'a + Future<Output = Result<(), ()>> {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:604:41
+   |
+LL |     fn foo<'a, T: AsRef<[u8]>>(x: T, y: &'a i32) -> impl 'a + Future<Output = Result<(), ()>> {
+   |                                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:606:17
+   |
+LL |             let _y = y;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:611:5
+   |
+LL |     fn bar() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:611:5
+   |
+LL |     fn bar() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:611:5
+   |
+LL |     fn bar() {
+   |     ^
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:612:50
    |
 LL |         IntoFuture::into_future(foo([].to_vec(), &0));
-   |                                     ^^^^^^^^^^^ help: use: `[]`
+   |                                                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_vec`
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:617:1
+   |
+LL | fn borrow_checks() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:617:1
+   |
+LL | fn borrow_checks() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:617:1
+   |
+LL | fn borrow_checks() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:621:5
+   |
+LL |     fn inner(a: &[&str]) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:621:5
+   |
+LL |     fn inner(a: &[&str]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:621:5
+   |
+LL |     fn inner(a: &[&str]) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:621:14
+   |
+LL |     fn inner(a: &[&str]) {
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:621:17
+   |
+LL |     fn inner(a: &[&str]) {
+   |                 ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:621:19
+   |
+LL |     fn inner(a: &[&str]) {
+   |                   ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:623:18
    |
 LL |         s.remove(&a.to_vec());
-   |                  ^^^^^^^^^^^ help: replace it with: `a`
+   |                  ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_owned`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:628:14
    |
 LL |     s.remove(&"b".to_owned());
-   |              ^^^^^^^^^^^^^^^ help: replace it with: `"b"`
+   |              ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_string`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:630:14
    |
 LL |     s.remove(&"b".to_string());
-   |              ^^^^^^^^^^^^^^^^ help: replace it with: `"b"`
+   |              ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_vec`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:636:14
    |
 LL |     s.remove(&["b"].to_vec());
-   |              ^^^^^^^^^^^^^^^ help: replace it with: `["b"].as_slice()`
+   |              ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: unnecessary use of `to_vec`
+error: references are not allowed
   --> tests/ui/unnecessary_to_owned.rs:638:14
    |
 LL |     s.remove(&(&["b"]).to_vec());
-   |              ^^^^^^^^^^^^^^^^^^ help: replace it with: `(&["b"]).as_slice()`
+   |              ^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 82 previous errors
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:638:16
+   |
+LL |     s.remove(&(&["b"]).to_vec());
+   |                ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:642:14
+   |
+LL |     s.remove(&["b"].to_vec().clone());
+   |              ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: trait must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:645:5
+   |
+LL | /     trait SetExt {
+LL | |         fn foo<Q: Borrow<str>>(&self, _: &String);
+LL | |     }
+   | |_____^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:645:5
+   |
+LL |     trait SetExt {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:646:9
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String);
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:646:9
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String);
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:646:33
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String);
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:646:32
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String);
+   |                                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:646:42
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String);
+   |                                          ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:649:5
+   |
+LL |     impl<K> SetExt for HashSet<K> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:650:9
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:650:9
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:650:33
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String) {}
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:650:32
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String) {}
+   |                                ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:650:42
+   |
+LL |         fn foo<Q: Borrow<str>>(&self, _: &String) {}
+   |                                          ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:654:33
+   |
+LL |     HashSet::<i32>::new().foo::<&str>(&"".to_owned());
+   |                                 ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:654:39
+   |
+LL |     HashSet::<i32>::new().foo::<&str>(&"".to_owned());
+   |                                       ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:655:34
+   |
+LL |     HashSet::<String>::new().get(&1.to_string());
+   |                                  ^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:658:1
+   |
+LL | fn issue13624() -> impl IntoIterator {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:658:1
+   |
+LL | fn issue13624() -> impl IntoIterator {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:658:1
+   |
+LL | fn issue13624() -> impl IntoIterator {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:659:9
+   |
+LL |     let cow: Cow<'_, Vec<String>> = Cow::Owned(vec![String::from("foo")]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:664:1
+   |
+LL | mod issue_14242 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:668:5
+   |
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:667:14
+   |
+LL |     #[derive(Copy, Clone)]
+   |              ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:667:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:667:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:667:17
+   |
+LL |     #[derive(Copy, Clone)]
+   |                 ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_to_owned.rs:667:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_to_owned.rs:667:20
+   |
+LL |     #[derive(Copy, Clone)]
+   |                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:670:5
+   |
+LL |     fn rc_slice_provider() -> Rc<[Foo]> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:670:5
+   |
+LL |     fn rc_slice_provider() -> Rc<[Foo]> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:670:5
+   |
+LL |     fn rc_slice_provider() -> Rc<[Foo]> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_to_owned.rs:674:5
+   |
+LL |     fn iterator_provider() -> impl Iterator<Item = Foo> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:674:5
+   |
+LL |     fn iterator_provider() -> impl Iterator<Item = Foo> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_to_owned.rs:674:5
+   |
+LL |     fn iterator_provider() -> impl Iterator<Item = Foo> {
+   |     ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 408 previous errors
 

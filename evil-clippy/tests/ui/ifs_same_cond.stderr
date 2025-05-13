@@ -1,52 +1,133 @@
-error: this `if` has the same condition as a previous `if`
-  --> tests/ui/ifs_same_cond.rs:9:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     } else if b {
-   |               ^
-   |
-note: same as this
-  --> tests/ui/ifs_same_cond.rs:8:8
-   |
-LL |     if b {
-   |        ^
-   = note: `-D clippy::ifs-same-cond` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::ifs_same_cond)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `if` has the same condition as a previous `if`
-  --> tests/ui/ifs_same_cond.rs:14:15
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     } else if a == 1 {
-   |               ^^^^^^
-   |
-note: same as this
-  --> tests/ui/ifs_same_cond.rs:13:8
-   |
-LL |     if a == 1 {
-   |        ^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `if` has the same condition as a previous `if`
-  --> tests/ui/ifs_same_cond.rs:20:15
+error: item must be `pub`
+  --> tests/ui/ifs_same_cond.rs:4:1
    |
-LL |     } else if 2 * a == 1 {
-   |               ^^^^^^^^^^
+LL | fn ifs_same_cond() {
+   | ^ help: make this item public: `pub`
    |
-note: same as this
-  --> tests/ui/ifs_same_cond.rs:18:8
-   |
-LL |     if 2 * a == 1 {
-   |        ^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this `if` has the same condition as a previous `if`
-  --> tests/ui/ifs_same_cond.rs:53:15
+error: function must be `unsafe`
+  --> tests/ui/ifs_same_cond.rs:4:1
    |
-LL |     } else if a.contains("ah") {
-   |               ^^^^^^^^^^^^^^^^
+LL | fn ifs_same_cond() {
+   | ^
    |
-note: same as this
-  --> tests/ui/ifs_same_cond.rs:52:8
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ifs_same_cond.rs:4:1
    |
-LL |     if a.contains("ah") {
-   |        ^^^^^^^^^^^^^^^^
+LL | fn ifs_same_cond() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/ifs_same_cond.rs:5:9
+   |
+LL |     let a = 0;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/ifs_same_cond.rs:6:9
+   |
+LL |     let b = false;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/ifs_same_cond.rs:45:25
+   |
+LL |     if let Some(env1) = option_env!("ENV1") {
+   |                         ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/ifs_same_cond.rs:46:32
+   |
+LL |     } else if let Some(env2) = option_env!("ENV2") {
+   |                                ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/ifs_same_cond.rs:50:1
+   |
+LL | fn issue10272() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ifs_same_cond.rs:50:1
+   |
+LL | fn issue10272() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ifs_same_cond.rs:50:1
+   |
+LL | fn issue10272() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/ifs_same_cond.rs:51:9
+   |
+LL |     let a = String::from("ha");
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ifs_same_cond.rs:61:9
+   |
+LL |     let p: *mut i8 = std::ptr::null_mut();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/ifs_same_cond.rs:69:9
+   |
+LL |     let x = std::cell::Cell::new(true);
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/ifs_same_cond.rs:78:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/ifs_same_cond.rs:78:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/ifs_same_cond.rs:78:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

@@ -1,44 +1,247 @@
-error: single-character lifetime names are likely uninformative
-  --> tests/ui/single_char_lifetime_names.rs:5:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/single_char_lifetime_names.rs:5:1
    |
 LL | struct DiagnosticCtx<'a, 'b>
-   |                      ^^
+   | ^ help: make this item public: `pub`
    |
-   = help: use a more informative name
-   = note: `-D clippy::single-char-lifetime-names` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::single_char_lifetime_names)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: single-character lifetime names are likely uninformative
-  --> tests/ui/single_char_lifetime_names.rs:5:26
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:11:14
    |
-LL | struct DiagnosticCtx<'a, 'b>
-   |                          ^^
+LL |     _source: &'a str,
+   |              ^^^^^^^
    |
-   = help: use a more informative name
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: single-character lifetime names are likely uninformative
-  --> tests/ui/single_char_lifetime_names.rs:16:6
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:12:12
+   |
+LL |     _unit: &'b (),
+   |            ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/single_char_lifetime_names.rs:16:1
    |
 LL | impl<'a, 'b> DiagnosticCtx<'a, 'b> {
-   |      ^^
-   |
-   = help: use a more informative name
+   | ^ help: make this item public: `pub`
 
-error: single-character lifetime names are likely uninformative
-  --> tests/ui/single_char_lifetime_names.rs:16:10
+error: function must be `unsafe`
+  --> tests/ui/single_char_lifetime_names.rs:20:5
    |
-LL | impl<'a, 'b> DiagnosticCtx<'a, 'b> {
-   |          ^^
+LL |     fn new(source: &'a str, unit: &'b ()) -> DiagnosticCtx<'a, 'b> {
+   |     ^
    |
-   = help: use a more informative name
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_char_lifetime_names.rs:20:5
+   |
+LL |     fn new(source: &'a str, unit: &'b ()) -> DiagnosticCtx<'a, 'b> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: single-character lifetime names are likely uninformative
-  --> tests/ui/single_char_lifetime_names.rs:39:15
+error: parameter must be `mut`
+  --> tests/ui/single_char_lifetime_names.rs:20:12
+   |
+LL |     fn new(source: &'a str, unit: &'b ()) -> DiagnosticCtx<'a, 'b> {
+   |            ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_char_lifetime_names.rs:20:29
+   |
+LL |     fn new(source: &'a str, unit: &'b ()) -> DiagnosticCtx<'a, 'b> {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:20:20
+   |
+LL |     fn new(source: &'a str, unit: &'b ()) -> DiagnosticCtx<'a, 'b> {
+   |                    ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:20:35
+   |
+LL |     fn new(source: &'a str, unit: &'b ()) -> DiagnosticCtx<'a, 'b> {
+   |                                   ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/single_char_lifetime_names.rs:29:1
+   |
+LL | impl<'src, 'unit> DiagnosticCtx<'src, 'unit> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_char_lifetime_names.rs:30:5
+   |
+LL |     fn new_pass(source: &'src str, unit: &'unit ()) -> DiagnosticCtx<'src, 'unit> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_char_lifetime_names.rs:30:5
+   |
+LL |     fn new_pass(source: &'src str, unit: &'unit ()) -> DiagnosticCtx<'src, 'unit> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_char_lifetime_names.rs:30:17
+   |
+LL |     fn new_pass(source: &'src str, unit: &'unit ()) -> DiagnosticCtx<'src, 'unit> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_char_lifetime_names.rs:30:36
+   |
+LL |     fn new_pass(source: &'src str, unit: &'unit ()) -> DiagnosticCtx<'src, 'unit> {
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:30:25
+   |
+LL |     fn new_pass(source: &'src str, unit: &'unit ()) -> DiagnosticCtx<'src, 'unit> {
+   |                         ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:30:42
+   |
+LL |     fn new_pass(source: &'src str, unit: &'unit ()) -> DiagnosticCtx<'src, 'unit> {
+   |                                          ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/single_char_lifetime_names.rs:39:1
    |
 LL | fn split_once<'a>(base: &'a str, other: &'_ str) -> (&'a str, Option<&'a str>) {
-   |               ^^
-   |
-   = help: use a more informative name
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: function must be `unsafe`
+  --> tests/ui/single_char_lifetime_names.rs:39:1
+   |
+LL | fn split_once<'a>(base: &'a str, other: &'_ str) -> (&'a str, Option<&'a str>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_char_lifetime_names.rs:39:1
+   |
+LL | fn split_once<'a>(base: &'a str, other: &'_ str) -> (&'a str, Option<&'a str>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/single_char_lifetime_names.rs:39:19
+   |
+LL | fn split_once<'a>(base: &'a str, other: &'_ str) -> (&'a str, Option<&'a str>) {
+   |                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/single_char_lifetime_names.rs:39:34
+   |
+LL | fn split_once<'a>(base: &'a str, other: &'_ str) -> (&'a str, Option<&'a str>) {
+   |                                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:39:25
+   |
+LL | fn split_once<'a>(base: &'a str, other: &'_ str) -> (&'a str, Option<&'a str>) {
+   |                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:39:41
+   |
+LL | fn split_once<'a>(base: &'a str, other: &'_ str) -> (&'a str, Option<&'a str>) {
+   |                                         ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:39:54
+   |
+LL | fn split_once<'a>(base: &'a str, other: &'_ str) -> (&'a str, Option<&'a str>) {
+   |                                                      ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:39:70
+   |
+LL | fn split_once<'a>(base: &'a str, other: &'_ str) -> (&'a str, Option<&'a str>) {
+   |                                                                      ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/single_char_lifetime_names.rs:47:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/single_char_lifetime_names.rs:47:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/single_char_lifetime_names.rs:47:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/single_char_lifetime_names.rs:48:9
+   |
+LL |     let src = "loop {}";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/single_char_lifetime_names.rs:49:9
+   |
+LL |     let unit = ();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/single_char_lifetime_names.rs:50:29
+   |
+LL |     DiagnosticCtx::new(src, &unit);
+   |                             ^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 32 previous errors
 

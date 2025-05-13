@@ -1,36 +1,132 @@
-error: this function has a `#[must_use]` attribute with no message, but returns a type already marked as `#[must_use]`
-  --> tests/ui/double_must_use.rs:5:1
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/double_must_use.rs:5:5
    |
 LL | pub fn must_use_result() -> Result<(), ()> {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: either add some descriptive message or remove the attribute
-   = note: `-D clippy::double-must-use` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::double_must_use)]`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_must_use.rs:5:5
+   |
+LL | pub fn must_use_result() -> Result<(), ()> {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this function has a `#[must_use]` attribute with no message, but returns a type already marked as `#[must_use]`
-  --> tests/ui/double_must_use.rs:12:1
+error: function must be `unsafe`
+  --> tests/ui/double_must_use.rs:12:5
    |
 LL | pub fn must_use_tuple() -> (Result<(), ()>, u8) {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: either add some descriptive message or remove the attribute
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_must_use.rs:12:5
+   |
+LL | pub fn must_use_tuple() -> (Result<(), ()>, u8) {
+   |     ^
 
-error: this function has a `#[must_use]` attribute with no message, but returns a type already marked as `#[must_use]`
-  --> tests/ui/double_must_use.rs:19:1
+error: function must be `unsafe`
+  --> tests/ui/double_must_use.rs:19:5
    |
 LL | pub fn must_use_array() -> [Result<(), ()>; 1] {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^
    |
-   = help: either add some descriptive message or remove the attribute
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_must_use.rs:19:5
+   |
+LL | pub fn must_use_array() -> [Result<(), ()>; 1] {
+   |     ^
 
-error: this function has a `#[must_use]` attribute with no message, but returns a type already marked as `#[must_use]`
+error: function must be `unsafe`
+  --> tests/ui/double_must_use.rs:26:5
+   |
+LL | pub fn must_use_with_note() -> Result<(), ()> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_must_use.rs:26:5
+   |
+LL | pub fn must_use_with_note() -> Result<(), ()> {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/double_must_use.rs:32:1
+   |
+LL | async fn async_must_use() -> usize {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_must_use.rs:32:7
+   |
+LL | async fn async_must_use() -> usize {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_must_use.rs:32:7
+   |
+LL | async fn async_must_use() -> usize {
+   |       ^
+
+error: item must be `pub`
   --> tests/ui/double_must_use.rs:37:1
    |
 LL | async fn async_must_use_result() -> Result<(), ()> {
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: either add some descriptive message or remove the attribute
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/double_must_use.rs:37:7
+   |
+LL | async fn async_must_use_result() -> Result<(), ()> {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_must_use.rs:37:7
+   |
+LL | async fn async_must_use_result() -> Result<(), ()> {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/double_must_use.rs:43:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/double_must_use.rs:43:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/double_must_use.rs:43:1
+   |
+LL | fn main() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 14 previous errors
 

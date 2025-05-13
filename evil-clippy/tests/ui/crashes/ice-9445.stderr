@@ -1,12 +1,63 @@
-error: a `const` item should not be interior mutable
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
   --> tests/ui/crashes/ice-9445.rs:1:1
    |
 LL | const UNINIT: core::mem::MaybeUninit<core::cell::Cell<&'static ()>> = core::mem::MaybeUninit::uninit();
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   | ^ help: make this item public: `pub`
    |
-   = help: consider making this `Sync` so that it can go in a static item or using a `thread_local`
-   = note: `-D clippy::declare-interior-mutable-const` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::declare_interior_mutable_const)]`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 1 previous error
+error: references are not allowed
+  --> tests/ui/crashes/ice-9445.rs:1:55
+   |
+LL | const UNINIT: core::mem::MaybeUninit<core::cell::Cell<&'static ()>> = core::mem::MaybeUninit::uninit();
+   |                                                       ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/crashes/ice-9445.rs:4:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/crashes/ice-9445.rs:4:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/crashes/ice-9445.rs:4:1
+   |
+LL | fn main() {}
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 8 previous errors
 

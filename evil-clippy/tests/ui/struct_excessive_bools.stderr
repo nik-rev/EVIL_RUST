@@ -1,32 +1,89 @@
-error: more than 3 bools in a struct
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/struct_excessive_bools.rs:3:1
+   |
+LL | macro_rules! foo {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/struct_excessive_bools.rs:5:9
+   |
+LL |         struct MacroFoo {
+   |         ^ help: make this item public: `pub`
+...
+LL | foo!();
+   | ------ in this macro invocation
+   |
+   = note: this error originates in the macro `foo` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/struct_excessive_bools.rs:16:1
+   |
+LL | struct Foo {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
   --> tests/ui/struct_excessive_bools.rs:22:1
    |
-LL | / struct BadFoo {
-LL | |
-LL | |     a: bool,
-LL | |     b: bool,
-LL | |     c: bool,
-LL | |     d: bool,
-LL | | }
-   | |_^
-   |
-   = help: consider using a state machine or refactoring bools into two-variant enums
-   = note: `-D clippy::struct-excessive-bools` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::struct_excessive_bools)]`
+LL | struct BadFoo {
+   | ^ help: make this item public: `pub`
 
-error: more than 3 bools in a struct
+error: item must be `pub`
+  --> tests/ui/struct_excessive_bools.rs:31:1
+   |
+LL | struct Bar {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/struct_excessive_bools.rs:38:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/struct_excessive_bools.rs:38:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/struct_excessive_bools.rs:38:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
   --> tests/ui/struct_excessive_bools.rs:39:5
    |
-LL | /     struct FooFoo {
-LL | |
-LL | |         a: bool,
-LL | |         b: bool,
-LL | |         c: bool,
-LL | |         d: bool,
-LL | |     }
-   | |_____^
-   |
-   = help: consider using a state machine or refactoring bools into two-variant enums
+LL |     struct FooFoo {
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 2 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 12 previous errors
 

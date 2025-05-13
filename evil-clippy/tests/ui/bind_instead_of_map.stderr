@@ -1,3 +1,108 @@
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: function must be `unsafe`
+  --> tests/ui/bind_instead_of_map.rs:5:5
+   |
+LL | pub fn main() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bind_instead_of_map.rs:5:5
+   |
+LL | pub fn main() {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/bind_instead_of_map.rs:6:9
+   |
+LL |     let x = Some(5);
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/bind_instead_of_map.rs:16:9
+   |
+LL |     let x: Result<u32, &str> = Ok(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/bind_instead_of_map.rs:16:24
+   |
+LL |     let x: Result<u32, &str> = Ok(1);
+   |                        ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/bind_instead_of_map.rs:21:5
+   |
+LL | pub fn foo() -> Option<String> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bind_instead_of_map.rs:21:5
+   |
+LL | pub fn foo() -> Option<String> {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/bind_instead_of_map.rs:22:9
+   |
+LL |     let x = Some(String::from("hello"));
+   |         ^ help: make this variable mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/bind_instead_of_map.rs:26:5
+   |
+LL | pub fn example2(x: bool) -> Option<&'static str> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bind_instead_of_map.rs:26:5
+   |
+LL | pub fn example2(x: bool) -> Option<&'static str> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/bind_instead_of_map.rs:26:17
+   |
+LL | pub fn example2(x: bool) -> Option<&'static str> {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/bind_instead_of_map.rs:26:36
+   |
+LL | pub fn example2(x: bool) -> Option<&'static str> {
+   |                                    ^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
 error: using `Option.and_then(Some)`, which is a no-op
   --> tests/ui/bind_instead_of_map.rs:8:13
    |
@@ -22,5 +127,5 @@ error: using `Result.and_then(Ok)`, which is a no-op
 LL |     let _ = x.and_then(Ok);
    |             ^^^^^^^^^^^^^^ help: use the expression directly: `x`
 
-error: aborting due to 3 previous errors
+error: aborting due to 16 previous errors
 

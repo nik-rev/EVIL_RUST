@@ -1,36 +1,116 @@
-error: calling .bytes() is very inefficient when data is not in memory
-  --> tests/ui/unbuffered_bytes.rs:10:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     file.bytes();
-   |     ^^^^^^^^^^^^
-   |
-   = help: consider using `BufReader`
-   = note: `-D clippy::unbuffered-bytes` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unbuffered_bytes)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: calling .bytes() is very inefficient when data is not in memory
-  --> tests/ui/unbuffered_bytes.rs:15:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     tcp_stream.bytes();
-   |     ^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider using `BufReader`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: calling .bytes() is very inefficient when data is not in memory
-  --> tests/ui/unbuffered_bytes.rs:28:5
+error: item must be `pub`
+  --> tests/ui/unbuffered_bytes.rs:7:1
    |
-LL |     s.bytes();
-   |     ^^^^^^^^^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider using `BufReader`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: calling .bytes() is very inefficient when data is not in memory
-  --> tests/ui/unbuffered_bytes.rs:39:5
+error: function must be `unsafe`
+  --> tests/ui/unbuffered_bytes.rs:7:1
    |
-LL |     r.bytes();
-   |     ^^^^^^^^^
+LL | fn main() {
+   | ^
    |
-   = help: consider using `BufReader`
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unbuffered_bytes.rs:7:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/unbuffered_bytes.rs:9:9
+   |
+LL |     let file = File::open("./bytes.txt").unwrap();
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/unbuffered_bytes.rs:14:9
+   |
+LL |     let tcp_stream: TcpStream = TcpStream::connect("127.0.0.1:80").unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unbuffered_bytes.rs:19:9
+   |
+LL |     let file = BufReader::new(File::open("./bytes.txt").unwrap());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unbuffered_bytes.rs:23:9
+   |
+LL |     let cursor = Cursor::new(Vec::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unbuffered_bytes.rs:27:9
+   |
+LL |     let s: Stdin = stdin();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unbuffered_bytes.rs:32:9
+   |
+LL |     let s: Stdin = stdin();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/unbuffered_bytes.rs:33:9
+   |
+LL |     let s = s.lock();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unbuffered_bytes.rs:37:1
+   |
+LL | fn use_read<R: Read>(r: R) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unbuffered_bytes.rs:37:1
+   |
+LL | fn use_read<R: Read>(r: R) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unbuffered_bytes.rs:37:1
+   |
+LL | fn use_read<R: Read>(r: R) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/unbuffered_bytes.rs:37:22
+   |
+LL | fn use_read<R: Read>(r: R) {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 16 previous errors
 

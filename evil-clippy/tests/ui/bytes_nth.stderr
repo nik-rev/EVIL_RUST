@@ -1,23 +1,65 @@
-error: called `.bytes().nth()` on a `String`
-  --> tests/ui/bytes_nth.rs:7:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = s.bytes().nth(3);
-   |             ^^^^^^^^^^^^^^^^ help: try: `s.as_bytes().get(3).copied()`
-   |
-   = note: `-D clippy::bytes-nth` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::bytes_nth)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: called `.bytes().nth().unwrap()` on a `String`
-  --> tests/ui/bytes_nth.rs:9:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/bytes_nth.rs:5:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/bytes_nth.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/bytes_nth.rs:5:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/bytes_nth.rs:6:9
+   |
+LL |     let s = String::from("String");
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/bytes_nth.rs:9:13
    |
 LL |     let _ = &s.bytes().nth(3).unwrap();
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `s.as_bytes()[3]`
-
-error: called `.bytes().nth()` on a `str`
-  --> tests/ui/bytes_nth.rs:11:13
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |     let _ = s[..].bytes().nth(3);
-   |             ^^^^^^^^^^^^^^^^^^^^ help: try: `s[..].as_bytes().get(3).copied()`
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: aborting due to 3 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 8 previous errors
 

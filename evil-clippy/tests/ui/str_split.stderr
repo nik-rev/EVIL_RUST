@@ -1,65 +1,263 @@
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:60:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = s1.trim().split('\n');
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `s1.lines()`
-   |
-   = note: `-D clippy::str-split-at-newline` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::str_split_at_newline)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:63:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = s1.trim().split("\n");
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `s1.lines()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:65:13
+error: item must be `pub`
+  --> tests/ui/str_split.rs:7:1
    |
-LL |     let _ = s1.trim().split("\r\n");
-   |             ^^^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `s1.lines()`
-
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:69:13
+LL | struct NotStr<'a> {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = s2.trim().split('\n');
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `s2.lines()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:72:13
+error: references are not allowed
+  --> tests/ui/str_split.rs:8:8
    |
-LL |     let _ = s2.trim().split("\n");
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `s2.lines()`
-
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:74:13
+LL |     s: &'a str,
+   |        ^^^^^^^
    |
-LL |     let _ = s2.trim().split("\r\n");
-   |             ^^^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `s2.lines()`
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:79:13
+error: item must be `pub`
+  --> tests/ui/str_split.rs:11:1
    |
-LL |     let _ = s3.trim().split('\n');
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `s3.lines()`
+LL | impl<'a> NotStr<'a> {
+   | ^ help: make this item public: `pub`
 
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:82:13
+error: function must be `unsafe`
+  --> tests/ui/str_split.rs:12:5
    |
-LL |     let _ = s3.trim().split("\n");
-   |             ^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `s3.lines()`
-
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:84:13
+LL |     fn trim(&'a self) -> &'a str {
+   |     ^
    |
-LL |     let _ = s3.trim().split("\r\n");
-   |             ^^^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `s3.lines()`
-
-error: using `str.trim().split()` with hard-coded newlines
-  --> tests/ui/str_split.rs:88:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/str_split.rs:12:5
    |
-LL |     let _ = make_str!(s1).trim().split('\n');
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `str.lines()` instead: `make_str!(s1).lines()`
+LL |     fn trim(&'a self) -> &'a str {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 10 previous errors
+error: parameter must be `mut`
+  --> tests/ui/str_split.rs:12:17
+   |
+LL |     fn trim(&'a self) -> &'a str {
+   |                 ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/str_split.rs:12:13
+   |
+LL |     fn trim(&'a self) -> &'a str {
+   |             ^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/str_split.rs:12:26
+   |
+LL |     fn trim(&'a self) -> &'a str {
+   |                          ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/str_split.rs:17:1
+   |
+LL | struct DerefsIntoNotStr<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/str_split.rs:18:14
+   |
+LL |     not_str: &'a NotStr<'a>,
+   |              ^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/str_split.rs:21:1
+   |
+LL | impl<'a> Deref for DerefsIntoNotStr<'a> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/str_split.rs:24:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/str_split.rs:24:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/str_split.rs:24:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/str_split.rs:24:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/str_split.rs:24:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/str_split.rs:29:1
+   |
+LL | struct DerefsIntoStr<'a> {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/str_split.rs:30:8
+   |
+LL |     s: &'a str,
+   |        ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/str_split.rs:33:1
+   |
+LL | impl<'a> Deref for DerefsIntoStr<'a> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/str_split.rs:36:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/str_split.rs:36:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/str_split.rs:36:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/str_split.rs:36:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/str_split.rs:36:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/str_split.rs:41:1
+   |
+LL | macro_rules! trim_split {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/str_split.rs:47:1
+   |
+LL | macro_rules! make_str {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/str_split.rs:53:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/str_split.rs:53:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/str_split.rs:53:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/str_split.rs:54:9
+   |
+LL |     let s1 = "hello\nworld\n";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/str_split.rs:55:9
+   |
+LL |     let s2 = s1.to_owned();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/str_split.rs:78:9
+   |
+LL |     let s3 = DerefsIntoStr { s: s1 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/str_split.rs:140:9
+   |
+LL |     let not_str = NotStr { s: s1 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/str_split.rs:145:9
+   |
+LL |     let derefs_into_not_str = DerefsIntoNotStr { not_str: &not_str };
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/str_split.rs:145:59
+   |
+LL |     let derefs_into_not_str = DerefsIntoNotStr { not_str: &not_str };
+   |                                                           ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 35 previous errors
 

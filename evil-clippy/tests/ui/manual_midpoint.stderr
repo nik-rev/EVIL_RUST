@@ -1,65 +1,158 @@
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:30:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (a + 5) / 2;
-   |             ^^^^^^^^^^^ help: use `u32::midpoint` instead: `u32::midpoint(a, 5)`
-   |
-   = note: `-D clippy::manual-midpoint` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_midpoint)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:33:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (f + 5.0) / 2.0;
-   |             ^^^^^^^^^^^^^^^ help: use `f32::midpoint` instead: `f32::midpoint(f, 5.0)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:35:22
+error: item must be `pub`
+  --> tests/ui/manual_midpoint.rs:3:1
    |
-LL |     let _: u32 = 5 + (8 + 8) / 2 + 2;
-   |                      ^^^^^^^^^^^ help: use `u32::midpoint` instead: `u32::midpoint(8, 8)`
-
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:36:26
+LL | macro_rules! mac {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _: u32 = const { (8 + 8) / 2 };
-   |                          ^^^^^^^^^^^ help: use `u32::midpoint` instead: `u32::midpoint(8, 8)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:37:26
+error: item must be `pub`
+  --> tests/ui/manual_midpoint.rs:9:1
    |
-LL |     let _: f64 = const { (8.0f64 + 8.) / 2. };
-   |                          ^^^^^^^^^^^^^^^^^^ help: use `f64::midpoint` instead: `f64::midpoint(8.0f64, 8.)`
+LL | macro_rules! add {
+   | ^ help: make this item public: `pub`
 
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:38:18
+error: item must be `pub`
+  --> tests/ui/manual_midpoint.rs:15:1
    |
-LL |     let _: u32 = (u32::default() + u32::default()) / 2;
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `u32::midpoint` instead: `u32::midpoint(u32::default(), u32::default())`
+LL | macro_rules! two {
+   | ^ help: make this item public: `pub`
 
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:39:18
+error: item must be `pub`
+  --> tests/ui/manual_midpoint.rs:22:1
    |
-LL |     let _: u32 = (two!() + two!()) / 2;
-   |                  ^^^^^^^^^^^^^^^^^^^^^ help: use `u32::midpoint` instead: `u32::midpoint(two!(), two!())`
+LL | fn older_msrv() {
+   | ^ help: make this item public: `pub`
 
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:61:13
+error: function must be `unsafe`
+  --> tests/ui/manual_midpoint.rs:22:1
    |
-LL |     let _ = (f + 1.0) / 2.0;
-   |             ^^^^^^^^^^^^^^^ help: use `f32::midpoint` instead: `f32::midpoint(f, 1.0)`
-
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:62:13
+LL | fn older_msrv() {
+   | ^
    |
-LL |     let _ = (1.0 + f) / 2.0;
-   |             ^^^^^^^^^^^^^^^ help: use `f32::midpoint` instead: `f32::midpoint(1.0, f)`
-
-error: manual implementation of `midpoint` which can overflow
-  --> tests/ui/manual_midpoint.rs:73:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_midpoint.rs:22:1
    |
-LL |     let _ = (i + 10) / 2;
-   |             ^^^^^^^^^^^^ help: use `i32::midpoint` instead: `i32::midpoint(i, 10)`
+LL | fn older_msrv() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 10 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_midpoint.rs:23:9
+   |
+LL |     let a: u32 = 10;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_midpoint.rs:28:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_midpoint.rs:28:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_midpoint.rs:28:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_midpoint.rs:29:9
+   |
+LL |     let a: u32 = 10;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_midpoint.rs:32:9
+   |
+LL |     let f: f32 = 10.0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_midpoint.rs:53:9
+   |
+LL |     let i: i32 = 10;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_midpoint.rs:66:1
+   |
+LL | fn older_signed_midpoint(i: i32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_midpoint.rs:66:1
+   |
+LL | fn older_signed_midpoint(i: i32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_midpoint.rs:66:1
+   |
+LL | fn older_signed_midpoint(i: i32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_midpoint.rs:66:26
+   |
+LL | fn older_signed_midpoint(i: i32) {
+   |                          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_midpoint.rs:72:1
+   |
+LL | fn signed_midpoint(i: i32) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_midpoint.rs:72:1
+   |
+LL | fn signed_midpoint(i: i32) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_midpoint.rs:72:1
+   |
+LL | fn signed_midpoint(i: i32) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_midpoint.rs:72:20
+   |
+LL | fn signed_midpoint(i: i32) {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 21 previous errors
 

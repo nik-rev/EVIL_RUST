@@ -1,133 +1,105 @@
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:5:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for i in 3..src.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[count];
-LL | |         count += 1;
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[3..src.len()].copy_from_slice(&src[..(src.len() - 3)]);`
-   |
-   = note: `-D clippy::manual-memcpy` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_memcpy)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:13:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     for i in 3..src.len() {
-LL | |
-LL | |
-LL | |         dst[count] = src[i];
-LL | |         count += 1;
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[..(src.len() - 3)].copy_from_slice(&src[3..]);`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:21:5
+error: function must be `unsafe`
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:3:5
    |
-LL | /     for i in 0..src.len() {
-LL | |
-LL | |
-LL | |         dst[count] = src[i];
-LL | |         count += 1;
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[3..(src.len() + 3)].copy_from_slice(&src[..]);`
+LL | pub fn manual_copy_with_counters(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:3:5
+   |
+LL | pub fn manual_copy_with_counters(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:29:5
+error: parameter must be `mut`
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:3:34
    |
-LL | /     for i in 0..src.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[count];
-LL | |         count += 1;
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[..src.len()].copy_from_slice(&src[3..(src.len() + 3)]);`
+LL | pub fn manual_copy_with_counters(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                  ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:37:5
+error: parameter must be `mut`
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:3:47
    |
-LL | /     for i in 3..(3 + src.len()) {
-LL | |
-LL | |
-LL | |         dst[i] = src[count];
-LL | |         count += 1;
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[3..(3 + src.len())].copy_from_slice(&src[..(3 + src.len() - 3)]);`
+LL | pub fn manual_copy_with_counters(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                               ^ help: make this parameter mutable: `mut`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:45:5
+error: parameter must be `mut`
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:3:64
    |
-LL | /     for i in 5..src.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[count - 2];
-LL | |         count += 1;
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[5..src.len()].copy_from_slice(&src[(3 - 2)..((src.len() - 2) + 3 - 5)]);`
+LL | pub fn manual_copy_with_counters(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                                                ^ help: make this parameter mutable: `mut`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:53:5
+error: references are not allowed
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:3:39
    |
-LL | /     for i in 0..dst.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[count];
-LL | |         count += 1;
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst.copy_from_slice(&src[2..(dst.len() + 2)]);`
+LL | pub fn manual_copy_with_counters(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                       ^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:61:5
+error: references are not allowed
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:3:52
    |
-LL | /     for i in 3..10 {
-LL | |
-LL | |
-LL | |         dst[i] = src[count];
-LL | |         count += 1;
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[3..10].copy_from_slice(&src[5..(10 + 5 - 3)]);`
+LL | pub fn manual_copy_with_counters(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                                    ^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:70:5
+error: references are not allowed
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:3:70
    |
-LL | /     for i in 0..src.len() {
-LL | |
-LL | |
-LL | |         dst[count] = src[i];
-...  |
-LL | |         count2 += 1;
-LL | |     }
-   | |_____^
+LL | pub fn manual_copy_with_counters(src: &[i32], dst: &mut [i32], dst2: &mut [i32]) {
+   |                                                                      ^^^^^^^^^^
    |
-help: try replacing the loop by
-   |
-LL ~     dst[3..(src.len() + 3)].copy_from_slice(&src[..]);
-LL +     dst2[30..(src.len() + 30)].copy_from_slice(&src[..]);
-   |
+   = help: use a raw pointer instead: `*raw`
 
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:82:5
+error: item must be `pub`
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:110:1
    |
-LL | /     for i in 0..1 << 1 {
-LL | |
-LL | |
-LL | |         dst[count] = src[i + 2];
-LL | |         count += 1;
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[(0 << 1)..((1 << 1) + (0 << 1))].copy_from_slice(&src[2..((1 << 1) + 2)]);`
-
-error: it looks like you're manually copying between slices
-  --> tests/ui/manual_memcpy/with_loop_counters.rs:91:5
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
    |
-LL | /     for i in 3..src.len() {
-LL | |
-LL | |
-LL | |         dst[i] = src[count];
-LL | |         count += 1
-LL | |     }
-   | |_____^ help: try replacing the loop by: `dst[3..src.len()].copy_from_slice(&src[..(src.len() - 3)]);`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 11 previous errors
+error: function must be `unsafe`
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:110:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_memcpy/with_loop_counters.rs:110:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 13 previous errors
 

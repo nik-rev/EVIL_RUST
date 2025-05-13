@@ -1,402 +1,740 @@
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:212:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if x9 < CONST_MIN {
-LL | |
-LL | |
-LL | |         x9 = CONST_MIN;
-...  |
-LL | |         x9 = CONST_MAX;
-LL | |     }
-   | |_____^ help: replace with clamp: `x9 = x9.clamp(CONST_MIN, CONST_MAX);`
-   |
-   = note: clamp will panic if max < min
-   = note: `-D clippy::manual-clamp` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_clamp)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:230:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL | /     if x11 > CONST_MAX {
-LL | |
-LL | |
-LL | |         x11 = CONST_MAX;
-...  |
-LL | |         x11 = CONST_MIN;
-LL | |     }
-   | |_____^ help: replace with clamp: `x11 = x11.clamp(CONST_MIN, CONST_MAX);`
-   |
-   = note: clamp will panic if max < min
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:240:5
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:12:1
    |
-LL | /     if CONST_MIN > x12 {
-LL | |
-LL | |
-LL | |         x12 = CONST_MIN;
-...  |
-LL | |         x12 = CONST_MAX;
-LL | |     }
-   | |_____^ help: replace with clamp: `x12 = x12.clamp(CONST_MIN, CONST_MAX);`
+LL | const CONST_MAX: i32 = 10;
+   | ^ help: make this item public: `pub`
    |
-   = note: clamp will panic if max < min
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:250:5
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:13:1
    |
-LL | /     if CONST_MAX < x13 {
-LL | |
-LL | |
-LL | |         x13 = CONST_MAX;
-...  |
-LL | |         x13 = CONST_MIN;
-LL | |     }
-   | |_____^ help: replace with clamp: `x13 = x13.clamp(CONST_MIN, CONST_MAX);`
-   |
-   = note: clamp will panic if max < min
+LL | const CONST_MIN: i32 = 4;
+   | ^ help: make this item public: `pub`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:363:5
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:15:1
    |
-LL | /     if CONST_MAX < x35 {
-LL | |
-LL | |
-LL | |         x35 = CONST_MAX;
-...  |
-LL | |         x35 = CONST_MIN;
-LL | |     }
-   | |_____^ help: replace with clamp: `x35 = x35.clamp(CONST_MIN, CONST_MAX);`
-   |
-   = note: clamp will panic if max < min
+LL | const CONST_F64_MAX: f64 = 10.0;
+   | ^ help: make this item public: `pub`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:144:14
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:16:1
    |
-LL |       let x0 = if CONST_MAX < input {
-   |  ______________^
-LL | |
-LL | |
-LL | |         CONST_MAX
-...  |
-LL | |         input
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+LL | const CONST_F64_MIN: f64 = 4.0;
+   | ^ help: make this item public: `pub`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:154:14
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:18:1
    |
-LL |       let x1 = if input > CONST_MAX {
-   |  ______________^
-LL | |
-LL | |
-LL | |         CONST_MAX
-...  |
-LL | |         input
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+LL | fn main() {
+   | ^ help: make this item public: `pub`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:164:14
+error: function must be `unsafe`
+  --> tests/ui/manual_clamp.rs:18:1
    |
-LL |       let x2 = if input < CONST_MIN {
-   |  ______________^
-LL | |
-LL | |
-LL | |         CONST_MIN
-...  |
-LL | |         input
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
+LL | fn main() {
+   | ^
    |
-   = note: clamp will panic if max < min
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_clamp.rs:18:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:174:14
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:19:10
    |
-LL |       let x3 = if CONST_MIN > input {
-   |  ______________^
-LL | |
-LL | |
-LL | |         CONST_MIN
-...  |
-LL | |         input
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
+LL |     let (input, min, max) = (0, -2, 3);
+   |          ^ help: make this variable mutable: `mut`
    |
-   = note: clamp will panic if max < min
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:184:14
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:19:17
+   |
+LL |     let (input, min, max) = (0, -2, 3);
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:19:22
+   |
+LL |     let (input, min, max) = (0, -2, 3);
+   |                      ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:21:9
+   |
+LL |     let x0 = if max < input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:29:9
+   |
+LL |     let x1 = if input > max {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:37:9
+   |
+LL |     let x2 = if input < min {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:45:9
+   |
+LL |     let x3 = if min > input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:53:9
+   |
+LL |     let x4 = input.max(min).min(max);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:55:9
+   |
+LL |     let x5 = input.min(max).max(min);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:57:9
+   |
+LL |     let x6 = match input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:63:9
+   |
+LL |     let x7 = match input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:69:9
+   |
+LL |     let x8 = match input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:83:9
+   |
+LL |     let x10 = match input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:115:14
+   |
+LL |         let (input, min, max) = (0.0f64, -2.0, 3.0);
+   |              ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:115:21
+   |
+LL |         let (input, min, max) = (0.0f64, -2.0, 3.0);
+   |                     ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:115:26
+   |
+LL |         let (input, min, max) = (0.0f64, -2.0, 3.0);
+   |                          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:116:13
+   |
+LL |         let x14 = if input > max {
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:141:1
+   |
+LL | fn const_main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_clamp.rs:141:1
+   |
+LL | fn const_main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_clamp.rs:141:1
+   |
+LL | fn const_main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:142:9
+   |
+LL |     let input = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:144:9
+   |
+LL |     let x0 = if CONST_MAX < input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:154:9
+   |
+LL |     let x1 = if input > CONST_MAX {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:164:9
+   |
+LL |     let x2 = if input < CONST_MIN {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:174:9
+   |
+LL |     let x3 = if CONST_MIN > input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:184:9
    |
 LL |     let x4 = input.max(CONST_MIN).min(CONST_MAX);
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |         ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:187:14
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:187:9
    |
 LL |     let x5 = input.min(CONST_MAX).max(CONST_MIN);
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |         ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:190:14
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:190:9
    |
-LL |       let x6 = match input {
-   |  ______________^
-LL | |
-LL | |         x if x > CONST_MAX => CONST_MAX,
-LL | |         x if x < CONST_MIN => CONST_MIN,
-LL | |         x => x,
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+LL |     let x6 = match input {
+   |         ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:197:14
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:197:9
    |
-LL |       let x7 = match input {
-   |  ______________^
-LL | |
-LL | |         x if x < CONST_MIN => CONST_MIN,
-LL | |         x if x > CONST_MAX => CONST_MAX,
-LL | |         x => x,
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+LL |     let x7 = match input {
+   |         ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:204:14
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:204:9
    |
-LL |       let x8 = match input {
-   |  ______________^
-LL | |
-LL | |         x if CONST_MAX < x => CONST_MAX,
-LL | |         x if CONST_MIN > x => CONST_MIN,
-LL | |         x => x,
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+LL |     let x8 = match input {
+   |         ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:221:15
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:221:9
    |
-LL |       let x10 = match input {
-   |  _______________^
-LL | |
-LL | |         x if CONST_MIN > x => CONST_MIN,
-LL | |         x if CONST_MAX < x => CONST_MAX,
-LL | |         x => x,
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+LL |     let x10 = match input {
+   |         ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:259:15
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:259:9
    |
-LL |       let x14 = if input > CONST_MAX {
-   |  _______________^
-LL | |
-LL | |
-LL | |         CONST_MAX
-...  |
-LL | |         input
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+LL |     let x14 = if input > CONST_MAX {
+   |         ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:270:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:269:13
    |
-LL |           let x15 = if input > CONST_F64_MAX {
-   |  ___________________^
-LL | |
-LL | |
-LL | |             CONST_F64_MAX
-...  |
-LL | |             input
-LL | |         };
-   | |_________^ help: replace with clamp: `input.clamp(CONST_F64_MIN, CONST_F64_MAX)`
-   |
-   = note: clamp will panic if max < min, min.is_nan(), or max.is_nan()
-   = note: clamp returns NaN if the input is NaN
+LL |         let input = 0.0f64;
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:283:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:270:13
+   |
+LL |         let x15 = if input > CONST_F64_MAX {
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:281:13
+   |
+LL |         let input: i32 = cmp_min_max(1);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:283:13
    |
 LL |         let x16 = cmp_max(cmp_min(input, CONST_MAX), CONST_MIN);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:286:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:286:13
    |
 LL |         let x17 = cmp_min(cmp_max(input, CONST_MIN), CONST_MAX);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:289:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:289:13
    |
 LL |         let x18 = cmp_max(CONST_MIN, cmp_min(input, CONST_MAX));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:292:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:292:13
    |
 LL |         let x19 = cmp_min(CONST_MAX, cmp_max(input, CONST_MIN));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:295:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:295:13
    |
 LL |         let x20 = cmp_max(cmp_min(CONST_MAX, input), CONST_MIN);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:298:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:298:13
    |
 LL |         let x21 = cmp_min(cmp_max(CONST_MIN, input), CONST_MAX);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:301:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:301:13
    |
 LL |         let x22 = cmp_max(CONST_MIN, cmp_min(CONST_MAX, input));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:304:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:304:13
    |
 LL |         let x23 = cmp_min(CONST_MAX, cmp_max(CONST_MIN, input));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
-   |
-   = note: clamp will panic if max < min
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:308:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:307:13
+   |
+LL |         let input: f64 = cmp_min_max(1) as f64;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:308:13
    |
 LL |         let x24 = f64::max(f64::min(input, CONST_F64_MAX), CONST_F64_MIN);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_F64_MIN, CONST_F64_MAX)`
-   |
-   = note: clamp will panic if max < min, min.is_nan(), or max.is_nan()
-   = note: clamp returns NaN if the input is NaN
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:311:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:311:13
    |
 LL |         let x25 = f64::min(f64::max(input, CONST_F64_MIN), CONST_F64_MAX);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_F64_MIN, CONST_F64_MAX)`
-   |
-   = note: clamp will panic if max < min, min.is_nan(), or max.is_nan()
-   = note: clamp returns NaN if the input is NaN
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:314:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:314:13
    |
 LL |         let x26 = f64::max(CONST_F64_MIN, f64::min(input, CONST_F64_MAX));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_F64_MIN, CONST_F64_MAX)`
-   |
-   = note: clamp will panic if max < min, min.is_nan(), or max.is_nan()
-   = note: clamp returns NaN if the input is NaN
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:317:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:317:13
    |
 LL |         let x27 = f64::min(CONST_F64_MAX, f64::max(input, CONST_F64_MIN));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_F64_MIN, CONST_F64_MAX)`
-   |
-   = note: clamp will panic if max < min, min.is_nan(), or max.is_nan()
-   = note: clamp returns NaN if the input is NaN
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:320:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:320:13
    |
 LL |         let x28 = f64::max(f64::min(CONST_F64_MAX, input), CONST_F64_MIN);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_F64_MIN, CONST_F64_MAX)`
-   |
-   = note: clamp will panic if max < min, min.is_nan(), or max.is_nan()
-   = note: clamp returns NaN if the input is NaN
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:323:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:323:13
    |
 LL |         let x29 = f64::min(f64::max(CONST_F64_MIN, input), CONST_F64_MAX);
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_F64_MIN, CONST_F64_MAX)`
-   |
-   = note: clamp will panic if max < min, min.is_nan(), or max.is_nan()
-   = note: clamp returns NaN if the input is NaN
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:326:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:326:13
    |
 LL |         let x30 = f64::max(CONST_F64_MIN, f64::min(CONST_F64_MAX, input));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_F64_MIN, CONST_F64_MAX)`
-   |
-   = note: clamp will panic if max < min, min.is_nan(), or max.is_nan()
-   = note: clamp returns NaN if the input is NaN
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:329:19
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:329:13
    |
 LL |         let x31 = f64::min(CONST_F64_MAX, f64::max(CONST_F64_MIN, input));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with clamp: `input.clamp(CONST_F64_MIN, CONST_F64_MAX)`
-   |
-   = note: clamp will panic if max < min, min.is_nan(), or max.is_nan()
-   = note: clamp returns NaN if the input is NaN
+   |             ^ help: make this variable mutable: `mut`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:333:5
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:374:1
    |
-LL | /     if x32 < CONST_MIN {
-LL | |
-LL | |
-LL | |         x32 = CONST_MIN;
-LL | |     } else if x32 > CONST_MAX {
-LL | |         x32 = CONST_MAX;
-LL | |     }
-   | |_____^ help: replace with clamp: `x32 = x32.clamp(CONST_MIN, CONST_MAX);`
-   |
-   = note: clamp will panic if max < min
+LL | fn no_lint() {
+   | ^ help: make this item public: `pub`
 
-error: clamp-like pattern without using clamp function
-  --> tests/ui/manual_clamp.rs:525:13
+error: function must be `unsafe`
+  --> tests/ui/manual_clamp.rs:374:1
    |
-LL |       let _ = if input > CONST_MAX {
-   |  _____________^
-LL | |
-LL | |
-LL | |         CONST_MAX
-...  |
-LL | |         input
-LL | |     };
-   | |_____^ help: replace with clamp: `input.clamp(CONST_MIN, CONST_MAX)`
+LL | fn no_lint() {
+   | ^
    |
-   = note: clamp will panic if max < min
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_clamp.rs:374:1
+   |
+LL | fn no_lint() {
+   | ^
 
-error: aborting due to 35 previous errors
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:375:9
+   |
+LL |     let input = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:376:9
+   |
+LL |     let x0 = if CONST_MAX < input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:384:9
+   |
+LL |     let x1 = if input > CONST_MAX {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:392:9
+   |
+LL |     let x2 = if CONST_MAX < CONST_MIN {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:400:9
+   |
+LL |     let x3 = if CONST_MIN > input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:408:9
+   |
+LL |     let x6 = match input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:414:9
+   |
+LL |     let x7 = match input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:420:9
+   |
+LL |     let x8 = match input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:434:9
+   |
+LL |     let x10 = match input {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:458:13
+   |
+LL |         let x13 = CONST_MAX;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:470:13
+   |
+LL |         let input: i32 = cmp_min_max(1);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:472:13
+   |
+LL |         let x16 = cmp_max(cmp_max(input, CONST_MAX), CONST_MIN);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:473:13
+   |
+LL |         let x17 = cmp_min(cmp_min(input, CONST_MIN), CONST_MAX);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:474:13
+   |
+LL |         let x18 = cmp_max(CONST_MIN, cmp_max(input, CONST_MAX));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:475:13
+   |
+LL |         let x19 = cmp_min(CONST_MAX, cmp_min(input, CONST_MIN));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:476:13
+   |
+LL |         let x20 = cmp_max(cmp_max(CONST_MAX, input), CONST_MIN);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:477:13
+   |
+LL |         let x21 = cmp_min(cmp_min(CONST_MIN, input), CONST_MAX);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:478:13
+   |
+LL |         let x22 = cmp_max(CONST_MIN, cmp_max(CONST_MAX, input));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:479:13
+   |
+LL |         let x23 = cmp_min(CONST_MAX, cmp_min(CONST_MIN, input));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:480:13
+   |
+LL |         let input: f64 = cmp_min_max(1) as f64;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:481:13
+   |
+LL |         let x24 = f64::max(f64::max(input, CONST_F64_MAX), CONST_F64_MIN);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:482:13
+   |
+LL |         let x25 = f64::min(f64::min(input, CONST_F64_MIN), CONST_F64_MAX);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:483:13
+   |
+LL |         let x26 = f64::max(CONST_F64_MIN, f64::max(input, CONST_F64_MAX));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:484:13
+   |
+LL |         let x27 = f64::min(CONST_F64_MAX, f64::min(input, CONST_F64_MIN));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:485:13
+   |
+LL |         let x28 = f64::max(f64::max(CONST_F64_MAX, input), CONST_F64_MIN);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:486:13
+   |
+LL |         let x29 = f64::min(f64::min(CONST_F64_MIN, input), CONST_F64_MAX);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:487:13
+   |
+LL |         let x30 = f64::max(CONST_F64_MIN, f64::max(CONST_F64_MAX, input));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:488:13
+   |
+LL |         let x31 = f64::min(CONST_F64_MAX, f64::min(CONST_F64_MIN, input));
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:489:13
+   |
+LL |         let x32 = f64::min(CONST_F64_MAX, f64::min(CONST_F64_MIN, CONST_F64_MAX));
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:493:1
+   |
+LL | fn dont_tell_me_what_to_do() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_clamp.rs:493:1
+   |
+LL | fn dont_tell_me_what_to_do() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_clamp.rs:493:1
+   |
+LL | fn dont_tell_me_what_to_do() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:494:10
+   |
+LL |     let (input, min, max) = (0, -2, 3);
+   |          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:494:17
+   |
+LL |     let (input, min, max) = (0, -2, 3);
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:494:22
+   |
+LL |     let (input, min, max) = (0, -2, 3);
+   |                      ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:506:1
+   |
+LL | fn cmp_min_max(input: i32) -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_clamp.rs:506:1
+   |
+LL | fn cmp_min_max(input: i32) -> i32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_clamp.rs:506:1
+   |
+LL | fn cmp_min_max(input: i32) -> i32 {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/manual_clamp.rs:506:16
+   |
+LL | fn cmp_min_max(input: i32) -> i32 {
+   |                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:511:1
+   |
+LL | fn msrv_1_49() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_clamp.rs:511:1
+   |
+LL | fn msrv_1_49() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_clamp.rs:511:1
+   |
+LL | fn msrv_1_49() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:512:10
+   |
+LL |     let (input, min, max) = (0, -1, 2);
+   |          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:512:17
+   |
+LL |     let (input, min, max) = (0, -1, 2);
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:512:22
+   |
+LL |     let (input, min, max) = (0, -1, 2);
+   |                      ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:523:1
+   |
+LL | fn msrv_1_50() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_clamp.rs:523:1
+   |
+LL | fn msrv_1_50() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_clamp.rs:523:1
+   |
+LL | fn msrv_1_50() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:524:9
+   |
+LL |     let input = 0;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_clamp.rs:536:1
+   |
+LL | const fn _const() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_clamp.rs:536:7
+   |
+LL | const fn _const() {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_clamp.rs:536:7
+   |
+LL | const fn _const() {
+   |       ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:537:10
+   |
+LL |     let (input, min, max) = (0, -1, 2);
+   |          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:537:17
+   |
+LL |     let (input, min, max) = (0, -1, 2);
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:537:22
+   |
+LL |     let (input, min, max) = (0, -1, 2);
+   |                      ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_clamp.rs:548:13
+   |
+LL |         let x = max;
+   |             ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 114 previous errors
 

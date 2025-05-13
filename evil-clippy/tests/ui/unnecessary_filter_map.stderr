@@ -1,53 +1,443 @@
-error: this `.filter_map(..)` can be written more simply using `.filter(..)`
-  --> tests/ui/unnecessary_filter_map.rs:4:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = (0..4).filter_map(|x| if x > 1 { Some(x) } else { None });
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: `-D clippy::unnecessary-filter-map` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unnecessary_filter_map)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: this `.filter_map(..)` can be written more simply using `.filter(..)`
-  --> tests/ui/unnecessary_filter_map.rs:7:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = (0..4).filter_map(|x| {
-   |  _____________^
-LL | |
-LL | |
-LL | |         if x > 1 {
-...  |
-LL | |         None
-LL | |     });
-   | |______^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: this `.filter_map(..)` can be written more simply using `.filter(..)`
-  --> tests/ui/unnecessary_filter_map.rs:15:13
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:3:1
    |
-LL |       let _ = (0..4).filter_map(|x| match x {
-   |  _____________^
-LL | |
-LL | |         0 | 1 => None,
-LL | |         _ => Some(x),
-LL | |     });
-   | |______^
-
-error: this `.filter_map(..)` can be written more simply using `.map(..)`
-  --> tests/ui/unnecessary_filter_map.rs:21:13
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = (0..4).filter_map(|x| Some(x + 1));
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: this call to `.filter_map(..)` is unnecessary
-  --> tests/ui/unnecessary_filter_map.rs:28:61
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:3:1
    |
-LL |     let _ = vec![Some(10), None].into_iter().filter_map(|x| Some(x));
-   |                                                             ^^^^
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:3:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: this `.filter_map(..)` can be written more simply using `.filter(..)`
-  --> tests/ui/unnecessary_filter_map.rs:166:14
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:32:1
+   |
+LL | fn filter_map_none_changes_item_type() -> impl Iterator<Item = bool> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:32:1
+   |
+LL | fn filter_map_none_changes_item_type() -> impl Iterator<Item = bool> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:32:1
+   |
+LL | fn filter_map_none_changes_item_type() -> impl Iterator<Item = bool> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:37:1
+   |
+LL | mod comment_483920107 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:38:5
+   |
+LL |     enum Severity {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:43:5
+   |
+LL |     struct ServerError;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:45:5
+   |
+LL |     impl ServerError {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:46:9
+   |
+LL |         fn severity(&self) -> Severity {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:46:9
+   |
+LL |         fn severity(&self) -> Severity {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:46:22
+   |
+LL |         fn severity(&self) -> Severity {
+   |                      ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_filter_map.rs:46:21
+   |
+LL |         fn severity(&self) -> Severity {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:51:5
+   |
+LL |     struct S {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:55:5
+   |
+LL |     impl S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:56:9
+   |
+LL |         fn foo(&mut self, server_errors: Vec<ServerError>) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:56:9
+   |
+LL |         fn foo(&mut self, server_errors: Vec<ServerError>) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:56:21
+   |
+LL |         fn foo(&mut self, server_errors: Vec<ServerError>) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:56:27
+   |
+LL |         fn foo(&mut self, server_errors: Vec<ServerError>) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_filter_map.rs:56:16
+   |
+LL |         fn foo(&mut self, server_errors: Vec<ServerError>) {
+   |                ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:58:17
+   |
+LL |             let errors: Vec<ServerError> = server_errors
+   |                 ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:73:1
+   |
+LL | mod comment_611006622 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:74:5
+   |
+LL |     struct PendingRequest {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:81:5
+   |
+LL |     enum Value {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:85:5
+   |
+LL |     struct Node;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:87:5
+   |
+LL |     impl Node {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:88:9
+   |
+LL |         fn send_response(&self, _reply_to: u8, _token: u8, _value: Value) -> &Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:88:9
+   |
+LL |         fn send_response(&self, _reply_to: u8, _token: u8, _value: Value) -> &Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:88:27
+   |
+LL |         fn send_response(&self, _reply_to: u8, _token: u8, _value: Value) -> &Self {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:88:33
+   |
+LL |         fn send_response(&self, _reply_to: u8, _token: u8, _value: Value) -> &Self {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:88:48
+   |
+LL |         fn send_response(&self, _reply_to: u8, _token: u8, _value: Value) -> &Self {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:88:60
+   |
+LL |         fn send_response(&self, _reply_to: u8, _token: u8, _value: Value) -> &Self {
+   |                                                            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_filter_map.rs:88:26
+   |
+LL |         fn send_response(&self, _reply_to: u8, _token: u8, _value: Value) -> &Self {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_filter_map.rs:88:78
+   |
+LL |         fn send_response(&self, _reply_to: u8, _token: u8, _value: Value) -> &Self {
+   |                                                                              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:91:9
+   |
+LL |         fn on_error_warn(&self) -> &Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:91:9
+   |
+LL |         fn on_error_warn(&self) -> &Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:91:27
+   |
+LL |         fn on_error_warn(&self) -> &Self {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_filter_map.rs:91:26
+   |
+LL |         fn on_error_warn(&self) -> &Self {
+   |                          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_filter_map.rs:91:36
+   |
+LL |         fn on_error_warn(&self) -> &Self {
+   |                                    ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:96:5
+   |
+LL |     struct S {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:100:5
+   |
+LL |     impl S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:101:9
+   |
+LL |         fn foo(&mut self, node: Node, now: u8, group_id: u8) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:101:9
+   |
+LL |         fn foo(&mut self, node: Node, now: u8, group_id: u8) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:101:21
+   |
+LL |         fn foo(&mut self, node: Node, now: u8, group_id: u8) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:101:27
+   |
+LL |         fn foo(&mut self, node: Node, now: u8, group_id: u8) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:101:39
+   |
+LL |         fn foo(&mut self, node: Node, now: u8, group_id: u8) {
+   |                                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:101:48
+   |
+LL |         fn foo(&mut self, node: Node, now: u8, group_id: u8) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unnecessary_filter_map.rs:101:16
+   |
+LL |         fn foo(&mut self, node: Node, now: u8, group_id: u8) {
+   |                ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:128:1
+   |
+LL | mod comment_621925270 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:129:5
+   |
+LL |     struct Signature(u8);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:131:5
+   |
+LL |     fn foo(sig_packets: impl Iterator<Item = Result<Signature, ()>>) -> impl Iterator<Item = u8> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:131:5
+   |
+LL |     fn foo(sig_packets: impl Iterator<Item = Result<Signature, ()>>) -> impl Iterator<Item = u8> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:131:5
+   |
+LL |     fn foo(sig_packets: impl Iterator<Item = Result<Signature, ()>>) -> impl Iterator<Item = u8> {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:131:12
+   |
+LL |     fn foo(sig_packets: impl Iterator<Item = Result<Signature, ()>>) -> impl Iterator<Item = u8> {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:140:1
+   |
+LL | mod comment_1052978898 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:145:5
+   |
+LL |     impl S {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:146:13
+   |
+LL |         pub fn consume(self) {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:146:13
+   |
+LL |         pub fn consume(self) {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:146:24
+   |
+LL |         pub fn consume(self) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:151:9
+   |
+LL |     pub fn filter_owned() -> impl Iterator<Item = S> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:151:9
+   |
+LL |     pub fn filter_owned() -> impl Iterator<Item = S> {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/unnecessary_filter_map.rs:163:1
+   |
+LL | fn issue11260() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:163:1
+   |
+LL | fn issue11260() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unnecessary_filter_map.rs:163:1
+   |
+LL | fn issue11260() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/unnecessary_filter_map.rs:166:9
    |
 LL |     let _x = std::iter::once(1).filter_map(|n| (n > 1).then_some(n));
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 6 previous errors
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 59 previous errors
 

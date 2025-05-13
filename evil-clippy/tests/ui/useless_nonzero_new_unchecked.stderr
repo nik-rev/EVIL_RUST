@@ -1,37 +1,188 @@
-error: `NonZeroUsize::new()` and `Option::unwrap()` can be safely used in a `const` context
-  --> tests/ui/useless_nonzero_new_unchecked.rs:7:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     const { unsafe { NonZeroUsize::new_unchecked(3) } }
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use instead: `NonZeroUsize::new(3).unwrap()`
-   |
-   = note: `-D clippy::useless-nonzero-new-unchecked` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::useless_nonzero_new_unchecked)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: `NonZeroUsize::new()` and `Option::unwrap()` can be safely used in a `const` context
-  --> tests/ui/useless_nonzero_new_unchecked.rs:37:30
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:6:1
+   |
+LL | const fn func() -> NonZeroUsize {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:6:7
+   |
+LL | const fn func() -> NonZeroUsize {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:6:7
+   |
+LL | const fn func() -> NonZeroUsize {
+   |       ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:12:1
+   |
+LL | const fn func_older() -> NonZeroUsize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:12:7
+   |
+LL | const fn func_older() -> NonZeroUsize {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:12:7
+   |
+LL | const fn func_older() -> NonZeroUsize {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:16:1
+   |
+LL | const fn func_performance_hit_if_linted() -> NonZeroUsize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:16:7
+   |
+LL | const fn func_performance_hit_if_linted() -> NonZeroUsize {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:16:7
+   |
+LL | const fn func_performance_hit_if_linted() -> NonZeroUsize {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:20:1
+   |
+LL | const fn func_may_panic_at_run_time_if_linted(x: usize) -> NonZeroUsize {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:20:7
+   |
+LL | const fn func_may_panic_at_run_time_if_linted(x: usize) -> NonZeroUsize {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:20:7
+   |
+LL | const fn func_may_panic_at_run_time_if_linted(x: usize) -> NonZeroUsize {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:20:47
+   |
+LL | const fn func_may_panic_at_run_time_if_linted(x: usize) -> NonZeroUsize {
+   |                                               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:24:1
+   |
+LL | macro_rules! uns {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:30:1
+   |
+LL | macro_rules! nzu {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:36:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:36:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:36:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:37:5
    |
 LL |     const _A: NonZeroUsize = unsafe { NonZeroUsize::new_unchecked(3) };
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use instead: `NonZeroUsize::new(3).unwrap()`
+   |     ^ help: make this item public: `pub`
 
-error: `NonZero::<u8>::new()` and `Option::unwrap()` can be safely used in a `const` context
-  --> tests/ui/useless_nonzero_new_unchecked.rs:40:30
+error: static must be `mut`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:40:12
    |
 LL |     static _B: NonZero<u8> = unsafe { NonZero::<u8>::new_unchecked(42) };
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use instead: `NonZero::<u8>::new(42).unwrap()`
+   |            ^ help: make this static mutable: `mut`
 
-error: `NonZeroUsize::new()` and `Option::unwrap()` can be safely used in a `const` context
-  --> tests/ui/useless_nonzero_new_unchecked.rs:43:32
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:40:5
+   |
+LL |     static _B: NonZero<u8> = unsafe { NonZero::<u8>::new_unchecked(42) };
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:43:5
    |
 LL |     const _C: usize = unsafe { NonZeroUsize::new_unchecked(3).get() };
-   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use instead: `NonZeroUsize::new(3).unwrap()`
-   |
-   = note: the fixed expression does not require an `unsafe` context
+   |     ^ help: make this item public: `pub`
 
-error: `NonZeroUsize::new()` and `Option::unwrap()` can be safely used in a `const` context
-  --> tests/ui/useless_nonzero_new_unchecked.rs:47:30
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:46:5
+   |
+LL |     const AUX: usize = 3;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:47:5
    |
 LL |     const _D: NonZeroUsize = unsafe { NonZeroUsize::new_unchecked(AUX) };
-   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use instead: `NonZeroUsize::new(AUX).unwrap()`
+   |     ^ help: make this item public: `pub`
 
-error: aborting due to 5 previous errors
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:50:5
+   |
+LL |     const _X: NonZeroUsize = uns!(NonZeroUsize::new_unchecked(3));
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/useless_nonzero_new_unchecked.rs:51:5
+   |
+LL |     const _Y: NonZeroUsize = unsafe { nzu!() };
+   |     ^ help: make this item public: `pub`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 25 previous errors
 

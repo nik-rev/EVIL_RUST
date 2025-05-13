@@ -1,71 +1,315 @@
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:22:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/read_zero_byte_vec.rs:12:1
+   |
+LL | extern crate futures;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/read_zero_byte_vec.rs:16:1
+   |
+LL | fn test() -> io::Result<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:16:1
+   |
+LL | fn test() -> io::Result<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:16:1
+   |
+LL | fn test() -> io::Result<()> {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/read_zero_byte_vec.rs:17:9
+   |
+LL |     let cap = 1000;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:22:18
    |
 LL |     f.read_exact(&mut data).unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^ help: try: `data.resize(20, 0); f.read_exact(&mut data)`
+   |                  ^^^^^^^^^
    |
-   = note: `-D clippy::read-zero-byte-vec` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::read_zero_byte_vec)]`
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:28:5
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:28:18
    |
 LL |     f.read_exact(&mut data2)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `data2.resize(cap, 0); f.read_exact(&mut data2)`
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:33:5
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:33:18
    |
 LL |     f.read_exact(&mut data3)?;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:38:13
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:38:20
    |
 LL |     let _ = f.read(&mut data4)?;
-   |             ^^^^^^^^^^^^^^^^^^
+   |                    ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:44:9
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:44:16
    |
 LL |         f.read(&mut data5)
-   |         ^^^^^^^^^^^^^^^^^^
+   |                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:51:9
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:51:16
    |
 LL |         f.read(&mut data6)
-   |         ^^^^^^^^^^^^^^^^^^
+   |                ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:85:9
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:57:12
+   |
+LL |     f.read(&mut buf)?;
+   |            ^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:62:18
+   |
+LL |     f.read_exact(&mut data8)?;
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:66:18
+   |
+LL |     f.read_exact(&mut data9)?;
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/read_zero_byte_vec.rs:71:1
+   |
+LL | fn test_nested() -> io::Result<()> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:71:1
+   |
+LL | fn test_nested() -> io::Result<()> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:71:1
+   |
+LL | fn test_nested() -> io::Result<()> {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/read_zero_byte_vec.rs:72:9
+   |
+LL |     let cap = 1000;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:80:16
    |
 LL |         f.read(&mut v)?;
-   |         ^^^^^^^^^^^^^^
+   |                ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:95:5
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:85:16
+   |
+LL |         f.read(&mut v)?;
+   |                ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/read_zero_byte_vec.rs:92:1
+   |
+LL | async fn test_futures<R: AsyncRead + Unpin>(r: &mut R) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:92:7
+   |
+LL | async fn test_futures<R: AsyncRead + Unpin>(r: &mut R) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:92:7
+   |
+LL | async fn test_futures<R: AsyncRead + Unpin>(r: &mut R) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/read_zero_byte_vec.rs:92:45
+   |
+LL | async fn test_futures<R: AsyncRead + Unpin>(r: &mut R) {
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:92:48
+   |
+LL | async fn test_futures<R: AsyncRead + Unpin>(r: &mut R) {
+   |                                                ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:95:12
    |
 LL |     r.read(&mut data).await.unwrap();
-   |     ^^^^^^^^^^^^^^^^^
+   |            ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:100:5
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:100:18
    |
 LL |     r.read_exact(&mut data2).await.unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:107:5
+error: item must be `pub`
+  --> tests/ui/read_zero_byte_vec.rs:104:1
+   |
+LL | async fn test_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:104:7
+   |
+LL | async fn test_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:104:7
+   |
+LL | async fn test_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   |       ^
+
+error: parameter must be `mut`
+  --> tests/ui/read_zero_byte_vec.rs:104:48
+   |
+LL | async fn test_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:104:51
+   |
+LL | async fn test_tokio<R: TokioAsyncRead + Unpin>(r: &mut R) {
+   |                                                   ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:107:12
    |
 LL |     r.read(&mut data).await.unwrap();
-   |     ^^^^^^^^^^^^^^^^^
+   |            ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: reading zero byte data to `Vec`
-  --> tests/ui/read_zero_byte_vec.rs:112:5
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:112:18
    |
 LL |     r.read_exact(&mut data2).await.unwrap();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+   |                  ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 11 previous errors
+error: item must be `pub`
+  --> tests/ui/read_zero_byte_vec.rs:116:1
+   |
+LL | fn allow_works<F: std::io::Read>(mut f: F) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:116:1
+   |
+LL | fn allow_works<F: std::io::Read>(mut f: F) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:116:1
+   |
+LL | fn allow_works<F: std::io::Read>(mut f: F) {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/read_zero_byte_vec.rs:119:12
+   |
+LL |     f.read(&mut data).unwrap();
+   |            ^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/read_zero_byte_vec.rs:122:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:122:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/read_zero_byte_vec.rs:122:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 39 previous errors
 

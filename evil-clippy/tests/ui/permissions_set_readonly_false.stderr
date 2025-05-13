@@ -1,14 +1,131 @@
-error: call to `set_readonly` with argument `false`
-  --> tests/ui/permissions_set_readonly_false.rs:19:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     permissions.set_readonly(false);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: on Unix platforms this results in the file being world writable
-   = help: you can set the desired permissions using `PermissionsExt`. For more information, see
-           https://doc.rust-lang.org/std/os/unix/fs/trait.PermissionsExt.html
-   = note: `-D clippy::permissions-set-readonly-false` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::permissions_set_readonly_false)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: aborting due to 1 previous error
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/permissions_set_readonly_false.rs:6:1
+   |
+LL | struct A;
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/permissions_set_readonly_false.rs:8:1
+   |
+LL | impl A {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/permissions_set_readonly_false.rs:9:9
+   |
+LL |     pub fn set_readonly(&mut self, b: bool) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/permissions_set_readonly_false.rs:9:9
+   |
+LL |     pub fn set_readonly(&mut self, b: bool) {}
+   |         ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: parameter must be `mut`
+  --> tests/ui/permissions_set_readonly_false.rs:9:30
+   |
+LL |     pub fn set_readonly(&mut self, b: bool) {}
+   |                              ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: parameter must be `mut`
+  --> tests/ui/permissions_set_readonly_false.rs:9:36
+   |
+LL |     pub fn set_readonly(&mut self, b: bool) {}
+   |                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/permissions_set_readonly_false.rs:9:25
+   |
+LL |     pub fn set_readonly(&mut self, b: bool) {}
+   |                         ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/permissions_set_readonly_false.rs:12:1
+   |
+LL | fn set_readonly(b: bool) {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/permissions_set_readonly_false.rs:12:1
+   |
+LL | fn set_readonly(b: bool) {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/permissions_set_readonly_false.rs:12:1
+   |
+LL | fn set_readonly(b: bool) {}
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/permissions_set_readonly_false.rs:12:17
+   |
+LL | fn set_readonly(b: bool) {}
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/permissions_set_readonly_false.rs:14:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/permissions_set_readonly_false.rs:14:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/permissions_set_readonly_false.rs:14:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/permissions_set_readonly_false.rs:15:9
+   |
+LL |     let f = File::create("foo.txt").unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/permissions_set_readonly_false.rs:16:9
+   |
+LL |     let metadata = f.metadata().unwrap();
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 17 previous errors
 

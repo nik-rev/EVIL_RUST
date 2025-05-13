@@ -1,250 +1,1065 @@
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:52:22
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     with_constructor.unwrap_or(make());
-   |                      ^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(make)`
-   |
-   = note: `-D clippy::or-fun-call` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::or_fun_call)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: use of `unwrap_or` to construct default value
-  --> tests/ui/or_fun_call.rs:56:14
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     with_new.unwrap_or(Vec::new());
-   |              ^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-   |
-   = note: `-D clippy::unwrap-or-default` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unwrap_or_default)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:60:21
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:15:1
    |
-LL |     with_const_args.unwrap_or(Vec::with_capacity(12));
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| Vec::with_capacity(12))`
-
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:64:14
+LL | fn or_fun_call() {
+   | ^ help: make this item public: `pub`
    |
-LL |     with_err.unwrap_or(make());
-   |              ^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|_| make())`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:68:19
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:15:1
    |
-LL |     with_err_args.unwrap_or(Vec::with_capacity(12));
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|_| Vec::with_capacity(12))`
-
-error: use of `unwrap_or` to construct default value
-  --> tests/ui/or_fun_call.rs:72:24
+LL | fn or_fun_call() {
+   | ^
    |
-LL |     with_default_trait.unwrap_or(Default::default());
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: use of `unwrap_or` to construct default value
-  --> tests/ui/or_fun_call.rs:76:23
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:15:1
    |
-LL |     with_default_type.unwrap_or(u64::default());
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL | fn or_fun_call() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:80:18
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:16:5
    |
-LL |     self_default.unwrap_or(<FakeDefault>::default());
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(<FakeDefault>::default)`
+LL |     struct Foo;
+   |     ^ help: make this item public: `pub`
 
-error: use of `unwrap_or` to construct default value
-  --> tests/ui/or_fun_call.rs:84:18
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:18:5
    |
-LL |     real_default.unwrap_or(<FakeDefault as Default>::default());
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |     impl Foo {
+   |     ^ help: make this item public: `pub`
 
-error: use of `unwrap_or` to construct default value
-  --> tests/ui/or_fun_call.rs:88:14
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:19:9
    |
-LL |     with_vec.unwrap_or(vec![]);
-   |              ^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:92:21
+LL |         fn new() -> Foo {
+   |         ^
    |
-LL |     without_default.unwrap_or(Foo::new());
-   |                     ^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(Foo::new)`
-
-error: use of `or_insert` to construct default value
-  --> tests/ui/or_fun_call.rs:96:19
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:19:9
    |
-LL |     map.entry(42).or_insert(String::new());
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `or_default()`
+LL |         fn new() -> Foo {
+   |         ^
 
-error: use of `or_insert` to construct default value
-  --> tests/ui/or_fun_call.rs:100:23
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:24:5
    |
-LL |     map_vec.entry(42).or_insert(vec![]);
-   |                       ^^^^^^^^^^^^^^^^^ help: try: `or_default()`
+LL |     struct FakeDefault;
+   |     ^ help: make this item public: `pub`
 
-error: use of `or_insert` to construct default value
-  --> tests/ui/or_fun_call.rs:104:21
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:25:5
    |
-LL |     btree.entry(42).or_insert(String::new());
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `or_default()`
+LL |     impl FakeDefault {
+   |     ^ help: make this item public: `pub`
 
-error: use of `or_insert` to construct default value
-  --> tests/ui/or_fun_call.rs:108:25
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:26:9
    |
-LL |     btree_vec.entry(42).or_insert(vec![]);
-   |                         ^^^^^^^^^^^^^^^^^ help: try: `or_default()`
-
-error: use of `unwrap_or` to construct default value
-  --> tests/ui/or_fun_call.rs:112:21
+LL |         fn default() -> Self {
+   |         ^
    |
-LL |     let _ = stringy.unwrap_or(String::new());
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
-
-error: function call inside of `ok_or`
-  --> tests/ui/or_fun_call.rs:117:17
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:26:9
    |
-LL |     let _ = opt.ok_or(format!("{} world.", hello));
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `ok_or_else(|| format!("{} world.", hello))`
+LL |         fn default() -> Self {
+   |         ^
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:122:21
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:31:5
+   |
+LL |     impl Default for FakeDefault {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:32:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:32:9
+   |
+LL |         fn default() -> Self {
+   |         ^
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:37:5
+   |
+LL |     enum Enum {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:41:5
+   |
+LL |     fn make<T>() -> T {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:41:5
+   |
+LL |     fn make<T>() -> T {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:41:5
+   |
+LL |     fn make<T>() -> T {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:45:9
+   |
+LL |     let with_enum = Some(Enum::A(1));
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:48:9
+   |
+LL |     let with_const_fn = Some(Duration::from_secs(1));
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:51:9
+   |
+LL |     let with_constructor = Some(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:55:9
+   |
+LL |     let with_new = Some(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:59:9
+   |
+LL |     let with_const_args = Some(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:63:9
+   |
+LL |     let with_err: Result<_, ()> = Ok(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:67:9
+   |
+LL |     let with_err_args: Result<_, ()> = Ok(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:71:9
+   |
+LL |     let with_default_trait = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:75:9
+   |
+LL |     let with_default_type = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:79:9
+   |
+LL |     let self_default = None::<FakeDefault>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:83:9
+   |
+LL |     let real_default = None::<FakeDefault>;
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:87:9
+   |
+LL |     let with_vec = Some(vec![1]);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:91:9
+   |
+LL |     let without_default = Some(Foo);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:111:9
+   |
+LL |     let stringy = Some(String::new());
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:115:9
+   |
+LL |     let opt = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:116:9
+   |
+LL |     let hello = "Hello";
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:121:9
+   |
+LL |     let map = HashMap::<u64, u64>::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:122:35
    |
 LL |     let _ = Some(1).unwrap_or(map[&1]);
-   |                     ^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| map[&1])`
+   |                                   ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:125:21
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:124:9
+   |
+LL |     let map = BTreeMap::<u64, u64>::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:125:35
    |
 LL |     let _ = Some(1).unwrap_or(map[&1]);
-   |                     ^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| map[&1])`
+   |                                   ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: function call inside of `or`
-  --> tests/ui/or_fun_call.rs:150:35
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:128:9
    |
-LL |     let _ = Some("a".to_string()).or(Some("b".to_string()));
-   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `or_else(|| Some("b".to_string()))`
+LL |     let vec = vec![1];
+   |         ^ help: make this variable mutable: `mut`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:193:18
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:132:1
    |
-LL |             None.unwrap_or(ptr_to_ref(s));
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| ptr_to_ref(s))`
+LL | struct Foo(u8);
+   | ^ help: make this item public: `pub`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:201:14
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:133:1
    |
-LL |         None.unwrap_or(unsafe { ptr_to_ref(s) });
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| unsafe { ptr_to_ref(s) })`
+LL | struct Bar(String, Duration);
+   | ^ help: make this item public: `pub`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:204:14
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:135:1
    |
-LL |         None.unwrap_or( unsafe { ptr_to_ref(s) }    );
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| unsafe { ptr_to_ref(s) })`
+LL | fn test_or_with_ctors() {
+   | ^ help: make this item public: `pub`
 
-error: function call inside of `map_or`
-  --> tests/ui/or_fun_call.rs:280:25
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:135:1
    |
-LL |         let _ = Some(4).map_or(g(), |v| v);
-   |                         ^^^^^^^^^^^^^^^^^^ help: try: `map_or_else(g, |v| v)`
+LL | fn test_or_with_ctors() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:135:1
+   |
+LL | fn test_or_with_ctors() {
+   | ^
 
-error: function call inside of `map_or`
-  --> tests/ui/or_fun_call.rs:282:25
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:136:9
    |
-LL |         let _ = Some(4).map_or(g(), f);
-   |                         ^^^^^^^^^^^^^^ help: try: `map_or_else(g, f)`
+LL |     let opt = Some(1);
+   |         ^ help: make this variable mutable: `mut`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/or_fun_call.rs:314:18
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:137:9
    |
-LL |         with_new.unwrap_or_else(Vec::new);
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |     let opt_opt = Some(Some(1));
+   |         ^ help: make this variable mutable: `mut`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/or_fun_call.rs:318:28
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:139:9
    |
-LL |         with_default_trait.unwrap_or_else(Default::default);
-   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |     let two = 2;
+   |         ^ help: make this variable mutable: `mut`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/or_fun_call.rs:322:27
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:153:9
    |
-LL |         with_default_type.unwrap_or_else(u64::default);
-   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |     let b = "b".to_string();
+   |         ^ help: make this variable mutable: `mut`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/or_fun_call.rs:326:22
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:157:9
    |
-LL |         real_default.unwrap_or_else(<FakeDefault as Default>::default);
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |     let vec = vec!["foo"];
+   |         ^ help: make this variable mutable: `mut`
 
-error: use of `or_insert_with` to construct default value
-  --> tests/ui/or_fun_call.rs:330:23
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:160:9
    |
-LL |         map.entry(42).or_insert_with(String::new);
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `or_default()`
+LL |     let array = ["foo"];
+   |         ^ help: make this variable mutable: `mut`
 
-error: use of `or_insert_with` to construct default value
-  --> tests/ui/or_fun_call.rs:334:25
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:163:9
    |
-LL |         btree.entry(42).or_insert_with(String::new);
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `or_default()`
+LL |     let slice = &["foo"][..];
+   |         ^ help: make this variable mutable: `mut`
 
-error: use of `unwrap_or_else` to construct default value
-  --> tests/ui/or_fun_call.rs:338:25
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:163:17
    |
-LL |         let _ = stringy.unwrap_or_else(String::new);
-   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |     let slice = &["foo"][..];
+   |                 ^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:380:17
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:166:9
    |
-LL |     let _ = opt.unwrap_or({ f() }); // suggest `.unwrap_or_else(f)`
-   |                 ^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(f)`
+LL |     let string = "foo";
+   |         ^ help: make this variable mutable: `mut`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:385:17
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:171:1
    |
-LL |     let _ = opt.unwrap_or(f() + 1); // suggest `.unwrap_or_else(|| f() + 1)`
-   |                 ^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| f() + 1)`
+LL | fn f() -> Option<()> {
+   | ^ help: make this item public: `pub`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:390:17
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:171:1
    |
-LL |       let _ = opt.unwrap_or({
-   |  _________________^
-LL | |
-LL | |         let x = f();
-LL | |         x + 1
-LL | |     });
-   | |______^
+LL | fn f() -> Option<()> {
+   | ^
    |
-help: try
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:171:1
    |
-LL ~     let _ = opt.unwrap_or_else(|| {
-LL +
-LL +         let x = f();
-LL +         x + 1
-LL ~     });
-   |
+LL | fn f() -> Option<()> {
+   | ^
 
-error: function call inside of `map_or`
-  --> tests/ui/or_fun_call.rs:396:17
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:172:9
    |
-LL |     let _ = opt.map_or(f() + 1, |v| v); // suggest `.map_or_else(|| f() + 1, |v| v)`
-   |                 ^^^^^^^^^^^^^^^^^^^^^^ help: try: `map_or_else(|| f() + 1, |v| v)`
+LL |     let a = Some(1);
+   |         ^ help: make this variable mutable: `mut`
 
-error: use of `unwrap_or` to construct default value
-  --> tests/ui/or_fun_call.rs:401:17
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:173:9
    |
-LL |     let _ = opt.unwrap_or({ i32::default() });
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_default()`
+LL |     let b = 1i32;
+   |         ^ help: make this variable mutable: `mut`
 
-error: function call inside of `unwrap_or`
-  --> tests/ui/or_fun_call.rs:408:21
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:180:1
    |
-LL |     let _ = opt_foo.unwrap_or(Foo { val: String::default() });
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `unwrap_or_else(|| Foo { val: String::default() })`
+LL | mod issue6675 {
+   | ^ help: make this item public: `pub`
 
-error: aborting due to 38 previous errors
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:181:5
+   |
+LL |     unsafe fn ptr_to_ref<'a, T>(p: *const T) -> &'a T {
+   |     ^ help: make this item public: `pub`
+
+error: parameter must be `mut`
+  --> tests/ui/or_fun_call.rs:181:33
+   |
+LL |     unsafe fn ptr_to_ref<'a, T>(p: *const T) -> &'a T {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:181:49
+   |
+LL |     unsafe fn ptr_to_ref<'a, T>(p: *const T) -> &'a T {
+   |                                                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:184:17
+   |
+LL |             let x = vec![0; 1000]; // future-proofing, make this function expensive.
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:185:13
+   |
+LL |             &*p
+   |             ^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:189:5
+   |
+LL |     unsafe fn foo() {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:191:17
+   |
+LL |             let s = "test".to_owned();
+   |                 ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:192:17
+   |
+LL |             let s = &s as *const _;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:192:21
+   |
+LL |             let s = &s as *const _;
+   |                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:198:5
+   |
+LL |     fn bar() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:198:5
+   |
+LL |     fn bar() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:198:5
+   |
+LL |     fn bar() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:199:13
+   |
+LL |         let s = "test".to_owned();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:200:13
+   |
+LL |         let s = &s as *const _;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:200:17
+   |
+LL |         let s = &s as *const _;
+   |                 ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:209:1
+   |
+LL | mod issue8239 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:210:5
+   |
+LL |     fn more_than_max_suggestion_highest_lines_0() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:210:5
+   |
+LL |     fn more_than_max_suggestion_highest_lines_0() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:210:5
+   |
+LL |     fn more_than_max_suggestion_highest_lines_0() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:211:13
+   |
+LL |         let frames = Vec::new();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:214:22
+   |
+LL |             .map(|f: &String| f.to_lowercase())
+   |                      ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:216:30
+   |
+LL |                 acc.push_str(&f);
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:222:5
+   |
+LL |     fn more_to_max_suggestion_highest_lines_1() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:222:5
+   |
+LL |     fn more_to_max_suggestion_highest_lines_1() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:222:5
+   |
+LL |     fn more_to_max_suggestion_highest_lines_1() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:223:13
+   |
+LL |         let frames = Vec::new();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:224:13
+   |
+LL |         let iter = frames.iter();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:225:22
+   |
+LL |         iter.map(|f: &String| f.to_lowercase())
+   |                      ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:229:30
+   |
+LL |                 acc.push_str(&f);
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:235:5
+   |
+LL |     fn equal_to_max_suggestion_highest_lines() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:235:5
+   |
+LL |     fn equal_to_max_suggestion_highest_lines() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:235:5
+   |
+LL |     fn equal_to_max_suggestion_highest_lines() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:236:13
+   |
+LL |         let frames = Vec::new();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:237:13
+   |
+LL |         let iter = frames.iter();
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:238:22
+   |
+LL |         iter.map(|f: &String| f.to_lowercase())
+   |                      ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:241:30
+   |
+LL |                 acc.push_str(&f);
+   |                              ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:247:5
+   |
+LL |     fn less_than_max_suggestion_highest_lines() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:247:5
+   |
+LL |     fn less_than_max_suggestion_highest_lines() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:247:5
+   |
+LL |     fn less_than_max_suggestion_highest_lines() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:248:13
+   |
+LL |         let frames = Vec::new();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:249:13
+   |
+LL |         let iter = frames.iter();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:250:13
+   |
+LL |         let map = iter.map(|f: &String| f.to_lowercase());
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:250:32
+   |
+LL |         let map = iter.map(|f: &String| f.to_lowercase());
+   |                                ^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/or_fun_call.rs:252:26
+   |
+LL |             acc.push_str(&f);
+   |                          ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:259:1
+   |
+LL | mod issue9608 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:260:5
+   |
+LL |     fn sig_drop() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:260:5
+   |
+LL |     fn sig_drop() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:260:5
+   |
+LL |     fn sig_drop() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:261:9
+   |
+LL |         enum X {
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:270:1
+   |
+LL | mod issue8993 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:271:5
+   |
+LL |     fn g() -> i32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:271:5
+   |
+LL |     fn g() -> i32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:271:5
+   |
+LL |     fn g() -> i32 {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:275:5
+   |
+LL |     fn f(n: i32) -> i32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:275:5
+   |
+LL |     fn f(n: i32) -> i32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:275:5
+   |
+LL |     fn f(n: i32) -> i32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/or_fun_call.rs:275:10
+   |
+LL |     fn f(n: i32) -> i32 {
+   |          ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:279:5
+   |
+LL |     fn test_map_or() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:279:5
+   |
+LL |     fn test_map_or() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:279:5
+   |
+LL |     fn test_map_or() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:288:1
+   |
+LL | mod lazy {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:291:5
+   |
+LL |     fn foo() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:291:5
+   |
+LL |     fn foo() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:291:5
+   |
+LL |     fn foo() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:292:9
+   |
+LL |         struct Foo;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:294:9
+   |
+LL |         impl Foo {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:295:13
+   |
+LL |             fn new() -> Foo {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:295:13
+   |
+LL |             fn new() -> Foo {
+   |             ^
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:300:9
+   |
+LL |         struct FakeDefault;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:301:9
+   |
+LL |         impl FakeDefault {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:302:13
+   |
+LL |             fn default() -> Self {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:302:13
+   |
+LL |             fn default() -> Self {
+   |             ^
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:307:9
+   |
+LL |         impl Default for FakeDefault {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:308:13
+   |
+LL |             fn default() -> Self {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:308:13
+   |
+LL |             fn default() -> Self {
+   |             ^
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:313:13
+   |
+LL |         let with_new = Some(vec![1]);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:317:13
+   |
+LL |         let with_default_trait = Some(1);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:321:13
+   |
+LL |         let with_default_type = Some(1);
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:325:13
+   |
+LL |         let real_default = None::<FakeDefault>;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:337:13
+   |
+LL |         let stringy = Some(String::new());
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:342:13
+   |
+LL |         let self_default = None::<FakeDefault>;
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:345:13
+   |
+LL |         let without_default = Some(Foo);
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:350:1
+   |
+LL | fn host_effect() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:350:1
+   |
+LL | fn host_effect() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:350:1
+   |
+LL | fn host_effect() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:357:1
+   |
+LL | mod issue_10228 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:358:5
+   |
+LL |     struct Entry;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:360:5
+   |
+LL |     impl Entry {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:361:9
+   |
+LL |         fn or_insert(self, _default: i32) {}
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:361:9
+   |
+LL |         fn or_insert(self, _default: i32) {}
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/or_fun_call.rs:361:22
+   |
+LL |         fn or_insert(self, _default: i32) {}
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/or_fun_call.rs:361:28
+   |
+LL |         fn or_insert(self, _default: i32) {}
+   |                            ^ help: make this parameter mutable: `mut`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:362:9
+   |
+LL |         fn or_default(self) {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:362:9
+   |
+LL |         fn or_default(self) {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/or_fun_call.rs:362:23
+   |
+LL |         fn or_default(self) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:370:1
+   |
+LL | fn fn_call_in_nested_expr() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:370:1
+   |
+LL | fn fn_call_in_nested_expr() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:370:1
+   |
+LL | fn fn_call_in_nested_expr() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:371:5
+   |
+LL |     struct Foo {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:375:5
+   |
+LL |     fn f() -> i32 {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:375:5
+   |
+LL |     fn f() -> i32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:375:5
+   |
+LL |     fn f() -> i32 {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:378:9
+   |
+LL |     let opt: Option<i32> = Some(1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:392:13
+   |
+LL |         let x = f();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/or_fun_call.rs:404:9
+   |
+LL |     let opt_foo = Some(Foo {
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/or_fun_call.rs:412:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/or_fun_call.rs:412:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/or_fun_call.rs:412:1
+   |
+LL | fn main() {}
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 145 previous errors
 

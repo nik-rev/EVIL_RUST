@@ -1,100 +1,377 @@
-error: non-binding `let` on a result of a `#[must_use]` function
-  --> tests/ui/let_underscore_must_use.rs:67:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = f();
-   |     ^^^^^^^^^^^^
-   |
-   = help: consider explicitly using function result
-   = note: `-D clippy::let-underscore-must-use` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::let_underscore_must_use)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: non-binding `let` on an expression with `#[must_use]` type
-  --> tests/ui/let_underscore_must_use.rs:70:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = g();
-   |     ^^^^^^^^^^^^
-   |
-   = help: consider explicitly using expression value
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: non-binding `let` on a result of a `#[must_use]` function
-  --> tests/ui/let_underscore_must_use.rs:74:5
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:7:1
    |
-LL |     let _ = l(0_u32);
-   |     ^^^^^^^^^^^^^^^^^
+LL | struct Foo {
+   | ^ help: make this item public: `pub`
    |
-   = help: consider explicitly using function result
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: non-binding `let` on a result of a `#[must_use]` function
-  --> tests/ui/let_underscore_must_use.rs:79:5
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:6:10
    |
-LL |     let _ = s.f();
-   |     ^^^^^^^^^^^^^^
-   |
-   = help: consider explicitly using function result
+LL | #[derive(Debug)]
+   |          ^
 
-error: non-binding `let` on an expression with `#[must_use]` type
-  --> tests/ui/let_underscore_must_use.rs:82:5
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:6:7
    |
-LL |     let _ = s.g();
-   |     ^^^^^^^^^^^^^^
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
    |
-   = help: consider explicitly using expression value
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:6:7
+   |
+LL | #[derive(Debug)]
+   |       ^  ----- in this derive macro expansion
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: non-binding `let` on a result of a `#[must_use]` function
-  --> tests/ui/let_underscore_must_use.rs:87:5
+error: parameter must be `mut`
+  --> tests/ui/let_underscore_must_use.rs:6:10
    |
-LL |     let _ = S::h();
-   |     ^^^^^^^^^^^^^^^
+LL | #[derive(Debug)]
+   |          ^ help: make this parameter mutable: `mut`
    |
-   = help: consider explicitly using function result
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: non-binding `let` on an expression with `#[must_use]` type
-  --> tests/ui/let_underscore_must_use.rs:90:5
+error: parameter must be `mut`
+  --> tests/ui/let_underscore_must_use.rs:6:10
    |
-LL |     let _ = S::p();
-   |     ^^^^^^^^^^^^^^^
-   |
-   = help: consider explicitly using expression value
+LL | #[derive(Debug)]
+   |          ^
 
-error: non-binding `let` on a result of a `#[must_use]` function
-  --> tests/ui/let_underscore_must_use.rs:93:5
+error: references are not allowed
+  --> tests/ui/let_underscore_must_use.rs:6:10
    |
-LL |     let _ = S::a();
-   |     ^^^^^^^^^^^^^^^
+LL | #[derive(Debug)]
+   |          ^^^^^
    |
-   = help: consider explicitly using function result
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
 
-error: non-binding `let` on an expression with `#[must_use]` type
-  --> tests/ui/let_underscore_must_use.rs:96:5
+error: references are not allowed
+  --> tests/ui/let_underscore_must_use.rs:6:10
    |
-LL |     let _ = if true { Ok(()) } else { Err(()) };
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LL | #[derive(Debug)]
+   |          ^^^^^
    |
-   = help: consider explicitly using expression value
+   = help: use a raw pointer instead: `*raw`
 
-error: non-binding `let` on a result of a `#[must_use]` function
-  --> tests/ui/let_underscore_must_use.rs:101:5
+error: references are not allowed
+  --> tests/ui/let_underscore_must_use.rs:8:5
    |
-LL |     let _ = a.is_ok();
-   |     ^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider explicitly using function result
-
-error: non-binding `let` on an expression with `#[must_use]` type
-  --> tests/ui/let_underscore_must_use.rs:104:5
-   |
-LL |     let _ = a.map(|_| ());
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = help: consider explicitly using expression value
-
-error: non-binding `let` on an expression with `#[must_use]` type
-  --> tests/ui/let_underscore_must_use.rs:107:5
-   |
-LL |     let _ = a;
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | struct Foo {
+LL |     field: i32,
    |     ^^^^^^^^^^
    |
-   = help: consider explicitly using expression value
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 12 previous errors
+error: references are not allowed
+  --> tests/ui/let_underscore_must_use.rs:8:5
+   |
+LL | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+LL | struct Foo {
+LL |     field: i32,
+   |     ^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:12:1
+   |
+LL | fn f() -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:12:1
+   |
+LL | fn f() -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:12:1
+   |
+LL | fn f() -> u32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:16:1
+   |
+LL | fn g() -> Result<u32, u32> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:16:1
+   |
+LL | fn g() -> Result<u32, u32> {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:16:1
+   |
+LL | fn g() -> Result<u32, u32> {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:21:1
+   |
+LL | fn l<T>(x: T) -> T {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:21:1
+   |
+LL | fn l<T>(x: T) -> T {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:21:1
+   |
+LL | fn l<T>(x: T) -> T {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/let_underscore_must_use.rs:21:9
+   |
+LL | fn l<T>(x: T) -> T {
+   |         ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:25:1
+   |
+LL | fn h() -> u32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:25:1
+   |
+LL | fn h() -> u32 {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:25:1
+   |
+LL | fn h() -> u32 {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:29:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:31:1
+   |
+LL | impl S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:33:9
+   |
+LL |     pub fn f(&self) -> u32 {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:33:9
+   |
+LL |     pub fn f(&self) -> u32 {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/let_underscore_must_use.rs:33:15
+   |
+LL |     pub fn f(&self) -> u32 {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/let_underscore_must_use.rs:33:14
+   |
+LL |     pub fn f(&self) -> u32 {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:37:9
+   |
+LL |     pub fn g(&self) -> Result<u32, u32> {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:37:9
+   |
+LL |     pub fn g(&self) -> Result<u32, u32> {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/let_underscore_must_use.rs:37:15
+   |
+LL |     pub fn g(&self) -> Result<u32, u32> {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/let_underscore_must_use.rs:37:14
+   |
+LL |     pub fn g(&self) -> Result<u32, u32> {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:41:5
+   |
+LL |     fn k(&self) -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:41:5
+   |
+LL |     fn k(&self) -> u32 {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/let_underscore_must_use.rs:41:11
+   |
+LL |     fn k(&self) -> u32 {
+   |           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/let_underscore_must_use.rs:41:10
+   |
+LL |     fn k(&self) -> u32 {
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:46:5
+   |
+LL |     fn h() -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:46:5
+   |
+LL |     fn h() -> u32 {
+   |     ^
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:50:5
+   |
+LL |     fn p() -> Result<u32, u32> {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:50:5
+   |
+LL |     fn p() -> Result<u32, u32> {
+   |     ^
+
+error: trait must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:55:1
+   |
+LL | / trait Trait {
+LL | |     #[must_use]
+LL | |     fn a() -> u32;
+LL | | }
+   | |_^
+   |
+   = help: make this trait unsafe: `unsafe trait`
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:55:1
+   |
+LL | trait Trait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:57:5
+   |
+LL |     fn a() -> u32;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:57:5
+   |
+LL |     fn a() -> u32;
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:60:1
+   |
+LL | impl Trait for S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:61:5
+   |
+LL |     fn a() -> u32 {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:61:5
+   |
+LL |     fn a() -> u32 {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/let_underscore_must_use.rs:66:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:66:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/let_underscore_must_use.rs:66:1
+   |
+LL | fn main() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/let_underscore_must_use.rs:77:9
+   |
+LL |     let s = S {};
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/let_underscore_must_use.rs:99:9
+   |
+LL |     let a = Result::<(), ()>::Ok(());
+   |         ^ help: make this variable mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 44 previous errors
 

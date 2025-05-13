@@ -1,52 +1,172 @@
-error: unsequenced read of `x`
-  --> tests/ui/mixed_read_write_in_expression.rs:14:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     } + x;
-   |         ^
-   |
-note: whether read occurs before this write depends on evaluation order
-  --> tests/ui/mixed_read_write_in_expression.rs:12:9
-   |
-LL |         x = 1;
-   |         ^^^^^
-   = note: `-D clippy::mixed-read-write-in-expression` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::mixed_read_write_in_expression)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: unsequenced read of `x`
-  --> tests/ui/mixed_read_write_in_expression.rs:18:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     x += {
-   |     ^
-   |
-note: whether read occurs before this write depends on evaluation order
-  --> tests/ui/mixed_read_write_in_expression.rs:21:9
-   |
-LL |         x = 20;
-   |         ^^^^^^
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: unsequenced read of `x`
-  --> tests/ui/mixed_read_write_in_expression.rs:33:12
+error: item must be `pub`
+  --> tests/ui/mixed_read_write_in_expression.rs:9:1
    |
-LL |         a: x,
-   |            ^
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-note: whether read occurs before this write depends on evaluation order
-  --> tests/ui/mixed_read_write_in_expression.rs:36:13
-   |
-LL |             x = 6;
-   |             ^^^^^
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: unsequenced read of `x`
-  --> tests/ui/mixed_read_write_in_expression.rs:43:9
+error: function must be `unsafe`
+  --> tests/ui/mixed_read_write_in_expression.rs:9:1
    |
-LL |         x += {
-   |         ^
+LL | fn main() {
+   | ^
    |
-note: whether read occurs before this write depends on evaluation order
-  --> tests/ui/mixed_read_write_in_expression.rs:46:13
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mixed_read_write_in_expression.rs:9:1
    |
-LL |             x = 20;
-   |             ^^^^^^
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: aborting due to 4 previous errors
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:11:9
+   |
+LL |     let a = {
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/mixed_read_write_in_expression.rs:27:5
+   |
+LL |     struct Foo {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:31:9
+   |
+LL |     let base = Foo { a: 4, b: 5 };
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:32:9
+   |
+LL |     let foo = Foo {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:41:9
+   |
+LL |     let closure = || {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:52:9
+   |
+LL |     let b = (y, || y = 1);
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:55:9
+   |
+LL |     let a = {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:59:9
+   |
+LL |     let a = {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:65:9
+   |
+LL |     let a = {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:77:9
+   |
+LL |     let b = {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:84:9
+   |
+LL |     let b = (
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:86:17
+   |
+LL |             let p = &x;
+   |                 ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mixed_read_write_in_expression.rs:86:21
+   |
+LL |             let p = &x;
+   |                     ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:98:9
+   |
+LL |     let c = {
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/mixed_read_write_in_expression.rs:104:9
+   |
+LL |     let b = (
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/mixed_read_write_in_expression.rs:105:9
+   |
+LL | /         &{
+LL | |             z = x;
+LL | |             x
+LL | |         },
+   | |_________^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/mixed_read_write_in_expression.rs:116:1
+   |
+LL | async fn issue_6925() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/mixed_read_write_in_expression.rs:116:7
+   |
+LL | async fn issue_6925() {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/mixed_read_write_in_expression.rs:116:7
+   |
+LL | async fn issue_6925() {
+   |       ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 24 previous errors
 

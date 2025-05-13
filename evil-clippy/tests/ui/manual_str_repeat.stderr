@@ -1,65 +1,199 @@
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:8:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: String = std::iter::repeat("test").take(10).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"test".repeat(10)`
-   |
-   = note: `-D clippy::manual-str-repeat` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_str_repeat)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:10:21
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _: String = std::iter::repeat('x').take(10).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"x".repeat(10)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:12:21
+error: item must be `pub`
+  --> tests/ui/manual_str_repeat.rs:7:1
    |
-LL |     let _: String = std::iter::repeat('\'').take(10).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"'".repeat(10)`
-
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:14:21
+LL | fn main() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _: String = std::iter::repeat('"').take(10).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"\"".repeat(10)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:19:13
+error: function must be `unsafe`
+  --> tests/ui/manual_str_repeat.rs:7:1
    |
-LL |     let _ = repeat(x).take(count + 2).collect::<String>();
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `x.repeat(count + 2)`
-
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:29:21
+LL | fn main() {
+   | ^
    |
-LL |     let _: String = repeat(*x).take(count).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `(*x).repeat(count)`
-
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:39:21
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_str_repeat.rs:7:1
    |
-LL |     let _: String = repeat(x).take(count).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `x.repeat(count)`
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:52:21
+error: variable must be `mut`
+  --> tests/ui/manual_str_repeat.rs:17:9
    |
-LL |     let _: String = repeat(Cow::Borrowed("test")).take(count).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `Cow::Borrowed("test").repeat(count)`
-
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:56:21
+LL |     let x = "test";
+   |         ^ help: make this variable mutable: `mut`
    |
-LL |     let _: String = repeat(x).take(count).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `x.repeat(count)`
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: manual implementation of `str::repeat` using iterators
-  --> tests/ui/manual_str_repeat.rs:72:21
+error: variable must be `mut`
+  --> tests/ui/manual_str_repeat.rs:18:9
    |
-LL |     let _: String = std::iter::repeat("test").take(10).collect();
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `"test".repeat(10)`
+LL |     let count = 10;
+   |         ^ help: make this variable mutable: `mut`
 
-error: aborting due to 10 previous errors
+error: item must be `pub`
+  --> tests/ui/manual_str_repeat.rs:22:5
+   |
+LL |     macro_rules! m {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/manual_str_repeat.rs:28:9
+   |
+LL |     let x = &x;
+   |         ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_str_repeat.rs:28:13
+   |
+LL |     let x = &x;
+   |             ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: item must be `pub`
+  --> tests/ui/manual_str_repeat.rs:32:5
+   |
+LL |     macro_rules! repeat_m {
+   |     ^ help: make this item public: `pub`
+
+error: variable must be `mut`
+  --> tests/ui/manual_str_repeat.rs:38:9
+   |
+LL |     let x: Box<str> = Box::from("test");
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_str_repeat.rs:43:5
+   |
+LL |     struct S;
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/manual_str_repeat.rs:42:14
+   |
+LL |     #[derive(Clone)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/manual_str_repeat.rs:42:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_str_repeat.rs:42:11
+   |
+LL |     #[derive(Clone)]
+   |           ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/manual_str_repeat.rs:42:14
+   |
+LL |     #[derive(Clone)]
+   |              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/manual_str_repeat.rs:42:14
+   |
+LL |     #[derive(Clone)]
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/manual_str_repeat.rs:44:5
+   |
+LL |     impl FromIterator<Box<S>> for String {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_str_repeat.rs:45:9
+   |
+LL |         fn from_iter<T: IntoIterator<Item = Box<S>>>(_: T) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_str_repeat.rs:45:9
+   |
+LL |         fn from_iter<T: IntoIterator<Item = Box<S>>>(_: T) -> Self {
+   |         ^
+
+error: variable must be `mut`
+  --> tests/ui/manual_str_repeat.rs:55:9
+   |
+LL |     let x = "x".to_owned();
+   |         ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/manual_str_repeat.rs:59:9
+   |
+LL |     let x = 'x';
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/manual_str_repeat.rs:65:1
+   |
+LL | fn _msrv_1_15() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_str_repeat.rs:65:1
+   |
+LL | fn _msrv_1_15() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_str_repeat.rs:65:1
+   |
+LL | fn _msrv_1_15() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/manual_str_repeat.rs:71:1
+   |
+LL | fn _msrv_1_16() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/manual_str_repeat.rs:71:1
+   |
+LL | fn _msrv_1_16() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_str_repeat.rs:71:1
+   |
+LL | fn _msrv_1_16() {
+   | ^
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 26 previous errors
 

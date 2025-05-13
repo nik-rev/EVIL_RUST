@@ -1,185 +1,2520 @@
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:25:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     *mut_thing = value_thing.clone();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `mut_thing.clone_from(&value_thing)`
-   |
-   = note: `-D clippy::assigning-clones` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::assigning_clones)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:30:5
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     *mut_thing = ref_thing.clone();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `mut_thing.clone_from(ref_thing)`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:35:5
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:15:1
    |
-LL |     mut_thing = ref_thing.clone();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `mut_thing.clone_from(ref_thing)`
-
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:40:5
+LL | impl Clone for HasCloneFrom {
+   | ^ help: make this item public: `pub`
    |
-LL |     *mut_thing = Clone::clone(ref_thing);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `Clone::clone_from(mut_thing, ref_thing)`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:45:5
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:16:5
    |
-LL |     mut_thing = Clone::clone(ref_thing);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `Clone::clone_from(&mut mut_thing, ref_thing)`
-
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:50:5
+LL |     fn clone(&self) -> Self {
+   |     ^
    |
-LL |     *mut_thing = Clone::clone(ref_thing);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `Clone::clone_from(mut_thing, ref_thing)`
-
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:55:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:16:5
    |
-LL |     *mut_thing = HasCloneFrom::clone(ref_thing);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `Clone::clone_from(mut_thing, ref_thing)`
+LL |     fn clone(&self) -> Self {
+   |     ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:60:5
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:16:15
    |
-LL |     *mut_thing = <HasCloneFrom as Clone>::clone(ref_thing);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `Clone::clone_from(mut_thing, ref_thing)`
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:66:5
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:16:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:19:5
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:19:5
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:19:24
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:19:30
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:19:19
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:19:38
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:24:1
+   |
+LL | fn clone_method_rhs_val(mut_thing: &mut HasCloneFrom, value_thing: HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:24:1
+   |
+LL | fn clone_method_rhs_val(mut_thing: &mut HasCloneFrom, value_thing: HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:24:1
+   |
+LL | fn clone_method_rhs_val(mut_thing: &mut HasCloneFrom, value_thing: HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:24:25
+   |
+LL | fn clone_method_rhs_val(mut_thing: &mut HasCloneFrom, value_thing: HasCloneFrom) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:24:55
+   |
+LL | fn clone_method_rhs_val(mut_thing: &mut HasCloneFrom, value_thing: HasCloneFrom) {
+   |                                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:24:36
+   |
+LL | fn clone_method_rhs_val(mut_thing: &mut HasCloneFrom, value_thing: HasCloneFrom) {
+   |                                    ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:29:1
+   |
+LL | fn clone_method_rhs_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:29:1
+   |
+LL | fn clone_method_rhs_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:29:1
+   |
+LL | fn clone_method_rhs_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:29:25
+   |
+LL | fn clone_method_rhs_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:29:55
+   |
+LL | fn clone_method_rhs_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:29:36
+   |
+LL | fn clone_method_rhs_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                    ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:29:66
+   |
+LL | fn clone_method_rhs_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                  ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:34:1
+   |
+LL | fn clone_method_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:34:1
+   |
+LL | fn clone_method_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:34:1
+   |
+LL | fn clone_method_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:34:54
+   |
+LL | fn clone_method_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:34:65
+   |
+LL | fn clone_method_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                 ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:39:1
+   |
+LL | fn clone_function_lhs_mut_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:39:1
+   |
+LL | fn clone_function_lhs_mut_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:39:1
+   |
+LL | fn clone_function_lhs_mut_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:39:31
+   |
+LL | fn clone_function_lhs_mut_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                               ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:39:61
+   |
+LL | fn clone_function_lhs_mut_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:39:42
+   |
+LL | fn clone_function_lhs_mut_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                          ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:39:72
+   |
+LL | fn clone_function_lhs_mut_ref(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:44:1
+   |
+LL | fn clone_function_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:44:1
+   |
+LL | fn clone_function_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:44:1
+   |
+LL | fn clone_function_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:44:56
+   |
+LL | fn clone_function_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:44:67
+   |
+LL | fn clone_function_lhs_val(mut mut_thing: HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                   ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:49:1
+   |
+LL | fn clone_function_through_trait(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:49:1
+   |
+LL | fn clone_function_through_trait(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:49:1
+   |
+LL | fn clone_function_through_trait(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:49:33
+   |
+LL | fn clone_function_through_trait(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:49:63
+   |
+LL | fn clone_function_through_trait(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:49:44
+   |
+LL | fn clone_function_through_trait(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                            ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:49:74
+   |
+LL | fn clone_function_through_trait(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                          ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:54:1
+   |
+LL | fn clone_function_through_type(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:54:1
+   |
+LL | fn clone_function_through_type(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:54:1
+   |
+LL | fn clone_function_through_type(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:54:32
+   |
+LL | fn clone_function_through_type(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:54:62
+   |
+LL | fn clone_function_through_type(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:54:43
+   |
+LL | fn clone_function_through_type(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                           ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:54:73
+   |
+LL | fn clone_function_through_type(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                         ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:59:1
+   |
+LL | fn clone_function_fully_qualified(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:59:1
+   |
+LL | fn clone_function_fully_qualified(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:59:1
+   |
+LL | fn clone_function_fully_qualified(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:59:35
+   |
+LL | fn clone_function_fully_qualified(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:59:65
+   |
+LL | fn clone_function_fully_qualified(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:59:46
+   |
+LL | fn clone_function_fully_qualified(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                              ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:59:76
+   |
+LL | fn clone_function_fully_qualified(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                            ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:64:1
+   |
+LL | fn clone_method_lhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:64:1
+   |
+LL | fn clone_method_lhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:64:1
+   |
+LL | fn clone_method_lhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:64:29
+   |
+LL | fn clone_method_lhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:64:59
+   |
+LL | fn clone_method_lhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:64:40
+   |
+LL | fn clone_method_lhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                        ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:64:70
+   |
+LL | fn clone_method_lhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                      ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:66:19
    |
 LL |     *(mut_thing + &mut HasCloneFrom) = ref_thing.clone();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `(mut_thing + &mut HasCloneFrom).clone_from(ref_thing)`
-
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:72:5
+   |                   ^^^^^^^^^^^^^^^^^
    |
-LL |     *mut_thing = (ref_thing + ref_thing).clone();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `mut_thing.clone_from(ref_thing + ref_thing)`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:78:5
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:70:1
    |
-LL |     s = format!("{} {}", "hello", "world").clone();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `s.clone_from(&format!("{} {}", "hello", "world"))`
+LL | fn clone_method_rhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^ help: make this item public: `pub`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:84:5
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:70:1
+   |
+LL | fn clone_method_rhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:70:1
+   |
+LL | fn clone_method_rhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:70:29
+   |
+LL | fn clone_method_rhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:70:59
+   |
+LL | fn clone_method_rhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                           ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:70:40
+   |
+LL | fn clone_method_rhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                        ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:70:70
+   |
+LL | fn clone_method_rhs_complex(mut_thing: &mut HasCloneFrom, ref_thing: &HasCloneFrom) {
+   |                                                                      ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:76:1
+   |
+LL | fn clone_method_macro() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:76:1
+   |
+LL | fn clone_method_macro() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:76:1
+   |
+LL | fn clone_method_macro() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:82:1
+   |
+LL | fn clone_function_macro() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:82:1
+   |
+LL | fn clone_function_macro() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:82:1
+   |
+LL | fn clone_function_macro() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:84:22
    |
 LL |     s = Clone::clone(&format!("{} {}", "hello", "world"));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `Clone::clone_from(&mut s, &format!("{} {}", "hello", "world"))`
-
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:91:9
+   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-LL |         a = b.clone();
-   |         ^^^^^^^^^^^^^ help: use `clone_from()`: `a.clone_from(&b)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:163:5
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:88:1
    |
-LL |     a = b.clone();
-   |     ^^^^^^^^^^^^^ help: use `clone_from()`: `a.clone_from(&b)`
+LL | fn assign_to_init_mut_var(b: HasCloneFrom) -> HasCloneFrom {
+   | ^ help: make this item public: `pub`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:171:5
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:88:1
    |
-LL |     a = b.clone();
-   |     ^^^^^^^^^^^^^ help: use `clone_from()`: `a.clone_from(&b)`
-
-error: assigning the result of `ToOwned::to_owned()` may be inefficient
-  --> tests/ui/assigning_clones.rs:173:5
+LL | fn assign_to_init_mut_var(b: HasCloneFrom) -> HasCloneFrom {
+   | ^
    |
-LL |     a = c.to_owned();
-   |     ^^^^^^^^^^^^^^^^ help: use `clone_into()`: `c.clone_into(&mut a)`
-
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:204:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:88:1
    |
-LL |     *a = b.clone();
-   |     ^^^^^^^^^^^^^^ help: use `clone_from()`: `(*a).clone_from(&b)`
+LL | fn assign_to_init_mut_var(b: HasCloneFrom) -> HasCloneFrom {
+   | ^
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:209:5
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:88:27
    |
-LL |     *a = b.clone();
-   |     ^^^^^^^^^^^^^^ help: use `clone_from()`: `(*a).clone_from(&b)`
+LL | fn assign_to_init_mut_var(b: HasCloneFrom) -> HasCloneFrom {
+   |                           ^ help: make this parameter mutable: `mut`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:214:5
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:97:1
    |
-LL |     *a = b.clone();
-   |     ^^^^^^^^^^^^^^ help: use `clone_from()`: `(*a).clone_from(&b)`
+LL | fn assign_to_late_init_mut_var(b: HasCloneFrom) {
+   | ^ help: make this item public: `pub`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:219:5
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:97:1
    |
-LL |     *a = b.clone();
-   |     ^^^^^^^^^^^^^^ help: use `clone_from()`: `a.clone_from(&b)`
+LL | fn assign_to_late_init_mut_var(b: HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:97:1
+   |
+LL | fn assign_to_late_init_mut_var(b: HasCloneFrom) {
+   | ^
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:224:5
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:97:32
+   |
+LL | fn assign_to_late_init_mut_var(b: HasCloneFrom) {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:103:1
+   |
+LL | fn assign_to_uninit_var(b: HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:103:1
+   |
+LL | fn assign_to_uninit_var(b: HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:103:1
+   |
+LL | fn assign_to_uninit_var(b: HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:103:25
+   |
+LL | fn assign_to_uninit_var(b: HasCloneFrom) {
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:104:9
+   |
+LL |     let a;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:108:1
+   |
+LL | fn assign_to_uninit_mut_var(b: HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:108:1
+   |
+LL | fn assign_to_uninit_mut_var(b: HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:108:1
+   |
+LL | fn assign_to_uninit_mut_var(b: HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:108:29
+   |
+LL | fn assign_to_uninit_mut_var(b: HasCloneFrom) {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:113:1
+   |
+LL | fn late_init_let_tuple() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:113:1
+   |
+LL | fn late_init_let_tuple() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:113:1
+   |
+LL | fn late_init_let_tuple() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:114:10
+   |
+LL |     let (p, q): (String, String);
+   |          ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:114:13
+   |
+LL |     let (p, q): (String, String);
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:119:10
+   |
+LL | #[derive(Clone)]
+   |          ^
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:119:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:119:7
+   |
+LL | #[derive(Clone)]
+   |       ^  ----- in this derive macro expansion
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:119:10
+   |
+LL | #[derive(Clone)]
+   |          ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:119:10
+   |
+LL | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:122:1
+   |
+LL | fn ignore_derive_clone(a: &mut HasDeriveClone, b: &HasDeriveClone) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:122:1
+   |
+LL | fn ignore_derive_clone(a: &mut HasDeriveClone, b: &HasDeriveClone) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:122:1
+   |
+LL | fn ignore_derive_clone(a: &mut HasDeriveClone, b: &HasDeriveClone) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:122:24
+   |
+LL | fn ignore_derive_clone(a: &mut HasDeriveClone, b: &HasDeriveClone) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:122:48
+   |
+LL | fn ignore_derive_clone(a: &mut HasDeriveClone, b: &HasDeriveClone) {
+   |                                                ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:122:27
+   |
+LL | fn ignore_derive_clone(a: &mut HasDeriveClone, b: &HasDeriveClone) {
+   |                           ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:122:51
+   |
+LL | fn ignore_derive_clone(a: &mut HasDeriveClone, b: &HasDeriveClone) {
+   |                                                   ^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:129:1
+   |
+LL | impl Clone for HasCloneImpl {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:130:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:130:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:130:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:130:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:135:1
+   |
+LL | fn ignore_missing_clone_from(a: &mut HasCloneImpl, b: &HasCloneImpl) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:135:1
+   |
+LL | fn ignore_missing_clone_from(a: &mut HasCloneImpl, b: &HasCloneImpl) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:135:1
+   |
+LL | fn ignore_missing_clone_from(a: &mut HasCloneImpl, b: &HasCloneImpl) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:135:30
+   |
+LL | fn ignore_missing_clone_from(a: &mut HasCloneImpl, b: &HasCloneImpl) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:135:52
+   |
+LL | fn ignore_missing_clone_from(a: &mut HasCloneImpl, b: &HasCloneImpl) {
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:135:33
+   |
+LL | fn ignore_missing_clone_from(a: &mut HasCloneImpl, b: &HasCloneImpl) {
+   |                                 ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:135:55
+   |
+LL | fn ignore_missing_clone_from(a: &mut HasCloneImpl, b: &HasCloneImpl) {
+   |                                                       ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:140:1
+   |
+LL | struct FakeClone;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:142:1
+   |
+LL | impl FakeClone {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:144:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:144:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:144:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:144:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:149:1
+   |
+LL | fn ignore_fake_clone() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:149:1
+   |
+LL | fn ignore_fake_clone() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:149:1
+   |
+LL | fn ignore_fake_clone() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:151:9
+   |
+LL |     let b = FakeClone;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:156:1
+   |
+LL | fn ignore_generic_clone<T: Clone>(a: &mut T, b: &T) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:156:1
+   |
+LL | fn ignore_generic_clone<T: Clone>(a: &mut T, b: &T) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:156:1
+   |
+LL | fn ignore_generic_clone<T: Clone>(a: &mut T, b: &T) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:156:35
+   |
+LL | fn ignore_generic_clone<T: Clone>(a: &mut T, b: &T) {
+   |                                   ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:156:46
+   |
+LL | fn ignore_generic_clone<T: Clone>(a: &mut T, b: &T) {
+   |                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:156:38
+   |
+LL | fn ignore_generic_clone<T: Clone>(a: &mut T, b: &T) {
+   |                                      ^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:156:49
+   |
+LL | fn ignore_generic_clone<T: Clone>(a: &mut T, b: &T) {
+   |                                                 ^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:162:1
+   |
+LL | fn msrv_1_62(mut a: String, b: String, c: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:162:1
+   |
+LL | fn msrv_1_62(mut a: String, b: String, c: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:162:1
+   |
+LL | fn msrv_1_62(mut a: String, b: String, c: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:162:29
+   |
+LL | fn msrv_1_62(mut a: String, b: String, c: &str) {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:162:40
+   |
+LL | fn msrv_1_62(mut a: String, b: String, c: &str) {
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:162:43
+   |
+LL | fn msrv_1_62(mut a: String, b: String, c: &str) {
+   |                                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:170:1
+   |
+LL | fn msrv_1_63(mut a: String, b: String, c: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:170:1
+   |
+LL | fn msrv_1_63(mut a: String, b: String, c: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:170:1
+   |
+LL | fn msrv_1_63(mut a: String, b: String, c: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:170:29
+   |
+LL | fn msrv_1_63(mut a: String, b: String, c: &str) {
+   |                             ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:170:40
+   |
+LL | fn msrv_1_63(mut a: String, b: String, c: &str) {
+   |                                        ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:170:43
+   |
+LL | fn msrv_1_63(mut a: String, b: String, c: &str) {
+   |                                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:177:1
+   |
+LL | macro_rules! clone_inside {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:183:1
+   |
+LL | fn clone_inside_macro() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:183:1
+   |
+LL | fn clone_inside_macro() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:183:1
+   |
+LL | fn clone_inside_macro() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:185:9
+   |
+LL |     let b = String::new();
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:193:1
+   |
+LL | impl Clone for AvoidRecursiveCloneFrom {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:194:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:194:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:194:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:194:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:197:5
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:197:5
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:197:24
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:197:30
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:197:19
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:197:38
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:203:1
+   |
+LL | fn clone_into_deref_method(mut a: DerefWrapper<HasCloneFrom>, b: HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:203:1
+   |
+LL | fn clone_into_deref_method(mut a: DerefWrapper<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:203:1
+   |
+LL | fn clone_into_deref_method(mut a: DerefWrapper<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:203:63
+   |
+LL | fn clone_into_deref_method(mut a: DerefWrapper<HasCloneFrom>, b: HasCloneFrom) {
+   |                                                               ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:208:1
+   |
+LL | fn clone_into_deref_with_clone_method(mut a: DerefWrapperWithClone<HasCloneFrom>, b: HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:208:1
+   |
+LL | fn clone_into_deref_with_clone_method(mut a: DerefWrapperWithClone<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:208:1
+   |
+LL | fn clone_into_deref_with_clone_method(mut a: DerefWrapperWithClone<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:208:83
+   |
+LL | fn clone_into_deref_with_clone_method(mut a: DerefWrapperWithClone<HasCloneFrom>, b: HasCloneFrom) {
+   |                                                                                   ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:213:1
+   |
+LL | fn clone_into_box_method(mut a: Box<HasCloneFrom>, b: HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:213:1
+   |
+LL | fn clone_into_box_method(mut a: Box<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:213:1
+   |
+LL | fn clone_into_box_method(mut a: Box<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:213:52
+   |
+LL | fn clone_into_box_method(mut a: Box<HasCloneFrom>, b: HasCloneFrom) {
+   |                                                    ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:218:1
+   |
+LL | fn clone_into_self_deref_method(a: &mut DerefWrapperWithClone<HasCloneFrom>, b: DerefWrapperWithClone<HasCloneFrom>) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:218:1
+   |
+LL | fn clone_into_self_deref_method(a: &mut DerefWrapperWithClone<HasCloneFrom>, b: DerefWrapperWithClone<HasCloneFrom>) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:218:1
+   |
+LL | fn clone_into_self_deref_method(a: &mut DerefWrapperWithClone<HasCloneFrom>, b: DerefWrapperWithClone<HasCloneFrom>) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:218:33
+   |
+LL | fn clone_into_self_deref_method(a: &mut DerefWrapperWithClone<HasCloneFrom>, b: DerefWrapperWithClone<HasCloneFrom>) {
+   |                                 ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:218:78
+   |
+LL | fn clone_into_self_deref_method(a: &mut DerefWrapperWithClone<HasCloneFrom>, b: DerefWrapperWithClone<HasCloneFrom>) {
+   |                                                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:218:36
+   |
+LL | fn clone_into_self_deref_method(a: &mut DerefWrapperWithClone<HasCloneFrom>, b: DerefWrapperWithClone<HasCloneFrom>) {
+   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:223:1
+   |
+LL | fn clone_into_deref_function(mut a: DerefWrapper<HasCloneFrom>, b: HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:223:1
+   |
+LL | fn clone_into_deref_function(mut a: DerefWrapper<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:223:1
+   |
+LL | fn clone_into_deref_function(mut a: DerefWrapper<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:223:65
+   |
+LL | fn clone_into_deref_function(mut a: DerefWrapper<HasCloneFrom>, b: HasCloneFrom) {
+   |                                                                 ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:224:23
    |
 LL |     *a = Clone::clone(&b);
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `Clone::clone_from(&mut *a, &b)`
+   |                       ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: assigning the result of `Clone::clone()` may be inefficient
-  --> tests/ui/assigning_clones.rs:229:5
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:228:1
+   |
+LL | fn clone_into_box_function(mut a: Box<HasCloneFrom>, b: HasCloneFrom) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:228:1
+   |
+LL | fn clone_into_box_function(mut a: Box<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:228:1
+   |
+LL | fn clone_into_box_function(mut a: Box<HasCloneFrom>, b: HasCloneFrom) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:228:54
+   |
+LL | fn clone_into_box_function(mut a: Box<HasCloneFrom>, b: HasCloneFrom) {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:229:23
    |
 LL |     *a = Clone::clone(&b);
-   |     ^^^^^^^^^^^^^^^^^^^^^ help: use `clone_from()`: `Clone::clone_from(&mut *a, &b)`
-
-error: assigning the result of `ToOwned::to_owned()` may be inefficient
-  --> tests/ui/assigning_clones.rs:235:5
+   |                       ^^
    |
-LL |     *mut_string = ref_str.to_owned();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_into()`: `ref_str.clone_into(mut_string)`
+   = help: use a raw borrowing instead: `&raw const`
 
-error: assigning the result of `ToOwned::to_owned()` may be inefficient
-  --> tests/ui/assigning_clones.rs:240:5
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:234:1
    |
-LL |     mut_string = ref_str.to_owned();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_into()`: `ref_str.clone_into(&mut mut_string)`
+LL | fn owned_method_mut_ref(mut_string: &mut String, ref_str: &str) {
+   | ^ help: make this item public: `pub`
 
-error: assigning the result of `ToOwned::to_owned()` may be inefficient
-  --> tests/ui/assigning_clones.rs:262:5
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:234:1
    |
-LL |     **mut_box_string = ref_str.to_owned();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_into()`: `ref_str.clone_into(&mut (*mut_box_string))`
-
-error: assigning the result of `ToOwned::to_owned()` may be inefficient
-  --> tests/ui/assigning_clones.rs:267:5
+LL | fn owned_method_mut_ref(mut_string: &mut String, ref_str: &str) {
+   | ^
    |
-LL |     **mut_box_string = ref_str.to_owned();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_into()`: `ref_str.clone_into(&mut (*mut_box_string))`
-
-error: assigning the result of `ToOwned::to_owned()` may be inefficient
-  --> tests/ui/assigning_clones.rs:272:5
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:234:1
    |
-LL |     *mut_thing = ToOwned::to_owned(ref_str);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_into()`: `ToOwned::clone_into(ref_str, mut_thing)`
+LL | fn owned_method_mut_ref(mut_string: &mut String, ref_str: &str) {
+   | ^
 
-error: assigning the result of `ToOwned::to_owned()` may be inefficient
-  --> tests/ui/assigning_clones.rs:277:5
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:234:25
    |
-LL |     mut_thing = ToOwned::to_owned(ref_str);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_into()`: `ToOwned::clone_into(ref_str, &mut mut_thing)`
+LL | fn owned_method_mut_ref(mut_string: &mut String, ref_str: &str) {
+   |                         ^ help: make this parameter mutable: `mut`
 
-error: assigning the result of `ToOwned::to_owned()` may be inefficient
-  --> tests/ui/assigning_clones.rs:283:5
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:234:50
    |
-LL |     s = format!("{} {}", "hello", "world").to_owned();
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_into()`: `format!("{} {}", "hello", "world").clone_into(&mut s)`
+LL | fn owned_method_mut_ref(mut_string: &mut String, ref_str: &str) {
+   |                                                  ^ help: make this parameter mutable: `mut`
 
-error: assigning the result of `ToOwned::to_owned()` may be inefficient
-  --> tests/ui/assigning_clones.rs:289:5
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:234:37
+   |
+LL | fn owned_method_mut_ref(mut_string: &mut String, ref_str: &str) {
+   |                                     ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:234:59
+   |
+LL | fn owned_method_mut_ref(mut_string: &mut String, ref_str: &str) {
+   |                                                           ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:239:1
+   |
+LL | fn owned_method_val(mut mut_string: String, ref_str: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:239:1
+   |
+LL | fn owned_method_val(mut mut_string: String, ref_str: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:239:1
+   |
+LL | fn owned_method_val(mut mut_string: String, ref_str: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:239:45
+   |
+LL | fn owned_method_val(mut mut_string: String, ref_str: &str) {
+   |                                             ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:239:54
+   |
+LL | fn owned_method_val(mut mut_string: String, ref_str: &str) {
+   |                                                      ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:244:1
+   |
+LL | struct HasDeref {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:248:1
+   |
+LL | impl Deref for HasDeref {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:250:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:250:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:250:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:250:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:250:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:251:9
+   |
+LL |         &self.a
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:255:1
+   |
+LL | impl DerefMut for HasDeref {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:256:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:256:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:256:23
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:256:18
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:256:32
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                                ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:257:9
+   |
+LL |         &mut self.a
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:261:1
+   |
+LL | fn owned_method_box(mut_box_string: &mut Box<String>, ref_str: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:261:1
+   |
+LL | fn owned_method_box(mut_box_string: &mut Box<String>, ref_str: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:261:1
+   |
+LL | fn owned_method_box(mut_box_string: &mut Box<String>, ref_str: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:261:21
+   |
+LL | fn owned_method_box(mut_box_string: &mut Box<String>, ref_str: &str) {
+   |                     ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:261:55
+   |
+LL | fn owned_method_box(mut_box_string: &mut Box<String>, ref_str: &str) {
+   |                                                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:261:37
+   |
+LL | fn owned_method_box(mut_box_string: &mut Box<String>, ref_str: &str) {
+   |                                     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:261:64
+   |
+LL | fn owned_method_box(mut_box_string: &mut Box<String>, ref_str: &str) {
+   |                                                                ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:266:1
+   |
+LL | fn owned_method_deref(mut_box_string: &mut HasDeref, ref_str: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:266:1
+   |
+LL | fn owned_method_deref(mut_box_string: &mut HasDeref, ref_str: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:266:1
+   |
+LL | fn owned_method_deref(mut_box_string: &mut HasDeref, ref_str: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:266:23
+   |
+LL | fn owned_method_deref(mut_box_string: &mut HasDeref, ref_str: &str) {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:266:54
+   |
+LL | fn owned_method_deref(mut_box_string: &mut HasDeref, ref_str: &str) {
+   |                                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:266:39
+   |
+LL | fn owned_method_deref(mut_box_string: &mut HasDeref, ref_str: &str) {
+   |                                       ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:266:63
+   |
+LL | fn owned_method_deref(mut_box_string: &mut HasDeref, ref_str: &str) {
+   |                                                               ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:271:1
+   |
+LL | fn owned_function_mut_ref(mut_thing: &mut String, ref_str: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:271:1
+   |
+LL | fn owned_function_mut_ref(mut_thing: &mut String, ref_str: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:271:1
+   |
+LL | fn owned_function_mut_ref(mut_thing: &mut String, ref_str: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:271:27
+   |
+LL | fn owned_function_mut_ref(mut_thing: &mut String, ref_str: &str) {
+   |                           ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:271:51
+   |
+LL | fn owned_function_mut_ref(mut_thing: &mut String, ref_str: &str) {
+   |                                                   ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:271:38
+   |
+LL | fn owned_function_mut_ref(mut_thing: &mut String, ref_str: &str) {
+   |                                      ^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:271:60
+   |
+LL | fn owned_function_mut_ref(mut_thing: &mut String, ref_str: &str) {
+   |                                                            ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:276:1
+   |
+LL | fn owned_function_val(mut mut_thing: String, ref_str: &str) {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:276:1
+   |
+LL | fn owned_function_val(mut mut_thing: String, ref_str: &str) {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:276:1
+   |
+LL | fn owned_function_val(mut mut_thing: String, ref_str: &str) {
+   | ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:276:46
+   |
+LL | fn owned_function_val(mut mut_thing: String, ref_str: &str) {
+   |                                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:276:55
+   |
+LL | fn owned_function_val(mut mut_thing: String, ref_str: &str) {
+   |                                                       ^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:281:1
+   |
+LL | fn owned_method_macro() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:281:1
+   |
+LL | fn owned_method_macro() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:281:1
+   |
+LL | fn owned_method_macro() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:287:1
+   |
+LL | fn owned_function_macro() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:287:1
+   |
+LL | fn owned_function_macro() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:287:1
+   |
+LL | fn owned_function_macro() {
+   | ^
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:289:27
    |
 LL |     s = ToOwned::to_owned(&format!("{} {}", "hello", "world"));
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: use `clone_into()`: `ToOwned::clone_into(&format!("{} {}", "hello", "world"), &mut s)`
+   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
 
-error: aborting due to 30 previous errors
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:293:1
+   |
+LL | struct FakeToOwned;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:294:1
+   |
+LL | impl FakeToOwned {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:296:5
+   |
+LL |     fn to_owned(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:296:5
+   |
+LL |     fn to_owned(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:296:18
+   |
+LL |     fn to_owned(&self) -> Self {
+   |                  ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:296:17
+   |
+LL |     fn to_owned(&self) -> Self {
+   |                 ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:301:1
+   |
+LL | fn fake_to_owned() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:301:1
+   |
+LL | fn fake_to_owned() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:301:1
+   |
+LL | fn fake_to_owned() {
+   | ^
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:303:9
+   |
+LL |     let b = FakeToOwned;
+   |         ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:308:1
+   |
+LL | fn main() {}
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:308:1
+   |
+LL | fn main() {}
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:308:1
+   |
+LL | fn main() {}
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:311:1
+   |
+LL | impl Add for HasCloneFrom {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:313:5
+   |
+LL |     fn add(self, _: HasCloneFrom) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:313:5
+   |
+LL |     fn add(self, _: HasCloneFrom) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:313:12
+   |
+LL |     fn add(self, _: HasCloneFrom) -> Self {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:318:1
+   |
+LL | impl<'a> Add for &'a HasCloneFrom {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:318:18
+   |
+LL | impl<'a> Add for &'a HasCloneFrom {
+   |                  ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:320:5
+   |
+LL |     fn add(self, _: &'a HasCloneFrom) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:320:5
+   |
+LL |     fn add(self, _: &'a HasCloneFrom) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:320:12
+   |
+LL |     fn add(self, _: &'a HasCloneFrom) -> Self {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:320:21
+   |
+LL |     fn add(self, _: &'a HasCloneFrom) -> Self {
+   |                     ^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:325:1
+   |
+LL | impl<'a> Add for &'a mut HasCloneFrom {
+   | ^ help: make this item public: `pub`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:325:18
+   |
+LL | impl<'a> Add for &'a mut HasCloneFrom {
+   |                  ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:327:5
+   |
+LL |     fn add(self, _: &'a mut HasCloneFrom) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:327:5
+   |
+LL |     fn add(self, _: &'a mut HasCloneFrom) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:327:12
+   |
+LL |     fn add(self, _: &'a mut HasCloneFrom) -> Self {
+   |            ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:327:21
+   |
+LL |     fn add(self, _: &'a mut HasCloneFrom) -> Self {
+   |                     ^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:332:1
+   |
+LL | mod borrowck_conflicts {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:337:5
+   |
+LL |     fn issue12444(mut name: String) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:337:5
+   |
+LL |     fn issue12444(mut name: String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:337:5
+   |
+LL |     fn issue12444(mut name: String) {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:338:13
+   |
+LL |         let parts = name.split(", ").collect::<Vec<_>>();
+   |             ^ help: make this variable mutable: `mut`
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:339:13
+   |
+LL |         let first = *parts.first().unwrap();
+   |             ^ help: make this variable mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:343:5
+   |
+LL |     fn issue12444_simple() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:343:5
+   |
+LL |     fn issue12444_simple() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:343:5
+   |
+LL |     fn issue12444_simple() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:345:13
+   |
+LL |         let s2 = &s;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:345:18
+   |
+LL |         let s2 = &s;
+   |                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:349:5
+   |
+LL |     fn issue12444_nodrop_projections() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:349:5
+   |
+LL |     fn issue12444_nodrop_projections() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:349:5
+   |
+LL |     fn issue12444_nodrop_projections() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:350:9
+   |
+LL |         struct NoDrop;
+   |         ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:352:9
+   |
+LL |         impl Clone for NoDrop {
+   |         ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:353:13
+   |
+LL |             fn clone(&self) -> Self {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:353:13
+   |
+LL |             fn clone(&self) -> Self {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:353:23
+   |
+LL |             fn clone(&self) -> Self {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:353:22
+   |
+LL |             fn clone(&self) -> Self {
+   |                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:356:13
+   |
+LL |             fn clone_from(&mut self, other: &Self) {
+   |             ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:356:13
+   |
+LL |             fn clone_from(&mut self, other: &Self) {
+   |             ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:356:32
+   |
+LL |             fn clone_from(&mut self, other: &Self) {
+   |                                ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:356:38
+   |
+LL |             fn clone_from(&mut self, other: &Self) {
+   |                                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:356:27
+   |
+LL |             fn clone_from(&mut self, other: &Self) {
+   |                           ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:356:45
+   |
+LL |             fn clone_from(&mut self, other: &Self) {
+   |                                             ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:362:13
+   |
+LL |         let s2 = &s;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:362:18
+   |
+LL |         let s2 = &s;
+   |                  ^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:366:13
+   |
+LL |         let s2 = &s.0;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:366:18
+   |
+LL |         let s2 = &s.0;
+   |                  ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: variable must be `mut`
+  --> tests/ui/assigning_clones.rs:372:13
+   |
+LL |         let s2 = &s.1;
+   |             ^ help: make this variable mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:372:18
+   |
+LL |         let s2 = &s.1;
+   |                  ^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:376:5
+   |
+LL |     fn issue12460(mut name: String) {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:376:5
+   |
+LL |     fn issue12460(mut name: String) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:376:5
+   |
+LL |     fn issue12460(mut name: String) {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:382:5
+   |
+LL |     fn issue12749() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:382:5
+   |
+LL |     fn issue12749() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:382:5
+   |
+LL |     fn issue12749() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:388:1
+   |
+LL | struct DerefWrapper<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:390:1
+   |
+LL | impl<T> Deref for DerefWrapper<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:393:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:393:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:393:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:393:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:393:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:394:9
+   |
+LL |         &self.0
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:398:1
+   |
+LL | impl<T> DerefMut for DerefWrapper<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:399:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:399:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:399:23
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:399:18
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:399:32
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                                ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:400:9
+   |
+LL |         &mut self.0
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:404:1
+   |
+LL | struct DerefWrapperWithClone<T>(T);
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:406:1
+   |
+LL | impl<T> Deref for DerefWrapperWithClone<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:409:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:409:5
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:409:15
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:409:14
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:409:24
+   |
+LL |     fn deref(&self) -> &Self::Target {
+   |                        ^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:410:9
+   |
+LL |         &self.0
+   |         ^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:414:1
+   |
+LL | impl<T> DerefMut for DerefWrapperWithClone<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:415:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:415:5
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:415:23
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                       ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:415:18
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                  ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:415:32
+   |
+LL |     fn deref_mut(&mut self) -> &mut Self::Target {
+   |                                ^^^^^^^^^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:416:9
+   |
+LL |         &mut self.0
+   |         ^^^^^^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:420:1
+   |
+LL | impl<T: Clone> Clone for DerefWrapperWithClone<T> {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:421:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:421:5
+   |
+LL |     fn clone(&self) -> Self {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:421:15
+   |
+LL |     fn clone(&self) -> Self {
+   |               ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:421:14
+   |
+LL |     fn clone(&self) -> Self {
+   |              ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:425:5
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:425:5
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |     ^
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:425:24
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                        ^ help: make this parameter mutable: `mut`
+
+error: parameter must be `mut`
+  --> tests/ui/assigning_clones.rs:425:30
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                              ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:425:19
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                   ^^^^^^^^^
+   |
+   = help: use a raw pointer instead: `*raw`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:425:38
+   |
+LL |     fn clone_from(&mut self, source: &Self) {
+   |                                      ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:431:1
+   |
+LL | mod test {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:433:5
+   |
+LL |     struct Data {
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:432:14
+   |
+LL |     #[derive(Default)]
+   |              ^
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:432:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:432:11
+   |
+LL |     #[derive(Default)]
+   |           ^  ------- in this derive macro expansion
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:437:5
+   |
+LL |     fn test_data() -> Data {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:437:5
+   |
+LL |     fn test_data() -> Data {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:437:5
+   |
+LL |     fn test_data() -> Data {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:444:5
+   |
+LL |     #[test]
+   |     ------- in this procedural macro expansion
+LL |     fn test() {
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/assigning_clones.rs:444:5
+   |
+LL |     fn test() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/assigning_clones.rs:444:5
+   |
+LL |     fn test() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/assigning_clones.rs:444:5
+   |
+LL |     fn test() {
+   |     ^
+
+error: function must be `unsafe`
+   |
+   = help: make this function unsafe: `unsafe`
+
+error: references are not allowed
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: references are not allowed
+  --> tests/ui/assigning_clones.rs:444:5
+   |
+LL |       #[test]
+   |       ------- in this procedural macro expansion
+LL | /     fn test() {
+LL | |         let mut data = test_data();
+LL | |         data.field = "override_value".to_owned();
+LL | |     }
+   | |_____^
+   |
+   = help: use a raw borrowing instead: `&raw const`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 321 previous errors
 

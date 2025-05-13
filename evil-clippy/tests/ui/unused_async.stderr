@@ -1,55 +1,571 @@
-error: unused `async` for function with no await statements
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:7:1
+   |
+LL | mod issue10800 {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
   --> tests/ui/unused_async.rs:12:5
    |
-LL | /     async fn async_block_await() {
-LL | |
-LL | |
-LL | |         async {
-LL | |             ready(()).await;
-LL | |         };
+LL |     async fn async_block_await() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:12:11
+   |
+LL |     async fn async_block_await() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:12:11
+   |
+LL |     async fn async_block_await() {
+   |           ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:20:5
+   |
+LL |     async fn normal_block_await() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:20:11
+   |
+LL |     async fn normal_block_await() {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:20:11
+   |
+LL |     async fn normal_block_await() {
+   |           ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:29:1
+   |
+LL | mod issue10459 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/unused_async.rs:30:5
+   |
+LL | /     trait HasAsyncMethod {
+LL | |         async fn do_something() -> u32;
 LL | |     }
    | |_____^
    |
-   = help: consider removing the `async` from this function
-note: `await` used in an async block, which does not require the enclosing function to be `async`
-  --> tests/ui/unused_async.rs:16:23
-   |
-LL |             ready(()).await;
-   |                       ^^^^^
-   = note: `-D clippy::unused-async` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::unused_async)]`
+   = help: make this trait unsafe: `unsafe trait`
 
-error: unused `async` for function with no await statements
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:30:5
+   |
+LL |     trait HasAsyncMethod {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:31:15
+   |
+LL |         async fn do_something() -> u32;
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:31:15
+   |
+LL |         async fn do_something() -> u32;
+   |               ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:34:5
+   |
+LL |     impl HasAsyncMethod for () {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:35:15
+   |
+LL |         async fn do_something() -> u32 {
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:35:15
+   |
+LL |         async fn do_something() -> u32 {
+   |               ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:41:1
+   |
+LL | mod issue9695 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:44:5
+   |
+LL |     async fn f() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:44:11
+   |
+LL |     async fn f() {}
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:44:11
+   |
+LL |     async fn f() {}
+   |           ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:45:5
+   |
+LL |     async fn f2() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:45:11
+   |
+LL |     async fn f2() {}
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:45:11
+   |
+LL |     async fn f2() {}
+   |           ^
+
+error: item must be `pub`
   --> tests/ui/unused_async.rs:46:5
    |
 LL |     async fn f3() {}
-   |     ^^^^^^^^^^^^^^^^
-   |
-   = help: consider removing the `async` from this function
+   |     ^ help: make this item public: `pub`
 
-error: unused `async` for function with no await statements
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:46:11
+   |
+LL |     async fn f3() {}
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:46:11
+   |
+LL |     async fn f3() {}
+   |           ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:49:5
+   |
+LL |     fn needs_async_fn<F: Future<Output = ()>>(_: fn() -> F) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:49:5
+   |
+LL |     fn needs_async_fn<F: Future<Output = ()>>(_: fn() -> F) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:49:5
+   |
+LL |     fn needs_async_fn<F: Future<Output = ()>>(_: fn() -> F) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:51:5
+   |
+LL |     fn test() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:51:5
+   |
+LL |     fn test() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:51:5
+   |
+LL |     fn test() {
+   |     ^
+
+error: variable must be `mut`
+  --> tests/ui/unused_async.rs:52:13
+   |
+LL |         let x = f;
+   |             ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:59:1
+   |
+LL | mod issue13466 {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:62:5
+   |
+LL |     struct Wrap<F>(F);
+   |     ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:63:5
+   |
+LL |     impl<F> From<F> for Wrap<F> {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:64:9
+   |
+LL |         fn from(f: F) -> Self {
+   |         ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:64:9
+   |
+LL |         fn from(f: F) -> Self {
+   |         ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_async.rs:64:17
+   |
+LL |         fn from(f: F) -> Self {
+   |                 ^ help: make this parameter mutable: `mut`
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:68:5
+   |
+LL |     fn takes_fut<F: Fn() -> Fut, Fut: Future>(_: Wrap<F>) {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:68:5
+   |
+LL |     fn takes_fut<F: Fn() -> Fut, Fut: Future>(_: Wrap<F>) {}
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:68:5
+   |
+LL |     fn takes_fut<F: Fn() -> Fut, Fut: Future>(_: Wrap<F>) {}
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:69:5
+   |
+LL |     async fn unused_async() {}
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:69:11
+   |
+LL |     async fn unused_async() {}
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:69:11
+   |
+LL |     async fn unused_async() {}
+   |           ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:70:5
+   |
+LL |     fn fp() {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:70:5
+   |
+LL |     fn fp() {
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:70:5
+   |
+LL |     fn fp() {
+   |     ^
+
+error: item must be `pub`
   --> tests/ui/unused_async.rs:75:1
    |
-LL | / async fn foo() -> i32 {
-LL | |
-LL | |
-LL | |     4
+LL | async fn foo() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:75:7
+   |
+LL | async fn foo() -> i32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:75:7
+   |
+LL | async fn foo() -> i32 {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:81:1
+   |
+LL | async fn bar() -> i32 {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:81:7
+   |
+LL | async fn bar() -> i32 {
+   |       ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:81:7
+   |
+LL | async fn bar() -> i32 {
+   |       ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:85:1
+   |
+LL | struct S;
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:87:1
+   |
+LL | impl S {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:88:11
+   |
+LL |     async fn unused(&self) -> i32 {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:88:11
+   |
+LL |     async fn unused(&self) -> i32 {
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_async.rs:88:22
+   |
+LL |     async fn unused(&self) -> i32 {
+   |                      ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_async.rs:88:21
+   |
+LL |     async fn unused(&self) -> i32 {
+   |                     ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:94:11
+   |
+LL |     async fn used(&self) -> i32 {
+   |           ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:94:11
+   |
+LL |     async fn used(&self) -> i32 {
+   |           ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_async.rs:94:20
+   |
+LL |     async fn used(&self) -> i32 {
+   |                    ^ help: make this parameter mutable: `mut`
+
+error: references are not allowed
+  --> tests/ui/unused_async.rs:94:19
+   |
+LL |     async fn used(&self) -> i32 {
+   |                   ^^^^^
+   |
+   = help: use a raw pointer instead: `*const`
+
+error: trait must be `unsafe`
+  --> tests/ui/unused_async.rs:99:1
+   |
+LL | / trait AsyncTrait {
+LL | |     fn trait_method() -> Pin<Box<dyn Future<Output = i32>>>;
 LL | | }
    | |_^
    |
-   = help: consider removing the `async` from this function
+   = help: make this trait unsafe: `unsafe trait`
 
-error: unused `async` for function with no await statements
-  --> tests/ui/unused_async.rs:88:5
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:99:1
    |
-LL | /     async fn unused(&self) -> i32 {
-LL | |
-LL | |
-LL | |         1
+LL | trait AsyncTrait {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:100:5
+   |
+LL |     fn trait_method() -> Pin<Box<dyn Future<Output = i32>>>;
+   |     ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:100:5
+   |
+LL |     fn trait_method() -> Pin<Box<dyn Future<Output = i32>>>;
+   |     ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:103:1
+   |
+LL | macro_rules! async_trait_impl {
+   | ^ help: make this item public: `pub`
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:105:9
+   |
+LL |         impl AsyncTrait for S {
+   |         ^ help: make this item public: `pub`
+...
+LL | async_trait_impl!();
+   | ------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `async_trait_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:106:13
+   |
+LL |             fn trait_method() -> Pin<Box<dyn Future<Output = i32>>> {
+   |             ^
+...
+LL | async_trait_impl!();
+   | ------------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:106:13
+   |
+LL |             fn trait_method() -> Pin<Box<dyn Future<Output = i32>>> {
+   |             ^
+...
+LL | async_trait_impl!();
+   | ------------------- in this macro invocation
+   = note: this error originates in the macro `async_trait_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:107:17
+   |
+LL |                 async fn unused() -> i32 {
+   |                 ^ help: make this item public: `pub`
+...
+LL | async_trait_impl!();
+   | ------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `async_trait_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:107:23
+   |
+LL |                 async fn unused() -> i32 {
+   |                       ^
+...
+LL | async_trait_impl!();
+   | ------------------- in this macro invocation
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:107:23
+   |
+LL |                 async fn unused() -> i32 {
+   |                       ^
+...
+LL | async_trait_impl!();
+   | ------------------- in this macro invocation
+   = note: this error originates in the macro `async_trait_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:118:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:118:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:118:1
+   |
+LL | fn main() {
+   | ^
+
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:123:1
+   |
+LL | mod issue14704 {
+   | ^ help: make this item public: `pub`
+
+error: trait must be `unsafe`
+  --> tests/ui/unused_async.rs:126:5
+   |
+LL | /     trait Action {
+LL | |         async fn cancel(self: Arc<Self>) {}
 LL | |     }
    | |_____^
    |
-   = help: consider removing the `async` from this function
+   = help: make this trait unsafe: `unsafe trait`
 
-error: aborting due to 4 previous errors
+error: item must be `pub`
+  --> tests/ui/unused_async.rs:126:5
+   |
+LL |     trait Action {
+   |     ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/unused_async.rs:127:15
+   |
+LL |         async fn cancel(self: Arc<Self>) {}
+   |               ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/unused_async.rs:127:15
+   |
+LL |         async fn cancel(self: Arc<Self>) {}
+   |               ^
+
+error: parameter must be `mut`
+  --> tests/ui/unused_async.rs:127:25
+   |
+LL |         async fn cancel(self: Arc<Self>) {}
+   |                         ^ help: make this parameter mutable: `mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 65 previous errors
 

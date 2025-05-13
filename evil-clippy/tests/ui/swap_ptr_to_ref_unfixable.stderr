@@ -1,23 +1,135 @@
-error: call to `core::mem::swap` with a parameter derived from a raw pointer
-  --> tests/ui/swap_ptr_to_ref_unfixable.rs:14:9
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: item must be `pub`
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:3:1
+   |
+LL | macro_rules! addr_of_mut_to_ref {
+   | ^ help: make this item public: `pub`
+   |
+   = note: requested on the command line with `-D clippy::missing-pub`
+
+error: item must be `pub`
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:9:1
+   |
+LL | fn main() {
+   | ^ help: make this item public: `pub`
+
+error: function must be `unsafe`
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:9:1
+   |
+LL | fn main() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:9:1
+   |
+LL | fn main() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:11:9
+   |
+LL |     let y: *mut _ = &mut x;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:11:21
+   |
+LL |     let y: *mut _ = &mut x;
+   |                     ^^^^^^
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: requested on the command line with `-D clippy::reference-used`
+
+error: references are not allowed
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:5:9
+   |
+LL |         &mut *core::ptr::addr_of_mut!($e)
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+LL |         core::mem::swap(addr_of_mut_to_ref!(x), &mut *y);
+   |                         ---------------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `addr_of_mut_to_ref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:14:49
    |
 LL |         core::mem::swap(addr_of_mut_to_ref!(x), &mut *y);
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                                 ^^^^^^^
    |
-   = note: `-D clippy::swap-ptr-to-ref` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::swap_ptr_to_ref)]`
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: call to `core::mem::swap` with a parameter derived from a raw pointer
-  --> tests/ui/swap_ptr_to_ref_unfixable.rs:17:9
+error: references are not allowed
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:17:25
    |
 LL |         core::mem::swap(&mut *y, addr_of_mut_to_ref!(x));
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-error: call to `core::mem::swap` with a parameter derived from a raw pointer
-  --> tests/ui/swap_ptr_to_ref_unfixable.rs:20:9
+   |                         ^^^^^^^
    |
-LL |         core::mem::swap(addr_of_mut_to_ref!(x), addr_of_mut_to_ref!(x));
-   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: use a raw borrowing instead: `&raw mut`
 
-error: aborting due to 3 previous errors
+error: references are not allowed
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:5:9
+   |
+LL |         &mut *core::ptr::addr_of_mut!($e)
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+LL |         core::mem::swap(&mut *y, addr_of_mut_to_ref!(x));
+   |                                  ---------------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `addr_of_mut_to_ref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:5:9
+   |
+LL |         &mut *core::ptr::addr_of_mut!($e)
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+LL |         core::mem::swap(addr_of_mut_to_ref!(x), addr_of_mut_to_ref!(x));
+   |                         ---------------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `addr_of_mut_to_ref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: references are not allowed
+  --> tests/ui/swap_ptr_to_ref_unfixable.rs:5:9
+   |
+LL |         &mut *core::ptr::addr_of_mut!($e)
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+LL |         core::mem::swap(addr_of_mut_to_ref!(x), addr_of_mut_to_ref!(x));
+   |                                                 ---------------------- in this macro invocation
+   |
+   = help: use a raw borrowing instead: `&raw mut`
+   = note: this error originates in the macro `addr_of_mut_to_ref` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 15 previous errors
 

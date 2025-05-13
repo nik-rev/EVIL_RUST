@@ -1,35 +1,56 @@
-error: if let can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default_unfixable.rs:5:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |       let _ = if let Some(x) = "1".parse().ok() {
-   |  _____________^
-LL | |
-LL | |         x
-LL | |     } else {
-LL | |         i32::default()
-LL | |     };
-   | |_____^ help: ascribe the type i32 and replace your expression with: `"1".parse().ok().unwrap_or_default()`
-   |
-   = note: `-D clippy::manual-unwrap-or-default` implied by `-D warnings`
-   = help: to override `-D warnings` add `#[allow(clippy::manual_unwrap_or_default)]`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: `-D renamed-and-removed-lints` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(renamed_and_removed_lints)]`
 
-error: if let can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default_unfixable.rs:11:13
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
    |
-LL |     let _ = if let Some(x) = None { x } else { i32::default() };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `None::<i32>.unwrap_or_default()`
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
-error: if let can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default_unfixable.rs:15:13
+error: item must be `pub`
+  --> tests/ui/manual_unwrap_or_default_unfixable.rs:2:1
    |
-LL |     let _ = if let Some(x) = a { x } else { i32::default() };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `a.unwrap_or_default()`
-
-error: if let can be simplified with `.unwrap_or_default()`
-  --> tests/ui/manual_unwrap_or_default_unfixable.rs:17:13
+LL | fn issue_12670() {
+   | ^ help: make this item public: `pub`
    |
-LL |     let _ = if let Some(x) = Some(99) { x } else { i32::default() };
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace it with: `Some(99).unwrap_or_default()`
+   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: aborting due to 4 previous errors
+error: function must be `unsafe`
+  --> tests/ui/manual_unwrap_or_default_unfixable.rs:2:1
+   |
+LL | fn issue_12670() {
+   | ^
+   |
+help: make this function unsafe: `unsafe`
+  --> tests/ui/manual_unwrap_or_default_unfixable.rs:2:1
+   |
+LL | fn issue_12670() {
+   | ^
+   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: variable must be `mut`
+  --> tests/ui/manual_unwrap_or_default_unfixable.rs:14:9
+   |
+LL |     let a: Option<i32> = None;
+   |         ^ help: make this variable mutable: `mut`
+   |
+   = note: requested on the command line with `-D clippy::missing-mut`
+
+error: lint `clippy::safe_fn` has been renamed to `clippy::safe_code`
+   |
+   = help: use the new name `clippy::safe_code`
+   = note: requested on the command line with `-D clippy::safe_fn`
+   = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error: missing `#![no_std]`
+   |
+   = help: make this crate `#![no_std]`
+   = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 7 previous errors
 
