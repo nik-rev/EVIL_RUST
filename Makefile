@@ -61,5 +61,5 @@ RUSTC_DISABLED_LINTS = \
  		
 ARGS = $(RUSTC_ARGS) $(RUSTC_DISABLED_LINTS) $(RUSTC_ENABLED_LINTS)
 
-compile: hello_world.rs
-	clippy-driver +nightly-2025-05-01-x86_64-unknown-linux-gnu $(EVIL_CLIPPY_LINTS) $(RUSTC_DISABLED_LINTS) $(RUSTC_ARGS) hello_world.rs
+compile: errors.rs
+	clippy-driver +nightly-2025-05-01-x86_64-unknown-linux-gnu $(EVIL_CLIPPY_LINTS) $(RUSTC_DISABLED_LINTS) $(RUSTC_ARGS) errors.rs

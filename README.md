@@ -21,7 +21,7 @@ Evil Rust is Rust where we _fully given in and embrace the unsafe_. Write Rust l
 1. References `&` are not allowed. Only raw, unsafe pointers are. `*mut` and `*const`.
 1. Cargo is **forbidden**. Use the compiler directly instead.
 
-These rules are automatically enforced by the Evil Rust compiler, `evil-rustc`.
+These rules are automatically enforced by a set of custom clippy lints, from `evil-clippy`.
 
 ## Hello World
 
@@ -55,40 +55,101 @@ pub unsafe extern "C" fn main(argc: i32, argv: *mut *mut c_char) -> i32 {
 }
 ```
 
-Compile and run:
-
-```sh
-evil-rustc hello_world.rs && ./main
-```
-
-If any of the Evil Rust rules were broken, the compilation will fail.
-
-Output:
+Compile and run (process described below). Output:
 
 ```
 Hello, world!
 ```
 
-> [!CAUTION]
->
-> Expect lots, lots of undefined behavior. Terrible things _will_ happen. Your hard-drive might even get re-formatted. [The rustonomicon is a recommended read](https://doc.rust-lang.org/nomicon/intro.html).
->
-> **IT IS _YOUR_ RESPONSIBILITY TO ENSURE CORRECTNESS OF YOUR PROGRAM.**
+## Evil Rust program which breaks the rules is rejected
 
-> [!CAUTION]
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
->
-> **NO GUARANTEES OF ANY KIND ARE PROVIDED.**
+An evil Rust program which does not abide by the rules will be rejected:
 
-> [!CAUTION]
->
-> Programs written in evil rust may invoke **undefined behavior**, introduce **security vulnerabilities**, or cause **memory corruption**.
->
-> **IT IS YOUR SOLE RESPONSIBILITY TO AUDIT AND VERIFY CORRECTNESS MANUALLY.**
+```rs
+#![no_main]
+
+pub fn missing_unsafe() {}
+unsafe fn missing_pub() {}
+pub unsafe fn arg_could_be_mut(arg: ()) {}
+pub unsafe fn references_are_banned(mut arg: &()) {}
+
+pub unsafe extern "C" fn main(mut argc: i32, mut argv: *mut *mut core::ffi::c_char) -> i32 { 0 }
+```
+
+Errors:
+
+```rust
+error: safe function
+ --> errors.rs:2:5
+  |
+2 | pub fn missing_unsafe() {}
+  |     ^
+  |
+help: make this function unsafe: `unsafe`
+ --> errors.rs:2:5
+  |
+2 | pub fn missing_unsafe() {}
+  |     ^
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#safe_code
+  = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
+  = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
+
+error: item is not public
+ --> errors.rs:3:1
+  |
+3 | unsafe fn missing_pub() {}
+  | ^ help: make this item public: `pub`
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_pub
+  = note: requested on the command line with `-D clippy::missing-pub`
+
+error: parameter is not mutable
+ --> errors.rs:4:32
+  |
+4 | pub unsafe fn arg_could_be_mut(arg: ()) {}
+  |                                ^ help: make this parameter mutable: `mut`
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_mut
+  = note: requested on the command line with `-D clippy::missing-mut`
+
+error: references are not allowed
+ --> errors.rs:5:46
+  |
+5 | pub unsafe fn references_are_banned(mut arg: &()) {}
+  |                                              ^^^
+  |
+  = help: use a raw pointer instead: `*const`
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#reference_used
+  = note: requested on the command line with `-D clippy::reference-used`
+
+error: missing `#![no_std]`
+  |
+  = help: make this crate `#![no_std]`
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_no_std
+  = note: requested on the command line with `-D clippy::missing-no-std`
+
+error: aborting due to 5 previous errors
+```
+
+## Installing `evil-clippy`
+
+`evil-clippy` is a fork of clippy with some custom rules to enforce evil rust.
+
+1. `git clone` this repository
+1. `cd` to the `evil-clippy` directory
+1. Run:
+
+   ```sh
+   cargo build --release --bin cargo-clippy --bin clippy-driver -Zunstable-options --out-dir "$(rustc --print=sysroot)/bin"
+   ```
+
+1. The output of `rustup show active-toolchain` is the `TOOLCHAIN` for which you have installed `evil-clippy`
+1. Compile a program by using `clippy-driver +TOOLCHAIN -C panic="abort" -C link-args=-lc <FILE>`
+
+For example, the toolchain I got from `rustup show active-toolchain` is and I ran the `hello_world.rs` example like this:
+
+```sh
+clippy-driver +nightly-2025-05-01-x86_64-unknown-linux-gnu -C panic=abort -C link-args=-lc hello_world.rs
+```
+
+[Official clippy documentation for install from source](https://doc.rust-lang.org/nightly/clippy/development/basics.html?highlight=clippy-driver#install-from-source)
