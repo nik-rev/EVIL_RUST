@@ -36,16 +36,17 @@ unsafe extern "C" {
     pub unsafe fn printf(fmt: *const u8, ...) -> c_int;
 }
 
-// Need to provide a custom panic handler.
-// Feel free to customize it, but this is the most basic handler
 #[panic_handler]
-#[expect(clippy::reference_used, reason = "#[panic_handler] always passes a reference")]
-pub unsafe fn panic_handler(info: &::core::panic::PanicInfo) -> ! {
+#[expect(
+    clippy::reference_used,
+    reason = "`#[panic_handler]` must receive reference"
+)]
+pub unsafe fn panic_handler(mut info: &::core::panic::PanicInfo) -> ! {
     loop {}
 }
 
 #[unsafe(no_mangle)]
-pub unsafe extern "C" fn main(argc: i32, argv: *mut *mut c_char) -> i32 {
+pub unsafe extern "C" fn main(mut argc: i32, mut argv: *mut *mut c_char) -> i32 {
     unsafe {
         printf("Hello, world!\n\0".as_ptr() as *const _);
     }
