@@ -78,43 +78,43 @@ pub unsafe extern "C" fn main(mut argc: i32, mut argv: *mut *mut core::ffi::c_ch
 Errors:
 
 ```rust
-error: safe function
- --> errors.rs:2:5
+error: function must be `unsafe`
+ --> errors.rs:3:5
   |
-2 | pub fn missing_unsafe() {}
+3 | pub fn missing_unsafe() {}
   |     ^
   |
 help: make this function unsafe: `unsafe`
- --> errors.rs:2:5
+ --> errors.rs:3:5
   |
-2 | pub fn missing_unsafe() {}
+3 | pub fn missing_unsafe() {}
   |     ^
   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#safe_code
   = note: `-D clippy::safe-code` implied by `-D clippy::safe-fn`
   = help: to override `-D clippy::safe-fn` add `#[allow(clippy::safe_code)]`
 
-error: item is not public
- --> errors.rs:3:1
+error: item must be `pub`
+ --> errors.rs:4:1
   |
-3 | unsafe fn missing_pub() {}
+4 | unsafe fn missing_pub() {}
   | ^ help: make this item public: `pub`
   |
   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_pub
   = note: requested on the command line with `-D clippy::missing-pub`
 
-error: parameter is not mutable
- --> errors.rs:4:32
+error: parameter must be `mut`
+ --> errors.rs:5:32
   |
-4 | pub unsafe fn arg_could_be_mut(arg: ()) {}
+5 | pub unsafe fn arg_could_be_mut(arg: ()) {}
   |                                ^ help: make this parameter mutable: `mut`
   |
   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_mut
   = note: requested on the command line with `-D clippy::missing-mut`
 
 error: references are not allowed
- --> errors.rs:5:46
+ --> errors.rs:6:46
   |
-5 | pub unsafe fn references_are_banned(mut arg: &()) {}
+6 | pub unsafe fn references_are_banned(mut arg: &()) {}
   |                                              ^^^
   |
   = help: use a raw pointer instead: `*const`
