@@ -145,10 +145,10 @@ error: aborting due to 5 previous errors
 1. The output of `rustup show active-toolchain` is the `TOOLCHAIN` for which you have installed `evil-clippy`
 1. Compile a program by using `clippy-driver +TOOLCHAIN -C panic="abort" -C link-args=-lc <FILE>`
 
-For example, the toolchain I got from `rustup show active-toolchain` is and I ran the `hello_world.rs` example like this:
+For example, the toolchain I got from `rustup show active-toolchain` is `+nightly-2025-05-01` and I ran the `hello_world.rs` example like this:
 
 ```sh
-clippy-driver +nightly-2025-05-01-x86_64-unknown-linux-gnu -C panic=abort -C link-args=-lc hello_world.rs
+clippy-driver +nightly-2025-05-01 -C panic=abort -C link-args=-lc hello_world.rs
 ```
 
 You can alias it:
