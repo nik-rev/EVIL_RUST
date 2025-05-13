@@ -1,30 +1,11 @@
 #![warn(clippy::missing_pub)]
 
-pub struct StructA;
-pub struct StructB;
-//~^ missing_pub
+use core::ffi::c_int;
 
-pub fn function_a() {}
-//~^ missing_pub
-pub fn function_b() {}
-
-pub trait TraitA {}
-//~^ missing_pub
-pub trait TraitB {}
-
-pub mod module_a {}
-//~^ missing_pub
-pub  mod module_b {}
-//~^ missing_pub
-pub mod module_c {}
-
-pub static STATIC_A: () = ();
-//~^ missing_pub
-pub static STATIC_B: () = ();
-
-pub const CONST_A: () = ();
-//~^ missing_pub
-pub const CONST_B: () = ();
+// should not trigger for missing_pub
+unsafe extern "C" {
+    pub unsafe fn printf(fmt: *const u8, ...) -> c_int;
+}
 
 pub fn main() {}
 //~^ missing_pub
