@@ -1,5 +1,3 @@
-# NOTE: This is a work in progress. Check back later :P
-
 # Evil Rust
 
 Evil Rust is Rust where we _fully given in and embrace the unsafe_. Write Rust like it is C by following a list of rules enforced by the Evil Rust compiler. [Inspired by Crust.](https://github.com/tsoding/Crust)
